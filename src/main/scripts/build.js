@@ -553,9 +553,9 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
   // Render a human-friendly label from a lineage key like "ISO||15444|1" → "ISO 15444-1"
   hb.registerHelper('formatLineageKey', function(key) {
     if (!key || typeof key !== 'string') return '';
-    const [pub = '', suite = '', number = '', part = ''] = key.split('|');
+    const [pub = '', type = '', number = '', part = ''] = key.split('|');
     let out = pub || '';
-    if (suite) out += (out ? ' ' : '') + suite;
+    if (type) out += (out ? ' ' : '') + type;
     if (number) out += (out ? ' ' : '') + number + (part ? `-${part}` : '');
     return out.trim();
   });
@@ -877,9 +877,9 @@ function _doiUrl(doc){
   // Utility to render a human-friendly label from a lineage key
   const labelFromLineageKey = (key) => {
     if (!key || typeof key !== 'string') return '';
-    const [pub = '', suite = '', number = '', part = ''] = key.split('|');
+    const [pub = '', type = '', number = '', part = ''] = key.split('|');
     let out = pub || '';
-    if (suite) out += (out ? ' ' : '') + suite;
+    if (type) out += (out ? ' ' : '') + type;
     if (number) out += (out ? ' ' : '') + number + (part ? `-${part}` : '');
     return out.trim();
   };
@@ -905,15 +905,15 @@ function _doiUrl(doc){
     }
   }
 
-  // --- Build per-base suites and attach minimal arrays to each doc
-  (function attachDocSuites() {
+  // --- Build per-base versions and attach minimal arrays to each doc
+  (function attachDocVersions() {
     try {
-      const suites = new Map();
+      const versions = new Map();
       for (const d of registryDocument) {
         if (!d || !d.docBase) continue;
-        const arr = suites.get(d.docBase) || [];
+        const arr = versions.get(d.docBase) || [];
         arr.push(d);
-        suites.set(d.docBase, arr);
+        versions.set(d.docBase, arr);
       }
       const byDateThenId = (a, b) => {
         const ad = a.publicationDate || '';
@@ -923,14 +923,14 @@ function _doiUrl(doc){
         if (ad && !bd) return -1;
         return (a.docId || '').localeCompare(b.docId || '');
       };
-      for (const [base, arr] of suites.entries()) {
+      for (const [base, arr] of versions.entries()) {
         arr.sort(byDateThenId);
         if (arr.length) arr[arr.length - 1].__isNewestInBase = true; // convenience flag
       }
       for (const d of registryDocument) {
         if (!d || !d.docBase) continue;
-        const arr = suites.get(d.docBase) || [];
-        d.docSuite = arr.map(x => ({
+        const arr = versions.get(d.docBase) || [];
+        d.docVersion = arr.map(x => ({
           docId: x.docId,
           docLabel: x.docLabel,
           href: x.href,
@@ -941,7 +941,7 @@ function _doiUrl(doc){
         }));
       }
     } catch (e) {
-      console.warn(`[build] docSuite attach failed: ${e.message}`);
+      console.warn(`[build] docVersion attach failed: ${e.message}`);
     }
   })();
 

@@ -46,7 +46,7 @@ const W3C_ALIAS_MAP = {
 };
 
 const NIST_ALIAS_MAP = {
-  KMGD: { suite: 'SP', number: '800-57', part: '1' }
+  KMGD: { type: 'SP', number: '800-57', part: '1' }
 };
 
 const GLOBAL_ALIAS_MAP = {
@@ -231,68 +231,68 @@ function keyFromDocId(docId, doc = {}) {
   // keep exact MSI patterns — copied verbatim
   let m;
   m = docId.match(/^SMPTE\.RP(\d+)v\d+\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'SMPTE', suite: 'RP', number: m[1], part: null };
+  if (m) return { publisher: 'SMPTE', type: 'RP', number: m[1], part: null };
 
   m = docId.match(/^OWASP\.([A-Za-z0-9]+)\.([A-Za-z0-9-]+)$/i);
-  if (m) return { publisher: 'OWASP', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'OWASP', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^SMPTE\.(AG|OM)(\d+[A-Za-z]?)(?:-([0-9]+))?(?:\.(?:\d{4}(?:-\d{2}){0,2}|\d{8}))?$/i);
-  if (m) return { publisher: 'SMPTE', suite: m[1].toUpperCase(), number: m[2], part: m[3] || null };
+  if (m) return { publisher: 'SMPTE', type: m[1].toUpperCase(), number: m[2], part: m[3] || null };
 
   m = docId.match(/^SMPTE\.OM\.([A-Za-z][A-Za-z0-9-]*)(?:\.(?:\d{8}|\d{4}(?:-\d{2})?))?$/i);
-  if (m) return { publisher: 'SMPTE', suite: 'OM', number: m[1], part: null };
+  if (m) return { publisher: 'SMPTE', type: 'OM', number: m[1], part: null };
 
   m = docId.match(/^SMPTE\.(OM|AG|ST|RP|EG|ER|RDD|OV|TSP)(\d+[A-Za-z]*)(?:-(\d+))?\./i);
-  if (m) { const docType=m[1].toUpperCase(); const num=m[2]; let part=m[3]||null; if (docType==='OV') part=part||'0'; return { publisher:'SMPTE', suite:docType, number:num, part }; }
+  if (m) { const docType=m[1].toUpperCase(); const num=m[2]; let part=m[3]||null; if (docType==='OV') part=part||'0'; return { publisher:'SMPTE', type:docType, number:num, part }; }
 
   m = docId.match(/^OMG\.([A-Za-z0-9]+)(?:\.[A-Za-z0-9.-]+)?$/i);
-  if (m) return { publisher: 'OMG', suite: m[1].toUpperCase(), number: null, part: null };
+  if (m) return { publisher: 'OMG', type: m[1].toUpperCase(), number: null, part: null };
 
   m = docId.match(/^ISO\.Dir-P(\d+)\.(\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'ISO/IEC', suite: 'Dir', number: `P${m[1]}`, part: null };
+  if (m) return { publisher: 'ISO/IEC', type: 'Dir', number: `P${m[1]}`, part: null };
 
   m = docId.match(/^(ISO(?:\.IEC)?|IEC)\.(\d+)(?:-([0-9-]+))?\./i);
-  if (m) return { publisher: m[1].toUpperCase(), suite: null, number: m[2], part: m[3] || null };
+  if (m) return { publisher: m[1].toUpperCase(), type: null, number: m[2], part: m[3] || null };
 
   m = docId.match(/^IESNA\.RP(\d+)\.(\d{4})$/i);
-  if (m) return { publisher: 'IESNA', suite: 'RP', number: m[1], part: null };
+  if (m) return { publisher: 'IESNA', type: 'RP', number: m[1], part: null };
 
   m = docId.match(/^IMFUG\.BP\.([A-Za-z0-9-]+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'IMFUG', suite: 'BP', number: m[1], part: null };
+  if (m) return { publisher: 'IMFUG', type: 'BP', number: m[1], part: null };
 
   m = docId.match(/^ISDCF\.([A-Za-z0-9-]+)(?:\.(\d{4}(?:-\d{2}){0,2}|\d{8}))?$/i);
-  if (m) return { publisher: 'ISDCF', suite: null, number: m[1], part: null };
+  if (m) return { publisher: 'ISDCF', type: null, number: m[1], part: null };
 
   m = docId.match(/^TI\.DLP-([A-Za-z0-9-]+)(?:\.[A-Za-z0-9.-]+)?(?:\.(?:\d{8}|\d{4}(?:-\d{2})?))?$/i);
-  if (m) return { publisher: 'TI', suite: 'DLP', number: m[1], part: null };
+  if (m) return { publisher: 'TI', type: 'DLP', number: m[1], part: null };
 
   m = docId.match(/^UNICODE\.STD\.TR(\d+)(?:[-.][A-Za-z0-9.-]+)?$/i);
-  if (m) return { publisher: 'UNICODE CONSORTIUM', suite: 'STD', number: 'TR', part: m[1] };
+  if (m) return { publisher: 'UNICODE CONSORTIUM', type: 'STD', number: 'TR', part: m[1] };
   m = docId.match(/^UNICODE\.STD\.(\d+(?:\.\d+){1,2})$/i);
-  if (m) return { publisher: 'UNICODE CONSORTIUM', suite: 'STD', number: null, part: null };
+  if (m) return { publisher: 'UNICODE CONSORTIUM', type: 'STD', number: null, part: null };
 
   m = docId.match(/^W3C\.([A-Za-z0-9._-]+)\.(\d{8}|\d{4}(?:-\d{2})?|LATEST)$/i);
   if (m) {
     const d = normalizeW3C({ docId });
-    if (d?._w3c?.family) { const fam=d._w3c.family; const num=(fam.toUpperCase()==='HTML')?null:(d._w3c.version||null); return { publisher:'W3C', suite:fam, number:num, part:null }; }
+    if (d?._w3c?.family) { const fam=d._w3c.family; const num=(fam.toUpperCase()==='HTML')?null:(d._w3c.version||null); return { publisher:'W3C', type:fam, number:num, part:null }; }
     let token = m[1].replace(/^REC-/i,'');
-    if (/^html(?:5|52)$/i.test(token)) return { publisher:'W3C', suite:'HTML', number:null, part:null };
+    if (/^html(?:5|52)$/i.test(token)) return { publisher:'W3C', type:'HTML', number:null, part:null };
     const vm = token.match(/^(.*?)(?:[._-]?(\d+(?:\.\d+)*))$/);
-    if (vm && vm[2]) return { publisher:'W3C', suite:vm[1], number:vm[2], part:null };
-    return { publisher:'W3C', suite:token, number:null, part:null };
+    if (vm && vm[2]) return { publisher:'W3C', type:vm[1], number:vm[2], part:null };
+    return { publisher:'W3C', type:token, number:null, part:null };
   }
 
   m = docId.match(/^WHATWG\.([A-Za-z0-9-]+)$/i);
-  if (m) return { publisher: 'WHATWG', suite: m[1].toUpperCase(), number: null, part: null };
+  if (m) return { publisher: 'WHATWG', type: m[1].toUpperCase(), number: null, part: null };
 
   m = docId.match(/^rfc(\d+)$/i);
-  if (m) return { publisher: 'IETF', suite: 'RFC', number: m[1], part: null };
+  if (m) return { publisher: 'IETF', type: 'RFC', number: m[1], part: null };
 
   m = docId.match(/^IETF\.([A-Za-z0-9-]+)(?:\.[A-Za-z0-9._-]+)?\.(\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'IETF', suite: m[1].toUpperCase(), number: null, part: null };
+  if (m) return { publisher: 'IETF', type: m[1].toUpperCase(), number: null, part: null };
 
   m = docId.match(/^NAB\.STD\.([A-Za-z0-9-]+)(?:\.(?:\d{8}|\d{4}(?:-\d{2})?))?$/i);
-  if (m) return { publisher: 'NAB', suite: 'STD', number: m[1], part: null };
+  if (m) return { publisher: 'NAB', type: 'STD', number: m[1], part: null };
 
   m = docId.match(/^NIST\.FIPS\.(\d+(?:-[0-9A-Za-z]+)?)$/i);
   if (m) {
@@ -300,141 +300,141 @@ function keyFromDocId(docId, doc = {}) {
     // Use the leading numeric portion as the family so variants like 180-4 or 197-upd1
     // all key into the same lineage family (180, 197, etc.)
     const fam = token.replace(/^(\d+).*/, '$1');
-    return { publisher: 'NIST', suite: 'FIPS', number: fam, part: null };
+    return { publisher: 'NIST', type: 'FIPS', number: fam, part: null };
   }
 
   m = docId.match(/^NIST\.([A-Za-z0-9-]+)(?:\.(?:\d{8}|\d{4}(?:-\d{2}){1,2}|\d{4}-\d{4}))?$/i);
-  if (m) { const token=m[1].toUpperCase(); if (NIST_ALIAS_MAP[token]) { const a=NIST_ALIAS_MAP[token]; return { publisher:'NIST', suite:a.suite, number:a.number, part:a.part||null }; } }
+  if (m) { const token=m[1].toUpperCase(); if (NIST_ALIAS_MAP[token]) { const a=NIST_ALIAS_MAP[token]; return { publisher:'NIST', type:a.type, number:a.number, part:a.part||null }; } }
 
   m = docId.match(/^NIST\.SP\.([A-Za-z0-9-]+)(?:\.(\d{4}(?:-\d{2})?|\d{8}))?$/i);
-  if (m) { const tail=m[1]; const famMatch=tail.match(/^(\d+-[0-9A-Za-z]+?)(?=(?:pt|p|part)\s*\d+|(?:-?(?:ad|add|amd))(?:\s*\d+)?|r\s*\d+|$)/i); if (famMatch){ const family=famMatch[1]; const rest=tail.slice(family.length); let part=null; const pm=rest.match(/(?:^|[^A-Za-z])(pt|p|part)\s*([0-9]+)/i); if (pm) part=String(parseInt(pm[2],10)); return { publisher:'NIST', suite:'SP', number:family, part }; } return { publisher:'NIST', suite:'SP', number:tail, part:null }; }
+  if (m) { const tail=m[1]; const famMatch=tail.match(/^(\d+-[0-9A-Za-z]+?)(?=(?:pt|p|part)\s*\d+|(?:-?(?:ad|add|amd))(?:\s*\d+)?|r\s*\d+|$)/i); if (famMatch){ const family=famMatch[1]; const rest=tail.slice(family.length); let part=null; const pm=rest.match(/(?:^|[^A-Za-z])(pt|p|part)\s*([0-9]+)/i); if (pm) part=String(parseInt(pm[2],10)); return { publisher:'NIST', type:'SP', number:family, part }; } return { publisher:'NIST', type:'SP', number:tail, part:null }; }
 
   // Bare DCI DCSS family id (used as an undated reference like "DCI.DCSS")
   m = docId.match(/^DCI\.DCSS\.?$/i);
-  if (m) return { publisher: 'DCI', suite: 'DCSS', number: null, part: null };
+  if (m) return { publisher: 'DCI', type: 'DCSS', number: null, part: null };
 
   m = docId.match(/^DCI\.([A-Za-z]+)\.(v\d+(?:\.\d+)*)\.(?:\d{8}|\d{4}(?:-\d{2}){1,2}|\d{4}-\d{4})$/i);
-  if (m && /^DCSS$/i.test(m[1])) return { publisher: 'DCI', suite: m[1].toUpperCase(), number: null, part: null };
+  if (m && /^DCSS$/i.test(m[1])) return { publisher: 'DCI', type: m[1].toUpperCase(), number: null, part: null };
 
   m = docId.match(/^DCI\.DCA-([A-Za-z0-9]+)\.(?:\d{8}|\d{4}(?:-\d{2}){1,2}|\d{4}-\d{4})$/i);
-  if (m) return { publisher: 'DCI', suite: 'DCA', number: m[1].toUpperCase(), part: null };
+  if (m) return { publisher: 'DCI', type: 'DCA', number: m[1].toUpperCase(), part: null };
 
   m = docId.match(/^DCI\.M-([A-Za-z0-9]+)\.(?:\d{8}|\d{4}(?:-\d{2}){1,2}|\d{4}-\d{4})$/i);
-  if (m) return { publisher: 'DCI', suite: 'M', number: null, part: m[1].toUpperCase() };
+  if (m) return { publisher: 'DCI', type: 'M', number: null, part: m[1].toUpperCase() };
 
   m = docId.match(/^DCI\.([A-Za-z]+)-([A-Za-z0-9]+)\.(?:\d{8}|\d{4}(?:-\d{2}){1,2}|\d{4}-\d{4})$/i);
-  if (m) return { publisher: 'DCI', suite: m[1].toUpperCase(), number: m[2].toUpperCase(), part: null };
+  if (m) return { publisher: 'DCI', type: m[1].toUpperCase(), number: m[2].toUpperCase(), part: null };
 
   m = docId.match(/^EIDR\.([A-Za-z0-9-]+)\.(\d{6}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'EIDR', suite: null, number: m[1].toUpperCase(), part: null };
+  if (m) return { publisher: 'EIDR', type: null, number: m[1].toUpperCase(), part: null };
 
   m = docId.match(/^ICC\.(\d+)\.(?:\d{4})(?:e\.?\d{4})?$/i);
-  if (m) return { publisher: 'ICC', suite: null, number: m[1], part: null };
+  if (m) return { publisher: 'ICC', type: null, number: m[1], part: null };
 
   m = docId.match(/^AMWA\.(AAF)(?:\.(?:\d{8}|\d{4}(?:-\d{2}){1,2}|\d{4}-\d{4}))?$/i);
-  if (m) return { publisher: 'AMWA', suite: m[1].toUpperCase(), number: null, part: null };
+  if (m) return { publisher: 'AMWA', type: m[1].toUpperCase(), number: null, part: null };
   m = docId.match(/^AMWA\.(AS)-(\d+)(?:\.(?:\d{8}|\d{4}(?:-\d{2}){1,2}|\d{4}-\d{4}))?$/i);
-  if (m) return { publisher: 'AMWA', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'AMWA', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^ANSI\.S(\d+)(?:\.(\d+))?(?:\.(p?\d+))?\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) { const suite=`S${m[1]}`; const number=m[2]||null; const rawPart=m[3]||null; const part=rawPart?String(rawPart).replace(/^p/i,''):null; return { publisher:'ASA', suite, number, part }; }
+  if (m) { const type=`S${m[1]}`; const number=m[2]||null; const rawPart=m[3]||null; const part=rawPart?String(rawPart).replace(/^p/i,''):null; return { publisher:'ASA', type, number, part }; }
 
   m = docId.match(/^ASA\.S(\d+)(?:\.(\d+))?(?:\.(p?\d+))?\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) { const suite=`S${m[1]}`; const number=m[2]||null; const rawPart=m[3]||null; const part=rawPart?String(rawPart).replace(/^p/i,''):null; return { publisher:'ASA', suite, number, part }; }
+  if (m) { const type=`S${m[1]}`; const number=m[2]||null; const rawPart=m[3]||null; const part=rawPart?String(rawPart).replace(/^p/i,''):null; return { publisher:'ASA', type, number, part }; }
 
   m = docId.match(/^PIMA\.IT(\d+)(?:\.(\d+))?\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'PIMA', suite: 'IT', number: m[1], part: m[2] || null };
+  if (m) return { publisher: 'PIMA', type: 'IT', number: m[1], part: m[2] || null };
 
   m = docId.match(/^UL\.([A-Za-z0-9.-]+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'UL', suite: null, number: m[1], part: null };
+  if (m) return { publisher: 'UL', type: null, number: m[1], part: null };
 
   m = docId.match(/^INCITS\.([A-Za-z0-9]+)\.([A-Za-z0-9.-]+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'INCITS', suite: m[1], number: m[2], part: null };
+  if (m) return { publisher: 'INCITS', type: m[1], number: m[2], part: null };
 
   m = docId.match(/^NFPA\.([0-9A-Za-z.-]+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'NFPA', suite: null, number: m[1], part: null };
+  if (m) return { publisher: 'NFPA', type: null, number: m[1], part: null };
 
   m = docId.match(/^AIIM\.([A-Za-z]+)(\d+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'AIIM', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'AIIM', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^ASHRAE\.([0-9A-Za-z.-]+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'ASHRAE', suite: null, number: m[1], part: null };
+  if (m) return { publisher: 'ASHRAE', type: null, number: m[1], part: null };
 
   m = docId.match(/^NAPM\.IT(\d+)(?:\.(\d+))?\.(?:\d{8}|\d{4}(?:-\d{2})?)(?:T\d+\.\d+\.\d{4})?$/i);
-  if (m) return { publisher: 'NAPM', suite: 'IT', number: m[1], part: m[2] || null };
+  if (m) return { publisher: 'NAPM', type: 'IT', number: m[1], part: m[2] || null };
 
   m = docId.match(/^NAPM\.(\d+)\.(\d+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'NAPM', suite: null, number: m[1], part: m[2] };
+  if (m) return { publisher: 'NAPM', type: null, number: m[1], part: m[2] };
 
   m = docId.match(/^AIM\.([A-Za-z]+)-?(\d+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'AIM', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'AIM', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^ARIB\.([A-Za-z]+)-([A-Za-z]\d+(?:\.[A-Za-z0-9]+)?)\.v\d+(?:\.\d+)*\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'ARIB', suite: m[1].toUpperCase(), number: m[2].toUpperCase(), part: null };
+  if (m) return { publisher: 'ARIB', type: m[1].toUpperCase(), number: m[2].toUpperCase(), part: null };
 
   m = docId.match(/^T-REC-([A-Za-z])\.([0-9A-Za-z.]+?)\.(\d{6}|\d{4})(?:(am\d+|e\d+)\.(\d{6}|\d{4}))?$/i);
-  if (m) return { publisher: 'ITU-T', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'ITU-T', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^R-REC-([A-Za-z]{1,3})\.([0-9A-Za-z.]+?)(?:-(a\d+|e\d+|[0-9]+))?\.(\d{6}|\d{4})$/i);
   if (m) {
-    const suite = m[1].toUpperCase();
+    const type = m[1].toUpperCase();
     const core = m[2];
     let number = core; let part = null;
     const rev = core.match(/^(\d+)-(\d+)$/);
     if (rev) {
       const left = rev[1], right = parseInt(rev[2],10);
-      if (suite==='BR' && left.length===4 && right>=1 && right<=9) { number = left; part = String(right); }
+      if (type==='BR' && left.length===4 && right>=1 && right<=9) { number = left; part = String(right); }
       else if (right>=1 && right<=30) { number = left; }
       else { number = core; }
     }
-    return { publisher: 'ITU-R', suite, number, part };
+    return { publisher: 'ITU-R', type, number, part };
   }
 
   m = docId.match(/^ATSC\.([A-Za-z0-9-]+)\.([A-Za-z0-9-]+)\.(?:(?:a|annex[a-z])\.)?(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'ATSC', suite: m[1].toUpperCase(), number: m[2].toUpperCase(), part: null };
+  if (m) return { publisher: 'ATSC', type: m[1].toUpperCase(), number: m[2].toUpperCase(), part: null };
 
   m = docId.match(/^TIFF\.r\d+(?:\.(?:\d{8}|\d{4}(?:-\d{2})?))?$/i);
-  if (m) return { publisher: 'Aldus Corp/Adobe', suite: 'TIFF', number: null, part: null };
+  if (m) return { publisher: 'Aldus Corp/Adobe', type: 'TIFF', number: null, part: null };
 
   m = docId.match(/^IEEE\.(?:STD)?([0-9]+(?:\.[0-9]+)?)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'IEEE', suite: 'STD', number: m[1], part: null };
+  if (m) return { publisher: 'IEEE', type: 'STD', number: m[1], part: null };
 
   m = docId.match(/^AES\.(\d+)(?:-([0-9]+))?\.(?:\d{8}|\d{4}(?:-\d{2})?)(?:ad\d+\.(?:\d{8}|\d{4}(?:-\d{2})?))?$/i);
-  if (m) return { publisher: 'AES', suite: null, number: m[1], part: m[2] || null };
+  if (m) return { publisher: 'AES', type: null, number: m[1], part: m[2] || null };
   m = docId.match(/^aes(\d+)(?:-([0-9]+))?\.(?:\d{8}|\d{4}(?:-\d{2})?)(?:ad\d+\.(?:\d{8}|\d{4}(?:-\d{2})?))?$/i);
-  if (m) return { publisher: 'AES', suite: null, number: m[1], part: m[2] || null };
+  if (m) return { publisher: 'AES', type: null, number: m[1], part: m[2] || null };
   m = docId.match(/^AES[-\.]R(\d+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'AES', suite: 'R', number: m[1], part: null };
+  if (m) return { publisher: 'AES', type: 'R', number: m[1], part: null };
 
   m = docId.match(/^AMPAS\.S\.(\d{4})-(\d{3})$/i);
-  if (m) return { publisher: 'AMPAS', suite: 'S', number: m[1], part: m[2] };
+  if (m) return { publisher: 'AMPAS', type: 'S', number: m[1], part: m[2] };
 
   m = docId.match(/^CEA\.(\d+)\.(\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'CEA', suite: null, number: m[1], part: null };
+  if (m) return { publisher: 'CEA', type: null, number: m[1], part: null };
 
   m = docId.match(/^CEN\.(EN|TR)\.([A-Za-z0-9-]+)\.(\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'CEN', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'CEN', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^EBU\.(R|Tech)(\d+)(?:s\d*)?\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'EBU', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'EBU', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^ETSI\.([A-Za-z]+)-([0-9-]+)\.(\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'ETSI', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'ETSI', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^CIE\.(\d{3})\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'CIE', suite: null, number: m[1], part: null };
+  if (m) return { publisher: 'CIE', type: null, number: m[1], part: null };
 
   m = docId.match(/^CTA\.(\d+)-[A-Za-z]\.(\d{4})$/i);
-  if (m) return { publisher: 'CTA', suite: null, number: m[1], part: null };
+  if (m) return { publisher: 'CTA', type: null, number: m[1], part: null };
 
   m = docId.match(/^FIAF\.([A-Za-z]+)\.([A-Za-z0-9.-]+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
-  if (m) return { publisher: 'FIAF', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'FIAF', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^DMA\.(TR)\.([0-9.]+)$/i);
-  if (m) return { publisher: 'U.S. DEFENSE MAPPING AGENCY', suite: m[1].toUpperCase(), number: m[2], part: null };
+  if (m) return { publisher: 'U.S. DEFENSE MAPPING AGENCY', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^DPP\.(\d{3})$/i);
-  if (m) return { publisher: 'DPP', suite: null, number: m[1], part: null };
+  if (m) return { publisher: 'DPP', type: null, number: m[1], part: null };
 
   return null;
 }
@@ -442,20 +442,20 @@ function keyFromDocId(docId, doc = {}) {
 /**
  * lineageKeyFromParts
  * Deterministically formats a lineage key from discrete parts.
- * Format: `${publisher}|${suite||''}|${number||''}|${part||''}`
+ * Format: `${publisher}|${type||''}|${number||''}|${part||''}`
  * Notes:
  *  - `publisher` is required (UPPERCASE recommended upstream)
- *  - suite/number/part may be null/undefined and are rendered as empty segments
+ *  - type/number/part may be null/undefined and are rendered as empty segments
  *  - This mirrors MSI's lineage key joiner so MSI and build.js agree 1:1.
  */
 function lineageKeyFromParts(parts) {
   if (!parts || typeof parts !== 'object') return null;
   const publisher = parts.publisher || null;
-  const suite     = parts.suite ?? '';
+  const type     = parts.type ?? '';
   const number    = parts.number ?? '';
   const part      = parts.part ?? '';
   if (!publisher) return null;
-  return [publisher, suite || '', number || '', part || ''].join('|');
+  return [publisher, type || '', number || '', part || ''].join('|');
 }
 
 /**

@@ -89,12 +89,12 @@
       </span>
     </div>
 
-    {{#if (len docSuite)}}
+    {{#if (len docVersion)}}
     <div class="card mt-2">
       <div class="card-body">
-        <h2 class="h6 mb-2">Document Suite — {{docBaseLabel}}</h2>
+        <h2 class="h6 mb-2">Document Versions — {{docBaseLabel}}</h2>
         <ul class="list-group list-group-flush small">
-          {{#each docSuite}}
+          {{#each docVersion}}
           <li class="list-group-item d-flex align-items-start justify-content-between doc-suite-row{{#ifeq ../docId docId}} badge-node-current{{/ifeq}}">
             <div class="me-1 text-wrap">
               {{#ifeq ../docId docId}}<strong>▶</strong>{{/ifeq}}
