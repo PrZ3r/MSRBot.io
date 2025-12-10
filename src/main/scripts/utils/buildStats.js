@@ -38,6 +38,24 @@ const totalDocs = documents.length;
 const activeDocs = documents.filter(d => d?.status?.active === true).length;
 const supersededDocs = documents.filter(d => d?.status?.superseded === true).length;
 
+// Suite stats (total suites from masterSuiteIndex)
+let suiteTotal = 0;
+try {
+  const suitesPath = 'src/main/reports/masterSuiteIndex.json';
+  if (fs.existsSync(suitesPath)) {
+    const suitesRaw = fs.readFileSync(suitesPath, 'utf8');
+    const suitesData = JSON.parse(suitesRaw);
+    if (Array.isArray(suitesData)) {
+      suiteTotal = suitesData.length;
+    } else if (suitesData && Array.isArray(suitesData.suites)) {
+      // Fallback if structured as { suites: [...] }
+      suiteTotal = suitesData.suites.length;
+    }
+  }
+} catch (e) {
+  console.warn('[buildStats] Unable to load suite stats:', e && e.message ? e.message : e);
+}
+
 // Reference counts (normative + bibliographic)
 const references = documents.reduce((sum, d) => {
   const normative = Array.isArray(d.references?.normative) ? d.references.normative.length : 0;
@@ -72,6 +90,11 @@ const stats = {
     //superseded: supersededDocs,
     docTypes: Object.keys(docsByType).length,
     docsByType
+  },
+
+  // Suite-level stats
+  suites: {
+    total: suiteTotal
   }
 };
 
