@@ -132,6 +132,21 @@ const registries = [
     }
   },
   {
+    "listType": "documents",
+    "templateType": "documents",
+    "templateName": "suites",
+    "idType": "document",
+    "listTitle": "Suites",
+    "subRegistry": [
+      "documents",
+      "groups",
+      "projects"
+    ],
+    "extras": {
+      "logicOnly": true
+    }
+  },
+  {
     "listType": "projects",
     "templateType": "projects",
     "templateName": "projects",
@@ -353,10 +368,12 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
   // Groups are emitted via emitNormalizedGroups() + optional raw copy above.
   // Skip emitting build/documents/_data/documents.json; that folder is unused now.
   // Also skip build/refTree/_data/documents.json — refTree client JS reads docs/_data/documents.json directly.
+  // Also skip build/suites/_data/documents.json — suites index should not emit documents.json.
   if (
     templateName !== 'groups' &&
     !(templateName === 'documents' && listType === 'documents') &&
-    !(templateName === 'refTree' && listType === 'documents')
+    !(templateName === 'refTree' && listType === 'documents') &&
+    !(templateName === 'suites' && listType === 'documents')
   ) {
     const outDir = path.join(BUILD_PATH, templateName, '_data');
     await fs.mkdir(outDir, { recursive: true });
@@ -1212,7 +1229,7 @@ function _doiUrl(doc){
 
   hb.registerHelper("getStatus", function(docId) {
     if (!docStatuses.hasOwnProperty(docId)) {
-      console.warn(`[WARN:getStatus] docId "${docId}" not found in registry`);
+      //console.warn(`[WARN:getStatus] docId "${docId}" not found in registry`);
       return "NOT IN REGISTRY";
     } else {
       return docStatuses[docId];
@@ -1825,6 +1842,151 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     } catch (e) {
       console.warn('[build] Could not emit refTree index page:', e && e.message ? e.message : e);
     }
+
+    // --- Emit suites data and pages from MasterSuiteIndex at /suites/… ---
+    try {
+      const msiPath = path.join('src', 'main', 'reports', 'masterSuiteIndex.json');
+      let suites = [];
+      try {
+        const raw = await fs.readFile(msiPath, 'utf8');
+        const parsed = JSON.parse(raw);
+        suites = Array.isArray(parsed.suites) ? parsed.suites : [];
+      } catch (e) {
+        console.warn('[build] No masterSuiteIndex at', msiPath, '; skipping suites emit:', e && e.message ? e.message : e);
+        suites = [];
+      }
+
+      if (!suites.length) {
+        console.log('[build] No suites found in masterSuiteIndex; nothing to emit for /suites');
+      } else {
+        // 1) Emit suites/_data/suites.json
+        const suitesDataDir = path.join(BUILD_PATH, 'suites', '_data');
+        await fs.mkdir(suitesDataDir, { recursive: true });
+        const suitesDataPath = path.join(suitesDataDir, 'suites.json');
+        await writeFileSafe(suitesDataPath, JSON.stringify(suites, null, 2), 'utf8');
+        console.log(`[build] Wrote ${suitesDataPath}`);
+
+        // 2) Emit per-suite pages at /suites/{suiteSlug}/index.html using suites.hbs
+        try {
+          const suitesTplSrc = await fs.readFile('src/main/templates/suites.hbs', 'utf8');
+          const suitesTpl = hb.compile(suitesTplSrc);
+          const suitesOutRoot = path.join(BUILD_PATH, 'suites');
+          await fs.mkdir(suitesOutRoot, { recursive: true });
+
+          let __sOk = 0, __sFail = 0;
+          for (const s of suites) {
+            if (!s) continue;
+            const slug = (s.suiteSlug || '').trim();
+            if (!slug) continue;
+
+            const pub  = (s.publisher || '').trim();
+            const type = (s.type || '').trim();
+            const num  = (s.number || '').trim();
+
+            const baseLabel = type ? `${pub} ${type} ${num}` : `${pub} ${num}`;
+            const suiteLabel = baseLabel || 'Suite';
+
+            const perSuiteCanonical = new URL(`/suites/${encodeURIComponent(slug)}/`, siteConfig.canonicalBase).href;
+            const perSuiteTitle = `${suiteLabel} — ${siteConfig.siteName}`;
+            const perSuiteListTitle = suiteLabel;
+            const perSuiteDesc = siteConfig.siteDescription;
+
+            const suiteHtml = suitesTpl({
+              templateName: 'suites',
+              listTitle: perSuiteListTitle,
+              site_version: site_version,
+              date: new Date(),
+              // site/meta
+              siteName: siteConfig.siteName,
+              author: siteConfig.author,
+              authorUrl: siteConfig.authorUrl,
+              copyright: siteConfig.copyright,
+              copyrightHolder: siteConfig.copyrightHolder,
+              copyrightYear: siteConfig.copyrightYear,
+              license: siteConfig.license,
+              licenseUrl: siteConfig.licenseUrl,
+              locale: siteConfig.locale,
+              siteDescription: perSuiteDesc,
+              siteTitle: perSuiteTitle,
+              canonicalBase: siteConfig.canonicalBase,
+              canonicalUrl: perSuiteCanonical,
+              ogTitle: perSuiteTitle,
+              ogDescription: perSuiteDesc,
+              ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+              ogImageAlt: siteConfig.ogImageAlt,
+              assetPrefix: '../../',
+              publisherUrls: siteConfig.publisherUrls,
+              // data
+              suite: s,
+              suites
+            });
+
+            const suiteDir = path.join(suitesOutRoot, slug);
+            await fs.mkdir(suiteDir, { recursive: true });
+            const suiteOutFile = path.join(suiteDir, 'index.html');
+            await writeFileSafe(suiteOutFile, suiteHtml, 'utf8');
+            __sOk++;
+          }
+          if (__sFail) {
+            console.warn(`[build] Suite pages emitted with warnings: ok=${__sOk}, failed=${__sFail}`);
+          } else {
+            console.log(`[build] Suite pages emitted: ${__sOk}`);
+          }
+        } catch (suiteTplErr) {
+          console.warn('[build] Could not emit suite detail pages:', suiteTplErr && suiteTplErr.message ? suiteTplErr.message : suiteTplErr);
+        }
+
+        // 3) Emit /suites/index.html landing page using suitesIndex.hbs
+        try {
+          const suitesIndexTplSrc = await fs.readFile('src/main/templates/suitesIndex.hbs', 'utf8');
+          const suitesIndexTpl = hb.compile(suitesIndexTplSrc);
+          const suitesRoot = path.join(BUILD_PATH, 'suites');
+          await fs.mkdir(suitesRoot, { recursive: true });
+
+          const suitesCanonical = new URL('/suites/', siteConfig.canonicalBase).href;
+          const suitesPageTitle = `Suites — ${siteConfig.siteName}`;
+          const suitesListTitle = 'Suites';
+          const suitesDesc = 'Bundles of related standards with multiple parts.';
+
+          const suitesIndexHtml = suitesIndexTpl({
+            templateName: 'suitesIndex',
+            listTitle: suitesListTitle,
+            site_version: site_version,
+            date: new Date(),
+            // meta
+            siteName: siteConfig.siteName,
+            author: siteConfig.author,
+            authorUrl: siteConfig.authorUrl,
+            copyright: siteConfig.copyright,
+            copyrightHolder: siteConfig.copyrightHolder,
+            copyrightYear: siteConfig.copyrightYear,
+            license: siteConfig.license,
+            licenseUrl: siteConfig.licenseUrl,
+            locale: siteConfig.locale,
+            siteDescription: suitesDesc,
+            siteTitle: suitesPageTitle,
+            canonicalBase: siteConfig.canonicalBase,
+            canonicalUrl: suitesCanonical,
+            ogTitle: suitesPageTitle,
+            ogDescription: suitesDesc,
+            ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+            ogImageAlt: siteConfig.ogImageAlt,
+            assetPrefix: '../',
+            publisherUrls: siteConfig.publisherUrls,
+            // data
+            suites
+          });
+
+          await writeFileSafe(path.join(suitesRoot, 'index.html'), suitesIndexHtml, 'utf8');
+          console.log('[build] Wrote build/suites/index.html');
+        } catch (e) {
+          console.warn('[build] Could not emit suites index page:', e && e.message ? e.message : e);
+        }
+      }
+    } catch (e) {
+      console.warn('[build] Suites emit failed:', e && e.message ? e.message : e);
+    }
+
   }
   
   /* create build directory */

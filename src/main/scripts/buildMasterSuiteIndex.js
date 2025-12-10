@@ -275,17 +275,25 @@ function buildSuites(lineages) {
 
   for (const li of lineages) {
     if (!li || !li.key) continue;
-    // key format: "PUBLISHER|SUITE|NUMBER|PART"
+    // key format: "PUBLISHER|TYPE|NUMBER|PART"
     const [pub = '', type = '', number = '', part = ''] = String(li.key).split('|');
-    const steKey = [pub, type, number].join('|');
+    // Suite key ignores type: group by publisher + number so ST/OV/RP variants share a suite,
+    // except for SMPTE AG, which keeps its type isolated.
+    const isSmpteAg = (pub === 'SMPTE' && type === 'AG');
+    const steKey = isSmpteAg
+      ? [pub, type, number].join('|')   // keep AG suites separate
+      : [pub, number].join('|');        // group ST/RP/OV/etc. by number
 
     let ste = steMap.get(steKey);
     if (!ste) {
       ste = {
         key: steKey,
         publisher: pub,
-        type: type || null,
+        // Canonical suite type will be resolved after aggregation (e.g., ST vs OV vs RP)
+        type: null,
         number: number || null,
+        // Track all observed types within the suite (ST, RP, OV, etc.)
+        types: [],
         parts: [],
         lineages: [],
         // suite-wide "winner"
@@ -315,6 +323,12 @@ function buildSuites(lineages) {
         }
       };
       steMap.set(steKey, ste);
+    }
+
+    // Track all raw types participating in this suite so we can pick a canonical one later
+    const typeToken = type || null;
+    if (typeToken && !ste.types.includes(typeToken)) {
+      ste.types.push(typeToken);
     }
 
     // Track membership and parts
@@ -399,9 +413,9 @@ function buildSuites(lineages) {
       return String(a).localeCompare(String(b));
     });
 
-    // Filter out no-part ("") entries from per-part lists and drop withdrawn latest docs
+    // Filter out no-part ("") entries from per-part lists (do not drop withdrawn latest docs)
     let perPartEntries = Object.entries(ste.latestPerPart)
-      .filter(([partKey, v]) => partKey !== '' && v && v.withdrawn !== true);
+      .filter(([partKey, v]) => partKey !== '' && v);
 
     // Sort explicit parts (unchanged)
     perPartEntries.sort((a, b) => {
@@ -412,8 +426,21 @@ function buildSuites(lineages) {
       return String(pa).localeCompare(String(pb));
     });
 
-    // Only include real-part latest IDs now
-    ste.allPartsLatestIds = perPartEntries.map(([, v]) => v.docId);
+    // allPartsLatestIds now includes the no-part base (if any) first, then all explicit-part latest IDs
+    ste.allPartsLatestIds = [];
+    if (ste.noPartLatestId) {
+      ste.allPartsLatestIds.push(ste.noPartLatestId);
+    }
+    ste.allPartsLatestIds.push(...perPartEntries.map(([, v]) => v.docId));
+
+    // Resolve a canonical suite type:
+    // Prefer the type from latestAnyLineageKey (typically ST), otherwise fall back to the first observed type.
+    if (ste.latestAnyLineageKey) {
+      const [, keyType = '', , ] = String(ste.latestAnyLineageKey).split('|');
+      ste.type = keyType || null;
+    } else if (Array.isArray(ste.types) && ste.types.length > 0) {
+      ste.type = ste.types[0] || null;
+    }
   }
 
   // Drop singleton suites with no structural parts (e.g., ST 378, 382, etc.)
@@ -433,6 +460,17 @@ function buildSuites(lineages) {
     if (!Number.isNaN(ai) && !Number.isNaN(bi)) return ai - bi;
     return an.localeCompare(bn);
   });
+
+  // Assign a deterministic slug for each suite so URLs and client JS agree.
+  // Example: publisher=SMPTE, type=ST, number=379 → "smpte-379"
+  for (const ste of suites) {
+    const slugBaseParts = [ste.publisher, ste.number].filter(Boolean).join('-');
+    const raw = slugBaseParts || ste.key || '';
+    ste.suiteSlug = raw
+      .replace(/[^A-Za-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .toLowerCase();
+  }
 
   return suites;
 }
