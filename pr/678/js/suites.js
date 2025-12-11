@@ -146,7 +146,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   try {
     // Load publisher logo + URL configs (same sources used by docList)
     try {
-      const cfg = await loadJSONTry(['../_data/publisher-logos.json']);
+      const cfg = await loadJSONTry(['../../_data/publisher-logos.json']);
       if (cfg && typeof cfg === 'object') {
         publisherLogos = cfg.logos || cfg.publisherLogos || {};
         publisherLogosDark = cfg.logosDark || cfg.publisherLogosDark || {};
