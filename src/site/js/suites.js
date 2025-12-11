@@ -146,7 +146,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   try {
     // Load publisher logo + URL configs (same sources used by docList)
     try {
-      const cfg = await loadJSONTry(['/_data/publisher-logos.json']);
+      const cfg = await loadJSONTry(['../_data/publisher-logos.json']);
       if (cfg && typeof cfg === 'object') {
         publisherLogos = cfg.logos || cfg.publisherLogos || {};
         publisherLogosDark = cfg.logosDark || cfg.publisherLogosDark || {};
@@ -159,7 +159,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
 
     try {
-      const ucfg = await loadJSONTry(['/_data/publisher-urls.json']);
+      const ucfg = await loadJSONTry(['../../_data/publisher-urls.json']);
       if (ucfg && typeof ucfg === 'object') {
         publisherUrls = ucfg.urls || {};
         publisherUrlAliases = (ucfg.aliases && typeof ucfg.aliases === 'object') ? ucfg.aliases : {};
@@ -169,7 +169,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       console.warn('[suites] publisher urls config not available:', e && e.message ? e.message : e);
     }
     // Load suites index
-    const suitesResp = await fetch('/suites/_data/suites.json');
+    const suitesResp = await fetch('../_data/suites.json');
     if (!suitesResp.ok) throw new Error(`HTTP ${suitesResp.status}`);
     const suites = await suitesResp.json();
     const suite = suites.find(s => s.suiteSlug === slug);
@@ -253,7 +253,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
 
     // Load effective documents (docList-normalized registry)
-    const docsResp = await fetch('/docs/_data/documents.json');
+    const docsResp = await fetch('../../docs/_data/documents.json');
     if (!docsResp.ok) throw new Error(`HTTP ${docsResp.status}`);
     const docs = await docsResp.json();
     const byId = new Map(docs.map(d => [d.docId, d]));

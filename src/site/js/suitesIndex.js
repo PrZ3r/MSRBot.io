@@ -30,7 +30,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 (async function () {
   try {
     // Always from /suites/_data/suites.json relative to site root
-    const resp = await fetch('/suites/_data/suites.json');
+    const resp = await fetch('_data/suites.json');
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const suites = await resp.json();
 
