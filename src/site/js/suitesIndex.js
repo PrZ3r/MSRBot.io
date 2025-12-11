@@ -78,7 +78,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
         // Suite label is publisher + number (type-agnostic)
         const label = `${pub} ${num}`.trim();
-        const href = slug ? `/suites/${encodeURIComponent(slug)}/` : '#';
+        const href = slug ? `${encodeURIComponent(slug)}/` : '#';
 
         const el = document.createElement('div');
         el.className = 'col';
