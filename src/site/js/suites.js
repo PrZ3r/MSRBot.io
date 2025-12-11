@@ -139,6 +139,42 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return null;
   }
 
+  // Helper to render abstract text as HTML with newlines as <br><br>
+  function renderAbstractHtml(text) {
+    if (text == null) return '';
+    const normalized = String(text).replace(/\\n/g, '\n');
+    const escaped = normalized
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    return escaped.replace(/\n/g, '<br><br>');
+  }
+
+  // Delegated click handler for suite abstract expand/collapse
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.suite-abstract-toggle');
+    if (!btn) return;
+
+    const container = btn.closest('.suite-abstract');
+    if (!container) return;
+
+    const shortSpan = container.querySelector('.suite-abstract-short');
+    const fullSpan = container.querySelector('.suite-abstract-full');
+    const state = container.getAttribute('data-state') || 'short';
+
+    if (state === 'short') {
+      if (shortSpan) shortSpan.classList.add('d-none');
+      if (fullSpan) fullSpan.classList.remove('d-none');
+      container.setAttribute('data-state', 'full');
+      btn.textContent = 'Less';
+    } else {
+      if (shortSpan) shortSpan.classList.remove('d-none');
+      if (fullSpan) fullSpan.classList.add('d-none');
+      container.setAttribute('data-state', 'short');
+      btn.textContent = 'More';
+    }
+  });
+
   if (!slug) {
     if (loadingEl) loadingEl.textContent = 'No suite specified.';
     return;
@@ -265,6 +301,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       const fallbackLabel = id;
       const docLabel = d && d.docLabel ? d.docLabel : fallbackLabel;
       const docTitle = d && (d.docTitle || d.title) ? (d.docTitle || d.title) : '';
+      const abstract = d && d.abstract ? d.abstract : '';
       const href = d && d.href ? d.href : null;
       const status = d && d.status ? d.status : {};
       const active = status.active === true;
@@ -284,12 +321,41 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         ? `<a href="../../docs/${id}/" class="text-decoration-none">${docLabel}</a>`
         : docLabel;
 
+      // Abstract truncation and toggle logic
+      const ABSTRACT_TRUNCATE_CHARS = 280;
+      const isLongAbstract =
+        abstract && (abstract.length > ABSTRACT_TRUNCATE_CHARS || abstract.includes('\n'));
+      let abstractHtmlBlock = '';
+
+      if (abstract) {
+        if (!isLongAbstract) {
+          const fullHtml = renderAbstractHtml(abstract);
+          abstractHtmlBlock = `
+            <div class="small text-muted suite-abstract fst-italic">
+              ${fullHtml}
+            </div>
+          `;
+        } else {
+          const truncatedBase = abstract.slice(0, ABSTRACT_TRUNCATE_CHARS).replace(/\s+\S*$/, '');
+          const shortHtml = renderAbstractHtml(truncatedBase + '…');
+          const fullHtml = renderAbstractHtml(abstract);
+          abstractHtmlBlock = `
+            <div class="small text-muted suite-abstract fst-italic" data-state="short">
+              <span class="suite-abstract-short">${shortHtml}</span>
+              <span class="suite-abstract-full d-none">${fullHtml}</span>
+              <button type="button" class="btn btn-link btn-sm p-0 ms-1 suite-abstract-toggle">More</button>
+            </div>
+          `;
+        }
+      }
+
       return `
         <tr class="${rowClass}">
           <td class="part-col">${partKey || '—'}</td>
           <td>
             <div>${labelHtml}</div>
             ${docTitle ? `<div class="small text-muted">${docTitle}</div>` : ''}
+            ${abstractHtmlBlock}
           </td>
           <td class="status-col"><span class="status-badge">${statusText}</span></td>
           <td class="pubdate-col">${pubDate}</td>
