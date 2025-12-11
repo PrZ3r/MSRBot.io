@@ -30,10 +30,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 (async function () {
   function getSuiteSlugFromPath() {
     const path = window.location.pathname || '/';
-    // Expect /suites/{slug}/ or /suites/{slug}
     const parts = path.replace(/^\/+|\/+$/g, '').split('/');
-    if (parts[0] !== 'suites' || parts.length < 2) return null;
-    return decodeURIComponent(parts[1]);
+    const suitesIdx = parts.indexOf('suites');
+    // Need a "suites" segment and at least one element after it for the slug
+    if (suitesIdx === -1 || suitesIdx === parts.length - 1) return null;
+    return decodeURIComponent(parts[suitesIdx + 1]);
   }
 
   const slug = getSuiteSlugFromPath();
