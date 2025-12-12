@@ -219,8 +219,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     const pub = suite.publisher || '';
     const num = suite.number || '';
-    // Suite label is publisher + number (type-agnostic, since suites may mix ST/RP/OV)
-    const label = `${pub} ${num}`.trim();
+    const suiteTitle = suite.suiteTitle || '';
+
+    // Suite label is publisher + number + suite title (type-agnostic, since suites may mix ST/RP/OV)
+    const label = suiteTitle
+      ? `${pub} ${num} — ${suiteTitle}`
+      : `${pub} ${num}`;
     
     if (loadingEl) loadingEl.classList.add('d-none');
     if (errorEl) errorEl.classList.add('d-none');
@@ -317,9 +321,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       const statusText = stateTokens.join(' · ') || '—';
       const pubDate = d && d.publicationDate ? d.publicationDate : '—';
 
-      const labelHtml = href
-        ? `<a href="../../docs/${id}/" class="text-decoration-none">${docLabel}</a>`
-        : docLabel;
+      const labelHtml = `<a href="../../docs/${id}/" class="text-decoration-none">${docLabel}</a>`;
 
       // Abstract truncation and toggle logic
       const ABSTRACT_TRUNCATE_CHARS = 280;
@@ -370,11 +372,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         const d = byId.get(suite.noPartLatestId);
         const id = d.docId
         const title = d && (d.docTitle || d.title) ? (d.docTitle || d.title) : '';
-        const href = d && d.href ? d.href : null;
         const label = d && d.docLabel ? d.docLabel : suite.noPartLatestId;
-        const link = href
-          ? `<a href="../../docs/${id}/" class="text-decoration-none">${label}</a>`
-          : label;
+        const link = `<a href="../../docs/${id}/" class="text-decoration-none">${label}</a>`;
         noBaseBody.innerHTML = `
           <p class="mb-1">${link}</p>
           ${title ? `<p class="small text-muted mb-0">${title}</p>` : ''}

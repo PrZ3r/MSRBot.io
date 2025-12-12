@@ -74,10 +74,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         const slug = s.suiteSlug || '';
         const pub = s.publisher || '';
         const num = s.number || '';
+        const suiteTitle = s.suiteTitle || '';
         const parts = Array.isArray(s.parts) ? s.parts : [];
 
         // Suite label is publisher + number (type-agnostic)
-        const label = `${pub} ${num}`.trim();
+
+        const label = suiteTitle
+          ? `${pub} ${num} — ${suiteTitle}`
+          : `${pub} ${num}`;
         const href = slug ? `${encodeURIComponent(slug)}/` : '#';
 
         const el = document.createElement('div');
@@ -108,7 +112,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         if (pubFilter && pub !== pubFilter) return false;
 
         if (term) {
-          const haystack = `${pub} ${num}`.toLowerCase();
+          const title = s.suiteTitle || '';
+          const haystack = `${pub} ${num} ${title}`.toLowerCase();
           return haystack.includes(term);
         }
         return true;

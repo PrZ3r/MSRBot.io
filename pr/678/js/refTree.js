@@ -427,6 +427,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     const publisher = rawPublisher ? escapeHtml(rawPublisher) : '';
     const docType = rawDocType ? escapeHtml(rawDocType) : '';
 
+    // Compose suiteTitle and titleText as per instructions
+    const suiteTitle = (d && (d.docSuiteTitle || d.suiteTitle) ? String(d.docSuiteTitle || d.suiteTitle) : '').trim();
+    const titleText = suiteTitle
+      ? `${suiteTitle} - ${d && d.docTitle ? d.docTitle : label}`
+      : (d && d.docTitle ? d.docTitle : label);
+
     const metaLine = (publisher || docType)
       ? `<div class="text-muted small mb-1">
            ${publisher
@@ -445,7 +451,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <div class="mb-2">
           <div class="mb-1 d-flex flex-wrap align-items-center gap-1">
             <span><code>${escapeHtml(label)}</code></span>
-            <span class="fw-semibold"><a class="" href="../../docs/${id}/">${escapeHtml(d.docTitle || label)}</a></span>
+            <span class="fw-semibold"><a class="" href="../../docs/${id}/">${escapeHtml(titleText)}</a></span>
           </div>
           ${metaLine}
         </div>
