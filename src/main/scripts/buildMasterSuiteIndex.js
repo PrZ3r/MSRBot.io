@@ -269,7 +269,15 @@ function attachVersionlessSuccessors(lineages) {
 // A suite lets us see all parts, pick a single "latest" doc across parts,
 // and also compute latest-per-part bundles (for ALLPARTS resolution, etc.).
 function buildSuites(lineages) {
+
+  const lineageByKey = new Map(
+    Array.isArray(lineages)
+      ? lineages.map(li => [li.key, li])
+      : []
+  );
+
   const steMap = new Map();
+  // Suite-level flags may be attached here (e.g., SUITE_TITLE_MISMATCH across parts)
 
   if (!Array.isArray(lineages)) return [];
 
@@ -277,12 +285,12 @@ function buildSuites(lineages) {
     if (!li || !li.key) continue;
     // key format: "PUBLISHER|TYPE|NUMBER|PART"
     const [pub = '', type = '', number = '', part = ''] = String(li.key).split('|');
-    // Suite key ignores type: group by publisher + number so ST/OV/RP variants share a suite,
-    // except for SMPTE AG, which keeps its type isolated.
-    const isSmpteAg = (pub === 'SMPTE' && type === 'AG');
-    const steKey = isSmpteAg
-      ? [pub, type, number].join('|')   // keep AG suites separate
-      : [pub, number].join('|');        // group ST/RP/OV/etc. by number
+    // Suites policy: exclude SMPTE AG entirely (these are guidance/admin docs, not suites)
+    if (pub === 'SMPTE' && type === 'AG') {
+      continue;
+    }
+    // Suite key ignores type: group by publisher + number so ST/OV/RP variants share a suite.
+    const steKey = [pub, number].join('|');
 
     let ste = steMap.get(steKey);
     if (!ste) {
@@ -296,6 +304,8 @@ function buildSuites(lineages) {
         types: [],
         parts: [],
         lineages: [],
+        // Human-readable title for the suite
+        suiteTitle: null,
         // suite-wide "winner"
         latestAnyId: null,
         latestAnyLineageKey: null,
@@ -349,6 +359,11 @@ function buildSuites(lineages) {
     ste.lineages.push(li.key);
     ste.counts.lineages++;
 
+    // Bubble up suite titles: keep the first non-empty as a default
+    if (!ste.suiteTitle && li.suiteTitle) {
+      ste.suiteTitle = String(li.suiteTitle).trim();
+    }
+
     // Aggregate counts from the lineage-level counts block
     if (li.counts) {
       const bases = li.counts.bases || 0;
@@ -401,6 +416,26 @@ function buildSuites(lineages) {
     }
   }
 
+  // After suite population, attach suite-level flags for mismatched suite titles across lineages
+  for (const ste of steMap.values()) {
+    // Collect all non-empty trimmed suite titles from member lineages
+    const titleSet = new Set();
+    for (const lineageKey of ste.lineages) {
+      const li = lineageByKey.get(lineageKey);
+      if (li && li.suiteTitle) {
+        const t = String(li.suiteTitle).trim();
+        if (t) titleSet.add(t);
+      }
+    }
+    const titles = Array.from(titleSet);
+    if (titles.length > 1) {
+      ste.flags = ste.flags || [];
+      if (!ste.flags.includes('SUITE_TITLE_MISMATCH')) {
+        ste.flags.push('SUITE_TITLE_MISMATCH');
+      }
+    }
+  }
+
   // Finalize part counts, per-part bundles, and sort suites for stable output
   let suites = Array.from(steMap.values());
   for (const ste of suites) {
@@ -441,6 +476,16 @@ function buildSuites(lineages) {
     } else if (Array.isArray(ste.types) && ste.types.length > 0) {
       ste.type = ste.types[0] || null;
     }
+
+    // Resolve a canonical suite title:
+    // Prefer the suiteTitle from the lineage that contributed latestAnyLineageKey.
+    if (ste.latestAnyLineageKey) {
+      const li = lineageByKey.get(ste.latestAnyLineageKey);
+      if (li && li.suiteTitle) {
+        ste.suiteTitle = String(li.suiteTitle).trim();
+      }
+    }
+
   }
 
   // Drop singleton suites with no structural parts (e.g., ST 378, 382, etc.)
@@ -530,6 +575,7 @@ function buildIndex(allDocs) {
 
     map.get(keyStr).docs.push({
       docId: d.docId,
+      docSuiteTitle: (d.docSuiteTitle || d.suiteTitle || null),
       publicationDate: d.publicationDate || null,
       releaseTag,
       statusActive,
@@ -584,6 +630,44 @@ function buildIndex(allDocs) {
     const latestAny  = flaggedAny.length ? pickNewest(flaggedAny)
                         : (anyGraphHeads.length ? pickNewest(anyGraphHeads)
                         : pickNewest(entry.docs));
+
+    // Derive a lineage-level suite title from doc-level docSuiteTitle fields
+    let suiteTitle = null;
+    let suiteTitleSource = null;
+
+    // Collect distinct non-empty candidates
+    const suiteTitleCandidates = Array.from(
+      new Set(
+        entry.docs
+          .map(d => (d.docSuiteTitle ? String(d.docSuiteTitle).trim() : ''))
+          .filter(Boolean)
+      )
+    );
+
+    if (suiteTitleCandidates.length === 1) {
+      // Single unique title across the lineage
+      suiteTitle = suiteTitleCandidates[0];
+      suiteTitleSource = 'unique';
+    } else if (suiteTitleCandidates.length > 1) {
+      // Prefer the title on the latestAny doc, if it has one
+      if (latestAny) {
+        const latestDoc = idIndex.get(latestAny.docId);
+        if (latestDoc && latestDoc.docSuiteTitle) {
+          const t = String(latestDoc.docSuiteTitle).trim();
+          if (t) {
+            suiteTitle = t;
+            suiteTitleSource = 'latestAny';
+          }
+        }
+      }
+      // Fallback: pick the first non-empty candidate if we still don't have a suiteTitle
+      if (!suiteTitle) {
+        suiteTitle = suiteTitleCandidates[0];
+        suiteTitleSource = 'firstOfMany';
+      }
+      // Important: we do NOT set SUITE_TITLE_MISMATCH here.
+      // Suite-level mismatches are handled later in buildSuites().
+    }
 
     // Lineage-level helpers
     const hasActiveBase = bases.some(x => x.statusActive === true);
@@ -742,6 +826,8 @@ function buildIndex(allDocs) {
       type: entry.key.type,
       number: entry.key.number,
       part: entry.key.part,
+      suiteTitle,
+      suiteTitleSource,
       // W3C lineage annotations for clarity in reports
       w3cFamily: entry.key.publisher === 'W3C' ? entry.key.type : undefined,
       w3cVersion: entry.key.publisher === 'W3C' ? (entry.key.number || null) : undefined,

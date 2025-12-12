@@ -60,6 +60,17 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       .replace(/>/g, '&gt;');
   }
 
+  // Helper to build display title using docSuiteTitle if present
+  function buildDisplayTitle(doc) {
+    if (!doc) return '';
+    var suiteTitle = doc.docSuiteTitle || doc.suiteTitle || '';
+    var baseTitle = doc.docTitle || doc.title || '';
+    if (suiteTitle && baseTitle) {
+      return suiteTitle + ' — ' + baseTitle;
+    }
+    return baseTitle || suiteTitle || '';
+  }
+
   function buildSearchIndex() {
     if (!Array.isArray(registryDocs) || registryIndexBuilt) return;
     // No heavy structures needed yet; we compute scores on the fly in search.
@@ -106,6 +117,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       var id = d.docId;
       if (!id) continue;
 
+      var displayTitle = buildDisplayTitle(d);
+
       var upstream = safeLen(d.referencedBy);
 
       var refsResolved = d.referencesResolved || {};
@@ -118,8 +131,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
       scored.push({
         id: id,
-        label: d.docLabel || d.docTitle || id,
-        title: d.docTitle || '',
+        label: d.docLabel || displayTitle || id,
+        title: displayTitle,
         upstream: upstream,
         downstream: downstream,
         total: total
@@ -244,14 +257,16 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   function scoreDocAgainstQuery(doc, query, queryCompact) {
     var id = String(doc.docId || '');
-    var label = String(doc.docLabel || doc.docTitle || id);
-    var title = String(doc.docTitle || '');
+    var displayTitle = buildDisplayTitle(doc);
+    var label = String(doc.docLabel || displayTitle || id);
+    var title = String(displayTitle || '');
 
     var idLower = id.toLowerCase();
     var labelLower = label.toLowerCase();
     var titleLower = title.toLowerCase();
     var idCompact = normalizeCompact(id);
     var labelCompact = normalizeCompact(label);
+    var titleCompact = normalizeCompact(title);
 
     // Exact-style matches first
     if (idLower === query) return 100;
@@ -261,6 +276,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     // Compact matches (handles spaces vs dots vs dashes)
     if (idCompact === queryCompact) return 85;
     if (labelCompact === queryCompact) return 80;
+    if (titleCompact === queryCompact) return 78;
 
     // Substring matches in label/title
     if (labelLower.indexOf(query) !== -1) return 70;
@@ -284,13 +300,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     for (var i = 0; i < registryDocs.length; i++) {
       var d = registryDocs[i];
       if (!d || !d.docId) continue;
+      var displayTitle = buildDisplayTitle(d);
       var s = scoreDocAgainstQuery(d, q, qCompact);
       if (s > 0) {
         scored.push({
           score: s,
           id: d.docId,
-          label: d.docLabel || d.docTitle || d.docId,
-          title: d.docTitle || ''
+          label: d.docLabel || displayTitle || d.docId,
+          title: displayTitle
         });
       }
     }

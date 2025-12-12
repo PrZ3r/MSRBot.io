@@ -132,7 +132,11 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
     if (!d || !d.docId) continue;
 
     const label = d.docLabel;
-    const title = d.docTitle;
+    const baseTitle = d.docTitle || '';
+    const suiteTitle = d.docSuiteTitle || d.suiteTitle || '';
+    const title = suiteTitle
+      ? `${suiteTitle} — ${baseTitle || suiteTitle}`
+      : baseTitle || suiteTitle;
 
     // Status: derive canonical booleans, then emit an array of all true flags
     const st = (d.status && typeof d.status === 'object') ? d.status : {};

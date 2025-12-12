@@ -29,9 +29,9 @@
 
     <h1 class="h5 mb-1">
       {{#if href}}
-        <a class="text-decoration-none" href="{{href}}" target="_blank" rel="noopener">{{docTitle}}</a>
+        <a class="text-decoration-none" href="{{href}}" target="_blank" rel="noopener">{{#if docSuiteTitle}}{{docSuiteTitle}} - {{/if}}{{docTitle}}</a>
       {{else}}
-        {{docTitle}}
+        {{#if docSuiteTitle}}{{docSuiteTitle}} - {{/if}}{{docTitle}}
       {{/if}}
     </h1>
   </header>
@@ -46,6 +46,7 @@
           <dl class="row small mb-0">
             {{#if status.statusNote}}<dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>{{status.statusNote}}</em></dd>{{/if}}
             {{#if publisher}}<dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher={{publisher}}">{{publisher}}</a></dd>{{/if}}
+            {{#if docSuiteTitle}}<dt class="col-sm-4">Suite</dt><dd class="col-sm-8">{{{docSuiteTitle}}}</dd>{{/if}}
             {{#if docType}}<dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType={{docType}}">{{docType}}{{#if docTypeAbr}} ({{docTypeAbr}}){{/if}}</a></dd>{{/if}}
             {{#if contentType}}<dt class="col-sm-4">Content Type</dt><dd class="col-sm-8">{{contentType}}</dd>{{/if}}
             {{#if abstract}}<dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">{{{nl2br abstract}}}</dd>{{/if}}

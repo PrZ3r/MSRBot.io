@@ -600,8 +600,17 @@ function _doiUrl(doc){
   function _labelOf(doc){
     return (doc && doc.docLabel) || '';
   }
-  function _titleOf(doc){
-    return (doc && (doc.docTitle || doc.title)) || '';
+function _titleOf(doc){
+    if (!doc) return '';
+    const suiteTitle = doc.docSuiteTitle || doc.suiteTitle || '';
+    const baseTitle = doc.docTitle || doc.title || '';
+
+    if (suiteTitle && baseTitle) {
+      return `${suiteTitle} - ${baseTitle}`;
+    }
+
+    // Fallbacks: just base title, or suite title if that is all we have
+    return baseTitle || suiteTitle || '';
   }
   function _publisherOf(doc){
     return (doc && doc.publisher) || '';
@@ -1734,9 +1743,17 @@ hb.registerHelper('docProjLookup', function(collection, id) {
 
           // Root-style label/title for refTree header + center card:
           // - label: prefer docLabel, then docTitle, then docId
-          // - title: prefer docTitle, else fall back to label
           const rootLabel = d.docLabel || d.docTitle || d.docId;
-          const rootTitle = d.docTitle || rootLabel;
+
+          // Prefer a composite "suiteTitle - docTitle" style root title when suite info is present,
+          // falling back to docTitle, then the root label.
+          const suiteTitle = (d.docSuiteTitle || d.suiteTitle || '').trim();
+          let rootTitle;
+          if (suiteTitle) {
+            rootTitle = `${suiteTitle} - ${d.docTitle || rootLabel}`;
+          } else {
+            rootTitle = d.docTitle || rootLabel;
+          }
 
           const refTreeHtml = refTreeTpl({
             // document fields for this root
