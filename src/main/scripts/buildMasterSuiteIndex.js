@@ -285,8 +285,8 @@ function buildSuites(lineages) {
     if (!li || !li.key) continue;
     // key format: "PUBLISHER|TYPE|NUMBER|PART"
     const [pub = '', type = '', number = '', part = ''] = String(li.key).split('|');
-    // Suites policy: exclude SMPTE AG entirely (these are guidance/admin docs, not suites)
-    if (pub === 'SMPTE' && type === 'AG') {
+    // Suites policy: exclude SMPTE AG and RDD entirely (these are guidance/admin and disclosure docs, not suites)
+    if (pub === 'SMPTE' && (type === 'AG' || type === 'RDD')) {
       continue;
     }
     // Suite key ignores type: group by publisher + number so ST/OV/RP variants share a suite.

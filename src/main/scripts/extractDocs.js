@@ -136,6 +136,34 @@ function stripLeadingSmpte(title) {
   return String(title).replace(/^\s*SMPTE\s*[:\-–—]?\s*/i, '').trim();
 }
 
+// Strip leading designator up to the first comma.
+// Example: "ST 2098-1, Immersive Audio — Immersive Audio Metadata"
+// => "Immersive Audio — Immersive Audio Metadata"
+function stripLeadingDesignatorComma(t) {
+  if (!t) return t;
+  const s = String(t).trim();
+  const idx = s.indexOf(',');
+  if (idx === -1) return s;
+  return s.slice(idx + 1).trim();
+}
+
+// Split on first em/en dash (— or –). Fallback: spaced hyphen " - ".
+// Returns { suiteTitle, title }.
+// Example: "Immersive Audio — Immersive Audio Metadata"
+// => { suiteTitle: "Immersive Audio", title: "Immersive Audio Metadata" }
+function splitSuiteTitleOnDash(t) {
+  if (!t) return { suiteTitle: null, title: t };
+  const s = String(t).trim();
+
+  const m = s.match(/^(.*?)\s*[—–]\s*(.+)$/);
+  if (m) return { suiteTitle: m[1].trim() || null, title: m[2].trim() };
+
+  const m2 = s.match(/^(.*?)\s-\s(.+)$/);
+  if (m2) return { suiteTitle: m2[1].trim() || null, title: m2[2].trim() };
+
+  return { suiteTitle: null, title: s };
+}
+
 const typeMap = {
         AG: 'Administrative Guideline',
         OM: 'Operations Manual',
@@ -360,7 +388,8 @@ const metaConfig = {
   parsed: {
     docNumber: { confidence: 'high', note: 'Parsed from HTML pubNumber meta tag' },
     docPart: { confidence: 'high', note: 'Parsed from HTML pubPart meta tag' },
-    docTitle: { confidence: 'high', note: 'Concatenated suite title and publication title' },
+    docSuiteTitle: { confidence: 'high', note: 'Parsed from HTML pubSuiteTitle meta tag, or derived from wrapper title for PDF releases' },
+    docTitle: { confidence: 'high', note: 'Parsed from HTML pubTitle, or derived from wrapper title for PDF releases' },
     docType: { confidence: 'high', note: 'Publication type parsed from HTML' },
     group: { confidence: 'high', note: 'Working group parsed from HTML pubTC meta tag' },
     publicationDate: { confidence: 'high', note: 'Parsed from HTML pubDateTime meta tag' },
@@ -381,7 +410,8 @@ const metaConfig = {
   inferred: {
     docNumber: { confidence: 'medium', note: 'Inferred from root folder name' },
     docPart: { confidence: 'medium', note: 'Inferred from root folder name' },
-    docTitle: { confidence: 'low', note: 'Unknown in inferred release' },
+    docSuiteTitle: { confidence: 'low', note: 'Not available for inferred releases' },
+    docTitle: { confidence: 'low', note: 'Not available for inferred releases' },
     docType: { confidence: 'medium', note: 'Inferred from release folder name' },
     group: { confidence: 'low', note: 'Unknown in inferred release' },
     publicationDate: { confidence: 'medium', note: 'Inferred from release folder name' },
@@ -682,8 +712,16 @@ const extractFromSeedDoc = async (seedRootUrl) => {
     if (pubNumber) pubNumber = pubNumber.replace(/([a-z]+)/g, (m) => m.toUpperCase());
     const pubPart = $index('[itemprop="pubPart"]').attr('content');
     const pubDate = $index('[itemprop="pubDateTime"]').attr('content');
-    const suiteTitle = $index('[itemprop="pubSuiteTitle"]').attr('content');
-    const title = ($index('title').text() || '').trim();
+    const suiteTitleRaw = $index('[itemprop="pubSuiteTitle"]').attr('content');
+    const docSuiteTitle = (suiteTitleRaw || '').trim() || null;
+
+    const titleText = ($index('title').text() || '').trim();
+    const titleAfterComma = stripLeadingDesignatorComma(titleText);
+
+    // For HTML: docSuiteTitle comes from pubSuiteTitle (preferred).
+    // docTitle is the portion AFTER the first em dash from the title (if present).
+    const split = splitSuiteTitleOnDash(titleAfterComma);
+    const docTitle = (split.title || titleAfterComma || '').trim() || null;
     const tc = $index('[itemprop="pubTC"]').attr('content');
 
     const pubDateObj = dayjs(pubDate);
@@ -736,7 +774,8 @@ const extractFromSeedDoc = async (seedRootUrl) => {
       docLabel: label,
       docNumber: pubNumber,
       docPart: pubPart,
-      docTitle: `${suiteTitle || ''} ${title}`.trim(),
+      ...(docSuiteTitle ? { docSuiteTitle } : {}),
+      ...(docTitle ? { docTitle } : {}),
       docType,
       group: tc ? `smpte-${tc.toLowerCase()}-tc` : "smpte-02c-st",
       publicationDate: dateFormatted,
@@ -867,23 +906,31 @@ const extractFromUrl = async (rootUrl) => {
         // Baseline from path inference (keeps your releaseTag/date/publisher etc.)
         const inferred = inferMetadataFromPath(rootUrl, releaseTag, baseReleases, latestTag);
         // Title: prefer #designator (strip leading designator chunk), fallback to wrapper <title>
+        let docSuiteTitle = null;
         let docTitle = null;
-        if (wrapperDesignator) {
-          const parts = wrapperDesignator.split(',');
-          docTitle = parts.length > 1 ? parts.slice(1).join(',').trim() : wrapperDesignator.trim();
-        }
-        if (!docTitle) {
+
+        // Prefer wrapper #designator, else wrapper <title>
+        let titleText = null;
+        if (wrapperDesignator) titleText = String(wrapperDesignator).trim();
+
+        if (!titleText) {
           try {
             const wrapperRes = await axios.get(`${sourceUrl}/`);
             const $wrap = cheerio.load(wrapperRes.data);
-            const t = ($wrap('title').text() || '').trim();
-            const p = t.split(',');
-            docTitle = p.length > 1 ? p.slice(1).join(',').trim() : t;
+            titleText = ($wrap('title').text() || '').trim() || null;
           } catch {}
+        }
+
+        if (titleText) {
+          const titleAfterComma = stripLeadingDesignatorComma(titleText);
+          const split = splitSuiteTitleOnDash(titleAfterComma);
+          docSuiteTitle = split.suiteTitle || null;
+          docTitle = (split.title || titleAfterComma || '').trim() || null;
         }
 
         const doc = {
           ...inferred,
+          ...(docSuiteTitle ? { docSuiteTitle } : {}),
           ...(docTitle ? { docTitle } : {}),
           status: {
             ...(inferred.status || {}),
@@ -926,8 +973,14 @@ const extractFromUrl = async (rootUrl) => {
       if (pubNumber) pubNumber = pubNumber.replace(/([a-z]+)/g, (m) => m.toUpperCase());
       const pubPart = $index('[itemprop="pubPart"]').attr('content');
       const pubDate = $index('[itemprop="pubDateTime"]').attr('content');
-      const suiteTitle = $index('[itemprop="pubSuiteTitle"]').attr('content');
-      const title = $index('title').text().trim();
+      const suiteTitleRaw = $index('[itemprop="pubSuiteTitle"]').attr('content');
+      const docSuiteTitle = (suiteTitleRaw || '').trim() || null;
+
+      const titleText = ($index('title').text() || '').trim();
+      const titleAfterComma = stripLeadingDesignatorComma(titleText);
+
+      const split = splitSuiteTitleOnDash(titleAfterComma);
+      const docTitle = (split.title || titleAfterComma || '').trim() || null;
       const tc = $index('[itemprop="pubTC"]').attr('content');
 
       const pubDateObj = dayjs(pubDate);
@@ -981,7 +1034,8 @@ const extractFromUrl = async (rootUrl) => {
         docLabel: label,
         docNumber: pubNumber,
         docPart: pubPart,
-        docTitle: `${suiteTitle} ${title}`,
+        ...(docSuiteTitle ? { docSuiteTitle } : {}),
+        ...(docTitle ? { docTitle } : {}),
         docType,
         doi,
         group: `smpte-${tc.toLowerCase()}-tc`,
