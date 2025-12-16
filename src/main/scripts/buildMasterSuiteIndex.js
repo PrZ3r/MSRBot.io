@@ -289,6 +289,9 @@ function buildSuites(lineages) {
     if (pub === 'SMPTE' && (type === 'AG' || type === 'RDD')) {
       continue;
     }
+    if (pub === 'AMPAS') {
+      continue;
+    }
     // Suite key ignores type: group by publisher + number so ST/OV/RP variants share a suite.
     const steKey = [pub, number].join('|');
 
@@ -518,6 +521,153 @@ function buildSuites(lineages) {
   }
 
   return suites;
+}
+
+// Build “collections” from suite titles (docSuiteTitle / lineage.suiteTitle) rather than structural parts.
+// Collections are secondary to suites: they do NOT change suite behavior.
+// A collection groups lineages across type/number when they share the same suiteTitle within a publisher.
+function buildCollections(lineages, suiteKeySet = new Set()) {
+  if (!Array.isArray(lineages)) return [];
+
+  const slugify = (s) => String(s || '')
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/--+/g, '-');
+
+  const shortSlug = (title, maxLen = 60) => {
+    const base = slugify(title);
+    if (!base) return '';
+    if (base.length <= maxLen) return base;
+    return base.slice(0, maxLen).replace(/-+$/g, '');
+  };
+
+  // Deterministic suffix for collisions
+  const hash6 = (s) => crypto.createHash('sha1').update(String(s)).digest('hex').slice(0, 6);
+
+  const map = new Map(); // key -> collection
+
+  for (const li of lineages) {
+    if (!li || !li.key) continue;
+
+    // key format: "PUBLISHER|TYPE|NUMBER|PART"
+    const [pub = '', type = ''] = String(li.key).split('|');
+
+    // Collections policy: exclude SMPTE AG only (allow RDD in collections)
+    if (pub === 'SMPTE' && type === 'AG') continue;
+
+    const title = (li.suiteTitle ? String(li.suiteTitle).trim() : '');
+    if (!title) continue;
+
+    const key = `${pub}|${title}`;
+
+    let c = map.get(key);
+    if (!c) {
+      c = {
+        key,
+        publisher: pub,
+        collectionTitle: title,
+        collectionSlug: null,
+        lineages: [],
+        numbers: [], // internal: docNumbers present in this collection
+        // “winner” (latest across member lineages)
+        latestAnyId: null,
+        latestAnyLineageKey: null,
+        latestDateKey: null,
+        // rollups
+        hasActiveBase: false,
+        hasWithdrawn: false,
+        hasStabilized: false,
+        // counts
+        counts: {
+          lineages: 0,
+          docs: 0,
+          bases: 0,
+          amendments: 0,
+          supplements: 0
+        }
+      };
+      map.set(key, c);
+    }
+
+    // Membership
+    if (!c.lineages.includes(li.key)) {
+      c.lineages.push(li.key);
+      c.counts.lineages++;
+    }
+
+    // Track doc numbers present in this collection (for de-dup vs structural suites)
+    const parts = String(li.key).split('|'); // PUBLISHER|TYPE|NUMBER|PART
+    const num = parts[2] != null ? String(parts[2]) : '';
+    if (num && !c.numbers.includes(num)) c.numbers.push(num);
+
+    // Status rollups
+    if (li.hasActiveBase) c.hasActiveBase = true;
+    if (li.hasWithdrawn) c.hasWithdrawn = true;
+    if (li.hasStabilized) c.hasStabilized = true;
+
+    // Counts rollups
+    if (li.counts) {
+      const bases = li.counts.bases || 0;
+      const amendments = li.counts.amendments || 0;
+      const supplements = li.counts.supplements || 0;
+      c.counts.bases += bases;
+      c.counts.amendments += amendments;
+      c.counts.supplements += supplements;
+      c.counts.docs += bases + amendments + supplements;
+    }
+
+    // Latest rollup
+    const dk = li.latestDateKey || null;
+    if (dk && (!c.latestDateKey || dk > c.latestDateKey)) {
+      c.latestDateKey = dk;
+      c.latestAnyId = li.latestAnyId || li.latestBaseId || null;
+      c.latestAnyLineageKey = li.key;
+    }
+  }
+
+  // Require at least 2 member lineages so we don’t spam singletons
+  let collections = Array.from(map.values())
+  .filter(c => c.counts.lineages >= 2)
+  .filter(c => {
+    // If this collection only covers ONE docNumber, and that publisher|number exists
+    // as a structural suite (multi-part), then the collection is redundant.
+    if (Array.isArray(c.numbers) && c.numbers.length === 1) {
+      const k = `${c.publisher}|${c.numbers[0]}`;
+      if (suiteKeySet && suiteKeySet.has(k)) return false;
+    }
+    return true;
+  });
+
+  // Slugs: "pub-shorttitle" + collision guard
+  const used = new Map();
+  for (const c of collections) {
+    const pubPart = slugify(c.publisher);
+    const titlePart = shortSlug(c.collectionTitle);
+    let slug = [pubPart, titlePart].filter(Boolean).join('-');
+    if (!slug) slug = slugify(c.key);
+
+    const seen = used.get(slug) || 0;
+    if (seen > 0) slug = `${slug}-${hash6(c.key)}`;
+    used.set(slug, seen + 1);
+
+    c.collectionSlug = slug;
+  }
+
+  // Stable sort
+  collections.sort((a, b) => {
+    if (a.publisher !== b.publisher) return a.publisher.localeCompare(b.publisher);
+    return String(a.collectionTitle).localeCompare(String(b.collectionTitle));
+  });
+
+  // Internal only
+  for (const c of collections) {
+    delete c.numbers;
+  }
+
+  return collections;
 }
 
 function shouldSkipKey(k) {
@@ -943,6 +1093,9 @@ function buildIndex(allDocs) {
 
   const lineages = buildIndex(docs);
   const suites = buildSuites(lineages);
+  // For de-duplication: suites are keyed by publisher|number
+  const suiteKeySet = new Set(Array.isArray(suites) ? suites.map(s => `${s.publisher}|${s.number}`) : []);
+  const collections = buildCollections(lineages, suiteKeySet);
   attachVersionlessSuccessors(lineages);
   //attachInlineVersionless(lineages);
   const flagSummary = computeFlagSummary(lineages);
@@ -958,7 +1111,8 @@ function buildIndex(allDocs) {
     },
     flagSummary,
     lineages,
-    suites
+    suites,
+    collections
   };
 
   // Simple counts: found in source vs added to report
@@ -1050,4 +1204,5 @@ function buildIndex(allDocs) {
 
   console.log(`\n✅ Master Suite Index written: ${OUT}`);
   console.log(`   Lineages: ${lineages.length}`);
+  console.log(`   Collections: ${collections.length}`);
 })();

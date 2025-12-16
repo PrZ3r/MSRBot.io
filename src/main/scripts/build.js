@@ -347,6 +347,7 @@ async function emitNormalizedGroups({ dataPath }){
 
 async function buildRegistry ({ listType, templateType, templateName, idType, listTitle, subRegistry, output, extras }) {
   const logicOnly = extras && extras.logicOnly;
+  
   console.log(`Building ${templateName} started`)
 
   var DATA_PATH = path.join(REGISTRIES_REPO_PATH, "data/" + listType + ".json");
@@ -369,7 +370,100 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
   // Skip emitting build/documents/_data/documents.json; that folder is unused now.
   // Also skip build/refTree/_data/documents.json — refTree client JS reads docs/_data/documents.json directly.
   // Also skip build/suites/_data/documents.json — suites index should not emit documents.json.
+  // Instead: suites index emits build/suites/_data/suites.json with new format.
   if (
+    templateName === 'suites' && listType === 'documents'
+  ) {
+    // Special handling: emit suites index from masterSuiteIndex.json,
+    // always as an object: { generatedAt, sourcePath, sourceHash, suites, collections }
+    const outDir = path.join(BUILD_PATH, 'suites', '_data');
+    await fs.mkdir(outDir, { recursive: true });
+    const outPath = path.join(outDir, 'suites.json');
+
+    // Load the masterSuiteIndex.json (from reports)
+    let msi;
+    let msiPath = path.join('src', 'main', 'reports', 'masterSuiteIndex.json');
+    try {
+      msi = JSON.parse(await fs.readFile(msiPath, 'utf8'));
+    } catch (e) {
+      msi = [];
+    }
+
+    // Compatibility rules:
+    // 1. If msi is object with suites/collections, use them. Else, treat as legacy array.
+    let suites, collections;
+    if (msi && typeof msi === 'object' && !Array.isArray(msi)) {
+      suites = Array.isArray(msi.suites) ? msi.suites : (Array.isArray(msi) ? msi : []);
+      collections = Array.isArray(msi.collections) ? msi.collections : [];
+    } else if (Array.isArray(msi)) {
+      suites = msi;
+      collections = [];
+    } else {
+      suites = [];
+      collections = [];
+    }
+
+    // Before writing, attach a kind field to each item (do not mutate originals)
+    const suitesOut = Array.isArray(suites) ? suites.map(s => ({ ...s, kind: 'suite' })) : [];
+    const collectionsOut = Array.isArray(collections) ? collections.map(c => ({ ...c, kind: 'collection' })) : [];
+
+    // Compose output object
+    const payload = {
+      generatedAt: (msi && typeof msi === 'object' && msi.generatedAt) ? msi.generatedAt : null,
+      sourcePath: (msi && typeof msi === 'object' && msi.sourcePath) ? msi.sourcePath : null,
+      sourceHash: (msi && typeof msi === 'object' && msi.sourceHash) ? msi.sourceHash : null,
+      suites: suitesOut,
+      collections: collectionsOut
+    };
+    await _writeFile(outPath, JSON.stringify(payload, null, 2), 'utf8');
+    console.log(`[build] Wrote build/suites/_data/suites.json (suites=${suitesOut.length}, collections=${collectionsOut.length})`);
+
+    // --- Emit suite + collection detail pages (client-rendered via /js/suites.js) ---
+    // Each page lives at: build/suites/<slug>/index.html
+    // It uses src/main/templates/suites.hbs and sets assetPrefix so relative assets resolve.
+    try {
+      const headerPartial = await fs.readFile('src/main/templates/partials/header.hbs', 'utf8');
+      const footerPartial = await fs.readFile('src/main/templates/partials/footer.hbs', 'utf8');
+      hb.registerPartial('header', headerPartial);
+      hb.registerPartial('footer', footerPartial);
+
+      const suiteDetailTplRaw = await fs.readFile('src/main/templates/suites.hbs', 'utf8');
+      const suiteDetailTpl = hb.compile(suiteDetailTplRaw);
+
+      const itemsForEmit = [
+        ...suitesOut.map(s => ({ slug: s.suiteSlug, kind: 'suite' })),
+        ...collectionsOut.map(c => ({ slug: c.collectionSlug, kind: 'collection' }))
+      ].filter(x => x.slug);
+
+      let emittedSuites = 0;
+      let emittedCollections = 0;
+
+      for (const it of itemsForEmit) {
+        const outDir = path.join(BUILD_PATH, 'suites', String(it.slug));
+        await fs.mkdir(outDir, { recursive: true });
+
+        // From /suites/<slug>/index.html, assets are two levels up (../../)
+        const html = suiteDetailTpl({
+          assetPrefix: '../../',
+          canonicalUrl: new URL(`/suites/${encodeURIComponent(String(it.slug))}/`, siteConfig.canonicalBase).href,
+          ogTitle: `Suites — ${siteConfig.siteName}`,
+          ogDescription: siteConfig.siteDescription,
+          ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+          ogImageAlt: siteConfig.ogImageAlt
+        });
+
+        await _writeFile(path.join(outDir, 'index.html'), html, 'utf8');
+        if (it.kind === 'suite') emittedSuites++;
+        else emittedCollections++;
+      }
+
+      console.log(`[build] Suite detail pages emitted: ${emittedSuites}`);
+      console.log(`[build] Collection detail pages emitted: ${emittedCollections}`);
+    } catch (e) {
+      console.warn('[build] Failed to emit suite/collection detail pages:', e && e.message ? e.message : e);
+    }
+    // --- end suite detail page emit ---
+  } else if (
     templateName !== 'groups' &&
     !(templateName === 'documents' && listType === 'documents') &&
     !(templateName === 'refTree' && listType === 'documents') &&

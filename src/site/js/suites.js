@@ -208,23 +208,47 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     // Load suites index
     const suitesResp = await fetch('../_data/suites.json');
     if (!suitesResp.ok) throw new Error(`HTTP ${suitesResp.status}`);
-    const suites = await suitesResp.json();
-    const suite = suites.find(s => s.suiteSlug === slug);
+    const payload = await suitesResp.json();
 
-    if (!suite) {
+    const suitesArr = Array.isArray(payload) ? payload : (Array.isArray(payload.suites) ? payload.suites : []);
+    const collectionsArr = (!Array.isArray(payload) && Array.isArray(payload.collections)) ? payload.collections : [];
+
+    // Robust slug lookup:
+    // - Some builds may store collections under `collections`, others may merge them into `suites`.
+    // - Some items may use `suiteSlug` even when kind is collection.
+    const allItems = [...suitesArr, ...collectionsArr].filter(Boolean);
+
+    function itemSlug(it) {
+      if (!it) return '';
+      return String(it.suiteSlug || it.collectionSlug || '').trim();
+    }
+
+    const found = allItems.find(it => itemSlug(it) === slug) || null;
+    const kind = found
+      ? (found.kind || (found.collectionSlug ? 'collection' : 'suite'))
+      : null;
+
+    if (!kind) {
       if (loadingEl) loadingEl.classList.add('d-none');
       if (errorEl) errorEl.classList.remove('d-none');
       return;
     }
 
-    const pub = suite.publisher || '';
-    const num = suite.number || '';
-    const suiteTitle = suite.suiteTitle || '';
+    const src = found;
 
-    // Suite label is publisher + number + suite title (type-agnostic, since suites may mix ST/RP/OV)
+    // Normalize suite/collection for compatibility in downstream code
+    const suite = (kind === 'suite') ? src : null;
+    const collection = (kind === 'collection') ? src : null;
+
+    const pub = (src && src.publisher) ? src.publisher : '';
+    const num = (kind === 'suite' && src && src.number) ? src.number : '';
+    const suiteTitle = (kind === 'suite')
+      ? (src.suiteTitle || '')
+      : (src.collectionTitle || src.suiteTitle || '');
+
     const label = suiteTitle
-      ? `${pub} ${num} — ${suiteTitle}`
-      : `${pub} ${num}`;
+      ? `${pub}${num ? ` ${num}` : ''} — ${suiteTitle}`
+      : `${pub}${num ? ` ${num}` : ''}`;
     
     if (loadingEl) loadingEl.classList.add('d-none');
     if (errorEl) errorEl.classList.add('d-none');
@@ -237,14 +261,31 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       const linkHref = resolvePublisherUrl(pub);
 
       // Normalize any relative path to a site-root URL: /resources/...
+      // Normalize any relative path so it works in both root deploys and PR preview deploys.
+      // Example PR preview base: /pr/678/suites/<slug>/  -> assets live under /pr/678/
+      function getDeployPrefix() {
+        const p = String(window.location.pathname || '/');
+        const idx = p.indexOf('/suites/');
+        if (idx > 0) return p.slice(0, idx).replace(/\/+$/g, '');
+        return '';
+      }
+
       function toLogoUrl(rel) {
         if (!rel) return null;
         const p = String(rel);
         if (p.startsWith('http://') || p.startsWith('https://')) return p;
-        // Strip leading "./" or "/" and then force a single leading slash
-        const trimmed = p.replace(/^\.?\//, '');
-        return `/${trimmed}`;
-      }
+
+        const deployPrefix = getDeployPrefix();
+
+        // If already absolute, prefix PR deploy base when present.
+        if (p.startsWith('/')) {
+          return deployPrefix ? `${deployPrefix}${p}` : p;
+        }
+
+        // Strip leading './' or '/' then prefix with deploy base.
+        const trimmed = p.replace(/^\.\//, '').replace(/^\/+/, '');
+        return deployPrefix ? `${deployPrefix}/${trimmed}` : `/${trimmed}`;
+}
 
       const lightUrl = toLogoUrl(relLight);
       const darkUrl = toLogoUrl(relDark);
@@ -281,14 +322,19 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       }
     }
     if (metaEl) {
-      const parts = Array.isArray(suite.parts) ? suite.parts : [];
       const flags = [];
-      if (suite.hasActiveBase) flags.push('has active base');
-      if (suite.hasWithdrawn) flags.push('some parts withdrawn');
-      if (suite.hasStabilized) flags.push('stabilized');
+      if (src && src.hasActiveBase) flags.push('has active base');
+      if (src && src.hasWithdrawn) flags.push(kind === 'suite' ? 'some parts withdrawn' : 'some docs withdrawn');
+      if (src && src.hasStabilized) flags.push('stabilized');
+
+      const parts = (kind === 'suite' && Array.isArray(src.parts)) ? src.parts : [];
+      const lineageCount = (src && Array.isArray(src.lineages)) ? src.lineages.length : 0;
+
       metaEl.textContent = [
-        `${pub} suite`,
-        parts.length ? `${parts.length} part${parts.length > 1 ? 's' : ''}` : 'no explicit parts',
+        `${pub} ${kind}`,
+        kind === 'suite'
+          ? (parts.length ? `${parts.length} part${parts.length > 1 ? 's' : ''}` : 'no explicit parts')
+          : (lineageCount ? `${lineageCount} doc${lineageCount > 1 ? 's' : ''}` : 'no docs'),
         flags.length ? flags.join(' · ') : null
       ].filter(Boolean).join(' · ');
     }
@@ -298,6 +344,78 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (!docsResp.ok) throw new Error(`HTTP ${docsResp.status}`);
     const docs = await docsResp.json();
     const byId = new Map(docs.map(d => [d.docId, d]));
+
+    function inferPublisherFromDocId(docId) {
+      const id = String(docId || '');
+      const m = id.match(/^([A-Za-z0-9/+-]+)\./);
+      return m ? m[1] : '';
+    }
+
+    function getDocPublisher(d) {
+      return (d && (d.publisher || d.docPublisher || d.publisherName)) || inferPublisherFromDocId(d && d.docId);
+    }
+
+    function getDocSuiteTitle(d) {
+      return (d && (d.docSuiteTitle || d.suiteTitle)) ? String(d.docSuiteTitle || d.suiteTitle).trim() : '';
+    }
+
+    function docsForCollection(pub, title) {
+      const wantPub = String(pub || '').trim();
+      const wantTitle = String(title || '').trim();
+      if (!wantPub || !wantTitle) return [];
+
+      return docs
+        .filter(d => {
+          if (!d || !d.docId) return false;
+          if (String(getDocPublisher(d)).trim() !== wantPub) return false;
+          if (getDocSuiteTitle(d) !== wantTitle) return false;
+
+          const st = d.status || {};
+          if (typeof st.latestVersion === 'boolean') return st.latestVersion === true;
+          if (typeof st.active === 'boolean') return st.active === true;
+          return true;
+        })
+        .sort((a, b) => {
+          const al = (a.docLabel || a.docId || '').toString();
+          const bl = (b.docLabel || b.docId || '').toString();
+          return al.localeCompare(bl, undefined, { numeric: true, sensitivity: 'base' });
+        });
+    }
+
+    function renderCollectionTable(col) {
+      if (!col) return;
+
+      const pub = (col.publisher != null) ? String(col.publisher).trim() : '';
+      const title = (col.collectionTitle || col.suiteTitle || '')
+        ? String(col.collectionTitle || col.suiteTitle).trim()
+        : '';
+
+      const list = docsForCollection(pub, title);
+
+      // Hide the Parts column header for collections
+      const partColTh = document.querySelector('th.part-col');
+      if (partColTh) partColTh.classList.add('d-none');
+
+      // Collections do not have a base/no-part section
+      if (noBaseSection) noBaseSection.classList.add('d-none');
+      if (noBaseBody) noBaseBody.innerHTML = '';
+
+      // Reuse the same table UI as suites
+      if (partsSection) partsSection.classList.remove('d-none');
+
+      if (partsBody) {
+        if (!list.length) {
+          partsBody.innerHTML = `
+            <tr>
+              <td colspan="4" class="text-muted small">No documents found for this collection.</td>
+            </tr>
+          `;
+        } else {
+          // Collection = flat list (no parts). Pass null for part column to hide the cell.
+          partsBody.innerHTML = list.map(d => docRow(d.docId, null)).join('');
+        }
+      }
+    }
 
     function docRow(docId, partKey) {
       const d = byId.get(docId);
@@ -353,7 +471,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
       return `
         <tr class="${rowClass}">
-          <td class="part-col">${partKey || '—'}</td>
+          ${partKey !== null ? `<td class="part-col">${partKey || '—'}</td>` : ''}
           <td>
             <div>${labelHtml}</div>
             ${docTitle ? `<div class="small text-muted">${docTitle}</div>` : ''}
@@ -365,8 +483,20 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       `;
     }
 
+    // Collections render as a flat list of latest docs matched by (publisher + docSuiteTitle)
+    if (kind === 'collection' && collection) {
+      renderCollectionTable(collection);
+      return;
+    }
+
+    // For suite, ensure the Parts column header is visible
+    if (kind === 'suite') {
+      const partColTh = document.querySelector('th.part-col');
+      if (partColTh) partColTh.classList.remove('d-none');
+    }
+
     // Base (no-part) doc
-    if (suite.noPartLatestId) {
+    if (kind === 'suite' && suite && suite.noPartLatestId) {
       if (noBaseSection) noBaseSection.classList.remove('d-none');
       if (noBaseBody) {
         const d = byId.get(suite.noPartLatestId);
@@ -383,22 +513,29 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     // Parts table
     const partIds = Array.isArray(suite.allPartsLatestIds) ? suite.allPartsLatestIds : [];
-    if (partIds.length && partsSection && partsBody) {
+    // Docs table
+    if (partsSection && partsBody) {
       partsSection.classList.remove('d-none');
 
-      const latestPerPart = suite.latestPerPart || {};
-      // Build a map docId -> partKey for display
-      const docIdToPart = {};
-      Object.entries(latestPerPart).forEach(([partKey, info]) => {
-        if (!partKey) return; // no-part handled above
-        if (info && info.docId) {
-          docIdToPart[info.docId] = partKey;
-        }
-      });
+      if (kind === 'suite') {
+        const partIds = Array.isArray(suite.allPartsLatestIds) ? suite.allPartsLatestIds : [];
+        const latestPerPart = suite.latestPerPart || {};
 
-      partsBody.innerHTML = partIds
-        .map(id => docRow(id, docIdToPart[id] || ''))
-        .join('');
+        const docIdToPart = {};
+        Object.entries(latestPerPart).forEach(([partKey, info]) => {
+          if (!partKey) return;
+          if (info && info.docId) docIdToPart[info.docId] = partKey;
+        });
+
+        partsBody.innerHTML = partIds
+          .map(id => docRow(id, docIdToPart[id] || ''))
+          .join('');
+      } else {
+        const list = docsForCollection(pub, suiteTitle);
+        partsBody.innerHTML = list
+          .map(d => docRow(d.docId, '—'))
+          .join('');
+      }
     }
 
   } catch (err) {
