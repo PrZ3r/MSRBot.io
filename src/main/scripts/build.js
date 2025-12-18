@@ -65,8 +65,8 @@ hb.registerHelper('suiteLink', function (doc) {
 
     // 1) Collection wins
     if (pub && suiteTitle) {
-      const cSlug = __collectionSlugByPubTitle.get(`${pub}||${suiteTitle.toLowerCase()}`);
-      if (cSlug) return `../../suites/${encodeURIComponent(cSlug)}/`;
+      const cMeta = __collectionByPubTitle.get(`${pub}||${suiteTitle.toLowerCase()}`);
+      if (cMeta && cMeta.slug) return `../../suites/${encodeURIComponent(cMeta.slug)}/`;
     }
 
     // 2) Suite fallback (publisher+number)
@@ -74,8 +74,8 @@ hb.registerHelper('suiteLink', function (doc) {
       const k = keying.keyFromDocId(docId, d);
       const num = k && k.number ? String(k.number).trim() : '';
       if (pub && num) {
-        const sSlug = __suiteSlugByPubNumber.get(`${pub}||${num}`);
-        if (sSlug) return `../../suites/${encodeURIComponent(sSlug)}/`;
+        const sMeta = __suiteByPubNumber.get(`${pub}||${num}`);
+        if (sMeta && sMeta.slug) return `../../suites/${encodeURIComponent(sMeta.slug)}/`;  
       }
     }
   } catch (e) {}
@@ -86,18 +86,69 @@ hb.registerHelper('refHref', function (refId) {
   const id = String(refId || '').trim();
   if (!id) return '#';
 
-  // ALLPARTS -> suite page
+  // ALLPARTS -> suite/collection page
+  // NOTE: refs like "SMPTE.ST379.ALLPARTS" are *not* real docIds. We must derive (publisher, number)
+  // in a way that does NOT require the year/dated id, and that tolerates type prefixes.
   if (/\.ALLPARTS$/i.test(id)) {
     const stripped = id.replace(/\.ALLPARTS$/i, '');
-    try {
-      const k = keying.keyFromDocId(stripped, { docId: stripped });
-      const pub = k && k.publisher ? String(k.publisher).trim() : '';
-      const num = k && k.number ? String(k.number).trim() : '';
-      if (pub && num) {
-        const sSlug = __suiteSlugByPubNumber.get(`${pub}||${num}`);
-        if (sSlug) return `../../suites/${encodeURIComponent(sSlug)}/`;
+
+    // Helper: derive publisher + suite number from an undated ALLPARTS base like:
+    //   SMPTE.ST379
+    //   SMPTE.RP431
+    //   ISO.11664
+    //   IEC.61966
+    // We intentionally ignore type/series letters (ST/RP/OV/etc.) and any part suffix.
+    const derivePubNum = (base) => {
+      const b = String(base || '').trim();
+      if (!b) return { pub: '', num: '' };
+
+      // 1) Try the normal keyer first (works when the pattern is covered)
+      try {
+        const k = keying.keyFromDocId(b, { docId: b });
+        const pub = k && k.publisher ? String(k.publisher).trim() : '';
+        const num = k && k.number ? String(k.number).trim() : '';
+        if (pub && num) return { pub, num };
+      } catch (e) {
+        // fall through
       }
-    } catch (e) {}
+
+      // 2) Fallback parse: PUB.<token> where token contains the number somewhere (usually trailing)
+      //    e.g. SMPTE.ST379 -> token=ST379 -> num=379
+      //         SMPTE.ST2067 -> num=2067
+      //         ISO.11664 -> num=11664
+      //         IEC.61966-2-1 -> num=61966 (suite root)
+      const parts = b.split('.').filter(Boolean);
+      const pub = (parts[0] || '').trim();
+      const token = (parts[1] || '').trim();
+      if (!pub || !token) return { pub: '', num: '' };
+
+      // Prefer a leading run of digits, else any digits, else trailing digits
+      let num = '';
+      const mLead = token.match(/^(\d+)/);
+      if (mLead) num = mLead[1];
+      else {
+        const mAny = token.match(/(\d+)/);
+        if (mAny) num = mAny[1];
+        else {
+          const mTrail = token.match(/(\d+)$/);
+          if (mTrail) num = mTrail[1];
+        }
+      }
+
+      return { pub, num: String(num || '').trim() };
+    };
+
+    try {
+      const { pub, num } = derivePubNum(stripped);
+      if (pub && num) {
+        const sMeta = __suiteByPubNumber.get(`${pub}||${num}`);
+        if (sMeta && sMeta.slug) return `../../suites/${encodeURIComponent(sMeta.slug)}/`;
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    // Fallback: suite index
     return '../../suites/';
   }
 
@@ -111,8 +162,8 @@ const { lineageKeyFromDoc, lineageKeyFromDocId } = keying;
 
 // --- Suites/Collections lookup (from masterSuiteIndex.json) ---
 let __suiteLookupLoaded = false;
-let __collectionSlugByPubTitle = new Map(); // key: "PUB||titleLower"
-let __suiteSlugByPubNumber = new Map();     // key: "PUB||number"
+let __collectionByPubTitle = new Map(); // "PUB||titleLower" -> { slug, title, kind }
+let __suiteByPubNumber = new Map();     // "PUB||number"     -> { slug, title, kind }
 
 async function loadSuiteLookupsOnce() {
   if (__suiteLookupLoaded) return;
@@ -138,7 +189,9 @@ async function loadSuiteLookupsOnce() {
       const pub = String(s?.publisher || '').trim();
       const num = String(s?.number || '').trim();
       const slug = String(s?.suiteSlug || '').trim();
-      if (pub && num && slug) __suiteSlugByPubNumber.set(`${pub}||${num}`, slug);
+      const title = String(s?.suiteTitle || '').trim();
+      const kind = String(s?.kind || 'suite').trim();
+      if (pub && num && slug) __suiteByPubNumber.set(`${pub}||${num}`, { slug, title, kind });
     }
 
     // collections: publisher+title -> collectionSlug
@@ -146,7 +199,10 @@ async function loadSuiteLookupsOnce() {
       const pub = String(c?.publisher || '').trim();
       const title = String(c?.collectionTitle || c?.suiteTitle || '').trim();
       const slug = String(c?.collectionSlug || '').trim();
-      if (pub && title && slug) __collectionSlugByPubTitle.set(`${pub}||${title.toLowerCase()}`, slug);
+      const kind = String(c?.kind || 'collection').trim();
+      if (pub && title && slug) {
+        __collectionByPubTitle.set(`${pub}||${title.toLowerCase()}`, { slug, title, kind });
+      }
     }
   } catch (e) {
     console.warn('[build] suite lookups unavailable:', e?.message ? e.message : e);
@@ -1107,9 +1163,11 @@ function _titleOf(doc){
 
   // Build ALLPARTS base → suite/collection lookup (for ref rendering)
   let __msiSuiteByAllParts = null;
+  let __msiSuiteByPubNumber = null; 
   try {
     if (__msiParsed && Array.isArray(__msiParsed.suites)) {
       __msiSuiteByAllParts = new Map();
+      __msiSuiteByPubNumber = new Map();
       for (const s of __msiParsed.suites) {
         if (!s || !s.key || !s.slug) continue;
         // key is like "ISO|11664" or "SMPTE|ST|379"
@@ -1119,6 +1177,13 @@ function _titleOf(doc){
           title: s.suiteTitle || s.label || base,
           kind: s.kind || 'suite'
         });
+        if (s.publisher && s.number) {
+          __msiSuiteByPubNumber.set(`${s.publisher}|${s.number}`, {
+            slug: s.slug,
+            title: s.title,
+            kind: s.kind || 'suite'
+          });
+        }
       }
     }
   } catch (e) {
@@ -1305,18 +1370,56 @@ function _titleOf(doc){
           const wasUndated = true;
           refs.push(r);
 
-          let suite = null;
-          if (__msiSuiteByAllParts && __msiSuiteByAllParts.has(r)) {
-            suite = __msiSuiteByAllParts.get(r);
-          }
+          // Derive suite meta from the ALLPARTS base (e.g. SMPTE.ST379 / ISO.11664)
+          const baseAllParts = String(r).replace(/\.ALLPARTS$/i, '');
+
+          // Minimal derive {pub,num} that ignores SMPTE type tokens (ST/RP/OV/etc.)
+          const derivePubNum = (base) => {
+            const b = String(base || '').trim();
+            if (!b) return { pub: '', num: '' };
+
+            // Prefer keyer when it can parse the undated token
+            try {
+              const k = keying.keyFromDocId(b, { docId: b });
+              const pub = k && k.publisher ? String(k.publisher).trim() : '';
+              const num = k && k.number ? String(k.number).trim() : '';
+              if (pub && num) return { pub, num };
+            } catch (e) {}
+
+            // Fallback: PUB.<token> where token contains the suite number (e.g. ST379 → 379)
+            const parts = b.split('.').filter(Boolean);
+            const pub = (parts[0] || '').trim();
+            const token = (parts[1] || '').trim();
+            if (!pub || !token) return { pub: '', num: '' };
+            const m = token.match(/(\d+)/);
+            const num = m ? String(m[1]).trim() : '';
+            return { pub, num };
+          };
+
+          let suiteSlug = null;
+          let suiteTitle = null;
+          let suiteKind = null;
+
+          try {
+            const { pub, num } = derivePubNum(baseAllParts);
+            if (pub && num && __suiteByPubNumber && __suiteByPubNumber.has(`${pub}||${num}`)) {
+              const meta = __suiteByPubNumber.get(`${pub}||${num}`);
+              suiteSlug = meta && meta.slug ? meta.slug : null;
+              suiteTitle = meta && meta.title ? meta.title : null;
+              suiteKind = meta && meta.kind ? meta.kind : null;
+            }
+
+            // Final fallback so the UI never renders a blank label
+            if (!suiteTitle && pub && num) suiteTitle = `${pub} ${num}`;
+          } catch (e) {}
 
           return {
             id: r,
             undated: wasUndated,
             allParts: true,
-            suiteSlug: suite ? suite.slug : null,
-            suiteTitle: suite ? suite.title : null,
-            suiteKind: suite ? suite.kind : null
+            suiteSlug,
+            suiteTitle,
+            suiteKind
           };
         }
 
@@ -1510,7 +1613,7 @@ function _titleOf(doc){
 
   hb.registerHelper("getStatus", function(docId) {
     if (!docStatuses.hasOwnProperty(docId)) {
-      //console.warn(`[WARN:getStatus] docId "${docId}" not found in registry`);
+      console.warn(`[WARN:getStatus] docId "${docId}" not found in registry`);
       return "NOT IN REGISTRY";
     } else {
       return docStatuses[docId];
@@ -2747,6 +2850,7 @@ module.exports = {
 
 void (async () => {
   await loadSiteConfig();
+  await loadSuiteLookupsOnce();
 
   for (const cfg of registries) {
     await buildRegistry(cfg);
@@ -2992,8 +3096,8 @@ void (async () => {
       if (suiteTitle) {
         const titleKey = suiteTitle.toLowerCase();
         for (const pub of pubCandidates) {
-          const cSlug = __collectionSlugByPubTitle.get(`${pub}||${titleKey}`);
-          if (cSlug) return `../../suites/${encodeURIComponent(cSlug)}/`;
+          const cMeta = __collectionByPubTitle.get(`${pub}||${suiteTitle.toLowerCase()}`);
+          if (cMeta && cMeta.slug) return `../../suites/${encodeURIComponent(cMeta.slug)}/`;
         }
       }
 
@@ -3001,8 +3105,8 @@ void (async () => {
       if (k && k.number) {
         const num = String(k.number).trim();
         for (const pub of pubCandidates) {
-          const sSlug = __suiteSlugByPubNumber.get(`${pub}||${num}`);
-          if (sSlug) return `../../suites/${encodeURIComponent(sSlug)}/`;
+          const sMeta = __suiteByPubNumber.get(`${pub}||${num}`);
+          if (sMeta && sMeta.slug) return `../../suites/${encodeURIComponent(sMeta.slug)}/`;
         }
       }
     } catch (e) {

@@ -205,8 +205,17 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.normative)}}
                 <li class="list-group-item">
-                  <a href="../{{id}}/" title="{{getLabel id}}">{{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}</a>
-                    [{{getStatus id}}] {{{getstatusButton id "10"}}} {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
+                  <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
+                    {{#if allParts}}
+                      {{suiteTitle}}
+                    {{else}}
+                      {{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}
+                    {{/if}}
+                  </a>
+                    [{{#if allParts}}SUITE{{else}}{{getStatus id}}{{/if}}] {{#unless allParts}}
+                      {{{getstatusButton id "10"}}}
+                      {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
+                    {{/unless}}
                 </li>
               {{/each}}
               </ul>
@@ -219,8 +228,17 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.bibliographic)}}
                 <li class="list-group-item">
-                  <a href="../{{id}}/" title="{{getLabel id}}">{{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}</a>
-                    [{{getStatus id}}] {{{getstatusButton id "10"}}} {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
+                  <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
+                    {{#if allParts}}
+                      {{suiteTitle}}
+                    {{else}}
+                      {{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}
+                    {{/if}}
+                  </a>
+                    [{{#if allParts}}SUITE{{else}}{{getStatus id}}{{/if}}] {{#unless allParts}}
+                      {{{getstatusButton id "10"}}}
+                      {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
+                    {{/unless}}
                 </li>
               {{/each}}
               </ul>
