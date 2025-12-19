@@ -692,6 +692,22 @@ function parseRefId(text, href = '', opts = {}) {
   const diag = mapRefByCiteDiag(text);
   if (diag.refId) return wantDiag ? { refId: diag.refId, diag } : diag.refId;
 
+  // --- ALLPARTS hinting from cite text ---
+  // Some sources explicitly cite a standard as "(all parts)". Preserve that intent
+  // by emitting a pseudo-id with the `.ALLPARTS` suffix (used downstream for suite linking).
+  const allPartsHint = /\(\s*all\s+parts\s*\)|\ball\s+parts\b/i.test(String(text || ''));
+  if (allPartsHint) {
+    // Prefer ISO/IEC style numeric extraction from the cite string.
+    // Examples:
+    //   "ISO 80000 (all parts)" -> ISO.80000.ALLPARTS
+    //   "ISO/IEC 15444-1 (all parts)" -> ISO.15444-1.ALLPARTS
+    const mIso = String(text || '').match(/\bISO(?:\s*\/\s*IEC|\/IEC)?\s+([0-9]{3,6}(?:-[0-9A-Za-z]+)*)\b/i);
+    if (mIso && mIso[1]) {
+      const refId = `ISO.${mIso[1]}.ALLPARTS`;
+      return wantDiag ? { refId, diag: { mapSource: 'cite', mapDetail: 'allparts:iso' } } : refId;
+    }
+  }
+
   // W3C dated REC
   if (/w3\.org\/TR\/\d{4}\/REC-([^\/]+)-(\d{8})\//i.test(href)) {
     const [, shortname, yyyymmdd] = href.match(/REC-([^\/]+)-(\d{8})/i);
