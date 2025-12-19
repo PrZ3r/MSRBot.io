@@ -30,12 +30,29 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 (function() {
   const ROOT_ID = window.MSR_REF_ROOT;
   const GRAPH_URL = (window.assetPrefix || '') + 'docs/_data/documents.json';
+  const SUITES_URL = (window.assetPrefix || '') + 'suites/_data/suites.json';
+  const SUITE_PREFIX = 'SUITE:';
+
+  function isSuiteNode(id) {
+    return typeof id === 'string' && id.startsWith(SUITE_PREFIX);
+  }
+
+  function suiteNodeIdFromSlug(slug) {
+    return SUITE_PREFIX + String(slug || '').trim();
+  }
+
+  function suiteSlugFromNodeId(id) {
+    return String(id || '').startsWith(SUITE_PREFIX) ? String(id).slice(SUITE_PREFIX.length) : '';
+  }
   const MAX_DEPTH_DEFAULT = 3;
 
   let refGraph = null;
   let currentRoot = ROOT_ID;
   let maxDepth = MAX_DEPTH_DEFAULT;
   let docIndex = {};
+
+  let suiteChildrenBySlug = new Map();
+  let suiteMetaBySlug = new Map();
 
   let viewModeUp = 'levels';
   let viewModeDown = 'levels';
@@ -131,6 +148,19 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   );
 
   function getLabelFor(id) {
+    if (isSuiteNode(id)) {
+      const slug = suiteSlugFromNodeId(id);
+      const meta = suiteMetaBySlug.get(slug);
+      if (meta) {
+        const pub = meta.publisher ? String(meta.publisher).trim() : '';
+        const title = meta.title ? String(meta.title).trim() : '';
+        const num = meta.number ? String(meta.number).trim() : '';
+        const label = title || [pub, num].filter(Boolean).join(' ').trim() || slug;
+        const kind = meta.kind ? String(meta.kind).trim() : 'suite';
+        return `${label} (All Parts)`;
+      }
+      return `Suite: ${slug || id}`;
+    }
     const d = docIndex[id];
     if (!d) return id;
 
@@ -155,12 +185,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   }
 
   function getStatusFor(id) {
+    if (isSuiteNode(id)) return 'SUITE';
     const d = docIndex[id];
     // build.js stores the rendered status string on currentStatus
     return (d && d.currentStatus) ? String(d.currentStatus) : '';
   }
 
   function hasActiveProjectFor(id) {
+    if (isSuiteNode(id)) return false;
     const d = docIndex[id];
     if (!d) return false;
     const work = Array.isArray(d.currentWork) ? d.currentWork : [];
@@ -231,14 +263,25 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         const hasProj = hasActiveProjectFor(id);
         const projIcon = buildProjectIcon(hasProj, 10);
 
-        li.innerHTML = `
-          <a href="../${encodeURIComponent(id)}/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="${escapeHtml(id)}">
-            <span>${escapeHtml(label)}</span></a>
+        const isSuite = isSuiteNode(id);
+
+        if (isSuite) {
+          li.innerHTML = `
+            <span class="ref-node d-inline-flex align-items-center gap-1" data-suite-node="1">
+              <span>${escapeHtml(label)}</span>
+            </span>
             ${statusStr ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
-            ${statusIcon ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
-            ${projIcon ? '<span class="ms-1">' + projIcon + '</span>' : ''}
+          `;
+        } else {
+          li.innerHTML = `
+            <a href="../${encodeURIComponent(id)}/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="${escapeHtml(id)}">
+              <span>${escapeHtml(label)}</span></a>
+              ${statusStr ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
+              ${statusIcon ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
+              ${projIcon ? '<span class="ms-1">' + projIcon + '</span>' : ''}
           
-        `;
+          `;
+        }
         ul.appendChild(li);
       });
       frag.appendChild(ul);
@@ -319,18 +362,22 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
       const hasChildren = node.children && node.children.length;
 
+      const isSuite = isSuiteNode(id);
+
       chip.innerHTML = `
         ${hasChildren
           ? '<button type="button" class="btn btn-link btn-sm p-0 rt-node-toggle" aria-label="Toggle children" title="Toggle children">▾</button>'
           : '<span class="rt-node-toggle-spacer"></span>'}
-        <a href="../${encodeURIComponent(id)}/"
-           class="ref-node d-inline-flex align-items-center gap-1"
-           data-doc-id="${escapeHtml(id)}">
-          <span>${escapeHtml(label)}</span>
-        </a>
+        ${isSuite
+          ? `<span class="ref-node d-inline-flex align-items-center gap-1" data-suite-node="1"><span>${escapeHtml(label)}</span></span>`
+          : `<a href="../${encodeURIComponent(id)}/"
+                 class="ref-node d-inline-flex align-items-center gap-1"
+                 data-doc-id="${escapeHtml(id)}">
+               <span>${escapeHtml(label)}</span>
+             </a>`}
         ${statusStr ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
-        ${statusIcon ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
-        ${projIcon ? '<span class="ms-1">' + projIcon + '</span>' : ''}
+        ${(!isSuite && statusIcon) ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
+        ${(!isSuite && projIcon) ? '<span class="ms-1">' + projIcon + '</span>' : ''}
       `;
       li.appendChild(chip);
 
@@ -412,6 +459,19 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   function renderRoot(id) {
     const el = document.getElementById('rt-root');
     if (!el) return;
+
+    if (isSuiteNode(id)) {
+      const label = getLabelFor(id);
+      el.innerHTML = `
+        <div class="mb-2">
+          <div class="mb-1 d-flex flex-wrap align-items-center gap-1">
+            <span class="fw-semibold"><span>${escapeHtml(label)}</span></span>
+          </div>
+          <div class="text-muted small mb-1">Suite/collection nodes are not selectable as roots.</div>
+        </div>
+      `;
+      return;
+    }
 
     const d = docIndex[id] || {};
     const label = getRootLabelFor(id);
@@ -496,8 +556,73 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   }
 
   async function init() {
-    const res = await fetch(GRAPH_URL);
-    const docs = await res.json();
+    // Load effective docs and suites/collections metadata
+    const [resDocs, resSuites] = await Promise.all([
+      fetch(GRAPH_URL),
+      fetch(SUITES_URL).catch(() => null)
+    ]);
+
+    const docs = await resDocs.json();
+
+    let suitesPayload = null;
+    try {
+      if (resSuites && resSuites.ok) suitesPayload = await resSuites.json();
+    } catch (e) {
+      suitesPayload = null;
+    }
+
+    // Build suite/collection maps: slug -> children docIds, slug -> meta
+    suiteChildrenBySlug = new Map();
+    suiteMetaBySlug = new Map();
+
+    const suitesArr = suitesPayload && typeof suitesPayload === 'object'
+      ? (Array.isArray(suitesPayload.suites) ? suitesPayload.suites : [])
+      : [];
+    const collectionsArr = suitesPayload && typeof suitesPayload === 'object'
+      ? (Array.isArray(suitesPayload.collections) ? suitesPayload.collections : [])
+      : [];
+
+    const pushChildren = (slug, ids) => {
+      const s = String(slug || '').trim();
+      if (!s) return;
+      const arr = suiteChildrenBySlug.get(s) || [];
+      (Array.isArray(ids) ? ids : []).forEach(x => {
+        if (!x) return;
+        const id = String(x).trim();
+        if (id) arr.push(id);
+      });
+      suiteChildrenBySlug.set(s, Array.from(new Set(arr)));
+    };
+
+    // Suites: prefer allPartsLatestIds if present
+    for (const s of suitesArr) {
+      const slug = String(s && (s.suiteSlug || s.slug) || '').trim();
+      if (!slug) continue;
+      suiteMetaBySlug.set(slug, {
+        kind: 'suite',
+        publisher: s.publisher || '',
+        number: s.number || '',
+        title: s.suiteTitle || s.title || s.label || ''
+      });
+      const ids = Array.isArray(s.allPartsLatestIds) ? s.allPartsLatestIds
+        : (Array.isArray(s.docIds) ? s.docIds : []);
+      pushChildren(slug, ids);
+    }
+
+    // Collections: expect docIds (fallback to allPartsLatestIds if your collection builder uses it)
+    for (const c of collectionsArr) {
+      const slug = String(c && (c.collectionSlug || c.suiteSlug || c.slug) || '').trim();
+      if (!slug) continue;
+      suiteMetaBySlug.set(slug, {
+        kind: 'collection',
+        publisher: c.publisher || '',
+        number: c.number || '',
+        title: c.collectionTitle || c.suiteTitle || c.title || c.label || ''
+      });
+      const ids = Array.isArray(c.docIds) ? c.docIds
+        : (Array.isArray(c.allPartsLatestIds) ? c.allPartsLatestIds : []);
+      pushChildren(slug, ids);
+    }
 
     // Build adjacency map { docId: { refsOut: [], refsIn: [] } } from effective documents snapshot
     refGraph = {};
@@ -515,23 +640,68 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         for (const r of norm) {
           if (!r) continue;
           const rid = typeof r === 'string' ? r : r.id;
-          if (rid) refsOut.push(String(rid));
+          const isAllParts = (r && typeof r === 'object' && r.allParts === true && r.suiteSlug);
+
+          if (isAllParts) {
+            const sid = suiteNodeIdFromSlug(r.suiteSlug);
+            if (sid) {
+              refsOut.push(String(sid));
+              // Ensure suite node exists and points to its children
+              if (!refGraph[sid]) {
+                refGraph[sid] = { refsOut: [], refsIn: [] };
+              }
+              const kids = suiteChildrenBySlug.get(String(r.suiteSlug).trim()) || [];
+              refGraph[sid].refsOut = Array.from(new Set((Array.isArray(refGraph[sid].refsOut) ? refGraph[sid].refsOut : []).concat(kids.map(x => String(x)))));
+            }
+          } else {
+            if (rid) refsOut.push(String(rid));
+          }
         }
         for (const r of bib) {
           if (!r) continue;
           const rid = typeof r === 'string' ? r : r.id;
-          if (rid) refsOut.push(String(rid));
-        }
+          const isAllParts = (r && typeof r === 'object' && r.allParts === true && r.suiteSlug);
 
-        const refsIn = Array.isArray(d.referencedBy)
-          ? d.referencedBy.map(x => String(x))
-          : [];
+          if (isAllParts) {
+            const sid = suiteNodeIdFromSlug(r.suiteSlug);
+            if (sid) {
+              refsOut.push(String(sid));
+              // Ensure suite node exists and points to its children
+              if (!refGraph[sid]) {
+                refGraph[sid] = { refsOut: [], refsIn: [] };
+              }
+              const kids = suiteChildrenBySlug.get(String(r.suiteSlug).trim()) || [];
+              refGraph[sid].refsOut = Array.from(new Set((Array.isArray(refGraph[sid].refsOut) ? refGraph[sid].refsOut : []).concat(kids.map(x => String(x)))));
+            }
+          } else {
+            if (rid) refsOut.push(String(rid));
+          }
+        }
 
         refGraph[id] = {
           refsOut: Array.from(new Set(refsOut)),
-          refsIn: Array.from(new Set(refsIn)),
+          refsIn: [],
         };
       }
+    }
+
+    // Recompute inbound edges from outbound edges so synthetic SUITE: nodes participate correctly
+    for (const k of Object.keys(refGraph)) {
+      if (refGraph[k]) refGraph[k].refsIn = [];
+    }
+    for (const fromId of Object.keys(refGraph)) {
+      const out = (refGraph[fromId] && Array.isArray(refGraph[fromId].refsOut)) ? refGraph[fromId].refsOut : [];
+      for (const toId of out) {
+        if (!toId) continue;
+        if (!refGraph[toId]) {
+          refGraph[toId] = { refsOut: [], refsIn: [] };
+        }
+        refGraph[toId].refsIn.push(String(fromId));
+      }
+    }
+    for (const k of Object.keys(refGraph)) {
+      const arr = (refGraph[k] && Array.isArray(refGraph[k].refsIn)) ? refGraph[k].refsIn : [];
+      refGraph[k].refsIn = Array.from(new Set(arr));
     }
 
     reroot(ROOT_ID);
@@ -598,6 +768,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       if (!a) return;
       const id = a.getAttribute('data-doc-id');
       if (!id) return;
+      if (isSuiteNode(id)) return;
       ev.preventDefault();
       reroot(id);
     }, { passive: false });
