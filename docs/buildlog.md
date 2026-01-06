@@ -1,13 +1,87 @@
 # MSRBot.io — Consolidated Technical Chronicle
 
-**Status:** Gold-copy consolidation  
-> This covers pre-release (via mid 2020) > v1.0.0
-
-**Consolidation Date:** 2025-11-26
-
 This document consolidates the MSRBot.io worklog into a single, category‑organized technical chronicle. Dates are de‑emphasized in favor of system architecture and implementation detail. All filenames, scripts, fields, and JSON keys are shown in monospace.
 
+**Consolidation Date:** 2025-11-26  
+**Applies to:** pre-release → [v1.0.0](https://github.com/PrZ3r/MSRBot.io/releases/tag/v1.0.0)  
+**Superseded by:** [CHANGELOG.md](../CHANGELOG.md) entries for v1.1.0+
+
+## How to Use This Document
+
+This is a **technical chronicle**, not a release changelog.
+
+- Use **[CHANGELOG.md](../CHANGELOG.md)** for user-facing release summaries.
+- Use this file when you need:
+  - Architectural context
+  - Implementation rationale
+  - Recovery from data or build corruption
+  - Deep validation of registry behavior
+
+Sections are organized by **system area**, not by date.
+Dates are intentionally de-emphasized.
+
+## Executive Index
+
+- **Extraction & Parsing:** §1.1–§1.4  
+- **Status, MSI, Lineage:** §1.2, §1.5  
+- **References & MRI:** §1.6, §3  
+- **$meta & Provenance:** §2  
+- **URL Validation & Normalization:** §3  
+- **CI / Workflows:** §4  
+- **Frontend & UX Systems:** §6  
+- **Groups / Projects / RefTree:** §6.6–§6.7
+
+## Table of Contents
+
+- [1 Extraction & Automation Pipeline](#1-extraction--automation-pipeline)
+  - [1.1 HTML + PDF Fallback Extraction](#11-html--pdf-fallback-extraction-smpte-milestone)
+  - [1.2 Status Wiring & Normalization](#12-status-wiring--normalization)
+  - [1.3 Reference Parsing & Resilience](#13-reference-parsing--resilience)
+  - [1.4 Folder & Publisher Parsing](#14-folder--publisher-parsing)
+  - [1.5 Master Suite Index (MSI) & Lineage](#15-master-suite-index-msi--lineage)
+  - [1.6 Reference Mapping, MSI Integration, and MRI Foundations](#16-reference-mapping-msi-integration-and-mri-foundations)
+
+- [2 Metadata & Provenance System](#2-metadata--provenance-system)
+
+- [3 Validation & URL Resolution](#3-validation--url-resolution)
+  - [3.1 URL Validation](#31-url-validation-urlvalidatejs)
+  - [3.2 URL Normalization](#32-url-normalization-urlnormalizejs)
+  - [3.3 URL Rules](#33-url-rules-urlrulesjs)
+  - [3.4 Documents Validation](#34-documents-validation)
+  - [3.5 Overrides Audit](#35-overrides-audit)
+
+- [4 Workflow & CI/CD](#4-workflow--cicd)
+  - [4.1 Chain Orchestration (MSI → MRI → MSR)](#41-chain-orchestration-msi--mri--msr)
+  - [4.2 MRI Workflow](#42-mri-workflow-build-master-reference-indexyml)
+  - [4.3 Weekly MSI Workflow Hardening](#43-weekly-msi-workflow-hardening)
+  - [4.4 PR Preview & Build Chain](#44-pr-preview--build-chain-pr-build-previewyml)
+  - [4.5 Branch Hygiene (Branch Sweeper)](#45-branch-hygiene-branch-sweeper)
+  - [4.6 Repo / Workflow Ops](#46-repoworkflow-ops)
+  - [4.7 PrZ3 Unit Integration — GitHub App Identity](#47-prz3-unit-integration--phase-1-github-app-identity)
+  - [4.8 URL Validation Workflow Enhancements](#48-url-validation-workflow-enhancements-publisher--item-level-issue-expansion)
+
+- [5 Registry Architecture & Data Model Evolution](#5-registry-architecture--data-model-evolution)
+
+- [6 Frontend & Site Publishing](#6-frontend--site-publishing)
+  - [6.1 Card-Based Registry View](#61-card-based-registry-view)
+  - [6.2 Branding, SEO & 404 Overhaul](#62-branding-seo--404-overhaul)
+  - [6.3 Registry Cards & Search System](#63-registry-cards--search-system)
+  - [6.4 Search Index & UX Enhancements](#64-search-index--ux-enhancements)
+  - [6.5 Per-Doc Rendering, MSI Surfacing & Citations](#65-per-doc-rendering-msi-surfacing--citations)
+  - [6.6 Reference Tree System](#66-reference-tree-system--graph-based-cross-reference-explorer)
+  - [6.7 Groups, Projects, Theming & Navigation Overhaul](#67-groups-projects-theming--navigation-overhaul)
+
+- [7 Logging, Diffing, and PR Output](#7-logging-diffing-and-pr-output)
+
+- [8 URL Validation & Normalization Suite — Summary](#8-url-validation--normalization-suite--summary-operational)
+
+- [9 Net Results / System Readiness](#9-net-results--system-readiness)
+
+- [Appendix A: Implementation Notes](#appendix-a-implementation-notes-selected-specifics-retained)
+- [Appendix B: Daily Done List Protocol](#appendix-b-daily-done-list-protocol)
 ## 1 Extraction & Automation Pipeline
+
+This section covers the end-to-end extraction pipeline and its supporting automation: HTML-first parsing with PDF fallback, deterministic status wiring, resilient reference handling, and publisher/folder normalization. It documents the “source-of-truth” behaviors that keep ingestion stable across document families.
 
 ### 1.1 HTML + PDF Fallback Extraction (SMPTE milestone)
 - End‑to‑end ingestion for SMPTE documents with HTML primary parsing and safe PDF‑only fallback.
@@ -62,6 +136,8 @@ _Prevents incorrect base flips when an amendment becomes latest._
 
 
 ## 2 Metadata & Provenance System
+
+This section defines how MSRBot.io tracks provenance and prevents noisy diffs: `$meta` injection rules, inferred vs parsed confidence, namespace metadata foundations, and field-level change locks. The intent is to preserve curated data while keeping automated updates deterministic and explainable.
 - `$meta` injection logic overhauled to write only when a field value actually changes; eliminates false‑positive diffs and redundant metadata writes.
 - Inferred vs. parsed provenance tracked. Default `confidence: "medium"` applied to inferred fields; `source` annotated per field path.
 - Namespace metadata extended: `xmlNamespace` objects include `deprecated: boolean` (foundation for structured namespace tracking with `uri`, `targetNamespace`, `imported`, `sourceDocId`, `schemaLocation`).
@@ -72,6 +148,8 @@ _Prevents incorrect base flips when an amendment becomes latest._
 
 
 ## 3 Validation & URL Resolution
+
+This section documents the URL reliability layer: validation audits, normalization/backfill behavior, publisher-specific rules, and document-level checks. It’s focused on producing consistent reports, minimizing false positives, and enabling safe CI gating.
 
 ### 3.1 URL Validation (`url.validate.js`)
 - Added “good URL” count alongside unreachable and redirect totals.
@@ -98,6 +176,8 @@ _Prevents incorrect base flips when an amendment becomes latest._
 - Skips trivial/null/empty `originalValue` entries; groups results alphabetically by field with per-field totals.
 
 ## 4 Workflow & CI/CD
+
+This section describes the GitHub Actions “factory line”: chained MSI → MRI → site builds, concurrency controls, preview deployments, branch hygiene, and operational hardening. It also captures identity consolidation under the PrZ3 Unit GitHub App and the expanded URL-issue taxonomy.
 
 ### 4.1 Chain Orchestration (MSI → MRI → MSR)
 - Workflows run in strict sequence using `workflow_run` triggers. Any upstream change triggers the full chain rebuild.
@@ -196,6 +276,8 @@ _Prevents orphaned branches from detached workflows._
 - Large audits avoid comment spam; runs stay fast and quiet.
 
 ## 5 Registry Architecture & Data Model Evolution
+
+This section summarizes structural evolutions to the registry data model: metaConfig governance, withdrawn/stabilized handling, repo link validation, and related extraction-to-build refinements. It’s the bridge between raw ingestion and the normalized artifacts the site depends on.
 - Consolidated `metaConfig` governs notes for `status.stabilized`, `status.withdrawn`, and `status.withdrawnNotice`.
 - Withdrawn notice handling:
   - Reachability check performed once per URL.
@@ -206,11 +288,26 @@ _Prevents orphaned branches from detached workflows._
 - **Withdrawn and stabilized flag extraction:** extraction recognizes and populates `status.withdrawn` and `status.stabilized` fields directly from document metadata for registry completeness.
 
 ## 6 Frontend & Site Publishing
+
+**Section Summary**
+
+This section documents the transformation of MSRBot.io from a raw registry viewer into a polished, reader‑first product. It covers the full frontend stack: card‑based browsing, deterministic search and faceting, per‑document rendering, citations, branding, RefTree exploration, normalized Groups/Projects views, and theming. The emphasis throughout is **clarity, stability, and discoverability for end readers**, with strong guardrails to prevent UI regressions from backend changes.
+
+**Section 6 Contents**
+- [6.1 Card‑Based Registry View](#61-card-based-registry-view)
+- [6.2 Branding, SEO & 404 Overhaul](#62-branding-seo--404-overhaul)
+- [6.3 Registry Cards & Search System](#63-registry-cards--search-system)
+- [6.4 Search Index & UX Enhancements](#64-search-index--ux-enhancements)
+- [6.5 Per‑Doc Rendering, MSI Surfacing & Citations](#65-per-doc-rendering-msi-surfacing--citations)
+- [6.6 Reference Tree System](#66-reference-tree-system--graph-based-cross-reference-explorer)
+- [6.7 Groups, Projects, Theming & Navigation Overhaul](#67-groups-projects-theming--navigation-overhaul)
+
+This section covers the site UX and publishing layer: the card-based registry, deterministic search/faceting, per-doc rendering hardening, MSI surfacing, citations tooling, branding/SEO assets, RefTree, and normalized Groups/Projects views. It’s where the registry becomes a usable product.
 - PR previews deployed for each open PR with a durable URL. Checks include write permission and attach to the PR’s head SHA.
 - Links are stable under both `github.io` and the CNAME (`msrbot.io`).
 - Plan: staging subdomain (e.g., `test.msrbot.io`) for broader pre‑prod validation.
 
-### 6.1 Frontend Refresh I — Card-Based Registry View
+### 6.1 Card-Based Registry View
 - Refactored registry interface to a responsive **card-based view** using Handlebars templates with synchronized filters and facets.
 - Implemented **`src/site/js/cards.js`** to load `search-index.json` and `facets.json`, render cards via Handlebars, and manage live filtering.
 - Added helper functions: `join`, `len`, `gt`, `statusBadge`, `coalesce`, and `hasAny` for inline template logic.
@@ -222,7 +319,7 @@ _Prevents orphaned branches from detached workflows._
 - Verified automatic facet expansion for **status** and **docType**; confirmed live synchronization between chip removal and facet checkboxes.
 - Result: responsive, visually consistent registry cards with fully synchronized filters and improved mobile usability.
 
-### 6.2 Frontend Refresh II — Branding, SEO & 404 Overhaul
+### 6.2 Branding, SEO & 404 Overhaul
 - **Project rebrand and repository migration:** moved to `PrZ3r/MSRBot.io`; redirects active for previous repo and domain.
 - **Domain alignment:** `msrbot.io` established as canonical host; `mediastandardsregistry.org` configured to redirect via DNS.
 - **Single-source configuration:** introduced `src/main/config/site.json` as canonical metadata store; removed duplicate inline defaults from `build.js`.
@@ -237,7 +334,7 @@ _Prevents orphaned branches from detached workflows._
 - **Identity & icon:** finalized **MSRBot.io logo** and SVG favicon (clean circular mark, document-forward, non-derivative); scalable and consistent across all resolutions.
 - Result: complete brand, SEO, and metadata integration; clean 404 UX; site now fully single-config, portable, and identity-consistent.
 
-### 6.3 Frontend Refresh III — Registry Cards & Search System
+### 6.3 Registry Cards & Search System
 - Extended **card-based registry UI** with full search, filtering, and navigation logic.
 
 **Rendering & Layout**
@@ -308,7 +405,7 @@ _Prevents orphaned branches from detached workflows._
 **Result**
 - Registry now offers full-fidelity search, deep-linkable state, and robust filter synchronization within a responsive, mobile-friendly card interface.
 
-### 6.4 Frontend Refresh IV — Search Index & UX Enhancements
+### 6.4 Search Index & UX Enhancements
 
 **Search Index & Schema**
 - Enriched search index rows with `publisher`, `doi`, `group`, and `publicationDate`; verified propagation to cards and facets.
@@ -347,7 +444,7 @@ _Prevents orphaned branches from detached workflows._
 - Deterministic search/filtering with consistent `docType`, status, and metadata rendering.
 - Clear, discoverable search UX; build and data pipelines write to the correct directories.
 
-### 6.5 Frontend Refresh V — Per-Doc Rendering, MSI Surfacing & Citations
+### 6.5 Per-Doc Rendering, MSI Surfacing & Citations
 
 **Per-Doc Emit & Resilience**
 - Per-document emit stabilized and debuggable; added defensive `prepareDocForRender()` normalizers to guard against missing/partial fields.
@@ -574,6 +671,8 @@ _Prevents orphaned branches from detached workflows._
 - Namespace/schema validation for XML families (planned core infra).
 
 ## 7 Logging, Diffing, and PR Output
+
+This section defines operational observability: log budgeting, heartbeats/tripwires, artifact retention, and PR diff formatting conventions. The goal is to keep CI readable while preserving deep traceability when something goes wrong.
 - `logSmart.js` centralizes logging with a console budget (~3.5 MiB). Excess console chatter is tripwired while full logs are persisted to file.
 - Heartbeats and tripwires: periodic progress messages (`[HB pid:####] ... still processing — X/Y (Z%)`) with a start‑of‑run settings banner.
 - Full extract log artifacts (`extract-full.log`) uploaded for every run, including early exits or skipped PRs.
@@ -586,12 +685,16 @@ _Prevents orphaned branches from detached workflows._
   Ensures visibility in CI logs without exceeding console limits.
 
 ## 8 URL Validation & Normalization Suite — Summary (Operational)
+
+This is an at-a-glance operational recap of the URL toolchain: validator/audit outputs, normalization apply/validate modes, rules baselines, and scheduling/hygiene behaviors. Treat it as the quick reference for what runs, when, and what artifacts to expect.
 - URL Validator reports: good URL totals, unreachable and redirect mismatches split by cause. Audit logged to `src/main/reports/url_validate_audit.json`.
 - URL Normalizer operates in validate‑only by default; writes only in apply mode. Summary emitted to `src/main/reports/url_validate_normalize.json`.
 - URL Rules provide publisher‑specific checks and expected patterns (informational baseline for future enforcement).
 - Repository hygiene and scheduling configured for weekly runs, manual dispatch, and PR‑merge triggers; runs auto‑cancel when superseded.
 
 ## 9 Net Results / System Readiness
+
+This section is the “so what” snapshot: end-to-end chain reliability, preview determinism, report consistency, metadata-only commit behavior, and verified provenance corrections. It’s the readiness checklist and confidence statement for the overall system.
 - End‑to‑end weekly chain hardened. MSI → MRI → MSR runs reliably and in order.
 - PR previews deploy deterministically and self‑report via PR checks.
 - URL validator, normalizer, and branch sweeper operate on schedules with clean, uniform reports.
@@ -604,6 +707,8 @@ _Prevents orphaned branches from detached workflows._
 - Provenance corrections verified in practice (examples: docLabel normalization 2086→2085, publicationDate normalized to HTML `pubDateTime`, amendment promotion behaves as specified).
 
 ## Appendix A: Implementation Notes (selected specifics retained)
+
+This appendix keeps a curated set of low-level implementation details that are useful during debugging or refactors but too granular for the main narrative. It’s intentionally selective and may contain one-off notes that supported larger changes above.
 - MSI lineage logic refined across publishers; draft and versionless handling normalized; ICC errata regex fixed; console logs simplified (Found vs Added vs Skipped) with reduced UNKNOWN noise via early publisher normalization.
 - Safety guard on references: skip MSI probing if `docId` already exists in `documents.json` to reduce unnecessary lookups and false gaps.
 - README expanded: automated chain diagram, sample outputs, triggers, and dataset descriptions.
@@ -616,6 +721,8 @@ This file is the current gold‑copy consolidation. If corruption or lock‑up o
 > _Maintained by [Steve LLamb](https://github.com/SteveLLamb) — MSRBot.io_ 
 
 ## Appendix B: Daily Done List Protocol
+
+This appendix defines the ongoing update format for future work: a structured “Done List” that can be normalized, deduped, and merged into this chronicle without bloating it. Use it to keep the log consistent as the project evolves beyond v1.0.0.
 
 To simplify ongoing updates, each day’s accomplishments can be logged in a structured “Done List” that is parsed and merged into this changelog. Use the format below for clarity and automation compatibility.
 
