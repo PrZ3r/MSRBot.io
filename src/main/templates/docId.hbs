@@ -3,7 +3,7 @@
 
 <main class="container my-4">
   <header class="mb-3">
-    <div class="docid-header-row d-flex gap-2 mb-1">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
       <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
         {{#if (publisherLink publisher)}}
           <a href="{{publisherLink publisher}}" target="_blank" rel="noopener">{{publisherLogo publisher}}</a>
@@ -29,9 +29,9 @@
 
     <h1 class="h5 mb-1">
       {{#if href}}
-        <a class="text-decoration-none" href="{{href}}" target="_blank" rel="noopener">{{docTitle}}</a>
+        <a class="text-decoration-none" href="{{href}}" target="_blank" rel="noopener">{{#if docSuiteTitle}}{{docSuiteTitle}} - {{/if}}{{docTitle}}</a>
       {{else}}
-        {{docTitle}}
+        {{#if docSuiteTitle}}{{docSuiteTitle}} - {{/if}}{{docTitle}}
       {{/if}}
     </h1>
   </header>
@@ -46,6 +46,18 @@
           <dl class="row small mb-0">
             {{#if status.statusNote}}<dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>{{status.statusNote}}</em></dd>{{/if}}
             {{#if publisher}}<dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher={{publisher}}">{{publisher}}</a></dd>{{/if}}
+            {{#if docSuiteTitle}}
+              <dt class="col-sm-4">Suite/Collection</dt>
+              <dd class="col-sm-8">
+                {{#with (suiteLink this)}}
+                  {{#if this}}
+                    <a href="{{this}}">{{../docSuiteTitle}}</a>
+                  {{else}}
+                    {{{../docSuiteTitle}}}
+                  {{/if}}
+                {{/with}}
+              </dd>
+            {{/if}}
             {{#if docType}}<dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType={{docType}}">{{docType}}{{#if docTypeAbr}} ({{docTypeAbr}}){{/if}}</a></dd>{{/if}}
             {{#if contentType}}<dt class="col-sm-4">Content Type</dt><dd class="col-sm-8">{{contentType}}</dd>{{/if}}
             {{#if abstract}}<dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">{{{nl2br abstract}}}</dd>{{/if}}
@@ -89,12 +101,12 @@
       </span>
     </div>
 
-    {{#if (len docSuite)}}
+    {{#if (len docVersion)}}
     <div class="card mt-2">
       <div class="card-body">
-        <h2 class="h6 mb-2">Document Suite — {{docBaseLabel}}</h2>
+        <h2 class="h6 mb-2">Document Versions — {{docBaseLabel}}</h2>
         <ul class="list-group list-group-flush small">
-          {{#each docSuite}}
+          {{#each docVersion}}
           <li class="list-group-item d-flex align-items-start justify-content-between doc-suite-row{{#ifeq ../docId docId}} badge-node-current{{/ifeq}}">
             <div class="me-1 text-wrap">
               {{#ifeq ../docId docId}}<strong>▶</strong>{{/ifeq}}
@@ -193,8 +205,17 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.normative)}}
                 <li class="list-group-item">
-                  <a href="../{{id}}/" title="{{getLabel id}}">{{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}</a>
-                  [{{getStatus id}}] {{{getstatusButton id "10"}}} {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
+                  <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
+                    {{#if allParts}}
+                      {{suiteTitle}}
+                    {{else}}
+                      {{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}
+                    {{/if}}
+                  </a>
+                    [{{#if allParts}}SUITE{{else}}{{getStatus id}}{{/if}}] {{#unless allParts}}
+                      {{{getstatusButton id "10"}}}
+                      {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
+                    {{/unless}}
                 </li>
               {{/each}}
               </ul>
@@ -207,8 +228,17 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.bibliographic)}}
                 <li class="list-group-item">
-                  <a href="../{{id}}/" title="{{getLabel id}}">{{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}</a>
-                  [{{getStatus id}}] {{{getstatusButton id "10"}}} {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
+                  <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
+                    {{#if allParts}}
+                      {{suiteTitle}}
+                    {{else}}
+                      {{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}
+                    {{/if}}
+                  </a>
+                    [{{#if allParts}}SUITE{{else}}{{getStatus id}}{{/if}}] {{#unless allParts}}
+                      {{{getstatusButton id "10"}}}
+                      {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
+                    {{/unless}}
                 </li>
               {{/each}}
               </ul>

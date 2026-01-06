@@ -13,10 +13,12 @@
         <section class="text-center mb-5">
           <div class="d-flex flex-wrap justify-content-center gap-2">
             <span class="badge bg-primary text-decoration-none p-2">Doc Count: <span id="stat-documents-total">—</span></span>
+            <span class="badge bg-secondary p-2">Suites: <span id="stat-suites-total">—</span></span>
             <span class="badge bg-success p-2">Active: <span id="stat-documents-active">—</span></span>
             <span class="badge bg-info text-dark p-2">Doc Types: <span id="stat-documents-doctypes">—</span></span>
             <span class="badge bg-warning text-dark p-2">References: <span id="stat-documents-references">—</span></span>
             <span class="badge bg-secondary p-2">Publishers: <span id="stat-documents-publishers">—</span></span>
+            
           </div>
         </section>
 
@@ -24,6 +26,7 @@
         <section class="d-flex justify-content-center mb-5">
           <div class="list-group text-center col-md-5">
             <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}docs/{{htmlLink}}"><i class="bi bi-file-richtext-fill" style="font-size: 1.5rem;"></i> Browse Docs</a>
+            <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}suites/{{htmlLink}}"><i class="bi bi-collection-fill" style="font-size: 1.5rem;"></i> Browse Suites</a>
             <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}reftree/{{htmlLink}}"><i class="bi bi-diagram-3-fill" style="font-size: 1.5rem;"></i> Browse Ref Tree</a>
             <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}groups/{{htmlLink}}"><i class="bi bi-people-fill" style="font-size: 1.5rem;"></i> Browse Groups</a>
             <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}projects/{{htmlLink}}"><i class="bi bi-kanban-fill" style="font-size: 1.5rem;"></i> Browse Projects</a>
@@ -69,6 +72,12 @@
           document.getElementById('stat-documents-doctypes').textContent = data.documents.docTypes.toLocaleString();
           document.getElementById('stat-documents-references').textContent = data.documents.references.toLocaleString();
           document.getElementById('stat-documents-publishers').textContent = data.documents.publishers.toLocaleString();
+        }
+        if (data && data.suites && typeof data.suites.total === 'number') {
+          var suitesEl = document.getElementById('stat-suites-total');
+          if (suitesEl) {
+            suitesEl.textContent = data.suites.total.toLocaleString();
+          }
         }
       })
       .catch(() => console.warn('Could not load live stats.'));

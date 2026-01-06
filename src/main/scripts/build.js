@@ -51,10 +51,163 @@ const { json2csvAsync } = require('json-2-csv');
 hb.registerHelper('raw', function(options) {
   return new hb.SafeString(options.fn(this));
 });
+
+hb.registerHelper('suiteLink', function (doc) {
+  try {
+    const d = doc || this || {};
+    const docId = String(d.docId || '').trim();
+
+    // Publisher is stable in your effective docs
+    const pub = String(d.publisher || d.docPublisher || '').trim();
+
+    // Collection match uses docSuiteTitle
+    const suiteTitle = String(d.docSuiteTitle || '').trim();
+
+    // 1) Collection wins
+    if (pub && suiteTitle) {
+      const cMeta = __collectionByPubTitle.get(`${pub}||${suiteTitle.toLowerCase()}`);
+      if (cMeta && cMeta.slug) return `../../suites/${encodeURIComponent(cMeta.slug)}/`;
+    }
+
+    // 2) Suite fallback (publisher+number)
+    if (docId) {
+      const k = keying.keyFromDocId(docId, d);
+      const num = k && k.number ? String(k.number).trim() : '';
+      if (pub && num) {
+        const sMeta = __suiteByPubNumber.get(`${pub}||${num}`);
+        if (sMeta && sMeta.slug) return `../../suites/${encodeURIComponent(sMeta.slug)}/`;  
+      }
+    }
+  } catch (e) {}
+  return '';
+});
+
+hb.registerHelper('refHref', function (refId) {
+  const id = String(refId || '').trim();
+  if (!id) return '#';
+
+  // ALLPARTS -> suite/collection page
+  // NOTE: refs like "SMPTE.ST379.ALLPARTS" are *not* real docIds. We must derive (publisher, number)
+  // in a way that does NOT require the year/dated id, and that tolerates type prefixes.
+  if (/\.ALLPARTS$/i.test(id)) {
+    const stripped = id.replace(/\.ALLPARTS$/i, '');
+
+    // Helper: derive publisher + suite number from an undated ALLPARTS base like:
+    //   SMPTE.ST379
+    //   SMPTE.RP431
+    //   ISO.11664
+    //   IEC.61966
+    // We intentionally ignore type/series letters (ST/RP/OV/etc.) and any part suffix.
+    const derivePubNum = (base) => {
+      const b = String(base || '').trim();
+      if (!b) return { pub: '', num: '' };
+
+      // 1) Try the normal keyer first (works when the pattern is covered)
+      try {
+        const k = keying.keyFromDocId(b, { docId: b });
+        const pub = k && k.publisher ? String(k.publisher).trim() : '';
+        const num = k && k.number ? String(k.number).trim() : '';
+        if (pub && num) return { pub, num };
+      } catch (e) {
+        // fall through
+      }
+
+      // 2) Fallback parse: PUB.<token> where token contains the number somewhere (usually trailing)
+      //    e.g. SMPTE.ST379 -> token=ST379 -> num=379
+      //         SMPTE.ST2067 -> num=2067
+      //         ISO.11664 -> num=11664
+      //         IEC.61966-2-1 -> num=61966 (suite root)
+      const parts = b.split('.').filter(Boolean);
+      const pub = (parts[0] || '').trim();
+      const token = (parts[1] || '').trim();
+      if (!pub || !token) return { pub: '', num: '' };
+
+      // Prefer a leading run of digits, else any digits, else trailing digits
+      let num = '';
+      const mLead = token.match(/^(\d+)/);
+      if (mLead) num = mLead[1];
+      else {
+        const mAny = token.match(/(\d+)/);
+        if (mAny) num = mAny[1];
+        else {
+          const mTrail = token.match(/(\d+)$/);
+          if (mTrail) num = mTrail[1];
+        }
+      }
+
+      return { pub, num: String(num || '').trim() };
+    };
+
+    try {
+      const { pub, num } = derivePubNum(stripped);
+      if (pub && num) {
+        const sMeta = __suiteByPubNumber.get(`${pub}||${num}`);
+        if (sMeta && sMeta.slug) return `../../suites/${encodeURIComponent(sMeta.slug)}/`;
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    // Fallback: suite index
+    return '../../suites/';
+  }
+
+  // Normal doc ref stays as doc page relative link
+  return `../${encodeURIComponent(id)}/`;
+});
+
 // Minimal shared keying import for MSI lineage lookups
 const keying = require('../lib/keying');
 const { lineageKeyFromDoc, lineageKeyFromDocId } = keying;
 
+// --- Suites/Collections lookup (from masterSuiteIndex.json) ---
+let __suiteLookupLoaded = false;
+let __collectionByPubTitle = new Map(); // "PUB||titleLower" -> { slug, title, kind }
+let __suiteByPubNumber = new Map();     // "PUB||number"     -> { slug, title, kind }
+
+async function loadSuiteLookupsOnce() {
+  if (__suiteLookupLoaded) return;
+  __suiteLookupLoaded = true;
+
+  try {
+    const msiPath = path.join('src', 'main', 'reports', 'masterSuiteIndex.json');
+    const raw = await fs.readFile(msiPath, 'utf8');
+    const payload = JSON.parse(raw);
+
+    // Your MSI can be legacy array OR object with { suites, collections }
+    const suitesArr = Array.isArray(payload)
+      ? payload
+      : (Array.isArray(payload.suites) ? payload.suites : []);
+
+    const collectionsArr =
+      (!Array.isArray(payload) && payload && Array.isArray(payload.collections))
+        ? payload.collections
+        : [];
+
+    // suites: publisher+number -> suiteSlug
+    for (const s of suitesArr) {
+      const pub = String(s?.publisher || '').trim();
+      const num = String(s?.number || '').trim();
+      const slug = String(s?.suiteSlug || '').trim();
+      const title = String(s?.suiteTitle || '').trim();
+      const kind = String(s?.kind || 'suite').trim();
+      if (pub && num && slug) __suiteByPubNumber.set(`${pub}||${num}`, { slug, title, kind });
+    }
+
+    // collections: publisher+title -> collectionSlug
+    for (const c of collectionsArr) {
+      const pub = String(c?.publisher || '').trim();
+      const title = String(c?.collectionTitle || c?.suiteTitle || '').trim();
+      const slug = String(c?.collectionSlug || '').trim();
+      const kind = String(c?.kind || 'collection').trim();
+      if (pub && title && slug) {
+        __collectionByPubTitle.set(`${pub}||${title.toLowerCase()}`, { slug, title, kind });
+      }
+    }
+  } catch (e) {
+    console.warn('[build] suite lookups unavailable:', e?.message ? e.message : e);
+  }
+}
 
 const REGISTRIES_REPO_PATH = "src/main";
 const SITE_PATH = "src/site";
@@ -122,6 +275,21 @@ const registries = [
     "templateName": "refTree",
     "idType": "document",
     "listTitle": "Ref Tree",
+    "subRegistry": [
+      "documents",
+      "groups",
+      "projects"
+    ],
+    "extras": {
+      "logicOnly": true
+    }
+  },
+  {
+    "listType": "documents",
+    "templateType": "documents",
+    "templateName": "suites",
+    "idType": "document",
+    "listTitle": "Suites",
     "subRegistry": [
       "documents",
       "groups",
@@ -332,7 +500,9 @@ async function emitNormalizedGroups({ dataPath }){
 
 async function buildRegistry ({ listType, templateType, templateName, idType, listTitle, subRegistry, output, extras }) {
   const logicOnly = extras && extras.logicOnly;
+  
   console.log(`Building ${templateName} started`)
+  await loadSuiteLookupsOnce();
 
   var DATA_PATH = path.join(REGISTRIES_REPO_PATH, "data/" + listType + ".json");
   var TEMPLATE_PATH = "src/main/templates/" + templateName + ".hbs";
@@ -353,10 +523,153 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
   // Groups are emitted via emitNormalizedGroups() + optional raw copy above.
   // Skip emitting build/documents/_data/documents.json; that folder is unused now.
   // Also skip build/refTree/_data/documents.json — refTree client JS reads docs/_data/documents.json directly.
+  // Also skip build/suites/_data/documents.json — suites index should not emit documents.json.
+  // Instead: suites index emits build/suites/_data/suites.json with new format.
   if (
+    templateName === 'suites' && listType === 'documents'
+  ) {
+    // Special handling: emit suites index from masterSuiteIndex.json,
+    // always as an object: { generatedAt, sourcePath, sourceHash, suites, collections }
+    const outDir = path.join(BUILD_PATH, 'suites', '_data');
+    await fs.mkdir(outDir, { recursive: true });
+    const outPath = path.join(outDir, 'suites.json');
+
+    // Load the masterSuiteIndex.json (from reports)
+    let msi;
+    let msiPath = path.join('src', 'main', 'reports', 'masterSuiteIndex.json');
+    try {
+      msi = JSON.parse(await fs.readFile(msiPath, 'utf8'));
+    } catch (e) {
+      msi = [];
+    }
+
+    // Compatibility rules:
+    // 1. If msi is object with suites/collections, use them. Else, treat as legacy array.
+    let suites, collections;
+    if (msi && typeof msi === 'object' && !Array.isArray(msi)) {
+      suites = Array.isArray(msi.suites) ? msi.suites : (Array.isArray(msi) ? msi : []);
+      collections = Array.isArray(msi.collections) ? msi.collections : [];
+    } else if (Array.isArray(msi)) {
+      suites = msi;
+      collections = [];
+    } else {
+      suites = [];
+      collections = [];
+    }
+
+    // Before writing, attach a kind field to each item (do not mutate originals)
+    const suitesOut = Array.isArray(suites) ? suites.map(s => ({ ...s, kind: 'suite' })) : [];
+    const collectionsOut = Array.isArray(collections) ? collections.map(c => ({ ...c, kind: 'collection' })) : [];
+
+    // Compose output object
+    const payload = {
+      generatedAt: (msi && typeof msi === 'object' && msi.generatedAt) ? msi.generatedAt : null,
+      sourcePath: (msi && typeof msi === 'object' && msi.sourcePath) ? msi.sourcePath : null,
+      sourceHash: (msi && typeof msi === 'object' && msi.sourceHash) ? msi.sourceHash : null,
+      suites: suitesOut,
+      collections: collectionsOut
+    };
+    await _writeFile(outPath, JSON.stringify(payload, null, 2), 'utf8');
+    console.log(`[build] Wrote build/suites/_data/suites.json (suites=${suitesOut.length}, collections=${collectionsOut.length})`);
+
+    // --- Emit suite + collection detail pages (client-rendered via /js/suites.js) ---
+    // Each page lives at: build/suites/<slug>/index.html
+    // It uses src/main/templates/suites.hbs and sets assetPrefix so relative assets resolve.
+    try {
+      // Ensure we (re)register the shared partials used by suites.hbs
+      const headerPartial = await fs.readFile('src/main/templates/partials/header.hbs', 'utf8');
+      const footerPartial = await fs.readFile('src/main/templates/partials/footer.hbs', 'utf8');
+      hb.registerPartial('header', headerPartial);
+      hb.registerPartial('footer', footerPartial);
+
+      const suiteDetailTplRaw = await fs.readFile('src/main/templates/suites.hbs', 'utf8');
+      const suiteDetailTpl = hb.compile(suiteDetailTplRaw);
+
+      const itemsForEmit = [
+        ...suitesOut.map(s => ({ slug: s.suiteSlug, kind: 'suite' })),
+        ...collectionsOut.map(c => ({ slug: c.collectionSlug, kind: 'collection' }))
+      ].filter(x => x.slug);
+
+      let emittedSuites = 0;
+      let emittedCollections = 0;
+
+      for (const it of itemsForEmit) {
+        const outDir = path.join(BUILD_PATH, 'suites', String(it.slug));
+        await fs.mkdir(outDir, { recursive: true });
+
+        const canonicalUrl = new URL(`/suites/${encodeURIComponent(String(it.slug))}/`, siteConfig.canonicalBase).href;
+
+        // Find the full suite/collection record so we can build page-specific titles/descriptions
+        const suiteRec = suitesOut.find(s => String(s.suiteSlug || '') === String(it.slug)) || null;
+        const collRec = collectionsOut.find(c => String(c.collectionSlug || '') === String(it.slug)) || null;
+        const rec = (it.kind === 'collection') ? collRec : suiteRec;
+
+        const pub = String(rec?.publisher || '').trim();
+        const num = String(rec?.number || '').trim();
+        const suiteTitle = String(rec?.suiteTitle || '').trim();
+        const collectionTitle = String(rec?.collectionTitle || rec?.suiteTitle || '').trim();
+
+        const displayLabel = it.kind === 'collection'
+          ? [pub, collectionTitle].filter(Boolean).join(' — ').trim()
+          : [pub, num].filter(Boolean).join(' ').trim();
+
+        const pageTitle = displayLabel || 'Suites';
+        const pageDesc = (it.kind === 'collection')
+          ? `Collection page for ${pageTitle}.`
+          : `Suite page for ${pageTitle}.`;
+
+        // IMPORTANT: suite detail pages are client-rendered, but they still use the shared header/footer
+        // partials. Those partials expect the same meta/site fields as every other page. If we don't
+        // pass them here, the emitted HTML gets blank author/site/locale/etc.
+        const html = suiteDetailTpl({
+          // template/meta fields used by header/footer
+          templateName: 'suites',
+          listTitle: pageTitle,
+          htmlLink: '',
+          assetPrefix: '../../',
+
+          siteName: siteConfig.siteName,
+          siteDescription: pageDesc,
+          canonicalBase: siteConfig.canonicalBase,
+          canonicalUrl,
+
+          // SEO/social defaults
+          ogTitle: `${pageTitle} — ${siteConfig.siteName}`,
+          ogDescription: pageDesc,
+          ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+          ogImageAlt: siteConfig.ogImageAlt,
+
+          // standard footer/meta fields (match what other pages receive)
+          locale: siteConfig.locale || 'en-US',
+          author: siteConfig.author || 'Steve LLamb',
+          authorUrl: siteConfig.authorUrl || 'https://PrZ3.io',
+          copyrightHolder: siteConfig.copyrightHolder || 'PrZ3',
+          copyrightYear: siteConfig.copyrightYear || String(new Date().getFullYear()),
+          copyright: siteConfig.copyright || '',
+          license: siteConfig.license || 'BSD-3-Clause',
+          licenseUrl: siteConfig.licenseUrl || 'https://opensource.org/licenses/BSD-3-Clause',
+
+          // these are used in footer.hbs if present in the normal page context
+          site_version: siteConfig.site_version || '',
+          date: siteConfig.date || new Date()
+        });
+
+        await _writeFile(path.join(outDir, 'index.html'), html, 'utf8');
+        if (it.kind === 'suite') emittedSuites++;
+        else emittedCollections++;
+      }
+
+      console.log(`[build] Suite detail pages emitted: ${emittedSuites}`);
+      console.log(`[build] Collection detail pages emitted: ${emittedCollections}`);
+    } catch (e) {
+      console.warn('[build] Failed to emit suite/collection detail pages:', e && e.message ? e.message : e);
+    }
+    // --- end suite detail page emit ---
+  } else if (
     templateName !== 'groups' &&
     !(templateName === 'documents' && listType === 'documents') &&
-    !(templateName === 'refTree' && listType === 'documents')
+    !(templateName === 'refTree' && listType === 'documents') &&
+    !(templateName === 'suites' && listType === 'documents')
   ) {
     const outDir = path.join(BUILD_PATH, templateName, '_data');
     await fs.mkdir(outDir, { recursive: true });
@@ -553,9 +866,9 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
   // Render a human-friendly label from a lineage key like "ISO||15444|1" → "ISO 15444-1"
   hb.registerHelper('formatLineageKey', function(key) {
     if (!key || typeof key !== 'string') return '';
-    const [pub = '', suite = '', number = '', part = ''] = key.split('|');
+    const [pub = '', type = '', number = '', part = ''] = key.split('|');
     let out = pub || '';
-    if (suite) out += (out ? ' ' : '') + suite;
+    if (type) out += (out ? ' ' : '') + type;
     if (number) out += (out ? ' ' : '') + number + (part ? `-${part}` : '');
     return out.trim();
   });
@@ -583,8 +896,17 @@ function _doiUrl(doc){
   function _labelOf(doc){
     return (doc && doc.docLabel) || '';
   }
-  function _titleOf(doc){
-    return (doc && (doc.docTitle || doc.title)) || '';
+function _titleOf(doc){
+    if (!doc) return '';
+    const suiteTitle = doc.docSuiteTitle || doc.suiteTitle || '';
+    const baseTitle = doc.docTitle || doc.title || '';
+
+    if (suiteTitle && baseTitle) {
+      return `${suiteTitle} - ${baseTitle}`;
+    }
+
+    // Fallbacks: just base title, or suite title if that is all we have
+    return baseTitle || suiteTitle || '';
   }
   function _publisherOf(doc){
     return (doc && doc.publisher) || '';
@@ -839,6 +1161,35 @@ function _doiUrl(doc){
     }
   }
 
+  // Build ALLPARTS base → suite/collection lookup (for ref rendering)
+  let __msiSuiteByAllParts = null;
+  let __msiSuiteByPubNumber = null; 
+  try {
+    if (__msiParsed && Array.isArray(__msiParsed.suites)) {
+      __msiSuiteByAllParts = new Map();
+      __msiSuiteByPubNumber = new Map();
+      for (const s of __msiParsed.suites) {
+        if (!s || !s.key || !s.slug) continue;
+        // key is like "ISO|11664" or "SMPTE|ST|379"
+        const base = s.key.replace(/\|/g, '.');
+        __msiSuiteByAllParts.set(`${base}.ALLPARTS`, {
+          slug: s.slug,
+          title: s.suiteTitle || s.label || base,
+          kind: s.kind || 'suite'
+        });
+        if (s.publisher && s.number) {
+          __msiSuiteByPubNumber.set(`${s.publisher}|${s.number}`, {
+            slug: s.slug,
+            title: s.title,
+            kind: s.kind || 'suite'
+          });
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('[WARN] Failed building MSI ALLPARTS suite index:', e.message);
+  }
+
   // Build a base-id → { lineageKey, latestBaseId, latestAnyId } index from MSI for undated ref resolution
   let __msiBaseIndex = null;
   if (__msiLatestByLineage) {
@@ -877,9 +1228,9 @@ function _doiUrl(doc){
   // Utility to render a human-friendly label from a lineage key
   const labelFromLineageKey = (key) => {
     if (!key || typeof key !== 'string') return '';
-    const [pub = '', suite = '', number = '', part = ''] = key.split('|');
+    const [pub = '', type = '', number = '', part = ''] = key.split('|');
     let out = pub || '';
-    if (suite) out += (out ? ' ' : '') + suite;
+    if (type) out += (out ? ' ' : '') + type;
     if (number) out += (out ? ' ' : '') + number + (part ? `-${part}` : '');
     return out.trim();
   };
@@ -905,15 +1256,15 @@ function _doiUrl(doc){
     }
   }
 
-  // --- Build per-base suites and attach minimal arrays to each doc
-  (function attachDocSuites() {
+  // --- Build per-base versions and attach minimal arrays to each doc
+  (function attachDocVersions() {
     try {
-      const suites = new Map();
+      const versions = new Map();
       for (const d of registryDocument) {
         if (!d || !d.docBase) continue;
-        const arr = suites.get(d.docBase) || [];
+        const arr = versions.get(d.docBase) || [];
         arr.push(d);
-        suites.set(d.docBase, arr);
+        versions.set(d.docBase, arr);
       }
       const byDateThenId = (a, b) => {
         const ad = a.publicationDate || '';
@@ -923,14 +1274,14 @@ function _doiUrl(doc){
         if (ad && !bd) return -1;
         return (a.docId || '').localeCompare(b.docId || '');
       };
-      for (const [base, arr] of suites.entries()) {
+      for (const [base, arr] of versions.entries()) {
         arr.sort(byDateThenId);
         if (arr.length) arr[arr.length - 1].__isNewestInBase = true; // convenience flag
       }
       for (const d of registryDocument) {
         if (!d || !d.docBase) continue;
-        const arr = suites.get(d.docBase) || [];
-        d.docSuite = arr.map(x => ({
+        const arr = versions.get(d.docBase) || [];
+        d.docVersion = arr.map(x => ({
           docId: x.docId,
           docLabel: x.docLabel,
           href: x.href,
@@ -941,7 +1292,7 @@ function _doiUrl(doc){
         }));
       }
     } catch (e) {
-      console.warn(`[build] docSuite attach failed: ${e.message}`);
+      console.warn(`[build] docVersion attach failed: ${e.message}`);
     }
   })();
 
@@ -1014,6 +1365,64 @@ function _doiUrl(doc){
 
       // Always consult MSI; only *upgrade* when the ref is undated.
       function getLatestRef(r, kind) {
+        // 0) Hard stop for ALLPARTS pseudo-ids: do NOT try to resolve these to a single dated doc
+        if (typeof r === 'string' && /\.ALLPARTS$/i.test(r)) {
+          const wasUndated = true;
+          refs.push(r);
+
+          // Derive suite meta from the ALLPARTS base (e.g. SMPTE.ST379 / ISO.11664)
+          const baseAllParts = String(r).replace(/\.ALLPARTS$/i, '');
+
+          // Minimal derive {pub,num} that ignores SMPTE type tokens (ST/RP/OV/etc.)
+          const derivePubNum = (base) => {
+            const b = String(base || '').trim();
+            if (!b) return { pub: '', num: '' };
+
+            // Prefer keyer when it can parse the undated token
+            try {
+              const k = keying.keyFromDocId(b, { docId: b });
+              const pub = k && k.publisher ? String(k.publisher).trim() : '';
+              const num = k && k.number ? String(k.number).trim() : '';
+              if (pub && num) return { pub, num };
+            } catch (e) {}
+
+            // Fallback: PUB.<token> where token contains the suite number (e.g. ST379 → 379)
+            const parts = b.split('.').filter(Boolean);
+            const pub = (parts[0] || '').trim();
+            const token = (parts[1] || '').trim();
+            if (!pub || !token) return { pub: '', num: '' };
+            const m = token.match(/(\d+)/);
+            const num = m ? String(m[1]).trim() : '';
+            return { pub, num };
+          };
+
+          let suiteSlug = null;
+          let suiteTitle = null;
+          let suiteKind = null;
+
+          try {
+            const { pub, num } = derivePubNum(baseAllParts);
+            if (pub && num && __suiteByPubNumber && __suiteByPubNumber.has(`${pub}||${num}`)) {
+              const meta = __suiteByPubNumber.get(`${pub}||${num}`);
+              suiteSlug = meta && meta.slug ? meta.slug : null;
+              suiteTitle = meta && meta.title ? meta.title : null;
+              suiteKind = meta && meta.kind ? meta.kind : null;
+            }
+
+            // Final fallback so the UI never renders a blank label
+            if (!suiteTitle && pub && num) suiteTitle = `${pub} ${num}`;
+          } catch (e) {}
+
+          return {
+            id: r,
+            undated: wasUndated,
+            allParts: true,
+            suiteSlug,
+            suiteTitle,
+            suiteKind
+          };
+        }
+
         // Compute base form by stripping a date tail once; treat rest as the lineage base token
         const base = typeof r === 'string' ? r.replace(DATED_TAIL_RE, '') : r;
         const wasUndated = (base === r);
@@ -1204,10 +1613,38 @@ function _doiUrl(doc){
 
   hb.registerHelper("getStatus", function(docId) {
     if (!docStatuses.hasOwnProperty(docId)) {
+      console.warn(`[WARN:getStatus] docId "${docId}" not found in registry`);
       return "NOT IN REGISTRY";
     } else {
       return docStatuses[docId];
     }
+  });
+
+  hb.registerHelper("getRefStatus", function(ref) {
+    if (ref && ref.allParts) {
+      return "[SUITE]";
+    }
+    return ref && ref.id ? (docStatuses[ref.id] || "NOT IN REGISTRY") : "NOT IN REGISTRY";
+  });
+
+  hb.registerHelper("getRefLabel", function(ref) {
+    if (ref && ref.allParts && ref.suiteTitle) {
+      return ref.suiteTitle;
+    }
+    if (ref && ref.id) {
+      return docLabels[ref.id] || ref.id;
+    }
+    return '';
+  });
+
+  hb.registerHelper("getRefHref", function(ref) {
+    if (ref && ref.allParts && ref.suiteSlug) {
+      return `../../suites/${ref.suiteSlug}/`;
+    }
+    if (ref && ref.id) {
+      return refHref(ref.id);
+    }
+    return '#';
   });
 
   /* create Status Button and Label based on current document status */
@@ -1708,9 +2145,17 @@ hb.registerHelper('docProjLookup', function(collection, id) {
 
           // Root-style label/title for refTree header + center card:
           // - label: prefer docLabel, then docTitle, then docId
-          // - title: prefer docTitle, else fall back to label
           const rootLabel = d.docLabel || d.docTitle || d.docId;
-          const rootTitle = d.docTitle || rootLabel;
+
+          // Prefer a composite "suiteTitle - docTitle" style root title when suite info is present,
+          // falling back to docTitle, then the root label.
+          const suiteTitle = (d.docSuiteTitle || d.suiteTitle || '').trim();
+          let rootTitle;
+          if (suiteTitle) {
+            rootTitle = `${suiteTitle} - ${d.docTitle || rootLabel}`;
+          } else {
+            rootTitle = d.docTitle || rootLabel;
+          }
 
           const refTreeHtml = refTreeTpl({
             // document fields for this root
@@ -1816,6 +2261,180 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     } catch (e) {
       console.warn('[build] Could not emit refTree index page:', e && e.message ? e.message : e);
     }
+
+    // --- Emit suites data and pages from MasterSuiteIndex at /suites/… ---
+    try {
+      const msiPath = path.join('src', 'main', 'reports', 'masterSuiteIndex.json');
+      let suites = [];
+      try {
+        const raw = await fs.readFile(msiPath, 'utf8');
+        const parsed = JSON.parse(raw);
+        suites = Array.isArray(parsed.suites) ? parsed.suites : [];
+      } catch (e) {
+        console.warn('[build] No masterSuiteIndex at', msiPath, '; skipping suites emit:', e && e.message ? e.message : e);
+        suites = [];
+      }
+
+      if (!suites.length) {
+        console.log('[build] No suites found in masterSuiteIndex; nothing to emit for /suites');
+      } else {
+        // 1) Emit suites/_data/suites.json
+        const suitesDataDir = path.join(BUILD_PATH, 'suites', '_data');
+        await fs.mkdir(suitesDataDir, { recursive: true });
+        const suitesDataPath = path.join(suitesDataDir, 'suites.json');
+        await writeFileSafe(suitesDataPath, JSON.stringify(suites, null, 2), 'utf8');
+        console.log(`[build] Wrote ${suitesDataPath}`);
+
+        // 2) Emit per-suite pages at /suites/{suiteSlug}/index.html using suites.hbs
+        try {
+          const suitesTplSrc = await fs.readFile('src/main/templates/suites.hbs', 'utf8');
+          const suitesTpl = hb.compile(suitesTplSrc);
+          const suitesOutRoot = path.join(BUILD_PATH, 'suites');
+          await fs.mkdir(suitesOutRoot, { recursive: true });
+
+          let __sOk = 0, __sFail = 0;
+          for (const s of suites) {
+            if (!s) continue;
+            const slug = (s.suiteSlug || '').trim();
+            if (!slug) continue;
+
+            const pub  = (s.publisher || '').trim();
+            const type = (s.type || '').trim();
+            const num  = (s.number || '').trim();
+
+            const baseLabel = type ? `${pub} ${type} ${num}` : `${pub} ${num}`;
+            const suiteLabel = baseLabel || 'Suite';
+
+            const perSuiteCanonical = new URL(`/suites/${encodeURIComponent(slug)}/`, siteConfig.canonicalBase).href;
+            const perSuiteTitle = `${suiteLabel} — ${siteConfig.siteName}`;
+            const perSuiteListTitle = suiteLabel;
+            const perSuiteDesc = siteConfig.siteDescription;
+
+            // Compose merged suite context for use as `suite` (so {{#with suite}} in template still works for partials/meta)
+            const suiteCtx = {
+              ...(s || {}),
+              // make meta available even if templates change context with {{#with suite}}
+              listTitle: perSuiteListTitle,
+              site_version: site_version,
+              date: new Date(),
+              siteName: siteConfig.siteName,
+              author: siteConfig.author,
+              authorUrl: siteConfig.authorUrl,
+              copyright: siteConfig.copyright,
+              copyrightHolder: siteConfig.copyrightHolder,
+              copyrightYear: siteConfig.copyrightYear,
+              license: siteConfig.license,
+              licenseUrl: siteConfig.licenseUrl,
+              locale: siteConfig.locale,
+              siteDescription: perSuiteDesc,
+              siteTitle: perSuiteTitle,
+              canonicalBase: siteConfig.canonicalBase,
+              canonicalUrl: perSuiteCanonical,
+              ogTitle: perSuiteTitle,
+              ogDescription: perSuiteDesc,
+              ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+              ogImageAlt: siteConfig.ogImageAlt,
+              assetPrefix: '../../',
+              htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
+              publisherUrls: siteConfig.publisherUrls,
+            };
+
+            const suiteHtml = suitesTpl({
+              templateName: 'suites',
+              listTitle: perSuiteListTitle,
+              site_version: site_version,
+              date: suiteCtx.date,
+              // site/meta
+              siteName: siteConfig.siteName,
+              author: siteConfig.author,
+              authorUrl: siteConfig.authorUrl,
+              copyright: siteConfig.copyright,
+              copyrightHolder: siteConfig.copyrightHolder,
+              copyrightYear: siteConfig.copyrightYear,
+              license: siteConfig.license,
+              licenseUrl: siteConfig.licenseUrl,
+              locale: siteConfig.locale,
+              siteDescription: perSuiteDesc,
+              siteTitle: perSuiteTitle,
+              canonicalBase: siteConfig.canonicalBase,
+              canonicalUrl: perSuiteCanonical,
+              ogTitle: perSuiteTitle,
+              ogDescription: perSuiteDesc,
+              ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+              ogImageAlt: siteConfig.ogImageAlt,
+              assetPrefix: '../../',
+              publisherUrls: siteConfig.publisherUrls,
+              // data
+              suite: suiteCtx,
+              suites
+            });
+
+            const suiteDir = path.join(suitesOutRoot, slug);
+            await fs.mkdir(suiteDir, { recursive: true });
+            const suiteOutFile = path.join(suiteDir, 'index.html');
+            await writeFileSafe(suiteOutFile, suiteHtml, 'utf8');
+            __sOk++;
+          }
+          if (__sFail) {
+            console.warn(`[build] Suite pages emitted with warnings: ok=${__sOk}, failed=${__sFail}`);
+          } else {
+            console.log(`[build] Suite pages emitted: ${__sOk}`);
+          }
+        } catch (suiteTplErr) {
+          console.warn('[build] Could not emit suite detail pages:', suiteTplErr && suiteTplErr.message ? suiteTplErr.message : suiteTplErr);
+        }
+
+        // 3) Emit /suites/index.html landing page using suitesIndex.hbs
+        try {
+          const suitesIndexTplSrc = await fs.readFile('src/main/templates/suitesIndex.hbs', 'utf8');
+          const suitesIndexTpl = hb.compile(suitesIndexTplSrc);
+          const suitesRoot = path.join(BUILD_PATH, 'suites');
+          await fs.mkdir(suitesRoot, { recursive: true });
+
+          const suitesCanonical = new URL('/suites/', siteConfig.canonicalBase).href;
+          const suitesPageTitle = `Suites — ${siteConfig.siteName}`;
+          const suitesListTitle = 'Suites';
+          const suitesDesc = 'Bundles of related standards with multiple parts.';
+
+          const suitesIndexHtml = suitesIndexTpl({
+            templateName: 'suitesIndex',
+            listTitle: suitesListTitle,
+            site_version: site_version,
+            date: new Date(),
+            // meta
+            siteName: siteConfig.siteName,
+            author: siteConfig.author,
+            authorUrl: siteConfig.authorUrl,
+            copyright: siteConfig.copyright,
+            copyrightHolder: siteConfig.copyrightHolder,
+            copyrightYear: siteConfig.copyrightYear,
+            license: siteConfig.license,
+            licenseUrl: siteConfig.licenseUrl,
+            locale: siteConfig.locale,
+            siteDescription: suitesDesc,
+            siteTitle: suitesPageTitle,
+            canonicalBase: siteConfig.canonicalBase,
+            canonicalUrl: suitesCanonical,
+            ogTitle: suitesPageTitle,
+            ogDescription: suitesDesc,
+            ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+            ogImageAlt: siteConfig.ogImageAlt,
+            assetPrefix: '../',
+            publisherUrls: siteConfig.publisherUrls,
+            // data
+            suites
+          });
+
+          await writeFileSafe(path.join(suitesRoot, 'index.html'), suitesIndexHtml, 'utf8');
+          console.log('[build] Wrote build/suites/index.html');
+        } catch (e) {
+          console.warn('[build] Could not emit suites index page:', e && e.message ? e.message : e);
+        }
+      }
+    } catch (e) {
+      console.warn('[build] Suites emit failed:', e && e.message ? e.message : e);
+    }
+
   }
   
   /* create build directory */
@@ -2231,6 +2850,7 @@ module.exports = {
 
 void (async () => {
   await loadSiteConfig();
+  await loadSuiteLookupsOnce();
 
   for (const cfg of registries) {
     await buildRegistry(cfg);
@@ -2442,3 +3062,55 @@ void (async () => {
   console.log('[build] Wrote build/404.html');
 
 })().catch(console.error)
+
+  // --- Suite/Collection link helper for docId pages ---
+  hb.registerHelper('suiteLink', function (doc) {
+    try {
+      const d = doc || this || {};
+      const docId = String(d.docId || '').trim();
+
+      // Publisher on docs can be composite (e.g., "ANSI/ASA"); for suite/collection lookups
+      // prefer the parsed publisher from keying, but fall back to doc.publisher.
+      let pubFromDoc = String(d.publisher || d.docPublisher || '').trim();
+      let pubFromKey = '';
+      let k = null;
+
+      if (docId) {
+        try {
+          k = keying.keyFromDocId(docId, d);
+          pubFromKey = (k && k.publisher) ? String(k.publisher).trim() : '';
+        } catch (e) {
+          k = null;
+          pubFromKey = '';
+        }
+      }
+
+      // Try both publisher variants (key-derived first), de-duped
+      const pubs = [pubFromKey, pubFromDoc].filter(Boolean);
+      const pubCandidates = Array.from(new Set(pubs));
+
+      // Collection match uses docSuiteTitle
+      const suiteTitle = String(d.docSuiteTitle || '').trim();
+
+      // 1) Collection wins (try all publisher candidates)
+      if (suiteTitle) {
+        const titleKey = suiteTitle.toLowerCase();
+        for (const pub of pubCandidates) {
+          const cMeta = __collectionByPubTitle.get(`${pub}||${suiteTitle.toLowerCase()}`);
+          if (cMeta && cMeta.slug) return `../../suites/${encodeURIComponent(cMeta.slug)}/`;
+        }
+      }
+
+      // 2) Suite fallback (publisher+number) (prefer key-derived publisher + parsed number)
+      if (k && k.number) {
+        const num = String(k.number).trim();
+        for (const pub of pubCandidates) {
+          const sMeta = __suiteByPubNumber.get(`${pub}||${num}`);
+          if (sMeta && sMeta.slug) return `../../suites/${encodeURIComponent(sMeta.slug)}/`;
+        }
+      }
+    } catch (e) {
+      // swallow
+    }
+    return '';
+  });

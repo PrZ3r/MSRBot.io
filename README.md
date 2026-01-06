@@ -18,11 +18,12 @@ Documents from [SMPTE](https://www.smpte.org/), [ISO](https://www.iso.org/home.h
 
 What started as a personal tool to make sense of reference trees has grown into a self-maintaining system that reveals the lineage, dependencies, and context of the world’s media technology documents
 
-> See [docs/changelog.md](docs/changelog.md) for details on updates since Q2 2025.
+> See [docs/buildlog.md](docs/buildlog.md) for details of [v1.0.0](https://github.com/PrZ3r/MSRBot.io/releases/tag/v1.0.0) released on Nov 26, 2025.
 
 ### Live Stats
 
 [![Documents](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.documents.total&label=Documents&color=blue&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=documents.total)
+[![Suites](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.suites.total&label=Suites&color=orange&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=suites.total)
 [![Active](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.documents.active&label=Active%20docs&color=brightgreen&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=documents.active)
 [![Doc types](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.documents.docTypes&label=Doc%20types&color=informational&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=documents.docTypes)
 [![References](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.documents.references&label=References&color=orange&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=documents.references)
@@ -31,7 +32,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 > _All badges are generated from live JSON at [api/stats.json](https://msrbot.io/api/stats.json)._
 
 #### Details
-- **Historical range:** 1896 → present  
+- **Published historical range:** 1896 → present  
 - **Automation uptime:** 100% since August 2025 (SMPTE)
 - **Publishers covered:** SMPTE, NIST, ISO, ITU, AES, and more
 
@@ -41,8 +42,9 @@ What started as a personal tool to make sense of reference trees has grown into 
 - Main document Dataset: [`documents.json`](src/main/data/documents.json)
 - Document lineages: [Master Suite Index (MSI)](src/main/reports/masterSuiteIndex.json)
 - Document reference maps: [Master Reference Index (MRI)](src/main/reports/masterReferenceIndex.json)
-- Live API Stats [api/stats.json](https://msrbot.io/api/stats.json)
+- Live API Stats: [api/stats.json](https://msrbot.io/api/stats.json)
 - Public Site generated from `main` at <https://msrbot.io>
+- Change Log: [CHANGELOG.md](CHANGELOG.md)
 
 ## Automation Overview
 MSRBot.io updates itself through a chain of automated GitHub Actions. When appropriate, PRs generate MSR Build Preview review links. 

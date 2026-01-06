@@ -412,6 +412,45 @@ a.nav-link:focus {
   background-color: var(--msr-body-bg);
 }
 
+/* Update suites tables to prevent Bootstrap overrides */
+table.table thead.table-header th,
+table.table thead.table-header td {
+  background-color: var(--msr-card-header-bg) !important;
+  padding: 0.45rem 0.75rem !important;
+  
+}
+
+/* Target only suite tables */
+.suite-table th.part-col,
+.suite-table td.part-col,
+.suite-table th.status-col,
+.suite-table td.status-col,
+.suite-table th.pubdate-col,
+.suite-table td.pubdate-col {
+  text-align: center;
+  white-space: nowrap;
+  width: 1%;
+  font-size: 0.95rem;
+}
+
+.suite-table .status-badge {
+  display: inline-block;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.85rem;
+}
+
+/* Visually mute withdrawn docs in suite tables */
+.suite-table tr.suite-row-withdrawn td {
+  opacity: 0.55;
+  font-style: italic;
+}
+
+table.table tbody.table-body th,
+table.table tbody.table-body td {
+  background-color: var(--msr-card-bg) !important;
+  padding: 0.35rem 0.75rem !important;
+}
+
 /* Facet accordion cleanup */
 #facet .accordion-button,
 #groupFacet .accordion-button,

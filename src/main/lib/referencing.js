@@ -228,12 +228,19 @@ function _findSourceDocIdForRefId(refId) {
   let arr = _docBaseIndex ? _docBaseIndex.get(base) : null;
 
   // Fallback: if base map is empty (e.g., index built from array without docBase fields),
-  // derive candidates by scanning all docIds that start with `${base}.` (dated forms)
+  // derive candidates by scanning all docIds that start with `${base}.` or `${base}-`
   if ((!arr || arr.length === 0) && _docIdIndex && _docIdIndex.size) {
-    const prefix = `${base}.`;
+    const dotPrefix = `${base}.`;
+    const dashPrefix = `${base}-`;
     arr = [];
     for (const cand of _docIdIndex) {
-      if (cand === base || cand.startsWith(prefix)) arr.push(cand);
+      if (
+        cand === base ||
+        cand.startsWith(dotPrefix) ||
+        cand.startsWith(dashPrefix)
+      ) {
+        arr.push(cand);
+      }
     }
   }
 
@@ -244,9 +251,13 @@ function _findSourceDocIdForRefId(refId) {
     for (const cand of arr) {
       if (cand === base) return cand; // exact base id present
       const r = _dateRankFromId(cand);
-      if (r > bestRank) { bestRank = r; best = cand; }
+      if (r > bestRank) {
+        bestRank = r;
+        best = cand;
+      }
     }
-    return best || null;
+    // If all ranks were -Infinity (unparseable dates), just pick the first candidate
+    return best || arr[0] || null;
   }
   return null;
 }
@@ -680,6 +691,22 @@ function parseRefId(text, href = '', opts = {}) {
   // allow explicit cite→refId normalization via refMap.json
   const diag = mapRefByCiteDiag(text);
   if (diag.refId) return wantDiag ? { refId: diag.refId, diag } : diag.refId;
+
+  // --- ALLPARTS hinting from cite text ---
+  // Some sources explicitly cite a standard as "(all parts)". Preserve that intent
+  // by emitting a pseudo-id with the `.ALLPARTS` suffix (used downstream for suite linking).
+  const allPartsHint = /\(\s*all\s+parts\s*\)|\ball\s+parts\b/i.test(String(text || ''));
+  if (allPartsHint) {
+    // Prefer ISO/IEC style numeric extraction from the cite string.
+    // Examples:
+    //   "ISO 80000 (all parts)" -> ISO.80000.ALLPARTS
+    //   "ISO/IEC 15444-1 (all parts)" -> ISO.15444-1.ALLPARTS
+    const mIso = String(text || '').match(/\bISO(?:\s*\/\s*IEC|\/IEC)?\s+([0-9]{3,6}(?:-[0-9A-Za-z]+)*)\b/i);
+    if (mIso && mIso[1]) {
+      const refId = `ISO.${mIso[1]}.ALLPARTS`;
+      return wantDiag ? { refId, diag: { mapSource: 'cite', mapDetail: 'allparts:iso' } } : refId;
+    }
+  }
 
   // W3C dated REC
   if (/w3\.org\/TR\/\d{4}\/REC-([^\/]+)-(\d{8})\//i.test(href)) {

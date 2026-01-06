@@ -159,18 +159,18 @@ function collectSkipped(allDocs) {
       continue;
     }
 
-    // 4) Keyed but policy-filtered (e.g., IEEE journals by suite)
+    // 4) Keyed but policy-filtered (e.g., IEEE journals by type)
     if (shouldSkipKey(k)) {
-      const suite = (k.suite || '').toUpperCase();
-      const cat = (k.publisher === 'IEEE' && /^(JRPROC|TMAG)$/.test(suite)) ? 'journal' : 'policy';
+      const type = (k.type || '').toUpperCase();
+      const cat = (k.publisher === 'IEEE' && /^(JRPROC|TMAG)$/.test(type)) ? 'journal' : 'policy';
       skipped.push({
         docId: d.docId,
         publisher: pub,
         reason: 'FILTERED',
         rule: 'FILTERED',
-        ruleDetail: `policy:${k.publisher}.${suite || ''}`,
+        ruleDetail: `policy:${k.publisher}.${type || ''}`,
         category: cat,
-        key: [k.publisher, k.suite || '', k.number, k.part || ''].join('|')
+        key: [k.publisher, k.type || '', k.number, k.part || ''].join('|')
       });
     }
   }
@@ -265,6 +265,410 @@ function attachVersionlessSuccessors(lineages) {
   }
 }
 
+// Group lineages into "suites" by publisher/type/number (ignoring part)
+// A suite lets us see all parts, pick a single "latest" doc across parts,
+// and also compute latest-per-part bundles (for ALLPARTS resolution, etc.).
+function buildSuites(lineages) {
+
+  const lineageByKey = new Map(
+    Array.isArray(lineages)
+      ? lineages.map(li => [li.key, li])
+      : []
+  );
+
+  const steMap = new Map();
+  // Suite-level flags may be attached here (e.g., SUITE_TITLE_MISMATCH across parts)
+
+  if (!Array.isArray(lineages)) return [];
+
+  for (const li of lineages) {
+    if (!li || !li.key) continue;
+    // key format: "PUBLISHER|TYPE|NUMBER|PART"
+    const [pub = '', type = '', number = '', part = ''] = String(li.key).split('|');
+    // Suites policy: exclude SMPTE AG and RDD entirely (these are guidance/admin and disclosure docs, not suites)
+    if (pub === 'SMPTE' && (type === 'AG' || type === 'RDD')) {
+      continue;
+    }
+    if (pub === 'AMPAS') {
+      continue;
+    }
+    // Suite key ignores type: group by publisher + number so ST/OV/RP variants share a suite.
+    const steKey = [pub, number].join('|');
+
+    let ste = steMap.get(steKey);
+    if (!ste) {
+      ste = {
+        key: steKey,
+        publisher: pub,
+        // Canonical suite type will be resolved after aggregation (e.g., ST vs OV vs RP)
+        type: null,
+        number: number || null,
+        // Track all observed types within the suite (ST, RP, OV, etc.)
+        types: [],
+        parts: [],
+        lineages: [],
+        // Human-readable title for the suite
+        suiteTitle: null,
+        // suite-wide "winner"
+        latestAnyId: null,
+        latestAnyLineageKey: null,
+        latestDateKey: null,
+        // status rollups
+        hasActiveBase: false,
+        hasWithdrawn: false,
+        hasStabilized: false,
+        // no-part base tracking
+        hasNoPartBase: false,
+        noPartLineageKey: null,
+        noPartLatestId: null,
+        // per-part latest doc ('' = no-part base)
+        latestPerPart: {},
+        // convenience bundle for ALLPARTS: sorted list of latest docIds per part
+        allPartsLatestIds: [],
+        // counts
+        counts: {
+          lineages: 0,
+          parts: 0,
+          docs: 0,
+          bases: 0,
+          amendments: 0,
+          supplements: 0
+        }
+      };
+      steMap.set(steKey, ste);
+    }
+
+    // Track all raw types participating in this suite so we can pick a canonical one later
+    const typeToken = type || null;
+    if (typeToken && !ste.types.includes(typeToken)) {
+      ste.types.push(typeToken);
+    }
+
+    // Track membership and parts
+    const partToken = (li.part == null || li.part === '') ? null : String(li.part);
+    if (partToken && !ste.parts.includes(partToken)) {
+      ste.parts.push(partToken);
+    }
+
+    if (!partToken) {
+      ste.hasNoPartBase = true;
+      ste.noPartLineageKey = ste.noPartLineageKey || li.key;
+      // Use that lineage’s latestAnyId (or latestBaseId) as the “no-part latest”
+      if (li.latestAnyId || li.latestBaseId) {
+        ste.noPartLatestId = li.latestAnyId || li.latestBaseId;
+      }
+    }
+
+    ste.lineages.push(li.key);
+    ste.counts.lineages++;
+
+    // Bubble up suite titles: keep the first non-empty as a default
+    if (!ste.suiteTitle && li.suiteTitle) {
+      ste.suiteTitle = String(li.suiteTitle).trim();
+    }
+
+    // Aggregate counts from the lineage-level counts block
+    if (li.counts) {
+      const bases = li.counts.bases || 0;
+      const amendments = li.counts.amendments || 0;
+      const supplements = li.counts.supplements || 0;
+      ste.counts.bases += bases;
+      ste.counts.amendments += amendments;
+      ste.counts.supplements += supplements;
+      ste.counts.docs += bases + amendments + supplements;
+    }
+
+    // Aggregate status across bases
+    if (li.hasActiveBase) ste.hasActiveBase = true;
+    if (li.hasWithdrawn) ste.hasWithdrawn = true;
+    if (li.hasStabilized) ste.hasStabilized = true;
+
+    // Choose a single "latest" for the suite using lineage.latestDateKey
+    const dk = li.latestDateKey || null;
+    if (dk && (!ste.latestDateKey || dk > ste.latestDateKey)) {
+      ste.latestDateKey = dk;
+      // prefer latestAnyId but fall back to latestBaseId
+      ste.latestAnyId = li.latestAnyId || li.latestBaseId || null;
+      ste.latestAnyLineageKey = li.key;
+    }
+
+    // --- per-part latest tracking ---
+    // Choose the candidate for “latest in this lineage”
+    const candId = li.latestAnyId || li.latestBaseId || null;
+    const candDk = li.latestDateKey || null;
+    if (candId && candDk) {
+      const partKey = partToken || ''; // '' = no-part base
+      const current = ste.latestPerPart[partKey];
+
+      // Determine withdrawn status of the chosen candidate
+      let candWithdrawn = false;
+      if (li.latestAnyId && candId === li.latestAnyId) {
+        candWithdrawn = !!li.latestAnyStatusWithdrawn;
+      } else if (li.latestBaseId && candId === li.latestBaseId) {
+        candWithdrawn = !!li.latestBaseStatusWithdrawn;
+      }
+
+      if (!current || candDk > current.dateKey) {
+        ste.latestPerPart[partKey] = {
+          docId: candId,
+          lineageKey: li.key,
+          dateKey: candDk,
+          withdrawn: candWithdrawn
+        };
+      }
+    }
+  }
+
+  // After suite population, attach suite-level flags for mismatched suite titles across lineages
+  for (const ste of steMap.values()) {
+    // Collect all non-empty trimmed suite titles from member lineages
+    const titleSet = new Set();
+    for (const lineageKey of ste.lineages) {
+      const li = lineageByKey.get(lineageKey);
+      if (li && li.suiteTitle) {
+        const t = String(li.suiteTitle).trim();
+        if (t) titleSet.add(t);
+      }
+    }
+    const titles = Array.from(titleSet);
+    if (titles.length > 1) {
+      ste.flags = ste.flags || [];
+      if (!ste.flags.includes('SUITE_TITLE_MISMATCH')) {
+        ste.flags.push('SUITE_TITLE_MISMATCH');
+      }
+    }
+  }
+
+  // Finalize part counts, per-part bundles, and sort suites for stable output
+  let suites = Array.from(steMap.values());
+  for (const ste of suites) {
+    ste.counts.parts = ste.parts.length;
+
+    // Sort explicit parts for nicer reporting
+    ste.parts.sort((a, b) => {
+      const na = Number(a), nb = Number(b);
+      if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
+      return String(a).localeCompare(String(b));
+    });
+
+    // Filter out no-part ("") entries from per-part lists (do not drop withdrawn latest docs)
+    let perPartEntries = Object.entries(ste.latestPerPart)
+      .filter(([partKey, v]) => partKey !== '' && v);
+
+    // Sort explicit parts (unchanged)
+    perPartEntries.sort((a, b) => {
+      const [pa] = a;
+      const [pb] = b;
+      const na = Number(pa), nb = Number(pb);
+      if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
+      return String(pa).localeCompare(String(pb));
+    });
+
+    // allPartsLatestIds now includes the no-part base (if any) first, then all explicit-part latest IDs
+    ste.allPartsLatestIds = [];
+    if (ste.noPartLatestId) {
+      ste.allPartsLatestIds.push(ste.noPartLatestId);
+    }
+    ste.allPartsLatestIds.push(...perPartEntries.map(([, v]) => v.docId));
+
+    // Resolve a canonical suite type:
+    // Prefer the type from latestAnyLineageKey (typically ST), otherwise fall back to the first observed type.
+    if (ste.latestAnyLineageKey) {
+      const [, keyType = '', , ] = String(ste.latestAnyLineageKey).split('|');
+      ste.type = keyType || null;
+    } else if (Array.isArray(ste.types) && ste.types.length > 0) {
+      ste.type = ste.types[0] || null;
+    }
+
+    // Resolve a canonical suite title:
+    // Prefer the suiteTitle from the lineage that contributed latestAnyLineageKey.
+    if (ste.latestAnyLineageKey) {
+      const li = lineageByKey.get(ste.latestAnyLineageKey);
+      if (li && li.suiteTitle) {
+        ste.suiteTitle = String(li.suiteTitle).trim();
+      }
+    }
+
+  }
+
+  // Drop singleton suites with no structural parts (e.g., ST 378, 382, etc.)
+  suites = suites.filter(ste => ste.parts.length > 0);
+
+  // Stable sort for deterministic output: by publisher, type, number (numeric/lex)
+  suites.sort((a, b) => {
+    if (a.publisher !== b.publisher) return a.publisher.localeCompare(b.publisher);
+    const as = a.type || '';
+    const bs = b.type || '';
+    if (as !== bs) return as.localeCompare(bs);
+    const an = a.number || '';
+    const bn = b.number || '';
+    if (an === bn) return 0;
+    const ai = parseInt(an, 10);
+    const bi = parseInt(bn, 10);
+    if (!Number.isNaN(ai) && !Number.isNaN(bi)) return ai - bi;
+    return an.localeCompare(bn);
+  });
+
+  // Assign a deterministic slug for each suite so URLs and client JS agree.
+  // Example: publisher=SMPTE, type=ST, number=379 → "smpte-379"
+  for (const ste of suites) {
+    const slugBaseParts = [ste.publisher, ste.number].filter(Boolean).join('-');
+    const raw = slugBaseParts || ste.key || '';
+    ste.suiteSlug = raw
+      .replace(/[^A-Za-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .toLowerCase();
+  }
+
+  return suites;
+}
+
+// Build “collections” from suite titles (docSuiteTitle / lineage.suiteTitle) rather than structural parts.
+// Collections are secondary to suites: they do NOT change suite behavior.
+// A collection groups lineages across type/number when they share the same suiteTitle within a publisher.
+function buildCollections(lineages, suiteKeySet = new Set()) {
+  if (!Array.isArray(lineages)) return [];
+
+  const slugify = (s) => String(s || '')
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/--+/g, '-');
+
+  const shortSlug = (title, maxLen = 60) => {
+    const base = slugify(title);
+    if (!base) return '';
+    if (base.length <= maxLen) return base;
+    return base.slice(0, maxLen).replace(/-+$/g, '');
+  };
+
+  // Deterministic suffix for collisions
+  const hash6 = (s) => crypto.createHash('sha1').update(String(s)).digest('hex').slice(0, 6);
+
+  const map = new Map(); // key -> collection
+
+  for (const li of lineages) {
+    if (!li || !li.key) continue;
+
+    // key format: "PUBLISHER|TYPE|NUMBER|PART"
+    const [pub = '', type = ''] = String(li.key).split('|');
+
+    // Collections policy: exclude SMPTE AG only (allow RDD in collections)
+    if (pub === 'SMPTE' && type === 'AG') continue;
+
+    const title = (li.suiteTitle ? String(li.suiteTitle).trim() : '');
+    if (!title) continue;
+
+    const key = `${pub}|${title}`;
+
+    let c = map.get(key);
+    if (!c) {
+      c = {
+        key,
+        publisher: pub,
+        collectionTitle: title,
+        collectionSlug: null,
+        lineages: [],
+        numbers: [], // internal: docNumbers present in this collection
+        // “winner” (latest across member lineages)
+        latestAnyId: null,
+        latestAnyLineageKey: null,
+        latestDateKey: null,
+        // rollups
+        hasActiveBase: false,
+        hasWithdrawn: false,
+        hasStabilized: false,
+        // counts
+        counts: {
+          lineages: 0,
+          docs: 0,
+          bases: 0,
+          amendments: 0,
+          supplements: 0
+        }
+      };
+      map.set(key, c);
+    }
+
+    // Membership
+    if (!c.lineages.includes(li.key)) {
+      c.lineages.push(li.key);
+      c.counts.lineages++;
+    }
+
+    // Track doc numbers present in this collection (for de-dup vs structural suites)
+    const parts = String(li.key).split('|'); // PUBLISHER|TYPE|NUMBER|PART
+    const num = parts[2] != null ? String(parts[2]) : '';
+    if (num && !c.numbers.includes(num)) c.numbers.push(num);
+
+    // Status rollups
+    if (li.hasActiveBase) c.hasActiveBase = true;
+    if (li.hasWithdrawn) c.hasWithdrawn = true;
+    if (li.hasStabilized) c.hasStabilized = true;
+
+    // Counts rollups
+    if (li.counts) {
+      const bases = li.counts.bases || 0;
+      const amendments = li.counts.amendments || 0;
+      const supplements = li.counts.supplements || 0;
+      c.counts.bases += bases;
+      c.counts.amendments += amendments;
+      c.counts.supplements += supplements;
+      c.counts.docs += bases + amendments + supplements;
+    }
+
+    // Latest rollup
+    const dk = li.latestDateKey || null;
+    if (dk && (!c.latestDateKey || dk > c.latestDateKey)) {
+      c.latestDateKey = dk;
+      c.latestAnyId = li.latestAnyId || li.latestBaseId || null;
+      c.latestAnyLineageKey = li.key;
+    }
+  }
+
+  // Require at least 2 member lineages so we don’t spam singletons
+  let collections = Array.from(map.values())
+  .filter(c => c.counts.lineages >= 2)
+  .filter(c => {
+    // If this collection only covers ONE docNumber, and that publisher|number exists
+    // as a structural suite (multi-part), then the collection is redundant.
+    if (Array.isArray(c.numbers) && c.numbers.length === 1) {
+      const k = `${c.publisher}|${c.numbers[0]}`;
+      if (suiteKeySet && suiteKeySet.has(k)) return false;
+    }
+    return true;
+  });
+
+  // Slugs: "pub-shorttitle" + collision guard
+  const used = new Map();
+  for (const c of collections) {
+    const pubPart = slugify(c.publisher);
+    const titlePart = shortSlug(c.collectionTitle);
+    let slug = [pubPart, titlePart].filter(Boolean).join('-');
+    if (!slug) slug = slugify(c.key);
+
+    const seen = used.get(slug) || 0;
+    if (seen > 0) slug = `${slug}-${hash6(c.key)}`;
+    used.set(slug, seen + 1);
+
+    c.collectionSlug = slug;
+  }
+
+  // Stable sort
+  collections.sort((a, b) => {
+    if (a.publisher !== b.publisher) return a.publisher.localeCompare(b.publisher);
+    return String(a.collectionTitle).localeCompare(String(b.collectionTitle));
+  });
+
+  // Internal only
+  for (const c of collections) {
+    delete c.numbers;
+  }
+
+  return collections;
+}
 
 function shouldSkipKey(k) {
   // Filter from the main report for now.
@@ -305,7 +709,7 @@ function buildIndex(allDocs) {
       _srcPart = smpteHead[3] ? String(smpteHead[3]) : (_srcDocType === 'OV' ? '0' : null);
     }
 
-    const keyStr = [k.publisher, k.suite || '', k.number, k.part || ''].join('|');
+    const keyStr = [k.publisher, k.type || '', k.number, k.part || ''].join('|');
     if (!map.has(keyStr)) map.set(keyStr, { key: k, docs: [] });
 
     const status = d.status || {};
@@ -321,6 +725,7 @@ function buildIndex(allDocs) {
 
     map.get(keyStr).docs.push({
       docId: d.docId,
+      docSuiteTitle: (d.docSuiteTitle || d.suiteTitle || null),
       publicationDate: d.publicationDate || null,
       releaseTag,
       statusActive,
@@ -376,6 +781,44 @@ function buildIndex(allDocs) {
                         : (anyGraphHeads.length ? pickNewest(anyGraphHeads)
                         : pickNewest(entry.docs));
 
+    // Derive a lineage-level suite title from doc-level docSuiteTitle fields
+    let suiteTitle = null;
+    let suiteTitleSource = null;
+
+    // Collect distinct non-empty candidates
+    const suiteTitleCandidates = Array.from(
+      new Set(
+        entry.docs
+          .map(d => (d.docSuiteTitle ? String(d.docSuiteTitle).trim() : ''))
+          .filter(Boolean)
+      )
+    );
+
+    if (suiteTitleCandidates.length === 1) {
+      // Single unique title across the lineage
+      suiteTitle = suiteTitleCandidates[0];
+      suiteTitleSource = 'unique';
+    } else if (suiteTitleCandidates.length > 1) {
+      // Prefer the title on the latestAny doc, if it has one
+      if (latestAny) {
+        const latestDoc = idIndex.get(latestAny.docId);
+        if (latestDoc && latestDoc.docSuiteTitle) {
+          const t = String(latestDoc.docSuiteTitle).trim();
+          if (t) {
+            suiteTitle = t;
+            suiteTitleSource = 'latestAny';
+          }
+        }
+      }
+      // Fallback: pick the first non-empty candidate if we still don't have a suiteTitle
+      if (!suiteTitle) {
+        suiteTitle = suiteTitleCandidates[0];
+        suiteTitleSource = 'firstOfMany';
+      }
+      // Important: we do NOT set SUITE_TITLE_MISMATCH here.
+      // Suite-level mismatches are handled later in buildSuites().
+    }
+
     // Lineage-level helpers
     const hasActiveBase = bases.some(x => x.statusActive === true);
     const hasWithdrawn = entry.docs.some(x => x.statusWithdrawn === true);
@@ -430,7 +873,7 @@ function buildIndex(allDocs) {
       flags.push('MISSING_BASE_FOR_AMENDMENT');
     }
 
-    // SMPTE cross-type lineage diagnostics: same numeric family but mixed doc types (e.g., RP6 + RDD6)
+    // SMPTE cross-type lineage diagnostics: same numeric suite but mixed doc types (e.g., RP6 + RDD6)
     if (entry.key.publisher === 'SMPTE') {
       const typeSet = new Set(entry.docs.map(x => x._srcDocType).filter(Boolean));
       if (typeSet.size > 1) {
@@ -506,7 +949,7 @@ function buildIndex(allDocs) {
       // Skip Application Guides (AG) and Operational Metadata (OM)
       if (entry.key.publisher === 'SMPTE') {
         const rt = (x.releaseTag == null) ? '' : String(x.releaseTag).trim();
-        const token = (x._srcDocType || entry.key.suite || '').toUpperCase();
+        const token = (x._srcDocType || entry.key.type || '').toUpperCase();
         if (!rt && token !== 'AG' && token !== 'OM') {
           flags.push(`SMPTE_MISSING_RELEASE_TAG:${x.docId}`);
         }
@@ -530,16 +973,20 @@ function buildIndex(allDocs) {
     const lineageObj = {
       key: keyStr,
       publisher: entry.key.publisher,
-      suite: entry.key.suite,
+      type: entry.key.type,
       number: entry.key.number,
       part: entry.key.part,
+      suiteTitle,
+      suiteTitleSource,
       // W3C lineage annotations for clarity in reports
-      w3cFamily: entry.key.publisher === 'W3C' ? entry.key.suite : undefined,
+      w3cFamily: entry.key.publisher === 'W3C' ? entry.key.type : undefined,
       w3cVersion: entry.key.publisher === 'W3C' ? (entry.key.number || null) : undefined,
       docs: docsPublic,
       latestBaseId: latestBase ? latestBase.docId : null,
       latestAnyId: latestAny ? latestAny.docId : null,
       latestDateKey: latestAny ? latestAny._dk : null,
+      latestAnyStatusWithdrawn: latestAny ? latestAny.statusWithdrawn === true : false,
+      latestBaseStatusWithdrawn: latestBase ? latestBase.statusWithdrawn === true : false,
       hasActiveBase,
       hasWithdrawn,
       hasStabilized,
@@ -558,11 +1005,11 @@ function buildIndex(allDocs) {
 
   }
 
-  // Stable sort for deterministic output: by publisher, suite, number (numeric/lex), part (numeric/lex)
+  // Stable sort for deterministic output: by publisher, type, number (numeric/lex), part (numeric/lex)
   lineages.sort((a, b) => {
     const ap = a.publisher.localeCompare(b.publisher);
     if (ap) return ap;
-    const as = (a.suite || '').localeCompare(b.suite || '');
+    const as = (a.type || '').localeCompare(b.type || '');
     if (as) return as;
     const aNum = Number(a.number), bNum = Number(b.number);
     if (!Number.isNaN(aNum) && !Number.isNaN(bNum)) {
@@ -645,6 +1092,10 @@ function buildIndex(allDocs) {
   }
 
   const lineages = buildIndex(docs);
+  const suites = buildSuites(lineages);
+  // For de-duplication: suites are keyed by publisher|number
+  const suiteKeySet = new Set(Array.isArray(suites) ? suites.map(s => `${s.publisher}|${s.number}`) : []);
+  const collections = buildCollections(lineages, suiteKeySet);
   attachVersionlessSuccessors(lineages);
   //attachInlineVersionless(lineages);
   const flagSummary = computeFlagSummary(lineages);
@@ -659,7 +1110,9 @@ function buildIndex(allDocs) {
       summaryByReason: skippedSummary,
     },
     flagSummary,
-    lineages
+    lineages,
+    suites,
+    collections
   };
 
   // Simple counts: found in source vs added to report
@@ -693,7 +1146,7 @@ function buildIndex(allDocs) {
   // Optional: surface a few docIds that contributed to UNKNOWN for triage
   const unknownExamples = [];
   for (const d of docs) {
-    if (!d || !d.docId) continue;
+    if (!d || !d.docId) continue; 
     if (publisherFromDoc(d) === 'UNKNOWN') {
       unknownExamples.push(d.docId);
       if (unknownExamples.length >= 5) break;
@@ -751,4 +1204,5 @@ function buildIndex(allDocs) {
 
   console.log(`\n✅ Master Suite Index written: ${OUT}`);
   console.log(`   Lineages: ${lineages.length}`);
+  console.log(`   Collections: ${collections.length}`);
 })();

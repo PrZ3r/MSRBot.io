@@ -56,6 +56,15 @@ const {
   reloadDocumentsIndex,
   mriPruneToSightings
 } = require('../lib/referencing');
+
+const keying = require('../lib/keying');
+const { keyFromDocId } = keying;
+
+const REGISTRIES_REPO_PATH = 'src/main';
+const MSI_PATH = path.join(REGISTRIES_REPO_PATH, 'reports/masterSuiteIndex.json');
+
+let __msiSuitesByKey = null;
+let __msiLoadedSuites = false;
 const NO_PRUNE = has('--no-prune');
 
 function arg(flag, def = null) {
@@ -101,6 +110,71 @@ function* iterDocRefs(doc) {
       yield { type, refId };
     }
   }
+}
+
+function loadMsiSuitesQuiet() {
+  if (__msiLoadedSuites) return;
+  __msiLoadedSuites = true;
+  try {
+    if (!fs.existsSync(MSI_PATH)) {
+      __msiSuitesByKey = null;
+      return;
+    }
+    const raw = fs.readFileSync(MSI_PATH, 'utf8');
+    const msi = JSON.parse(raw);
+    if (msi && Array.isArray(msi.suites)) {
+      __msiSuitesByKey = new Map(
+        msi.suites
+          .filter(f => f && typeof f.key === 'string')
+          .map(f => [f.key, f])
+      );
+    } else {
+      __msiSuitesByKey = null;
+    }
+  } catch (e) {
+    __msiSuitesByKey = null;
+    if (!QUIET) {
+      console.warn(`⚠️ MRI: failed to load MSI for ALLPARTS presence checks: ${e.message || e}`);
+    }
+  }
+}
+
+function isAllPartsResolvable(refId) {
+  if (!refId) return false;
+  loadMsiSuitesQuiet();
+  if (!__msiSuitesByKey) return false;
+
+  const m = String(refId).match(/^(.+)\.ALLPARTS$/);
+  if (!m) return false;
+
+  const baseId = m[1];
+
+  // If MSI failed to load or has no suites, we cannot resolve
+  if (!__msiSuitesByKey || __msiSuitesByKey.size === 0) return false;
+
+  // Treat an ALLPARTS reference as resolvable if *any* MSI suite has
+  // allPartsLatestIds whose docIds clearly belong to this base. We do
+  // this by string-prefix matching on the docId stem (e.g., SMPTE.ST379)
+  // and ignoring the part/date suffix (e.g., -1.2009, .2004, etc.).
+  for (const suite of __msiSuitesByKey.values()) {
+    const ids = Array.isArray(suite.allPartsLatestIds) ? suite.allPartsLatestIds : [];
+    if (!ids.length) continue;
+
+    const match = ids.some((id) => {
+      if (!id) return false;
+      const s = String(id);
+      return (
+        s === baseId ||
+        s.startsWith(baseId + '.') ||
+        s.startsWith(baseId + '-') ||
+        s.startsWith(baseId + '/')
+      );
+    });
+
+    if (match) return true;
+  }
+
+  return false;
 }
 
 function main() {
@@ -178,11 +252,11 @@ function main() {
     try {
       const MRI_PATH = path.resolve(process.cwd(), 'src/main/reports/masterReferenceIndex.json');
       const mri = JSON.parse(fs.readFileSync(MRI_PATH, 'utf8'));
-            const missing = [];
+      const missing = [];
       const present = [];
       const refs = mri && mri.refs ? mri.refs : {};
       for (const [refId, entry] of Object.entries(refs)) {
-        const sp = !!(entry && entry.resolution && entry.resolution.sourcePresent);
+        let sp = !!(entry && entry.resolution && entry.resolution.sourcePresent);
         const srcDoc = entry && entry.resolution ? entry.resolution.sourceDocId || null : null;
         const variants = Array.isArray(entry && entry.rawVariants) ? entry.rawVariants : [];
         // Build full sightings from rawVariants, sorted by docId+type for stability
@@ -200,6 +274,15 @@ function main() {
             const kb = `${b.docId || ''}||${b.type || ''}`;
             return ka < kb ? -1 : ka > kb ? 1 : 0;
           });
+
+        // Presence override: treat resolvable .ALLPARTS refs as present, even if
+        // there is no single sourceDocId. This stops ISO.11664.ALLPARTS,
+        // SMPTE.ST379.ALLPARTS, etc. from being flagged as missing when MSI
+        // suites confirm all-parts coverage.
+        if (!sp && !srcDoc && /\.ALLPARTS$/i.test(refId) && isAllPartsResolvable(refId)) {
+          sp = true;
+        }
+
         const item = { refId, sourceDocId: srcDoc, sightingCount: sightings.length, sightings };
         (sp ? present : missing).push(item);
       }

@@ -1,3 +1,32 @@
+/*
+Copyright (c) 2025 Steve LLamb (https://github.com/SteveLLamb) and PrZ3(https://github.com/PrZ3r)
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+3. Redistributions in binary form must reproduce the above copyright notice, this
+   list of conditions and the following disclaimer in the documentation and/or
+   other materials provided with the distribution.
+
+4. Neither the name of the copyright holder nor the names of its contributors may
+   be used to endorse or promote products derived from this software without specific 
+   prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR 
+TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF 
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 (function () {
   var form = document.getElementById('rt-search-form');
   var input = document.getElementById('rt-docid');
@@ -29,6 +58,17 @@
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
+  }
+
+  // Helper to build display title using docSuiteTitle if present
+  function buildDisplayTitle(doc) {
+    if (!doc) return '';
+    var suiteTitle = doc.docSuiteTitle || doc.suiteTitle || '';
+    var baseTitle = doc.docTitle || doc.title || '';
+    if (suiteTitle && baseTitle) {
+      return suiteTitle + ' — ' + baseTitle;
+    }
+    return baseTitle || suiteTitle || '';
   }
 
   function buildSearchIndex() {
@@ -77,6 +117,8 @@
       var id = d.docId;
       if (!id) continue;
 
+      var displayTitle = buildDisplayTitle(d);
+
       var upstream = safeLen(d.referencedBy);
 
       var refsResolved = d.referencesResolved || {};
@@ -89,8 +131,8 @@
 
       scored.push({
         id: id,
-        label: d.docLabel || d.docTitle || id,
-        title: d.docTitle || '',
+        label: d.docLabel || displayTitle || id,
+        title: displayTitle,
         upstream: upstream,
         downstream: downstream,
         total: total
@@ -117,7 +159,7 @@
       var link = document.createElement('a');
       link.className = 'd-inline-block';
       link.href = '../reftree/' + encodeURIComponent(item.id) + '/';
-      link.textContent = (item.label || item.id) + ' (' + item.id + ')';
+      link.textContent = (item.label || item.id);
 
       var titleDiv = document.createElement('div');
       titleDiv.className = 'text-muted small';
@@ -171,7 +213,7 @@
     matches.slice(0, 10).forEach(function (m) {
       html += '<li class="mb-1">';
       html += '<a href="../reftree/' + encodeURIComponent(m.id) + '/">' +
-        escapeHtml(m.label || m.id) + ' (' + escapeHtml(m.id) + ')' +
+        escapeHtml(m.label || m.id) +
         '</a>';
       if (m.title) {
         html += '<div class="text-muted small">' + escapeHtml(m.title) + '</div>';
@@ -200,7 +242,7 @@
         matches.forEach(function (m) {
           fullHtml += '<li class="mb-1">';
           fullHtml += '<a href="../reftree/' + encodeURIComponent(m.id) + '/">' +
-            escapeHtml(m.label || m.id) + ' (' + escapeHtml(m.id) + ')' +
+            escapeHtml(m.label || m.id) +
             '</a>';
           if (m.title) {
             fullHtml += '<div class="text-muted small">' + escapeHtml(m.title) + '</div>';
@@ -215,14 +257,16 @@
 
   function scoreDocAgainstQuery(doc, query, queryCompact) {
     var id = String(doc.docId || '');
-    var label = String(doc.docLabel || doc.docTitle || id);
-    var title = String(doc.docTitle || '');
+    var displayTitle = buildDisplayTitle(doc);
+    var label = String(doc.docLabel || displayTitle || id);
+    var title = String(displayTitle || '');
 
     var idLower = id.toLowerCase();
     var labelLower = label.toLowerCase();
     var titleLower = title.toLowerCase();
     var idCompact = normalizeCompact(id);
     var labelCompact = normalizeCompact(label);
+    var titleCompact = normalizeCompact(title);
 
     // Exact-style matches first
     if (idLower === query) return 100;
@@ -232,6 +276,7 @@
     // Compact matches (handles spaces vs dots vs dashes)
     if (idCompact === queryCompact) return 85;
     if (labelCompact === queryCompact) return 80;
+    if (titleCompact === queryCompact) return 78;
 
     // Substring matches in label/title
     if (labelLower.indexOf(query) !== -1) return 70;
@@ -255,13 +300,14 @@
     for (var i = 0; i < registryDocs.length; i++) {
       var d = registryDocs[i];
       if (!d || !d.docId) continue;
+      var displayTitle = buildDisplayTitle(d);
       var s = scoreDocAgainstQuery(d, q, qCompact);
       if (s > 0) {
         scored.push({
           score: s,
           id: d.docId,
-          label: d.docLabel || d.docTitle || d.docId,
-          title: d.docTitle || ''
+          label: d.docLabel || displayTitle || d.docId,
+          title: displayTitle
         });
       }
     }
