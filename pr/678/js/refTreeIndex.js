@@ -159,7 +159,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       var link = document.createElement('a');
       link.className = 'd-inline-block';
       link.href = '../reftree/' + encodeURIComponent(item.id) + '/';
-      link.textContent = (item.label || item.id) + ' (' + item.id + ')';
+      link.textContent = (item.label || item.id);
 
       var titleDiv = document.createElement('div');
       titleDiv.className = 'text-muted small';
@@ -213,7 +213,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     matches.slice(0, 10).forEach(function (m) {
       html += '<li class="mb-1">';
       html += '<a href="../reftree/' + encodeURIComponent(m.id) + '/">' +
-        escapeHtml(m.label || m.id) + ' (' + escapeHtml(m.id) + ')' +
+        escapeHtml(m.label || m.id) +
         '</a>';
       if (m.title) {
         html += '<div class="text-muted small">' + escapeHtml(m.title) + '</div>';
@@ -242,7 +242,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         matches.forEach(function (m) {
           fullHtml += '<li class="mb-1">';
           fullHtml += '<a href="../reftree/' + encodeURIComponent(m.id) + '/">' +
-            escapeHtml(m.label || m.id) + ' (' + escapeHtml(m.id) + ')' +
+            escapeHtml(m.label || m.id) +
             '</a>';
           if (m.title) {
             fullHtml += '<div class="text-muted small">' + escapeHtml(m.title) + '</div>';
