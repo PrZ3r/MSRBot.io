@@ -23,7 +23,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 ### Live Stats
 
 [![Documents](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.documents.total&label=Documents&color=blue&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=documents.total)
-[![Suites](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.suites.total&label=Suitess&color=orange&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=suites.total)
+[![Suites](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.suites.total&label=Suites&color=orange&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=suites.total)
 [![Active](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.documents.active&label=Active%20docs&color=brightgreen&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=documents.active)
 [![Doc types](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.documents.docTypes&label=Doc%20types&color=informational&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=documents.docTypes)
 [![References](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmsrbot.io%2Fapi%2Fstats.json&query=%24.documents.references&label=References&color=orange&style=flat&cacheSeconds=3600)](https://msrbot.io/api/viewer.html?path=documents.references)
