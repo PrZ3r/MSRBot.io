@@ -456,8 +456,19 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             </div>
           `;
         } else {
-          const truncatedBase = abstract.slice(0, ABSTRACT_TRUNCATE_CHARS).replace(/\s+\S*$/, '');
-          const shortHtml = renderAbstractHtml(truncatedBase + '…');
+          // For the short preview, flatten newlines so we don't end up with "…" (and the More button)
+          // starting after a <br><br> which looks like a weird extra paragraph.
+          const abstractFlat = String(abstract)
+            .replace(/\s*\n+\s*/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+          const truncatedBase = abstractFlat
+            .slice(0, ABSTRACT_TRUNCATE_CHARS)
+            .replace(/\s+\S*$/, '')
+            .trim();
+
+          const shortHtml = renderAbstractHtml((truncatedBase || abstractFlat) + '…');
           const fullHtml = renderAbstractHtml(abstract);
           abstractHtmlBlock = `
             <div class="small text-muted suite-abstract fst-italic" data-state="short">

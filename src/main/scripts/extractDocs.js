@@ -386,6 +386,7 @@ async function urlExistsNoRedirect(url) {
 
 const metaConfig = {
   parsed: {
+    abstract: { confidence: 'high', note: 'Parsed from HTML sec-scope section' },
     docNumber: { confidence: 'high', note: 'Parsed from HTML pubNumber meta tag' },
     docPart: { confidence: 'high', note: 'Parsed from HTML pubPart meta tag' },
     docSuiteTitle: { confidence: 'high', note: 'Parsed from HTML pubSuiteTitle meta tag, or derived from wrapper title for PDF releases' },
@@ -566,6 +567,40 @@ function mdEscape(val) {
     .replace(/#/g, '\\#')
     .replace(/\|/g, '\\|')
     .replace(/!/g, '\\!');
+}
+
+function normalizeInlineText(input) {
+  if (input === null || input === undefined) return null;
+  // Cheerio already strips tags with .text(), but we still normalize whitespace and weird NBSPs.
+  const s = String(input)
+    .replace(/\u00a0/g, ' ')      // nbsp
+    .replace(/\s+/g, ' ')        // collapse all whitespace
+    .trim();
+  return s || null;
+}
+
+// Extract the "Scope" section (id is always sec-scope) and use it as a plain-text abstract.
+// - Grabs all <p> children under #sec-scope
+// - Flattens to plain text (no HTML)
+// - Joins multiple paragraphs with "\n"
+function extractScopeAbstract($) {
+  try {
+    const $scope = $('#sec-scope');
+    if (!$scope || !$scope.length) return null;
+
+    const paras = [];
+    $scope.find('p').each((_, p) => {
+      const t = normalizeInlineText($(p).text());
+      if (t) paras.push(t);
+    });
+
+    if (paras.length) return paras.join('\n');
+
+    // Fallback: if there are no <p> tags for some reason, take the section text.
+    return normalizeInlineText($scope.text());
+  } catch (_) {
+    return null;
+  }
 }
 
 function injectMetaForDoc(doc, source, mode, changedFieldsMap = {}) {
@@ -757,6 +792,8 @@ const extractFromSeedDoc = async (seedRootUrl) => {
     if (localBad.length) badRefs.push(...localBad);
     const hasRefsOut = Object.keys(refsOut).length > 0;
 
+    const abstract = extractScopeAbstract($index);
+
     const revisionRaw = $index('[itemprop="pubRevisionOf"]').attr('content');
     let revisionOf;
     if (revisionRaw) {
@@ -792,6 +829,7 @@ const extractFromSeedDoc = async (seedRootUrl) => {
         versionless: true
       },
       ...(hasRefsOut ? { references: refsOut } : {}),
+      ...(abstract ? { abstract } : {}),
       ...(revisionOf && { revisionOf })
     };
 
@@ -1016,6 +1054,8 @@ const extractFromUrl = async (rootUrl) => {
       if (localBad.length) badRefs.push(...localBad);
       const hasRefsOut = Object.keys(refsOut).length > 0;
 
+      const abstract = extractScopeAbstract($index);
+
       const revisionRaw = $index('[itemprop="pubRevisionOf"]').attr('content');
       let revisionOf;
 
@@ -1044,14 +1084,15 @@ const extractFromUrl = async (rootUrl) => {
         publisher: pubPublisher,
         href,
         repo: repoUrl,
-      status: {
-        active: isLatestForStatus && pubStage === 'PUB' && pubState === 'pub',
-        latestVersion: isLatestForStatus,
-        stage: pubStage,
-        state: pubState,
-        superseded: !isLatestForStatus
-      },
+        status: {
+          active: isLatestForStatus && pubStage === 'PUB' && pubState === 'pub',
+          latestVersion: isLatestForStatus,
+          stage: pubStage,
+          state: pubState,
+          superseded: !isLatestForStatus
+        },
         ...(hasRefsOut ? { references: refsOut } : {}),
+        ...(abstract ? { abstract } : {}),
         ...(revisionOf && { revisionOf })
       };
 
