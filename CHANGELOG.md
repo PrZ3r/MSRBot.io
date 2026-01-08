@@ -10,10 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - yyyy-mm-dd
  
 ### Added
+- Automated extraction of `Scope` in HTML documents to map to `abstract`.
  
 ### Changed
+- Backfilled (auto and manually) `abstract` fields for DC and IMF `collections`
  
 ### Fixed
+- Fixed rendering of `abstract` paragraph breaks in `suites`. 
 
 ## [v1.1.0] - 2026-01-06
 
