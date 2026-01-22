@@ -53,11 +53,11 @@ MSRBot.io updates itself through a chain of automated GitHub Actions. When appro
 
 | Stage | Purpose | Trigger | Key Output |
 |:------|:---------|:---------|:------------|
-| Extract | Pulls and parses SMPTE HTML/PDF metadata | Weekly | `documents.json` |
-| MSI | Builds document lineages | PR Merge/Weekly | `masterSuiteIndex.json` |
+| Extract | Pulls and parses SMPTE HTML/PDF metadata | Weekly (Tues) | `documents.json` |
+| MSI | Builds document lineages | PR Merge / Weekly (Wed) | `masterSuiteIndex.json` |
 | MRI | Maps references across all docs | After MSI | `masterReferenceIndex.json` |
 | MSR | Builds and publishes the site | After MRI | <https://msrbot.io/> |
-| URL Validate | Checks and normalizes links | After MSR | `url_validate_audit.json` |
+| URL Validate | Checks and normalizes links | After MSR / Weekly (Thurs) | `url_validate_audit.json` |
 | PR Build Preview| Builds MSR preview prior to publication | PR Creation (Extract/MSI/MRI/Site PRs) | <https://msrbot.io/pr/###/> |
 
 ```mermaid
