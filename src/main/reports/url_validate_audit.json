@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-01-28T17:35:51.211Z",
+  "generatedAt": "2026-01-29T05:31:31.572Z",
   "target": "documents.json",
-  "good": 2010,
+  "good": 2014,
   "skippedByDomain": 0,
   "skippedByPublisher": 0,
   "index": {
-    "error": 198,
+    "error": 194,
     "errorBreakdown": {
       "Unreachable (403)": 45,
       "Unreachable (404)": 139,
-      "Unreachable (ECONNABORTED)": 5,
+      "Unreachable (ECONNABORTED)": 1,
       "Unreachable (ENOTFOUND)": 2,
       "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 2,
       "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)": 4,
@@ -633,6 +633,16 @@
           "riskLevel": "High"
         },
         {
+          "docId": "AES6.2008",
+          "publisher": "AES",
+          "field": "href",
+          "url": "https://www.aes.org/publications/standards/search.cfm?docID=15",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
           "docId": "AES7.2000",
           "publisher": "AES",
           "field": "href",
@@ -653,10 +663,10 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.FIPS.186-4",
+          "docId": "NIST.FIPS.140-2",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.186-4",
+          "url": "https://doi.org/10.6028/NIST.FIPS.140-2",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -673,20 +683,10 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.SP.800-57p1r2007",
+          "docId": "NIST.SP.800-38F",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57p1r2007",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "NIST.SP.800-57p2",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57p2",
+          "url": "https://csrc.nist.gov/pubs/sp/800/38/f/final",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -1873,58 +1873,6 @@
           "riskLevel": "High"
         }
       ],
-      "ECONNABORTED": [
-        {
-          "docId": "AES6.2008",
-          "publisher": "AES",
-          "field": "href",
-          "url": "https://www.aes.org/publications/standards/search.cfm?docID=15",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "DPP.004",
-          "publisher": "DPP",
-          "field": "href",
-          "url": "https://www.thedpp.com/downloads#dpp004",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "DPP.005",
-          "publisher": "DPP",
-          "field": "href",
-          "url": "https://www.thedpp.com/downloads#dpp005",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEEE.754.1985",
-          "publisher": "IEEE",
-          "field": "href",
-          "url": "https://standards.ieee.org/standard/754-1985.html",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEEE.754.2008",
-          "publisher": "IEEE",
-          "field": "href",
-          "url": "https://standards.ieee.org/standard/754-2008.html",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        }
-      ],
       "ERR_TLS_CERT_ALTNAME_INVALID": [
         {
           "docId": "IMFUG.BP.001.2020",
@@ -2001,6 +1949,18 @@
           "riskLevel": "Medium"
         }
       ],
+      "ECONNABORTED": [
+        {
+          "docId": "NAB.STD.E-416.1965",
+          "publisher": "NAB",
+          "field": "href",
+          "url": "https://www.richardhess.com/tape/history/NAB/NAB_Reel_Tape_Standard_1965_searchable.pdf",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        }
+      ],
       "ENOTFOUND": [
         {
           "docId": "W3C.rddl.2002",
@@ -2032,7 +1992,7 @@
           "publisher": "IOP Publishing Ltd",
           "field": "href",
           "url": "https://doi.org/10.1088/0950-7671/1/3/302",
-          "resolvedUrl": "https://validate.perfdrive.com/fb803c746e9148689b3984a31fccd902/?ssa=756b8eb7-24e9-4df0-a215-673fd5e90910&ssb=68365269951&ssc=https%3A%2F%2Fiopscience.iop.org%2Farticle%2F10.1088%2F0950-7671%2F1%2F3%2F302&ssi=ff26154a-cnvj-4338-bfc2-8e731204ea39&ssk=botmanager_support@radware.com&ssm=63062924195392426109012557662033&ssn=d79c1c204dd39833eb7dee6db7616ec320e0c6c15898-0399-4e61-92bdae&sso=45a08720-1c19ef9b0eaec382c6a0191f994f584193863aa7c40b47f3&ssp=36997276801769693223176967527451033&ssq=94910752099432957893320994927658298612101&ssr=MTcyLjIxMi4xNjMuMjMy&sst=axios/1.13.2&ssu=&ssv=&ssw=&ssx=eyJ1em14IjoiN2Y5MDAwMjJiNzU5MTItYTcxZC00MTljLTg3NmEtMjJlNDM0NGEzZjI1MS0xNzY5NjIwOTk0NDQ1MC01MzVmMWY2NDE0MWE5NzUwMTAiLCJfX3V6bWYiOiI3ZjkwMDBjNmMxNTg5OC0wMzk5LTRlNjEtOTcyMC0xYzE5ZWY5YjBlYWUxLTE3Njk2MjA5OTQ0NDUwLTAwMmE2OTVhNGI4ODk0ZDNlMDAxMCIsInJkIjoiaW9wLm9yZyJ9",
+          "resolvedUrl": "https://validate.perfdrive.com/fb803c746e9148689b3984a31fccd902/?ssa=d4f9e904-14c1-400a-9874-d2db4abfcea7&ssb=55591205377&ssc=https%3A%2F%2Fiopscience.iop.org%2Farticle%2F10.1088%2F0950-7671%2F1%2F3%2F302&ssi=03242aa3-cnvj-490d-9d29-95ded72bde83&ssk=botmanager_support@radware.com&ssm=39153600034502954107856788310538&ssn=8207243f350308294d52aa8744c13fd5992394dc017a-78b7-4695-826be6&sso=d785063a-32d42f760bdede55aa04e969cd054dfb312a26d985b513ad&ssp=64466764651769654596176960629812628&ssq=87321306355851869391563558188741093992972&ssr=MjAuMTY5LjczLjE0OA==&sst=axios/1.13.2&ssu=&ssv=&ssw=&ssx=eyJyZCI6ImlvcC5vcmciLCJ1em14IjoiN2Y5MDAwYjk4ZWMzZWMtODZiZC00MWRkLTg3OGEtNzc4ZTUzYWIxNTRkMS0xNzY5NjYzNTU4Nzg0MC1iM2Y4NjhiNzVkNTUzYTVkMTAiLCJfX3V6bWYiOiI3ZjkwMDA5NGRjMDE3YS03OGI3LTQ2OTUtODYzYS0zMmQ0MmY3NjBiZGUxLTE3Njk2NjM1NTg3ODQwLTAwMjMxNTk0ODA1OWIzMTFkMDMxMCJ9",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://iopscience.iop.org/article/10.1088/0950-7671/1/3/302",
           "message": "resolved url mismatch"
