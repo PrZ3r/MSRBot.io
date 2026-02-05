@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - yyyy-mm-dd
  
 ### Added
+
+### Changed
+
+### Fixed
+
+## [v1.2.0] - 2026-02-05
+
+> Primary changes delivered via <https://github.com/PrZ3r/MSRBot.io/pull/695>
+ 
+### Added
 - Automated extraction of `Scope` in HTML documents to map to `abstract`.
 - Introduced **Portals**: curated, first-class landing pages that aggregate documents across suites, collections, publishers, and document types.
   - First (3) portals: `/dcinema/`, `/imf/`, `/accessibility/`
