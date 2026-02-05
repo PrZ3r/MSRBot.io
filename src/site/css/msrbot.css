@@ -351,7 +351,10 @@ pre {
   padding-top: 0.25rem;
   padding-bottom: 0.0rem;
   background-color: var(--msr-navbar-bg-color);
+  z-index: 1050;
 }
+
+/* Ensure dropdown renders above sticky layers */
 
 .navbar.sticky-top {
   min-height: var(--msr-navbar-height);
@@ -378,6 +381,15 @@ a.nav-link:focus {
 .navbar .nav-link {
   transition: border-color 0.2s ease, color 0.2s ease;
 }
+
+/* PORTALS nav: hide Bootstrap dropdown caret */
+
+/* Portals popover: list-group items should inherit card/popover theme colors */
+.popover .list-group-item {
+  background-color: transparent;
+}
+
+
 
 .dev-links-stack {
   display: inline-flex;
