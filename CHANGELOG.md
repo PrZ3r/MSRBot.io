@@ -10,7 +10,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - yyyy-mm-dd
  
 ### Added
+
+### Changed
+
+### Fixed
+
+## [v1.2.0] - 2026-02-05
+
+> Primary changes delivered via <https://github.com/PrZ3r/MSRBot.io/pull/695>
+ 
+### Added
 - Automated extraction of `Scope` in HTML documents to map to `abstract`.
+- Introduced **Portals**: curated, first-class landing pages that aggregate documents across suites, collections, publishers, and document types.
+  - First (3) portals: `/dcinema/`, `/imf/`, `/accessibility/`
+- Added a complete **Portal build and schema pipeline**, supporting:
+  - Keyword-based document matching.
+  - Explicit pinning and post-resolution filtering.
+  - Shared narrative/overview sections.
+  - Curated resource collections.
+- Delivered a **Suites-aligned Portal UX**, including:
+  - Searchable document tables with abstracts.
+  - Expandable previews (shared behavior with Suites).
+  - Visual muting of withdrawn and superseded documents.
+  - Structured, card-based overview and resource sections.
+
+#### Portal Behavior & UX Details
+- Portals render as dedicated pages with stable URLs (e.g. `/dcinema/`).
+- Portal document listings support:
+  - Default sorting by `docLabel`.
+  - Search, publisher filtering, and sortable columns.
+  - Abstract previews with More/Less expansion.
+- Portal overview sections support shared explanatory content using the same card patterns as Suites.
+- Resource sections support:
+  - Grouping by category.
+  - Independent collapsible sections.
+  - Per-resource description expansion for long content.
+- Portal navigation dynamically adapts based on available content (Overview / Docs / Resources).
  
 ### Changed
 - Backfilled (auto and manually) `abstract` fields for DC and IMF `collections`

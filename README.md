@@ -46,6 +46,33 @@ What started as a personal tool to make sense of reference trees has grown into 
 - Public Site generated from `main` at <https://msrbot.io>
 - Change Log: [CHANGELOG.md](CHANGELOG.md)
 
+## Portals
+
+**Portals** are curated, topic-oriented landing pages that aggregate related documents, resources, and explanatory context across publishers, suites, collections, and document types.
+
+Unlike Suites or Collections, which are derived directly from publication structure and numbering, Portals are intentionally editorial. They are designed to provide practical entry points into complex subject areas (such as Digital Cinema, IMF, or Accessibility) without requiring prior knowledge of specific standards bodies or document identifiers.
+
+Each Portal may include:
+- A narrative overview and background context.
+- A curated, non-exhaustive list of relevant documents resolved to their latest applicable versions.
+- Cross-publisher coverage (e.g., SMPTE, ISO, ITU, AES).
+- Structured resource links (organizations, tools, references).
+- Search, filtering, and sorting consistent with Suites and Collections.
+
+Portals are rendered as first-class pages with stable URLs (e.g. `/dcinema/`) and are intended to complement — not replace — authoritative publisher documentation.
+
+### Suites, Collections, and Portals
+
+MSRBot.io organizes documents using three complementary concepts, each serving a distinct purpose:
+
+| Concept | Primary Basis | Scope | Purpose |
+|-------|---------------|-------|---------|
+| **Suites** | Formal multipart standards (shared lineage / numbering) | Single publisher | Represent authoritative multipart standards and their evolution over time |
+| **Collections** | Related documents grouped by title or theme | Single publisher | Group related documents that are not formally multipart |
+| **Portals** | Curated topic areas | Cross-publisher | Provide navigable, contextual entry points across standards ecosystems |
+
+Suites and Collections are derived directly from publisher-defined structures and identifiers. Portals, by contrast, are curated to support discovery, orientation, and cross-domain understanding, particularly in areas where relevant documents span multiple organizations and formats.
+
 ## Automation Overview
 MSRBot.io updates itself through a chain of automated GitHub Actions. When appropriate, PRs generate MSR Build Preview review links. 
 

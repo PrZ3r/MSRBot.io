@@ -76,7 +76,21 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    // If nothing matched as a prefix, fall back to home if present
+    // Detect portal pages and force-highlight PORTALS.
+    // Reason: HOME href is a prefix of all URLs, and nav-portals uses href="#" (popover trigger),
+    // so prefix matching would otherwise always pick HOME.
+    var isPortalPage = !!(
+      document.getElementById('portal-loading') ||
+      document.getElementById('portal-topbar') ||
+      document.getElementById('portal-docs-table')
+    );
+
+    if (isPortalPage) {
+      var portalsLink = document.getElementById('nav-portals');
+      if (portalsLink) bestMatch = portalsLink;
+    }
+
+    // Final fallback: home
     if (!bestMatch) {
       bestMatch = document.getElementById('nav-home');
     }
@@ -277,5 +291,176 @@ document.addEventListener('DOMContentLoaded', function () {
         if (inst) inst.hide();
       }
     }
+  });
+})();
+
+// Portals: load portal-cards.json and render into Home + Navbar (vanilla JS)
+(function () {
+  function getAssetPrefix() {
+    try {
+      return (window && window.msrAssetPrefix) ? String(window.msrAssetPrefix) : '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function safeText(x) {
+    return String(x == null ? '' : x);
+  }
+
+  function escapeHtml(s) {
+    return safeText(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function fetchPortalCards() {
+    var prefix = getAssetPrefix();
+    var url = prefix + '_data/portal-cards.json';
+    return fetch(url)
+      .then(function (r) {
+        if (!r || !r.ok) throw new Error('HTTP ' + (r ? r.status : '')); 
+        return r.json();
+      })
+      .then(function (data) {
+        var arr = (data && Array.isArray(data.portals)) ? data.portals : [];
+        return arr;
+      });
+  }
+
+  function renderNavPortalsPopover(portals) {
+    // Render into the hidden template (used to construct the popover)
+    var tplHost = document.getElementById('nav-portals-list');
+
+    // Also update any currently visible popover instance
+    var liveHosts = document.querySelectorAll('.popover #nav-portals-list');
+
+    function setHtmlInto(el, html) {
+      if (!el) return;
+      el.innerHTML = html;
+    }
+
+    if (!tplHost && (!liveHosts || !liveHosts.length)) return;
+
+    if (!portals || !portals.length) {
+      var emptyHtml = '<div class="text-muted small">No portals yet.</div>';
+      setHtmlInto(tplHost, emptyHtml);
+      liveHosts.forEach(function (h) { setHtmlInto(h, emptyHtml); });
+      return;
+    }
+
+    var prefix = getAssetPrefix();
+    var html = '<div class="list-group list-group-flush">';
+
+    portals.forEach(function (p) {
+      if (!p) return;
+      var title = escapeHtml(p.portalTitle || p.portalSlug || 'Portal');
+      var url = p.portalUrl ? String(p.portalUrl) : '';
+      if (url && prefix && url.charAt(0) === '/') {
+        url = prefix.replace(/\/$/, '') + url;
+      }
+      var summary = escapeHtml(p.summary || '');
+
+      html += '<a class="list-group-item list-group-item-action" href="' + escapeHtml(url || '#') + '">';
+      html += '  <div class="fw-semibold">' + title + '</div>';
+      if (summary) {
+        html += '  <div class="text-muted small">' + summary + '</div>';
+      }
+      html += '</a>';
+    });
+
+    html += '</div>';
+
+    setHtmlInto(tplHost, html);
+    liveHosts.forEach(function (h) { setHtmlInto(h, html); });
+  }
+
+  function renderHomeCards(portals) {
+    var host = document.getElementById('portal-cards-home');
+    var emptyEl = document.getElementById('portal-cards-home-empty');
+    if (!host) return;
+
+    if (!portals || !portals.length) {
+      host.innerHTML = '';
+      if (emptyEl) emptyEl.classList.remove('d-none');
+      return;
+    }
+
+    if (emptyEl) emptyEl.classList.add('d-none');
+
+    var prefix = getAssetPrefix();
+    var html = '';
+
+    portals.forEach(function (p) {
+      if (!p) return;
+      var title = escapeHtml(p.portalTitle || p.portalSlug || 'Portal');
+      var url = p.portalUrl ? String(p.portalUrl) : '';
+      if (url && prefix && url.charAt(0) === '/') {
+        url = prefix.replace(/\/$/, '') + url;
+      }
+      var summary = escapeHtml(p.summary || '');
+      var resourcesCount = (typeof p.resourcesCount === 'number') ? p.resourcesCount : null;
+
+      html += '<div class="col-12 col-md-6">';
+      html += '  <div class="card h-100">';
+      html += '    <div class="card-body">';
+      html += '      <div class="d-flex justify-content-between align-items-start gap-2">';
+      html += '        <h3 class="h6 mb-1"><a class="text-decoration-none" href="' + escapeHtml(url || '#') + '">' + title + '</a></h3>';
+      if (resourcesCount != null) {
+        html += '        <span class="badge text-bg-secondary">Resources: ' + String(resourcesCount) + '</span>';
+      }
+      html += '      </div>';
+      if (summary) {
+        html += '      <p class="text-muted small mb-0">' + summary + '</p>';
+      }
+      html += '    </div>';
+      html += '  </div>';
+      html += '</div>';
+    });
+
+    host.innerHTML = html;
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Only do work if portals UI exists on the page
+    var hasNav = !!document.getElementById('nav-portals');
+    var hasHome = !!document.getElementById('portal-cards-home');
+    if (!hasNav && !hasHome) return;
+
+    fetchPortalCards()
+      .then(function (portals) {
+        // Stable alphabetical order by title
+        portals.sort(function (a, b) {
+          var at = safeText(a && a.portalTitle || a && a.portalSlug).toLowerCase();
+          var bt = safeText(b && b.portalTitle || b && b.portalSlug).toLowerCase();
+          return at.localeCompare(bt);
+        });
+
+        renderNavPortalsPopover(portals);
+        renderHomeCards(portals);
+      })
+      .catch(function (e) {
+        // Fail quietly; portals are optional UI sugar
+        if (window && window.console && console.warn) {
+          console.warn('[msrbot] Could not load portal-cards:', e);
+        }
+
+        var tplHost = document.getElementById('nav-portals-list');
+        var liveHosts = document.querySelectorAll('.popover #nav-portals-list');
+        var msg = '<div class="text-muted small">Portals unavailable.</div>';
+        if (tplHost) tplHost.innerHTML = msg;
+        liveHosts.forEach(function (h) { h.innerHTML = msg; });
+
+        var emptyEl = document.getElementById('portal-cards-home-empty');
+        var host = document.getElementById('portal-cards-home');
+        if (host) host.innerHTML = '';
+        if (emptyEl) {
+          emptyEl.textContent = 'Portals unavailable.';
+          emptyEl.classList.remove('d-none');
+        }
+      });
   });
 })();
