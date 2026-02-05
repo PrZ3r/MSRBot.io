@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Automated extraction of `Scope` in HTML documents to map to `abstract`.
 - Introduced **Portals**: curated, first-class landing pages that aggregate documents across suites, collections, publishers, and document types.
+  - First (3) portals: `/dcinema/`, `/imf/`, `/accessibility/`
 - Added a complete **Portal build and schema pipeline**, supporting:
   - Keyword-based document matching.
   - Explicit pinning and post-resolution filtering.
@@ -24,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Structured, card-based overview and resource sections.
 
 #### Portal Behavior & UX Details
-- Portals render as dedicated pages with stable URLs (e.g. `/d-cinema/`).
+- Portals render as dedicated pages with stable URLs (e.g. `/dcinema/`).
 - Portal document listings support:
   - Default sorting by `docLabel`.
   - Search, publisher filtering, and sortable columns.
