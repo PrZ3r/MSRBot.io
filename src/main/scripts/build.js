@@ -326,6 +326,149 @@ const registries = [
 // One-shot guard so normalized groups emit can't loop during sub-registry builds
 let __normalizedGroupsEmitted = false;
 
+// One-shot guard for portals emit (root-level landing pages)
+let __portalsEmitted = false;
+
+async function emitPortalsOnce() {
+  if (__portalsEmitted) {
+    console.log('[build] Skipping portals emit (already emitted once).');
+    return;
+  }
+  __portalsEmitted = true;
+
+  const portalsPath = path.join('src', 'main', 'data', 'portals.json');
+  if (!fsRaw.existsSync(portalsPath)) {
+    console.log('[build] No portals.json found; skipping portals emit.');
+    return;
+  }
+
+  let portalsPayload;
+  try {
+    portalsPayload = JSON.parse(await fs.readFile(portalsPath, 'utf8'));
+  } catch (e) {
+    console.warn('[build] Failed to read portals.json:', e && e.message ? e.message : e);
+    return;
+  }
+
+  const portals = Array.isArray(portalsPayload && portalsPayload.portals) ? portalsPayload.portals : [];
+  if (!portals.length) {
+    console.log('[build] portals.json contained zero portals; skipping portals emit.');
+    return;
+  }
+
+  // Reserve top-level route slugs that already exist in the site
+  const reserved = new Set([
+    '',
+    '_data',
+    'docs',
+    'documents',
+    'suites',
+    'groups',
+    'projects',
+    'js',
+    'css',
+    'img',
+    'images',
+    'assets',
+    'schemas',
+    'api',
+    'search',
+    'robots.txt',
+    'sitemap.xml',
+    'favicon.ico'
+  ]);
+
+  // Emit portal data files into build/_data
+  const outDataDir = path.join(BUILD_PATH, '_data');
+  await fs.mkdir(outDataDir, { recursive: true });
+
+  await _writeFile(path.join(outDataDir, 'portals.json'), JSON.stringify({ portals }, null, 2), 'utf8');
+
+  const cards = portals.map(p => {
+    const slug = String(p && p.portalSlug || '').trim();
+    if (!slug) return null;
+
+    return {
+      portalSlug: slug,
+      portalTitle: String(p && p.portalTitle || '').trim(),
+      summary: String(p && p.summary || '').trim(),
+      portalUrl: `/${encodeURIComponent(slug)}/`,
+      resourcesCount: Array.isArray(p && p.resources) ? p.resources.length : 0
+    };
+  }).filter(Boolean);
+
+  await _writeFile(path.join(outDataDir, 'portal-cards.json'), JSON.stringify({ portals: cards }, null, 2), 'utf8');
+  console.log(`[build] Wrote build/_data/portals.json (count=${portals.length})`);
+  console.log(`[build] Wrote build/_data/portal-cards.json (count=${cards.length})`);
+
+  // Compile portal template once
+  try {
+    const headerPartial = await fs.readFile('src/main/templates/partials/header.hbs', 'utf8');
+    const footerPartial = await fs.readFile('src/main/templates/partials/footer.hbs', 'utf8');
+    hb.registerPartial('header', headerPartial);
+    hb.registerPartial('footer', footerPartial);
+
+    const portalTplRaw = await fs.readFile('src/main/templates/portals.hbs', 'utf8');
+    const portalTpl = hb.compile(portalTplRaw);
+
+    let emitted = 0;
+
+    for (const p of portals) {
+      const slug = String(p && p.portalSlug || '').trim();
+      if (!slug) continue;
+
+      const slugLower = slug.toLowerCase();
+      if (reserved.has(slugLower)) {
+        console.warn(`[build] Portal slug is reserved and will be skipped: ${slug}`);
+        continue;
+      }
+
+      const outDir = path.join(BUILD_PATH, slug);
+      await fs.mkdir(outDir, { recursive: true });
+
+      const pageTitle = String(p && p.portalTitle || slug).trim();
+      const pageDesc = String(p && p.summary || '').trim() || `Landing page for ${pageTitle}.`;
+      const canonicalUrl = new URL(`/${encodeURIComponent(slug)}/`, siteConfig.canonicalBase).href;
+
+      const html = portalTpl({
+        templateName: 'portals',
+        listTitle: pageTitle,
+        htmlLink: '',
+        assetPrefix: '../',
+
+        siteName: siteConfig.siteName,
+        siteDescription: pageDesc,
+        canonicalBase: siteConfig.canonicalBase,
+        canonicalUrl,
+
+        ogTitle: `${pageTitle} — ${siteConfig.siteName}`,
+        ogDescription: pageDesc,
+        ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+        ogImageAlt: siteConfig.ogImageAlt,
+
+        locale: siteConfig.locale || 'en-US',
+        author: siteConfig.author || 'Steve LLamb',
+        authorUrl: siteConfig.authorUrl || 'https://PrZ3.io',
+        copyrightHolder: siteConfig.copyrightHolder || 'PrZ3',
+        copyrightYear: siteConfig.copyrightYear || String(new Date().getFullYear()),
+        copyright: siteConfig.copyright || '',
+        license: siteConfig.license || 'BSD-3-Clause',
+        licenseUrl: siteConfig.licenseUrl || 'https://opensource.org/licenses/BSD-3-Clause',
+
+        site_version: siteConfig.site_version || '',
+        date: siteConfig.date || new Date()
+      });
+
+      await _writeFile(path.join(outDir, 'index.html'), html, 'utf8');
+      emitted++;
+    }
+
+    console.log(`[build] Portal pages emitted: ${emitted}`);
+  } catch (e) {
+    console.warn('[build] Failed to emit portal pages:', e && e.message ? e.message : e);
+  }
+}
+
 // Safe write wrapper to strictly prevent legacy groups.json writes.
 // Returns true if a file was actually written, false if skipped.
 const __skippedLegacyWrites = new Set();
@@ -665,6 +808,13 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
       console.warn('[build] Failed to emit suite/collection detail pages:', e && e.message ? e.message : e);
     }
     // --- end suite detail page emit ---
+
+    // --- Emit portals (root-level landing pages) once per build ---
+    try {
+      await emitPortalsOnce();
+    } catch (e) {
+      console.warn('[build] Portals emit failed:', e && e.message ? e.message : e);
+    }
   } else if (
     templateName !== 'groups' &&
     !(templateName === 'documents' && listType === 'documents') &&

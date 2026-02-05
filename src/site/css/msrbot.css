@@ -412,6 +412,49 @@ a.nav-link:focus {
   background-color: var(--msr-body-bg);
 }
 
+#portal-topbar.sticky-top {
+  position: sticky;
+  top: calc(var(--msr-navbar-height) + 0.0rem);
+  z-index: 1020; /* same layer as cards-topbar, under navbar */
+  background-color: var(--msr-body-bg);
+}
+
+/* Portal page helpers (match suites/refTree tone; avoid inline styles) */
+.portal-prewrap {
+  white-space: pre-wrap;
+}
+
+.portal-resource-kind {
+  font-size: 0.78rem;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.portal-doc-abstract {
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  opacity: 0.8;
+}
+
+/* Resource descriptions: clamp to keep lists scannable; expanded via JS */
+.portal-resource-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  white-space: normal;
+}
+
+.portal-resource-desc.is-expanded {
+  -webkit-line-clamp: unset;
+  display: block;
+}
+
+.portal-resource-descwrap .btn-link {
+  font-size: 0.85em;
+}
+
 /* Update suites tables to prevent Bootstrap overrides */
 table.table thead.table-header th,
 table.table thead.table-header td {
@@ -743,4 +786,26 @@ img.publisher-logo  {
   border-left: 1px solid rgba(25, 135, 84, 0.25);
   margin-left: 0.5rem;
   padding-left: 0.5rem;
+}
+
+/* Portal resources: ensure collapsed sections inherit card background in dark mode */
+#portal-resources .collapse:not(.show) {
+  background-color: var(--msr-card-bg);
+}
+
+#portal-resources .card-body {
+  background-color: var(--msr-card-bg);
+}
+
+/* Portal resources: explicit classes so collapse/cards behave consistently in dark mode */
+#portal-resources .portal-resource-card {
+  background-color: var(--msr-card-bg);
+}
+
+#portal-resources .portal-resource-collapse {
+  background-color: var(--msr-card-bg);
+}
+
+#portal-resources .portal-resource-collapse .card-body {
+  background-color: var(--msr-card-bg);
 }

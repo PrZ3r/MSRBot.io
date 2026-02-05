@@ -96,6 +96,47 @@ async function registries() {
 async function validateAll() {
   console.log("Starting full schema + additional validation...");
   const regs = await registries();
+
+  // --- Portals validation (non-registry landing pages) ---
+  try {
+    const portalsPath = "src/main/data/portals.json";
+    const portalsSchemaPath = "src/main/schemas/portals.schema.json";
+
+    if (fs.existsSync(portalsPath)) {
+      console.log("\nChecking portals definition...");
+      const schema = JSON.parse(fs.readFileSync(portalsSchemaPath, "utf8"));
+      const data = JSON.parse(fs.readFileSync(portalsPath, "utf8"));
+
+      const ajvFactory = new Ajv({ allErrors: true });
+      const validateFn = ajvFactory.compile(schema);
+      const valid = validateFn(data);
+
+      if (!valid) {
+        let errorMessage = '';
+        const sourceMap = jsonSourceMap.stringify(data, null, 2);
+        const jsonLines = sourceMap.json.split('\n');
+
+        validateFn.errors.forEach(error => {
+          errorMessage += '\n\n' + ajvFactory.errorsText([error]);
+          const errorPointer = sourceMap.pointers[error.instancePath || error.dataPath];
+          if (errorPointer) {
+            errorMessage += '\n> ' + jsonLines
+              .slice(errorPointer.value.line, errorPointer.valueEnd.line)
+              .join('\n> ');
+          }
+        });
+
+        console.error(`❌ Schema validation failed for portals:\n${errorMessage}`);
+        throw new Error('Schema validation failed for portals');
+      }
+
+      console.log("✅ Schema validation passed for portals");
+    }
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
+
   console.log(`\nAll ${Object.keys(regs).length} registries validated successfully.`);
 }
 
@@ -106,4 +147,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { registries };
+module.exports = { registries }; 
