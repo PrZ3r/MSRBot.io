@@ -52,8 +52,9 @@
   <title>MSRBot.io | SMPTE RP 155:2004</title>
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
   <script src="../../js/msrbot.js"></script>
 
   <!-- JSON-LD: basic WebSite schema -->
@@ -119,6 +120,22 @@
           </li>
           <li class="nav-item text-nowrap">
             <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/index.html"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
           </li>
           <li class="nav-item text-nowrap">
             <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/index.html"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
@@ -235,6 +252,15 @@
     </div>
   </div>
 
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       // Dev Tools popover
@@ -260,6 +286,21 @@
           sanitize: false,
           content: function () {
             var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
             return tpl ? tpl.innerHTML : '';
           }
         });
@@ -557,8 +598,8 @@
         <div class="col col-md-5 col-auto d-flex text-start">
           <small class="text-muted">
             <p>
-              <span class="fw-semibold">Site version:</span> <code>d7431e478da17dde46041421668712684a3a37f2</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Feb 05 2026 18:55:44 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>d3840e70c5b85548759c81f04b904bd69a0362c6</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Thu Feb 05 2026 20:36:48 GMT+0000 (Coordinated Universal Time)</code>
             </p>
             <p>
               :: GO TO <i class="bi bi-github"></i> <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank">https://github.com/PrZ3r/MSRBot.io</a> <i class="bi bi-github"></i> TO CONTRIBUTE ::
@@ -581,5 +622,8 @@
       </div>  
     </div>
   </footer> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
 </body>
 </html>
