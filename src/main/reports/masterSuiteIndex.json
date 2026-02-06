@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-02-06T23:31:58.294Z",
+  "generatedAt": "2026-02-06T23:41:29.494Z",
   "sourcePath": "src/main/data/documents.json",
-  "sourceHash": "sha256:739f93db89b806c3fd4cafbeafbf4557283edf9822b369fd69c91b9c05dbd65d",
+  "sourceHash": "sha256:034f448b3e683ef4ef435f8beb74e47fe7a1c5a075025e729005227a3dcc12fa",
   "publisherCounts": {
     "total": 2280,
     "counts": {
@@ -99,7 +99,7 @@
     }
   },
   "skippedDocs": {
-    "totalSkipped": 209,
+    "totalSkipped": 207,
     "byPublisher": {
       "NOKIA BELL LABS": {
         "count": 2,
@@ -1324,29 +1324,6 @@
           }
         ]
       },
-      "CTA": {
-        "count": 2,
-        "docIds": [
-          "CTA.608.2019",
-          "CTA.708.2023"
-        ],
-        "items": [
-          {
-            "docId": "CTA.608.2019",
-            "reason": "UNKEYED",
-            "rule": "UNKEYED",
-            "ruleDetail": "noRegexMatch",
-            "category": "standard"
-          },
-          {
-            "docId": "CTA.708.2023",
-            "reason": "UNKEYED",
-            "rule": "UNKEYED",
-            "ruleDetail": "noRegexMatch",
-            "category": "standard"
-          }
-        ]
-      },
       "DCI": {
         "count": 5,
         "docIds": [
@@ -2189,15 +2166,15 @@
     },
     "summaryByReason": {
       "FILTERED": 207,
-      "UNKEYED": 2,
+      "UNKEYED": 0,
       "UNKNOWN": 0
     }
   },
   "flagSummary": {
-    "totalFlags": 314,
+    "totalFlags": 316,
     "byType": {
       "DOCID_PUBDATE_MISMATCH": {
-        "count": 38,
+        "count": 40,
         "examples": [
           {
             "lineage": "AES||3|",
@@ -2238,6 +2215,14 @@
           {
             "lineage": "ASHRAE||52.1|",
             "flag": "DOCID_PUBDATE_MISMATCH:ASHRAE.52.1.2019:docIdYear=2019,pubYear=1992"
+          },
+          {
+            "lineage": "CTA|ES|608|",
+            "flag": "DOCID_PUBDATE_MISMATCH:CTA.608-ES.2019:docIdYear=2019,pubYear=2008"
+          },
+          {
+            "lineage": "CTA|ES|708|",
+            "flag": "DOCID_PUBDATE_MISMATCH:CTA.708-ES.2023:docIdYear=2023,pubYear=2013"
           },
           {
             "lineage": "EBU|TECH|3245|",
@@ -5431,9 +5416,91 @@
       }
     },
     {
-      "key": "CTA||861|",
+      "key": "CTA|ES|608|",
       "publisher": "CTA",
-      "type": null,
+      "type": "ES",
+      "number": "608",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CTA.608-ES.2019",
+          "publicationDate": "2008-04-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": true,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CTA.608-ES.2019",
+      "latestAnyId": "CTA.608-ES.2019",
+      "latestDateKey": "20190000",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": true,
+      "latestActiveBaseId": "CTA.608-ES.2019",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [
+        "DOCID_PUBDATE_MISMATCH:CTA.608-ES.2019:docIdYear=2019,pubYear=2008"
+      ],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CTA|ES|708|",
+      "publisher": "CTA",
+      "type": "ES",
+      "number": "708",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CTA.708-ES.2023",
+          "publicationDate": "2013-08-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CTA.708-ES.2023",
+      "latestAnyId": "CTA.708-ES.2023",
+      "latestDateKey": "20230000",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CTA.708-ES.2023",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [
+        "DOCID_PUBDATE_MISMATCH:CTA.708-ES.2023:docIdYear=2023,pubYear=2013"
+      ],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CTA|G|861|",
+      "publisher": "CTA",
+      "type": "G",
       "number": "861",
       "part": null,
       "suiteTitle": null,
