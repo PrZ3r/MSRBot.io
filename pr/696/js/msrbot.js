@@ -337,8 +337,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Prefer slug when present (most stable across environments)
     var slug = p && p.portalSlug ? String(p.portalSlug).trim() : '';
     if (slug) {
-      var rel = '/' + slug.replace(/^\/+/, '').replace(/\/+$/, '') + '/';
-      return prefix ? prefix.replace(/\/$/, '') + rel : rel;
+      // IMPORTANT: keep this RELATIVE (no leading '/') so it works under subpath deployments (e.g., /MSRBot.io/)
+      var rel = slug.replace(/^\/+/, '').replace(/\/+$/, '') + '/';
+      return prefix ? prefix + rel : rel;
     }
 
     var raw = p && p.portalUrl ? String(p.portalUrl).trim() : '';
@@ -354,9 +355,10 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    // If root-relative, apply assetPrefix
+    // If root-relative, convert to relative and apply assetPrefix
     if (raw.charAt(0) === '/') {
-      return prefix ? prefix.replace(/\/$/, '') + raw : raw;
+      raw = raw.replace(/^\/+/, '');
+      return prefix ? prefix + raw : raw;
     }
 
     // Otherwise treat as already-relative
@@ -429,10 +431,10 @@ document.addEventListener('DOMContentLoaded', function () {
       var resourcesCount = (typeof p.resourcesCount === 'number') ? p.resourcesCount : null;
 
       html += '<div class="col-12 col-md-6">';
-      html += '  <div class="card h-100">';
+      html += '  <div class="card h-100 position-relative">';
       html += '    <div class="card-body">';
       html += '      <div class="d-flex justify-content-between align-items-start gap-2">';
-      html += '        <h3 class="h6 mb-1"><a class="text-decoration-none" href="' + escapeHtml(url || '#') + '">' + title + '</a></h3>';
+      html += '        <h3 class="h6 mb-1"><a class="text-decoration-none stretched-link" href="' + escapeHtml(url || '#') + '">' + title + '</a></h3>';
       if (resourcesCount != null) {
         html += '        <span class="badge text-bg-secondary">Resources: ' + String(resourcesCount) + '</span>';
       }
