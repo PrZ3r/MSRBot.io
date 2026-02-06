@@ -331,6 +331,40 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
+  function resolvePortalHref(p) {
+    var prefix = getAssetPrefix();
+
+    // Prefer slug when present (most stable across environments)
+    var slug = p && p.portalSlug ? String(p.portalSlug).trim() : '';
+    if (slug) {
+      // IMPORTANT: keep this RELATIVE (no leading '/') so it works under subpath deployments (e.g., /MSRBot.io/)
+      var rel = slug.replace(/^\/+/, '').replace(/\/+$/, '') + '/';
+      return prefix ? prefix + rel : rel;
+    }
+
+    var raw = p && p.portalUrl ? String(p.portalUrl).trim() : '';
+    if (!raw) return '#';
+
+    // If absolute URL, strip to pathname so preview/local don't jump to prod
+    if (/^https?:\/\//i.test(raw)) {
+      try {
+        var u = new URL(raw);
+        raw = (u && u.pathname) ? u.pathname : '/';
+      } catch (e) {
+        // ignore parse failures; fall through
+      }
+    }
+
+    // If root-relative, convert to relative and apply assetPrefix
+    if (raw.charAt(0) === '/') {
+      raw = raw.replace(/^\/+/, '');
+      return prefix ? prefix + raw : raw;
+    }
+
+    // Otherwise treat as already-relative
+    return raw;
+  }
+
   function renderNavPortalsPopover(portals) {
     // Render into the hidden template (used to construct the popover)
     var tplHost = document.getElementById('nav-portals-list');
@@ -352,16 +386,12 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    var prefix = getAssetPrefix();
     var html = '<div class="list-group list-group-flush">';
 
     portals.forEach(function (p) {
       if (!p) return;
       var title = escapeHtml(p.portalTitle || p.portalSlug || 'Portal');
-      var url = p.portalUrl ? String(p.portalUrl) : '';
-      if (url && prefix && url.charAt(0) === '/') {
-        url = prefix.replace(/\/$/, '') + url;
-      }
+      var url = resolvePortalHref(p);
       var summary = escapeHtml(p.summary || '');
 
       html += '<a class="list-group-item list-group-item-action" href="' + escapeHtml(url || '#') + '">';
@@ -391,24 +421,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (emptyEl) emptyEl.classList.add('d-none');
 
-    var prefix = getAssetPrefix();
     var html = '';
 
     portals.forEach(function (p) {
       if (!p) return;
       var title = escapeHtml(p.portalTitle || p.portalSlug || 'Portal');
-      var url = p.portalUrl ? String(p.portalUrl) : '';
-      if (url && prefix && url.charAt(0) === '/') {
-        url = prefix.replace(/\/$/, '') + url;
-      }
+      var url = resolvePortalHref(p);
       var summary = escapeHtml(p.summary || '');
       var resourcesCount = (typeof p.resourcesCount === 'number') ? p.resourcesCount : null;
 
       html += '<div class="col-12 col-md-6">';
-      html += '  <div class="card h-100">';
+      html += '  <div class="card h-100 position-relative">';
       html += '    <div class="card-body">';
       html += '      <div class="d-flex justify-content-between align-items-start gap-2">';
-      html += '        <h3 class="h6 mb-1"><a class="text-decoration-none" href="' + escapeHtml(url || '#') + '">' + title + '</a></h3>';
+      html += '        <h3 class="h6 mb-1"><a class="text-decoration-none stretched-link" href="' + escapeHtml(url || '#') + '">' + title + '</a></h3>';
       if (resourcesCount != null) {
         html += '        <span class="badge text-bg-secondary">Resources: ' + String(resourcesCount) + '</span>';
       }
