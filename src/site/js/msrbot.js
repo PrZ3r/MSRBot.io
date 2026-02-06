@@ -337,29 +337,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // Prefer slug when present (most stable across environments)
     var slug = p && p.portalSlug ? String(p.portalSlug).trim() : '';
     if (slug) {
-      // Ensure trailing slash
       var rel = '/' + slug.replace(/^\/+/, '').replace(/\/+$/, '') + '/';
-      if (prefix) return prefix.replace(/\/$/, '') + rel;
-      return rel;
+      return prefix ? prefix.replace(/\/$/, '') + rel : rel;
     }
 
     var raw = p && p.portalUrl ? String(p.portalUrl).trim() : '';
     if (!raw) return '#';
 
-    // If it's an absolute URL, strip to pathname (keeps preview/local from jumping to prod)
+    // If absolute URL, strip to pathname so preview/local don't jump to prod
     if (/^https?:\/\//i.test(raw)) {
       try {
         var u = new URL(raw);
-        raw = u.pathname || '/';
+        raw = (u && u.pathname) ? u.pathname : '/';
       } catch (e) {
-        // If URL parsing fails, fall back to raw
+        // ignore parse failures; fall through
       }
     }
 
     // If root-relative, apply assetPrefix
     if (raw.charAt(0) === '/') {
-      if (prefix) return prefix.replace(/\/$/, '') + raw;
-      return raw;
+      return prefix ? prefix.replace(/\/$/, '') + raw : raw;
     }
 
     // Otherwise treat as already-relative
