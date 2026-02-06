@@ -424,8 +424,9 @@ function keyFromDocId(docId, doc = {}) {
   m = docId.match(/^CIE\.(\d{3})\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
   if (m) return { publisher: 'CIE', type: null, number: m[1], part: null };
 
-  m = docId.match(/^CTA\.(\d+)-[A-Za-z]\.(\d{4})$/i);
-  if (m) return { publisher: 'CTA', type: null, number: m[1], part: null };
+  // CTA IDs can have a multi-letter suffix after the hyphen (e.g., CTA.608-ES.2019)
+  m = docId.match(/^CTA\.(\d+)-([A-Za-z]{1,8})\.(\d{4})(?:-(\d{2}))?$/i);
+  if (m) return { publisher: 'CTA', type: m[2].toUpperCase(), number: m[1], part: null };
 
   m = docId.match(/^FIAF\.([A-Za-z]+)\.([A-Za-z0-9.-]+)\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
   if (m) return { publisher: 'FIAF', type: m[1].toUpperCase(), number: m[2], part: null };
