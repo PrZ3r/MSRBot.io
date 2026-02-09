@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+- Enhanced Portal document listings with additional context fields:
+  - Display of `docType` and `publicationDate` in document tables.
+  - New **Doc Type** filter, aligned with existing Publisher filtering.
+- Extended Portal sorting controls to support:
+  - Sorting by **Type** and **Published date**.
+  - Ascending / descending sort direction for all supported sort keys, consistent with Suites and Collections.
 
 ### Fixed
 

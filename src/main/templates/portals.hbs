@@ -31,11 +31,19 @@
         </div>
         <div id="portal-doc-controls" class="card-body d-none">
           <div class="row g-2 align-items-end">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-5">
               <label for="portalDocSearch" class="form-label small fw-semibold">Filter docs</label>
               <input id="portalDocSearch" class="form-control form-control-sm" type="search" placeholder="Search docs (label, title, abstract, etc.)" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="input-group input-group-sm w-100" aria-label="Filter by type">
+                <span class="input-group-text">Type</span>
+                <select id="portalTypeFilter" class="form-select">
+                  <option value="">All types</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-md-2">
               <div class="input-group input-group-sm w-100" aria-label="Filter by publisher">
                 <span class="input-group-text">Publisher</span>
                 <select id="portalPublisherFilter" class="form-select">
@@ -43,14 +51,22 @@
                 </select>
               </div>
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-2">
               <div class="input-group input-group-sm w-100" aria-label="Sort">
                 <span class="input-group-text">Sort</span>
                 <select id="portalSort" class="form-select">
-                  <option value="label">Label</option>
-                  <option value="title">Title</option>
-                  <option value="publisher">Publisher</option>
-                  <option value="status">Status</option>
+                  <option value="label:asc">Label (A-Z)</option>
+                  <option value="label:desc">Label (Z-A)</option>
+                  <option value="title:asc">Title (A-Z)</option>
+                  <option value="title:desc">Title (Z-A)</option>
+                  <option value="doctype:asc">Type (A-Z)</option>
+                  <option value="doctype:desc">Type (Z-A)</option>
+                  <option value="published:desc">Latest</option>
+                  <option value="published:asc">Oldest</option>
+                  <option value="status:asc">Status (A-Z)</option>
+                  <option value="status:desc">Status (Z-A)</option>
+                  <option value="publisher:asc">Publisher (A-Z)</option>
+                  <option value="publisher:desc">Publisher (Z-A)</option>
                 </select>
               </div>
             </div>
