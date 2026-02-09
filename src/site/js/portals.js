@@ -531,6 +531,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     const countEl = $('portal-doc-count');
     const searchInput = $('portalDocSearch');
     const publisherSelect = $('portalPublisherFilter');
+    const typeSelect = $('portalTypeFilter');
     const sortSelect = $('portalSort');
 
     if (!host) return;
@@ -562,6 +563,20 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         pubs.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
     }
 
+    // Populate docType filter options from docs
+    if (typeSelect) {
+      const types = Array.from(
+        new Set(
+          docsBase
+            .map(d => normalizeStr(d && d.docType))
+            .filter(Boolean)
+        )
+      ).sort((a, b) => a.localeCompare(b));
+
+      typeSelect.innerHTML = '<option value="">All types</option>' +
+        types.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
+    }
+
     function docTitleText(d) {
       return String(d && (d.docTitle || d.docSuiteTitle) || '').trim();
     }
@@ -574,27 +589,51 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       return String(d && (d.abstract || d.summary || d.scope) || '').trim();
     }
 
-    function sortDocs(list, key) {
-      const k = String(key || 'label');
-      return list.sort((a, b) => {
+    function sortDocs(list, sortSpec) {
+      const spec = String(sortSpec || 'label:asc');
+      const parts = spec.split(':');
+      const k = (parts[0] || 'label').trim();
+      const dir = (parts[1] || 'asc').trim().toLowerCase();
+      const desc = dir === 'desc';
+
+      function cmp(a, b) {
         if (k === 'title') {
-          return docTitleText(a).localeCompare(docTitleText(b));
+          return docTitleText(a).localeCompare(docTitleText(b), undefined, { sensitivity: 'base' });
+        }
+        if (k === 'doctype') {
+          return normalizeStr(a && a.docType).localeCompare(normalizeStr(b && b.docType), undefined, { sensitivity: 'base' });
+        }
+        if (k === 'published') {
+          // Compare dates as YYYY-MM-DD strings. Empty/unknown dates sort last.
+          const ad = normalizeStr(a && a.publicationDate);
+          const bd = normalizeStr(b && b.publicationDate);
+          if (!ad && !bd) return 0;
+          if (!ad) return 1;
+          if (!bd) return -1;
+          if (ad === bd) return 0;
+          return ad.localeCompare(bd);
         }
         if (k === 'publisher') {
-          return normalizeStr(a && a.publisher).localeCompare(normalizeStr(b && b.publisher));
+          return normalizeStr(a && a.publisher).localeCompare(normalizeStr(b && b.publisher), undefined, { sensitivity: 'base' });
         }
         if (k === 'status') {
-          return docStatusText(a).localeCompare(docStatusText(b));
+          return docStatusText(a).localeCompare(docStatusText(b), undefined, { sensitivity: 'base' });
         }
         // default: label (docLabel fallback docId)
         return docLabelText(a).localeCompare(docLabelText(b), undefined, { numeric: true, sensitivity: 'base' });
+      }
+
+      return list.sort((a, b) => {
+        const c = cmp(a, b);
+        return desc ? -c : c;
       });
     }
 
     function applyFiltersAndRender() {
       const term = (searchInput && searchInput.value ? searchInput.value : '').trim();
       const pubFilter = (publisherSelect && publisherSelect.value ? publisherSelect.value : '').trim();
-      const sortKey = (sortSelect && sortSelect.value ? sortSelect.value : 'label');
+      const typeFilter = (typeSelect && typeSelect.value ? typeSelect.value : '').trim();
+      const sortKey = (sortSelect && sortSelect.value ? sortSelect.value : 'label:asc');
 
       const termNorm = term ? normalizeForSearch(term) : '';
 
@@ -603,6 +642,9 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
         const pub = normalizeStr(d.publisher);
         if (pubFilter && pub !== pubFilter) return false;
+
+        const dt = normalizeStr(d.docType);
+        if (typeFilter && dt !== typeFilter) return false;
 
         if (termNorm) {
           const hay = [
@@ -636,6 +678,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       html += '<thead class="table-header"><tr>' +
               '<th>Label</th>' +
               '<th>Document</th>' +
+              '<th>Type</th>' +
+              '<th>Date</th>' +
               '<th class="status-col">Status</th>' +
               '<th>Publisher</th>' +
               '</tr></thead>';
@@ -702,12 +746,17 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           }
         }
 
+        const typeText = escapeHtml(d.docType || '—');
+        const pubDateText = escapeHtml(d.publicationDate || '—');
+
         html += `<tr class="${rowClass}">` +
                 `<td><a class="text-decoration-none" href="../docs/${encodeURIComponent(String(d.docId))}/">${label}</a></td>` +
                 `<td>` +
                   `<div>${title}</div>` +
                   (abstractHtmlBlock ? abstractHtmlBlock : '') +
                 `</td>` +
+                `<td>${typeText}</td>` +
+                `<td class="text-nowrap">${pubDateText}</td>` +
                 `<td class="status-col"><span class="status-badge">${statusText}</span></td>` +
                 `<td>${pub}</td>` +
                 `</tr>`;
@@ -725,6 +774,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (publisherSelect && !publisherSelect.__msrBound) {
       publisherSelect.addEventListener('change', applyFiltersAndRender);
       publisherSelect.__msrBound = true;
+    }
+    if (typeSelect && !typeSelect.__msrBound) {
+      typeSelect.addEventListener('change', applyFiltersAndRender);
+      typeSelect.__msrBound = true;
     }
     if (sortSelect && !sortSelect.__msrBound) {
       sortSelect.addEventListener('change', applyFiltersAndRender);
