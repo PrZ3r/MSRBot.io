@@ -6,7 +6,7 @@ MSRBot.io is a living, automated dataset that maps relationships across standard
 
 ## How the System Works
 MSRBot.io runs a fully automated pipeline of GitHub Actions that:
-1. Extracts and validates structured document metadata (`extract-docs.yml`)
+1. Extracts and validates structured document metadata (`extract-docs-smpte.yml`)
 2. Builds indices for suites (MSI) and references (MRI)
 3. Publishes to the live site ([MSRBot.io](https://msrbot.io))
 4. Validates URLs weekly
@@ -33,10 +33,11 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
 4. Run scripts as needed:
     ```bash
     npm run extract
-    npm run build:msi
-    npm run build:mri
-    npm run validate:url
-    npm run normalize:url
+    npm run extract-smpte
+    npm run build-msi
+    npm run build-mri
+    npm run validate-url
+    npm run normalize-url
     npm run canonicalize
     npm run validate
     npm run build

@@ -6,7 +6,7 @@ _built and maintained by [Steve LLamb](https://github.com/SteveLLamb)_
 [![Build MasterReference Index](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml)
 [![Build MasterSuite Index](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml)
 [![Build MSRBot.io Site and Test](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml)
-[![Validate Document URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate:url.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate:url.yml)
+[![Validate Document URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-url.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-url.yml)
 [![PR Build Preview (MSRBot.io site)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/pr-build-preview.yml/badge.svg)](https://github.com/SteveLLamb/MSRBot.io/actions/workflows/pr-build-preview.yml)
 
 ## Why It Exists
@@ -107,14 +107,22 @@ Requires Node 20 + npm.
 Run scripts with:
 ```bash
 npm run extract
-npm run build:msi
-npm run build:mri
-npm run validate:url
-npm run normalize:url
+npm run extract-smpte
+npm run build-msi
+npm run build-mri
+npm run validate-url
+npm run normalize-url
 npm run canonicalize
 npm run validate
 npm run build
 ```
+
+#### Extraction Scripts and Providers
+- `npm run extract`: convenience alias for SMPTE extraction (currently equivalent to `extract-smpte`).
+- `npm run extract-smpte`: explicit SMPTE extraction.
+- Under the hood, extraction now requires an explicit provider flag:
+  - `node src/main/scripts/extractDocs.js --provider smpte`
+- If additional providers are added, use explicit scripts per provider (recommended naming: hyphen style, e.g. `extract-iso`, `extract-itu`) and keep workflow calls aligned to those script names.
 ---
 ### Contributing
 Issues and pull requests are welcome.  
