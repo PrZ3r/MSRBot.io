@@ -13,7 +13,7 @@ All core workflows execute on a weekly schedule, with triggered rebuilds after P
 ### 1. Extract Documents
 _Crawls defined URL maps to parse and populate data (currently only SMPTE). Creates a PR if changes are found._
 
-**Workflow:** [Extract Documents](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs.yml)  
+**Workflow:** [Extract Documents - SMPTE](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs-smpte.yml)  
 **Sample Run:** [Run #18390426360](https://github.com/PrZ3r/MSRBot.io/actions/runs/18390426360/job/52399243873)
 
 **Dataset:**  
@@ -85,7 +85,7 @@ _Builds the front-end site from data and publishes to GitHub Pages._
 ### 5. Validate Document URLs
 _Validates and normalizes URLs in the dataset. Creates PRs and manages issues as needed._
 
-**Workflow:** [Validate URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-urls.yml)  
+**Workflow:** [Validate URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate:url.yml)  
 **Sample Run:** [Run #18388310278](https://github.com/PrZ3r/MSRBot.io/actions/runs/18388310278)
 
 **Reports:**  

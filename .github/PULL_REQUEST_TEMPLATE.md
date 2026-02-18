@@ -20,7 +20,7 @@ Select all that apply:
 
 ## Validation
 - [ ] Ran `npm run validate` / `npm run canonicalize`
-- [ ] Ran `npm run build-msi` / `npm run build-mri`
+- [ ] Ran `npm run build:msi` / `npm run build:mri`
 - [ ] Checked no manual edits in `src/main/reports/` or `src/main/data/`
 - [ ] Verified local build (`npm run build`)
 

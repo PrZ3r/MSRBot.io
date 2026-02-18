@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-mri:
+  build:mri:
     if: 
       github.event_name != 'workflow_run' || 
       github.event.workflow_run.conclusion == 'success'

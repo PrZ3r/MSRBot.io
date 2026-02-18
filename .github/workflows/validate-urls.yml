@@ -14,11 +14,11 @@ permissions:
   issues: write
 
 concurrency:
-  group: validate-urls
+  group: validate:url
   cancel-in-progress: true
 
 jobs:
-  validate-urls:
+  validate:url:
     if: 
       github.event_name != 'workflow_run' || 
       github.event.workflow_run.conclusion == 'success'
@@ -79,7 +79,7 @@ jobs:
 
       - name: Run URL validation
         if: steps.guard.outputs.skip != 'true'
-        run: npm run validate-url
+        run: npm run validate:url
 
       - name: Upload validation report (if exists)
         if: (success() || failure()) && steps.guard.outputs.skip != 'true'

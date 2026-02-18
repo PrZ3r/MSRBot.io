@@ -10,8 +10,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - yyyy-mm-dd
  
 ### Added
+- Providerized extraction architecture:
+  - Added SMPTE discovery provider module at `src/main/scripts/providers/smpte.discovery.js`.
+  - Added SMPTE parser provider module at `src/main/scripts/providers/smpte.parse.js`.
+  - Added provider registry at `src/main/scripts/providers/index.js`.
+- Added optional document schema fields for citation structure:
+  - `volume`, `number`, `pages`, `chapter`, `edition`.
+- Added explicit npm alias `extract:smpte` for provider-targeted extraction.
 
 ### Changed
+- Refactored `extractDocs.js` to be provider-agnostic orchestration (merge, metadata, MRI, and logging), with provider-specific discovery/parsing moved out of main script.
+- Extraction provider selection is now explicit via `--provider`; implicit/default provider execution was removed.
+- Renamed SMPTE extraction workflow to `extract-docs-smpte.yml` (`Extract Documents - SMPTE`) and aligned workflow references/triggers accordingly.
+- Updated docs and badges to reference the renamed SMPTE extraction workflow.
 - Enhanced Portal document listings with additional context fields:
   - Display of `docType` and `publicationDate` in document tables.
   - New **Doc Type** filter, aligned with existing Publisher filtering.
@@ -20,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Ascending / descending sort direction for all supported sort keys, consistent with Suites and Collections.
 
 ### Fixed
+- Fixed OM remap path in extraction by correcting title variable scope usage, enabling OM ID remapping updates to apply correctly.
 
 ## [v1.2.0] - 2026-02-05
 

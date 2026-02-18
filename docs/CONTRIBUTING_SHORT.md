@@ -17,9 +17,9 @@ Run the following before opening a PR:
 npm run validate
 npm run canonicalize
 npm run build
-npm run build-msi
-npm run build-mri
-npm run validate-urls
+npm run build:msi
+npm run build:mri
+npm run validate:url
 npm run build
 npx http-server build --no-cache
 ```
