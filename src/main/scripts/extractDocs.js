@@ -38,8 +38,7 @@ const cheerio = require('cheerio');
 const dayjs = require('dayjs');
 const fs = require('fs');
 const { execSync } = require('child_process');
-const { createSmpteDiscovery } = require('./providers/smpte.discovery');
-const { createSmpteParser } = require('./providers/smpte.parse');
+const { getProvider, listProviders } = require('./providers');
 
 // --- Hashing for extractor script versioning ---
 const crypto = require('crypto');
@@ -132,101 +131,12 @@ process.on('exit',       () => _flushMRIOnExit('exit'));
 process.on('SIGINT',  () => { _flushMRIOnExit('SIGINT');  process.exit(130); });
 process.on('SIGTERM', () => { _flushMRIOnExit('SIGTERM'); process.exit(143); });
 
-// Normalize titles by removing a leading "SMPTE" token (and common punctuation/spaces)
-function stripLeadingSmpte(title) {
-  if (!title) return title;
-  return String(title).replace(/^\s*SMPTE\s*[:\-–—]?\s*/i, '').trim();
-}
-
-// Strip leading designator up to the first comma.
-// Example: "ST 2098-1, Immersive Audio — Immersive Audio Metadata"
-// => "Immersive Audio — Immersive Audio Metadata"
-function stripLeadingDesignatorComma(t) {
-  if (!t) return t;
-  const s = String(t).trim();
-  const idx = s.indexOf(',');
-  if (idx === -1) return s;
-  return s.slice(idx + 1).trim();
-}
-
-// Split on first em/en dash (— or –). Fallback: spaced hyphen " - ".
-// Returns { suiteTitle, title }.
-// Example: "Immersive Audio — Immersive Audio Metadata"
-// => { suiteTitle: "Immersive Audio", title: "Immersive Audio Metadata" }
-function splitSuiteTitleOnDash(t) {
-  if (!t) return { suiteTitle: null, title: t };
-  const s = String(t).trim();
-
-  const m = s.match(/^(.*?)\s*[—–]\s*(.+)$/);
-  if (m) return { suiteTitle: m[1].trim() || null, title: m[2].trim() };
-
-  const m2 = s.match(/^(.*?)\s-\s(.+)$/);
-  if (m2) return { suiteTitle: m2[1].trim() || null, title: m2[2].trim() };
-
-  return { suiteTitle: null, title: s };
-}
-
-const typeMap = {
-        AG: 'Administrative Guideline',
-        OM: 'Operations Manual',
-        ST: 'Standard',
-        RP: 'Recommended Practice',
-        EG: 'Engineering Guideline',
-        RDD: 'Registered Disclosure Document',
-        OV: 'Overview Document'
-      };
-
 function cliArgValue(flag, fallback = null) {
   const i = process.argv.indexOf(flag);
   if (i === -1) return fallback;
   const next = process.argv[i + 1];
   if (!next || next.startsWith('--')) return fallback;
   return next;
-}
-
-const providerArg = cliArgValue('--provider', null);
-if (!providerArg) {
-  console.error('❌ Missing required --provider <key>. Example: --provider smpte');
-  process.exit(1);
-}
-const providerKey = providerArg.toLowerCase().trim();
-
-const providerConfigs = {
-  smpte: {
-    label: 'SMPTE',
-    seedPath: 'src/main/input/seedUrls.smpte.json',
-    discoveryFactory: () => createSmpteDiscovery({
-      axios,
-      cheerio,
-      options: {
-        rootUrl: 'https://pub.smpte.org/doc/',
-        filterEnabled: true,
-        filterPath: 'src/main/input/filterList.smpte.json'
-      }
-    }),
-    parserFactory: ({ onBadRefs }) => createSmpteParser({
-      axios,
-      cheerio,
-      dayjs,
-      urlReachable,
-      extractRefs,
-      mapRefByCite,
-      typeMap,
-      stripLeadingSmpte,
-      stripLeadingDesignatorComma,
-      splitSuiteTitleOnDash,
-      extractScopeAbstract,
-      withNoCache,
-      NO_CACHE_HEADERS,
-      onBadRefs
-    })
-  }
-};
-
-const activeProvider = providerConfigs[providerKey];
-if (!activeProvider) {
-  console.error(`❌ Unknown provider "${providerKey}". Supported: ${Object.keys(providerConfigs).join(', ')}`);
-  process.exit(1);
 }
 
 // --- Cache busting helper for CDN/proxy refresh ---
@@ -242,7 +152,29 @@ function withNoCache(u) {
   }
 }
 
-const discovery = activeProvider.discoveryFactory();
+const providerArg = cliArgValue('--provider', null);
+if (!providerArg) {
+  console.error('❌ Missing required --provider <key>.');
+  process.exit(1);
+}
+const providerKey = providerArg.toLowerCase().trim();
+const activeProvider = getProvider(providerKey, {
+  axios,
+  cheerio,
+  dayjs,
+  urlReachable,
+  extractRefs,
+  mapRefByCite,
+  withNoCache,
+  NO_CACHE_HEADERS,
+  onBadRefs: (refs) => { if (Array.isArray(refs) && refs.length) badRefs.push(...refs); }
+});
+if (!activeProvider) {
+  console.error(`❌ Unknown provider "${providerKey}". Supported: ${listProviders().join(', ')}`);
+  process.exit(1);
+}
+
+const discovery = activeProvider.discovery;
 const { discoverFromRootDocPage, normalizeSeedUrl, shouldFilterUrl } = discovery;
 
 async function urlExistsNoRedirect(url) {
@@ -287,7 +219,7 @@ const metaConfig = {
     group: { confidence: 'low', note: 'Unknown in inferred release' },
     publicationDate: { confidence: 'medium', note: 'Inferred from release folder name' },
     releaseTag: { confidence: 'high', note: 'Release tag inferred from URL folder structure' },
-    publisher: { confidence: 'high', note: 'Static: SMPTE' },
+    publisher: { confidence: 'high', note: 'Static: provider' },
     'status.stage': { confidence: 'medium', note: 'Inferred from release folder name' },
     'status.state': { confidence: 'low', note: 'Unknown in inferred release' },
     references: { confidence: 'low', note: 'Unknown in inferred release' },
@@ -439,40 +371,6 @@ function mdEscape(val) {
     .replace(/!/g, '\\!');
 }
 
-function normalizeInlineText(input) {
-  if (input === null || input === undefined) return null;
-  // Cheerio already strips tags with .text(), but we still normalize whitespace and weird NBSPs.
-  const s = String(input)
-    .replace(/\u00a0/g, ' ')      // nbsp
-    .replace(/\s+/g, ' ')        // collapse all whitespace
-    .trim();
-  return s || null;
-}
-
-// Extract the "Scope" section (id is always sec-scope) and use it as a plain-text abstract.
-// - Grabs all <p> children under #sec-scope
-// - Flattens to plain text (no HTML)
-// - Joins multiple paragraphs with "\n"
-function extractScopeAbstract($) {
-  try {
-    const $scope = $('#sec-scope');
-    if (!$scope || !$scope.length) return null;
-
-    const paras = [];
-    $scope.find('p').each((_, p) => {
-      const t = normalizeInlineText($(p).text());
-      if (t) paras.push(t);
-    });
-
-    if (paras.length) return paras.join('\n');
-
-    // Fallback: if there are no <p> tags for some reason, take the section text.
-    return normalizeInlineText($scope.text());
-  } catch (_) {
-    return null;
-  }
-}
-
 function injectMetaForDoc(doc, source, mode, changedFieldsMap = {}) {
   const resolvedFields = ['docId', 'docLabel', 'doi', 'href', 'resolvedHref', 'repo'];
   const resolvedStatusFields = ['active', 'latestVersion', 'superseded'];
@@ -499,10 +397,7 @@ function injectMetaForDoc(doc, source, mode, changedFieldsMap = {}) {
   }
 }
 
-const parser = activeProvider.parserFactory({
-  onBadRefs: (refs) => { if (Array.isArray(refs) && refs.length) badRefs.push(...refs); }
-});
-const { extractFromSeedDoc, extractFromUrl } = parser;
+const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
 
 // Main async block
 (async () => {

@@ -35,15 +35,73 @@ function createSmpteParser(deps) {
     urlReachable,
     extractRefs,
     mapRefByCite,
-    typeMap,
-    stripLeadingSmpte,
-    stripLeadingDesignatorComma,
-    splitSuiteTitleOnDash,
-    extractScopeAbstract,
     withNoCache,
     NO_CACHE_HEADERS,
     onBadRefs
   } = deps;
+
+  const typeMap = {
+    AG: 'Administrative Guideline',
+    OM: 'Operations Manual',
+    ST: 'Standard',
+    RP: 'Recommended Practice',
+    EG: 'Engineering Guideline',
+    RDD: 'Registered Disclosure Document',
+    OV: 'Overview Document'
+  };
+
+  function stripLeadingSmpte(title) {
+    if (!title) return title;
+    return String(title).replace(/^\s*SMPTE\s*[:\-–—]?\s*/i, '').trim();
+  }
+
+  function stripLeadingDesignatorComma(t) {
+    if (!t) return t;
+    const s = String(t).trim();
+    const idx = s.indexOf(',');
+    if (idx === -1) return s;
+    return s.slice(idx + 1).trim();
+  }
+
+  function splitSuiteTitleOnDash(t) {
+    if (!t) return { suiteTitle: null, title: t };
+    const s = String(t).trim();
+
+    const m = s.match(/^(.*?)\s*[—–]\s*(.+)$/);
+    if (m) return { suiteTitle: m[1].trim() || null, title: m[2].trim() };
+
+    const m2 = s.match(/^(.*?)\s-\s(.+)$/);
+    if (m2) return { suiteTitle: m2[1].trim() || null, title: m2[2].trim() };
+
+    return { suiteTitle: null, title: s };
+  }
+
+  function normalizeInlineText(input) {
+    if (input === null || input === undefined) return null;
+    const s = String(input)
+      .replace(/\u00a0/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    return s || null;
+  }
+
+  function extractScopeAbstract($) {
+    try {
+      const $scope = $('#sec-scope');
+      if (!$scope || !$scope.length) return null;
+
+      const paras = [];
+      $scope.find('p').each((_, p) => {
+        const t = normalizeInlineText($(p).text());
+        if (t) paras.push(t);
+      });
+
+      if (paras.length) return paras.join('\n');
+      return normalizeInlineText($scope.text());
+    } catch (_) {
+      return null;
+    }
+  }
 
   function inferMetadataFromPath(rootUrl, releaseTag, baseReleases = [], latestTag = null) {
     const match = rootUrl.match(/doc\/([^/]+)\/$/);
