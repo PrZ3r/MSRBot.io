@@ -71,7 +71,7 @@ const SCRIPT_VERSION = (() => {
 const timestamp = dayjs().format('YYYYMMDD-HHmmss');
 const fullDetailsPath = `src/main/logs/extract-runs/pr-log-full-${timestamp}.log`;
 // Raw URL (kept for logging/diagnostics)
-const detailsFileRawUrl = `https://raw.githubusercontent.com/SteveLLamb/mediastandards-registry/main/${fullDetailsPath}`;
+const detailsFileRawUrl = `https://raw.githubusercontent.com/PrZ3r/MSRBot.io/main/${fullDetailsPath}`;
 
 const { parseRefId, extractRefs, mapRefByCite, mriFlush, mriEnsureFile } = require('../lib/referencing');
 
@@ -769,7 +769,7 @@ const extractFromSeedDoc = async (seedRootUrl) => {
     let id = `SMPTE.${pubType}${pubNumber}${pubPart ? `-${pubPart}` : ''}`;
     // Special case: OM documents — label fixed to "SMPTE OM" and id maps from title via refMap patterns
     if ((pubType || '').toUpperCase() === 'OM') {
-      const rawTitleForMap = (suiteTitle && suiteTitle.trim()) ? suiteTitle : title;
+      const rawTitleForMap = (docSuiteTitle && docSuiteTitle.trim()) ? docSuiteTitle : (docTitle || '');
       const normTitleForMap = stripLeadingSmpte(rawTitleForMap);
       const mappedId = mapRefByCite(normTitleForMap) || mapRefByCite(rawTitleForMap);
       if (mappedId) {
@@ -1030,7 +1030,7 @@ const extractFromUrl = async (rootUrl) => {
       let id = `SMPTE.${pubType}${pubNumber}${pubPart ? `-${pubPart}` : ''}.${dateShort}`;
       // Special case: OM documents — label fixed to "SMPTE OM" and id maps from title via refMap patterns
       if ((pubType || '').toUpperCase() === 'OM') {
-        const rawTitleForMap = (suiteTitle && suiteTitle.trim()) ? suiteTitle : title;
+        const rawTitleForMap = (docSuiteTitle && docSuiteTitle.trim()) ? docSuiteTitle : (docTitle || '');
         const normTitleForMap = stripLeadingSmpte(rawTitleForMap);
         const mappedId = mapRefByCite(normTitleForMap) || mapRefByCite(rawTitleForMap);
         if (mappedId) {

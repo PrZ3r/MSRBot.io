@@ -109,8 +109,8 @@ Run scripts with:
 npm run extract
 npm run build-msi
 npm run build-mri
-npm run validate-urls
-npm run normalize-urls
+npm run validate-url
+npm run normalize-url
 npm run canonicalize
 npm run validate
 npm run build
