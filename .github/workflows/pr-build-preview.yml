@@ -198,7 +198,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' || steps.findpr.outputs.number != '' }}
 
       - name: Generate API stats preview
-        run: npm run build:stats  # produces stats
+        run: npm run build-stats  # produces stats
         if: ${{ github.event_name == 'pull_request' || steps.findpr.outputs.number != '' }}
 
       - name: Verify build output exists
