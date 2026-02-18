@@ -241,7 +241,7 @@ _Prevents orphaned branches from detached workflows._
 - All automation now runs under a single, auditable identity with minimal token sprawl and App-based security hardening.
 
 ### 4.8 URL Validation Workflow Enhancements (Publisher & Item-Level Issue Expansion)
-- Scope: `.github/workflows/validate-urls.yml`
+- Scope: `.github/workflows/validate:url.yml`
 
 **Additions**
 - New error categories with full upsert + autoclose behavior:

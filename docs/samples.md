@@ -85,7 +85,7 @@ _Builds the front-end site from data and publishes to GitHub Pages._
 ### 5. Validate Document URLs
 _Validates and normalizes URLs in the dataset. Creates PRs and manages issues as needed._
 
-**Workflow:** [Validate URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-urls.yml)  
+**Workflow:** [Validate URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate:url.yml)  
 **Sample Run:** [Run #18388310278](https://github.com/PrZ3r/MSRBot.io/actions/runs/18388310278)
 
 **Reports:**  

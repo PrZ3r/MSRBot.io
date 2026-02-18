@@ -33,10 +33,10 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
 4. Run scripts as needed:
     ```bash
     npm run extract
-    npm run build-msi
-    npm run build-mri
-    npm run validate-urls
-    npm run normalize-urls
+    npm run build:msi
+    npm run build:mri
+    npm run validate:url
+    npm run normalize:url
     npm run canonicalize
     npm run validate
     npm run build
