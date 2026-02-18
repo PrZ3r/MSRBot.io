@@ -1,4 +1,4 @@
-name: Extract SMPTE Documents
+name: Extract Documents - SMPTE
 
 on:
   schedule:
@@ -43,7 +43,7 @@ jobs:
           #MSR_CONSOLE_BUDGET: "3670016"       # ~3.5 MiB
           #MSR_HEARTBEAT_EVERY: "50"          # print heartbeat every XX docs
           #MSR_HEARTBEAT_PREFIX: " 💓 ... still processing"
-        run: node src/main/scripts/extractDocs.js
+        run: node src/main/scripts/extractDocs.js --provider smpte
 
       - name: Upload full extract log (post-extraction)
         if: always()

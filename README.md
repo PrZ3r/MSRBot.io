@@ -2,7 +2,7 @@
 Automated cross-publisher standards index 
 _built and maintained by [Steve LLamb](https://github.com/SteveLLamb)_
 
-[![Extract SMPTE Documents](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs.yml)
+[![Extract Documents - SMPTE](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs-smpte.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs-smpte.yml)
 [![Build MasterReference Index](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml)
 [![Build MasterSuite Index](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml)
 [![Build MSRBot.io Site and Test](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml)

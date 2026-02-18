@@ -13,7 +13,7 @@ All core workflows execute on a weekly schedule, with triggered rebuilds after P
 ### 1. Extract Documents
 _Crawls defined URL maps to parse and populate data (currently only SMPTE). Creates a PR if changes are found._
 
-**Workflow:** [Extract Documents](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs.yml)  
+**Workflow:** [Extract Documents - SMPTE](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs-smpte.yml)  
 **Sample Run:** [Run #18390426360](https://github.com/PrZ3r/MSRBot.io/actions/runs/18390426360/job/52399243873)
 
 **Dataset:**  
