@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.0.0",
+  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.1.0",
   "$comment": "Copyright (c) 2025-26 [Steve LLamb](https://github.com/SteveLLamb) and [PrZ3](https://github.com/PrZ3r)",
   "docTitle": "Schema for MSRBot.io - Documents",
   "items": {
@@ -405,6 +405,18 @@
                   ]
                 }
               },
+              "amends": {
+                "type": "array",
+                "additionalItems": true,
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ]
+                }
+              },
               "amendedDate": {
                 "type": "string",
                 "format": "date"
@@ -447,6 +459,18 @@
                   ]
                 }
               },
+              "supersedes": {
+                "type": "array",
+                "additionalItems": true,
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ]
+                }
+              },
               "supersededDate": {
                 "type": "string",
                 "format": "date"
@@ -464,6 +488,22 @@
               "withdrawnDate": {
                 "type": "string",
                 "format": "date"
+              },
+              "errataExist": {
+                "type": "boolean"
+              },
+              "errataUrl": {
+                "type": "array",
+                "additionalItems": true,
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uri",
+                      "minLength": 1
+                    }
+                  ]
+                }
               }
             },
             "patternProperties": {
