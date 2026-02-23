@@ -114,6 +114,7 @@ npm run validate-url
 npm run normalize-url
 npm run canonicalize
 npm run validate
+npm run keywords-sync
 npm run build
 ```
 
@@ -123,6 +124,15 @@ npm run build
 - Under the hood, extraction now requires an explicit provider flag:
   - `node src/main/scripts/extractDocs.js --provider smpte`
 - If additional providers are added, use explicit scripts per provider (recommended naming: hyphen style, e.g. `extract-iso`, `extract-itu`) and keep workflow calls aligned to those script names.
+
+#### Keyword Governance
+- Source of truth for allowed keywords is `src/main/config/site.json` under `controlledKeywords`.
+- `src/main/schemas/documents.schema.json` intentionally does not enforce a hard keyword enum.
+- Keyword conformance is validated in `src/main/scripts/documents.validate.js` during `npm run validate`.
+- Ingested IETF keywords are normalized to project style (Title Case with preserved acronyms/common forms such as `JSON`, `URN`, `B-Chain`, `DCinema`, `DCP*`, `SHA-1`).
+- Use keyword sync to review and optionally add new observed keywords:
+  - Dry run: `npm run keywords-sync`
+  - Write updates to `site.json`: `npm run keywords-sync -- --write`
 ---
 ### Contributing
 Issues and pull requests are welcome.  

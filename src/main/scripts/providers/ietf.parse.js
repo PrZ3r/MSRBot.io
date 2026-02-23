@@ -94,6 +94,40 @@ function createIetfParser(deps) {
     return s || '';
   }
 
+  function splitKeywordValues(values = []) {
+    const acronymMap = new Map([
+      'JSON', 'XML', 'RFC', 'IETF', 'ISO', 'ITU', 'AES',
+      'MIME', 'URI', 'URL', 'HTTP', 'HTTPS', 'API', 'DOI',
+      'ASCII', 'UTF', 'IMF', 'MXF', 'MPEG', 'KDM', 'DCDM',
+      'SDI', 'OPL', 'ACES', 'HTJ2K', 'JPEG2000', 'URN'
+    ].map((value) => [value.toLowerCase(), value]));
+
+    const toTitleCaseKeyword = (input) => {
+      const s = String(input || '').trim().replace(/\s+/g, ' ');
+      if (!s) return '';
+      return s
+        .split(' ')
+        .map((word) => {
+          const lower = word.toLowerCase();
+          if (acronymMap.has(lower)) return acronymMap.get(lower);
+          if (/^b-?chain$/i.test(word)) return 'B-Chain';
+          if (/^dcinema$/i.test(word)) return 'DCinema';
+          if (/^sha-?1$/i.test(word)) return 'SHA-1';
+          if (/^dcp(?=$|[-/])/i.test(word)) return word.replace(/^dcp/i, 'DCP');
+          if (/^\d+mm$/i.test(word)) return `${word.replace(/mm$/i, '')}mm`;
+          return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        })
+        .join(' ');
+    };
+
+    return unique(
+      values
+        .flatMap((entry) => String(entry || '').split(/[;,]/))
+        .map((entry) => toTitleCaseKeyword(entry))
+        .filter(Boolean)
+    );
+  }
+
   function metaContent($, names = []) {
     for (const n of names) {
       const v = $(`meta[name="${n}"]`).attr('content') || $(`meta[property="${n}"]`).attr('content');
@@ -471,6 +505,11 @@ function createIetfParser(deps) {
       $('rfc > front > seriesInfo[name="Internet-Draft"]').attr('value')
     );
     const title = firstNonEmpty($('rfc > front > title').first().text());
+    const keywords = splitKeywordValues(
+      $('rfc > front > keyword')
+        .map((_, el) => ($(el).text() || '').trim())
+        .get()
+    );
 
     return {
       title,
@@ -478,7 +517,8 @@ function createIetfParser(deps) {
       doi,
       report,
       authors,
-      abstract
+      abstract,
+      keywords
     };
   }
 
@@ -653,6 +693,12 @@ function createIetfParser(deps) {
         ...textList($, '.authors'),
         ...textList($, 'a.author')
       ]).map(cleanAuthorName).filter(Boolean),
+      keywords: splitKeywordValues([
+        ...metaList($, 'keyword'),
+        ...metaList($, 'keywords'),
+        ...metaList($, 'dc.subject'),
+        ...metaList($, 'dcterms.subject')
+      ]),
       abstract: cleanAbstractText(pickFirst(
         metaContent($, ['dcterms.abstract', 'description', 'dc.description', 'og:description']),
         text($, 'section#section-abstract p'),
@@ -1004,6 +1050,13 @@ function createIetfParser(deps) {
     ]);
     const abstract = abstractPick.value;
     if (abstractPick.sourceNote) metaNotes.abstract = abstractPick.sourceNote;
+    const keywordsPick = pickFirstArrayWithSource([
+      [xml.keywords, 'Parsed from archive XML front/keyword'],
+      [cSeed.keywords, 'Parsed from seed HTML keyword metadata'],
+      [splitKeywordValues(Array.isArray(trackerJson?.keywords) ? trackerJson.keywords : []), 'Parsed from seed JSON keywords']
+    ]);
+    const keywords = keywordsPick.value;
+    if (keywordsPick.sourceNote) metaNotes.keywords = keywordsPick.sourceNote;
     const pages = firstNonEmpty(trackerJson?.pages);
     if (pages) metaNotes.pages = 'Parsed from seed JSON pages';
     const stdLevel = firstNonEmpty(trackerJson?.std_level);
@@ -1032,6 +1085,7 @@ function createIetfParser(deps) {
       ...(authors.length ? { authors } : {}),
       ...(doi ? { doi } : {}),
       ...(issn ? { issn } : {}),
+      ...(keywords.length ? { keywords } : {}),
       status: {
         active: true,
         latestVersion: true,

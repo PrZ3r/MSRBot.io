@@ -13,16 +13,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Providerized extraction architecture:
   - Added SMPTE discovery provider module at `src/main/scripts/providers/smpte.discovery.js`.
   - Added SMPTE parser provider module at `src/main/scripts/providers/smpte.parse.js`.
+  - Added IETF discovery provider module at `src/main/scripts/providers/ietf.discovery.js`.
+  - Added IETF parser provider module at `src/main/scripts/providers/ietf.parse.js`.
+  - Added provider-specific metadata configs:
+    - `src/main/scripts/providers/smpte.meta.js`
+    - `src/main/scripts/providers/ietf.meta.js`
   - Added provider registry at `src/main/scripts/providers/index.js`.
 - Added optional document schema fields for citation structure:
   - `volume`, `number`, `pages`, `chapter`, `edition`.
 - Added explicit npm alias `extract:smpte` for provider-targeted extraction.
+- Added keyword governance utilities and config source:
+  - Added `controlledKeywords` list in `src/main/config/site.json`.
+  - Added `keywords-sync` utility at `src/main/scripts/utils/keywords.sync.js` (`npm run keywords-sync`, dry-run by default, `--write` to apply).
 
 ### Changed
 - Refactored `extractDocs.js` to be provider-agnostic orchestration (merge, metadata, MRI, and logging), with provider-specific discovery/parsing moved out of main script.
 - Extraction provider selection is now explicit via `--provider`; implicit/default provider execution was removed.
 - Renamed SMPTE extraction workflow to `extract-docs-smpte.yml` (`Extract Documents - SMPTE`) and aligned workflow references/triggers accordingly.
 - Updated docs and badges to reference the renamed SMPTE extraction workflow.
+- Updated validation architecture for keywords:
+  - Removed hard keyword enum enforcement from `documents.schema.json`.
+  - Moved keyword conformance checks to `documents.validate.js` against `src/main/config/site.json#controlledKeywords`.
+- Expanded IETF extraction behavior:
+  - RFC relation fields now derive from RFC info page relation `<dl>` parsing (no broad relation text fallback injection).
+  - Non-RFC extraction now enriches from archive XML (`/archive/id/*.xml`) for front-matter fields and keywords.
+  - Non-RFC keywords are normalized to project keyword style (Title Case with preserved acronyms/common forms such as `JSON`, `URN`, `B-Chain`, `DCinema`, `DCP*`, `SHA-1`).
+- Updated project docs with provider extraction and keyword-governance guidance in `README.md` and `CONTRIBUTING.md`.
 - Enhanced Portal document listings with additional context fields:
   - Display of `docType` and `publicationDate` in document tables.
   - New **Doc Type** filter, aligned with existing Publisher filtering.

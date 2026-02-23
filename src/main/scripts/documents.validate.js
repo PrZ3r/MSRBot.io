@@ -27,6 +27,28 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+const fs = require("fs");
+const path = require("path");
+
+const SITE_CONFIG_PATH = path.resolve("src/main/config/site.json");
+
+function readControlledKeywords() {
+  try {
+    if (!fs.existsSync(SITE_CONFIG_PATH)) return [];
+    const siteConfig = JSON.parse(fs.readFileSync(SITE_CONFIG_PATH, "utf8"));
+    if (!Array.isArray(siteConfig?.controlledKeywords)) return [];
+    return Array.from(
+      new Set(
+        siteConfig.controlledKeywords
+          .map((value) => String(value || "").trim())
+          .filter(Boolean)
+      )
+    );
+  } catch {
+    return [];
+  }
+}
+
 module.exports = (registry, name) => {
   /* Check for duplicate keys in the registry */
   const keys = [];
@@ -43,6 +65,33 @@ module.exports = (registry, name) => {
     if ((registry[i - 1].docId).toUpperCase() >= (registry[i].docId).toUpperCase()) {
       throw name + " sort order " + registry[i - 1].docId + " is " +
         ((registry[i - 1].docId === registry[i].docId) ? "duplicated" : "not sorted");
+    }
+  }
+
+  /* Ensure keywords conform to controlled list in site config */
+  const controlledKeywords = readControlledKeywords();
+  if (controlledKeywords.length) {
+    const allowed = new Set(controlledKeywords);
+    const unknownMap = new Map();
+
+    registry.forEach((doc) => {
+      if (!doc || !Array.isArray(doc.keywords)) return;
+      const docId = String(doc.docId || "(unknown)");
+      doc.keywords.forEach((kw) => {
+        const value = String(kw || "").trim();
+        if (!value || allowed.has(value)) return;
+        if (!unknownMap.has(value)) unknownMap.set(value, new Set());
+        unknownMap.get(value).add(docId);
+      });
+    });
+
+    if (unknownMap.size) {
+      console.warn("\n⚠️ Unknown keywords not in src/main/config/site.json#controlledKeywords:");
+      for (const keyword of Array.from(unknownMap.keys()).sort((a, b) => a.localeCompare(b))) {
+        const docIds = Array.from(unknownMap.get(keyword)).sort((a, b) => a.localeCompare(b));
+        console.warn(`- ${keyword}: ${docIds.join(", ")}`);
+      }
+      throw `${name} registry has keywords outside controlledKeywords in src/main/config/site.json`;
     }
   }
 

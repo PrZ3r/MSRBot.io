@@ -40,6 +40,7 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
     npm run normalize-url
     npm run canonicalize
     npm run validate
+    npm run keywords-sync
     npm run build
 
 ##  Submitting Changes
@@ -57,6 +58,8 @@ When contributing or editing document metadata:
 - Ensure `$meta` provenance fields are properly maintained:
   - source, confidence, updated, overridden, etc.
 - Avoid manual edits to `resolvedHref` — these are maintained by automation.
+- Keywords are controlled via `src/main/config/site.json` (`controlledKeywords`), not a schema enum.
+- Run `npm run keywords-sync` to see newly observed keywords; run `npm run keywords-sync -- --write` to append normalized values to `controlledKeywords`.
 
 ## Licensing
 All contributed code is licensed under the MIT License.
