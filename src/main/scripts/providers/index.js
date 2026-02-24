@@ -69,9 +69,11 @@ function getProvider(providerKey, deps) {
       axios: deps.axios,
       cheerio: deps.cheerio,
       dayjs: deps.dayjs,
+      extractRefs: deps.extractRefs,
       mapRefByCite: deps.mapRefByCite,
       withNoCache: deps.withNoCache,
-      NO_CACHE_HEADERS: deps.NO_CACHE_HEADERS
+      NO_CACHE_HEADERS: deps.NO_CACHE_HEADERS,
+      onBadRefs: deps.onBadRefs
     });
     return {
       key: providerKey,

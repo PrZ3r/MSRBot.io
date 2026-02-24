@@ -6,9 +6,11 @@ function createIetfParser(deps) {
     axios,
     cheerio,
     dayjs,
+    extractRefs,
     mapRefByCite,
     withNoCache,
-    NO_CACHE_HEADERS
+    NO_CACHE_HEADERS,
+    onBadRefs
   } = deps;
 
   function cleanUrl(u) {
@@ -383,7 +385,11 @@ function createIetfParser(deps) {
 
   async function fetchXml(url) {
     const res = await axios.get(withNoCache(url), { headers: NO_CACHE_HEADERS });
-    return cheerio.load(res.data, { xmlMode: true, decodeEntities: true });
+    const raw = String(res.data || '');
+    return {
+      raw,
+      $: cheerio.load(raw, { xmlMode: true, decodeEntities: true })
+    };
   }
 
   function pickFirst(...vals) {
@@ -764,12 +770,12 @@ function createIetfParser(deps) {
       if (titlePick.sourceNote) metaNotes.docTitle = titlePick.sourceNote;
 
       const publicationDatePick = pickDateWithSource([
-        [trackerJson?.time, 'Parsed from Datatracker doc.json time'],
-        [trackerJson?.published, 'Parsed from Datatracker doc.json published'],
-        [trackerJson?.pub_date, 'Parsed from Datatracker doc.json pub_date'],
         [cHtml.publicationDate, 'Parsed from RFC HTML citation date'],
         [cTracker.publicationDate, 'Parsed from Datatracker HTML date metadata'],
-        [cInfo.publicationDate, 'Parsed from RFC info page date metadata']
+        [cInfo.publicationDate, 'Parsed from RFC info page date metadata'],
+        [trackerJson?.published, 'Parsed from Datatracker doc.json published'],
+        [trackerJson?.pub_date, 'Parsed from Datatracker doc.json pub_date'],
+        [trackerJson?.time, 'Parsed from Datatracker doc.json time (last-resort fallback)']
       ]);
       const publicationDate = publicationDatePick.value;
       if (publicationDatePick.sourceNote) metaNotes.publicationDate = publicationDatePick.sourceNote;
@@ -882,25 +888,45 @@ function createIetfParser(deps) {
       let normative = [];
       let bibliographic = [];
       if ($html) {
-        normative = refsFromSection($html, [
-          'section#normative-references',
-          'section[id*="normative"]'
-        ]).filter(id => id !== `RFC${rfcNum}`);
+        const parsedHtmlRefs = extractRefs($html, `RFC${rfcNum}`, {
+          mode: 'ietf-rfc-html',
+          recordSightings: true
+        });
+        const htmlNorm = ((parsedHtmlRefs.references && parsedHtmlRefs.references.normative) || [])
+          .filter(id => id !== `RFC${rfcNum}`);
+        const htmlBibl = ((parsedHtmlRefs.references && parsedHtmlRefs.references.bibliographic) || [])
+          .filter(id => id !== `RFC${rfcNum}`);
+        const localBad = Array.isArray(parsedHtmlRefs.badRefs) ? parsedHtmlRefs.badRefs : [];
+        if (localBad.length && typeof onBadRefs === 'function') onBadRefs(localBad);
 
-        bibliographic = refsFromSection($html, [
-          'section#references',
-          'section#informative-references',
-          'section[id*="informative"]',
-          'section[id*="references"]'
-        ]).filter(id => id !== `RFC${rfcNum}`);
+        // Keep legacy section scan as fallback safety if structured RFC HTML parse yields nothing.
+        normative = htmlNorm.length
+          ? htmlNorm
+          : refsFromSection($html, [
+            'section#normative-references',
+            'section[id*="normative"]'
+          ]).filter(id => id !== `RFC${rfcNum}`);
+
+        bibliographic = htmlBibl.length
+          ? htmlBibl
+          : refsFromSection($html, [
+            'section#references',
+            'section#informative-references',
+            'section[id*="informative"]',
+            'section[id*="references"]'
+          ]).filter(id => id !== `RFC${rfcNum}`);
       }
 
       const refs = {
-        normative: unique(normative),
-        bibliographic: unique(bibliographic)
+        normative: unique(normative.filter(id => id !== `RFC${rfcNum}`)),
+        bibliographic: unique(bibliographic.filter(id => id !== `RFC${rfcNum}`))
       };
-      if (refs.normative.length) metaNotes['references.normative'] = 'Parsed from RFC HTML normative references sections';
-      if (refs.bibliographic.length) metaNotes['references.bibliographic'] = 'Parsed from RFC HTML references/informative sections';
+      if (refs.normative.length) {
+        metaNotes['references.normative'] = 'Parsed from RFC HTML normative references sections';
+      }
+      if (refs.bibliographic.length) {
+        metaNotes['references.bibliographic'] = 'Parsed from RFC HTML references/informative sections';
+      }
 
       const classified = stdLevel
         ? classifyIetfFromStdLevel(stdLevel, { isDraft: false })
@@ -948,7 +974,10 @@ function createIetfParser(deps) {
     let trackerJson = null;
     let $seed = null;
     const archiveXmlUrl = deriveArchiveXmlUrl(seed);
+    let xmlBundle = null;
     let xml = {};
+    let xmlRefs = { normative: [], bibliographic: [] };
+    let pendingXmlBadRefs = [];
 
     // Prefer parsing HTML tags directly when the seed is an HTML page.
     if (looksHtml) {
@@ -975,8 +1004,8 @@ function createIetfParser(deps) {
     }
     if (archiveXmlUrl) {
       try {
-        const $xml = await fetchXml(archiveXmlUrl);
-        xml = xmlFrontBundle($xml);
+        xmlBundle = await fetchXml(archiveXmlUrl);
+        xml = xmlFrontBundle(xmlBundle.$);
       } catch {}
     }
 
@@ -1066,7 +1095,28 @@ function createIetfParser(deps) {
     const reportLower = String(report || '').toLowerCase();
     const isDraft = reportLower.startsWith('draft-') || seed.includes('/draft-');
     const docId = deriveNonRfcDocId({ seed, report, trackerJson, titleRaw });
+    if (xmlBundle) {
+      const parsed = extractRefs(xmlBundle.$, docId, {
+        mode: 'ietf-xml',
+        xmlRaw: xmlBundle.raw,
+        recordSightings: true
+      });
+      pendingXmlBadRefs = Array.isArray(parsed.badRefs) ? parsed.badRefs : [];
+      xmlRefs = {
+        normative: (parsed.references && parsed.references.normative) || [],
+        bibliographic: (parsed.references && parsed.references.bibliographic) || []
+      };
+    }
+    if (pendingXmlBadRefs.length && typeof onBadRefs === 'function') {
+      onBadRefs(pendingXmlBadRefs.map((r) => ({ ...r, docId })));
+    }
     const docLabel = toIetfLabel(report || docId.replace(/^IETF\./i, ''));
+    const refs = {
+      normative: unique((xmlRefs.normative || []).filter(id => id !== docId)),
+      bibliographic: unique((xmlRefs.bibliographic || []).filter(id => id !== docId))
+    };
+    if (refs.normative.length) metaNotes['references.normative'] = 'Parsed from archive XML references (Normative References)';
+    if (refs.bibliographic.length) metaNotes['references.bibliographic'] = 'Parsed from archive XML references (Informative/Bibliographic References)';
 
     const classified = stdLevel
       ? classifyIetfFromStdLevel(stdLevel, { isDraft })
@@ -1086,6 +1136,7 @@ function createIetfParser(deps) {
       ...(doi ? { doi } : {}),
       ...(issn ? { issn } : {}),
       ...(keywords.length ? { keywords } : {}),
+      ...(refs.normative.length || refs.bibliographic.length ? { references: refs } : {}),
       status: {
         active: true,
         latestVersion: true,

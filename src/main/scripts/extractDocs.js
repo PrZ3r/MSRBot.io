@@ -158,17 +158,18 @@ if (!providerArg) {
   process.exit(1);
 }
 const providerKey = providerArg.toLowerCase().trim();
-const activeProvider = getProvider(providerKey, {
-  axios,
-  cheerio,
-  dayjs,
-  urlReachable,
-  extractRefs,
-  mapRefByCite,
-  withNoCache,
-  NO_CACHE_HEADERS,
-  onBadRefs: (refs) => { if (Array.isArray(refs) && refs.length) badRefs.push(...refs); }
-});
+  const activeProvider = getProvider(providerKey, {
+    axios,
+    cheerio,
+    dayjs,
+    urlReachable,
+    extractRefs,
+    mapRefByCite,
+    parseRefId,
+    withNoCache,
+    NO_CACHE_HEADERS,
+    onBadRefs: (refs) => { if (Array.isArray(refs) && refs.length) badRefs.push(...refs); }
+  });
 if (!activeProvider) {
   console.error(`❌ Unknown provider "${providerKey}". Supported: ${listProviders().join(', ')}`);
   process.exit(1);
