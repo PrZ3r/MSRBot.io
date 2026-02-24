@@ -191,6 +191,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return (d && d.currentStatus) ? String(d.currentStatus) : '';
   }
 
+  function isDocInRegistry(id) {
+    return !isSuiteNode(id) && !!docIndex[id];
+  }
+
   function hasActiveProjectFor(id) {
     if (isSuiteNode(id)) return false;
     const d = docIndex[id];
@@ -273,10 +277,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             ${statusStr ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
           `;
         } else {
+          const inRegistry = isDocInRegistry(id);
           li.innerHTML = `
-            <a href="../${encodeURIComponent(id)}/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="${escapeHtml(id)}">
+            <a href="../${encodeURIComponent(id)}/" class="ref-node d-inline-flex align-items-center gap-1 ${inRegistry ? '' : 'text-muted fst-italic'}" data-doc-id="${escapeHtml(id)}">
               <span>${escapeHtml(label)}</span></a>
               ${statusStr ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
+              ${inRegistry ? '' : '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>'}
               ${statusIcon ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
               ${projIcon ? '<span class="ms-1">' + projIcon + '</span>' : ''}
           
@@ -363,6 +369,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       const hasChildren = node.children && node.children.length;
 
       const isSuite = isSuiteNode(id);
+      const inRegistry = isSuite ? true : isDocInRegistry(id);
 
       chip.innerHTML = `
         ${hasChildren
@@ -371,11 +378,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         ${isSuite
           ? `<span class="ref-node d-inline-flex align-items-center gap-1" data-suite-node="1"><span>${escapeHtml(label)}</span></span>`
           : `<a href="../${encodeURIComponent(id)}/"
-                 class="ref-node d-inline-flex align-items-center gap-1"
+                 class="ref-node d-inline-flex align-items-center gap-1 ${inRegistry ? '' : 'text-muted fst-italic'}"
                  data-doc-id="${escapeHtml(id)}">
                <span>${escapeHtml(label)}</span>
              </a>`}
         ${statusStr ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
+        ${(!isSuite && !inRegistry) ? '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>' : ''}
         ${(!isSuite && statusIcon) ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
         ${(!isSuite && projIcon) ? '<span class="ms-1">' + projIcon + '</span>' : ''}
       `;
@@ -474,6 +482,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
 
     const d = docIndex[id] || {};
+    const inRegistry = isDocInRegistry(id);
     const label = getRootLabelFor(id);
     const statusStr = getStatusFor(id);
     const statusIcon = buildStatusIcon(statusStr, 12);
@@ -507,11 +516,16 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
            ${projIcon ? '<span class="ms-1">' + projIcon + '</span>' : ''}
          </div>`
       : '';
+    const rootMissingBadge = inRegistry ? '' : '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>';
+    const rootTitleEl = inRegistry
+      ? `<a class="" href="../../docs/${id}/">${escapeHtml(titleText)}</a>`
+      : `<span class="text-muted fst-italic">${escapeHtml(titleText)}</span>`;
     el.innerHTML = `
         <div class="mb-2">
           <div class="mb-1 d-flex flex-wrap align-items-center gap-1">
             <span><code>${escapeHtml(label)}</code></span>
-            <span class="fw-semibold"><a class="" href="../../docs/${id}/">${escapeHtml(titleText)}</a></span>
+            <span class="fw-semibold">${rootTitleEl}</span>
+            ${rootMissingBadge}
           </div>
           ${metaLine}
         </div>

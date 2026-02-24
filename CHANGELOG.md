@@ -64,6 +64,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Extended Portal sorting controls to support:
   - Sorting by **Type** and **Published date**.
   - Ascending / descending sort direction for all supported sort keys, consistent with Suites and Collections.
+- Updated RefTree unresolved-document UX:
+  - Unresolved nodes remain visible and navigable in-tree, but now display muted/italic labels with a `NOT IN REGISTRY` badge.
+  - In the **Current Tree Root** card, unresolved docs no longer click through to `/docs/:docId/`; in-registry roots remain clickable.
+- Improved docs page reference-list readability:
+  - Added explicit spacing between normative/bibliographic reference labels and their status tokens (e.g., `[Active]`, `[SUITE]`).
 
 ### Fixed
 - Fixed OM remap path in extraction by correcting title variable scope usage, enabling OM ID remapping updates to apply correctly.
