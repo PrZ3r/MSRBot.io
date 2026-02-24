@@ -1777,6 +1777,13 @@ function _titleOf(doc){
     return ref && ref.id ? (docStatuses[ref.id] || "NOT IN REGISTRY") : "NOT IN REGISTRY";
   });
 
+  hb.registerHelper("isRefLinkable", function(ref) {
+    if (!ref || typeof ref !== 'object') return false;
+    if (ref.allParts) return true; // suite refs are routable via suiteLink/refHref logic
+    if (!ref.id) return false;
+    return Object.prototype.hasOwnProperty.call(docStatuses, ref.id);
+  });
+
   hb.registerHelper("getRefLabel", function(ref) {
     if (ref && ref.allParts && ref.suiteTitle) {
       return ref.suiteTitle;

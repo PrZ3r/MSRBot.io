@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.0.0",
+  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.1.0",
   "$comment": "Copyright (c) 2025-26 [Steve LLamb](https://github.com/SteveLLamb) and [PrZ3](https://github.com/PrZ3r)",
   "docTitle": "Schema for MSRBot.io - Documents",
   "items": {
@@ -164,100 +164,7 @@
               "anyOf": [
                 {
                   "type": "string",
-                  "minLength": 1,
-                  "enum": [
-                    "ACES",
-                    "AES",
-                    "Accessibility",
-                    "Acoustics",
-                    "Algorithm",
-                    "Anamorph",
-                    "Archive",
-                    "Audio",
-                    "Aux Data",
-                    "B-Chain",
-                    "Camera",
-                    "Captions",
-                    "Cartridge",
-                    "Cassette",
-                    "Cinema Sound",
-                    "Color",
-                    "Compression",
-                    "Control",
-                    "Cryptographic Keys",
-                    "DCDM",
-                    "DCinema",
-                    "DCP Application",
-                    "DCP Core",
-                    "Decryption",
-                    "Digital Source",
-                    "Dimension",
-                    "Distribution",
-                    "Edit",
-                    "Encryption",
-                    "Exposure",
-                    "File Format",
-                    "Formats",
-                    "Film",
-                    "Glossary",
-                    "HTJ2K",
-                    "Identification",
-                    "Image",
-                    "Image Formats",
-                    "IMF",
-                    "IMF Application",
-                    "IMF Plug-in",
-                    "Immersive Audio",
-                    "Interface",
-                    "Interop",
-                    "JPEG2000",
-                    "KDM",
-                    "Label",
-                    "Leader",
-                    "Lens",
-                    "Light",
-                    "Loudness",
-                    "Lubrication",
-                    "Luminance",
-                    "Magnetic",
-                    "Measurement",
-                    "Metadata",
-                    "MPEG",
-                    "MXF",
-                    "MXF Application",
-                    "MXF Core",
-                    "Network",
-                    "Operations",
-                    "OPL",
-                    "Packaging",
-                    "Printer",
-                    "Processing",
-                    "Projection",
-                    "Projector",
-                    "Quality",
-                    "Recording",
-                    "Screen",
-                    "SDI",
-                    "Security",
-                    "SHA-1",
-                    "Sign Language",
-                    "Sound",
-                    "Subtitles",
-                    "Test & Measurement",
-                    "Time & Sync",
-                    "Timed Text",
-                    "Theater",
-                    "Telecine",
-                    "Television",
-                    "URN",
-                    "Video",
-                    "XML",
-                    "8mm",
-                    "16mm",
-                    "35mm",
-                    "65mm",
-                    "70mm"
-                  ]
+                  "minLength": 1
                 }
               ]
             }
@@ -303,10 +210,10 @@
                   "source": {
                     "type": "string",
                     "enum": [
-                      "parsed", 
-                      "inferred", 
+                      "parsed",
+                      "inferred",
                       "manual",
-                      "resolved", 
+                      "resolved",
                       "unknown"
                     ]
                   },
@@ -405,6 +312,18 @@
                   ]
                 }
               },
+              "amends": {
+                "type": "array",
+                "additionalItems": true,
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ]
+                }
+              },
               "amendedDate": {
                 "type": "string",
                 "format": "date"
@@ -447,6 +366,18 @@
                   ]
                 }
               },
+              "supersedes": {
+                "type": "array",
+                "additionalItems": true,
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ]
+                }
+              },
               "supersededDate": {
                 "type": "string",
                 "format": "date"
@@ -457,13 +388,29 @@
               "withdrawn": {
                 "type": "boolean"
               },
-               "withdrawnNotice": {
+              "withdrawnNotice": {
                 "type": "string",
                 "format": "uri"
               },
               "withdrawnDate": {
                 "type": "string",
                 "format": "date"
+              },
+              "errataExist": {
+                "type": "boolean"
+              },
+              "errataUrl": {
+                "type": "array",
+                "additionalItems": true,
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uri",
+                      "minLength": 1
+                    }
+                  ]
+                }
               }
             },
             "patternProperties": {
@@ -473,10 +420,10 @@
                   "source": {
                     "type": "string",
                     "enum": [
-                      "parsed", 
-                      "inferred", 
+                      "parsed",
+                      "inferred",
                       "manual",
-                      "resolved", 
+                      "resolved",
                       "unknown"
                     ]
                   },
@@ -535,10 +482,10 @@
                     "source": {
                       "type": "string",
                       "enum": [
-                        "parsed", 
-                        "inferred", 
+                        "parsed",
+                        "inferred",
                         "manual",
-                        "resolved", 
+                        "resolved",
                         "unknown"
                       ]
                     },
@@ -636,10 +583,10 @@
                         "source": {
                           "type": "string",
                           "enum": [
-                            "parsed", 
-                            "inferred", 
+                            "parsed",
+                            "inferred",
                             "manual",
-                            "resolved", 
+                            "resolved",
                             "unknown"
                           ]
                         },
@@ -700,10 +647,10 @@
                         "source": {
                           "type": "string",
                           "enum": [
-                            "parsed", 
-                            "inferred", 
+                            "parsed",
+                            "inferred",
                             "manual",
-                            "resolved", 
+                            "resolved",
                             "unknown"
                           ]
                         },
@@ -809,10 +756,10 @@
               "source": {
                 "type": "string",
                 "enum": [
-                  "parsed", 
-                  "inferred", 
+                  "parsed",
+                  "inferred",
                   "manual",
-                  "resolved", 
+                  "resolved",
                   "unknown"
                 ]
               },

@@ -205,17 +205,32 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.normative)}}
                 <li class="list-group-item">
-                  <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
+                  {{#if (isRefLinkable this)}}
+                    <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
+                      {{#if allParts}}
+                        {{suiteTitle}}
+                      {{else}}
+                        {{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}
+                      {{/if}}
+                    </a>
+                  {{else}}
                     {{#if allParts}}
                       {{suiteTitle}}
                     {{else}}
-                      {{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}
+                      <span class="text-muted fst-italic">{{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}</span>
                     {{/if}}
-                  </a>
-                    [{{#if allParts}}SUITE{{else}}{{getStatus id}}{{/if}}] {{#unless allParts}}
+                  {{/if}}
+                  {{#if allParts}}
+                    <span class="ms-1">[SUITE]</span>
+                  {{else}}
+                    {{#if (isRefLinkable this)}}
+                      <span class="ms-1">[{{getStatus id}}]</span>
                       {{{getstatusButton id "10"}}}
                       {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
-                    {{/unless}}
+                    {{else}}
+                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    {{/if}}
+                  {{/if}}
                 </li>
               {{/each}}
               </ul>
@@ -228,17 +243,32 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.bibliographic)}}
                 <li class="list-group-item">
-                  <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
+                  {{#if (isRefLinkable this)}}
+                    <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
+                      {{#if allParts}}
+                        {{suiteTitle}}
+                      {{else}}
+                        {{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}
+                      {{/if}}
+                    </a>
+                  {{else}}
                     {{#if allParts}}
                       {{suiteTitle}}
                     {{else}}
-                      {{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}
+                      <span class="text-muted fst-italic">{{#if undated}}{{getUndatedLabel id}}{{else}}{{getLabel id}}{{/if}}</span>
                     {{/if}}
-                  </a>
-                    [{{#if allParts}}SUITE{{else}}{{getStatus id}}{{/if}}] {{#unless allParts}}
+                  {{/if}}
+                  {{#if allParts}}
+                    <span class="ms-1">[SUITE]</span>
+                  {{else}}
+                    {{#if (isRefLinkable this)}}
+                      <span class="ms-1">[{{getStatus id}}]</span>
                       {{{getstatusButton id "10"}}}
                       {{#with (docProjLookup @root.docProjs id)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
-                    {{/unless}}
+                    {{else}}
+                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    {{/if}}
+                  {{/if}}
                 </li>
               {{/each}}
               </ul>

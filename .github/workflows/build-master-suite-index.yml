@@ -1,10 +1,7 @@
 name: Build MasterSuite Index
     
 on:
-  schedule:
-    - cron: "15 04 * * 3"   # 21:15 PT, Wed (cron in UTC)
-  pull_request:
-    types: [closed]
+  push:
     branches: [ main ]
   workflow_dispatch:
 

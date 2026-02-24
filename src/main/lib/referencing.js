@@ -708,15 +708,73 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
-  // W3C dated REC
-  if (/w3\.org\/TR\/\d{4}\/REC-([^\/]+)-(\d{8})\//i.test(href)) {
-    const [, shortname, yyyymmdd] = href.match(/REC-([^\/]+)-(\d{8})/i);
-    { const refId = `W3C.${shortname}.${yyyymmdd}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'w3c:dated-REC' } } : refId; }
+  // W3C dated REC (allow with/without trailing slash)
+  if (/w3\.org\/TR\/\d{4}\/REC-([^\/?#]+)-(\d{8})(?:\/)?(?:[?#].*)?$/i.test(href)) {
+    const [, shortname, yyyymmdd] = href.match(/REC-([^\/?#]+)-(\d{8})/i);
+    { const refId = `W3C.${String(shortname).toLowerCase()}.${yyyymmdd}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'w3c:dated-REC' } } : refId; }
+  }
+  // xml2rfc bibxml4 W3C dated entries (e.g., reference.W3C.REC-ldp-20150226.xml)
+  if (/reference\.W3C\.([A-Za-z]+)-([A-Za-z0-9._-]+)-(\d{8})\.xml(?:[?#].*)?$/i.test(href)) {
+    const [, stage, shortname, yyyymmdd] = href.match(/reference\.W3C\.([A-Za-z]+)-([A-Za-z0-9._-]+)-(\d{8})\.xml/i);
+    const stageNorm = String(stage).toUpperCase();
+    const refId = stageNorm === 'REC'
+      ? `W3C.${shortname}.${yyyymmdd}`
+      : `W3C.${stageNorm}-${shortname}.${yyyymmdd}`;
+    return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'w3c:bibxml4-dated' } } : refId;
   }
   // W3C undated shortname
-  if (/w3\.org\/TR\/([^\/]+)\/?$/i.test(href)) {
-    const [, shortname] = href.match(/w3\.org\/TR\/([^\/]+)\/?$/i);
-    { const refId = `W3C.${shortname}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'w3c:shortname' } } : refId; }
+  if (/w3\.org\/TR\/([^\/?#]+)\/?(?:[?#].*)?$/i.test(href)) {
+    const [, shortname] = href.match(/w3\.org\/TR\/([^\/?#]+)\/?(?:[?#].*)?$/i);
+    const s = String(shortname || '').trim();
+    const mRec = s.match(/^REC-(.+)$/i);
+    const normalized = (mRec?.[1] || s).toLowerCase();
+    { const refId = `W3C.${normalized}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: mRec ? 'w3c:shortname-rec' : 'w3c:shortname' } } : refId; }
+  }
+
+  // ECMA canonical pages / cites.
+  // Preferred suffix: YYYYMM if month is known, else YYYY, else edition.
+  {
+    const mHref = href.match(/ecma-international\.org\/ecma-(\d+)(?:\/(\d+)(?:\.\d+)?)?/i);
+    const mText = String(text || '').match(/ECMA[-\s]?(\d+)(?:,\s*(\d+)(?:st|nd|rd|th)\s+edition)?/i);
+    const num = (mHref && mHref[1]) || (mText && mText[1]);
+    const edition = (mHref && mHref[2]) || (mText && mText[2]) || '';
+    if (num) {
+      const monthMap = {
+        jan: '01', january: '01',
+        feb: '02', february: '02',
+        mar: '03', march: '03',
+        apr: '04', april: '04',
+        may: '05',
+        jun: '06', june: '06',
+        jul: '07', july: '07',
+        aug: '08', august: '08',
+        sep: '09', sept: '09', september: '09',
+        oct: '10', october: '10',
+        nov: '11', november: '11',
+        dec: '12', december: '12'
+      };
+      const s = String(text || '');
+      let y = '';
+      let mm = '';
+      const monthYear = s.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\b[\s,.-]*(\d{4})\b/i);
+      if (monthYear) {
+        y = monthYear[2];
+        mm = monthMap[String(monthYear[1]).toLowerCase()] || '';
+      } else {
+        const isoMonth = s.match(/\b(\d{4})-(\d{2})\b/);
+        if (isoMonth) {
+          y = isoMonth[1];
+          mm = isoMonth[2];
+        } else {
+          const yearOnly = s.match(/\b(19|20)\d{2}\b/);
+          if (yearOnly) y = yearOnly[0];
+        }
+      }
+
+      const suffix = (y && mm) ? `${y}${mm}` : (y || edition);
+      const refId = `ECMA.${num}${suffix ? `.${suffix}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: mHref ? 'href' : 'regex', mapDetail: 'ecma-canonical' } } : refId;
+    }
   }
 
   // Handle multi-part cite strings split by '|', prefer ISO/IEC slice if present
@@ -740,9 +798,39 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // Unicode Standard and Unicode Technical Reports
+  if (/unicode\.org\/versions\/Unicode(\d+(?:\.\d+)+)\/?/i.test(href)) {
+    const [, version] = href.match(/unicode\.org\/versions\/Unicode(\d+(?:\.\d+)+)\/?/i);
+    { const refId = `UNICODE.STD.${version}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'unicode:version-url' } } : refId; }
+  }
+  if (/unicode\.org\/reports\/tr(\d+)\/tr\1-(\d+)(?:\.html?)?/i.test(href)) {
+    const [, tr, rev] = href.match(/unicode\.org\/reports\/tr(\d+)\/tr\1-(\d+)(?:\.html?)?/i);
+    { const refId = `UNICODE.STD.TR${tr}-${rev}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'unicode:tr-url' } } : refId; }
+  }
+  if (/unicode\.org\/faq\/utf_bom(?:\.html?)?/i.test(href)) {
+    { const refId = 'UNICODE.UTF.BOM'; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'unicode:utf-bom-url' } } : refId; }
+  }
+  if (/The\s+Unicode\s+Standard/i.test(text) && /\bVersion\s+(\d+(?:\.\d+)+)\b/i.test(text)) {
+    const [, version] = text.match(/\bVersion\s+(\d+(?:\.\d+)+)\b/i);
+    { const refId = `UNICODE.STD.${version}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'unicode:standard-version' } } : refId; }
+  }
+
+  // Issue trackers (href-first, no refMap required)
+  try {
+    const u = new URL(href);
+    if (/^bugzilla\.mozilla\.org$/i.test(u.hostname) && /^\/show_bug\.cgi$/i.test(u.pathname)) {
+      const bugId = String(u.searchParams.get('id') || '').trim();
+      const c = (u.hash || '').match(/^#c(\d+)$/i);
+      if (/^\d+$/.test(bugId)) {
+        const refId = `MOZ.Bugzilla.${bugId}${c?.[1] ? `.c${c[1]}` : ''}`;
+        return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'mozilla-bugzilla' } } : refId;
+      }
+    }
+  } catch {}
+
   // RFC
   if (/RFC\s*(\d+)/i.test(text)) {
-    { const refId = `RFC${text.match(/RFC\s*(\d+)/i)[1]}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rfc-number' } } : refId; }
+    { const refId = `RFC${parseInt(text.match(/RFC\s*(\d+)/i)[1], 10)}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rfc-number' } } : refId; }
   }
 
   // NIST via DOI href
@@ -776,6 +864,18 @@ function parseRefId(text, href = '', opts = {}) {
     const year = years.length ? Math.max(...years) : null;
     { const refId = `ISO.${base}${year ? `.${year}` : ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso|iec designator' } } : refId; }
   }
+  if (/ISO-(\d+(?:-\d+)+)(:[\dA-Za-z+:\.-]+)?/i.test(text)) {
+    const [, base, suffix] = text.match(/ISO-(\d+(?:-\d+)+)(:[\dA-Za-z+:\.-]+)?/i);
+    const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map(m => parseInt(m[1])) : [];
+    const year = years.length ? Math.max(...years) : null;
+    { const refId = `ISO.${base}${year ? `.${year}` : ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-hyphen-part designator' } } : refId; }
+  }
+  if (/ISO-([\d\-]+)(:[\dA-Za-z+:\.-]+)?/i.test(text)) {
+    const [, base, suffix] = text.match(/ISO-([\d\-]+)(:[\dA-Za-z+:\.-]+)?/i);
+    const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map(m => parseInt(m[1])) : [];
+    const year = years.length ? Math.max(...years) : null;
+    { const refId = `ISO.${base}${year ? `.${year}` : ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-hyphen designator' } } : refId; }
+  }
   if (/IEC\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/.test(text)) {
     const [, base, suffix] = text.match(/IEC\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/);
     const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map(m => parseInt(m[1])) : [];
@@ -788,8 +888,554 @@ function parseRefId(text, href = '', opts = {}) {
 
 // Extract references from a cheerio-loaded doc
 // Returns: { references: {normative?, bibliographic?}, badRefs: [...] }
-function extractRefs($, currentDocId) {
+// opts.mode:
+// - 'default' (legacy HTML list extraction)
+// - 'ietf-xml' (xml2rfc references extraction)
+// - 'ietf-rfc-html' (RFC HTML references sections)
+function extractRefs($, currentDocId, opts = {}) {
+  const mode = String(opts.mode || 'default').toLowerCase();
+  const recordSightings = opts.recordSightings !== false;
   const out = { references: {}, badRefs: [] };
+
+  function recordSighting(payload) {
+    if (!recordSightings) return;
+    mriRecordSighting(payload);
+  }
+
+  function resolveXmlRefId(citeCandidates = [], hrefCandidates = []) {
+    const cites = [...new Set(citeCandidates.map(v => String(v || '').trim()).filter(Boolean))];
+    const hrefs = [...new Set(hrefCandidates.map(v => String(v || '').trim()).filter(Boolean))];
+    const conciseCites = cites.filter(c => c.length <= 120);
+
+    // 1) IETF draft shortcut
+    for (const v of [...cites, ...hrefs]) {
+      const m = String(v).match(/\b(draft-[A-Za-z0-9._-]+)\b/i);
+      if (m?.[1]) return `IETF.${m[1].toLowerCase()}`;
+    }
+
+    // 2) canonical parser (cite + href), prioritizing concise cite variants first.
+    for (const href of [...hrefs, '']) {
+      for (const cite of [...conciseCites, '']) {
+        try {
+          const parsed = parseRefId(cite, href);
+          if (parsed && String(parsed).trim()) return String(parsed).trim();
+        } catch {}
+      }
+    }
+    for (const href of [...hrefs, '']) {
+      for (const cite of [...cites, '']) {
+        try {
+          const parsed = parseRefId(cite, href);
+          if (parsed && String(parsed).trim()) return String(parsed).trim();
+        } catch {}
+      }
+    }
+
+    // 3) direct RFC token shortcuts (fallback)
+    for (const c of conciseCites) {
+      const m = c.match(/^RFC(\d{3,5})$/i) || c.match(/\bRFC\s*[-\/\s]?(\d{3,5})\b/i);
+      if (m?.[1]) return `RFC${parseInt(m[1], 10)}`;
+    }
+    for (const h of hrefs) {
+      const m = h.match(/reference\.RFC\.(\d{3,5})\.xml/i) || h.match(/\/rfc(\d{3,5})\b/i);
+      if (m?.[1]) return `RFC${parseInt(m[1], 10)}`;
+    }
+
+    // 4) explicit refMap cite mapping fallback
+    for (const cite of cites) {
+      const mapped = mapRefByCite(cite);
+      if (mapped && String(mapped).trim()) return String(mapped).trim();
+    }
+    return null;
+  }
+
+  if (mode === 'ietf-rfc-html') {
+    const normalizeMarker = (markerRaw) => {
+      const marker = String(markerRaw || '').trim();
+      const rfcMatch = marker.match(/^RFC0*([0-9]{1,5})$/i);
+      if (rfcMatch?.[1]) return `RFC${parseInt(rfcMatch[1], 10)}`;
+      return marker;
+    };
+    const addRef = (key, refId) => {
+      if (!refId) return;
+      if (!out.references[key]) out.references[key] = [];
+      out.references[key].push(refId);
+    };
+    const parsedMarkers = new Set();
+
+    const sectionDefs = [
+      {
+        key: 'normative',
+        selectors: [
+          'section#normative-references',
+          'section[id*="normative"]'
+        ]
+      },
+      {
+        key: 'bibliographic',
+        selectors: [
+          'section#informative-references',
+          'section[id*="informative"]'
+        ]
+      }
+    ];
+
+    for (const def of sectionDefs) {
+      const seenAnchors = new Set();
+      for (const sel of def.selectors) {
+        $(sel).each((_, secEl) => {
+          const $sec = $(secEl);
+          $sec.find('a[id^="ref-"]').each((__, aEl) => {
+            const $a = $(aEl);
+            const rawId = String($a.attr('id') || '').trim();
+            if (!rawId || seenAnchors.has(rawId)) return;
+            seenAnchors.add(rawId);
+
+            const marker = normalizeMarker(rawId.replace(/^ref-/i, ''));
+            parsedMarkers.add(marker);
+            const markerText = marker.replace(/[_-]+/g, ' ').trim();
+            const $ctx = $a.closest('li, p, dt, dd, div').first();
+            const ctxText = (($ctx.length ? $ctx.text() : $a.parent().text()) || '')
+              .replace(/\s+/g, ' ')
+              .trim();
+            const hrefs = [...new Set(
+              ($ctx.length ? $ctx.find('a[href]') : $a.parent().find('a[href]'))
+                .map((___, linkEl) => String($(linkEl).attr('href') || '').trim())
+                .get()
+                .filter(Boolean)
+            )];
+
+            const citeCandidates = [
+              marker,
+              markerText,
+              String($a.text() || '').trim(),
+              ctxText
+            ];
+            const refId = resolveXmlRefId(citeCandidates, hrefs);
+
+            if (refId) {
+              addRef(def.key, refId);
+              recordSighting({
+                docId: currentDocId,
+                type: def.key,
+                refId,
+                cite: marker || markerText || ctxText,
+                href: hrefs[0] || '',
+                mapSource: 'ietf-rfc-html',
+                mapDetail: rawId,
+                rawRef: ctxText || marker || null,
+                title: null
+              });
+            } else {
+              out.badRefs.push({
+                docId: currentDocId,
+                type: def.key,
+                refText: marker || markerText || ctxText,
+                href: hrefs[0] || ''
+              });
+            }
+          });
+        });
+      }
+    }
+
+    // Fallback for classic RFC HTML layout (preformatted refs with ref-* anchors).
+    // Run even when structured parsing found some refs, to pick up markers split by page breaks.
+    {
+      const raw = String(opts.htmlRaw || $.html() || '');
+      const findHeadingPositions = (re) => {
+        const pos = [];
+        let m;
+        while ((m = re.exec(raw)) !== null) pos.push(m.index);
+        return pos;
+      };
+      // Prefer true RFC heading markup (span.h2/h3 + section selflink) over loose text.
+      const normHeadingRe = /<span[^>]*class=["'][^"']*\bh3\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Normative\s+References(?:\s|&nbsp;)*<\/span>/ig;
+      const infoHeadingRe = /<span[^>]*class=["'][^"']*\bh3\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Informative\s+References(?:\s|&nbsp;)*<\/span>/ig;
+      const refsHeadingRe = /<span[^>]*class=["'][^"']*\bh2\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*References(?:\s|&nbsp;)*<\/span>/ig;
+
+      let normPositions = findHeadingPositions(normHeadingRe);
+      let infoPositions = findHeadingPositions(infoHeadingRe);
+      let refsPositions = findHeadingPositions(refsHeadingRe);
+      if (!normPositions.length) normPositions = findHeadingPositions(/\bNormative References\b/ig);
+      if (!infoPositions.length) infoPositions = findHeadingPositions(/\bInformative References\b/ig);
+      if (!refsPositions.length) refsPositions = findHeadingPositions(/\bReferences\b/ig);
+      const hasNorm = normPositions.length > 0;
+      const hasInfo = infoPositions.length > 0;
+      const hasRefs = refsPositions.length > 0;
+      const lastAtOrBefore = (arr, pos) => {
+        let out = -1;
+        for (const p of arr) {
+          if (p <= pos && p > out) out = p;
+        }
+        return out;
+      };
+      const bounds = [];
+      for (const p of normPositions) bounds.push({ pos: p, key: 'normative' });
+      for (const p of infoPositions) bounds.push({ pos: p, key: 'bibliographic' });
+      if (!bounds.length && refsPositions.length) {
+        for (const p of refsPositions) bounds.push({ pos: p, key: 'bibliographic' });
+      }
+      bounds.sort((a, b) => a.pos - b.pos);
+      const firstRefSectionPos = bounds.length ? bounds[0].pos : -1;
+      const allSectionHeadingPositions = [];
+      {
+        const sectionHeadingRe = /<span[^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>/ig;
+        let hm;
+        while ((hm = sectionHeadingRe.exec(raw)) !== null) {
+          allSectionHeadingPositions.push(hm.index);
+        }
+      }
+      const classifyPosByBounds = (pos) => {
+        for (let i = 0; i < bounds.length; i++) {
+          const start = bounds[i].pos;
+          const end = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
+          if (pos >= start && pos < end) return bounds[i].key;
+        }
+        return null;
+      };
+      const boundEndForPos = (pos) => {
+        for (let i = 0; i < bounds.length; i++) {
+          const start = bounds[i].pos;
+          const end = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
+          if (pos >= start && pos < end) return end;
+        }
+        return raw.length;
+      };
+      const nextSectionHeadingPos = (pos) => {
+        for (const p of allSectionHeadingPositions) {
+          if (p > pos) return p;
+        }
+        return raw.length;
+      };
+      const nextPageBreakPos = (pos) => {
+        const rel = raw.slice(pos);
+        const markers = [
+          /<!--\s*NewPage\s*-->/i,
+          /<hr[^>]*class=["'][^"']*\bnoprint\b[^"']*["'][^>]*>/i,
+          /<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>/i
+        ];
+        let best = -1;
+        for (const re of markers) {
+          const m = re.exec(rel);
+          if (!m) continue;
+          const idx = pos + m.index;
+          if (best < 0 || idx < best) best = idx;
+        }
+        return best >= 0 ? best : raw.length;
+      };
+
+      const seen = new Set();
+      const re = /<a[^>]+id=["']ref-([^"']+)["'][^>]*>/ig;
+      const anchors = [];
+      let m;
+      while ((m = re.exec(raw)) !== null) {
+        anchors.push({
+          marker: normalizeMarker(String(m[1] || '').trim()),
+          index: m.index,
+          end: re.lastIndex
+        });
+      }
+      for (let i = 0; i < anchors.length; i++) {
+        const marker = anchors[i].marker;
+        if (!marker || seen.has(marker)) continue;
+        if (parsedMarkers.has(marker)) continue;
+
+        const pos = anchors[i].index;
+        if (firstRefSectionPos >= 0 && pos < firstRefSectionPos) continue;
+        let key = classifyPosByBounds(pos);
+        if (!key) continue;
+        // Rules:
+        // 1) If Normative/Informative headings exist, use nearest preceding one for each anchor.
+        // 2) If neither exists and only References exists, refs go to bibliographic.
+        if (!key && (hasNorm || hasInfo)) {
+          const nPos = lastAtOrBefore(normPositions, pos);
+          const iPos = lastAtOrBefore(infoPositions, pos);
+          if (nPos >= 0 || iPos >= 0) {
+            key = nPos > iPos ? 'normative' : 'bibliographic';
+          }
+        } else if (!key && hasRefs) {
+          const rPos = lastAtOrBefore(refsPositions, pos);
+          if (rPos >= 0) key = 'bibliographic';
+        }
+
+        // If we cannot confidently place the anchor in a refs block, skip it.
+        if (!key) continue;
+        seen.add(marker);
+
+        const nextStart = (i + 1 < anchors.length) ? anchors[i + 1].index : raw.length;
+        const sectionEnd = boundEndForPos(pos);
+        const headingEnd = nextSectionHeadingPos(pos);
+        const pageBreakEnd = nextPageBreakPos(pos);
+        const chunkEnd = Math.min(nextStart, sectionEnd, headingEnd, pageBreakEnd);
+        const chunk = raw.slice(anchors[i].index, chunkEnd);
+        const hrefs = [...chunk.matchAll(/href=["']([^"']+)["']/ig)]
+          .map(hm => String(hm[1] || '').trim())
+          .filter(Boolean);
+        const chunkText = chunk
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        const markerText = marker.replace(/[_-]+/g, ' ').trim();
+        const refId = resolveXmlRefId(
+          [marker, markerText, `RFC ${marker.replace(/^RFC/i, '')}`, chunkText],
+          hrefs
+        );
+        if (refId) {
+          addRef(key, refId);
+          recordSighting({
+            docId: currentDocId,
+            type: key,
+            refId,
+            cite: marker,
+            href: hrefs[0] || '',
+            mapSource: 'ietf-rfc-html-fallback',
+            mapDetail: 'ref-anchor',
+            rawRef: chunkText || marker,
+            title: null
+          });
+        } else {
+          out.badRefs.push({
+            docId: currentDocId,
+            type: key,
+            refText: chunkText || marker,
+            href: hrefs[0] || ''
+          });
+        }
+      }
+
+      // Secondary fallback: parse RFC numbers directly from reference-section text ranges.
+      // This catches cases where ref-* anchor ids are missing/altered across page breaks.
+      const addRfcFromSlice = (slice, key) => {
+        if (!slice || !key) return;
+        const cleanedSlice = String(slice || '')
+          .replace(/<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>/ig, ' ')
+          .replace(/<!--\s*NewPage\s*-->/ig, ' ')
+          .replace(/<hr[^>]*class=["'][^"']*\bnoprint\b[^"']*["'][^>]*>/ig, ' ');
+        const pushId = (id) => {
+          if (!id) return;
+          if (String(id) === String(currentDocId)) return;
+          addRef(key, id);
+          recordSighting({
+            docId: currentDocId,
+            type: key,
+            refId: id,
+            cite: id,
+            href: '',
+            mapSource: 'ietf-rfc-html-fallback',
+            mapDetail: 'rfc-text',
+            rawRef: id,
+            title: null
+          });
+        };
+        const set = new Set();
+        let rm;
+        const bracketRe = /\[\s*(?:<a[^>]*>)?\s*RFC\s*([0-9]{3,5})\s*(?:<\/a>)?\s*\]/ig;
+        while ((rm = bracketRe.exec(cleanedSlice)) !== null) set.add(`RFC${parseInt(rm[1], 10)}`);
+        const hrefRe = /href=["'][^"']*\/rfc([0-9]{3,5})(?:[.#?/"'][^"']*)?["']/ig;
+        while ((rm = hrefRe.exec(cleanedSlice)) !== null) set.add(`RFC${parseInt(rm[1], 10)}`);
+        const bareRe = /\bRFC\s*([0-9]{3,5})\b/ig;
+        while ((rm = bareRe.exec(cleanedSlice)) !== null) set.add(`RFC${parseInt(rm[1], 10)}`);
+        for (const id of set) pushId(id);
+      };
+
+      for (let i = 0; i < bounds.length; i++) {
+        const start = bounds[i].pos;
+        const end = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
+        if (end <= start) continue;
+        const slice = raw.slice(start, end);
+        addRfcFromSlice(slice, bounds[i].key);
+      }
+    }
+
+    if (Array.isArray(out.references.normative)) {
+      out.references.normative = [...new Set(out.references.normative)];
+      if (!out.references.normative.length) delete out.references.normative;
+    }
+    if (Array.isArray(out.references.bibliographic)) {
+      out.references.bibliographic = [...new Set(out.references.bibliographic)];
+      if (!out.references.bibliographic.length) delete out.references.bibliographic;
+    }
+    if (Array.isArray(out.references.normative) && Array.isArray(out.references.bibliographic)) {
+      const normSet = new Set(out.references.normative);
+      out.references.bibliographic = out.references.bibliographic.filter(id => !normSet.has(id));
+      if (!out.references.bibliographic.length) delete out.references.bibliographic;
+    }
+    return out;
+  }
+
+  if (mode === 'ietf-xml') {
+    const xmlRaw = String(opts.xmlRaw || '');
+    const entityMap = new Map();
+    const entityBySystem = new Map();
+    const entityRe = /<!ENTITY\s+([A-Za-z0-9._:-]+)\s+SYSTEM\s+["']([^"']+)["']\s*>/g;
+    let em;
+    while ((em = entityRe.exec(xmlRaw)) !== null) {
+      const name = String(em[1] || '').trim();
+      const systemUrl = String(em[2] || '').trim();
+      if (!name || !systemUrl) continue;
+      entityMap.set(name, systemUrl);
+      entityBySystem.set(systemUrl, name);
+      try {
+        const u = new URL(systemUrl);
+        u.hash = '';
+        if (u.searchParams.has('nocache')) u.searchParams.delete('nocache');
+        entityBySystem.set(u.toString(), name);
+      } catch {}
+    }
+
+    const classifyBucket = (titleRaw) => {
+      const t = String(titleRaw || '').toLowerCase();
+      if (t.includes('normative')) return 'normative';
+      if (t.includes('informative') || t.includes('bibliographic')) return 'bibliographic';
+      return null;
+    };
+
+    const addRef = (key, refId) => {
+      if (!refId) return;
+      if (!out.references[key]) out.references[key] = [];
+      out.references[key].push(refId);
+    };
+
+    const escapeRx = (value) => String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    $('references').each((_, referencesEl) => {
+      const $references = $(referencesEl);
+      const titleRaw = String($references.attr('title') || '').trim();
+      const key = classifyBucket($references.attr('title') || '');
+      if (!key) return;
+
+      const sectionXml = String($.xml(referencesEl) || '');
+
+      // Entity tokens: &RFC2119; or &ldp;
+      const tokens = [];
+      const tokenRe = /&([A-Za-z0-9._:-]+);/g;
+      let tm;
+      while ((tm = tokenRe.exec(sectionXml)) !== null) {
+        tokens.push(String(tm[1] || '').trim());
+      }
+      // Some XML parsers strip unresolved entity tokens from sectionXml.
+      // Fall back to raw XML section keyed by <references title="...">.
+      if (xmlRaw && titleRaw) {
+        const sectionRe = new RegExp(
+          `<references\\b[^>]*title\\s*=\\s*["']${escapeRx(titleRaw)}["'][^>]*>([\\s\\S]*?)<\\/references>`,
+          'ig'
+        );
+        let sm;
+        while ((sm = sectionRe.exec(xmlRaw)) !== null) {
+          const rawSectionBody = String(sm[1] || '');
+          let rm;
+          while ((rm = tokenRe.exec(rawSectionBody)) !== null) {
+            tokens.push(String(rm[1] || '').trim());
+          }
+          tokenRe.lastIndex = 0;
+        }
+      }
+      const xmlBuiltins = new Set(['amp', 'lt', 'gt', 'quot', 'apos']);
+      for (const tokenRaw of [...new Set(tokens)]) {
+        const token = String(tokenRaw || '').trim();
+        if (!token) continue;
+        if (xmlBuiltins.has(token.toLowerCase())) continue;
+        const href = entityMap.get(token) || '';
+        const refId = resolveXmlRefId([token, `RFC ${token.replace(/^RFC/i, '')}`], [href]);
+        if (refId) {
+          addRef(key, refId);
+          recordSighting({
+            docId: currentDocId,
+            type: key,
+            refId,
+            cite: token,
+            href,
+            mapSource: 'xml-entity',
+            mapDetail: token,
+            rawRef: token,
+            title: null
+          });
+        } else {
+          out.badRefs.push({ docId: currentDocId, type: key, refText: token, href });
+        }
+      }
+
+      // xml2rfc includes
+      $references.find('*').each((__, el) => {
+        const tagName = String(el?.tagName || '').toLowerCase();
+        if (!(tagName === 'include' || tagName.endsWith(':include'))) return;
+        const href = String($(el).attr('href') || '').trim();
+        if (!href) return;
+        const token = entityBySystem.get(href) || '';
+        const refId = resolveXmlRefId(token ? [token, `RFC ${token.replace(/^RFC/i, '')}`] : [], [href]);
+        if (refId) {
+          addRef(key, refId);
+          recordSighting({
+            docId: currentDocId,
+            type: key,
+            refId,
+            cite: token || '',
+            href,
+            mapSource: 'xml-include',
+            mapDetail: tagName,
+            rawRef: href,
+            title: null
+          });
+        } else {
+          out.badRefs.push({ docId: currentDocId, type: key, refText: token || '', href });
+        }
+      });
+
+      // Explicit <reference ...>
+      $references.find('reference').each((__, refEl) => {
+        const $ref = $(refEl);
+        const anchor = String($ref.attr('anchor') || '').trim();
+        const href = String($ref.attr('target') || '').trim();
+        const titleText = String($ref.find('front > title').first().text() || '').trim();
+        const dateEl = $ref.find('front > date').first();
+        const dateMonth = String(dateEl.attr('month') || '').trim();
+        const dateYear = String(dateEl.attr('year') || '').trim();
+        const dateDay = String(dateEl.attr('day') || '').trim();
+        const dateText = [dateMonth, dateDay, dateYear].filter(Boolean).join(' ').trim();
+        const seriesVals = $ref.find('seriesInfo').map((___, si) => {
+          const $si = $(si);
+          return String($si.attr('value') || '').trim();
+        }).get().filter(Boolean);
+        const cites = [
+          dateText ? `${titleText} ${dateText}` : '',
+          titleText,
+          dateText,
+          ...seriesVals,
+          ...seriesVals.map(v => `IETF ${v}`),
+          anchor
+        ];
+        const refId = resolveXmlRefId(cites, [href]);
+        if (refId) {
+          addRef(key, refId);
+          recordSighting({
+            docId: currentDocId,
+            type: key,
+            refId,
+            cite: titleText || anchor || '',
+            href,
+            mapSource: 'xml-reference',
+            mapDetail: anchor || null,
+            rawRef: String($.xml(refEl) || ''),
+            title: titleText || null
+          });
+        } else {
+          out.badRefs.push({ docId: currentDocId, type: key, refText: titleText || anchor || '', href });
+        }
+      });
+    });
+
+    if (Array.isArray(out.references.normative)) {
+      out.references.normative = [...new Set(out.references.normative)];
+      if (!out.references.normative.length) delete out.references.normative;
+    }
+    if (Array.isArray(out.references.bibliographic)) {
+      out.references.bibliographic = [...new Set(out.references.bibliographic)];
+      if (!out.references.bibliographic.length) delete out.references.bibliographic;
+    }
+    return out;
+  }
+
   const sections = [
     { id: 'normative-references', key: 'normative' },
     { id: 'bibliography', key: 'bibliographic' }
@@ -818,7 +1464,7 @@ function extractRefs($, currentDocId) {
         if (Array.isArray(refId)) {
           for (const r of refId) {
             list.push(r);
-            mriRecordSighting({
+            recordSighting({
               docId: currentDocId,
               type: s.key,
               refId: r,
@@ -832,7 +1478,7 @@ function extractRefs($, currentDocId) {
           }
         } else {
           list.push(refId);
-          mriRecordSighting({
+          recordSighting({
             docId: currentDocId,
             type: s.key,
             refId,
@@ -846,7 +1492,7 @@ function extractRefs($, currentDocId) {
         }
       } else {
         out.badRefs.push({ docId: currentDocId, type: s.key, refText, href });
-        mriRecordSighting({
+        recordSighting({
           docId: currentDocId,
           type: s.key,
           refId: null,

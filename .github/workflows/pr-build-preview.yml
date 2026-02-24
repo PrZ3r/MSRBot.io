@@ -19,6 +19,7 @@ on:
   workflow_run:
     workflows:
       - "Extract Documents - SMPTE"
+      - "Extract Documents - IETF"
       - "Build MasterSuite Index"
       - "Build MasterReference Index"
     types: [completed]
@@ -79,7 +80,8 @@ jobs:
             // Fallback 1: map workflow name -> expected head branch
             const runName = wr.name || '';
             const branchMap = {
-              'Extract Documents - SMPTE': 'chore/extract-docs',
+              'Extract Documents - SMPTE': 'chore/extract-docs-smpte',
+              'Extract Documents - IETF': 'chore/extract-docs-ietf',
               'Build MasterSuite Index': 'chore/build-mastersuite',           // actual branch used by MSI workflow
               'Build MasterReference Index': 'chore/build-masterreference'    // actual branch used by MRI workflow
             };
@@ -106,7 +108,8 @@ jobs:
             const labelMap = {
               'Build MasterSuite Index': 'msi',
               'Build MasterReference Index': 'mri',
-              'Extract Documents - SMPTE': 'extract'
+              'Extract Documents - SMPTE': 'smpte',
+              'Extract Documents - IETF': 'ietf'
             };
             const label = labelMap[runName];
             if (label) {

@@ -158,17 +158,18 @@ if (!providerArg) {
   process.exit(1);
 }
 const providerKey = providerArg.toLowerCase().trim();
-const activeProvider = getProvider(providerKey, {
-  axios,
-  cheerio,
-  dayjs,
-  urlReachable,
-  extractRefs,
-  mapRefByCite,
-  withNoCache,
-  NO_CACHE_HEADERS,
-  onBadRefs: (refs) => { if (Array.isArray(refs) && refs.length) badRefs.push(...refs); }
-});
+  const activeProvider = getProvider(providerKey, {
+    axios,
+    cheerio,
+    dayjs,
+    urlReachable,
+    extractRefs,
+    mapRefByCite,
+    parseRefId,
+    withNoCache,
+    NO_CACHE_HEADERS,
+    onBadRefs: (refs) => { if (Array.isArray(refs) && refs.length) badRefs.push(...refs); }
+  });
 if (!activeProvider) {
   console.error(`❌ Unknown provider "${providerKey}". Supported: ${listProviders().join(', ')}`);
   process.exit(1);
@@ -186,70 +187,35 @@ async function urlExistsNoRedirect(url) {
   }
 }
 
-const metaConfig = {
+function mergeMetaConfig(base, override) {
+  const out = { ...base };
+  for (const src of Object.keys(override || {})) {
+    const baseMap = base[src] || {};
+    const overMap = override[src] || {};
+    out[src] = { ...baseMap, ...overMap };
+  }
+  return out;
+}
+
+const baseMetaConfig = {
   parsed: {
-    abstract: { confidence: 'high', note: 'Parsed from HTML sec-scope section' },
-    docNumber: { confidence: 'high', note: 'Parsed from HTML pubNumber meta tag' },
-    docPart: { confidence: 'high', note: 'Parsed from HTML pubPart meta tag' },
-    docSuiteTitle: { confidence: 'high', note: 'Parsed from HTML pubSuiteTitle meta tag, or derived from wrapper title for PDF releases' },
-    docTitle: { confidence: 'high', note: 'Parsed from HTML pubTitle, or derived from wrapper title for PDF releases' },
-    docType: { confidence: 'high', note: 'Publication type parsed from HTML' },
-    group: { confidence: 'high', note: 'Working group parsed from HTML pubTC meta tag' },
-    publicationDate: { confidence: 'high', note: 'Parsed from HTML pubDateTime meta tag' },
-    releaseTag: { confidence: 'high', note: 'Release tag parsed from URL folder structure' },
-    publisher: { confidence: 'high', note: 'Parsed from HTML publisher meta tag' },
-    'status.stage': { confidence: 'high', note: 'Stage parsed from HTML pubStage meta tag' },
-    'status.state': { confidence: 'high', note: 'State parsed from HTML pubState meta tag' },
-    'status.amended': { confidence: 'high', note: 'Parsed from wrapper #amendments' },
-    'status.amendedBy': { confidence: 'high', note: 'Parsed from wrapper #amendment' },
-    'status.stabilized': { confidence: 'high', note: 'Parsed from wrapper #state' },
-    'status.withdrawn': { confidence: 'high', note: 'Parsed from wrapper #state' },
-    'status.withdrawnNotice': { confidence: 'high', note: 'Parsed from wrapper #withdrawal-statement' },
-    references: { confidence: 'high', note: 'Parsed from HTML references sections' },
-    revisionOf: { confidence: 'high', note: 'Parsed from HTML pubRevisionOf meta tag' },
-    default: { confidence: 'high', note: 'Extracted directly from HTML' }
+    default: { confidence: 'high', note: 'Extracted directly from source content' }
   },
-
   inferred: {
-    docNumber: { confidence: 'medium', note: 'Inferred from root folder name' },
-    docPart: { confidence: 'medium', note: 'Inferred from root folder name' },
-    docSuiteTitle: { confidence: 'low', note: 'Not available for inferred releases' },
-    docTitle: { confidence: 'low', note: 'Not available for inferred releases' },
-    docType: { confidence: 'medium', note: 'Inferred from release folder name' },
-    group: { confidence: 'low', note: 'Unknown in inferred release' },
-    publicationDate: { confidence: 'medium', note: 'Inferred from release folder name' },
-    releaseTag: { confidence: 'high', note: 'Release tag inferred from URL folder structure' },
-    publisher: { confidence: 'high', note: 'Static: provider' },
-    'status.stage': { confidence: 'medium', note: 'Inferred from release folder name' },
-    'status.state': { confidence: 'low', note: 'Unknown in inferred release' },
-    references: { confidence: 'low', note: 'Unknown in inferred release' },
-    revisionOf: { confidence: 'low', note: 'Unknown in inferred releases' },
-    default: { confidence: 'medium', note: '' }
+    default: { confidence: 'medium', note: 'Inferred from URL or release context' }
   },
-
   resolved: {
-    docId: { confidence: 'high', note: 'Calculated from parsed/inferred metadata' },
-    docLabel: { confidence: 'high', note: 'Constructed from parsed/inferred typenumber/number/date' },
-    doi: { confidence: 'medium', note: 'Constructed from parsed/inferred type/date' },
-    href: { confidence: 'high', note: 'URL generated and verified via redirect resolution' },
-    resolvedHref: { confidence: 'high', note: 'Final URL resolved via URL redirect verification' },
-    repo: { confidence: 'high', note: 'Calculated from parsed or inferred publication type/number/part and verified to exist' },
-    'status.active': { confidence: 'high', note: 'Calculated from the releaseTag(s) and other status values' },
-    'status.latestVersion': { confidence: 'high', note: 'Calculated from the releaseTag(s)' },
-    'status.superseded': { confidence: 'high', note: 'Calculated from the releaseTag(s)' },
-    'status.supersededBy': { confidence: 'high', note: 'Calculated from the releaseTag(s)' },
-    'status.supersededDate': { confidence: 'high', note: 'Calculated as the publication date of the next base release (from releaseTag)' },
     default: { confidence: 'high', note: 'Calculated or verified value' }
   },
-
   manual: {
     default: { confidence: 'medium' }
   },
-
   unknown: {
     default: { confidence: 'unknown', note: 'Source unknown' }
   }
 };
+
+const metaConfig = mergeMetaConfig(baseMetaConfig, activeProvider.metaConfig || {});
 
 const badRefs = [];
 
@@ -267,10 +233,13 @@ function getMetaDefaults(source, field) {
 
 function injectMeta(doc, field, source, mode, oldValue) {
   const defaults = getMetaDefaults(source, field);
+  const noteOverride = (doc && doc.__metaNotes && typeof doc.__metaNotes[field] === 'string')
+    ? doc.__metaNotes[field]
+    : '';
   const meta = {
     source,
     confidence: defaults.confidence,
-    note: defaults.note,
+    note: noteOverride || defaults.note,
     updated: new Date().toISOString(),
     originalValue: oldValue === undefined ? null : oldValue,
     sourceUrl: doc.__sourceUrl,
@@ -280,6 +249,44 @@ function injectMeta(doc, field, source, mode, oldValue) {
     meta.overridden = true;
   }
   doc[`${field}$meta`] = meta;
+}
+
+function attachMetaSourceUrl(target, sourceUrl) {
+  if (!target || typeof target !== 'object') return;
+  if (!sourceUrl) return;
+  try {
+    Object.defineProperty(target, '__sourceUrl', {
+      value: sourceUrl,
+      enumerable: false,
+      configurable: true,
+      writable: true
+    });
+  } catch (_) {}
+}
+
+function buildScopedMetaNotes(notes, prefix) {
+  const out = {};
+  if (!notes || typeof notes !== 'object') return out;
+  const p = `${prefix}.`;
+  for (const [k, v] of Object.entries(notes)) {
+    if (typeof v !== 'string') continue;
+    if (!k.startsWith(p)) continue;
+    out[k.slice(p.length)] = v;
+  }
+  return out;
+}
+
+function attachMetaNotes(target, notes) {
+  if (!target || typeof target !== 'object') return;
+  if (!notes || typeof notes !== 'object') return;
+  try {
+    Object.defineProperty(target, '__metaNotes', {
+      value: notes,
+      enumerable: false,
+      configurable: true,
+      writable: true
+    });
+  } catch (_) {}
 }
 
 // --- LOCKING HELPERS ($meta.excludeOverwrite / $meta.excludeChanges) ---
@@ -477,6 +484,12 @@ for (const doc of results) {
     if (index === -1) {
       await resolveUrlAndInject(doc, 'href');
       const sourceType = doc.__inferred ? 'inferred' : 'parsed';
+      attachMetaSourceUrl(doc, doc.__sourceUrl);
+      attachMetaNotes(doc, doc.__metaNotes || {});
+      attachMetaSourceUrl(doc.status, doc.__sourceUrl);
+      attachMetaNotes(doc.status, buildScopedMetaNotes(doc.__metaNotes, 'status'));
+      attachMetaSourceUrl(doc.references, doc.__sourceUrl);
+      attachMetaNotes(doc.references, buildScopedMetaNotes(doc.__metaNotes, 'references'));
        if (doc.repo && !(await urlExistsNoRedirect(doc.repo))) {
         delete doc.repo;
       }
@@ -494,21 +507,21 @@ for (const doc of results) {
       if (doc.revisionOf) {
         injectMeta(doc, 'revisionOf', sourceType, 'new', []);
       }
-      // Only persist non-empty arrays and their $meta; drop empties to avoid JSON noise
-      if (doc.status && Array.isArray(doc.status.amendedBy)) {
-        if (doc.status.amendedBy.length > 0) {
-          injectMeta(doc.status, 'amendedBy', sourceType, 'new', []);
+      // Only persist non-empty status arrays and their $meta; drop empties to avoid JSON noise
+      const newStatusArrays = [
+        { field: 'amendedBy', source: sourceType },
+        { field: 'supersededBy', source: 'resolved' },
+        { field: 'supersedes', source: sourceType },
+        { field: 'amends', source: sourceType },
+        { field: 'errataUrl', source: sourceType }
+      ];
+      for (const { field, source } of newStatusArrays) {
+        if (!doc.status || !Array.isArray(doc.status[field])) continue;
+        if (doc.status[field].length > 0) {
+          injectMeta(doc.status, field, source, 'new', []);
         } else {
-          delete doc.status.amendedBy;
-          delete doc.status['amendedBy$meta'];
-        }
-      }
-      if (doc.status && Array.isArray(doc.status.supersededBy)) {
-        if (doc.status.supersededBy.length > 0) {
-          injectMeta(doc.status, 'supersededBy', 'resolved', 'new', []);
-        } else {
-          delete doc.status.supersededBy;
-          delete doc.status['supersededBy$meta'];
+          delete doc.status[field];
+          delete doc.status[`${field}$meta`];
         }
       }
       if (doc.status && typeof doc.status.supersededDate === 'string') {
@@ -533,6 +546,12 @@ for (const doc of results) {
         delete doc.repo;
       }
       const existingDoc = existingDocs[index];
+      attachMetaSourceUrl(existingDoc, doc.__sourceUrl);
+      attachMetaNotes(existingDoc, doc.__metaNotes || {});
+      attachMetaSourceUrl(existingDoc.status, doc.__sourceUrl);
+      attachMetaNotes(existingDoc.status, buildScopedMetaNotes(doc.__metaNotes, 'status'));
+      attachMetaSourceUrl(existingDoc.references, doc.__sourceUrl);
+      attachMetaNotes(existingDoc.references, buildScopedMetaNotes(doc.__metaNotes, 'references'));
       let changedFields = [];
       const oldValues = { ...existingDoc, status: { ...(existingDoc.status || {}) } };
       const newValues = { ...doc, status: { ...(doc.status || {}) } };
@@ -598,6 +617,8 @@ for (const doc of results) {
           } else {
             // Ensure container
             if (!existingDoc.references) existingDoc.references = {};
+            attachMetaSourceUrl(existingDoc.references, doc.__sourceUrl);
+            attachMetaNotes(existingDoc.references, buildScopedMetaNotes(doc.__metaNotes, 'references'));
 
             if (hasNormNew && normChanged) {
               const resNorm = updateFieldGuarded(existingDoc, 'references.normative', newRefs.normative, { incomingSource: fieldSource, log: true });
@@ -658,6 +679,11 @@ for (const doc of results) {
           const resolvedStatusFields = ['active', 'latestVersion', 'superseded'];
 
           if (key === 'status') {
+            if (!existingDoc.status || typeof existingDoc.status !== 'object') {
+              existingDoc.status = {};
+            }
+            attachMetaSourceUrl(existingDoc.status, doc.__sourceUrl);
+            attachMetaNotes(existingDoc.status, buildScopedMetaNotes(doc.__metaNotes, 'status'));
 
             const statusFields = [
               'active',
@@ -666,9 +692,19 @@ for (const doc of results) {
               'stage',
               'state',
               'stabilized',
+              'stabilizedDate',
               'withdrawn',
+              'withdrawnDate',
               'withdrawnNotice',
               'amended',
+              'amendedDate',
+              'draft',
+              'publicCd',
+              'reaffirmed',
+              'reaffirmDate',
+              'unknown',
+              'statusNote',
+              'errataExist',
               'supersededDate',
               'versionless'
             ];
@@ -704,25 +740,30 @@ for (const doc of results) {
                 }
               }
             }
-            // Handle supersededBy (array) similarly
-            if (Array.isArray(newVal.supersededBy)) {
-              const oldSB = Array.isArray(oldValues?.status?.supersededBy) ? oldValues.status.supersededBy : [];
-              const newSB = newVal.supersededBy;
-              const sameSB = JSON.stringify(oldSB) === JSON.stringify(newSB);
-              if (!sameSB) {
-                if (newSB.length > 0) {
-                  const resSB = updateFieldGuarded(existingDoc, 'status.supersededBy', newSB, { incomingSource: 'resolved', log: true });
-                  if (resSB.updated) {
-                    injectMeta(existingDoc.status, 'supersededBy', 'resolved', 'update', oldSB);
-                    if (!changedFields.includes('status')) changedFields.push('status');
-                  }
-                } else {
-                  if (canUpdateFieldWithMetaGuard(existingDoc, 'status.supersededBy')) {
-                    delete existingDoc.status.supersededBy;
-                    delete existingDoc.status['supersededBy$meta'];
-                    if (!changedFields.includes('status')) changedFields.push('status');
-                  }
+
+            const statusArrayFields = [
+              { field: 'supersededBy', source: 'resolved' },
+              { field: 'supersedes', source: 'parsed' },
+              { field: 'amends', source: 'parsed' },
+              { field: 'errataUrl', source: 'parsed' }
+            ];
+            for (const { field, source } of statusArrayFields) {
+              if (!Array.isArray(newVal[field])) continue;
+              const oldArr = Array.isArray(oldValues?.status?.[field]) ? oldValues.status[field] : [];
+              const newArr = newVal[field];
+              const sameArr = JSON.stringify(oldArr) === JSON.stringify(newArr);
+              if (sameArr) continue;
+
+              if (newArr.length > 0) {
+                const resArr = updateFieldGuarded(existingDoc, `status.${field}`, newArr, { incomingSource: source, log: true });
+                if (resArr.updated) {
+                  injectMeta(existingDoc.status, field, source, 'update', oldArr);
+                  if (!changedFields.includes('status')) changedFields.push('status');
                 }
+              } else if (canUpdateFieldWithMetaGuard(existingDoc, `status.${field}`)) {
+                delete existingDoc.status[field];
+                delete existingDoc.status[`${field}$meta`];
+                if (!changedFields.includes('status')) changedFields.push('status');
               }
             }
             const newWN = newVal.withdrawnNotice;

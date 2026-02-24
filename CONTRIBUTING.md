@@ -15,7 +15,8 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
 
 ## Ways You Can Contribute
 - **Data improvements** — fix or add metadata in `src/main/data/documents.json`
-- **Extraction logic** — enhance parsers in `src/main/scripts/extractDocs.js`
+- **Extraction logic** — enhance provider discovery/parsing in `src/main/scripts/providers/` and orchestration in `src/main/scripts/extractDocs.js`
+- **Reference parsing/resolution** — improve shared logic in `src/main/lib/referencing.js` and curated mappings in `src/main/input/refMap.json`
 - **Library improvements** — fix or add features in `src/main/lib/`
 - **Validation** — improve URL checks or logic in `src/main/scripts/url.validate.js`
 - **Documentation** — improve clarity in `README.md` or `docs/`
@@ -40,6 +41,7 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
     npm run normalize-url
     npm run canonicalize
     npm run validate
+    npm run keywords-sync
     npm run build
 
 ##  Submitting Changes
@@ -53,10 +55,16 @@ Manual PRs should avoid conflicting with ongoing automation runs.
 
 ##  Data and Provenance
 When contributing or editing document metadata:
-- Use consistent schema fields [(src/main/schemas/document.schema.json)](src/main/schemas/document.schema.json)
+- Use consistent schema fields in `src/main/schemas/documents.schema.json`
 - Ensure `$meta` provenance fields are properly maintained:
   - source, confidence, updated, overridden, etc.
 - Avoid manual edits to `resolvedHref` — these are maintained by automation.
+- Keywords are controlled via `src/main/config/site.json` (`controlledKeywords`), not a schema enum.
+- Run `npm run keywords-sync` to see newly observed keywords; run `npm run keywords-sync -- --write` to append normalized values to `controlledKeywords`.
+- For references:
+  - Add deterministic parser rules in `src/main/lib/referencing.js` for stable URL/citation patterns.
+  - Use `src/main/input/refMap.json` for curated/manual mappings and aliases.
+  - Validate outcomes in both `src/main/data/documents.json` (`references`) and `src/main/reports/masterReferenceIndex.json` (variants, source presence).
 
 ## Licensing
 All contributed code is licensed under the MIT License.
