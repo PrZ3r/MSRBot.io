@@ -80,11 +80,11 @@ MSRBot.io updates itself through a chain of automated GitHub Actions. When appro
 
 | Stage | Purpose | Trigger | Key Output |
 |:------|:---------|:---------|:------------|
-| Extract | Pulls and parses SMPTE HTML/PDF metadata | Weekly (Tues) | `documents.json` |
-| MSI | Builds document lineages | PR Merge / Weekly (Wed) | `masterSuiteIndex.json` |
+| Extract | Pulls and parses provider metadata (SMPTE/IETF) | Scheduled + Manual | `documents.json` |
+| MSI | Builds document lineages | Push to `main` / Manual | `masterSuiteIndex.json` |
 | MRI | Maps references across all docs | After MSI | `masterReferenceIndex.json` |
 | MSR | Builds and publishes the site | After MRI | <https://msrbot.io/> |
-| URL Validate | Checks and normalizes links | After MSR / Weekly (Thurs) | `url_validate_audit.json` |
+| URL Validate | Checks and normalizes links | After MSR / Weekly (Sat) | `url_validate_audit.json` |
 | PR Build Preview| Builds MSR preview prior to publication | PR Creation (Extract/MSI/MRI/Site PRs) | <https://msrbot.io/pr/###/> |
 
 ```mermaid
@@ -102,12 +102,30 @@ graph LR
 ```
 _Dotted lines indicate PR-triggered preview builds. Extract, MSI, MRI, and site/template PRs all generate a preview._
 
+### Weekly Schedule (UTC)
+| Day | Time (UTC) | Pacific (PST) | Workflow |
+|:--|:--|:--|
+| Monday | 04:15 | Sunday 20:15 | `Extract Documents - SMPTE` |
+| Tuesday | 04:45 | Monday 20:45 | `Extract Documents - IETF` |
+| Saturday | 04:15 | Friday 20:15 | `Validate Document URLs` |
+| Sunday | 09:00 | Sunday 01:00 | `PR Preview Sweeper` |
+| Sunday | 09:30 | Sunday 01:30 | `Branch Sweeper` |
+
+_PST shown above (UTC-8). During daylight saving (PDT, UTC-7), add 1 hour._
+
+Event-driven workflows run on upstream completion or repository events:
+- `Build MasterSuite Index` (`push` to `main`)
+- `Build MasterReference Index` (after MSI)
+- `Build MSRBot.io Site and Test` (after MRI)
+- `PR Build Preview` (PR updates and extract/MSI/MRI workflow runs)
+
 ### Development
 Requires Node 20 + npm.  
 Run scripts with:
 ```bash
 npm run extract
 npm run extract-smpte
+npm run extract-ietf
 npm run build-msi
 npm run build-mri
 npm run validate-url
@@ -121,9 +139,17 @@ npm run build
 #### Extraction Scripts and Providers
 - `npm run extract`: convenience alias for SMPTE extraction (currently equivalent to `extract-smpte`).
 - `npm run extract-smpte`: explicit SMPTE extraction.
+- `npm run extract-ietf`: explicit IETF extraction.
 - Under the hood, extraction now requires an explicit provider flag:
   - `node src/main/scripts/extractDocs.js --provider smpte`
+  - `node src/main/scripts/extractDocs.js --provider ietf`
 - If additional providers are added, use explicit scripts per provider (recommended naming: hyphen style, e.g. `extract-iso`, `extract-itu`) and keep workflow calls aligned to those script names.
+
+#### Reference Resolution and MRI
+- Shared reference parsing/resolution lives in `src/main/lib/referencing.js` and is reused across providers.
+- `badRefs` reports only citations that cannot be parsed into a canonical `docId`.
+- Parseable refs that are not yet present as source documents are tracked in MRI with unresolved presence state (`sourcePresent: false`) and should be backfilled via data updates or targeted `refMap` rules.
+- Prefer href-based normalization rules in `parseRefId` for stable web patterns (for example, Unicode versions, Bugzilla issue links) and use `src/main/input/refMap.json` for curated/manual edge mappings.
 
 #### Keyword Governance
 - Source of truth for allowed keywords is `src/main/config/site.json` under `controlledKeywords`.

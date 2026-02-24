@@ -1,8 +1,8 @@
-name: Extract Documents - SMPTE
+name: Extract Documents - IETF
 
 on:
   schedule:
-    - cron: "15 04 * * 1"   # 21:15 PT, Mon (cron in UTC)
+    - cron: "45 04 * * 2"   # 21:45 PT, Tues (cron in UTC)
   workflow_dispatch: 
 
 permissions:
@@ -43,7 +43,7 @@ jobs:
           #MSR_CONSOLE_BUDGET: "3670016"       # ~3.5 MiB
           #MSR_HEARTBEAT_EVERY: "50"          # print heartbeat every XX docs
           #MSR_HEARTBEAT_PREFIX: " 💓 ... still processing"
-        run: node src/main/scripts/extractDocs.js --provider smpte
+        run: node src/main/scripts/extractDocs.js --provider ietf
 
       - name: Upload full extract log (post-extraction)
         if: always()
@@ -138,12 +138,12 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ steps.app-token.outputs.token }}
-          commit-message: "chore: Update documents.json from SMPTE sources"
+          commit-message: "chore: Update documents.json from IETF sources"
           commit-options: '--allow-empty'
-          branch: chore/extract-docs-smpte     
-          labels: automated, msr, extract, smpte  
+          branch: chore/extract-docs-ietf     
+          labels: automated, msr, extract, ietf
           delete-branch: true      
-          title: "Update documents.json - extract SMPTE (${{ env.ts }})"
+          title: "Update documents.json - extract IETF (${{ env.ts }})"
           body: ${{ steps.prlog.outputs.body }}
           add-paths: |
             src/main/data/documents.json

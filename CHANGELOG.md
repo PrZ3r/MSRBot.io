@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - yyyy-mm-dd
  
 ### Added
+
+### Changed
+
+### Fixed
+
+## [v1.3.0] - 2026-02-24
+
+
+ 
+### Added
 - Providerized extraction architecture:
   - Added SMPTE discovery provider module at `src/main/scripts/providers/smpte.discovery.js`.
   - Added SMPTE parser provider module at `src/main/scripts/providers/smpte.parse.js`.
@@ -22,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added optional document schema fields for citation structure:
   - `volume`, `number`, `pages`, `chapter`, `edition`.
 - Added explicit npm alias `extract:smpte` for provider-targeted extraction.
+- Added dedicated IETF extraction workflow: `.github/workflows/extract-docs-ietf.yml` (separate branch/PR path from SMPTE extraction).
 - Added keyword governance utilities and config source:
   - Added `controlledKeywords` list in `src/main/config/site.json`.
   - Added `keywords-sync` utility at `src/main/scripts/utils/keywords.sync.js` (`npm run keywords-sync`, dry-run by default, `--write` to apply).
@@ -38,6 +49,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - RFC relation fields now derive from RFC info page relation `<dl>` parsing (no broad relation text fallback injection).
   - Non-RFC extraction now enriches from archive XML (`/archive/id/*.xml`) for front-matter fields and keywords.
   - Non-RFC keywords are normalized to project keyword style (Title Case with preserved acronyms/common forms such as `JSON`, `URN`, `B-Chain`, `DCinema`, `DCP*`, `SHA-1`).
+  - RFC reference parsing now uses RFC HTML section-aware extraction with strict `Normative` vs `Informative/Bibliographic` bucketing and overlap guards.
+  - RFC fallback reference slicing is now bounded to reference sections, next section heading, and page-break markers to avoid body/header/footer soak-through.
+  - IETF reference sightings now write to MRI for both RFC HTML and non-RFC XML paths using final document IDs.
+- Expanded shared reference normalization rules in `src/main/lib/referencing.js`:
+  - RFC IDs normalize leading zeros (e.g., `RFC0821` → `RFC821`).
+  - W3C `REC-*` URL forms normalize to canonical W3C shortname IDs (no `REC-` prefix in docId).
+  - Added href-first resolvers for Unicode and Mozilla Bugzilla references.
+  - Added improved ISO hyphenated designator parsing (e.g., `ISO-8859-1:1987`).
 - Updated project docs with provider extraction and keyword-governance guidance in `README.md` and `CONTRIBUTING.md`.
 - Enhanced Portal document listings with additional context fields:
   - Display of `docType` and `publicationDate` in document tables.
