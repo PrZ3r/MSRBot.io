@@ -42,6 +42,23 @@ When creating an issue or pull request:
 - Do not add new dependencies unless they are necessary and justified in the PR description.
 - Avoid unrelated refactors in the same PR.
 
+## Engineering defaults
+- Prefer vanilla JavaScript and existing Bootstrap patterns already used in this repository.
+- Do not introduce new frontend frameworks or CSS systems unless explicitly requested.
+- Preserve existing template structure and visual language when editing UI files.
+- For extraction/reference parser work: enforce section boundaries first, then parse items inside those bounds.
+- Prefer `refMap` mappings for isolated citation fixes; only add parser-level special-cases when broadly justified.
+- For extraction/data-only changes, avoid running full-site builds unless explicitly requested.
+- For reference/data mapping changes, include at least one concrete before/after example in the PR description.
+
+## DocId conventions
+- Keep date/version suffixes at the end of `docId` when present.
+- Use repository DOI normalization conventions for DOI-based IDs.
+- For provisional external identifiers (for example Semantic Scholar corpus IDs), use clear source-prefixed IDs and replace with canonical IDs later when available.
+
+## Release hygiene
+- Before creating a release tag, run a final data sweep: `npm run validate` and `npm run canonicalize`.
+
 ## Changelog, documentation, and provenance
 - If behavior, workflow, policy, or contributor expectations change, update `CHANGELOG.md` in **[Unreleased]**.
 - Update supporting documentation (for example `README.md`, `CONTRIBUTING.md`, or `docs/`) when contributor behavior or project workflows are affected.
