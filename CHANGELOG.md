@@ -10,8 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - yyyy-mm-dd
  
 ### Added
+- Added and expanded `AGENTS.md` guidance for branch naming, issue/PR label usage, PR hygiene, validation expectations, repo guardrails, and changelog/documentation/provenance expectations.
 
 ### Changed
+- Updated `docs/CONTRIBUTING_SHORT.md` to align branch prefix guidance and add an explicit Unreleased changelog checklist item for workflow/policy/behavior changes.
 
 ### Fixed
 
