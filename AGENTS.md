@@ -20,6 +20,12 @@ When creating an issue or pull request:
 - Choose tags/labels that fit the context of the work.
 - Include a tag/label that identifies the creating entity when available (for example: `codex`, `cursor`, etc.).
 
+## Issue and PR templates
+When creating an issue or pull request:
+
+- Always use the repository’s existing issue and pull request templates.
+- Do not bypass templates unless the task explicitly requires a non-template format.
+
 ## PR hygiene (recommended)
 - Keep PRs focused and small when possible.
 - In PR descriptions, include: **what changed**, **why**, and **how it was validated**.
