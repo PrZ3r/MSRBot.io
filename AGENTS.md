@@ -18,4 +18,4 @@ When creating an issue or pull request:
 - Add tags/labels that already exist in the repository/project.
 - Do **not** invent new tags/labels.
 - Choose tags/labels that fit the context of the work.
-- Include a tag/label that identifies the creating entity when available (for example: `codex for you`).
+- Include a tag/label that identifies the creating entity when available (for example: `codex`, `cursor`, etc.).
