@@ -843,6 +843,12 @@ function parseRefId(text, href = '', opts = {}) {
     const [, num, rev] = text.match(/NIST\s+FIPS\s+(?:PUB\s+)?(\d+)(-\d+)?/i);
     { const refId = `NIST.FIPS.${num}${rev || ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'nist-fips' } } : refId; }
   }
+  // FIPS references that don't include contiguous "NIST FIPS" tokens, e.g.:
+  // "National Institute ... (NIST). FIPS PUB 46-2: ..."
+  if (/\bFIPS\s+(?:PUB\s+)?(\d+)(-\d+)?\b/i.test(text)) {
+    const [, num, rev] = text.match(/\bFIPS\s+(?:PUB\s+)?(\d+)(-\d+)?\b/i);
+    { const refId = `NIST.FIPS.${num}${rev || ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fips-generic' } } : refId; }
+  }
   // FIPS structure in hrefs .../fips/186/2/...
   if (/csrc\.nist\.gov\/.+\/fips\/(\d+)(?:\/(\d+))?/i.test(href)) {
     const m = href.match(/fips\/(\d+)(?:\/(\d+))?/i);
@@ -950,6 +956,16 @@ function extractRefs($, currentDocId, opts = {}) {
   }
 
   if (mode === 'ietf-rfc-html') {
+    const isOrdinalMarker = (markerRaw) => /^\d+(?:\.\d+)?$/.test(String(markerRaw || '').trim());
+    const isRfcMarker = (markerRaw) => /^RFC0*\d{1,5}$/i.test(String(markerRaw || '').trim());
+    const trimRfcRefTail = (textRaw) => {
+      const text = String(textRaw || '').replace(/\s+/g, ' ').trim();
+      if (!text) return '';
+      // Guard against spillover into post-reference sections when parsing the last ref in a block.
+      // Common markers in RFC HTML include APPENDIX, ACKNOWLEDGEMENTS, and AUTHORS' ADDRESSES.
+      const tailStopRe = /\b(?:APPENDIX(?:ES)?|ACKNOWLEDGEMENTS?|AUTHORS?\s+ADDRESSES?)\b[\s\S]*$/i;
+      return text.replace(tailStopRe, '').trim();
+    };
     const normalizeMarker = (markerRaw) => {
       const marker = String(markerRaw || '').trim();
       const rfcMatch = marker.match(/^RFC0*([0-9]{1,5})$/i);
@@ -995,9 +1011,10 @@ function extractRefs($, currentDocId, opts = {}) {
             parsedMarkers.add(marker);
             const markerText = marker.replace(/[_-]+/g, ' ').trim();
             const $ctx = $a.closest('li, p, dt, dd, div').first();
-            const ctxText = (($ctx.length ? $ctx.text() : $a.parent().text()) || '')
+            const ctxTextRaw = (($ctx.length ? $ctx.text() : $a.parent().text()) || '')
               .replace(/\s+/g, ' ')
               .trim();
+            const ctxText = trimRfcRefTail(ctxTextRaw);
             const hrefs = [...new Set(
               ($ctx.length ? $ctx.find('a[href]') : $a.parent().find('a[href]'))
                 .map((___, linkEl) => String($(linkEl).attr('href') || '').trim())
@@ -1005,9 +1022,9 @@ function extractRefs($, currentDocId, opts = {}) {
                 .filter(Boolean)
             )];
 
+            const markerIsOrdinal = isOrdinalMarker(marker);
             const citeCandidates = [
-              marker,
-              markerText,
+              ...(markerIsOrdinal ? [] : [marker, markerText]),
               String($a.text() || '').trim(),
               ctxText
             ];
@@ -1176,9 +1193,16 @@ function extractRefs($, currentDocId, opts = {}) {
           .replace(/<[^>]+>/g, ' ')
           .replace(/\s+/g, ' ')
           .trim();
+        const cleanedChunkText = trimRfcRefTail(chunkText);
         const markerText = marker.replace(/[_-]+/g, ' ').trim();
+        const markerIsOrdinal = isOrdinalMarker(marker);
+        const markerIsRfc = isRfcMarker(marker);
         const refId = resolveXmlRefId(
-          [marker, markerText, `RFC ${marker.replace(/^RFC/i, '')}`, chunkText],
+          [
+            ...(markerIsOrdinal ? [] : [marker, markerText]),
+            ...(markerIsRfc ? [`RFC ${marker.replace(/^RFC/i, '')}`] : []),
+            cleanedChunkText || chunkText
+          ],
           hrefs
         );
         if (refId) {
@@ -1191,14 +1215,14 @@ function extractRefs($, currentDocId, opts = {}) {
             href: hrefs[0] || '',
             mapSource: 'ietf-rfc-html-fallback',
             mapDetail: 'ref-anchor',
-            rawRef: chunkText || marker,
+            rawRef: cleanedChunkText || chunkText || marker,
             title: null
           });
         } else {
           out.badRefs.push({
             docId: currentDocId,
             type: key,
-            refText: chunkText || marker,
+            refText: cleanedChunkText || chunkText || marker,
             href: hrefs[0] || ''
           });
         }
