@@ -201,10 +201,11 @@ jobs:
 
             const owner = context.repo.owner;
             const repo = context.repo.repo;
+            const MAX_MUTATIONS = 75;
+            let mutations = 0;
 
             // Current missing set and quick lookup
             const currentMissing = new Set(missing.map(m => m.refId));
-            const byRef = new Map(missing.map(m => [m.refId, m]));
 
             // Helper: list open issues with label 'missing-ref' and title prefix
             async function listOpenMissingIssues() {
@@ -220,6 +221,15 @@ jobs:
             // Upsert issues for each currently-missing ref
             const labels = ['automated', 'mri', 'missing-ref'];
             const runTag = `Run #${context.runId}`;
+            const stamp = new Date().toISOString().slice(0,10);
+
+            function allowMutation(action, key) {
+              if (mutations >= MAX_MUTATIONS) {
+                core.warning(`Mutation budget reached (${MAX_MUTATIONS}); skipping ${action} for ${key}`);
+                return false;
+              }
+              return true;
+            }
 
             function formatSightings(m, max = 10) {
               const arr = (m.sightings || []).slice(0, max);
@@ -236,9 +246,9 @@ jobs:
               }).join('\n');
             }
 
-            for (const m of missing) {
+            const orderedMissing = [...missing].sort((a, b) => (b.sightingCount || 0) - (a.sightingCount || 0));
+            for (const m of orderedMissing) {
               const title = `MISSING REF: ${m.refId}`;
-              const stamp = new Date().toISOString().slice(0,10);
               const body = [
                 `Detected as MISSING`,
                 `RefId: **${m.refId}**`,
@@ -252,9 +262,14 @@ jobs:
 
               const existing = openByTitle.get(title);
               if (existing) {
+                if (existing.body === body) continue;
+                if (!allowMutation('update', m.refId)) continue;
                 await github.rest.issues.update({ owner, repo, issue_number: existing.number, body, labels });
+                mutations += 1;
               } else {
+                if (!allowMutation('create', m.refId)) continue;
                 await github.rest.issues.create({ owner, repo, title, body, labels });
+                mutations += 1;
               }
             }
 
@@ -262,7 +277,9 @@ jobs:
             for (const issue of openIssues) {
               const refId = issue.title.replace(/^MISSING REF: /, '');
               if (!currentMissing.has(refId)) {
-                await github.rest.issues.createComment({ owner, repo, issue_number: issue.number, body: `Resolved: no longer reported as MISSING REF. ${runTag}. Closing.` });
+                if (!allowMutation('close', refId)) continue;
                 await github.rest.issues.update({ owner, repo, issue_number: issue.number, state: 'closed' });
+                mutations += 1;
               }
             }
+            core.info(`Missing-ref issue sync complete. Total mutations: ${mutations}/${MAX_MUTATIONS}.`);
