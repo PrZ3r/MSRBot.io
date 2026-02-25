@@ -10,16 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - yyyy-mm-dd
  
 ### Added
-
-### Changed
-
-### Fixed
-
-## [v1.3.0] - 2026-02-24
-
-
- 
-### Added
 - Providerized extraction architecture:
   - Added SMPTE discovery provider module at `src/main/scripts/providers/smpte.discovery.js`.
   - Added SMPTE parser provider module at `src/main/scripts/providers/smpte.parse.js`.
