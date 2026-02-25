@@ -871,11 +871,21 @@ for (const doc of results) {
     });
   }
 
+  const formatBadRefText = (raw) => String(raw || '')
+    .replace(/\s+/g, ' ')
+    .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
+    .replace(/^\d{1,4}\s*\]\s*/u, '')
+    .replace(/^\[\s*([A-Za-z][A-Za-z0-9_.:-]{0,31})\s*\]\s*/u, '$1 ')
+    .replace(/^([A-Za-z][A-Za-z0-9_.:-]{0,31})\s*\]\s*/u, '$1 ')
+    .replace(/\s*\[\s*$/u, '')
+    .replace(/\s*\]\s*$/u, '')
+    .trim();
+
   if (badRefs.length > 0) {
     console.log('🚫 Unparseable References Found:');
     badRefs.forEach(ref => {
       console.log(`- From ${ref.docId} (${ref.type}):`);
-      console.log(`  - cite: ${ref.refText}`);
+      console.log(`  - cite: ${formatBadRefText(ref.refText)}`);
       if (ref.href) console.log(`  - href: ${ref.href}`);
     });
   }
@@ -1016,7 +1026,7 @@ for (const doc of results) {
     fullDetailsLines.push('### 🚫 Unparseable References Found:\n');
     badRefs.forEach(ref => {
       fullDetailsLines.push(`- From ${ref.docId} (${ref.type}):`);
-      fullDetailsLines.push(`  - cite: ${ref.refText}`);
+      fullDetailsLines.push(`  - cite: ${formatBadRefText(ref.refText)}`);
       if (ref.href) fullDetailsLines.push(`  - href: ${ref.href}`);
     });
     fullDetailsLines.push('');
@@ -1054,7 +1064,7 @@ for (const doc of results) {
     prLines.push('### 🚫 Unparseable References Found:\n');
     badRefs.forEach(ref => {
       prLines.push(`- From ${ref.docId} (${ref.type}):`);
-      prLines.push(`  - cite: ${ref.refText}`);
+      prLines.push(`  - cite: ${formatBadRefText(ref.refText)}`);
       if (ref.href) prLines.push(`  - href: ${ref.href}`);
     });
     prLines.push('');
