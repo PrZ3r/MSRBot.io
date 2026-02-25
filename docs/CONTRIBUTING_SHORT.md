@@ -5,7 +5,7 @@ Before you open a pull request (PR), please review this quick checklist.
 For the full contributor guide, see [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## Branch & Workflow
-- **Branch name:** use `feature/<topic>`, `issue/<topic>`, or `fix/<topic>`.
+- **Branch name:** use `feature/<topic>`, `issues/<topic>`, `fix/<topic>`, `chore/<topic>`, `hotfix/<topic>`, or `release/<topic>` (as context dictates).
 - **Base branch:** always `main`.
 - Keep branches focused; avoid mixing unrelated changes.
 - PRs should not be bloated, too many changes at one time require extra review.
@@ -50,6 +50,7 @@ Each field must include correct `$meta` provenance tracking where applicable:
 > The `npm run canonicalize` will auto fill this info for you as a "manual" edit. 
 
 ## Pull Request Checklist
+- [ ] Update `CHANGELOG.md` under **[Unreleased]** when behavior, workflow, or policy changes.
 - [ ] Clear, descriptive title.
 - [ ] Summary of what changed and why.
 - [ ] References the relevant workflow(s) or scripts.

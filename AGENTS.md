@@ -35,3 +35,8 @@ When creating an issue or pull request:
 - Prefer editing source inputs over generated outputs unless the task explicitly asks for generated artifacts.
 - Do not add new dependencies unless they are necessary and justified in the PR description.
 - Avoid unrelated refactors in the same PR.
+
+## Changelog, documentation, and provenance
+- If behavior, workflow, policy, or contributor expectations change, update `CHANGELOG.md` in **[Unreleased]**.
+- Update supporting documentation (for example `README.md`, `CONTRIBUTING.md`, or `docs/`) when contributor behavior or project workflows are affected.
+- For data/model edits, preserve and/or update provenance-related metadata and explain provenance impacts in the PR description.
