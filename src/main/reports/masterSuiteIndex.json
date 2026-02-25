@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-02-25T16:48:42.649Z",
+  "generatedAt": "2026-02-25T22:15:59.342Z",
   "sourcePath": "src/main/data/documents.json",
-  "sourceHash": "sha256:e8f30bf2ebf205080304622c294a9986546dbf49adac2b662096a948c528e145",
+  "sourceHash": "sha256:c9215849f46c65ff62cebf6c8399c94459d88af253a03ca9212d61bd3326e93a",
   "publisherCounts": {
     "total": 2282,
     "counts": {
@@ -2195,7 +2195,7 @@
     }
   },
   "flagSummary": {
-    "totalFlags": 316,
+    "totalFlags": 320,
     "byType": {
       "DOCID_PUBDATE_MISMATCH": {
         "count": 40,
@@ -2363,7 +2363,7 @@
         ]
       },
       "SUPERSEDED_BY_OUT_OF_LINEAGE": {
-        "count": 107,
+        "count": 111,
         "examples": [
           {
             "lineage": "AIM|BC|4|",
@@ -2430,16 +2430,24 @@
             "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:IEEE.STD1003.1.2008->IEEE.STD9945.2009"
           },
           {
-            "lineage": "IETF|RFC|1321|",
-            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1321->RFC6151"
-          },
-          {
             "lineage": "IETF|RFC|1521|",
             "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2045"
           },
           {
             "lineage": "IETF|RFC|1521|",
             "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2046"
+          },
+          {
+            "lineage": "IETF|RFC|1521|",
+            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2047"
+          },
+          {
+            "lineage": "IETF|RFC|1521|",
+            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2048"
+          },
+          {
+            "lineage": "IETF|RFC|1521|",
+            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2049"
           },
           {
             "lineage": "IETF|RFC|1590|",
@@ -2451,7 +2459,11 @@
           },
           {
             "lineage": "IETF|RFC|1738|",
-            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1738->RFC2396"
+            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1738->RFC4248"
+          },
+          {
+            "lineage": "IETF|RFC|1738|",
+            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1738->RFC4266"
           },
           {
             "lineage": "IETF|RFC|2141|",
@@ -2540,6 +2552,10 @@
           {
             "lineage": "IETF|RFC|2646|",
             "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC2646->RFC3676"
+          },
+          {
+            "lineage": "IETF|RFC|2898|",
+            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC2898->RFC8018"
           },
           {
             "lineage": "IETF|RFC|3023|",
@@ -8473,7 +8489,7 @@
           "docId": "RFC1035",
           "publicationDate": "1987-11-01",
           "releaseTag": null,
-          "statusActive": false,
+          "statusActive": true,
           "statusSuperseded": false,
           "statusWithdrawn": false,
           "statusStabilized": false,
@@ -8486,10 +8502,10 @@
       "latestDateKey": "19871101",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
-      "hasActiveBase": false,
+      "hasActiveBase": true,
       "hasWithdrawn": false,
       "hasStabilized": false,
-      "latestActiveBaseId": null,
+      "latestActiveBaseId": "RFC1035",
       "latestSupersededBaseId": null,
       "prevBaseId": null,
       "flagInconsistencies": [],
@@ -8512,8 +8528,8 @@
           "docId": "RFC1321",
           "publicationDate": "1992-04-01",
           "releaseTag": null,
-          "statusActive": false,
-          "statusSuperseded": true,
+          "statusActive": true,
+          "statusSuperseded": false,
           "statusWithdrawn": false,
           "statusStabilized": false,
           "statusAmended": false,
@@ -8525,15 +8541,13 @@
       "latestDateKey": "19920401",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
-      "hasActiveBase": false,
+      "hasActiveBase": true,
       "hasWithdrawn": false,
       "hasStabilized": false,
-      "latestActiveBaseId": null,
-      "latestSupersededBaseId": "RFC1321",
+      "latestActiveBaseId": "RFC1321",
+      "latestSupersededBaseId": null,
       "prevBaseId": null,
-      "flagInconsistencies": [
-        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1321->RFC6151"
-      ],
+      "flagInconsistencies": [],
       "counts": {
         "bases": 1,
         "amendments": 0,
@@ -8553,7 +8567,7 @@
           "docId": "RFC1494",
           "publicationDate": "1993-08-01",
           "releaseTag": null,
-          "statusActive": false,
+          "statusActive": true,
           "statusSuperseded": false,
           "statusWithdrawn": false,
           "statusStabilized": false,
@@ -8566,10 +8580,10 @@
       "latestDateKey": "19930801",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
-      "hasActiveBase": false,
+      "hasActiveBase": true,
       "hasWithdrawn": false,
       "hasStabilized": false,
-      "latestActiveBaseId": null,
+      "latestActiveBaseId": "RFC1494",
       "latestSupersededBaseId": null,
       "prevBaseId": null,
       "flagInconsistencies": [],
@@ -8613,7 +8627,10 @@
       "prevBaseId": null,
       "flagInconsistencies": [
         "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2045",
-        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2046"
+        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2046",
+        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2047",
+        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2048",
+        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2049"
       ],
       "counts": {
         "bases": 1,
@@ -8735,7 +8752,8 @@
       "latestSupersededBaseId": "RFC1738",
       "prevBaseId": null,
       "flagInconsistencies": [
-        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1738->RFC2396"
+        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1738->RFC4248",
+        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1738->RFC4266"
       ],
       "counts": {
         "bases": 1,
@@ -9155,7 +9173,7 @@
       "docs": [
         {
           "docId": "RFC2396",
-          "publicationDate": "1996-11-01",
+          "publicationDate": "1998-08-01",
           "releaseTag": null,
           "statusActive": false,
           "statusSuperseded": true,
@@ -9167,7 +9185,7 @@
       ],
       "latestBaseId": "RFC2396",
       "latestAnyId": "RFC2396",
-      "latestDateKey": "19961101",
+      "latestDateKey": "19980801",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
       "hasActiveBase": false,
@@ -9571,8 +9589,8 @@
           "docId": "RFC2898",
           "publicationDate": "2000-09-01",
           "releaseTag": null,
-          "statusActive": true,
-          "statusSuperseded": false,
+          "statusActive": false,
+          "statusSuperseded": true,
           "statusWithdrawn": false,
           "statusStabilized": false,
           "statusAmended": false,
@@ -9584,13 +9602,15 @@
       "latestDateKey": "20000901",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
-      "hasActiveBase": true,
+      "hasActiveBase": false,
       "hasWithdrawn": false,
       "hasStabilized": false,
-      "latestActiveBaseId": "RFC2898",
-      "latestSupersededBaseId": null,
+      "latestActiveBaseId": null,
+      "latestSupersededBaseId": "RFC2898",
       "prevBaseId": null,
-      "flagInconsistencies": [],
+      "flagInconsistencies": [
+        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC2898->RFC8018"
+      ],
       "counts": {
         "bases": 1,
         "amendments": 0,
