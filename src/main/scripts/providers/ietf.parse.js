@@ -33,6 +33,39 @@ function createIetfParser(deps) {
   }
 
   const docIdMapPath = path.resolve(process.cwd(), 'src/main/input/docIdMap.ietf.json');
+  const rfcIndexCachePath = path.resolve(process.cwd(), 'src/main/input/rfc-index.xml');
+  const RFC_INDEX_URL = 'https://www.rfc-editor.org/rfc-index.xml';
+  let rfcIndexMapPromise = null;
+  // RFC index XML/XSD mapping contract (https://www.rfc-editor.org/rfc-index.xsd).
+  // status:
+  // - required: expected from index for valid RFC entries and should be present.
+  // - optional: parsed when available; not guaranteed.
+  // - ignored: currently not mapped into documents.json (tracked here explicitly).
+  const RFC_INDEX_FIELD_MAP = Object.freeze({
+    'doc-id': { status: 'required', target: 'docId/docNumber' },
+    title: { status: 'required', target: 'docTitle' },
+    author: { status: 'required', target: 'authors[]' },
+    date: { status: 'required', target: 'publicationDate' },
+    format: { status: 'optional', target: 'ignored (for now)' },
+    'page-count': { status: 'optional', target: 'pages' },
+    keywords: { status: 'optional', target: 'keywords[]' },
+    abstract: { status: 'optional', target: 'abstract' },
+    draft: { status: 'optional', target: 'ignored (for now)' },
+    notes: { status: 'optional', target: 'ignored (for now)' },
+    obsoletes: { status: 'optional', target: 'status.supersedes[]' },
+    'obsoleted-by': { status: 'optional', target: 'status.supersededBy[]' },
+    updates: { status: 'optional', target: 'status.amends[]' },
+    'updated-by': { status: 'optional', target: 'status.amendedBy[]' },
+    'is-also': { status: 'optional', target: 'ignored (for now)' },
+    'see-also': { status: 'optional', target: 'ignored (for now)' },
+    'current-status': { status: 'required', target: 'status.statusNote (fallback)' },
+    'publication-status': { status: 'required', target: 'status.statusNote (preferred)' },
+    stream: { status: 'optional', target: 'ignored (for now)' },
+    area: { status: 'optional', target: 'ignored (for now)' },
+    wg_acronym: { status: 'optional', target: 'ignored (for now)' },
+    'errata-url': { status: 'optional', target: 'status.errataUrl[]' },
+    doi: { status: 'optional', target: 'doi/href' }
+  });
   const docIdMap = (() => {
     try {
       if (!fs.existsSync(docIdMapPath)) return {};
@@ -399,6 +432,147 @@ function createIetfParser(deps) {
     return '';
   }
 
+  function monthYearToRaw(month, year) {
+    const m = String(month || '').trim();
+    const y = String(year || '').trim();
+    if (m && y) return `${m}, ${y}`;
+    if (y) return y;
+    return '';
+  }
+
+  function parseRfcIndexMap(xmlRaw) {
+    const raw = String(xmlRaw || '').trim();
+    if (!raw) return new Map();
+    const $ = cheerio.load(raw, { xmlMode: true, decodeEntities: true });
+    const out = new Map();
+
+    $('rfc-entry').each((_, el) => {
+      const $entry = $(el);
+      const docId = ($entry.find('doc-id').first().text() || '').trim().toUpperCase();
+      const m = docId.match(/^RFC(\d{3,5})$/i);
+      if (!m) return;
+      const rfcNum = m[1];
+
+      const title = ($entry.find('title').first().text() || '').trim();
+      const month = ($entry.find('date > month').first().text() || '').trim();
+      const year = ($entry.find('date > year').first().text() || '').trim();
+      const publicationDate = monthYearToRaw(month, year);
+      const authors = unique(
+        $entry.find('author > name')
+          .map((__, a) => ($(a).text() || '').trim())
+          .get()
+          .filter(Boolean)
+      );
+      const abstract = cleanAbstractText(
+        $entry.find('abstract > p')
+          .map((__, p) => ($(p).text() || '').trim())
+          .get()
+          .join('\n')
+      );
+      const doi = normalizeDoi(($entry.find('doi').first().text() || '').trim());
+      const pageCount = ($entry.find('page-count').first().text() || '').trim();
+      const keywords = splitKeywordValues(
+        $entry.find('keywords > kw')
+          .map((__, kw) => ($(kw).text() || '').trim())
+          .get()
+      );
+      const stream = ($entry.find('stream').first().text() || '').trim();
+      const currentStatus = ($entry.find('current-status').first().text() || '').trim();
+      const publicationStatus = ($entry.find('publication-status').first().text() || '').trim();
+      const errataUrl = ($entry.find('errata-url').first().text() || '').trim();
+
+      const refIds = (sel) => unique(
+        $entry.find(sel)
+          .map((__, n) => {
+            const t = ($(n).text() || '').trim().toUpperCase();
+            const rm = t.match(/^RFC(\d{3,5})$/);
+            return rm ? `RFC${rm[1]}` : '';
+          })
+          .get()
+          .filter(Boolean)
+      );
+
+      out.set(rfcNum, {
+        docId: `RFC${rfcNum}`,
+        title,
+        publicationDate,
+        authors,
+        abstract,
+        doi,
+        pageCount,
+        keywords,
+        stream,
+        currentStatus,
+        publicationStatus,
+        errataUrl,
+        relations: {
+          supersededBy: refIds('obsoleted-by > doc-id'),
+          supersedes: refIds('obsoletes > doc-id'),
+          amendedBy: refIds('updated-by > doc-id'),
+          amends: refIds('updates > doc-id')
+        }
+      });
+    });
+    return out;
+  }
+
+  function evaluateRfcIndexCoverage(entry) {
+    if (!entry) return { missingRequired: [] };
+    const has = {
+      'doc-id': !!entry.docId,
+      title: !!entry.title,
+      author: Array.isArray(entry.authors) && entry.authors.length > 0,
+      date: !!entry.publicationDate,
+      format: false,
+      'page-count': !!entry.pageCount,
+      keywords: Array.isArray(entry.keywords) && entry.keywords.length > 0,
+      abstract: !!entry.abstract,
+      draft: false,
+      notes: false,
+      obsoletes: Array.isArray(entry.relations?.supersedes) && entry.relations.supersedes.length > 0,
+      'obsoleted-by': Array.isArray(entry.relations?.supersededBy) && entry.relations.supersededBy.length > 0,
+      updates: Array.isArray(entry.relations?.amends) && entry.relations.amends.length > 0,
+      'updated-by': Array.isArray(entry.relations?.amendedBy) && entry.relations.amendedBy.length > 0,
+      'is-also': false,
+      'see-also': false,
+      'current-status': !!entry.currentStatus,
+      'publication-status': !!entry.publicationStatus,
+      stream: !!entry.stream,
+      area: false,
+      wg_acronym: false,
+      'errata-url': !!entry.errataUrl,
+      doi: !!entry.doi
+    };
+    const missingRequired = Object.entries(RFC_INDEX_FIELD_MAP)
+      .filter(([, rule]) => rule.status === 'required')
+      .map(([field]) => field)
+      .filter((field) => !has[field]);
+    return { missingRequired };
+  }
+
+  async function getRfcIndexMap() {
+    if (rfcIndexMapPromise) return rfcIndexMapPromise;
+    rfcIndexMapPromise = (async () => {
+      // Primary source: live RFC Editor index.
+      try {
+        const res = await axios.get(withNoCache(RFC_INDEX_URL), { headers: NO_CACHE_HEADERS });
+        const map = parseRfcIndexMap(res.data);
+        if (map.size) return map;
+      } catch {}
+
+      // Fallback: local checked-in cache for offline/local runs.
+      try {
+        if (fs.existsSync(rfcIndexCachePath)) {
+          const raw = fs.readFileSync(rfcIndexCachePath, 'utf8');
+          const map = parseRfcIndexMap(raw);
+          if (map.size) return map;
+        }
+      } catch {}
+      return new Map();
+    })();
+    return rfcIndexMapPromise;
+  }
+
   function pickFirstWithSource(pairs = []) {
     for (const [raw, sourceNote] of pairs) {
       const value = normalizeText(raw);
@@ -739,16 +913,21 @@ function createIetfParser(deps) {
       const datatrackerJsonUrl = `${datatrackerUrl}doc.json`;
       const htmlUrl = `https://www.rfc-editor.org/rfc/rfc${rfcNum}.html`;
 
-      let $info = null;
-      let $tracker = null;
-      let $html = null;
-      let trackerJson = null;
-      try { $info = await fetchHtml(infoUrl); } catch {}
-      try { $tracker = await fetchHtml(datatrackerUrl); } catch {}
-      try { trackerJson = await fetchJson(datatrackerJsonUrl); } catch {}
-      try { $html = await fetchHtml(htmlUrl); } catch {}
+      const [rfcIndexMap, infoRes, trackerRes, trackerJsonRes, htmlRes] = await Promise.all([
+        getRfcIndexMap(),
+        fetchHtml(infoUrl).catch(() => null),
+        fetchHtml(datatrackerUrl).catch(() => null),
+        fetchJson(datatrackerJsonUrl).catch(() => null),
+        fetchHtml(htmlUrl).catch(() => null)
+      ]);
 
-      if (!$info && !$tracker && !$html && !trackerJson) {
+      const index = rfcIndexMap.get(String(rfcNum));
+      const $info = infoRes;
+      const $tracker = trackerRes;
+      const trackerJson = trackerJsonRes;
+      const $html = htmlRes;
+
+      if (!index && !$info && !$tracker && !$html && !trackerJson) {
         console.warn(`⚠️ IETF parse failed: unable to fetch info/tracker/html/doc.json for RFC${rfcNum}`);
         return [];
       }
@@ -757,8 +936,15 @@ function createIetfParser(deps) {
       const cTracker = citationBundle($tracker);
       const cInfo = citationBundle($info);
       const metaNotes = {};
+      if (index) {
+        const coverage = evaluateRfcIndexCoverage(index);
+        if (coverage.missingRequired.length) {
+          console.warn(`⚠️ RFC index XML missing required fields for RFC${rfcNum}: ${coverage.missingRequired.join(', ')}`);
+        }
+      }
 
       const titlePick = pickFirstWithSource([
+        [index?.title, 'Parsed from RFC index XML title'],
         [trackerJson?.title, 'Parsed from Datatracker doc.json title'],
         [cHtml.title, 'Parsed from RFC HTML citation/title'],
         [cTracker.title, 'Parsed from Datatracker HTML title metadata'],
@@ -770,6 +956,7 @@ function createIetfParser(deps) {
       if (titlePick.sourceNote) metaNotes.docTitle = titlePick.sourceNote;
 
       const publicationDatePick = pickDateWithSource([
+        [index?.publicationDate, 'Parsed from RFC index XML date'],
         [cHtml.publicationDate, 'Parsed from RFC HTML citation date'],
         [cTracker.publicationDate, 'Parsed from Datatracker HTML date metadata'],
         [cInfo.publicationDate, 'Parsed from RFC info page date metadata'],
@@ -782,6 +969,7 @@ function createIetfParser(deps) {
 
       const authorsPick = pickFirstArrayWithSource([
         [normalizeAuthorNames(trackerJson?.authors), 'Parsed from Datatracker doc.json authors'],
+        [index?.authors, 'Parsed from RFC index XML authors'],
         [cHtml.authors, 'Parsed from RFC HTML citation_author metadata'],
         [cTracker.authors, 'Parsed from Datatracker HTML author metadata'],
         [cInfo.authors, 'Parsed from RFC info page author metadata']
@@ -790,6 +978,7 @@ function createIetfParser(deps) {
       if (authorsPick.sourceNote) metaNotes.authors = authorsPick.sourceNote;
 
       const doiPick = pickFirstWithSource([
+        [index?.doi, 'Parsed from RFC index XML doi'],
         [cHtml.doi, 'Parsed from RFC HTML citation_doi'],
         [cTracker.doi, 'Parsed from Datatracker HTML DOI metadata'],
         [cInfo.doi, 'Parsed from RFC info page DOI metadata']
@@ -815,6 +1004,7 @@ function createIetfParser(deps) {
       if (reportPick.sourceNote) metaNotes.docNumber = reportPick.sourceNote;
 
       const abstractPick = pickFirstWithSource([
+        [index?.abstract, 'Parsed from RFC index XML abstract'],
         [trackerJson?.abstract, 'Parsed from Datatracker doc.json abstract'],
         [cHtml.abstract, 'Parsed from RFC HTML abstract'],
         [cTracker.abstract, 'Parsed from Datatracker HTML abstract'],
@@ -824,13 +1014,22 @@ function createIetfParser(deps) {
       if (abstractPick.sourceNote) metaNotes.abstract = abstractPick.sourceNote;
 
       const pagesPick = pickFirstWithSource([
+        [index?.pageCount, 'Parsed from RFC index XML page-count'],
         [trackerJson?.pages, 'Parsed from Datatracker doc.json pages']
       ]);
       const pages = pagesPick.value;
       if (pagesPick.sourceNote) metaNotes.pages = pagesPick.sourceNote;
+      const keywordsPick = pickFirstArrayWithSource([
+        [index?.keywords, 'Parsed from RFC index XML keywords']
+      ]);
+      const keywords = keywordsPick.value;
+      if (keywordsPick.sourceNote) metaNotes.keywords = keywordsPick.sourceNote;
 
       const stdLevel = firstNonEmpty(trackerJson?.std_level);
+      const indexStatus = firstNonEmpty(index?.publicationStatus, index?.currentStatus);
+      const statusLevel = firstNonEmpty(stdLevel, indexStatus);
       if (stdLevel) metaNotes['status.statusNote'] = 'Mapped from Datatracker doc.json std_level';
+      else if (indexStatus) metaNotes['status.statusNote'] = 'Mapped from RFC index XML status';
       const href = hrefFromDoiOrSeed(doi, seed);
       metaNotes.href = doi
         ? 'Derived from DOI (https://doi.org/<doi>)'
@@ -840,12 +1039,25 @@ function createIetfParser(deps) {
       const infoText = $info ? $info.root().text() : '';
       const combinedText = `${trackerText}\n${infoText}`;
 
+      const relFromIndex = index?.relations || { supersededBy: [], supersedes: [], amendedBy: [], amends: [] };
       const relFromInfoDl = relationsFromInfoDl($info);
 
-      const structuredSupersededBy = unique(relFromInfoDl.supersededBy);
-      const structuredSupersedes = unique(relFromInfoDl.supersedes);
-      const structuredAmendedBy = unique(relFromInfoDl.amendedBy);
-      const structuredAmends = unique(relFromInfoDl.amends);
+      const structuredSupersededBy = unique([
+        ...(relFromIndex.supersededBy || []),
+        ...(relFromInfoDl.supersededBy || [])
+      ]);
+      const structuredSupersedes = unique([
+        ...(relFromIndex.supersedes || []),
+        ...(relFromInfoDl.supersedes || [])
+      ]);
+      const structuredAmendedBy = unique([
+        ...(relFromIndex.amendedBy || []),
+        ...(relFromInfoDl.amendedBy || [])
+      ]);
+      const structuredAmends = unique([
+        ...(relFromIndex.amends || []),
+        ...(relFromInfoDl.amends || [])
+      ]);
 
       // Only fall back to loose text extraction when structured relation data is absent.
       const fallbackSupersededBy = [];
@@ -870,12 +1082,13 @@ function createIetfParser(deps) {
         ...fallbackAmends
       ]).filter(id => id !== `RFC${rfcNum}`);
 
-      if (supersededBy.length) metaNotes['status.supersededBy'] = 'Parsed from RFC info page relation <dl>';
-      if (supersedes.length) metaNotes['status.supersedes'] = 'Parsed from RFC info page relation <dl>';
-      if (amendedBy.length) metaNotes['status.amendedBy'] = 'Parsed from RFC info page relation <dl>';
-      if (amends.length) metaNotes['status.amends'] = 'Parsed from RFC info page relation <dl>';
+      if (supersededBy.length) metaNotes['status.supersededBy'] = 'Parsed from RFC index XML and RFC info relation <dl>';
+      if (supersedes.length) metaNotes['status.supersedes'] = 'Parsed from RFC index XML and RFC info relation <dl>';
+      if (amendedBy.length) metaNotes['status.amendedBy'] = 'Parsed from RFC index XML and RFC info relation <dl>';
+      if (amends.length) metaNotes['status.amends'] = 'Parsed from RFC index XML and RFC info relation <dl>';
 
       const errataUrls = unique([
+        index?.errataUrl,
         ...(($tracker ? $tracker('a[href*=\"errata\"]').map((_, a) => $tracker(a).attr('href')).get() : [])),
         ...(($info ? $info('a[href*=\"errata\"]').map((_, a) => $info(a).attr('href')).get() : [])),
         ...(($html ? $html('a[href*=\"errata\"]').map((_, a) => $html(a).attr('href')).get() : []))
@@ -928,10 +1141,10 @@ function createIetfParser(deps) {
         metaNotes['references.bibliographic'] = 'Parsed from RFC HTML references/informative sections';
       }
 
-      const classified = stdLevel
-        ? classifyIetfFromStdLevel(stdLevel, { isDraft: false })
+      const classified = statusLevel
+        ? classifyIetfFromStdLevel(statusLevel, { isDraft: false })
         : classifyIetfDoc(combinedText, { isDraft: false });
-      if (!stdLevel && classified.statusNote) {
+      if (!statusLevel && classified.statusNote) {
         metaNotes['status.statusNote'] = 'Mapped from RFC info/datatracker text classification';
       }
 
@@ -949,6 +1162,7 @@ function createIetfParser(deps) {
         ...(authors.length ? { authors } : {}),
         ...(doi ? { doi } : {}),
         ...(issn ? { issn } : {}),
+        ...(keywords.length ? { keywords } : {}),
         status: {
           active: supersededBy.length === 0,
           latestVersion: supersededBy.length === 0,

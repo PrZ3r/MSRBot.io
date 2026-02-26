@@ -37,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed hard keyword enum enforcement from `documents.schema.json`.
   - Moved keyword conformance checks to `documents.validate.js` against `src/main/config/site.json#controlledKeywords`.
 - Expanded IETF extraction behavior:
+  - RFC extraction now uses RFC Index XML (`rfc-index.xml`) as first-pass canonical metadata for seeded RFCs, with per-document sources used as enrichment/fallback.
+  - RFC field source precedence is now explicit; status relations (`obsoletes/obsoleted-by/updates/updated-by`) are sourced from RFC Index XML + RFC info `<dl>` merge, eliminating loose relation text fallback.
+  - RFC author precedence now prefers Datatracker `doc.json` authors (richer names) over RFC Index XML, with HTML/info fallbacks.
+  - Added RFC Index XML/XSD mapping contract and required-field coverage warnings in IETF parser for schema-backed extraction hygiene.
   - RFC relation fields now derive from RFC info page relation `<dl>` parsing (no broad relation text fallback injection).
   - Non-RFC extraction now enriches from archive XML (`/archive/id/*.xml`) for front-matter fields and keywords.
   - Non-RFC keywords are normalized to project keyword style (Title Case with preserved acronyms/common forms such as `JSON`, `URN`, `B-Chain`, `DCinema`, `DCP*`, `SHA-1`).
@@ -61,9 +65,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved docs page reference-list readability:
   - Added explicit spacing between normative/bibliographic reference labels and their status tokens (e.g., `[Active]`, `[SUITE]`).
 - Updated `docs/CONTRIBUTING_SHORT.md` to align branch prefix guidance and add an explicit Unreleased changelog checklist item for workflow/policy/behavior changes.
+- Simplified PR preview check behavior by removing custom check-run/status publication from preview workflow and relying on the single native workflow job check context.
+- Added MSI→MRI chain guard in MRI workflow to skip MRI when MSI already opened a PR (artifact marker present), preventing duplicate chained data PRs.
+- Hardened MRI missing-ref issue upsert behavior with no-op update skipping and per-run mutation budget (`MAX_MUTATIONS`), reducing secondary GitHub rate-limit failures.
 
 ### Fixed
 - Fixed OM remap path in extraction by correcting title variable scope usage, enabling OM ID remapping updates to apply correctly.
+- Fixed README weekly schedule Markdown table separator to render correctly with all columns.
 
 ## [v1.2.0] - 2026-02-05
 
