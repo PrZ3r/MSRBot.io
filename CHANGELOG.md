@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - yyyy-mm-dd
  
 ### Added
+
+### Changed
+
+### Fixed
+
+## [v1.3.0] - 2026-02-26
+ 
+### Added
 - Providerized extraction architecture:
   - Added SMPTE discovery provider module at `src/main/scripts/providers/smpte.discovery.js`.
   - Added SMPTE parser provider module at `src/main/scripts/providers/smpte.parse.js`.
@@ -81,6 +89,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refined footer layout/content hierarchy:
   - Improved responsive alignment/spacing, constrained divider width to container, and added explicit developer/issue links.
   - Standardized branding presentation with PrZ3/MSR marks and config-driven copyright year.
+- Updated workflow trigger path:
+  - Site build (`Build MSRBot.io Site and Test`) now runs on `push` to `main`.
+  - URL validation now triggers from MRI completion (plus schedule/manual), not from site build completion.
+  - PR gate remains `PR Build Preview (MSRBot.io site)` on `pull_request`.
 
 ### Fixed
 - Fixed OM remap path in extraction by correcting title variable scope usage, enabling OM ID remapping updates to apply correctly.

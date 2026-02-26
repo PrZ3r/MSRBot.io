@@ -86,20 +86,21 @@ MSRBot.io updates itself through a chain of automated GitHub Actions. When appro
 | Stage | Purpose | Trigger | Key Output |
 |:------|:---------|:---------|:------------|
 | Extract | Pulls and parses provider metadata (SMPTE/IETF) | Scheduled + Manual | `documents.json` |
-| MSI | Builds document lineages | Push to `main` / Manual | `masterSuiteIndex.json` |
+| MSI | Builds document lineages | PR merge to `main` / Manual | `masterSuiteIndex.json` |
 | MRI | Maps references across all docs | After MSI | `masterReferenceIndex.json` |
-| MSR | Builds and publishes the site | After MRI | <https://msrbot.io/> |
-| URL Validate | Checks and normalizes links | After MSR / Weekly (Sat) | `url_validate_audit.json` |
-| PR Build Preview| Builds MSR preview prior to publication | PR Creation (Extract/MSI/MRI/Site PRs) | <https://msrbot.io/pr/###/> |
+| MSR | Builds and publishes the site | Push to `main` / Manual | <https://msrbot.io/> |
+| URL Validate | Checks and normalizes links | After MRI / Weekly (Sat) | `url_validate_audit.json` |
+| PR Build Preview| Builds MSR preview prior to publication | PR updates + upstream workflow runs | <https://msrbot.io/pr/###/> |
 
 ```mermaid
 %%{init: {'flowchart': {'curve': 'linear'}}}%%
 graph LR
   subgraph Pipeline
     direction LR
-    A[Extract] --> B[MSI] --> C[MRI] --> D[MSR] --> E[URL Validate]
+    A[Extract] --> B[MSI] --> C[MRI] --> E[URL Validate]
   end
 
+  M[Push to main] --> D[MSR]
   A -.-> P[PR Build Preview]
   B -.-> P
   C -.-> P
@@ -119,10 +120,11 @@ _Dotted lines indicate PR-triggered preview builds. Extract, MSI, MRI, and site/
 _PST shown above (UTC-8). During daylight saving (PDT, UTC-7), add 1 hour._
 
 Event-driven workflows run on upstream completion or repository events:
-- `Build MasterSuite Index` (`push` to `main`)
+- `Build MSRBot.io Site and Test` (`push` to `main`)
+- `Build MasterSuite Index` (PR merge to `main`)
 - `Build MasterReference Index` (after MSI)
-- `Build MSRBot.io Site and Test` (after MRI)
-- `PR Build Preview` (PR updates and extract/MSI/MRI workflow runs)
+- `Validate Document URLs` (after MRI)
+- `PR Build Preview (MSRBot.io site)` (`pull_request` and extract/MSI/MRI/URL Validate workflow runs)
 
 ### Development
 Requires Node 20 + npm.  
