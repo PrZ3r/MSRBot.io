@@ -79,6 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed OM remap path in extraction by correcting title variable scope usage, enabling OM ID remapping updates to apply correctly.
 - Fixed README weekly schedule Markdown table separator to render correctly with all columns.
+- Fixed doc citation “Copy (undated)” behavior on doc pages so undated snippet blocks copy correctly (no blank clipboard payload).
+- Fixed undated citation snippet `<cite id>` generation to strip only terminal date suffixes for undated variants, while leaving dated variants unchanged.
 
 ## [v1.2.0] - 2026-02-05
 

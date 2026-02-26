@@ -1130,7 +1130,7 @@ function _titleOf(doc){
   });
   hb.registerHelper('citeTextUndated', function(doc){
     const tpl = siteConfig?.citations?.text?.previewUndated;
-    return tpl ? __renderCiteTpl(tpl, doc) : _buildCiteText(doc);
+    return tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteText(doc);
   });
   hb.registerHelper('citeHtmlGeneric', function(doc){
     const tpl = siteConfig?.citations?.generic?.preview;
@@ -1138,7 +1138,7 @@ function _titleOf(doc){
   });
   hb.registerHelper('citeHtmlGenericUndated', function(doc){
     const tpl = siteConfig?.citations?.generic?.previewUndated;
-    return new hb.SafeString(tpl ? __renderCiteTpl(tpl, doc) : _buildCiteHtmlGeneric(doc));
+    return new hb.SafeString(tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteHtmlGeneric(doc));
   });
   hb.registerHelper('citeHtmlSmpte', function(doc){
     return new hb.SafeString(_buildCiteHtmlSmpte(doc));
@@ -1152,7 +1152,7 @@ function _titleOf(doc){
 
   hb.registerHelper('citeCodeTextUndated', function(doc){
     const tpl = siteConfig?.citations?.text?.previewUndated;
-    return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc) : _buildCiteText(doc)));
+    return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteText(doc)));
   });
 
   hb.registerHelper('citeCodeHtmlGeneric', function(doc){
@@ -1162,7 +1162,7 @@ function _titleOf(doc){
   
   hb.registerHelper('citeCodeHtmlGenericUndated', function(doc){
     const tpl = siteConfig?.citations?.generic?.previewUndated;
-    return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc) : _buildCiteHtmlGeneric(doc)));
+    return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteHtmlGeneric(doc)));
   });
 
   hb.registerHelper('citeCodeHtmlSmpte', function(doc){
@@ -1171,7 +1171,7 @@ function _titleOf(doc){
 
   // --- Config-driven template rendering for SMPTE preview/snippet divergence
   // Render citation template using Handlebars (supports helpers like {{#citeIfEq ...}})
-  function __renderCiteTpl(tpl, doc) {
+  function __renderCiteTpl(tpl, doc, opts = {}) {
     // Gather fields
     const publisher  = _publisherOf(doc) || 'SMPTE';
     const docId   = _idOf(doc);
@@ -1184,8 +1184,15 @@ function _titleOf(doc){
     const isbn = _isbnOf(doc);
     const authors = _authorsOf(doc);
     const doi    = (doc && doc.doi) ? String(doc.doi).trim() : '';
-    // Build an anchor-safe refId by flattening non-word chars to dashes (lowercase)
-    const baseForRef = docId || label || title || publisher || '';
+    // Build an anchor-safe refId by flattening non-word chars to dashes (lowercase).
+    // Only undated snippet helpers strip a terminal date token.
+    let baseForRef = docId || label || title || publisher || '';
+    if (opts && opts.undatedSnippet) {
+      baseForRef = String(baseForRef).trim().replace(
+        /([._:-])(?:\d{4}(?:(?:-\d{2}(?:-\d{2})?)|\d{2}(?:\d{2})?)?)$/,
+        ''
+      );
+    }
     const bibId = String(baseForRef)
       .replace(/[^\w]+/g, '-')
       .replace(/^-+|-+$/g, '')
@@ -1244,7 +1251,7 @@ function _titleOf(doc){
     try {
       const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.previewUndated;
       if (cfgTpl) {
-        return new hb.SafeString(__renderCiteTpl(cfgTpl, doc));
+        return new hb.SafeString(__renderCiteTpl(cfgTpl, doc, { undatedSnippet: true }));
       }
       // Fallback to the default SMPTE HTML builder
       return new hb.SafeString(_buildCiteHtmlSmpte(doc));
@@ -1258,7 +1265,7 @@ function _titleOf(doc){
       const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.snippetUndated;
       if (cfgTpl) {
         // For code blocks, escape the rendered HTML so users copy the literal tag string
-        return new hb.SafeString(_escapeHtml(__renderCiteTpl(cfgTpl, doc)));
+        return new hb.SafeString(_escapeHtml(__renderCiteTpl(cfgTpl, doc, { undatedSnippet: true })));
       }
       // Fallback: use the same default SMPTE builder, escaped for code
       return new hb.SafeString(_escapeHtml(_buildCiteHtmlSmpte(doc)));

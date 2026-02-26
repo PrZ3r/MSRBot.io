@@ -386,7 +386,7 @@
             const el = document.getElementById(id) || document.querySelector(targetSel);
             if (!el) return;
 
-            const text = (typeof el.value === 'string') ? el.value : (el.innerText ?? el.textContent ?? '');
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
             navigator.clipboard.writeText(text);
           } catch (e) {
             console.error('[copy] failed:', e);
