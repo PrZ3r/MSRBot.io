@@ -2,15 +2,20 @@
   <!-- Main content starts - do not edit above this line -->
   <main class="container py-5">
     <div class="row justify-content-md-center">
-      <div class="col-md-7">
-        <div class="text-center mb-4">
-          <img src="{{assetPrefix}}static/MSRBot-PrZ3-blue.svg" alt="MSRBot.io" width="96" height="96" class="mb-3">
-          <h1 class="h3 mb-2">MSRBot.io — Media Standards Registry</h1>
-          <p class="lead">A live, automated Media Standards Registry (MSR) mapping documents, references, and history across SMPTE, ISO, ITU, AES, and other publishers.</p>
-        </div>
+      <div class="col-12 col-xl-10">
+        <section class="mb-4 pb-3 border-bottom border-secondary-subtle">
+          <div class="d-flex flex-row flex-nowrap align-items-start justify-content-start gap-3 text-start home-hero-row">
+            <img src="{{assetPrefix}}static/MSRBot-PrZ3-blue.svg" alt="MSRBot.io" width="96" height="96" class="flex-shrink-0 home-hero-logo">
+            <div class="home-hero-copy">
+              <h1 class="h3 mb-2">MSRBot.io — Media Standards Registry</h1>
+              <p class="lead mb-0">A live, automated Media Standards Registry (MSR) mapping documents, references, and history across SMPTE, ISO, ITU, AES, and other publishers.</p>
+            </div>
+          </div>
+        </section>
 
         <!-- Live stats -->
-        <section class="text-center mb-5">
+        <section class="mb-4">
+          <h2 class="h6 mb-3 text-center">Live Registry Snapshot</h2>
           <div class="d-flex flex-wrap justify-content-center gap-2">
             <span class="badge bg-primary text-decoration-none p-2">Doc Count: <span id="stat-documents-total">—</span></span>
             <span class="badge bg-secondary p-2">Suites: <span id="stat-suites-total">—</span></span>
@@ -18,51 +23,48 @@
             <span class="badge bg-info text-dark p-2">Doc Types: <span id="stat-documents-doctypes">—</span></span>
             <span class="badge bg-warning text-dark p-2">References: <span id="stat-documents-references">—</span></span>
             <span class="badge bg-secondary p-2">Publishers: <span id="stat-documents-publishers">—</span></span>
-            
           </div>
         </section>
 
         <!-- Main navigation links -->
-        <section class="d-flex justify-content-center mb-5">
-          <div class="list-group text-center col-md-5">
-            <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}docs/{{htmlLink}}"><i class="bi bi-file-richtext-fill" style="font-size: 1.5rem;"></i> Browse Docs</a>
-            <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}suites/{{htmlLink}}"><i class="bi bi-collection-fill" style="font-size: 1.5rem;"></i> Browse Suites</a>
-            <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}reftree/{{htmlLink}}"><i class="bi bi-diagram-3-fill" style="font-size: 1.5rem;"></i> Browse Ref Tree</a>
-            <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}groups/{{htmlLink}}"><i class="bi bi-people-fill" style="font-size: 1.5rem;"></i> Browse Groups</a>
-            <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="{{assetPrefix}}projects/{{htmlLink}}"><i class="bi bi-kanban-fill" style="font-size: 1.5rem;"></i> Browse Projects</a>
-            <a class="px-4 border border-secondary-subtle list-group-item list-group-item-action" href="https://github.com/PrZ3r/MSRBot.io" target="_blank"><i class="bi bi-github" style="font-size: 1.5rem;"></i> Contribute</a>
+        <section class="mb-5">
+          <h2 class="h5 text-center mb-3">Explore</h2>
+          <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a class="btn btn-outline-secondary btn-sm" href="{{assetPrefix}}docs/{{htmlLink}}"><i class="bi bi-file-richtext-fill me-1"></i> Docs</a>
+            <a class="btn btn-outline-secondary btn-sm" href="{{assetPrefix}}suites/{{htmlLink}}"><i class="bi bi-collection-fill me-1"></i> Suites</a>
+            <a class="btn btn-outline-secondary btn-sm" href="{{assetPrefix}}reftree/{{htmlLink}}"><i class="bi bi-diagram-3-fill me-1"></i> Ref Tree</a>
+            <a class="btn btn-outline-secondary btn-sm" href="{{assetPrefix}}groups/{{htmlLink}}"><i class="bi bi-people-fill me-1"></i> Groups</a>
+            <a class="btn btn-outline-secondary btn-sm" href="{{assetPrefix}}projects/{{htmlLink}}"><i class="bi bi-kanban-fill me-1"></i> Projects</a>
+            <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i> Contribute</a>
           </div>
         </section>
 
-        <!-- Portals (curated landing pages) -->
-        <section class="mb-5">
-          <h2 class="h5 text-center mb-3">Browse Portals</h2>
-          <p class="text-muted small">Portals are curated, topic-oriented landing pages that aggregate related documents, resources, and explanatory context across publishers, suites, collections, and document types. They are designed to provide practical entry points into complex subject areas (such as Digital Cinema, IMF, or Accessibility) without requiring prior knowledge of specific standards bodies or document identifiers. </p>
-          <div id="portal-cards-home" class="row g-3"></div>
-          <div id="portal-cards-home-empty" class="text-center text-muted small d-none">No portals available yet.</div>
-        </section>
-
-        <!-- About section -->
-        <section class="mb-4">
-          <h2 class="h5">About MSRBot.io</h2>
-          <p>MSRBot.io is an open, automated registry that extracts and validates metadata from global media technology standards and publications. It connects documents across publishers such as SMPTE, ISO, ITU, AES, and others—preserving a living history of how standards evolve and reference one another.</p>
-          <p>Originally built to map the dependencies of SMPTE standards, it now aggregates and tracks document lineages, references, amendments, and withdrawals across multiple organizations. The goal: to make the standards ecosystem transparent, searchable, and interconnected.</p>
-        </section>
-
-        <!-- Quick details -->
-        <section class="text-muted small">
-          <ul class="list-unstyled mb-4">
-            <li><strong>Historical range:</strong> 1896 → present</li>
-            <li><strong>Automation uptime:</strong> 100% since August 2025 (SMPTE)</li>
-            <li><strong>Publishers covered:</strong> SMPTE, NIST, ISO, ITU, AES, and more</li>
-          </ul>
-        </section>
-
-        <!-- Disclaimer -->
-        <section class="text-muted small">
-        <h2 class="h5">Data Disclaimer</h2>
-          <p>MSRBot.io aggregates factual metadata and references via <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank">GitHub</a> about publicly released standards, best practices, and other documents (e.g., <a href="https://www.smpte.org/" target="_blank">SMPTE</a>, <a href="https://www.iso.org/home.html" target="_blank">ISO, <a href="https://www.itu.int/" target="_blank">ITU</a>, <a href="https://aes2.org/" target="_blank">AES</a>, and many others).</p>
-          <p>All metadata is derived from publicly available information and is provided for research and interoperability purposes only. Original standards and other documents remain the intellectual property and copyright of their respective publishers, as applicable..</p>
+        <section class="row g-4 mb-4">
+          <div class="col-12 col-lg-5">
+            <h2 class="h5 text-start mb-3">Browse Portals</h2>
+            <p class="text-muted small">Portals are curated, topic-oriented landing pages that aggregate related documents, resources, and explanatory context across publishers, suites, collections, and document types.</p>
+            <div class="px-1 px-md-2">
+              <div id="portal-cards-home" class="list-group"></div>
+            </div>
+            <div id="portal-cards-home-empty" class="text-center text-muted small d-none mt-2">No portals available yet.</div>
+          </div>
+          <div class="col-12 col-lg-7">
+            <h2 class="h5">About MSRBot.io</h2>
+            <p>MSRBot.io is an open, automated registry that extracts and validates metadata from global media technology standards and publications. It connects documents across publishers such as SMPTE, ISO, ITU, AES, and others, preserving a living history of how standards evolve and reference one another.</p>
+            <p>Originally built to map SMPTE dependencies, it now tracks lineage, references, amendments, and withdrawals across multiple organizations to make the standards ecosystem transparent and searchable.</p>
+            <ul class="list-unstyled text-muted small mb-3">
+              <li><strong>Historical range:</strong> 1896 → present</li>
+              <li><strong>Automation uptime:</strong> 100% since August 2025 (SMPTE)</li>
+              <li><strong>Publishers covered:</strong> SMPTE, NIST, ISO, ITU, AES, and more</li>
+            </ul>
+            <h2 class="h6 mb-2">Data Disclaimer</h2>
+            <p class="text-muted small mb-2">
+              MSRBot.io aggregates factual metadata and references via <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">GitHub</a> about publicly released standards and related documents (e.g., <a href="https://www.smpte.org/" target="_blank" rel="noopener">SMPTE</a>, <a href="https://www.iso.org/home.html" target="_blank" rel="noopener">ISO</a>, <a href="https://www.itu.int/" target="_blank" rel="noopener">ITU</a>, <a href="https://aes2.org/" target="_blank" rel="noopener">AES</a>).
+            </p>
+            <p class="text-muted small mb-0">
+              All metadata is derived from publicly available information for research and interoperability use. Original standards remain the intellectual property of their respective publishers.
+            </p>
+          </div>
         </section>
 
       </div>

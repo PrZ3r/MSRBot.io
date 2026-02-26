@@ -75,10 +75,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added MSI→MRI chain guard in MRI workflow to skip MRI when MSI already opened a PR (artifact marker present), preventing duplicate chained data PRs.
 - Hardened MRI missing-ref issue upsert behavior with no-op update skipping and per-run mutation budget (`MAX_MUTATIONS`), reducing secondary GitHub rate-limit failures.
 - Stopped MSI/MRI metadata-only auto-commits to default branch; report timestamp/date-only churn is now ignored unless content-change PR criteria are met.
+- Refined home page information architecture and responsive layout:
+  - Reduced card density, improved section hierarchy, and rebalanced content columns.
+  - Updated portal home rendering to a scalable list layout for growth.
+- Refined footer layout/content hierarchy:
+  - Improved responsive alignment/spacing, constrained divider width to container, and added explicit developer/issue links.
+  - Standardized branding presentation with PrZ3/MSR marks and config-driven copyright year.
 
 ### Fixed
 - Fixed OM remap path in extraction by correcting title variable scope usage, enabling OM ID remapping updates to apply correctly.
 - Fixed README weekly schedule Markdown table separator to render correctly with all columns.
+- Fixed doc citation “Copy (undated)” behavior on doc pages so undated snippet blocks copy correctly (no blank clipboard payload).
+- Fixed undated citation snippet `<cite id>` generation to strip only terminal date suffixes for undated variants, while leaving dated variants unchanged.
 
 ## [v1.2.0] - 2026-02-05
 
