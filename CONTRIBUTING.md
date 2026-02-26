@@ -35,14 +35,19 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
     ```bash
     npm run extract
     npm run extract-smpte
+    npm run extract-ietf
     npm run build-msi
     npm run build-mri
     npm run validate-url
     npm run normalize-url
     npm run canonicalize
     npm run validate
+    npm run validate -- --warn
     npm run keywords-sync
+    npm run keywords-sync -- --write
     npm run build
+
+For full script options and advanced flags, see [`docs/commands.md`](docs/commands.md).
 
 ##  Submitting Changes
 -	Open a pull request from a feature branch (feature/<name>).
@@ -60,6 +65,10 @@ When contributing or editing document metadata:
   - source, confidence, updated, overridden, etc.
 - Avoid manual edits to `resolvedHref` — these are maintained by automation.
 - Keywords are controlled via `src/main/config/site.json` (`controlledKeywords`), not a schema enum.
+- Keyword validation modes:
+  - Strict (default): `npm run validate` (or `npm run validate -- --error`)
+  - Warn-only for unknown keywords: `npm run validate -- --warn`
+- Extraction workflows intentionally use warn mode for unknown keywords so extraction PRs are not blocked by newly observed terms.
 - Run `npm run keywords-sync` to see newly observed keywords; run `npm run keywords-sync -- --write` to append normalized values to `controlledKeywords`.
 - For references:
   - Add deterministic parser rules in `src/main/lib/referencing.js` for stable URL/citation patterns.

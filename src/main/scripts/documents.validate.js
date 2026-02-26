@@ -50,6 +50,8 @@ function readControlledKeywords() {
 }
 
 module.exports = (registry, name) => {
+  const keywordValidationMode = String(process.env.KEYWORD_VALIDATION_MODE || "error").trim().toLowerCase();
+  const keywordWarnOnly = keywordValidationMode === "warn";
   /* Check for duplicate keys in the registry */
   const keys = [];
 
@@ -91,7 +93,12 @@ module.exports = (registry, name) => {
         const docIds = Array.from(unknownMap.get(keyword)).sort((a, b) => a.localeCompare(b));
         console.warn(`- ${keyword}: ${docIds.join(", ")}`);
       }
-      throw `${name} registry has keywords outside controlledKeywords in src/main/config/site.json`;
+      const msg = `${name} registry has keywords outside controlledKeywords in src/main/config/site.json`;
+      if (keywordWarnOnly) {
+        console.warn(`${msg} (warning only; KEYWORD_VALIDATION_MODE=warn)`);
+      } else {
+        throw msg;
+      }
     }
   }
 

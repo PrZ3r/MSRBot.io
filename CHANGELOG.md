@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added keyword governance utilities and config source:
   - Added `controlledKeywords` list in `src/main/config/site.json`.
   - Added `keywords-sync` utility at `src/main/scripts/utils/keywords.sync.js` (`npm run keywords-sync`, dry-run by default, `--write` to apply).
+- Added centralized command/flags documentation at `docs/commands.md`.
 - Added and expanded `AGENTS.md` guidance for branch naming, issue/PR label usage, PR hygiene, validation expectations, repo guardrails, and changelog/documentation/provenance expectations.
 
 ### Changed
@@ -36,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated validation architecture for keywords:
   - Removed hard keyword enum enforcement from `documents.schema.json`.
   - Moved keyword conformance checks to `documents.validate.js` against `src/main/config/site.json#controlledKeywords`.
+  - Added keyword validation mode controls for `npm run validate`:
+    - default strict mode (`--error`)
+    - optional warn mode (`--warn`) for unknown keyword drift checks.
+  - Extraction workflows now run keyword validation in warn mode; build/local validation remains strict by default.
 - Expanded IETF extraction behavior:
   - RFC extraction now uses RFC Index XML (`rfc-index.xml`) as first-pass canonical metadata for seeded RFCs, with per-document sources used as enrichment/fallback.
   - RFC field source precedence is now explicit; status relations (`obsoletes/obsoleted-by/updates/updated-by`) are sourced from RFC Index XML + RFC info `<dl>` merge, eliminating loose relation text fallback.
@@ -53,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added href-first resolvers for Unicode and Mozilla Bugzilla references.
   - Added improved ISO hyphenated designator parsing (e.g., `ISO-8859-1:1987`).
 - Updated project docs with provider extraction and keyword-governance guidance in `README.md` and `CONTRIBUTING.md`.
+- Updated docs to link `docs/commands.md` from `README.md` and `CONTRIBUTING.md`.
 - Enhanced Portal document listings with additional context fields:
   - Display of `docType` and `publicationDate` in document tables.
   - New **Doc Type** filter, aligned with existing Publisher filtering.
