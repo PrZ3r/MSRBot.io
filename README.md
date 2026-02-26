@@ -137,9 +137,27 @@ npm run validate-url
 npm run normalize-url
 npm run canonicalize
 npm run validate
+npm run validate -- --warn
 npm run keywords-sync
+npm run keywords-sync -- --write
 npm run build
 ```
+Quick reference:
+- `extract` / `extract-smpte`: run SMPTE document extraction.
+- `extract-ietf`: run IETF document extraction.
+- `build-msi`: build Master Suite Index (lineages/suites metadata).
+- `build-mri`: build Master Reference Index (cross-doc reference map).
+- `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
+- `validate-url`: run URL reachability/audit checks.
+- `normalize-url`: apply URL normalization/backfill from URL audit.
+- `canonicalize`: normalize/sort registry JSON output format.
+- `keywords-sync`: detect (or `--write` append) controlled keyword updates.
+- `build-index`: build search index artifacts.
+- `build-stats`: build API/site stats artifact.
+- `build`: build full static site output.
+- `audit`: generate document audit report.
+
+For the full command and flag reference (including `build-mri`, `build-msi`, `audit`, `validate-url`, and runtime env vars), see [`docs/commands.md`](docs/commands.md).
 
 #### Extraction Scripts and Providers
 - `npm run extract`: convenience alias for SMPTE extraction (currently equivalent to `extract-smpte`).
@@ -161,6 +179,10 @@ npm run build
 - `src/main/schemas/documents.schema.json` intentionally does not enforce a hard keyword enum.
 - Keyword conformance is validated in `src/main/scripts/documents.validate.js` during `npm run validate`.
 - Ingested IETF keywords are normalized to project style (Title Case with preserved acronyms/common forms such as `JSON`, `URN`, `B-Chain`, `DCinema`, `DCP*`, `SHA-1`).
+- Validation mode can be selected at runtime:
+  - Strict (default): `npm run validate` or `npm run validate -- --error`
+  - Warn-only for unknown keywords: `npm run validate -- --warn`
+- Extract workflows (`extract-docs-smpte.yml`, `extract-docs-ietf.yml`) run validation in warn mode for unknown keywords (`KEYWORD_VALIDATION_MODE=warn`), while build/local defaults remain strict unless overridden.
 - Use keyword sync to review and optionally add new observed keywords:
   - Dry run: `npm run keywords-sync`
   - Write updates to `site.json`: `npm run keywords-sync -- --write`

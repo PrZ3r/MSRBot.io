@@ -32,6 +32,19 @@ const Ajv = require("ajv");
 const jsonSourceMap = require("json-source-map");
 const { listRegistries } = require("./utils/registryList");
 
+function applyValidationModeFromArgs(argv = []) {
+  const args = new Set(argv.map((a) => String(a || "").trim()));
+  if (args.has("--warn")) {
+    process.env.KEYWORD_VALIDATION_MODE = "warn";
+    return "warn";
+  }
+  if (args.has("--error")) {
+    process.env.KEYWORD_VALIDATION_MODE = "error";
+    return "error";
+  }
+  return String(process.env.KEYWORD_VALIDATION_MODE || "error").toLowerCase();
+}
+
 async function registries() {
   const ajvFactory = new Ajv({ allErrors: true });
   const regs = {};
@@ -94,7 +107,9 @@ async function registries() {
 }
 
 async function validateAll() {
+  const keywordMode = applyValidationModeFromArgs(process.argv.slice(2));
   console.log("Starting full schema + additional validation...");
+  console.log(`Keyword validation mode: ${keywordMode}`);
   const regs = await registries();
 
   // --- Portals validation (non-registry landing pages) ---

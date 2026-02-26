@@ -13,6 +13,8 @@ jobs:
   extract:
     name: Extract Docs
     runs-on: ubuntu-latest
+    env:
+      KEYWORD_VALIDATION_MODE: warn
 
     steps:
       - name: Mint PrZ3 Unit token
