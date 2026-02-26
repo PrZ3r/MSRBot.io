@@ -15,7 +15,7 @@ const DOCS_PATH = path.resolve("src/main/data/documents.json");
 const ACRONYM_MAP = new Map([
   "JSON", "XML", "RFC", "IETF", "ISO", "ITU", "AES",
   "MIME", "URI", "URL", "HTTP", "HTTPS", "API", "DOI",
-  "ASCII", "UTF", "IMF", "MXF", "MPEG", "KDM", "DCDM",
+  "ASCII", "UTF", "IMF", "MXF", "MPEG", "KDM", "DCDM", "DNS",
   "SDI", "OPL", "ACES", "HTJ2K", "JPEG2000", "URN"
 ].map((value) => [value.toLowerCase(), value]));
 
@@ -32,6 +32,10 @@ function normalizeKeyword(input) {
       if (/^dcinema$/i.test(word)) return "DCinema";
       if (/^sha-?1$/i.test(word)) return "SHA-1";
       if (/^dcp(?=$|[-/])/i.test(word)) return word.replace(/^dcp/i, "DCP");
+      // Preserve MIME/media-type forms as lowercase per convention.
+      if (/^[A-Za-z0-9.+-]+\/[A-Za-z0-9.+-]+$/.test(word)) return lower;
+      // Preserve already-uppercase hyphenated acronym tokens (e.g., MIME-EXT, URI-GEN).
+      if (/^[A-Z0-9]+(?:-[A-Z0-9]+)+$/.test(word)) return word;
       if (/^\d+mm$/i.test(word)) return `${word.replace(/mm$/i, "")}mm`;
       return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
     })
