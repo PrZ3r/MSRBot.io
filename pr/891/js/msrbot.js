@@ -430,21 +430,17 @@ document.addEventListener('DOMContentLoaded', function () {
       var summary = escapeHtml(p.summary || '');
       var resourcesCount = (typeof p.resourcesCount === 'number') ? p.resourcesCount : null;
 
-      html += '<div class="col-12 col-md-6">';
-      html += '  <div class="card h-100 position-relative">';
-      html += '    <div class="card-body">';
-      html += '      <div class="d-flex justify-content-between align-items-start gap-2">';
-      html += '        <h3 class="h6 mb-1"><a class="text-decoration-none stretched-link" href="' + escapeHtml(url || '#') + '">' + title + '</a></h3>';
+      html += '<a class="list-group-item list-group-item-action px-3 py-3" href="' + escapeHtml(url || '#') + '">';
+      html += '  <div class="d-flex justify-content-between align-items-start gap-2">';
+      html += '    <h3 class="h6 mb-1">' + title + '</h3>';
       if (resourcesCount != null) {
-        html += '        <span class="badge text-bg-secondary">Resources: ' + String(resourcesCount) + '</span>';
+        html += '    <span class="badge text-bg-secondary ms-2 flex-shrink-0">Resources: ' + String(resourcesCount) + '</span>';
       }
-      html += '      </div>';
-      if (summary) {
-        html += '      <p class="text-muted small mb-0">' + summary + '</p>';
-      }
-      html += '    </div>';
       html += '  </div>';
-      html += '</div>';
+      if (summary) {
+        html += '  <p class="text-muted small mb-0">' + summary + '</p>';
+      }
+      html += '</a>';
     });
 
     host.innerHTML = html;
