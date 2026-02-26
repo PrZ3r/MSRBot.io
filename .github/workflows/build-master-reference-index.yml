@@ -59,6 +59,24 @@ jobs:
           echo "skip=${{ steps.guard.outputs.skip || steps.guard_default.outputs.skip || 'false' }}"
           echo "pr=${{ steps.guard.outputs.pr || steps.guard_default.outputs.pr || '' }}"
 
+  emit_skip_marker:
+    needs: gate
+    if: needs.gate.outputs.skip == 'true'
+    name: Emit skip marker (gate)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write skip marker
+        run: |
+          mkdir -p .emit
+          echo "MRI skipped due to upstream PR #${{ needs.gate.outputs.pr }} (run ${{ github.run_id }})" > .emit/skip-site-build.txt
+
+      - name: Upload skip-site-build artifact (gate)
+        uses: actions/upload-artifact@v4
+        with:
+          name: skip-site-build-pr-${{ needs.gate.outputs.pr }}
+          path: .emit/skip-site-build.txt
+          retention-days: 3
+
   build:
     needs: gate
     if: 
