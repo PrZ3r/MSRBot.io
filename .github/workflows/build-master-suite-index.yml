@@ -158,21 +158,6 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
 
-      - name: Auto-commit metadata-only change to default branch
-        if: |
-          steps.decide.outputs.onlyMeta == 'true' ||
-          (steps.decide.outputs.lineage == 'false' &&
-           steps.decide.outputs.inventoryChanged == 'false' &&
-           (steps.decide.outputs.unkeyedChanged == 'true' || steps.decide.outputs.flags == 'true'))
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          git config user.name "PrZ3 Unit"
-          git config user.email "prz3-unit[bot]@users.noreply.github.com"
-          git add src/main/reports/masterSuiteIndex.json
-          git diff --cached --quiet || git commit -m "chore: MasterSuiteIndex metadata refresh"
-          git push 
-
       - name: Compute PR file list
         id: files
         run: |

@@ -74,6 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Simplified PR preview check behavior by removing custom check-run/status publication from preview workflow and relying on the single native workflow job check context.
 - Added MSI→MRI chain guard in MRI workflow to skip MRI when MSI already opened a PR (artifact marker present), preventing duplicate chained data PRs.
 - Hardened MRI missing-ref issue upsert behavior with no-op update skipping and per-run mutation budget (`MAX_MUTATIONS`), reducing secondary GitHub rate-limit failures.
+- Stopped MSI/MRI metadata-only auto-commits to default branch; report timestamp/date-only churn is now ignored unless content-change PR criteria are met.
 
 ### Fixed
 - Fixed OM remap path in extraction by correcting title variable scope usage, enabling OM ID remapping updates to apply correctly.

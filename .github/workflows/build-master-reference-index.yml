@@ -125,26 +125,6 @@ jobs:
           echo "onlyMeta=$(jq -r '.onlyMeta' mri-change-class.json)"
 
 
-      - name: Commit MRI metadata-only change
-        if: steps.decide_mri.outputs.onlyMeta == 'true'
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          set -e
-          BR="${{ github.event.repository.default_branch }}"
-          git config user.name "PrZ3 Unit"
-          git config user.email "prz3-unit[bot]@users.noreply.github.com"
-          # Stage both MRI and audit if present
-          [ -f src/main/reports/masterReferenceIndex.json ] && git add src/main/reports/masterReferenceIndex.json || true
-          [ -f src/main/reports/mri_presence_audit.json ] && git add src/main/reports/mri_presence_audit.json || true
-          if git diff --cached --quiet; then
-            echo "No metadata-only changes to commit.";
-            exit 0;
-          fi
-          git commit -m "chore: MasterReferenceIndex metadata refresh"
-          git push origin HEAD:"$BR"
-          echo "✅ Metadata-only MasterReferenceIndex refresh committed to $BR"
-
       - name: Render PR body (MRI)
         id: render_pr_mri
         if: steps.decide_mri.outputs.onlyMeta != 'true'
