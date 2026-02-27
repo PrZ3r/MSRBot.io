@@ -28,6 +28,12 @@
     "IETF.formal-languages-use": [
       "Guidelines for the Use of Formal Languages in IETF Specifications"
     ],
+    "RFC858": [
+      "\"Telnet Suppress Go Ahead Option,\" J. Postel and J. Reynolds, RFC-858, May 1983.",
+      "\"Telnet Suppress Go Ahead Option,\" J. Postel and J.",
+      "/\\bTelnet\\s+Suppress\\s+Go\\s+Ahead\\s+Option\\b.*\\bRFC-?\\s*858\\b/i",
+      "/\\bTELNET:5\\b.*\\bSuppress\\s+Go\\s+Ahead\\b/i"
+    ],
     "ISBN.9780195392883": [
       "/\\bNew Oxford American Dictionary, Third Edition\\b/i"
     ],
@@ -118,6 +124,12 @@
       "/\\bANSI\\s+X3\\.4-1986\\b/i",
       "/\\bCoded\\s+Character\\s+Set\\s*--\\s*7-Bit\\s+American\\s+Standard\\s+Code\\s+for\\s+Information\\s+Interchange\\b/i"
     ],
+    "INCITS.X3.4.1968": [
+      "ASCII American National Standards Institute, \"Coded character set -- 7-bit American national standard code for information interchange\", ANSI X3.4-1968",
+      "\"Coded character set -- 7-bit American national standard code for information interchange\", ANSI X3.4-1968",
+      "/\\bANSI\\s+X3\\.4-1968\\b/i",
+      "/\\bCoded\\s+character\\s+set\\s*--\\s*7-bit\\s+American\\s+national\\s+standard\\s+code\\s+for\\s+information\\s+interchange\\b/i"
+    ],
     "ANSI.X9.52.1998": [
       "American National Standard X9.52 - 1998",
       "/\\bAmerican\\s+National\\s+Standard\\s+X9\\.52\\s*[-–—]\\s*1998\\b/i",
@@ -135,6 +147,27 @@
     "ISO.10021.ALLPARTS": [
       "ISO/IEC International Standard 10021, Information technology - Text Communication - Message-Oriented Text Interchange Systems (MOTIS) (Parts 1 to 8).",
       "/\\bISO\\/IEC\\b.*\\b10021\\b.*\\bMOTIS\\b.*\\bParts?\\s+1\\s+to\\s+8\\b/i"
+    ],
+    "ISO.2022.1996": [
+      "ISO2022 International Organization for Standardization (ISO), \"Information processing -- ISO 7-bit and 8-bit coded character sets -- Code extension techniques\", International Standard, 1986, Ref. No. ISO 2022-1986 (E)",
+      "International Organization for Standardization (ISO), \"Information processing -- ISO 7-bit and 8-bit coded character sets -- Code extension techniques\", International Standard, 1986, Ref. No. ISO 2022-1986 (E)",
+      "/\\bISO2022\\b/i",
+      "/\\bInformation\\s+processing\\s*--\\s*ISO\\s*7-bit\\s+and\\s+8-bit\\s+coded\\s+character\\s+sets\\s*--\\s*Code\\s+extension\\s+techniques\\b/i",
+      "/\\bRef\\.\\s*No\\.\\s*ISO\\s*2022-1986\\s*\\(E\\)\\b/i"
+    ],
+    "KS.C.5601.1987": [
+      "KSC5601 Korea Industrial Standards Association, \"Code for Information Interchange (Hangul and Hanja),\" Korean Industrial Standard, 1987, Ref. No. KS C 5601-1987.",
+      "\"Code for Information Interchange (Hangul and Hanja),\" Korean Industrial Standard, 1987, Ref. No. KS C 5601-1987.",
+      "/\\bKSC5601\\b/i",
+      "/\\bKS\\s*C\\s*5601-1987\\b/i",
+      "/\\bCode\\s+for\\s+Information\\s+Interchange\\s*\\(Hangul\\s+and\\s+Hanja\\)\\b/i"
+    ],
+    "KS.C.5861.1992": [
+      "EUC-KR Korea Industrial Standards Association, \"Hangul Unix Environment,\" Korean Industrial Standard, 1992, Ref. No. KS C 5861-1992.",
+      "\"Hangul Unix Environment,\" Korean Industrial Standard, 1992, Ref. No. KS C 5861-1992.",
+      "/\\bEUC-KR\\b/i",
+      "/\\bKS\\s*C\\s*5861-1992\\b/i",
+      "/\\bHangul\\s+Unix\\s+Environment\\b/i"
     ],
     "LOC.DWG": [
       "DWG (AutoCAD Drawing) Format Family"
@@ -229,6 +262,17 @@
       "RSA Laboratories. PKCS #8: Private-Key Information Syntax Standard. Version 1.2, November 1993.",
       "/\\bRSA\\s+Laboratories\\b.*\\bPKCS\\s*#\\s*8\\b.*\\bPrivate-Key\\s+Information\\s+Syntax\\s+Standard\\b.*\\bVersion\\s*1\\.2\\b.*\\b1993\\b/i",
       "/\\bPKCS\\s*#\\s*8\\b.*\\bVersion\\s*1\\.2\\b.*\\b1993\\b/i"
+    ],
+    "SRI.DDNPH.50004-5-6.1985": [
+      "INTRO:2 \"DDN Protocol Handbook,\" NIC-50004, NIC-50005, NIC-50006, (three volumes), SRI International, December 1985.",
+      "\"DDN Protocol Handbook,\" NIC-50004, NIC-50005, NIC-50006, (three volumes), SRI International, December 1985.",
+      "/\\bDDN\\s+Protocol\\s+Handbook\\b.*\\bNIC-50004\\b.*\\bNIC-50005\\b.*\\bNIC-50006\\b.*\\bSRI\\s+International\\b.*\\b1985\\b/i"
+    ],
+    "SRI.DNSH.50007.1989": [
+      "DNS:8 \"The Domain Name System Handbook,\" Vol. 4 of Internet Protocol Handbook, NIC 50007, SRI Network Information Center, August 1989.",
+      "\"The Domain Name System Handbook,\" Vol. 4 of Internet Protocol Handbook, NIC 50007, SRI Network Information Center, August 1989.",
+      "DNS:8 \"The Domain Name System Handbook,\" Vol. 4 of Internet Protocol Handbook, NIC 50007, SRI Network Information Center, August 1989. SYSTEM INITIALIZATION REFERENCES:",
+      "/\\bDomain\\s+Name\\s+System\\s+Handbook\\b.*\\bVol\\.\\s*4\\b.*\\bInternet\\s+Protocol\\s+Handbook\\b.*\\bNIC\\s*50007\\b.*\\bSRI\\s+Network\\s+Information\\s+Center\\b.*\\b1989\\b/i"
     ],
     "SMPTE.OM.BL": [
       "SMPTE Bylaws"

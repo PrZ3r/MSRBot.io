@@ -93,6 +93,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Site build (`Build MSRBot.io Site and Test`) now runs on `push` to `main`.
   - URL validation now triggers from MRI completion (plus schedule/manual), not from site build completion.
   - PR gate remains `PR Build Preview (MSRBot.io site)` on `pull_request`.
+- Added focused documents-registry helper scripts:
+  - `npm run docs-sort` to sort `src/main/data/documents.json` by `docId`.
+  - `npm run docs-validate` as explicit docs validation alias.
+  - `npm run docs-fix` to run sort + validation in one step for manual doc edits.
+- Updated `docIdSort` behavior for low-noise editing:
+  - Removed legacy `.bak` sidecar creation.
+  - Preserved per-entry object formatting and reordered entries only.
+  - Aligned sort comparator with validator ordering (`toUpperCase()` lexical) to prevent sort/validate mismatch loops.
 
 ### Fixed
 - Fixed OM remap path in extraction by correcting title variable scope usage, enabling OM ID remapping updates to apply correctly.

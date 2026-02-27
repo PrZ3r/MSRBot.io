@@ -27,66 +27,28 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+// canonicalize-json.js
 const fs = require('fs');
 
-function loadJsonArray(filePath) {
-  try {
-    const raw = fs.readFileSync(filePath, 'utf8');
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
+function sortObj(v) {
+  if (Array.isArray(v)) return v.map(sortObj);
+  if (v && typeof v === 'object') {
+    return Object.keys(v)
+      .sort()                // <– alphabetical
+      .reduce((o, k) => {
+        o[k] = sortObj(v[k]);
+        return o;
+      }, {});
   }
+  return v;
 }
 
-function createIetfDiscovery({ options = {} }) {
-  const seedFirst = options.seedFirst !== false;
-  const filterEnabled = options.filterEnabled !== false;
-  const filterPath = options.filterPath;
-  const filterList = filterPath ? loadJsonArray(filterPath) : [];
-
-  function normalizeSeedUrl(u) {
-    try {
-      const url = new URL(u);
-      url.protocol = 'https:';
-      url.hash = '';
-      url.search = '';
-      let s = url.toString();
-      const fileLike = /\/[^/]+\.[A-Za-z0-9]{1,8}$/.test(url.pathname || '');
-      if (fileLike) {
-        s = s.replace(/\/$/, '');
-      } else if (!s.endsWith('/')) {
-        s += '/';
-      }
-      return s;
-    } catch (_) {
-      return u;
-    }
-  }
-
-  function shouldFilterUrl(url) {
-    if (!filterEnabled) return false;
-    for (const f of filterList) {
-      if (f === url) return true;
-      if (url.startsWith(f)) return true;
-    }
-    return false;
-  }
-
-  async function discoverFromRootDocPage() {
-    if (seedFirst) {
-      console.log('\n🔍 IETF discovery in seed-first mode (root discovery skipped)');
-      return [];
-    }
-    console.log('\n🔍 IETF discovery currently supports seed-first mode only');
-    return [];
-  }
-
-  return {
-    discoverFromRootDocPage,
-    normalizeSeedUrl,
-    shouldFilterUrl
-  };
+function canonicalize(path) {
+  const raw = fs.readFileSync(path, 'utf8');
+  const json = JSON.parse(raw);
+  const sorted = sortObj(json);
+  fs.writeFileSync(path, JSON.stringify(sorted, null, 2) + '\n', 'utf8');
+  console.log('Canonicalized:', path);
 }
 
-module.exports = { createIetfDiscovery };
+canonicalize('src/main/config/site.json')

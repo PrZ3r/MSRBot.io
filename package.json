@@ -16,7 +16,10 @@
     "validate": "node src/main/scripts/validate.js",
     "validate-url": "node src/main/scripts/url.validate.js",
     "canonicalize": "node src/main/scripts/canonicalize.js",
-    "keywords-sync": "node src/main/scripts/utils/keywords.sync.js"
+    "keywords-sync": "node src/main/scripts/utils/keywords.sync.js",
+    "docs-sort": "node src/main/scripts/utils/docIdSort.js",
+    "docs-validate": "npm run validate",
+    "docs-fix": "npm run docs-sort && npm run docs-validate"
   },
   "repository": {
     "type": "git",
