@@ -7,12 +7,9 @@ _built and maintained by [Steve LLamb](https://github.com/SteveLLamb)_
 
 [![Build MasterReference Index](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml)
 [![Build MasterSuite Index](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml)
-
-[![PR Build Preview (MSRBot.io site)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/pr-build-preview.yml/badge.svg)](https://github.com/SteveLLamb/MSRBot.io/actions/workflows/pr-build-preview.yml)
-
-[![Build MSRBot.io Site and Test](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml)
 [![Validate Document URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-urls.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-urls.yml)
 
+[![Build MSRBot.io Site and Test](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml)
 
 ## Why It Exists
 [MSRBot.io](https://msrbot.io/) is a live, automated (and hand curated) Media Standards Registry (MSR) of media technology documents — extracting, validating, and linking documents across [SMPTE](https://www.smpte.org/), [ISO](https://www.iso.org/home.html), [ITU](https://www.itu.int/), [AES](https://aes2.org/) and other many other publishers, SDOs, and industry groups. 
