@@ -139,6 +139,29 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return null;
   }
 
+  // Normalize publisher labels for matching collection docs to collection metadata.
+  // This handles common variants like "ISO/IEC" vs "ISO" and configured aliases.
+  function normalizePublisherForMatch(pubRaw) {
+    const input = String(pubRaw || '').trim();
+    if (!input) return '';
+
+    const lower = input.toLowerCase();
+
+    // Prefer explicit alias mappings if present.
+    const canonFromUrlAlias = publisherUrlAliasLower[lower];
+    if (canonFromUrlAlias) return String(canonFromUrlAlias).trim();
+
+    const canonFromLogoAlias = publisherLogoAliasLower[lower];
+    if (canonFromLogoAlias) return String(canonFromLogoAlias).trim();
+
+    // Fallback: collapse slash-composite publishers (e.g., ISO/IEC -> ISO).
+    if (input.includes('/')) {
+      return input.split('/')[0].trim();
+    }
+
+    return input;
+  }
+
   // Helper to render abstract text as HTML with newlines as <br><br>
   function renderAbstractHtml(text) {
     if (text == null) return '';
@@ -360,14 +383,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
 
     function docsForCollection(pub, title) {
-      const wantPub = String(pub || '').trim();
+      const wantPub = normalizePublisherForMatch(pub);
       const wantTitle = String(title || '').trim();
       if (!wantPub || !wantTitle) return [];
 
       return docs
         .filter(d => {
           if (!d || !d.docId) return false;
-          if (String(getDocPublisher(d)).trim() !== wantPub) return false;
+          if (normalizePublisherForMatch(getDocPublisher(d)) !== wantPub) return false;
           if (getDocSuiteTitle(d) !== wantTitle) return false;
 
           const st = d.status || {};

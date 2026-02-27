@@ -44,7 +44,6 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            {{#if status.statusNote}}<dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>{{status.statusNote}}</em></dd>{{/if}}
             {{#if publisher}}<dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher={{publisher}}">{{publisher}}</a></dd>{{/if}}
             {{#if docSuiteTitle}}
               <dt class="col-sm-4">Suite/Collection</dt>
@@ -68,6 +67,7 @@
             {{#if status.stabilizedDate}}<dt class="col-sm-4">Stabilized Date</dt><dd class="col-sm-8">{{status.stabilizedDate}}</dd>{{/if}}
             {{#if status.supersededDate}}<dt class="col-sm-4">Superseded Date</dt><dd class="col-sm-8">{{status.supersededDate}}</dd>{{/if}}
             {{#if status.withdrawnDate}}<dt class="col-sm-4">Withdrawn Date</dt><dd class="col-sm-8">{{status.withdrawnDate}}</dd>{{/if}}
+            {{#if status.statusNote}}<dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>{{status.statusNote}}</em></dd>{{/if}}
             {{#if doi}}<dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/{{doi}}" target="_blank" rel="noopener"><code>{{doi}}</code></a></dd>{{/if}}
             {{#if isbn}}<dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>{{isbn}}</code></dd>{{/if}}
             {{#if href}}<dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="{{href}}" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">{{href}}</a></dd>{{/if}}
