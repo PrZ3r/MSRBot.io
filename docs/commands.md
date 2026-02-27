@@ -9,6 +9,9 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
 - `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
+- `docs-sort`: sort `documents.json` by `docId` using validator-compatible ordering.
+- `docs-validate`: run the standard validation script.
+- `docs-fix`: sort then validate in one command.
 - `validate-url`: run URL reachability/audit checks.
 - `normalize-url`: apply URL normalization/backfill from URL audit.
 - `canonicalize`: normalize/sort registry JSON output format.
@@ -106,6 +109,20 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `npm run canonicalize`
   - Runs: `node src/main/scripts/canonicalize.js`
   - Action: Canonicalizes JSON ordering/shape for stable diffs.
+
+### Documents Registry Helpers
+
+- `npm run docs-sort`
+  - Runs: `node src/main/scripts/utils/docIdSort.js`
+  - Action: Sorts `src/main/data/documents.json` by `docId` in the same order expected by validation.
+
+- `npm run docs-validate`
+  - Runs: `npm run validate`
+  - Action: Alias to run standard schema + registry validation checks.
+
+- `npm run docs-fix`
+  - Runs: `npm run docs-sort && npm run docs-validate`
+  - Action: One-shot helper for manual doc edits: reorder then validate.
 
 ### Audit and Keyword Utilities
 

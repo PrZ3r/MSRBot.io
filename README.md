@@ -140,6 +140,9 @@ npm run normalize-url
 npm run canonicalize
 npm run validate
 npm run validate -- --warn
+npm run docs-sort
+npm run docs-validate
+npm run docs-fix
 npm run keywords-sync
 npm run keywords-sync -- --write
 npm run build
@@ -150,6 +153,9 @@ Quick reference:
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
 - `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
+- `docs-sort`: sort `documents.json` by `docId` (validator-compatible order).
+- `docs-validate`: run document validation flow.
+- `docs-fix`: run `docs-sort` then `docs-validate`.
 - `validate-url`: run URL reachability/audit checks.
 - `normalize-url`: apply URL normalization/backfill from URL audit.
 - `canonicalize`: normalize/sort registry JSON output format.

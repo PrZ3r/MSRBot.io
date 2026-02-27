@@ -43,6 +43,9 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
     npm run canonicalize
     npm run validate
     npm run validate -- --warn
+    npm run docs-sort
+    npm run docs-validate
+    npm run docs-fix
     npm run keywords-sync
     npm run keywords-sync -- --write
     npm run build
