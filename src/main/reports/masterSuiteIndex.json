@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-02-26T01:56:25.962Z",
+  "generatedAt": "2026-02-27T00:31:22.258Z",
   "sourcePath": "src/main/data/documents.json",
-  "sourceHash": "sha256:770a05bfa03d220710f33d60b659b1129bd310d6e7cbcab1e445295e221fb9da",
+  "sourceHash": "sha256:10ea5e980461bcbb4d0c30e4c979cb9325ca2721f3cff79786c324b3adac3ff9",
   "publisherCounts": {
-    "total": 2282,
+    "total": 2286,
     "counts": {
       "SMPTE": 1493,
-      "IETF": 117,
+      "IETF": 121,
       "ISO": 108,
       "ISO/IEC": 94,
       "DCI": 45,
@@ -2195,7 +2195,7 @@
     }
   },
   "flagSummary": {
-    "totalFlags": 320,
+    "totalFlags": 321,
     "byType": {
       "DOCID_PUBDATE_MISMATCH": {
         "count": 40,
@@ -2363,7 +2363,7 @@
         ]
       },
       "SUPERSEDED_BY_OUT_OF_LINEAGE": {
-        "count": 111,
+        "count": 112,
         "examples": [
           {
             "lineage": "AIM|BC|4|",
@@ -2428,6 +2428,10 @@
           {
             "lineage": "IEEE|STD|1003.1|",
             "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:IEEE.STD1003.1.2008->IEEE.STD9945.2009"
+          },
+          {
+            "lineage": "IETF|RFC|977|",
+            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC977->RFC3977"
           },
           {
             "lineage": "IETF|RFC|1521|",
@@ -8477,6 +8481,47 @@
       }
     },
     {
+      "key": "IETF|RFC|977|",
+      "publisher": "IETF",
+      "type": "RFC",
+      "number": "977",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "RFC977",
+          "publicationDate": "1986-02-01",
+          "releaseTag": null,
+          "statusActive": false,
+          "statusSuperseded": true,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "RFC977",
+      "latestAnyId": "RFC977",
+      "latestDateKey": "19860201",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": false,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": null,
+      "latestSupersededBaseId": "RFC977",
+      "prevBaseId": null,
+      "flagInconsistencies": [
+        "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC977->RFC3977"
+      ],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
       "key": "IETF|RFC|1035|",
       "publisher": "IETF",
       "type": "RFC",
@@ -8506,6 +8551,45 @@
       "hasWithdrawn": false,
       "hasStabilized": false,
       "latestActiveBaseId": "RFC1035",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "IETF|RFC|1123|",
+      "publisher": "IETF",
+      "type": "RFC",
+      "number": "1123",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "RFC1123",
+          "publicationDate": "1989-10-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "RFC1123",
+      "latestAnyId": "RFC1123",
+      "latestDateKey": "19891001",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "RFC1123",
       "latestSupersededBaseId": null,
       "prevBaseId": null,
       "flagInconsistencies": [],
@@ -8632,6 +8716,45 @@
         "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2048",
         "SUPERSEDED_BY_OUT_OF_LINEAGE:RFC1521->RFC2049"
       ],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "IETF|RFC|1557|",
+      "publisher": "IETF",
+      "type": "RFC",
+      "number": "1557",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "RFC1557",
+          "publicationDate": "1993-12-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "RFC1557",
+      "latestAnyId": "RFC1557",
+      "latestDateKey": "19931201",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "RFC1557",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
       "counts": {
         "bases": 1,
         "amendments": 0,
@@ -8908,6 +9031,45 @@
       "hasWithdrawn": false,
       "hasStabilized": false,
       "latestActiveBaseId": "RFC2104",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "IETF|RFC|2130|",
+      "publisher": "IETF",
+      "type": "RFC",
+      "number": "2130",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "RFC2130",
+          "publicationDate": "1997-04-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "RFC2130",
+      "latestAnyId": "RFC2130",
+      "latestDateKey": "19970401",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "RFC2130",
       "latestSupersededBaseId": null,
       "prevBaseId": null,
       "flagInconsistencies": [],
