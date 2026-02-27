@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+- Fixed suites/collections page document rendering when publisher labels differ by composite forms (for example, `ISO/IEC` docs under `ISO` collections); collection matching now normalizes publisher aliases/composites before filtering.
 
 ## [v1.3.0] - 2026-02-26
  
