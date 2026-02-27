@@ -16,6 +16,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `normalize-url`: apply URL normalization/backfill from URL audit.
 - `canonicalize`: normalize/sort registry JSON output format.
 - `keywords-sync`: detect (or `--write` append) controlled keyword updates.
+- `config-sort`: canonicalize/sort `src/main/config/site.json` key ordering.
 - `build-index`: build search index artifacts.
 - `build-stats`: build API/site stats artifact.
 - `build`: build full static site output.
@@ -124,7 +125,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Runs: `npm run docs-sort && npm run docs-validate`
   - Action: One-shot helper for manual doc edits: reorder then validate.
 
-### Audit and Keyword Utilities
+### Audit and Utilities
 
 - `npm run audit`
   - Runs: `node src/main/scripts/audit.documents.js`
@@ -141,6 +142,10 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Modes:
     - Dry-run (default): `npm run keywords-sync`
     - Apply updates: `npm run keywords-sync -- --write`
+
+- `npm run config-sort`
+  - Runs: `node src/main/scripts/utils/configSort.js`
+  - Action: Canonicalizes and key-sorts `src/main/config/site.json` for stable diffs.
 
 ## Runtime Environment Variables
 
