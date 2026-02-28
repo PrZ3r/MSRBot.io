@@ -304,7 +304,7 @@
           <p class="mb-0 small">
             Full registry record with provenance metadata.
             Open directly:
-            <a href="/api/doc/{{docId}}.json" target="_blank" rel="noopener">/api/doc/{{docId}}.json</a>
+            <a href="{{assetPrefix}}api/doc/{{docId}}.json" target="_blank" rel="noopener">/api/doc/{{docId}}.json</a>
           </p>
           <pre
             id="source-data-json"
@@ -338,7 +338,8 @@
 
           const docId = btn.getAttribute('data-docid') || '';
           const encoded = encodeURIComponent(docId);
-          const url = '/api/doc/' + encoded + '.json';
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
 
           box.textContent = 'Loading…';
           try {

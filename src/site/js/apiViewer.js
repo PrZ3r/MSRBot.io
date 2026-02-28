@@ -30,6 +30,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 (function () {
   'use strict';
 
+  var PREFIX = window.msrAssetPrefix || '';
   var PAGE_SIZE = 50;
   var allDocs = [];
   var filtered = [];
@@ -144,7 +145,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           '</div>' +
         '</div>' +
         '<div class="mt-1">' +
-          '<a href="/docs/' + encodedId + '/" class="small text-decoration-none" ' +
+          '<a href="' + PREFIX + 'docs/' + encodedId + '/" class="small text-decoration-none" ' +
             'onclick="event.stopPropagation();">' +
             '<i class="bi bi-file-richtext me-1"></i>Open document page &rarr;' +
           '</a>' +
@@ -258,7 +259,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   // ── Stats ────────────────────────────────────────────────
   function loadStats() {
-    fetch('/api/stats.json', { cache: 'no-store' })
+    fetch(PREFIX + 'api/stats.json', { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (data && data.documents) {
@@ -285,7 +286,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     show($loading);
     $count.textContent = 'Loading documents…';
 
-    fetch('/api/documents.json', { cache: 'no-store' })
+    fetch(PREFIX + 'api/documents.json', { cache: 'no-store' })
       .then(function (r) {
         if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
         return r.json();
@@ -328,7 +329,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       return;
     }
     var encoded = encodeURIComponent(id);
-    var url = '/api/doc/' + encoded + '.json';
+    var url = PREFIX + 'api/doc/' + encoded + '.json';
 
     $jsonOutput.textContent = 'Loading…';
     $jsonStatus.innerHTML = 'Fetching ' + escapeHtml(url);

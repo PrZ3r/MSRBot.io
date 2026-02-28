@@ -2936,8 +2936,8 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           date: new Date(),
           publisherLogoHeight: 25,
           publisherUrls: siteConfig.publisherUrls,
-          alternateJson: `/api/doc/${encodeURIComponent(id)}.json`,
-          schemaUrl: '/api/schemas/documents.schema.json',
+          alternateJson: `api/doc/${encodeURIComponent(id)}.json`,
+          schemaUrl: 'api/schemas/documents.schema.json',
         });
 
         const outFile = path.join(docDir, 'index.html');
@@ -3249,8 +3249,8 @@ void (async () => {
     ogImageAlt: siteConfig.ogImageAlt,
     assetPrefix: '../',
     publisherUrls: siteConfig.publisherUrls,
-    alternateJson: '/api/documents.json',
-    schemaUrl: '/api/schemas/documents.schema.json',
+    alternateJson: 'api/documents.json',
+    schemaUrl: 'api/schemas/documents.schema.json',
   });
   await fs.mkdir(path.join(BUILD_PATH, 'api'), { recursive: true });
   await writeFileSafe(path.join(BUILD_PATH, 'api', 'index.html'), apiHtml, 'utf8');
@@ -3430,6 +3430,43 @@ void (async () => {
     console.log('[build] Wrote build/changelog/index.html');
   } catch (clErr) {
     console.warn('[build] Changelog page emit failed:', clErr && clErr.message ? clErr.message : clErr);
+  }
+
+  // --- Emit about/PrZ3 page
+  try {
+    const tplPrz3 = hb.compile(await fs.readFile(path.join('src','main','templates','about-prz3.hbs'), 'utf8'));
+    const prz3Canonical = new URL('/about/PrZ3/', siteConfig.canonicalBase).href;
+    const prz3Html = tplPrz3({
+      templateName: 'about',
+      listTitle: 'PrZ3',
+      robotsMeta: 'noindex,nofollow',
+      site_version: (await execFile('git', ['rev-parse','HEAD'])).stdout.trim(),
+      date: new Date().toISOString(),
+      siteName: siteConfig.siteName,
+      author: siteConfig.author,
+      authorUrl: siteConfig.authorUrl,
+      copyright: siteConfig.copyright,
+      copyrightHolder: siteConfig.copyrightHolder,
+      copyrightYear: siteConfig.copyrightYear,
+      license: siteConfig.license,
+      licenseUrl: siteConfig.licenseUrl,
+      locale: siteConfig.locale,
+      siteDescription: siteConfig.siteDescription,
+      siteTitle: `PrZ3 — ${siteConfig.siteName}`,
+      canonicalBase: siteConfig.canonicalBase,
+      canonicalUrl: prz3Canonical,
+      ogTitle: `PrZ3 — ${siteConfig.siteName}`,
+      ogDescription: siteConfig.siteDescription,
+      ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+      ogImageAlt: siteConfig.ogImageAlt,
+      assetPrefix: '../../',
+      publisherUrls: siteConfig.publisherUrls,
+    });
+    await fs.mkdir(path.join(BUILD_PATH, 'about', 'PrZ3'), { recursive: true });
+    await writeFileSafe(path.join(BUILD_PATH, 'about', 'PrZ3', 'index.html'), prz3Html, 'utf8');
+    console.log('[build] Wrote build/about/PrZ3/index.html');
+  } catch (e) {
+    console.warn('[build] PrZ3 page emit failed:', e && e.message ? e.message : e);
   }
 
   // --- Emit robots.txt and sitemap.xml
