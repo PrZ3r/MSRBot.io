@@ -1,0 +1,199 @@
+{{> header}}
+<!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <h1 class="h4 mb-1"><i class="bi bi-braces me-1"></i> API Explorer</h1>
+    <p class="text-muted small mb-0">
+      Search and browse the MSRBot.io document registry.
+      All data includes full provenance metadata.
+    </p>
+  </header>
+
+  <!-- Stats -->
+  <section class="mb-3">
+    <div class="card">
+      <div class="card-header fw-semibold">Live Registry Stats</div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap gap-2 mb-2">
+          <span class="badge bg-primary p-2">Documents: <span id="api-stat-total">—</span></span>
+          <span class="badge bg-secondary p-2">Suites: <span id="api-stat-suites">—</span></span>
+          <span class="badge bg-success p-2">Active: <span id="api-stat-active">—</span></span>
+          <span class="badge bg-info text-dark p-2">Doc Types: <span id="api-stat-doctypes">—</span></span>
+          <span class="badge bg-warning text-dark p-2">References: <span id="api-stat-refs">—</span></span>
+          <span class="badge bg-secondary p-2">Publishers: <span id="api-stat-pubs">—</span></span>
+        </div>
+        <ul class="list-unstyled text-muted small mb-0">
+          <li><strong>Published historical range:</strong> 1896 &rarr; present</li>
+          <li><strong>Automation uptime:</strong> 100% since August 2025 (SMPTE)</li>
+          <li><strong>Publishers covered:</strong> SMPTE, NIST, ISO, ITU, AES, and more</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Two-column: reference (left) + search (right) -->
+  <section class="row g-3 mb-3">
+
+    <!-- Left column: endpoints + URL guide -->
+    <div class="col-12 col-lg-5">
+      <div class="card h-100">
+        <div class="card-header fw-semibold">API Endpoints &amp; URL Reference</div>
+        <div class="card-body small">
+          <h3 class="h6 mb-2">JSON Endpoints</h3>
+          <table class="table table-sm table-borderless mb-3">
+            <tbody>
+              <tr>
+                <td class="text-nowrap"><code>/api/stats.json</code></td>
+                <td>Registry statistics <a href="/api/stats.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+              </tr>
+              <tr>
+                <td class="text-nowrap"><code>/api/documents.json</code></td>
+                <td>Full registry + provenance <a href="/api/documents.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+              </tr>
+              <tr>
+                <td class="text-nowrap"><code>/api/doc/{id}.json</code></td>
+                <td>Single document by <code>docId</code></td>
+              </tr>
+              <tr>
+                <td class="text-nowrap"><code>/api/schemas/</code></td>
+                <td>JSON Schema for documents <a href="/api/schemas/documents.schema.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="text-muted small mb-3">
+            All JSON responses include <code>"$schema"</code> and <code>"apiVersion"</code> fields
+            for machine validation. Current API version: <strong>1.0.0</strong>.
+          </p>
+
+          <h3 class="h6 mb-2">Search URL Parameters</h3>
+          <p class="text-muted mb-2">
+            Add query parameters to <code>/api/</code> for shareable or machine-readable searches.
+          </p>
+          <table class="table table-sm table-borderless mb-2">
+            <tbody>
+              <tr><td class="text-nowrap"><code>?q=</code></td><td>Free-text search (space-separated tokens)</td></tr>
+              <tr><td class="text-nowrap"><code>?publisher=</code></td><td>Filter by publisher (exact, case-sensitive)</td></tr>
+              <tr><td class="text-nowrap"><code>?doctype=</code></td><td>Filter by doc type (exact, case-sensitive)</td></tr>
+              <tr><td class="text-nowrap"><code>?docid=</code></td><td>Auto-fetch a doc's JSON on load</td></tr>
+            </tbody>
+          </table>
+
+          <p class="text-muted mb-1"><strong>Examples:</strong></p>
+          <ul class="list-unstyled text-muted mb-0">
+            <li><code>/api/?q=2110</code></li>
+            <li><code>/api/?q=imf&amp;publisher=SMPTE</code></li>
+            <li><code>/api/?publisher=IETF&amp;doctype=Standard</code></li>
+            <li><code>/api/?docid=SMPTE.ST2067-21.2020</code></li>
+          </ul>
+          <p class="text-muted mt-2 mb-0">
+            <strong>Machine fetch:</strong>
+            <code>/api/doc/&lt;docId&gt;.json</code>
+            &mdash; static JSON, no API key needed.
+            URL-encode the <code>docId</code> (characters like <code>/</code> or
+            <code>#</code> must be percent-encoded).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column: search -->
+    <div class="col-12 col-lg-7">
+      <div class="card h-100">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Search Documents</span>
+          <button id="api-clear-all" class="btn btn-sm btn-outline-secondary d-none py-0 px-2" type="button">
+            <i class="bi bi-x-circle me-1"></i>Clear
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="row g-2 mb-2">
+            <div class="col-12">
+              <input
+                type="search"
+                id="api-search-input"
+                class="form-control form-control-sm"
+                placeholder="Search by docId, title, or keyword…"
+                autocomplete="off"
+              >
+            </div>
+            <div class="col-6">
+              <select id="api-filter-publisher" class="form-select form-select-sm">
+                <option value="">All publishers</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <select id="api-filter-doctype" class="form-select form-select-sm">
+                <option value="">All doc types</option>
+              </select>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-2 small text-muted mb-2">
+            <span id="api-result-count"></span>
+            <span id="api-loading" class="spinner-border spinner-border-sm d-none" role="status"></span>
+          </div>
+
+          <p class="text-muted small mb-2"><i class="bi bi-info-circle me-1"></i>Click any result to load its JSON below.</p>
+
+          <div id="api-results" class="list-group list-group-flush small" style="max-height:32rem; overflow-y:auto;"></div>
+
+          <div class="mt-2">
+            <button id="api-load-more" class="btn btn-sm btn-outline-secondary d-none">Load more</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JSON Viewer -->
+  <section class="mb-3">
+    <div class="card">
+      <div class="card-header fw-semibold">Document JSON Viewer</div>
+      <div class="card-body">
+        <div class="row g-2 mb-2">
+          <div class="col">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text"><code>/api/doc/</code></span>
+              <input
+                type="text"
+                id="api-docid-input"
+                class="form-control"
+                placeholder="Enter docId (e.g. SMPTE.ST2067-21.2020)"
+              >
+              <button id="api-docid-fetch" class="btn btn-primary" type="button" title="Fetch the JSON record for this docId">
+                <i class="bi bi-download me-1"></i>Fetch JSON
+              </button>
+            </div>
+            <div class="form-text">Type a <code>docId</code> and click <strong>Fetch JSON</strong>, or click any search result above.</div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <small id="api-json-status" class="text-muted"></small>
+          <button id="api-json-copy" class="btn btn-sm btn-outline-secondary d-none">
+            <i class="bi bi-clipboard me-1"></i>Copy
+          </button>
+        </div>
+        <pre
+          id="api-json-output"
+          class="border rounded p-2 bg-body-secondary small mb-0"
+          style="max-height:36rem; overflow:auto; white-space:pre-wrap;"
+        >Click a search result above, or type a docId and click Fetch JSON.</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick links -->
+  <section class="mb-3">
+    <div class="d-flex flex-wrap gap-2 small">
+      <a class="btn btn-outline-secondary btn-sm" href="/api/stats.json" target="_blank" rel="noopener"><i class="bi bi-graph-up me-1"></i>stats.json</a>
+      <a class="btn btn-outline-secondary btn-sm" href="/api/documents.json" target="_blank" rel="noopener"><i class="bi bi-filetype-json me-1"></i>documents.json</a>
+      <a class="btn btn-outline-secondary btn-sm" href="/changelog/"><i class="bi bi-journal-text me-1"></i>Changelog</a>
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i>Source</a>
+    </div>
+  </section>
+</main>
+
+<script src="{{assetPrefix}}js/apiViewer.js"></script>
+
+<!-- Main content ends - do not edit below this line -->
+{{> footer}}

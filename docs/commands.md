@@ -29,7 +29,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `npm run build`
   - Runs: `node src/main/scripts/build.js`
   - Action: Builds full static site output and page artifacts under `build/`.
-  - Key outputs: HTML pages, data payloads, static assets.
+  - Key outputs: HTML pages, data payloads, static assets, API JSON endpoints (`/api/`), JSON schemas (`/api/schemas/`), changelog page (`/changelog/`).
 
 - `npm run build-index`
   - Runs: `node src/main/scripts/build.search-index.js`

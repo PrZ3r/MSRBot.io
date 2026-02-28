@@ -329,6 +329,9 @@ let __normalizedGroupsEmitted = false;
 // One-shot guard for portals emit (root-level landing pages)
 let __portalsEmitted = false;
 
+// One-shot guard for full documents API emit
+let __docsApiEmitted = false;
+
 async function emitPortalsOnce() {
   if (__portalsEmitted) {
     console.log('[build] Skipping portals emit (already emitted once).');
@@ -467,6 +470,95 @@ async function emitPortalsOnce() {
   } catch (e) {
     console.warn('[build] Failed to emit portal pages:', e && e.message ? e.message : e);
   }
+}
+
+// Emit full-fidelity documents API payloads under build/api/ using the
+// source registry snapshot (including $meta and provenance).
+async function emitDocumentsApiOnce() {
+  if (__docsApiEmitted) {
+    return;
+  }
+  __docsApiEmitted = true;
+
+  const docsPath = path.join('src', 'main', 'data', 'documents.json');
+  let docs;
+
+  try {
+    const raw = await fs.readFile(docsPath, 'utf8');
+    docs = JSON.parse(raw);
+  } catch (e) {
+    console.warn(
+      '[api] Failed to read src/main/data/documents.json for API emit:',
+      e && e.message ? e.message : e
+    );
+    return;
+  }
+
+  if (!Array.isArray(docs)) {
+    console.warn('[api] documents.json did not contain an array; skipping /api/documents.json emit.');
+    return;
+  }
+
+  const apiRoot = path.join(BUILD_PATH, 'api');
+  const perDocRoot = path.join(apiRoot, 'doc');
+
+  await fs.mkdir(perDocRoot, { recursive: true });
+
+  const generatedAt = new Date().toISOString();
+  const payload = {
+    $schema: '/api/schemas/documents.schema.json',
+    apiVersion: '1.0.0',
+    generatedAt,
+    sourcePath: docsPath,
+    total: docs.length,
+    documents: docs,
+  };
+
+  try {
+    await _writeFile(
+      path.join(apiRoot, 'documents.json'),
+      JSON.stringify(payload, null, 2),
+      'utf8'
+    );
+    console.log(`[api] Wrote build/api/documents.json (total=${docs.length})`);
+  } catch (e) {
+    console.warn(
+      '[api] Failed to write build/api/documents.json:',
+      e && e.message ? e.message : e
+    );
+  }
+
+  let ok = 0;
+  let failed = 0;
+
+  for (const d of docs) {
+    if (!d || !d.docId) continue;
+    const id = String(d.docId);
+    const encoded = encodeURIComponent(id);
+    const outPath = path.join(perDocRoot, `${encoded}.json`);
+
+    const docPayload = {
+      $schema: '/api/schemas/documents.schema.json',
+      apiVersion: '1.0.0',
+      generatedAt,
+      sourcePath: docsPath,
+      docId: id,
+      document: d,
+    };
+
+    try {
+      await _writeFile(outPath, JSON.stringify(docPayload, null, 2), 'utf8');
+      ok++;
+    } catch (e) {
+      failed++;
+      console.warn(
+        `[api] Failed to write per-doc JSON for ${id}:`,
+        e && e.message ? e.message : e
+      );
+    }
+  }
+
+  console.log(`[api] Wrote per-doc API JSON (ok=${ok}, failed=${failed})`);
 }
 
 // Safe write wrapper to strictly prevent legacy groups.json writes.
@@ -2844,6 +2936,8 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           date: new Date(),
           publisherLogoHeight: 25,
           publisherUrls: siteConfig.publisherUrls,
+          alternateJson: `/api/doc/${encodeURIComponent(id)}.json`,
+          schemaUrl: '/api/schemas/documents.schema.json',
         });
 
         const outFile = path.join(docDir, 'index.html');
@@ -2934,6 +3028,8 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         addUrl('/projects/', 'daily', '0.8');
         addUrl('/docs/', 'daily', '0.8');
         addUrl('/reftree/', 'daily', '0.8');
+        addUrl('/api/', 'weekly', '0.7');
+        addUrl('/changelog/', 'monthly', '0.5');
 
         // Per-document detail pages at /docs/{docId}/
         if (Array.isArray(registryDocument)) {
@@ -2969,6 +3065,13 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       } catch (e) {
         console.warn('[build] Could not emit sitemap.xml:', e && e.message ? e.message : e);
       }
+    }
+
+    // Emit full documents API snapshots once per build, from the source registry.
+    try {
+      await emitDocumentsApiOnce();
+    } catch (e) {
+      console.warn('[api] Documents API emit failed:', e && e.message ? e.message : e);
     }
   
   /* set the CHROMEPATH environment variable to provide your own Chrome executable */
@@ -3022,6 +3125,17 @@ void (async () => {
   // Copy static site assets once per build
   await copyRecursive(SITE_PATH, BUILD_PATH);
   console.log('[build] Copied static assets to build/.');
+
+  // Publish JSON schemas to /api/schemas/ for machine consumers
+  const schemasDir = path.join('src', 'main', 'schemas');
+  const apiSchemasDir = path.join(BUILD_PATH, 'api', 'schemas');
+  try {
+    await fs.mkdir(apiSchemasDir, { recursive: true });
+    await copyRecursive(schemasDir, apiSchemasDir);
+    console.log('[build] Copied schemas to build/api/schemas/.');
+  } catch (e) {
+    console.warn('[build] Schema copy failed:', e && e.message ? e.message : e);
+  }
 
   const tplCards = await fs.readFile(path.join('src','main','templates','docList.hbs'), 'utf8');
   const renderCards = hb.compile(tplCards);
@@ -3108,6 +3222,216 @@ void (async () => {
   await writeFileSafe(path.join(BUILD_PATH, 'index.html'), homeHtml, 'utf8');
   console.log('[build] Wrote build/index.html');
 
+  // --- Emit API Explorer page at /api/index.html
+  const tplApi = hb.compile(await fs.readFile(path.join('src','main','templates','api.hbs'), 'utf8'));
+  const apiCanonical = new URL('/api/', siteConfig.canonicalBase).href;
+  const apiHtml = tplApi({
+    templateName: 'api',
+    listTitle: 'API Explorer',
+    site_version: (await execFile('git', ['rev-parse','HEAD'])).stdout.trim(),
+    date: new Date().toISOString(),
+    siteName: siteConfig.siteName,
+    author: siteConfig.author,
+    authorUrl: siteConfig.authorUrl,
+    copyright: siteConfig.copyright,
+    copyrightHolder: siteConfig.copyrightHolder,
+    copyrightYear: siteConfig.copyrightYear,
+    license: siteConfig.license,
+    licenseUrl: siteConfig.licenseUrl,
+    locale: siteConfig.locale,
+    siteDescription: 'Search and browse the MSRBot.io document registry API.',
+    siteTitle: `API Explorer — ${siteConfig.siteName}`,
+    canonicalBase: siteConfig.canonicalBase,
+    canonicalUrl: apiCanonical,
+    ogTitle: `API Explorer — ${siteConfig.siteName}`,
+    ogDescription: 'Search and browse the MSRBot.io document registry API.',
+    ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+    ogImageAlt: siteConfig.ogImageAlt,
+    assetPrefix: '../',
+    publisherUrls: siteConfig.publisherUrls,
+    alternateJson: '/api/documents.json',
+    schemaUrl: '/api/schemas/documents.schema.json',
+  });
+  await fs.mkdir(path.join(BUILD_PATH, 'api'), { recursive: true });
+  await writeFileSafe(path.join(BUILD_PATH, 'api', 'index.html'), apiHtml, 'utf8');
+  console.log('[build] Wrote build/api/index.html');
+
+  // --- Emit Changelog page at /changelog/index.html
+  // Parse CHANGELOG.md into structured release objects, then render as cards.
+
+  function mdInline(text) {
+    return text
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/__(.+?)__/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/_(.+?)_/g, '<em>$1</em>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/&lt;(https?:\/\/[^&]+)&gt;/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+  function mdBlockToHtml(lines) {
+    var html = [];
+    var inList = 0;
+    var inBlockquote = false;
+
+    function closeList(to) {
+      while (inList > to) { html.push('</ul>'); inList--; }
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+
+      if (/^\s*$/.test(line)) {
+        closeList(0);
+        if (inBlockquote) { html.push('</blockquote>'); inBlockquote = false; }
+        continue;
+      }
+
+      // Sub-headings inside a release (### or ####)
+      var hm = line.match(/^(#{3,6})\s+(.*)$/);
+      if (hm) {
+        closeList(0);
+        if (inBlockquote) { html.push('</blockquote>'); inBlockquote = false; }
+        html.push('<h6 class="fw-semibold mt-3 mb-1">' + mdInline(hm[2]) + '</h6>');
+        continue;
+      }
+
+      if (/^>\s?/.test(line)) {
+        closeList(0);
+        if (!inBlockquote) { html.push('<blockquote class="border-start border-3 ps-3 text-muted small">'); inBlockquote = true; }
+        html.push('<p>' + mdInline(line.replace(/^>\s?/, '')) + '</p>');
+        continue;
+      }
+
+      var lm = line.match(/^(\s*)-\s+(.*)$/);
+      if (lm) {
+        if (inBlockquote) { html.push('</blockquote>'); inBlockquote = false; }
+        var indent = lm[1].length;
+        var depth = Math.floor(indent / 2) + 1;
+        if (depth > inList) { while (inList < depth) { html.push('<ul class="mb-1">'); inList++; } }
+        else if (depth < inList) { closeList(depth); }
+        html.push('<li>' + mdInline(lm[2]) + '</li>');
+        continue;
+      }
+
+      if (/^\|/.test(line)) { closeList(0); continue; }
+
+      // Paragraph: merge consecutive plain-text lines into one <p>
+      closeList(0);
+      if (inBlockquote) { html.push('</blockquote>'); inBlockquote = false; }
+      var paraLines = [line];
+      while (i + 1 < lines.length) {
+        var next = lines[i + 1];
+        if (/^\s*$/.test(next) || /^#{1,6}\s/.test(next) || /^>\s?/.test(next) ||
+            /^\s*-\s/.test(next) || /^\|/.test(next)) break;
+        paraLines.push(next);
+        i++;
+      }
+      html.push('<p>' + mdInline(paraLines.join(' ')) + '</p>');
+    }
+
+    closeList(0);
+    if (inBlockquote) html.push('</blockquote>');
+    return html.join('\n');
+  }
+
+  function parseChangelog(md) {
+    var lines = md.split('\n');
+    var preambleLines = [];
+    var releases = [];
+    var current = null;
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+
+      // ## [version] - date  (release heading)
+      var rm = line.match(/^##\s+(.*)$/);
+      if (rm) {
+        if (current) {
+          current.bodyHtml = mdBlockToHtml(current._lines);
+          delete current._lines;
+          releases.push(current);
+        }
+        var titleRaw = rm[1];
+        // Extract version tag and date
+        var vm = titleRaw.match(/\[([^\]]+)\]\s*-?\s*(.*)/);
+        var version = vm ? vm[1] : titleRaw;
+        var date = vm ? (vm[2] || '').trim() : '';
+        var isUnreleased = /unreleased/i.test(version);
+
+        current = {
+          version: version,
+          date: date,
+          isUnreleased: isUnreleased,
+          titleHtml: mdInline(titleRaw),
+          _lines: [],
+        };
+        continue;
+      }
+
+      if (current) {
+        current._lines.push(line);
+      } else {
+        // # heading or preamble lines before first ## release
+        if (/^#\s/.test(line)) continue; // skip the top-level heading
+        preambleLines.push(line);
+      }
+    }
+
+    if (current) {
+      current.bodyHtml = mdBlockToHtml(current._lines);
+      delete current._lines;
+      releases.push(current);
+    }
+
+    return {
+      preambleHtml: mdBlockToHtml(preambleLines),
+      releases: releases,
+    };
+  }
+
+  try {
+    const changelogMd = await fs.readFile('CHANGELOG.md', 'utf8');
+    const parsed = parseChangelog(changelogMd);
+
+    const tplChangelog = hb.compile(await fs.readFile(path.join('src','main','templates','changelog.hbs'), 'utf8'));
+    const clCanonical = new URL('/changelog/', siteConfig.canonicalBase).href;
+    const clHtml = tplChangelog({
+      templateName: 'changelog',
+      listTitle: 'Changelog',
+      site_version: (await execFile('git', ['rev-parse','HEAD'])).stdout.trim(),
+      date: new Date().toISOString(),
+      siteName: siteConfig.siteName,
+      author: siteConfig.author,
+      authorUrl: siteConfig.authorUrl,
+      copyright: siteConfig.copyright,
+      copyrightHolder: siteConfig.copyrightHolder,
+      copyrightYear: siteConfig.copyrightYear,
+      license: siteConfig.license,
+      licenseUrl: siteConfig.licenseUrl,
+      locale: siteConfig.locale,
+      siteDescription: 'Release history and changelog for MSRBot.io.',
+      siteTitle: `Changelog — ${siteConfig.siteName}`,
+      canonicalBase: siteConfig.canonicalBase,
+      canonicalUrl: clCanonical,
+      ogTitle: `Changelog — ${siteConfig.siteName}`,
+      ogDescription: 'Release history and changelog for MSRBot.io.',
+      ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+      ogImageAlt: siteConfig.ogImageAlt,
+      assetPrefix: '../',
+      publisherUrls: siteConfig.publisherUrls,
+      preambleHtml: parsed.preambleHtml,
+      releases: parsed.releases,
+    });
+    await fs.mkdir(path.join(BUILD_PATH, 'changelog'), { recursive: true });
+    await writeFileSafe(path.join(BUILD_PATH, 'changelog', 'index.html'), clHtml, 'utf8');
+    console.log('[build] Wrote build/changelog/index.html');
+  } catch (clErr) {
+    console.warn('[build] Changelog page emit failed:', clErr && clErr.message ? clErr.message : clErr);
+  }
+
   // --- Emit robots.txt and sitemap.xml
   const robotsTxt = [
     '# MSRBot.io robots.txt',
@@ -3131,6 +3455,7 @@ void (async () => {
     <OutputEncoding>UTF-8</OutputEncoding>
     <Image height="16" width="16" type="image/png">https://msrbot.io/static/icons/favicon-32.png</Image>
     <Url type="text/html" template="${new URL('/docs/', siteConfig.canonicalBase).href}?q={searchTerms}"/>
+    <Url type="application/json" template="${new URL('/api/', siteConfig.canonicalBase).href}?q={searchTerms}"/>
   </OpenSearchDescription>
   `;
   await writeFileSafe(path.join(BUILD_PATH, 'opensearch.xml'), openSearchXml, 'utf8');

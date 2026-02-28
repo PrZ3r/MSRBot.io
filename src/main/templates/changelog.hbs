@@ -1,0 +1,52 @@
+{{> header}}
+<!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <div class="row justify-content-md-center">
+    <div class="col-12 col-xl-10">
+      <header class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div>
+          <h1 class="h4 mb-1"><i class="bi bi-journal-text me-1"></i> Changelog</h1>
+          <p class="text-muted small mb-0">Release history for MSRBot.io</p>
+        </div>
+        <a class="btn btn-sm btn-outline-secondary" href="https://github.com/PrZ3r/MSRBot.io/blob/main/CHANGELOG.md" target="_blank" rel="noopener">
+          <i class="bi bi-github me-1"></i>View on GitHub
+        </a>
+      </header>
+
+      {{#if preambleHtml}}
+      <div class="text-muted small mb-3">
+        {{{preambleHtml}}}
+      </div>
+      {{/if}}
+
+      {{#each releases}}
+      <div class="card mb-3" id="{{version}}">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>
+            {{#if isUnreleased}}
+              <i class="bi bi-clock-history me-1"></i>
+            {{else}}
+              <i class="bi bi-tag me-1"></i>
+            {{/if}}
+            {{{titleHtml}}}
+          </span>
+          {{#if isUnreleased}}
+            <span class="badge text-bg-warning">Unreleased</span>
+          {{else}}
+            {{#if date}}
+              <span class="badge text-bg-secondary">{{date}}</span>
+            {{/if}}
+          {{/if}}
+        </div>
+        <div class="card-body small">
+          {{{bodyHtml}}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+{{> footer}}
