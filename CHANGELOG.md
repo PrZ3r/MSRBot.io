@@ -1,6 +1,6 @@
 # Change Log
 
-> See [docs/buildlog.md](https://github.com/PrZ3r/MSRBot.io/docs/buildlog.md) for details of [v1.0.0](https://github.com/PrZ3r/MSRBot.io/releases/tag/v1.0.0) released on Nov 26, 2025.
+> See [docs/buildlog.md](https://github.com/PrZ3r/MSRBot.io/blob/main/docs/buildlog.md) for details of [v1.0.0](https://github.com/PrZ3r/MSRBot.io/releases/tag/v1.0.0) released on Nov 26, 2025.
 
 All notable changes to this project will be documented in this file.
 
