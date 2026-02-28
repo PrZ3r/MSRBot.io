@@ -49,8 +49,8 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
   <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
 
-  <link rel="alternate" type="application/json" href="/api/doc/ATSC.AC3.A52.2015.json">
-  <link rel="describedby" type="application/schema+json" href="/api/schemas/documents.schema.json">
+  <link rel="alternate" type="application/json" href="../../api/doc/ATSC.AC3.A52.2015.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
   <title>MSRBot.io | ATSC A/52:2015</title>
 
   <!-- Scripts -->
@@ -561,7 +561,7 @@
           <p class="mb-0 small">
             Full registry record with provenance metadata.
             Open directly:
-            <a href="/api/doc/ATSC.AC3.A52.2015.json" target="_blank" rel="noopener">/api/doc/ATSC.AC3.A52.2015.json</a>
+            <a href="../../api/doc/ATSC.AC3.A52.2015.json" target="_blank" rel="noopener">/api/doc/ATSC.AC3.A52.2015.json</a>
           </p>
           <pre
             id="source-data-json"
@@ -595,7 +595,8 @@
 
           const docId = btn.getAttribute('data-docid') || '';
           const encoded = encodeURIComponent(docId);
-          const url = '/api/doc/' + encoded + '.json';
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
 
           box.textContent = 'Loading…';
           try {
@@ -746,7 +747,7 @@
         <div class="footer-copyright col-12 col-lg-6 text-start">
           <small class="text-muted">
             <p class="mb-2">
-              <img src="../../static/MSRBot-PrZ3-blue.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
               <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
               Copyright © 2025-26
               <a href="https://github.com/PrZ3r/" target="_blank" rel="noopener">PrZ3</a>.
@@ -781,8 +782,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>fc4a531bf476b84fd9118ff5672870f68b04f5a2</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Sat Feb 28 2026 03:01:41 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>3a00e1e74a76738522478d97fe5ed45b77a803b3</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Sat Feb 28 2026 03:38:33 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>
