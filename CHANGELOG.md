@@ -4,8 +4,7 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased] - yyyy-mm-dd
  
@@ -14,7 +13,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+
+## [v1.4.0] - 2026-02-28
+
+### Added
+- **API Explorer page** at `/api/` — searchable, filterable document browser with URL parameter syncing, pagination, and an inline JSON viewer for inspecting full provenance records.
+- **Full-provenance JSON API** — static endpoints for machine consumption:
+  - `/api/documents.json` — full registry with all source fields and provenance metadata.
+  - `/api/doc/{docId}.json` — per-document JSON with full record.
+  - `/api/stats.json` — registry statistics and metadata (with `meta.repoUrl`, `meta.changelogUrl`).
+- **JSON Schema publishing** at `/api/schemas/` — existing schemas (`documents`, `groups`, `portals`, `projects`) are now served as static assets for consumer validation.
+- **API versioning** — all API JSON responses include `$schema` and `apiVersion` fields; initial API version is `1.0.0`.
+- **Machine-readable discovery** — added `<link rel="alternate" type="application/json">` and `<link rel="describedby" type="application/schema+json">` to the API Explorer page and all document detail pages.
+- **OpenSearch JSON template** — `opensearch.xml` now includes a JSON response URL (`/api/?q={searchTerms}`) alongside the existing HTML template.
+- **JSON-LD SearchAction** — structured data now includes search actions for both `/docs/` and `/api/` endpoints.
+- **Source Data (JSON) panel** on document detail pages — collapsible card showing the full registry record with a direct link to the per-document API endpoint.
+- **Internal Changelog page** at `/changelog/` — rendered from `CHANGELOG.md` as styled cards, replacing external GitHub blob links.
+- Added API Explorer and schema links to the Dev Tools & Resources popover and site footer.
+- Added API link on the homepage.
+
+### Changed
+- Renamed "Dev Tools" navigation label to "Dev Tools & Resources."
+- Updated README badges and Key Artifacts to reference the new API Explorer and internal changelog.
+- Updated sitemap to include `/api/` and `/changelog/` entries.
+
+### Fixed
 - Fixed suites/collections page document rendering when publisher labels differ by composite forms (for example, `ISO/IEC` docs under `ISO` collections); collection matching now normalizes publisher aliases/composites before filtering.
+- Fixed JSON-LD `SearchAction` target URLs missing path separator after `canonicalBase`.
 
 ## [v1.3.0] - 2026-02-26
  

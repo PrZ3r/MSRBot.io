@@ -39,7 +39,7 @@ Changes to these files must come from running the proper workflows or scripts, n
 
 ## Schema Compliance
 If you modify metadata or structure, validate against the appropriate schema:
-- such as `src/main/schemas/document.schema.json`
+- such as `src/main/schemas/documents.schema.json`
 
 Each field must include correct `$meta` provenance tracking where applicable:
 - `source`
@@ -72,6 +72,6 @@ All automation workflows (Extract, MSI, MRI, MSR, URL Validate) run on:
 Only automation workflows should modify report files — human PRs should focus on logic, schema, or documentation changes.
 
 ## Need Help?
-If you’re unsure where a change belongs, open a [discussion or issue](https://github.com/SteveLLamb/mediastandards-registry/issues) before submitting a PR.
+If you’re unsure where a change belongs, open a [discussion or issue](https://github.com/PrZ3r/MSRBot.io/issues) before submitting a PR.
 
 Thanks for helping keep the registry consistent, accurate, and automated!

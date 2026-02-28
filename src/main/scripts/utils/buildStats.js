@@ -79,6 +79,7 @@ const docsByType = documents.reduce((acc, d) => {
 
 // Compose stats object
 const stats = {
+  apiVersion: '1.0.0',
   generatedAt: new Date().toISOString(),
 
   // New structured top-level bucket to allow future siblings (e.g., "namespaces", "references", etc.)
@@ -95,6 +96,12 @@ const stats = {
   // Suite-level stats
   suites: {
     total: suiteTotal
+  },
+
+  // Repository / API metadata (for API viewers and badges)
+  meta: {
+    repoUrl: 'https://github.com/PrZ3r/MSRBot.io',
+    changelogUrl: 'https://msrbot.io/changelog/'
   }
 };
 

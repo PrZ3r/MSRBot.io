@@ -76,7 +76,7 @@ _Builds the front-end site from data and publishes to GitHub Pages._
 - [`src/main/reports/masterSuiteIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterSuiteIndex.json)  
 - [`src/main/reports/masterReferenceIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterReferenceIndex.json)
 
-**Build Output:** [mediastandardsregistry.org](https://mediastandardsregistry.org/)
+**Build Output:** [msrbot.io](https://msrbot.io/)
 
 > **Trigger:** completion of Build MRI
 
