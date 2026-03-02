@@ -43,12 +43,21 @@ jobs:
           set -e
           git config user.name "PrZ3 Unit"
           git config user.email "prz3-unit[bot]@users.noreply.github.com"
-          if ! git diff --cached --quiet; then
-            git commit -m "Cleanup preview for PR #${{ github.event.number }}"
-            git push origin gh-pages
-          else
+          if git diff --cached --quiet; then
             echo "Nothing to commit."
+            exit 0
           fi
+          git commit -m "Cleanup preview for PR #${{ github.event.number }}"
+          for attempt in 1 2 3; do
+            if git push origin gh-pages; then
+              echo "✅ Cleanup pushed (attempt ${attempt})"
+              exit 0
+            fi
+            echo "⚠️ Push failed (attempt ${attempt}/3), rebasing on latest gh-pages…"
+            git pull --rebase origin gh-pages
+          done
+          echo "::error::Failed to push cleanup after 3 attempts"
+          exit 1
 
       - name: Update PR comment to mark preview removed
         uses: marocchino/sticky-pull-request-comment@v2

@@ -64,23 +64,19 @@ jobs:
           node src/main/scripts/utils/buildStats.js
           cp tools/apiViewer.html build/api/viewer.html
 
-      - name: Checkout gh-pages (for selective cleanup)
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: ghp
-          token: ${{ steps.app-token.outputs.token }}
-
-      - name: Clean gh-pages except /pr, CNAME, and .nojekyll
-        working-directory: ghp
+      - name: Deploy to gh-pages (cleanup + publish, atomic)
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
-          echo "Preparing selective cleanup in $(pwd)"
-          shopt -s dotglob
-          # Safety checks
-          test -d .git || (echo "Not a git repo; aborting" && exit 1)
+          REPO_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
 
-          # Remove everything except keepers
+          git clone --single-branch --branch gh-pages --depth 1 "$REPO_URL" _ghp
+          cd _ghp
+          git config user.name "PrZ3 Unit"
+          git config user.email "prz3-unit[bot]@users.noreply.github.com"
+
+          shopt -s dotglob
           for entry in * .[^.]*; do
             case "$entry" in
               .|..|.git|.gitignore|.gitattributes|.github) continue ;;
@@ -89,27 +85,25 @@ jobs:
             esac
           done
 
+          cp -r "$GITHUB_WORKSPACE/build/." .
+          echo "msrbot.io" > CNAME
+          touch .nojekyll
+
           git add -A
           if git diff --cached --quiet; then
-            echo "No changes to commit on gh-pages (cleanup not needed)."
-          else
-            git config user.name "PrZ3 Unit"
-            git config user.email "prz3-unit[bot]@users.noreply.github.com"
-            git commit -m "chore: selective cleanup on gh-pages (preserve /pr, CNAME, .nojekyll)"
-            git push origin HEAD:gh-pages
-            echo "✅ Selective cleanup committed."
+            echo "No changes to deploy."
+            exit 0
           fi
 
-      - name: Publish to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ steps.app-token.outputs.token }}
-          publish_dir: ./build
-          keep_files: true
-          user_name: 'PrZ3 Unit'
-          user_email: 'prz3-unit[bot]@users.noreply.github.com'
-          commit_message: "deploy: ${{ github.sha }} (PrZ3 Unit)"
-          cname: msrbot.io
-          # optional hardening:
-          # publish_branch: gh-pages
-          # force_orphan: true
+          git commit -m "deploy: ${{ github.sha }} (PrZ3 Unit)"
+
+          for attempt in 1 2 3; do
+            if git push origin gh-pages; then
+              echo "✅ Site deployed (attempt ${attempt})"
+              exit 0
+            fi
+            echo "⚠️ Push failed (attempt ${attempt}/3), rebasing on latest gh-pages…"
+            git pull --rebase origin gh-pages
+          done
+          echo "::error::Failed to deploy site after 3 attempts"
+          exit 1

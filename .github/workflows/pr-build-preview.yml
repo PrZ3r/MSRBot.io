@@ -81,15 +81,40 @@ jobs:
           fi
 
       - name: Deploy PR preview to gh-pages/pr/<PR#>
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ steps.app-token.outputs.token }}
-          publish_dir: ./build
-          destination_dir: pr/${{ github.event.pull_request.number }}
-          keep_files: true
-          user_name: 'PrZ3 Unit'
-          user_email: 'prz3-unit[bot]@users.noreply.github.com'
-          commit_message: "deploy preview for PR #${{ github.event.pull_request.number }} (PrZ3 Unit)"
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR_NUM: ${{ github.event.pull_request.number }}
+        run: |
+          set -e
+          REPO_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+
+          git clone --single-branch --branch gh-pages --depth 1 "$REPO_URL" _ghp
+          cd _ghp
+          git config user.name "PrZ3 Unit"
+          git config user.email "prz3-unit[bot]@users.noreply.github.com"
+
+          rm -rf "pr/${PR_NUM}"
+          mkdir -p "pr/${PR_NUM}"
+          cp -r "$GITHUB_WORKSPACE/build/." "pr/${PR_NUM}/"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to deploy."
+            exit 0
+          fi
+
+          git commit -m "deploy preview for PR #${PR_NUM} (PrZ3 Unit)"
+
+          for attempt in 1 2 3; do
+            if git push origin gh-pages; then
+              echo "✅ Preview deployed (attempt ${attempt})"
+              exit 0
+            fi
+            echo "⚠️ Push failed (attempt ${attempt}/3), rebasing on latest gh-pages…"
+            git pull --rebase origin gh-pages
+          done
+          echo "::error::Failed to deploy preview after 3 attempts"
+          exit 1
 
       - name: Comment preview URL on PR
         uses: marocchino/sticky-pull-request-comment@v2
