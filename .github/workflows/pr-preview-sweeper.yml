@@ -41,9 +41,18 @@ jobs:
           done
           git config user.name "PrZ3 Unit"
           git config user.email "prz3-unit[bot]@users.noreply.github.com"
-          if ! git diff --cached --quiet; then
-            git commit -m "Sweep: remove previews for closed PRs"
-            git push origin gh-pages
-          else
+          if git diff --cached --quiet; then
             echo "Nothing to sweep."
+            exit 0
           fi
+          git commit -m "Sweep: remove previews for closed PRs"
+          for attempt in 1 2 3; do
+            if git push origin gh-pages; then
+              echo "✅ Sweep pushed (attempt ${attempt})"
+              exit 0
+            fi
+            echo "⚠️ Push failed (attempt ${attempt}/3), rebasing on latest gh-pages…"
+            git pull --rebase origin gh-pages
+          done
+          echo "::error::Failed to push sweep after 3 attempts"
+          exit 1
