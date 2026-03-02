@@ -400,6 +400,9 @@
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Changed</h6>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+<ul class="mb-1">
+<li><strong>gh-pages push contention</strong> (#910) — replaced <code>peaceiris/actions-gh-pages</code> with manual git deploy in PR Build Preview and main site build workflows; added push-with-retry (pull --rebase, up to 3 attempts) to all four workflows that push to <code>gh-pages</code> (site build, PR preview, PR cleanup, PR sweeper). The site build's two-step cleanup-then-publish is now a single atomic commit.</li>
+</ul>
         </div>
       </div>
       <div class="card mb-3" id="v1.4.0">
@@ -763,8 +766,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8cb5c8491c20b501f81bd6f3f89fe823e33abeaf</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-02T20:53:46.392Z</code>
+              <span class="fw-semibold">Site version:</span> <code>56aa2480fe47de79add9a35e4d55cc0294ca02ea</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-02T21:36:31.613Z</code>
             </p>
           </small>
         </div>
