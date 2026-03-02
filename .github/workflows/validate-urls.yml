@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: write
   pull-requests: write
   issues: write
@@ -42,8 +43,47 @@ jobs:
             const prMatch = marker && /^skip-site-build-pr-(\d+)$/.test(marker.name) ? marker.name.match(/^skip-site-build-pr-(\d+)$/)[1] : '';
             const prNum = prMatch || '';
             core.info(`skip-site-build artifact present: ${!!marker}${prNum ? ` (PR #${prNum})` : ''}`);
-            core.setOutput('skip', marker ? 'true' : 'false');
-            core.setOutput('pr', prNum);
+
+            if (marker) {
+              core.setOutput('skip', 'true');
+              core.setOutput('pr', prNum);
+              core.setOutput('skip_reason', 'upstream-pr-open');
+              core.setOutput('last_run_url', '');
+              return;
+            }
+
+            // Daily throttle: for workflow_run-triggered executions, skip if a successful
+            // Validate URL run already completed within the last 24 hours.
+            const now = Date.now();
+            const oneDayMs = 24 * 60 * 60 * 1000;
+            const recentRuns = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
+              owner,
+              repo,
+              event: 'workflow_run',
+              status: 'completed',
+              per_page: 100
+            });
+
+            const recentSuccess = recentRuns.find(r =>
+              r.id !== context.runId &&
+              r.name === context.workflow &&
+              r.conclusion === 'success' &&
+              (now - new Date(r.created_at).getTime()) < oneDayMs
+            );
+
+            if (recentSuccess) {
+              core.info(`Daily throttle hit. Recent successful run: ${recentSuccess.html_url}`);
+              core.setOutput('skip', 'true');
+              core.setOutput('pr', '');
+              core.setOutput('skip_reason', 'daily-throttle');
+              core.setOutput('last_run_url', recentSuccess.html_url || '');
+              return;
+            }
+
+            core.setOutput('skip', 'false');
+            core.setOutput('pr', '');
+            core.setOutput('skip_reason', '');
+            core.setOutput('last_run_url', '');
 
       - name: Mint PrZ3 Unit token
         if: steps.guard.outputs.skip != 'true'
@@ -56,7 +96,12 @@ jobs:
       - name: Skipping Validate URLs (upstream PR open)
         if: steps.guard.outputs.skip == 'true'
         run: |
-          echo "⏭️  Skipping URL validate because upstream workflow opened PR #${{ steps.guard.outputs.pr }}."
+          if [ "${{ steps.guard.outputs.skip_reason }}" = "daily-throttle" ]; then
+            echo "⏭️  Skipping URL validate due to daily throttle (already succeeded within last 24h)."
+            echo "Last successful run: ${{ steps.guard.outputs.last_run_url }}"
+          else
+            echo "⏭️  Skipping URL validate because upstream workflow opened PR #${{ steps.guard.outputs.pr }}."
+          fi
 
 
       - name: Checkout repo
