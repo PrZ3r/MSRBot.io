@@ -20,6 +20,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `build-index`: build search index artifacts.
 - `build-stats`: build API/site stats artifact.
 - `build`: build full static site output.
+- `local-server`: start a local HTTP server to preview the built site.
 - `audit`: generate document audit report.
 
 ## NPM Scripts
@@ -30,6 +31,10 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Runs: `node src/main/scripts/build.js`
   - Action: Builds full static site output and page artifacts under `build/`.
   - Key outputs: HTML pages, data payloads, static assets, API JSON endpoints (`/api/`), JSON schemas (`/api/schemas/`), changelog page (`/changelog/`).
+
+- `npm run local-server`
+  - Runs: `npx http-server build --no-cache`
+  - Action: Starts a local HTTP server on `http://127.0.0.1:8080/` to preview the built site in a browser.
 
 - `npm run build-index`
   - Runs: `node src/main/scripts/build.search-index.js`

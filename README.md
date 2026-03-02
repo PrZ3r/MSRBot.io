@@ -145,6 +145,7 @@ npm run docs-fix
 npm run keywords-sync
 npm run keywords-sync -- --write
 npm run build
+npm run local-server
 ```
 Quick reference:
 - `extract` / `extract-smpte`: run SMPTE document extraction.
@@ -162,6 +163,7 @@ Quick reference:
 - `build-index`: build search index artifacts.
 - `build-stats`: build API/site stats artifact.
 - `build`: build full static site output.
+- `local-server`: start local HTTP server to preview the built site.
 - `audit`: generate document audit report.
 
 For the full command and flag reference (including `build-mri`, `build-msi`, `audit`, `validate-url`, and runtime env vars), see [`docs/commands.md`](docs/commands.md).

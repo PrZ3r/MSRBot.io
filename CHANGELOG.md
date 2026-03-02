@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [Unreleased] - yyyy-mm-dd
  
 ### Added
+- Added `npm run local-server` shortcut to start a local HTTP server for previewing the built site.
 
 ### Changed
 

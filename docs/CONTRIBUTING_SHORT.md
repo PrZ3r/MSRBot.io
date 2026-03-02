@@ -21,7 +21,7 @@ npm run build-msi
 npm run build-mri
 npm run validate-url
 npm run build
-npx http-server build --no-cache
+npm run local-server
 ```
 
 Using a browser, open http://127.0.0.1:8080/ after starting the http-server to inspect the local built pages.
