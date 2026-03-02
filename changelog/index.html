@@ -402,6 +402,7 @@
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
 <ul class="mb-1">
 <li><strong>gh-pages push contention</strong> (#910) — replaced <code>peaceiris/actions-gh-pages</code> with manual git deploy in PR Build Preview and main site build workflows; added push-with-retry (pull --rebase, up to 3 attempts) to all four workflows that push to <code>gh-pages</code> (site build, PR preview, PR cleanup, PR sweeper). The site build's two-step cleanup-then-publish is now a single atomic commit.</li>
+<li><strong>URL validation over-triggering</strong> — added a daily throttle for workflow-chain URL validation so <code>Validate Document URLs</code> skips workflow-run invocations if a successful URL validation already completed within the previous 24 hours.</li>
 </ul>
         </div>
       </div>
@@ -766,8 +767,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>86a07f632c6c0025137a6d2c39b326e416a319b7</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-02T23:11:40.021Z</code>
+              <span class="fw-semibold">Site version:</span> <code>4087cd6df7d09c70862695c963e49a84eec20b6b</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-02T23:23:13.487Z</code>
             </p>
           </small>
         </div>
