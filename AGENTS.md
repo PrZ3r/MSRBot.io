@@ -12,6 +12,14 @@ Use context-appropriate branch prefixes:
 
 Choose the prefix that best matches the work being done.
 
+## Git safety preflight
+Before any `git commit` or `git push`:
+
+- Run `git branch --show-current` and `git status --short`.
+- If the current branch is `main` or `master`, stop and ask for explicit user confirmation before proceeding.
+- Default to creating/switching to a topic branch (`chore/`, `fix/`, `feature/`, etc.) before making commits.
+- Do not push directly to protected/default branches unless the user explicitly asks for it.
+
 ## Issue and PR tags
 When creating an issue or pull request:
 
