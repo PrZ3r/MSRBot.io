@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="Release history and changelog for MSRBot.io.">
+  <link rel="canonical" href="https://msrbot.io/changelog/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="Changelog — MSRBot.io">
+  <meta property="og:description" content="Release history and changelog for MSRBot.io.">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/changelog/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../css/msrbot.css">
+
+  <title>MSRBot.io | Changelog</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../";
+  </script>
+  <script src="../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Changelog - MSRBot.io",
+    "url": "https://msrbot.io/changelog/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../"><img src="../static/MSRBot-PrZ3-blue.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../api/documents.json" target="_blank" rel="noopener">
+            documents.json
+          </a>
+          &mdash; full registry with provenance
+        </li>
+        <li>
+          <a href="../api/stats.json" target="_blank" rel="noopener">
+            stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents
+        </li>
+      </ul>
+
+      <strong>Registry JSON</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../docs/_data/documents.json" target="_blank" rel="noopener">
+            documents.json
+          </a>
+          &mdash; normalized document registry
+        </li>
+        <li>
+          <a href="../groups/_data/groups.json" target="_blank" rel="noopener">
+            groups.json
+          </a>
+          &mdash; normalized groups registry
+        </li>
+        <li>
+          <a href="../projects/_data/projects.json" target="_blank" rel="noopener">
+            projects.json
+          </a>
+          &mdash; project registry with lookups
+        </li>
+      </ul>
+
+      <strong>CSV exports</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../_data/documents.csv" target="_blank" rel="noopener">
+            documents.csv
+          </a>
+          &mdash; flat document CSV export
+        </li>
+        <li>
+          <a href="../_data/groups.csv" target="_blank" rel="noopener">
+            groups.csv
+          </a>
+          &mdash; flat groups CSV export
+        </li>
+        <li>
+          <a href="../_data/projects.csv" target="_blank" rel="noopener">
+            projects.csv
+          </a>
+          &mdash; flat projects CSV export
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <div class="row justify-content-md-center">
+    <div class="col-12 col-xl-10">
+      <header class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div>
+          <h1 class="h4 mb-1"><i class="bi bi-journal-text me-1"></i> Changelog</h1>
+          <p class="text-muted small mb-0">Release history for MSRBot.io</p>
+        </div>
+        <a class="btn btn-sm btn-outline-secondary" href="https://github.com/PrZ3r/MSRBot.io/blob/main/CHANGELOG.md" target="_blank" rel="noopener">
+          <i class="bi bi-github me-1"></i>View on GitHub
+        </a>
+      </header>
+
+      <div class="text-muted small mb-3">
+        <blockquote class="border-start border-3 ps-3 text-muted small">
+<p>See <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/buildlog.md" target="_blank" rel="noopener">docs/buildlog.md</a> for details of <a href="https://github.com/PrZ3r/MSRBot.io/releases/tag/v1.0.0" target="_blank" rel="noopener">v1.0.0</a> released on Nov 26, 2025.</p>
+</blockquote>
+<p>All notable changes to this project will be documented in this file.</p>
+<p>The format is based on <a href="https://keepachangelog.com/en/1.1.0/" target="_blank" rel="noopener">Keep a Changelog</a>, and this project adheres to <a href="https://semver.org/spec/v2.0.0.html" target="_blank" rel="noopener">Semantic Versioning</a>.</p>
+      </div>
+
+      <div class="card mb-3" id="Unreleased">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>
+              <i class="bi bi-clock-history me-1"></i>
+            [Unreleased] - yyyy-mm-dd
+          </span>
+            <span class="badge text-bg-warning">Unreleased</span>
+        </div>
+        <div class="card-body small">
+          <h6 class="fw-semibold mt-3 mb-1">Added</h6>
+<ul class="mb-1">
+<li>Added <code>npm run local-server</code> shortcut to start a local HTTP server for previewing the built site.</li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+<ul class="mb-1">
+<li><strong>gh-pages push contention</strong> (#910) — replaced <code>peaceiris/actions-gh-pages</code> with manual git deploy in PR Build Preview and main site build workflows; added push-with-retry (pull --rebase, up to 3 attempts) to all four workflows that push to <code>gh-pages</code> (site build, PR preview, PR cleanup, PR sweeper). The site build's two-step cleanup-then-publish is now a single atomic commit.</li>
+<li><strong>URL validation over-triggering</strong> — added a daily throttle for workflow-chain URL validation so <code>Validate Document URLs</code> skips workflow-run invocations if a successful URL validation already completed within the previous 24 hours.</li>
+</ul>
+        </div>
+      </div>
+      <div class="card mb-3" id="v1.4.0">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>
+              <i class="bi bi-tag me-1"></i>
+            [v1.4.0] - 2026-02-28
+          </span>
+              <span class="badge text-bg-secondary">2026-02-28</span>
+        </div>
+        <div class="card-body small">
+          <h6 class="fw-semibold mt-3 mb-1">Added</h6>
+<ul class="mb-1">
+<li><strong>API Explorer page</strong> at <code>/api/</code> — searchable, filterable document browser with URL parameter syncing, pagination, and an inline JSON viewer for inspecting full provenance records.</li>
+<li><strong>Full-provenance JSON API</strong> — static endpoints for machine consumption:</li>
+<ul class="mb-1">
+<li><code>/api/documents.json</code> — full registry with all source fields and provenance metadata.</li>
+<li><code>/api/doc/{docId}.json</code> — per-document JSON with full record.</li>
+<li><code>/api/stats.json</code> — registry statistics and metadata (with <code>meta.repoUrl</code>, <code>meta.changelogUrl</code>).</li>
+</ul>
+<li><strong>JSON Schema publishing</strong> at <code>/api/schemas/</code> — existing schemas (<code>documents</code>, <code>groups</code>, <code>portals</code>, <code>projects</code>) are now served as static assets for consumer validation.</li>
+<li><strong>API versioning</strong> — all API JSON responses include <code>$schema</code> and <code>apiVersion</code> fields; initial API version is <code>1.0.0</code>.</li>
+<li><strong>Machine-readable discovery</strong> — added <code>&lt;link rel="alternate" type="application/json"&gt;</code> and <code>&lt;link rel="describedby" type="application/schema+json"&gt;</code> to the API Explorer page and all document detail pages.</li>
+<li><strong>OpenSearch JSON template</strong> — <code>opensearch.xml</code> now includes a JSON response URL (<code>/api/?q={searchTerms}</code>) alongside the existing HTML template.</li>
+<li><strong>JSON-LD SearchAction</strong> — structured data now includes search actions for both <code>/docs/</code> and <code>/api/</code> endpoints.</li>
+<li><strong>Source Data (JSON) panel</strong> on document detail pages — collapsible card showing the full registry record with a direct link to the per-document API endpoint.</li>
+<li><strong>Internal Changelog page</strong> at <code>/changelog/</code> — rendered from <code>CHANGELOG.md</code> as styled cards, replacing external GitHub blob links.</li>
+<li>Added API Explorer and schema links to the Dev Tools &amp; Resources popover and site footer.</li>
+<li>Added API link on the homepage.</li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<ul class="mb-1">
+<li>Renamed "Dev Tools" navigation label to "Dev Tools &amp; Resources."</li>
+<li>Updated README badges and Key Artifacts to reference the new API Explorer and internal changelog.</li>
+<li>Updated sitemap to include <code>/api/</code> and <code>/changelog/</code> entries.</li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+<ul class="mb-1">
+<li>Fixed suites/collections page document rendering when publisher labels differ by composite forms (for example, <code>ISO/IEC</code> docs under <code>ISO</code> collections); collection matching now normalizes publisher aliases/composites before filtering.</li>
+<li>Fixed JSON-LD <code>SearchAction</code> target URLs missing path separator after <code>canonicalBase</code>.</li>
+</ul>
+        </div>
+      </div>
+      <div class="card mb-3" id="v1.3.0">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>
+              <i class="bi bi-tag me-1"></i>
+            [v1.3.0] - 2026-02-26
+          </span>
+              <span class="badge text-bg-secondary">2026-02-26</span>
+        </div>
+        <div class="card-body small">
+          <h6 class="fw-semibold mt-3 mb-1">Added</h6>
+<ul class="mb-1">
+<li>Providerized extraction architecture:</li>
+<ul class="mb-1">
+<li>Added SMPTE discovery provider module at <code>src/main/scripts/providers/smpte.discovery.js</code>.</li>
+<li>Added SMPTE parser provider module at <code>src/main/scripts/providers/smpte.parse.js</code>.</li>
+<li>Added IETF discovery provider module at <code>src/main/scripts/providers/ietf.discovery.js</code>.</li>
+<li>Added IETF parser provider module at <code>src/main/scripts/providers/ietf.parse.js</code>.</li>
+<li>Added provider-specific metadata configs:</li>
+<ul class="mb-1">
+<li><code>src/main/scripts/providers/smpte.meta.js</code></li>
+<li><code>src/main/scripts/providers/ietf.meta.js</code></li>
+</ul>
+<li>Added provider registry at <code>src/main/scripts/providers/index.js</code>.</li>
+</ul>
+<li>Added optional document schema fields for citation structure:</li>
+<ul class="mb-1">
+<li><code>volume</code>, <code>number</code>, <code>pages</code>, <code>chapter</code>, <code>edition</code>.</li>
+</ul>
+<li>Added explicit npm alias <code>extract:smpte</code> for provider-targeted extraction.</li>
+<li>Added dedicated IETF extraction workflow: <code>.github/workflows/extract-docs-ietf.yml</code> (separate branch/PR path from SMPTE extraction).</li>
+<li>Added keyword governance utilities and config source:</li>
+<ul class="mb-1">
+<li>Added <code>controlledKeywords</code> list in <code>src/main/config/site.json</code>.</li>
+<li>Added <code>keywords-sync</code> utility at <code>src/main/scripts/utils/keywords.sync.js</code> (<code>npm run keywords-sync</code>, dry-run by default, <code>--write</code> to apply).</li>
+</ul>
+<li>Added centralized command/flags documentation at <code>docs/commands.md</code>.</li>
+<li>Added and expanded <code>AGENTS.md</code> guidance for branch naming, issue/PR label usage, PR hygiene, validation expectations, repo guardrails, and changelog/documentation/provenance expectations.</li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<ul class="mb-1">
+<li>Refactored <code>extractDocs.js</code> to be provider-agnostic orchestration (merge, metadata, MRI, and logging), with provider-specific discovery/parsing moved out of main script.</li>
+<li>Extraction provider selection is now explicit via <code>--provider</code>; implicit/default provider execution was removed.</li>
+<li>Renamed SMPTE extraction workflow to <code>extract-docs-smpte.yml</code> (<code>Extract Documents - SMPTE</code>) and aligned workflow references/triggers accordingly.</li>
+<li>Updated docs and badges to reference the renamed SMPTE extraction workflow.</li>
+<li>Updated validation architecture for keywords:</li>
+<ul class="mb-1">
+<li>Removed hard keyword enum enforcement from <code>documents.schema.json</code>.</li>
+<li>Moved keyword conformance checks to <code>documents.validate.js</code> against <code>src/main/config/site.json#controlledKeywords</code>.</li>
+<li>Added keyword validation mode controls for <code>npm run validate</code>:</li>
+<ul class="mb-1">
+<li>default strict mode (<code>--error</code>)</li>
+<li>optional warn mode (<code>--warn</code>) for unknown keyword drift checks.</li>
+</ul>
+<li>Extraction workflows now run keyword validation in warn mode; build/local validation remains strict by default.</li>
+</ul>
+<li>Expanded IETF extraction behavior:</li>
+<ul class="mb-1">
+<li>RFC extraction now uses RFC Index XML (<code>rfc-index.xml</code>) as first-pass canonical metadata for seeded RFCs, with per-document sources used as enrichment/fallback.</li>
+<li>RFC field source precedence is now explicit; status relations (<code>obsoletes/obsoleted-by/updates/updated-by</code>) are sourced from RFC Index XML + RFC info <code>&lt;dl&gt;</code> merge, eliminating loose relation text fallback.</li>
+<li>RFC author precedence now prefers Datatracker <code>doc.json</code> authors (richer names) over RFC Index XML, with HTML/info fallbacks.</li>
+<li>Added RFC Index XML/XSD mapping contract and required-field coverage warnings in IETF parser for schema-backed extraction hygiene.</li>
+<li>RFC relation fields now derive from RFC info page relation <code>&lt;dl&gt;</code> parsing (no broad relation text fallback injection).</li>
+<li>Non-RFC extraction now enriches from archive XML (<code>/archive/id/*.xml</code>) for front-matter fields and keywords.</li>
+<li>Non-RFC keywords are normalized to project keyword style (Title Case with preserved acronyms/common forms such as <code>JSON</code>, <code>URN</code>, <code>B-Chain</code>, <code>DCinema</code>, <code>DCP*</code>, <code>SHA-1</code>).</li>
+<li>RFC reference parsing now uses RFC HTML section-aware extraction with strict <code>Normative</code> vs <code>Informative/Bibliographic</code> bucketing and overlap guards.</li>
+<li>RFC fallback reference slicing is now bounded to reference sections, next section heading, and page-break markers to avoid body/header/footer soak-through.</li>
+<li>IETF reference sightings now write to MRI for both RFC HTML and non-RFC XML paths using final document IDs.</li>
+</ul>
+<li>Expanded shared reference normalization rules in <code>src/main/lib/referencing.js</code>:</li>
+<ul class="mb-1">
+<li>RFC IDs normalize leading zeros (e.g., <code>RFC0821</code> → <code>RFC821</code>).</li>
+<li>W3C <code>REC-*</code> URL forms normalize to canonical W3C shortname IDs (no <code>REC-</code> prefix in docId).</li>
+<li>Added href-first resolvers for Unicode and Mozilla Bugzilla references.</li>
+<li>Added improved ISO hyphenated designator parsing (e.g., <code>ISO-8859-1:1987</code>).</li>
+</ul>
+<li>Updated project docs with provider extraction and keyword-governance guidance in <code>README.md</code> and <code>CONTRIBUTING.md</code>.</li>
+<li>Updated docs to link <code>docs/commands.md</code> from <code>README.md</code> and <code>CONTRIBUTING.md</code>.</li>
+<li>Enhanced Portal document listings with additional context fields:</li>
+<ul class="mb-1">
+<li>Display of <code>docType</code> and <code>publicationDate</code> in document tables.</li>
+<li>New <strong>Doc Type</strong> filter, aligned with existing Publisher filtering.</li>
+</ul>
+<li>Extended Portal sorting controls to support:</li>
+<ul class="mb-1">
+<li>Sorting by <strong>Type</strong> and <strong>Published date</strong>.</li>
+<li>Ascending / descending sort direction for all supported sort keys, consistent with Suites and Collections.</li>
+</ul>
+<li>Updated RefTree unresolved-document UX:</li>
+<ul class="mb-1">
+<li>Unresolved nodes remain visible and navigable in-tree, but now display muted/italic labels with a <code>NOT IN REGISTRY</code> badge.</li>
+<li>In the <strong>Current Tree Root</strong> card, unresolved docs no longer click through to <code>/docs/:docId/</code>; in-registry roots remain clickable.</li>
+</ul>
+<li>Improved docs page reference-list readability:</li>
+<ul class="mb-1">
+<li>Added explicit spacing between normative/bibliographic reference labels and their status tokens (e.g., <code>[Active]</code>, <code>[SUITE]</code>).</li>
+</ul>
+<li>Updated <code>docs/CONTRIBUTING_SHORT.md</code> to align branch prefix guidance and add an explicit Unreleased changelog checklist item for workflow/policy/behavior changes.</li>
+<li>Simplified PR preview check behavior by removing custom check-run/status publication from preview workflow and relying on the single native workflow job check context.</li>
+<li>Added MSI→MRI chain guard in MRI workflow to skip MRI when MSI already opened a PR (artifact marker present), preventing duplicate chained data PRs.</li>
+<li>Hardened MRI missing-ref issue upsert behavior with no-op update skipping and per-run mutation budget (<code>MAX_MUTATIONS</code>), reducing secondary GitHub rate-limit failures.</li>
+<li>Stopped MSI/MRI metadata-only auto-commits to default branch; report timestamp/date-only churn is now ignored unless content-change PR criteria are met.</li>
+<li>Refined home page information architecture and responsive layout:</li>
+<ul class="mb-1">
+<li>Reduced card density, improved section hierarchy, and rebalanced content columns.</li>
+<li>Updated portal home rendering to a scalable list layout for growth.</li>
+</ul>
+<li>Refined footer layout/content hierarchy:</li>
+<ul class="mb-1">
+<li>Improved responsive alignment/spacing, constrained divider width to container, and added explicit developer/issue links.</li>
+<li>Standardized branding presentation with PrZ3/MSR marks and config-driven copyright year.</li>
+</ul>
+<li>Updated workflow trigger path:</li>
+<ul class="mb-1">
+<li>Site build (<code>Build MSRBot.io Site and Test</code>) now runs on <code>push</code> to <code>main</code>.</li>
+<li>URL validation now triggers from MRI completion (plus schedule/manual), not from site build completion.</li>
+<li>PR gate remains <code>PR Build Preview (MSRBot.io site)</code> on <code>pull_request</code>.</li>
+</ul>
+<li>Added focused documents-registry helper scripts:</li>
+<ul class="mb-1">
+<li><code>npm run docs-sort</code> to sort <code>src/main/data/documents.json</code> by <code>docId</code>.</li>
+<li><code>npm run docs-validate</code> as explicit docs validation alias.</li>
+<li><code>npm run docs-fix</code> to run sort + validation in one step for manual doc edits.</li>
+</ul>
+<li>Updated <code>docIdSort</code> behavior for low-noise editing:</li>
+<ul class="mb-1">
+<li>Removed legacy <code>.bak</code> sidecar creation.</li>
+<li>Preserved per-entry object formatting and reordered entries only.</li>
+<li>Aligned sort comparator with validator ordering (<code>toUpperCase()</code> lexical) to prevent sort/validate mismatch loops.</li>
+</ul>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+<ul class="mb-1">
+<li>Fixed OM remap path in extraction by correcting title variable scope usage, enabling OM ID remapping updates to apply correctly.</li>
+<li>Fixed README weekly schedule Markdown table separator to render correctly with all columns.</li>
+<li>Fixed doc citation “Copy (undated)” behavior on doc pages so undated snippet blocks copy correctly (no blank clipboard payload).</li>
+<li>Fixed undated citation snippet <code>&lt;cite id&gt;</code> generation to strip only terminal date suffixes for undated variants, while leaving dated variants unchanged.</li>
+</ul>
+        </div>
+      </div>
+      <div class="card mb-3" id="v1.2.0">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>
+              <i class="bi bi-tag me-1"></i>
+            [v1.2.0] - 2026-02-05
+          </span>
+              <span class="badge text-bg-secondary">2026-02-05</span>
+        </div>
+        <div class="card-body small">
+          <blockquote class="border-start border-3 ps-3 text-muted small">
+<p>Primary changes delivered via <a href="https://github.com/PrZ3r/MSRBot.io/pull/695" target="_blank" rel="noopener">https://github.com/PrZ3r/MSRBot.io/pull/695</a></p>
+</blockquote>
+<h6 class="fw-semibold mt-3 mb-1">Added</h6>
+<ul class="mb-1">
+<li>Automated extraction of <code>Scope</code> in HTML documents to map to <code>abstract</code>.</li>
+<li>Introduced <strong>Portals</strong>: curated, first-class landing pages that aggregate documents across suites, collections, publishers, and document types.</li>
+<ul class="mb-1">
+<li>First (3) portals: <code>/dcinema/</code>, <code>/imf/</code>, <code>/accessibility/</code></li>
+</ul>
+<li>Added a complete <strong>Portal build and schema pipeline</strong>, supporting:</li>
+<ul class="mb-1">
+<li>Keyword-based document matching.</li>
+<li>Explicit pinning and post-resolution filtering.</li>
+<li>Shared narrative/overview sections.</li>
+<li>Curated resource collections.</li>
+</ul>
+<li>Delivered a <strong>Suites-aligned Portal UX</strong>, including:</li>
+<ul class="mb-1">
+<li>Searchable document tables with abstracts.</li>
+<li>Expandable previews (shared behavior with Suites).</li>
+<li>Visual muting of withdrawn and superseded documents.</li>
+<li>Structured, card-based overview and resource sections.</li>
+</ul>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Portal Behavior &amp; UX Details</h6>
+<ul class="mb-1">
+<li>Portals render as dedicated pages with stable URLs (e.g. <code>/dcinema/</code>).</li>
+<li>Portal document listings support:</li>
+<ul class="mb-1">
+<li>Default sorting by <code>docLabel</code>.</li>
+<li>Search, publisher filtering, and sortable columns.</li>
+<li>Abstract previews with More/Less expansion.</li>
+</ul>
+<li>Portal overview sections support shared explanatory content using the same card patterns as Suites.</li>
+<li>Resource sections support:</li>
+<ul class="mb-1">
+<li>Grouping by category.</li>
+<li>Independent collapsible sections.</li>
+<li>Per-resource description expansion for long content.</li>
+</ul>
+<li>Portal navigation dynamically adapts based on available content (Overview / Docs / Resources).</li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<ul class="mb-1">
+<li>Backfilled (auto and manually) <code>abstract</code> fields for DC and IMF <code>collections</code></li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+<ul class="mb-1">
+<li>Fixed rendering of <code>abstract</code> paragraph breaks in <code>suites</code>. </li>
+</ul>
+        </div>
+      </div>
+      <div class="card mb-3" id="v1.1.0">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>
+              <i class="bi bi-tag me-1"></i>
+            [v1.1.0] - 2026-01-06
+          </span>
+              <span class="badge text-bg-secondary">2026-01-06</span>
+        </div>
+        <div class="card-body small">
+          <blockquote class="border-start border-3 ps-3 text-muted small">
+<p>Primary changes delivered via <a href="https://github.com/PrZ3r/MSRBot.io/pull/678" target="_blank" rel="noopener">https://github.com/PrZ3r/MSRBot.io/pull/678</a></p>
+</blockquote>
+<h6 class="fw-semibold mt-3 mb-1">Added</h6>
+<ul class="mb-1">
+<li>Introduced first-class <strong>Suites</strong> and <strong>Collections</strong> as distinct core concepts:</li>
+<ul class="mb-1">
+<li>Suites represent true multipart standards (shared lineage number).</li>
+<li>Collections represent related documents without formal parts.</li>
+<li>Suites and collections share UX but retain distinct semantics.</li>
+</ul>
+<li>Added full <strong>Suites / Collections build pipeline</strong>, emitting:</li>
+<ul class="mb-1">
+<li><code>build/suites/_data/suites.json</code> (mixed, with explicit <code>kind: suite | collection</code>).</li>
+<li>Dedicated pages at <code>/suites/:slug/</code> for both suites and collections.</li>
+<li>Index page supporting mixed display with filtering by kind.</li>
+</ul>
+<li>Implemented <strong>docSuiteTitle</strong> extraction and propagation:</li>
+<ul class="mb-1">
+<li>HTML: derived directly from <code>pubSuiteTitle</code>.</li>
+<li>PDF: parsed as text before first em-dash.</li>
+<li>Integrated across search index, citations, RefTree roots, suite cards, and doc detail pages.</li>
+</ul>
+<li>Enabled full <strong>ALLPARTS resolution</strong>:</li>
+<ul class="mb-1">
+<li>Supports ISO and SMPTE ALLPARTS identifiers.</li>
+<li>Doc detail pages resolve ALLPARTS to suite pages with correct labels and status.</li>
+<li>RefTree displays suites as non-clickable parents that expand to child documents.</li>
+</ul>
+<li>Added guardrails and explicit metadata to prevent future regressions:</li>
+<ul class="mb-1">
+<li>Explicit <code>kind: suite | collection</code>.</li>
+<li>Flags for <code>SUITE<em>TITLE</em>MISMATCH</code>.</li>
+<li>Hard exclusions for unsupported publishers and document types.</li>
+</ul>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<ul class="mb-1">
+<li>Finalized and locked <strong>build order</strong> to ensure correctness and stability:</li>
+<ul class="mb-1">
+<li>Documents → MSI → Suites/Collections → Pages.</li>
+</ul>
+<li>Updated suite and collection rendering:</li>
+<ul class="mb-1">
+<li>Suites show all documents, including withdrawn (visually muted).</li>
+<li>Collections hide parts column and sort by label.</li>
+<li>Abstract previews and expand/collapse behavior added.</li>
+</ul>
+<li>Refined RefTree behavior:</li>
+<ul class="mb-1">
+<li>RefTrees may display suites but never re-center on them.</li>
+<li>Suite labels replace ALLPARTS identifiers where applicable.</li>
+</ul>
+<li>Normalized publisher handling for edge cases (e.g., ANSI/ASA) so suite and collection lookups resolve correctly.</li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+<ul class="mb-1">
+<li>Fixed ALLPARTS resolution failures where document type previously blocked linking.</li>
+<li>Corrected publisher logo and link resolution on suite and collection pages.</li>
+<li>Resolved reference edge cases for W3C documents.</li>
+<li>Eliminated legacy suite/collection duplication and silent clobbering in the build process.</li>
+</ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../about/PrZ3/" title="🐧"><img src="../static/MSRBot-PrZ3-blue.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://github.com/PrZ3r/" target="_blank" rel="noopener">PrZ3</a>.
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Site version:</span> <code>cc78fcb946a0ae495919fdc257305c261a18547e</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-02T23:43:33.173Z</code>
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>
