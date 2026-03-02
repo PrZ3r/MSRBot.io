@@ -1,4 +1,4 @@
-# Pull Request — Media Standards Registry (MSR)
+# Pull Request — MSRBot.io
 
 > Before submitting, please review the [Quick Contributor Guide](../docs/CONTRIBUTING_SHORT.md).
 
