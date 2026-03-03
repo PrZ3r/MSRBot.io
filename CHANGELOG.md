@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Refactored `src/main/scripts/providers/ietf.parse.js` to use shared keyword normalization (`splitAndNormalizeKeywords`) instead of inline acronym/title-case logic.
 - Refactored `src/main/scripts/utils/keywords.sync.js` to use shared keyword normalization (`normalizeKeyword`) instead of inline acronym/title-case logic.
 - Extended keyword acronym normalization to preserve `SMTP` uppercase consistently across parser/sync flows.
+- Extraction workflows (`extract-docs-ietf.yml`, `extract-docs-smpte.yml`) now append unknown-keyword warnings from `npm run validate -- --warn` output into PR notes, so warn-only keyword drift is visible before merge.
 - Removed old `stats` API veiwer template. 
 
 ### Fixed
