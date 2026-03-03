@@ -398,6 +398,7 @@
 <ul class="mb-1">
 <li>Added <code>npm run local-server</code> shortcut to start a local HTTP server for previewing the built site.</li>
 <li>Added shared keyword normalization utility at <code>src/main/scripts/utils/keyword.normalize.js</code> to centralize acronym/special-case keyword casing rules used during ingestion and keyword sync.</li>
+<li>Added persistent bad-reference reporting snapshot at <code>src/main/reports/badRefs.latest.json</code> from extraction runs, so unresolved refs can be backfilled outside PR log text.</li>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Changed</h6>
 <ul class="mb-1">
@@ -405,6 +406,7 @@
 <li>Refactored <code>src/main/scripts/utils/keywords.sync.js</code> to use shared keyword normalization (<code>normalizeKeyword</code>) instead of inline acronym/title-case logic.</li>
 <li>Extended keyword acronym normalization to preserve <code>SMTP</code> uppercase consistently across parser/sync flows.</li>
 <li>Extraction workflows (<code>extract-docs-ietf.yml</code>, <code>extract-docs-smpte.yml</code>) now append unknown-keyword warnings from <code>npm run validate -- --warn</code> output into PR notes, so warn-only keyword drift is visible before merge.</li>
+<li>Extraction workflows now track <code>src/main/reports/badRefs.latest.json</code> in extract PRs (and no longer depend on per-run bad-ref log artifacts).</li>
 <li>Removed old <code>stats</code> API veiwer template. </li>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
@@ -777,8 +779,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>b0ee136341c247890201544229520ffe63daa450</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-03T21:58:09.547Z</code>
+              <span class="fw-semibold">Site version:</span> <code>a183bff5b09883c74021ba44ee935d4452a924ad</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-03T22:23:57.081Z</code>
             </p>
           </small>
         </div>
