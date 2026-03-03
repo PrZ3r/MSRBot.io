@@ -29,39 +29,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const fs = require("fs");
 const path = require("path");
+const { normalizeKeyword } = require("./keyword.normalize");
 
 const SITE_PATH = path.resolve("src/main/config/site.json");
 const DOCS_PATH = path.resolve("src/main/data/documents.json");
-
-const ACRONYM_MAP = new Map([
-  "JSON", "XML", "RFC", "IETF", "ISO", "ITU", "AES",
-  "MIME", "URI", "URL", "HTTP", "HTTPS", "API", "DOI",
-  "ASCII", "UTF", "IMF", "MXF", "MPEG", "KDM", "DCDM", "DNS",
-  "SDI", "OPL", "ACES", "HTJ2K", "JPEG2000", "URN"
-].map((value) => [value.toLowerCase(), value]));
-
-function normalizeKeyword(input) {
-  const s = String(input || "").trim().replace(/\s+/g, " ");
-  if (!s) return "";
-
-  return s
-    .split(" ")
-    .map((word) => {
-      const lower = word.toLowerCase();
-      if (ACRONYM_MAP.has(lower)) return ACRONYM_MAP.get(lower);
-      if (/^b-?chain$/i.test(word)) return "B-Chain";
-      if (/^dcinema$/i.test(word)) return "DCinema";
-      if (/^sha-?1$/i.test(word)) return "SHA-1";
-      if (/^dcp(?=$|[-/])/i.test(word)) return word.replace(/^dcp/i, "DCP");
-      // Preserve MIME/media-type forms as lowercase per convention.
-      if (/^[A-Za-z0-9.+-]+\/[A-Za-z0-9.+-]+$/.test(word)) return lower;
-      // Preserve already-uppercase hyphenated acronym tokens (e.g., MIME-EXT, URI-GEN).
-      if (/^[A-Z0-9]+(?:-[A-Z0-9]+)+$/.test(word)) return word;
-      if (/^\d+mm$/i.test(word)) return `${word.replace(/mm$/i, "")}mm`;
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    })
-    .join(" ");
-}
 
 function sortedUnique(values) {
   return Array.from(new Set(values.filter(Boolean))).sort((a, b) => a.localeCompare(b));
