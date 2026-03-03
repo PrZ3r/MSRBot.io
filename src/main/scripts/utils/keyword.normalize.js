@@ -31,7 +31,7 @@ const ACRONYM_MAP = new Map([
   "JSON", "XML", "RFC", "IETF", "ISO", "ITU", "AES",
   "MIME", "URI", "URL", "HTTP", "HTTPS", "API", "DOI",
   "ASCII", "UTF", "IMF", "MXF", "MPEG", "KDM", "DCDM", "DNS",
-  "SDI", "OPL", "ACES", "HTJ2K", "JPEG2000", "URN", "SMTP"
+  "SDI", "OPL", "ACES", "HTJ2K", "JPEG2000", "URN", "SMTP", "IMAP", 'IMAPV4', "IPSEC"
 ].map((value) => [value.toLowerCase(), value]));
 
 function normalizeKeyword(input) {
