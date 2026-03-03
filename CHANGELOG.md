@@ -10,8 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
  
 ### Added
 - Added `npm run local-server` shortcut to start a local HTTP server for previewing the built site.
+- Added shared keyword normalization utility at `src/main/scripts/utils/keyword.normalize.js` to centralize acronym/special-case keyword casing rules used during ingestion and keyword sync.
 
 ### Changed
+- Refactored `src/main/scripts/providers/ietf.parse.js` to use shared keyword normalization (`splitAndNormalizeKeywords`) instead of inline acronym/title-case logic.
+- Refactored `src/main/scripts/utils/keywords.sync.js` to use shared keyword normalization (`normalizeKeyword`) instead of inline acronym/title-case logic.
+- Extended keyword acronym normalization to preserve `SMTP` uppercase consistently across parser/sync flows.
+- Removed old `stats` API veiwer template. 
 
 ### Fixed
 - **gh-pages push contention** (#910) — replaced `peaceiris/actions-gh-pages` with manual git deploy in PR Build Preview and main site build workflows; added push-with-retry (pull --rebase, up to 3 attempts) to all four workflows that push to `gh-pages` (site build, PR preview, PR cleanup, PR sweeper). The site build's two-step cleanup-then-publish is now a single atomic commit.
