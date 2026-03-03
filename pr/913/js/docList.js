@@ -30,6 +30,18 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 (async function(){
   const $ = sel => document.querySelector(sel);
   const $$ = sel => Array.from(document.querySelectorAll(sel));
+  const ASSET_PREFIX = (() => {
+    try {
+      return (window && window.msrAssetPrefix) ? String(window.msrAssetPrefix) : '';
+    } catch {
+      return '';
+    }
+  })();
+
+  function withPrefix(relPath) {
+    const clean = String(relPath || '').replace(/^\/+/, '');
+    return ASSET_PREFIX ? `${ASSET_PREFIX}${clean}` : clean;
+  }
 
   function err(msg){
     const box = document.createElement('div');
@@ -68,8 +80,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     });
 
     // 1) Local UMD (built by build.search-index.js)
-    const localUmd = '/docs/minisearch/umd/index.min.js';
-    if (await tryUmd(localUmd)) return true;
+    const localUmdCandidates = [
+      withPrefix('docs/minisearch/umd/index.min.js'),
+      'minisearch/umd/index.min.js',
+      './minisearch/umd/index.min.js'
+    ];
+    for (const src of localUmdCandidates) {
+      if (await tryUmd(src)) return true;
+    }
 
     // 2) CDN UMD fallbacks
     const cdnUmd = [
@@ -82,12 +100,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     // 3) As a last resort, attempt common ESM entry points (in case a future release ships them)
     const esmCandidates = [
-      '/docs/minisearch/index.js',
-      '/docs/minisearch/index.mjs',
-      '/docs/minisearch/esm/index.js',
-      '/docs/minisearch/esm/index.mjs',
-      '/docs/minisearch/dist/index.js',
-      '/docs/minisearch/dist/index.mjs'
+      withPrefix('docs/minisearch/index.js'),
+      withPrefix('docs/minisearch/index.mjs'),
+      withPrefix('docs/minisearch/esm/index.js'),
+      withPrefix('docs/minisearch/esm/index.mjs'),
+      withPrefix('docs/minisearch/dist/index.js'),
+      withPrefix('docs/minisearch/dist/index.mjs')
     ];
     for (const spec of esmCandidates) {
       try {
@@ -129,12 +147,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   let idx, facets, synonymsMap = {};
   try {
     [idx, facets] = await Promise.all([
-      loadJSONTry(['/docs/_data/search-index.json', 'docs/_data/search-index.json', '../docs/_data/search-index.json']),
-      loadJSONTry(['/docs/_data/facets.json', '/docs/_data/facets.json', 'docs/_data/facets.json', '../docs/_data/facets.json'])
+      loadJSONTry([withPrefix('docs/_data/search-index.json'), '_data/search-index.json', './_data/search-index.json', 'docs/_data/search-index.json', '../docs/_data/search-index.json']),
+      loadJSONTry([withPrefix('docs/_data/facets.json'), '_data/facets.json', './_data/facets.json', 'docs/_data/facets.json', '../docs/_data/facets.json'])
     ]);
     // load synonyms if available
     try {
-      synonymsMap = await loadJSONTry(['/docs/_data/synonyms.json', 'docs/_data/synonyms.json', '../docs/_data/synonyms.json']);
+      synonymsMap = await loadJSONTry([withPrefix('docs/_data/synonyms.json'), '_data/synonyms.json', './_data/synonyms.json', 'docs/_data/synonyms.json', '../docs/_data/synonyms.json']);
       if (!synonymsMap || typeof synonymsMap !== 'object') synonymsMap = {};
     } catch {
       synonymsMap = {};
