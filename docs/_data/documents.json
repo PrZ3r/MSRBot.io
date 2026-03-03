@@ -48762,6 +48762,7 @@
       }
     ],
     "referencedBy": [
+      "RFC1766",
       "SMPTE.ST430-1.2017",
       "SMPTE.ST430-1.2017Am1.2019"
     ],
@@ -60555,6 +60556,9 @@
     "referencedBy": [
       "ISO.26430-2.2008",
       "RFC1557",
+      "RFC1590",
+      "RFC1652",
+      "RFC1766",
       "SMPTE.ST430-1.2017",
       "SMPTE.ST430-1.2017Am1.2019",
       "SMPTE.ST430-2.2017"
@@ -60737,22 +60741,50 @@
     "currentStatus": "Active*"
   },
   {
+    "abstract": "Several questions have been raised about the requirements and administrative procedure for registering MIME content-type and subtypes, and the use of these Media Types for other applications. This document addresses these issues and specifies a procedure for the registration of new Media Types (content-type/subtypes). It also generalizes the scope of use of these Media Types to make it appropriate to use the same registrations and specifications with other applications. This memo provides information for the Internet community. This memo does not specify an Internet standard of any kind.",
+    "authors": [
+      "Dr. Jon Postel"
+    ],
     "docId": "RFC1590",
     "docLabel": "IETF RFC 1590",
+    "docNumber": "1590",
     "docTitle": "Media Type Registration Procedure",
     "docType": "Informational",
-    "href": "https://www.rfc-editor.org/info/rfc1590",
+    "doi": "10.17487/RFC1590",
+    "href": "https://doi.org/10.17487/RFC1590",
+    "issn": "2070-1721",
+    "keywords": [
+      "Email",
+      "Multimedia"
+    ],
+    "pages": "7",
     "publicationDate": "1994-03-01",
     "publisher": "IETF",
-    "resolvedHref": "https://datatracker.ietf.org/doc/html/rfc1590",
+    "references": {
+      "bibliographic": [
+        "RFC1340",
+        "RFC1521",
+        "RFC1543"
+      ],
+      "normative": []
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc1590",
     "status": {
       "active": false,
+      "amends": [
+        "RFC1521"
+      ],
+      "errataExist": false,
+      "latestVersion": true,
+      "statusNote": "Informational",
       "superseded": true,
       "supersededBy": [
         "RFC2045",
-        "RFC2046"
-      ],
-      "latestVersion": true
+        "RFC2046",
+        "RFC2047",
+        "RFC2048",
+        "RFC2049"
+      ]
     },
     "msiLatestAny": "RFC1590",
     "msiLatestBase": "RFC1590",
@@ -60765,36 +60797,220 @@
       {
         "docId": "RFC1590",
         "docLabel": "IETF RFC 1590",
-        "href": "https://www.rfc-editor.org/info/rfc1590",
+        "href": "https://doi.org/10.17487/RFC1590",
         "publicationDate": "1994-03-01",
         "status": {
           "active": false,
+          "amends": [
+            "RFC1521"
+          ],
+          "errataExist": false,
+          "latestVersion": true,
+          "statusNote": "Informational",
           "superseded": true,
           "supersededBy": [
             "RFC2045",
-            "RFC2046"
-          ],
-          "latestVersion": true
+            "RFC2046",
+            "RFC2047",
+            "RFC2048",
+            "RFC2049"
+          ]
         },
         "isLatestBase": true,
         "__isNewestInBase": true
       }
     ],
-    "docDependancy": false,
-    "currentStatus": "Superseded"
+    "referencesResolved": {
+      "bibliographic": [
+        {
+          "id": "RFC1340",
+          "undated": true
+        },
+        {
+          "id": "RFC1521"
+        },
+        {
+          "id": "RFC1543",
+          "undated": true
+        }
+      ],
+      "normative": []
+    },
+    "referenceTree": [
+      "ADOBE.PostScript.1985",
+      "ADOBE.PostScript.2nd.1990",
+      "INCITS.X3.4.1986",
+      "ISBN.0444873287",
+      "ISBN.9780130366337",
+      "ISO.11172",
+      "ISO.2022.1994",
+      "ISO.646.1991",
+      "ISO.8859",
+      "LOC.GIF.89a",
+      "RFC1049",
+      "RFC1154",
+      "RFC1340",
+      "RFC1341",
+      "RFC1342",
+      "RFC1343",
+      "RFC1344",
+      "RFC1345",
+      "RFC1421",
+      "RFC1426",
+      "RFC1521",
+      "RFC1522",
+      "RFC1543",
+      "RFC783",
+      "RFC821",
+      "RFC822",
+      "RFC934",
+      "RFC959",
+      "T-REC-G.711.1972"
+    ],
+    "docDependancy": true,
+    "currentStatus": "Superseded*"
   },
   {
+    "abstract": "This memo defines an extension to the SMTP service whereby an SMTP content body consisting of text containing octets outside of the US- ASCII octet range (hex 00-7F) may be relayed using SMTP. [STANDARDS-TRACK]",
+    "authors": [
+      "Ned Freed",
+      "Dr. John C. Klensin",
+      "Dr. Marshall T. Rose",
+      "Dave Crocker",
+      "Einar A. Stefferud"
+    ],
+    "docId": "RFC1652",
+    "docLabel": "IETF RFC 1652",
+    "docNumber": "1652",
+    "docTitle": "SMTP Service Extension for 8bit-MIMEtransport",
+    "docType": "Standard",
+    "doi": "10.17487/RFC1652",
+    "href": "https://doi.org/10.17487/RFC1652",
+    "issn": "2070-1721",
+    "keywords": [
+      "SMTP",
+      "Mail",
+      "Simple",
+      "Transfer"
+    ],
+    "pages": "6",
+    "publicationDate": "1994-07-01",
+    "publisher": "IETF",
+    "references": {
+      "bibliographic": [
+        "RFC1521",
+        "RFC1522",
+        "RFC1651",
+        "RFC821",
+        "RFC822",
+        "RFC974"
+      ],
+      "normative": []
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc1652",
+    "status": {
+      "active": false,
+      "errataExist": false,
+      "latestVersion": false,
+      "statusNote": "Draft Standard",
+      "superseded": true,
+      "supersededBy": [
+        "RFC6152"
+      ],
+      "supersedes": [
+        "RFC1426"
+      ]
+    },
+    "referencesResolved": {
+      "bibliographic": [
+        {
+          "id": "RFC1521"
+        },
+        {
+          "id": "RFC1522",
+          "undated": true
+        },
+        {
+          "id": "RFC1651",
+          "undated": true
+        },
+        {
+          "id": "RFC821",
+          "undated": true
+        },
+        {
+          "id": "RFC822",
+          "undated": true
+        },
+        {
+          "id": "RFC974",
+          "undated": true
+        }
+      ],
+      "normative": []
+    },
+    "referencedBy": [
+      "RFC3023"
+    ],
+    "referenceTree": [
+      "ADOBE.PostScript.1985",
+      "ADOBE.PostScript.2nd.1990",
+      "INCITS.X3.4.1986",
+      "ISBN.0444873287",
+      "ISBN.9780130366337",
+      "ISO.11172",
+      "ISO.2022.1994",
+      "ISO.646.1991",
+      "ISO.8859",
+      "LOC.GIF.89a",
+      "RFC1049",
+      "RFC1154",
+      "RFC1340",
+      "RFC1341",
+      "RFC1342",
+      "RFC1343",
+      "RFC1344",
+      "RFC1345",
+      "RFC1421",
+      "RFC1426",
+      "RFC1521",
+      "RFC1522",
+      "RFC1651",
+      "RFC783",
+      "RFC821",
+      "RFC822",
+      "RFC934",
+      "RFC959",
+      "RFC974",
+      "T-REC-G.711.1972"
+    ],
+    "docDependancy": true,
+    "currentStatus": "Superseded*"
+  },
+  {
+    "abstract": "This document specifies a minimum set of requirements for a kind of Internet resource identifier known as Uniform Resource Names (URNs). This memo provides information for the Internet community. This memo does not specify an Internet standard of any kind.",
+    "authors": [
+      "Larry M Masinter",
+      "Dr. Karen R. Sollins"
+    ],
     "docId": "RFC1737",
     "docLabel": "IETF RFC 1737",
+    "docNumber": "1737",
     "docTitle": "Functional Requirements for Uniform Resource Names",
     "docType": "Informational",
-    "href": "https://www.rfc-editor.org/info/rfc1737",
+    "doi": "10.17487/RFC1737",
+    "href": "https://doi.org/10.17487/RFC1737",
+    "issn": "2070-1721",
+    "pages": "7",
     "publicationDate": "1994-12-01",
     "publisher": "IETF",
-    "resolvedHref": "https://datatracker.ietf.org/doc/html/rfc1737",
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc1737",
     "status": {
       "active": true,
-      "latestVersion": true
+      "errataExist": false,
+      "latestVersion": true,
+      "statusNote": "Informational",
+      "superseded": false
     },
     "msiLatestAny": "RFC1737",
     "msiLatestBase": "RFC1737",
@@ -60807,11 +61023,14 @@
       {
         "docId": "RFC1737",
         "docLabel": "IETF RFC 1737",
-        "href": "https://www.rfc-editor.org/info/rfc1737",
+        "href": "https://doi.org/10.17487/RFC1737",
         "publicationDate": "1994-12-01",
         "status": {
           "active": true,
-          "latestVersion": true
+          "errataExist": false,
+          "latestVersion": true,
+          "statusNote": "Informational",
+          "superseded": false
         },
         "isLatestBase": true,
         "__isNewestInBase": true
@@ -60824,7 +61043,7 @@
       "SMPTE.ST2029.2023-10"
     ],
     "docDependancy": true,
-    "currentStatus": "Active"
+    "currentStatus": "Active*"
   },
   {
     "abstract": "This document specifies a Uniform Resource Locator (URL), the syntax and semantics of formalized information for location and access of resources via the Internet. [STANDARDS-TRACK]",
@@ -61123,6 +61342,115 @@
       "TMC.DocIDs.1991",
       "TMC.WAIS.1.5.19900423",
       "UMN.GopherPlus.199307"
+    ],
+    "docDependancy": true,
+    "currentStatus": "Superseded*"
+  },
+  {
+    "abstract": "This document describes a language tag for use in cases where it is desired to indicate the language used in an information object. [STANDARDS-TRACK]",
+    "authors": [
+      "Harald T. Alvestrand"
+    ],
+    "docId": "RFC1766",
+    "docLabel": "IETF RFC 1766",
+    "docNumber": "1766",
+    "docTitle": "Tags for the Identification of Languages",
+    "docType": "Standard",
+    "doi": "10.17487/RFC1766",
+    "href": "https://doi.org/10.17487/RFC1766",
+    "issn": "2070-1721",
+    "keywords": [
+      "Lang-tag"
+    ],
+    "pages": "9",
+    "publicationDate": "1995-03-01",
+    "publisher": "IETF",
+    "references": {
+      "bibliographic": [
+        "ISO.3166",
+        "ISO.639",
+        "RFC1327",
+        "RFC1521",
+        "RFC822"
+      ],
+      "normative": []
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc1766",
+    "status": {
+      "active": false,
+      "errataExist": true,
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc1766",
+        "https://www.rfc-editor.org/errata_search.php?rfc=1766",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc1766.html"
+      ],
+      "latestVersion": false,
+      "statusNote": "Proposed Standard",
+      "superseded": true,
+      "supersededBy": [
+        "RFC3066",
+        "RFC3282"
+      ]
+    },
+    "referencesResolved": {
+      "bibliographic": [
+        {
+          "id": "ISO.3166.1993",
+          "undated": true
+        },
+        {
+          "id": "ISO.639",
+          "undated": true
+        },
+        {
+          "id": "RFC1327",
+          "undated": true
+        },
+        {
+          "id": "RFC1521"
+        },
+        {
+          "id": "RFC822",
+          "undated": true
+        }
+      ],
+      "normative": []
+    },
+    "referencedBy": [
+      "RFC2231"
+    ],
+    "referenceTree": [
+      "ADOBE.PostScript.1985",
+      "ADOBE.PostScript.2nd.1990",
+      "INCITS.X3.4.1986",
+      "ISBN.0444873287",
+      "ISBN.9780130366337",
+      "ISO.11172",
+      "ISO.2022.1994",
+      "ISO.3166.1993",
+      "ISO.639",
+      "ISO.646.1991",
+      "ISO.8859",
+      "LOC.GIF.89a",
+      "RFC1049",
+      "RFC1154",
+      "RFC1327",
+      "RFC1340",
+      "RFC1341",
+      "RFC1342",
+      "RFC1343",
+      "RFC1344",
+      "RFC1345",
+      "RFC1421",
+      "RFC1426",
+      "RFC1521",
+      "RFC1522",
+      "RFC783",
+      "RFC821",
+      "RFC822",
+      "RFC934",
+      "RFC959",
+      "T-REC-G.711.1972"
     ],
     "docDependancy": true,
     "currentStatus": "Superseded*"
@@ -61607,8 +61935,7 @@
     "referencesResolved": {
       "bibliographic": [
         {
-          "id": "RFC1766",
-          "undated": true
+          "id": "RFC1766"
         },
         {
           "id": "RFC2045"
@@ -61651,6 +61978,31 @@
       "normative": []
     },
     "referenceTree": [
+      "ADOBE.PostScript.1985",
+      "ADOBE.PostScript.2nd.1990",
+      "INCITS.X3.4.1986",
+      "ISBN.0444873287",
+      "ISBN.9780130366337",
+      "ISO.11172",
+      "ISO.2022.1994",
+      "ISO.3166.1993",
+      "ISO.639",
+      "ISO.646.1991",
+      "ISO.8859",
+      "LOC.GIF.89a",
+      "RFC1049",
+      "RFC1154",
+      "RFC1327",
+      "RFC1340",
+      "RFC1341",
+      "RFC1342",
+      "RFC1343",
+      "RFC1344",
+      "RFC1345",
+      "RFC1421",
+      "RFC1426",
+      "RFC1521",
+      "RFC1522",
       "RFC1766",
       "RFC2045",
       "RFC2046",
@@ -61661,7 +62013,12 @@
       "RFC2119",
       "RFC2130",
       "RFC2183",
-      "RFC822"
+      "RFC783",
+      "RFC821",
+      "RFC822",
+      "RFC934",
+      "RFC959",
+      "T-REC-G.711.1972"
     ],
     "docDependancy": true,
     "currentStatus": "Active*"
@@ -62988,8 +63345,7 @@
           "id": "RFC1557"
         },
         {
-          "id": "RFC1652",
-          "undated": true
+          "id": "RFC1652"
         },
         {
           "id": "RFC1874",
@@ -63147,6 +63503,7 @@
       "RFC1557",
       "RFC1625",
       "RFC1630",
+      "RFC1651",
       "RFC1652",
       "RFC1736",
       "RFC1737",
@@ -63182,6 +63539,7 @@
       "RFC850",
       "RFC934",
       "RFC959",
+      "RFC974",
       "RFC977",
       "T-REC-G.711.1972",
       "TMC.DocIDs.1991",
@@ -66263,6 +66621,7 @@
       "RFC1522",
       "RFC1557",
       "RFC1630",
+      "RFC1651",
       "RFC1652",
       "RFC1736",
       "RFC1737",
@@ -66309,6 +66668,7 @@
       "RFC821",
       "RFC822",
       "RFC850",
+      "RFC974",
       "RFC977",
       "UNICODE.STD.7.0.0",
       "W3C.TAG.mime.20040430",
@@ -135397,6 +135757,7 @@
       "RFC1522",
       "RFC1557",
       "RFC1630",
+      "RFC1651",
       "RFC1652",
       "RFC1736",
       "RFC1737",
@@ -135433,6 +135794,7 @@
       "RFC821",
       "RFC822",
       "RFC850",
+      "RFC974",
       "RFC977",
       "SMPTE.ST2067-2.2016",
       "SMPTE.ST2067-3.2016",

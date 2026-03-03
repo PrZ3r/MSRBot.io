@@ -397,8 +397,15 @@
           <h6 class="fw-semibold mt-3 mb-1">Added</h6>
 <ul class="mb-1">
 <li>Added <code>npm run local-server</code> shortcut to start a local HTTP server for previewing the built site.</li>
+<li>Added shared keyword normalization utility at <code>src/main/scripts/utils/keyword.normalize.js</code> to centralize acronym/special-case keyword casing rules used during ingestion and keyword sync.</li>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<ul class="mb-1">
+<li>Refactored <code>src/main/scripts/providers/ietf.parse.js</code> to use shared keyword normalization (<code>splitAndNormalizeKeywords</code>) instead of inline acronym/title-case logic.</li>
+<li>Refactored <code>src/main/scripts/utils/keywords.sync.js</code> to use shared keyword normalization (<code>normalizeKeyword</code>) instead of inline acronym/title-case logic.</li>
+<li>Extended keyword acronym normalization to preserve <code>SMTP</code> uppercase consistently across parser/sync flows.</li>
+<li>Removed old <code>stats</code> API veiwer template. </li>
+</ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
 <ul class="mb-1">
 <li><strong>gh-pages push contention</strong> (#910) — replaced <code>peaceiris/actions-gh-pages</code> with manual git deploy in PR Build Preview and main site build workflows; added push-with-retry (pull --rebase, up to 3 attempts) to all four workflows that push to <code>gh-pages</code> (site build, PR preview, PR cleanup, PR sweeper). The site build's two-step cleanup-then-publish is now a single atomic commit.</li>
@@ -767,8 +774,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>113e03180d7ba93827e7ea4e45865b96be668d84</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-02T23:30:06.956Z</code>
+              <span class="fw-semibold">Site version:</span> <code>f189e16ef4d33ec1767d68206cc52d504fd3a50a</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-03T00:50:17.234Z</code>
             </p>
           </small>
         </div>
