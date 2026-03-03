@@ -62,7 +62,6 @@ jobs:
         run: |
           mkdir -p build/api
           node src/main/scripts/utils/buildStats.js
-          cp tools/apiViewer.html build/api/viewer.html
 
       - name: Deploy to gh-pages (cleanup + publish, atomic)
         env:
