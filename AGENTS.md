@@ -71,3 +71,24 @@ When creating an issue or pull request:
 - If behavior, workflow, policy, or contributor expectations change, update `CHANGELOG.md` in **[Unreleased]**.
 - Update supporting documentation (for example `README.md`, `CONTRIBUTING.md`, or `docs/`) when contributor behavior or project workflows are affected.
 - For data/model edits, preserve and/or update provenance-related metadata and explain provenance impacts in the PR description.
+
+## Cursor Cloud specific instructions
+
+This is a Node.js static-site-generator project with no backend, no Docker, and no databases. All data lives as committed JSON files.
+
+**Runtime:** Node.js 22+ and npm are pre-installed. Dependencies are installed by the update script (`npm install`).
+
+**Key commands** are documented in `README.md` and `docs/commands.md`. The most common ones:
+
+| Task | Command |
+|------|---------|
+| Validate data | `npm run validate` |
+| Canonicalize JSON | `npm run canonicalize` |
+| Build static site | `npm run build` |
+| Preview site | `npm run local-server` (serves `build/` on port 8080) |
+
+**Build before preview:** `npm run build` must complete before `npm run local-server` will serve anything useful. The build takes ~70 seconds and emits non-fatal `[WARN:getStatus]` messages for referenced RFCs not yet in the registry — these are expected and safe to ignore.
+
+**No linter configured:** The project does not have ESLint or any JS linter. Validation is done via `npm run validate` (JSON schema + registry checks).
+
+**Extraction scripts require network:** `npm run extract-smpte` and `npm run extract-ietf` fetch live data and will fail without internet access. All other commands work fully offline with committed data.
