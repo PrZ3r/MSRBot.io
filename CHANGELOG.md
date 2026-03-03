@@ -11,12 +11,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 - Added `npm run local-server` shortcut to start a local HTTP server for previewing the built site.
 - Added shared keyword normalization utility at `src/main/scripts/utils/keyword.normalize.js` to centralize acronym/special-case keyword casing rules used during ingestion and keyword sync.
+- Added persistent bad-reference reporting snapshot at `src/main/reports/badRefs.latest.json` from extraction runs, so unresolved refs can be backfilled outside PR log text.
 
 ### Changed
 - Refactored `src/main/scripts/providers/ietf.parse.js` to use shared keyword normalization (`splitAndNormalizeKeywords`) instead of inline acronym/title-case logic.
 - Refactored `src/main/scripts/utils/keywords.sync.js` to use shared keyword normalization (`normalizeKeyword`) instead of inline acronym/title-case logic.
 - Extended keyword acronym normalization to preserve `SMTP` uppercase consistently across parser/sync flows.
 - Extraction workflows (`extract-docs-ietf.yml`, `extract-docs-smpte.yml`) now append unknown-keyword warnings from `npm run validate -- --warn` output into PR notes, so warn-only keyword drift is visible before merge.
+- Extraction workflows now track `src/main/reports/badRefs.latest.json` in extract PRs (and no longer depend on per-run bad-ref log artifacts).
 - Removed old `stats` API veiwer template. 
 
 ### Fixed

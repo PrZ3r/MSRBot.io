@@ -1046,14 +1046,24 @@ function extractRefs($, currentDocId, opts = {}) {
   }
 
   if (mode === 'ietf-rfc-html') {
+    const sanitizeRfcHtmlHrefs = (hrefList = []) => (
+      [...new Set(
+        hrefList
+          .map(v => String(v || '').trim())
+          .filter(Boolean)
+          // Ignore same-document anchors (e.g., #appendix-A.2); they are not external refs.
+          .filter(h => !h.startsWith('#'))
+      )]
+    );
     const isOrdinalMarker = (markerRaw) => /^\d+(?:\.\d+)?$/.test(String(markerRaw || '').trim());
     const isRfcMarker = (markerRaw) => /^RFC0*\d{1,5}$/i.test(String(markerRaw || '').trim());
     const trimRfcRefTail = (textRaw) => {
       const text = String(textRaw || '').replace(/\s+/g, ' ').trim();
       if (!text) return '';
       // Guard against spillover into post-reference sections when parsing the last ref in a block.
-      // Common markers in RFC HTML include APPENDIX, ACKNOWLEDGEMENTS, and AUTHORS' ADDRESSES.
-      const tailStopRe = /\b(?:APPENDIX(?:ES)?|ACKNOWLEDGEMENTS?|AUTHORS?\s+ADDRESSES?)\b[\s\S]*$/i;
+      // Do not trim on generic "Appendix" tokens because many valid references cite
+      // "Appendix X.Y of ...", which must remain parseable.
+      const tailStopRe = /\b(?:ACKNOWLEDGEMENTS?|AUTHORS?\s+ADDRESSES?)\b[\s\S]*$/i;
       return text.replace(tailStopRe, '').trim();
     };
     const normalizeMarker = (markerRaw) => {
@@ -1104,13 +1114,12 @@ function extractRefs($, currentDocId, opts = {}) {
             const ctxTextRaw = (($ctx.length ? $ctx.text() : $a.parent().text()) || '')
               .replace(/\s+/g, ' ')
               .trim();
-            const ctxText = trimRfcRefTail(ctxTextRaw);
-            const hrefs = [...new Set(
+            const ctxText = ctxTextRaw;
+            const hrefs = sanitizeRfcHtmlHrefs(
               ($ctx.length ? $ctx.find('a[href]') : $a.parent().find('a[href]'))
                 .map((___, linkEl) => String($(linkEl).attr('href') || '').trim())
                 .get()
-                .filter(Boolean)
-            )];
+            );
 
             const markerIsOrdinal = isOrdinalMarker(marker);
             const citeCandidates = [
@@ -1137,7 +1146,7 @@ function extractRefs($, currentDocId, opts = {}) {
               out.badRefs.push({
                 docId: currentDocId,
                 type: def.key,
-                refText: marker || markerText || ctxText,
+                refText: ctxText || markerText || marker,
                 href: hrefs[0] || ''
               });
             }
@@ -1284,15 +1293,17 @@ function extractRefs($, currentDocId, opts = {}) {
         seen.add(marker);
 
         const nextStart = (i + 1 < anchors.length) ? anchors[i + 1].index : raw.length;
-        const nextBracketMarker = nextLineRefMarkerPos(pos);
+        // Start scanning for the next marker after this anchor, so we don't
+        // immediately match the current marker line and drop its citation text.
+        const nextBracketMarker = nextLineRefMarkerPos(anchors[i].end);
         const sectionEnd = boundEndForPos(pos);
         const headingEnd = nextSectionHeadingPos(pos);
         const pageBreakEnd = nextPageBreakPos(pos);
         const chunkEnd = Math.min(nextStart, nextBracketMarker, sectionEnd, headingEnd, pageBreakEnd);
         const chunk = raw.slice(anchors[i].index, chunkEnd);
-        const hrefs = [...chunk.matchAll(/href=["']([^"']+)["']/ig)]
+        const hrefs = sanitizeRfcHtmlHrefs([...chunk.matchAll(/href=["']([^"']+)["']/ig)]
           .map(hm => String(hm[1] || '').trim())
-          .filter(Boolean);
+        );
         const chunkText = chunk
           .replace(/<[^>]+>/g, ' ')
           .replace(/\s+/g, ' ')
@@ -1368,9 +1379,9 @@ function extractRefs($, currentDocId, opts = {}) {
           if (chunkEnd <= absPos) continue;
 
           const chunk = raw.slice(absPos, chunkEnd);
-          const hrefs = [...chunk.matchAll(/href=["']([^"']+)["']/ig)]
+          const hrefs = sanitizeRfcHtmlHrefs([...chunk.matchAll(/href=["']([^"']+)["']/ig)]
             .map(hm => String(hm[1] || '').trim())
-            .filter(Boolean);
+          );
           const chunkText = chunk
             .replace(/<[^>]+>/g, ' ')
             .replace(/\s+/g, ' ')
@@ -1460,6 +1471,16 @@ function extractRefs($, currentDocId, opts = {}) {
       out.references.bibliographic = out.references.bibliographic.filter(id => !normSet.has(id));
       if (!out.references.bibliographic.length) delete out.references.bibliographic;
     }
+    // Suppress low-signal fallback artifacts (ordinal markers only, no href),
+    // which otherwise surface as empty cite lines in extractor PR logs.
+    out.badRefs = out.badRefs.filter((r) => {
+      const href = String(r?.href || '').trim();
+      const text = String(r?.refText || '').trim();
+      if (href) return true;
+      if (!text) return false;
+      if (/^\[?\s*\d+(?:\.\d+)?\s*\]?$/.test(text)) return false;
+      return true;
+    });
     return out;
   }
 
