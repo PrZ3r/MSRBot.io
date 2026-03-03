@@ -124,6 +124,7 @@ jobs:
           git config user.name "PrZ3 Unit"
           git config user.email "prz3-unit[bot]@users.noreply.github.com"
           git add src/main/logs/extract-runs/pr-log-full-*.log
+          git add src/main/reports/badRefs.latest.json
           git diff --cached --quiet || git commit -m "Add PR update details file"
 
       - name: Resolve details file & blob SHA
@@ -181,6 +182,7 @@ jobs:
           add-paths: |
             src/main/data/documents.json
             src/main/reports/masterReferenceIndex.json
+            src/main/reports/badRefs.latest.json
           base: main
 
       # NEW: rewrite the PR body to use the PR Files diff anchor (not the raw URL)

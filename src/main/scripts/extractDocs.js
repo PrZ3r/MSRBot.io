@@ -71,6 +71,7 @@ const SCRIPT_VERSION = (() => {
 // Generate timestamp string in format YYYYMMDD-HHmmss
 const timestamp = dayjs().format('YYYYMMDD-HHmmss');
 const fullDetailsPath = `src/main/logs/extract-runs/pr-log-full-${timestamp}.log`;
+const badRefsLatestPath = `src/main/reports/badRefs.latest.json`;
 // Raw URL (kept for logging/diagnostics)
 const detailsFileRawUrl = `https://raw.githubusercontent.com/PrZ3r/MSRBot.io/main/${fullDetailsPath}`;
 
@@ -899,6 +900,29 @@ for (const doc of results) {
       console.log(`  - cite: ${formatBadRefText(ref.refText)}`);
       if (ref.href) console.log(`  - href: ${ref.href}`);
     });
+  }
+
+  // Persist badRefs so unresolved citations can be backfilled later without
+  // relying only on PR body/log excerpts.
+  try {
+    const badRefItems = badRefs.map((ref) => ({
+      docId: String(ref.docId || '').trim(),
+      type: String(ref.type || '').trim(),
+      cite: formatBadRefText(ref.refText),
+      href: String(ref.href || '').trim()
+    }));
+    const payload = {
+      generatedAt: new Date().toISOString(),
+      provider: providerKey,
+      sourcePath: outputPath,
+      total: badRefItems.length,
+      badRefs: badRefItems
+    };
+    fs.mkdirSync('src/main/reports', { recursive: true });
+    fs.writeFileSync(badRefsLatestPath, JSON.stringify(payload, null, 2) + '\n');
+    console.log(`📄 Bad refs latest snapshot saved: ${badRefsLatestPath}`);
+  } catch (e) {
+    console.warn(`⚠️ Failed to write bad refs reports: ${e.message}`);
   }
 
   if (newDocs.length === 0 && updatedDocs.length === 0) {
