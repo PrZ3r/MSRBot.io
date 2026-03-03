@@ -410,6 +410,7 @@
 <ul class="mb-1">
 <li><strong>gh-pages push contention</strong> (#910) — replaced <code>peaceiris/actions-gh-pages</code> with manual git deploy in PR Build Preview and main site build workflows; added push-with-retry (pull --rebase, up to 3 attempts) to all four workflows that push to <code>gh-pages</code> (site build, PR preview, PR cleanup, PR sweeper). The site build's two-step cleanup-then-publish is now a single atomic commit.</li>
 <li><strong>URL validation over-triggering</strong> — added a daily throttle for workflow-chain URL validation so <code>Validate Document URLs</code> skips workflow-run invocations if a successful URL validation already completed within the previous 24 hours.</li>
+<li><strong>IETF references canonicalization noise on new extracts</strong> — fixed new-document extraction/merge so empty <code>references.normative</code>/<code>references.bibliographic</code> arrays are not persisted; IETF parser now emits sparse <code>references</code> keys (only when non-empty), preventing canonicalization from injecting manual <code>references.normative$meta</code> for parser-empty placeholders.</li>
 <li><strong>Docs index search in PR previews</strong> — fixed docs search asset loading in <code>src/site/js/docList.js</code> to use <code>window.msrAssetPrefix</code> with relative fallbacks instead of root-absolute <code>/docs/...</code> paths, so searches return results on preview URLs under subpaths (for example, <code>/pr/&lt;num&gt;/docs/</code>) while continuing to work locally.</li>
 </ul>
         </div>
@@ -775,8 +776,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>c5ba7e1b697a29d713848e3ef072a10184f52173</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-03T05:40:14.607Z</code>
+              <span class="fw-semibold">Site version:</span> <code>d4435c7c0d1493dec25b1f65d07542ecbb20c722</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-03T16:50:42.776Z</code>
             </p>
           </small>
         </div>
