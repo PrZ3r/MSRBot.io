@@ -404,6 +404,7 @@
 <li>Refactored <code>src/main/scripts/providers/ietf.parse.js</code> to use shared keyword normalization (<code>splitAndNormalizeKeywords</code>) instead of inline acronym/title-case logic.</li>
 <li>Refactored <code>src/main/scripts/utils/keywords.sync.js</code> to use shared keyword normalization (<code>normalizeKeyword</code>) instead of inline acronym/title-case logic.</li>
 <li>Extended keyword acronym normalization to preserve <code>SMTP</code> uppercase consistently across parser/sync flows.</li>
+<li>Extraction workflows (<code>extract-docs-ietf.yml</code>, <code>extract-docs-smpte.yml</code>) now append unknown-keyword warnings from <code>npm run validate -- --warn</code> output into PR notes, so warn-only keyword drift is visible before merge.</li>
 <li>Removed old <code>stats</code> API veiwer template. </li>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
@@ -776,8 +777,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>d4435c7c0d1493dec25b1f65d07542ecbb20c722</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-03T16:50:42.776Z</code>
+              <span class="fw-semibold">Site version:</span> <code>4838162c482a5188756d39675049fa23af878b67</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-03T17:49:06.119Z</code>
             </p>
           </small>
         </div>
