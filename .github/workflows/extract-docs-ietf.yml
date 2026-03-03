@@ -71,7 +71,38 @@ jobs:
 
       - name: Validate documents.json
         if: steps.skipcheck.outputs.skip == 'false'
-        run: npm run validate
+        run: npm run validate -- --warn 2>&1 | tee "${{ runner.temp }}/validate.log"
+
+      - name: Append keyword warnings to PR log
+        if: steps.skipcheck.outputs.skip == 'false'
+        run: |
+          VLOG="${{ runner.temp }}/validate.log"
+          PRLOG="${{ runner.temp }}/pr-log.log"
+          [ -f "$VLOG" ] || exit 0
+          [ -f "$PRLOG" ] || touch "$PRLOG"
+
+          KW_BLOCK="$(awk '
+            /Unknown keywords not in src\/main\/config\/site.json#controlledKeywords:/ { in_block=1; print; next }
+            in_block {
+              print
+              if ($0 ~ /registry has keywords outside controlledKeywords in src\/main\/config\/site.json/) {
+                in_block=0
+                exit
+              }
+            }
+          ' "$VLOG")"
+
+          if [ -n "$KW_BLOCK" ]; then
+            {
+              echo
+              echo "### ⚠️ Unknown Keywords (will fail strict \`npm run validate\`)"
+              echo
+              echo '```text'
+              printf '%s\n' "$KW_BLOCK"
+              echo '```'
+              echo
+            } >> "$PRLOG"
+          fi
 
       - name: Canonicalize documents.json
         if: steps.skipcheck.outputs.skip == 'false'

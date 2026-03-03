@@ -16,11 +16,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Refactored `src/main/scripts/providers/ietf.parse.js` to use shared keyword normalization (`splitAndNormalizeKeywords`) instead of inline acronym/title-case logic.
 - Refactored `src/main/scripts/utils/keywords.sync.js` to use shared keyword normalization (`normalizeKeyword`) instead of inline acronym/title-case logic.
 - Extended keyword acronym normalization to preserve `SMTP` uppercase consistently across parser/sync flows.
+- Extraction workflows (`extract-docs-ietf.yml`, `extract-docs-smpte.yml`) now append unknown-keyword warnings from `npm run validate -- --warn` output into PR notes, so warn-only keyword drift is visible before merge.
 - Removed old `stats` API veiwer template. 
 
 ### Fixed
 - **gh-pages push contention** (#910) — replaced `peaceiris/actions-gh-pages` with manual git deploy in PR Build Preview and main site build workflows; added push-with-retry (pull --rebase, up to 3 attempts) to all four workflows that push to `gh-pages` (site build, PR preview, PR cleanup, PR sweeper). The site build's two-step cleanup-then-publish is now a single atomic commit.
 - **URL validation over-triggering** — added a daily throttle for workflow-chain URL validation so `Validate Document URLs` skips workflow-run invocations if a successful URL validation already completed within the previous 24 hours.
+- **IETF references canonicalization noise on new extracts** — fixed new-document extraction/merge so empty `references.normative`/`references.bibliographic` arrays are not persisted; IETF parser now emits sparse `references` keys (only when non-empty), preventing canonicalization from injecting manual `references.normative$meta` for parser-empty placeholders.
 - **Docs index search in PR previews** — fixed docs search asset loading in `src/site/js/docList.js` to use `window.msrAssetPrefix` with relative fallbacks instead of root-absolute `/docs/...` paths, so searches return results on preview URLs under subpaths (for example, `/pr/<num>/docs/`) while continuing to work locally.
 
 ## [v1.4.0] - 2026-02-28

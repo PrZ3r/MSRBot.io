@@ -495,6 +495,17 @@ for (const doc of results) {
       }
       injectMetaForDoc(doc, sourceType, 'new');
       if (doc.references) {
+        // Drop empty reference arrays on new inserts so canonicalize does not
+        // inject manual $meta for parser-empty placeholders.
+        if (Array.isArray(doc.references.normative) && doc.references.normative.length === 0) {
+          delete doc.references.normative;
+          delete doc.references['normative$meta'];
+        }
+        if (Array.isArray(doc.references.bibliographic) && doc.references.bibliographic.length === 0) {
+          delete doc.references.bibliographic;
+          delete doc.references['bibliographic$meta'];
+        }
+
         const hasNorm = Array.isArray(doc.references.normative) && doc.references.normative.length > 0;
         const hasBibl = Array.isArray(doc.references.bibliographic) && doc.references.bibliographic.length > 0;
         if (!hasNorm && !hasBibl) {

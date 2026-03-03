@@ -163,6 +163,15 @@ function createIetfParser(deps) {
     return splitAndNormalizeKeywords(values);
   }
 
+  function buildReferences(normative = [], bibliographic = []) {
+    const refs = {};
+    const norm = unique((normative || []).filter(Boolean));
+    const bibl = unique((bibliographic || []).filter(Boolean));
+    if (norm.length) refs.normative = norm;
+    if (bibl.length) refs.bibliographic = bibl;
+    return refs;
+  }
+
   function metaContent($, names = []) {
     for (const n of names) {
       const v = $(`meta[name="${n}"]`).attr('content') || $(`meta[property="${n}"]`).attr('content');
@@ -1130,14 +1139,14 @@ function createIetfParser(deps) {
           ]).filter(id => id !== `RFC${rfcNum}`);
       }
 
-      const refs = {
-        normative: unique(normative.filter(id => id !== `RFC${rfcNum}`)),
-        bibliographic: unique(bibliographic.filter(id => id !== `RFC${rfcNum}`))
-      };
-      if (refs.normative.length) {
+      const refs = buildReferences(
+        normative.filter(id => id !== `RFC${rfcNum}`),
+        bibliographic.filter(id => id !== `RFC${rfcNum}`)
+      );
+      if (Array.isArray(refs.normative) && refs.normative.length) {
         metaNotes['references.normative'] = 'Parsed from RFC HTML normative references sections';
       }
-      if (refs.bibliographic.length) {
+      if (Array.isArray(refs.bibliographic) && refs.bibliographic.length) {
         metaNotes['references.bibliographic'] = 'Parsed from RFC HTML references/informative sections';
       }
 
@@ -1175,7 +1184,7 @@ function createIetfParser(deps) {
           errataExist: errataUrls.length > 0,
           errataUrl: errataUrls
         },
-        ...(refs.normative.length || refs.bibliographic.length ? { references: refs } : {})
+        ...(Object.keys(refs).length ? { references: refs } : {})
       };
 
       Object.defineProperty(doc, '__sourceUrl', { value: seed, enumerable: false });
@@ -1325,12 +1334,12 @@ function createIetfParser(deps) {
       onBadRefs(pendingXmlBadRefs.map((r) => ({ ...r, docId })));
     }
     const docLabel = toIetfLabel(report || docId.replace(/^IETF\./i, ''));
-    const refs = {
-      normative: unique((xmlRefs.normative || []).filter(id => id !== docId)),
-      bibliographic: unique((xmlRefs.bibliographic || []).filter(id => id !== docId))
-    };
-    if (refs.normative.length) metaNotes['references.normative'] = 'Parsed from archive XML references (Normative References)';
-    if (refs.bibliographic.length) metaNotes['references.bibliographic'] = 'Parsed from archive XML references (Informative/Bibliographic References)';
+    const refs = buildReferences(
+      (xmlRefs.normative || []).filter(id => id !== docId),
+      (xmlRefs.bibliographic || []).filter(id => id !== docId)
+    );
+    if (Array.isArray(refs.normative) && refs.normative.length) metaNotes['references.normative'] = 'Parsed from archive XML references (Normative References)';
+    if (Array.isArray(refs.bibliographic) && refs.bibliographic.length) metaNotes['references.bibliographic'] = 'Parsed from archive XML references (Informative/Bibliographic References)';
 
     const classified = stdLevel
       ? classifyIetfFromStdLevel(stdLevel, { isDraft })
@@ -1350,7 +1359,7 @@ function createIetfParser(deps) {
       ...(doi ? { doi } : {}),
       ...(issn ? { issn } : {}),
       ...(keywords.length ? { keywords } : {}),
-      ...(refs.normative.length || refs.bibliographic.length ? { references: refs } : {}),
+      ...(Object.keys(refs).length ? { references: refs } : {}),
       status: {
         active: true,
         latestVersion: true,
