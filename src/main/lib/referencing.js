@@ -947,36 +947,98 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
-  // ISO/IEC family — capture the highest year present, if any
-  if (/ISO\/IEC\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/.test(text)) {
-    const [, base, suffix] = text.match(/ISO\/IEC\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/);
-    const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map(m => parseInt(m[1])) : [];
-    const year = years.length ? Math.max(...years) : null;
-    { const refId = `ISO.${base}${year ? `.${year}` : ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso|iec designator' } } : refId; }
+  // ISO marker-first legacy forms seen in older RFCs:
+  // e.g., "[ISO-10744] ... ISO/IEC 10744:1992 ..." or
+  // "[ISO-8879] ... Part 1 ... 1987".
+  {
+    const mIsoMarker = String(text || '').match(/\bISO-([0-9]{3,6})\b/i);
+    if (mIsoMarker) {
+      const base = String(mIsoMarker[1] || '');
+      const mIsoDesignator = String(text || '').match(
+        /\bISO(?:\s*\/\s*IEC|\/IEC)?\s+([0-9]{3,6}(?:-[0-9A-Za-z]+)*)\s*:\s*((?:19|20)\d{2})\b/i
+      );
+      if (mIsoDesignator?.[1] && mIsoDesignator?.[2]) {
+        const designator = String(mIsoDesignator[1]);
+        const year = parseInt(mIsoDesignator[2], 10);
+        // If the inline ISO/IEC designator matches the marker lineage,
+        // preserve its specificity (e.g., 7498-1 -> ISO.7498-1.1994).
+        if (designator === base || designator.startsWith(`${base}-`)) {
+          const refId = `ISO.${designator}.${year}`;
+          return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-marker+designator' } } : refId;
+        }
+        // If the marker and designator disagree (legacy RFC quirk), keep marker base
+        // but trust the explicit year from the designator (e.g., ISO-8879 vs ISO 8859-1:1987).
+        const partMatch = String(text || '').match(/\bPart\s+([0-9]{1,3})\b/i);
+        const part = partMatch ? `-${parseInt(partMatch[1], 10)}` : '';
+        const refId = `ISO.${base}${part}.${year}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-marker-mismatch' } } : refId;
+      }
+
+      const partMatch = String(text || '').match(/\bPart\s+([0-9]{1,3})\b/i);
+      const years = [...String(text || '').matchAll(/\b((?:19|20)\d{2})\b/g)]
+        .map(m => parseInt(m[1], 10))
+        .filter(y => String(y) !== base);
+      const year = years.length ? Math.max(...years) : null;
+      if (year) {
+        const part = partMatch ? `-${parseInt(partMatch[1], 10)}` : '';
+        const refId = `ISO.${base}${part}.${year}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-marker-legacy' } } : refId;
+      }
+    }
   }
-  if (/ISO\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/.test(text)) {
-    const [, base, suffix] = text.match(/ISO\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/);
-    const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map(m => parseInt(m[1])) : [];
-    const year = years.length ? Math.max(...years) : null;
-    { const refId = `ISO.${base}${year ? `.${year}` : ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso|iec designator' } } : refId; }
+
+  // ISO/IEC family — scan all occurrences and prefer matches that include year suffixes.
+  const pickBestStdMatch = (re) => {
+    const matches = [...String(text || '').matchAll(re)];
+    if (!matches.length) return null;
+    const scored = matches.map((m) => {
+      const base = String(m[1] || '').trim();
+      const suffix = String(m[2] || '');
+      const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map((ym) => parseInt(ym[1], 10)) : [];
+      const year = years.length ? Math.max(...years) : null;
+      const specificity = base.includes('-') ? 1 : 0;
+      const score = (year ? 100000 : 0) + (year || 0) + specificity;
+      return { base, year, score };
+    }).filter((v) => v.base);
+    if (!scored.length) return null;
+    scored.sort((a, b) => b.score - a.score);
+    return scored[0];
+  };
+
+  {
+    const best = pickBestStdMatch(/\bISO(?:\s*\/\s*IEC|\/IEC)\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
+    if (best) {
+      const refId = `ISO.${best.base}${best.year ? `.${best.year}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso|iec designator' } } : refId;
+    }
   }
-  if (/ISO-(\d+(?:-\d+)+)(:[\dA-Za-z+:\.-]+)?/i.test(text)) {
-    const [, base, suffix] = text.match(/ISO-(\d+(?:-\d+)+)(:[\dA-Za-z+:\.-]+)?/i);
-    const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map(m => parseInt(m[1])) : [];
-    const year = years.length ? Math.max(...years) : null;
-    { const refId = `ISO.${base}${year ? `.${year}` : ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-hyphen-part designator' } } : refId; }
+  {
+    const best = pickBestStdMatch(/\bISO(?!\s*\/\s*IEC|\/IEC)\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
+    if (best) {
+      const refId = `ISO.${best.base}${best.year ? `.${best.year}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso designator' } } : refId;
+    }
   }
-  if (/ISO-([\d\-]+)(:[\dA-Za-z+:\.-]+)?/i.test(text)) {
-    const [, base, suffix] = text.match(/ISO-([\d\-]+)(:[\dA-Za-z+:\.-]+)?/i);
-    const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map(m => parseInt(m[1])) : [];
-    const year = years.length ? Math.max(...years) : null;
-    { const refId = `ISO.${base}${year ? `.${year}` : ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-hyphen designator' } } : refId; }
+  {
+    const best = pickBestStdMatch(/\bISO-(\d+(?:-\d+)+)(:[\dA-Za-z+:\.-]+)?/ig);
+    if (best) {
+      const refId = `ISO.${best.base}${best.year ? `.${best.year}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-hyphen-part designator' } } : refId;
+    }
   }
-  if (/IEC\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/.test(text)) {
-    const [, base, suffix] = text.match(/IEC\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/);
-    const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map(m => parseInt(m[1])) : [];
-    const year = years.length ? Math.max(...years) : null;
-    { const refId = `IEC.${base}${year ? `.${year}` : ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso|iec designator' } } : refId; }
+  {
+    const best = pickBestStdMatch(/\bISO-([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
+    if (best) {
+      const refId = `ISO.${best.base}${best.year ? `.${best.year}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-hyphen designator' } } : refId;
+    }
+  }
+  {
+    const best = pickBestStdMatch(/\bIEC\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
+    if (best) {
+      const refId = `IEC.${best.base}${best.year ? `.${best.year}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iec designator' } } : refId;
+    }
   }
 
   return wantDiag ? { refId: null, diag: { mapSource: null, mapDetail: null } } : null;
@@ -991,7 +1053,14 @@ function parseRefId(text, href = '', opts = {}) {
 function extractRefs($, currentDocId, opts = {}) {
   const mode = String(opts.mode || 'default').toLowerCase();
   const recordSightings = opts.recordSightings !== false;
-  const out = { references: {}, badRefs: [] };
+  const out = { references: {}, badRefs: [], flags: [] };
+  const parserDiag = {
+    anchoredMarkers: 0,
+    plainMarkers: 0,
+    numberedItems: 0,
+    proseBlocksTotal: 0,
+    proseBlocksSkippedForAnchor: 0
+  };
 
   function recordSighting(payload) {
     if (!recordSightings) return;
@@ -1009,17 +1078,19 @@ function extractRefs($, currentDocId, opts = {}) {
       if (m?.[1]) return `IETF.${m[1].toLowerCase()}`;
     }
 
-    // 2) canonical parser (cite + href), prioritizing concise cite variants first.
+    // 2) canonical parser (cite + href), prioritize full cite variants first so
+    // marker-only tokens (e.g., "ISO-8879") do not short-circuit richer text.
     for (const href of [...hrefs, '']) {
-      for (const cite of [...conciseCites, '']) {
+      for (const cite of [...cites, '']) {
         try {
           const parsed = parseRefId(cite, href);
           if (parsed && String(parsed).trim()) return String(parsed).trim();
         } catch {}
       }
     }
+    // 2b) concise-only retry (cheap fallback)
     for (const href of [...hrefs, '']) {
-      for (const cite of [...cites, '']) {
+      for (const cite of [...conciseCites, '']) {
         try {
           const parsed = parseRefId(cite, href);
           if (parsed && String(parsed).trim()) return String(parsed).trim();
@@ -1056,19 +1127,19 @@ function extractRefs($, currentDocId, opts = {}) {
       )]
     );
     const isOrdinalMarker = (markerRaw) => /^\d+(?:\.\d+)?$/.test(String(markerRaw || '').trim());
-    const isRfcMarker = (markerRaw) => /^RFC0*\d{1,5}$/i.test(String(markerRaw || '').trim());
+    const isRfcMarker = (markerRaw) => /^RFC[\s._-]*0*\d{1,5}$/i.test(String(markerRaw || '').trim());
     const trimRfcRefTail = (textRaw) => {
       const text = String(textRaw || '').replace(/\s+/g, ' ').trim();
       if (!text) return '';
       // Guard against spillover into post-reference sections when parsing the last ref in a block.
       // Do not trim on generic "Appendix" tokens because many valid references cite
       // "Appendix X.Y of ...", which must remain parseable.
-      const tailStopRe = /\b(?:ACKNOWLEDGEMENTS?|AUTHORS?\s+ADDRESSES?)\b[\s\S]*$/i;
+      const tailStopRe = /\b(?:ACKNOWLEDGEMENTS?|AUTHORS?'?\s+ADDRESSES?|AUTHOR'?S\s+ADDRESS(?:ES)?|CHAIR,\s*EDITOR,\s*AND\s+AUTHORS?'?\s+ADDRESSES?|APPENDIX\s+[A-Z0-9]+(?:\s*(?:--|[-–—:])\s*)?\s*REFERENCE\s+IMPLEMENTATION|CHANGES?\s+FROM\s+RFC\s*\d{3,5})\b[\s\S]*$/i;
       return text.replace(tailStopRe, '').trim();
     };
     const normalizeMarker = (markerRaw) => {
       const marker = String(markerRaw || '').trim();
-      const rfcMatch = marker.match(/^RFC0*([0-9]{1,5})$/i);
+      const rfcMatch = marker.match(/^RFC[\s._-]*0*([0-9]{1,5})$/i);
       if (rfcMatch?.[1]) return `RFC${parseInt(rfcMatch[1], 10)}`;
       return marker;
     };
@@ -1097,15 +1168,13 @@ function extractRefs($, currentDocId, opts = {}) {
     ];
 
     for (const def of sectionDefs) {
-      const seenAnchors = new Set();
       for (const sel of def.selectors) {
         $(sel).each((_, secEl) => {
           const $sec = $(secEl);
           $sec.find('a[id^="ref-"]').each((__, aEl) => {
             const $a = $(aEl);
             const rawId = String($a.attr('id') || '').trim();
-            if (!rawId || seenAnchors.has(rawId)) return;
-            seenAnchors.add(rawId);
+            if (!rawId) return;
 
             const marker = normalizeMarker(rawId.replace(/^ref-/i, ''));
             parsedMarkers.add(marker);
@@ -1123,11 +1192,16 @@ function extractRefs($, currentDocId, opts = {}) {
 
             const markerIsOrdinal = isOrdinalMarker(marker);
             const citeCandidates = [
+              ctxText,
               ...(markerIsOrdinal ? [] : [marker, markerText]),
-              String($a.text() || '').trim(),
-              ctxText
+              String($a.text() || '').trim()
             ];
-            const refId = resolveXmlRefId(citeCandidates, hrefs);
+            // If the anchor id itself is an RFC marker (e.g., ref-RFC 1327),
+            // prefer that explicit target over incidental RFC links in the
+            // citation prose (e.g., "... ISO 10021 and RFC 822 ...").
+            const refId = isRfcMarker(marker)
+              ? normalizeMarker(marker)
+              : resolveXmlRefId(citeCandidates, hrefs);
 
             if (refId) {
               addRef(def.key, refId);
@@ -1168,19 +1242,25 @@ function extractRefs($, currentDocId, opts = {}) {
       // Prefer true RFC heading markup (span.h2/h3 + section selflink) over text fallbacks.
       const normHeadingRe = /<span[^>]*class=["'][^"']*\bh3\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Normative\s+References(?:\s|&nbsp;)*<\/span>/ig;
       const infoHeadingRe = /<span[^>]*class=["'][^"']*\bh3\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Informative\s+References(?:\s|&nbsp;)*<\/span>/ig;
-      const refsHeadingRe = /<span[^>]*class=["'][^"']*\bh2\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*References(?:\s+and\s+Bibliography)?(?:\s|&nbsp;)*<\/span>/ig;
+      const refsHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>(?:\s|&nbsp;|<a[^>]*>[^<]*<\/a>)*\.?(?:\s*(?:--|[-–—:])\s*)?(?:\s|&nbsp;)*References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
+      // Appendix-style reference headings are common in older RFC HTML renderings.
+      const refsHeadingAppendixRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Appendix(?:es)?(?:\s+[A-Z0-9]+)?(?:\s*(?:--|[-–—:])\s*)?)?References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
       // Plain-text heading fallbacks (line-start only). These are strict to avoid
       // matching prose mentions of "references" elsewhere in the document body.
       const normHeadingLineRe = /(?:^|\n)\s*(?:\d+(?:\.\d+)?)?\.?\s*Normative\s+References\s*(?=\n|$)/ig;
       const infoHeadingLineRe = /(?:^|\n)\s*(?:\d+(?:\.\d+)?)?\.?\s*Informative\s+References\s*(?=\n|$)/ig;
-      const refsHeadingLineRe = /(?:^|\n)\s*(?:\d+(?:\.\d+)?)?\.?\s*References(?:\s+and\s+Bibliography)?\s*(?=\n|$)/ig;
+      const refsHeadingLineRe = /(?:^|\n)\s*(?:\d+(?:\.\d+)?)?\.?\s*References(?:\s+and\s+(?:Bibliography|Citations))?\s*(?=\n|$)/ig;
+      const refsHeadingAppendixLineRe = /(?:^|\n)\s*Appendix(?:es)?\s+[A-Z0-9]+(?:\s*(?:--|[-–—:])\s*)?\s*References(?:\s+and\s+(?:Bibliography|Citations))?\s*(?=\n|$)/ig;
 
       let normPositions = findHeadingPositions(normHeadingRe);
       let infoPositions = findHeadingPositions(infoHeadingRe);
       let refsPositions = findHeadingPositions(refsHeadingRe);
+      refsPositions = refsPositions.concat(findHeadingPositions(refsHeadingAppendixRe));
       if (!normPositions.length) normPositions = findHeadingPositions(normHeadingLineRe);
       if (!infoPositions.length) infoPositions = findHeadingPositions(infoHeadingLineRe);
       if (!refsPositions.length) refsPositions = findHeadingPositions(refsHeadingLineRe);
+      refsPositions = refsPositions.concat(findHeadingPositions(refsHeadingAppendixLineRe));
+      refsPositions = Array.from(new Set(refsPositions)).sort((a, b) => a - b);
       const hasNorm = normPositions.length > 0;
       const hasInfo = infoPositions.length > 0;
       const hasRefs = refsPositions.length > 0;
@@ -1201,7 +1281,7 @@ function extractRefs($, currentDocId, opts = {}) {
       const firstRefSectionPos = bounds.length ? bounds[0].pos : -1;
       const allSectionHeadingPositions = [];
       {
-        const sectionHeadingRe = /<span[^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>/ig;
+        const sectionHeadingRe = /<span[^>]*>\s*<a[^>]*\bid=["'](?:section|appendix)-[^"']+["'][^>]*>/ig;
         let hm;
         while ((hm = sectionHeadingRe.exec(raw)) !== null) {
           allSectionHeadingPositions.push(hm.index);
@@ -1254,7 +1334,6 @@ function extractRefs($, currentDocId, opts = {}) {
         return pos + 1 + m.index;
       };
 
-      const seen = new Set();
       const re = /<a[^>]+id=["']ref-([^"']+)["'][^>]*>/ig;
       const anchors = [];
       let m;
@@ -1265,10 +1344,11 @@ function extractRefs($, currentDocId, opts = {}) {
           end: re.lastIndex
         });
       }
+      parserDiag.anchoredMarkers += anchors.length;
+      const anchoredResolvedRanges = [];
       for (let i = 0; i < anchors.length; i++) {
         const marker = anchors[i].marker;
-        if (!marker || seen.has(marker)) continue;
-        if (parsedMarkers.has(marker)) continue;
+        if (!marker) continue;
 
         const pos = anchors[i].index;
         if (firstRefSectionPos >= 0 && pos < firstRefSectionPos) continue;
@@ -1290,8 +1370,6 @@ function extractRefs($, currentDocId, opts = {}) {
 
         // If we cannot confidently place the anchor in a refs block, skip it.
         if (!key) continue;
-        seen.add(marker);
-
         const nextStart = (i + 1 < anchors.length) ? anchors[i + 1].index : raw.length;
         // Start scanning for the next marker after this anchor, so we don't
         // immediately match the current marker line and drop its citation text.
@@ -1301,10 +1379,14 @@ function extractRefs($, currentDocId, opts = {}) {
         const pageBreakEnd = nextPageBreakPos(pos);
         const chunkEnd = Math.min(nextStart, nextBracketMarker, sectionEnd, headingEnd, pageBreakEnd);
         const chunk = raw.slice(anchors[i].index, chunkEnd);
-        const hrefs = sanitizeRfcHtmlHrefs([...chunk.matchAll(/href=["']([^"']+)["']/ig)]
+        // Treat each anchored marker as a single reference block. If multiple
+        // prose references follow without markers, only parse the first paragraph
+        // here; remaining blocks are handled by prose fallback below.
+        const anchorChunk = chunk.split(/\n\s*\n+/)[0] || chunk;
+        const hrefs = sanitizeRfcHtmlHrefs([...anchorChunk.matchAll(/href=["']([^"']+)["']/ig)]
           .map(hm => String(hm[1] || '').trim())
         );
-        const chunkText = chunk
+        const chunkText = anchorChunk
           .replace(/<[^>]+>/g, ' ')
           .replace(/\s+/g, ' ')
           .trim();
@@ -1312,16 +1394,21 @@ function extractRefs($, currentDocId, opts = {}) {
         const markerText = marker.replace(/[_-]+/g, ' ').trim();
         const markerIsOrdinal = isOrdinalMarker(marker);
         const markerIsRfc = isRfcMarker(marker);
-        const refId = resolveXmlRefId(
-          [
-            ...(markerIsOrdinal ? [] : [marker, markerText]),
-            ...(markerIsRfc ? [`RFC ${marker.replace(/^RFC/i, '')}`] : []),
-            cleanedChunkText || chunkText
-          ],
-          hrefs
-        );
+        const refId = markerIsRfc
+          ? normalizeMarker(marker)
+          : resolveXmlRefId(
+            [
+              cleanedChunkText || chunkText,
+              ...(markerIsOrdinal ? [] : [marker, markerText]),
+              ...(markerIsRfc ? [`RFC ${marker.replace(/^RFC/i, '')}`] : []),
+            ],
+            hrefs
+          );
         if (refId) {
           addRef(key, refId);
+          if (markerIsRfc) {
+            anchoredResolvedRanges.push({ start: anchors[i].index, end: chunkEnd });
+          }
           recordSighting({
             docId: currentDocId,
             type: key,
@@ -1370,6 +1457,7 @@ function extractRefs($, currentDocId, opts = {}) {
           const dedupeKey = `${key}@@${absPos}@@${markerText.toLowerCase()}`;
           if (plainSeen.has(dedupeKey)) continue;
           plainSeen.add(dedupeKey);
+          parserDiag.plainMarkers += 1;
 
           const nextMarkerStart = nextLineRefMarkerPos(absPos);
           const sectionEnd = boundEndForPos(absPos);
@@ -1388,7 +1476,7 @@ function extractRefs($, currentDocId, opts = {}) {
             .trim();
           const cleanedChunkText = trimRfcRefTail(chunkText);
 
-          const refId = resolveXmlRefId([markerText, cleanedChunkText || chunkText], hrefs);
+          const refId = resolveXmlRefId([cleanedChunkText || chunkText, markerText], hrefs);
           if (refId) {
             addRef(key, refId);
             recordSighting({
@@ -1414,14 +1502,166 @@ function extractRefs($, currentDocId, opts = {}) {
         plainMarkerRe.lastIndex = 0;
       }
 
+      // Numbered list fallback for older RFC HTML pages where reference entries
+      // are plain numbered lines (e.g., "1. ...") without ref-* anchors.
+      for (let b = 0; b < bounds.length; b++) {
+        const start = bounds[b].pos;
+        const end = b + 1 < bounds.length ? bounds[b + 1].pos : raw.length;
+        if (end <= start) continue;
+        const key = bounds[b].key;
+        const sectionSlice = raw.slice(start, end);
+        const numberedRe = /(?:^|\n)\s{0,8}(\d{1,3})\.\s{1,6}([\s\S]*?)(?=(?:\n\s{0,8}\d{1,3}\.\s{1,6})|$)/g;
+        let nm;
+        while ((nm = numberedRe.exec(sectionSlice)) !== null) {
+          const markerNo = String(nm[1] || '').trim();
+          const chunk = String(nm[0] || '').trim();
+          if (!chunk) continue;
+          parserDiag.numberedItems += 1;
+          const hrefs = sanitizeRfcHtmlHrefs([...chunk.matchAll(/href=["']([^"']+)["']/ig)]
+            .map((hm) => String(hm[1] || '').trim())
+          );
+          const chunkText = chunk
+            .replace(/<[^>]+>/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+          const cleanedChunkText = trimRfcRefTail(chunkText);
+          if (!cleanedChunkText) continue;
+
+          const refId = resolveXmlRefId([cleanedChunkText], hrefs);
+          if (refId) {
+            addRef(key, refId);
+            recordSighting({
+              docId: currentDocId,
+              type: key,
+              refId,
+              cite: markerNo ? `[${markerNo}]` : cleanedChunkText,
+              href: hrefs[0] || '',
+              mapSource: 'ietf-rfc-html-fallback',
+              mapDetail: 'ref-numbered',
+              rawRef: cleanedChunkText,
+              title: null
+            });
+          } else {
+            out.badRefs.push({
+              docId: currentDocId,
+              type: key,
+              refText: cleanedChunkText,
+              href: hrefs[0] || ''
+            });
+          }
+        }
+      }
+
+      // Prose-block fallback for older RFC pages where references are plain
+      // paragraph-like entries separated by blank lines (no markers/numbering).
+      for (let b = 0; b < bounds.length; b++) {
+        const start = bounds[b].pos;
+        const end = b + 1 < bounds.length ? bounds[b + 1].pos : raw.length;
+        if (end <= start) continue;
+        const key = bounds[b].key;
+        const sectionSlice = raw.slice(start, end);
+        // Split prose references by blank lines and by likely author-start lines.
+        // Older RFC HTML sometimes omits blank lines between adjacent references.
+        const blocks = sectionSlice
+          .split(/\n\s*\n+/)
+          .flatMap((chunk) => String(chunk || '').split(/(?=\n\s*[A-Z][A-Za-z'`.-]+,\s*[A-Z]\.)/));
+        const proseSeen = new Set();
+        for (const blockRaw of blocks) {
+          const block = String(blockRaw || '');
+          if (!block.trim()) continue;
+          parserDiag.proseBlocksTotal += 1;
+          const blockTextForStop = block
+            .replace(/<[^>]+>/g, ' ')
+            .replace(/&nbsp;/ig, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+          // Stop parsing this reference bound once we hit obvious post-reference headings.
+          if (/^(?:\d+(?:\.\d+)?)?\s*\.?\s*AUTHOR'?S?\s+ADDRESS(?:ES)?\b/i.test(blockTextForStop)
+            || /^(?:\d+(?:\.\d+)?)?\s*\.?\s*CHAIR,\s*EDITOR,\s*AND\s+AUTHORS?'?\s+ADDRESSES?\b/i.test(blockTextForStop)
+            || /^(?:\d+(?:\.\d+)?)?\s*\.?\s*ACKNOWLEDGEMENTS?\b/i.test(blockTextForStop)
+            || /^APPENDIX(?:ES)?\b/i.test(blockTextForStop)
+            || /^(?:[A-Z]\s*\.\s*)?Changes?\s+(?:since|from)\s+RFC\s*\d{3,5}\b/i.test(blockTextForStop)) {
+            break;
+          }
+          // Skip entries already handled by marker-based and numbered fallbacks.
+          if (/\[\s*(?:<a[^>]*id=["']ref-[^"']+["'][^>]*>)?/i.test(block)) {
+            parserDiag.proseBlocksSkippedForAnchor += 1;
+            continue;
+          }
+          if (/(?:^|\n)\s{0,8}\d{1,3}\.\s{1,6}/.test(block)) continue;
+
+          const hrefs = sanitizeRfcHtmlHrefs([...block.matchAll(/href=["']([^"']+)["']/ig)]
+            .map((hm) => String(hm[1] || '').trim())
+          );
+          const chunkText = block
+            .replace(/<[^>]+>/g, ' ')
+            .replace(/&nbsp;/ig, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+          const cleanedChunkText = trimRfcRefTail(chunkText);
+          if (!cleanedChunkText || cleanedChunkText.length < 28) continue;
+          if (/^references?(?:\s+and\s+(?:bibliography|citations))?$/i.test(cleanedChunkText)) continue;
+
+          const seenKey = cleanedChunkText.toLowerCase();
+          if (proseSeen.has(seenKey)) continue;
+          proseSeen.add(seenKey);
+
+          const refId = resolveXmlRefId([cleanedChunkText], hrefs);
+          if (refId) {
+            addRef(key, refId);
+            recordSighting({
+              docId: currentDocId,
+              type: key,
+              refId,
+              cite: cleanedChunkText,
+              href: hrefs[0] || '',
+              mapSource: 'ietf-rfc-html-fallback',
+              mapDetail: 'ref-prose',
+              rawRef: cleanedChunkText,
+              title: null
+            });
+          } else {
+            // Only emit as badRef when it looks citation-like to limit noise.
+            const looksCitationLike = /\b(19|20)\d{2}\b/.test(cleanedChunkText)
+              || /\bRFC\s*[0-9]{3,5}\b/i.test(cleanedChunkText)
+              || /\b(?:ISO|IEC|IEEE|STD)\b/i.test(cleanedChunkText)
+              || /["“][^"”]{8,}["”]/.test(cleanedChunkText);
+            if (looksCitationLike) {
+              out.badRefs.push({
+                docId: currentDocId,
+                type: key,
+                refText: cleanedChunkText,
+                href: hrefs[0] || ''
+              });
+            }
+          }
+        }
+      }
+
       // Secondary fallback: parse RFC numbers directly from reference-section text ranges.
       // This catches cases where ref-* anchor ids are missing/altered across page breaks.
-      const addRfcFromSlice = (slice, key) => {
+      const addRfcFromSlice = (slice, key, sliceStart = 0) => {
         if (!slice || !key) return;
-        const cleanedSlice = String(slice || '')
-          .replace(/<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>/ig, ' ')
-          .replace(/<!--\s*NewPage\s*-->/ig, ' ')
-          .replace(/<hr[^>]*class=["'][^"']*\bnoprint\b[^"']*["'][^>]*>/ig, ' ');
+        const matchSlice = String(slice || '')
+          .replace(/<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>/ig, (m) => ' '.repeat(m.length))
+          .replace(/<!--\s*NewPage\s*-->/ig, (m) => ' '.repeat(m.length))
+          .replace(/<hr[^>]*class=["'][^"']*\bnoprint\b[^"']*["'][^>]*>/ig, (m) => ' '.repeat(m.length));
+        // Stop RFC-token harvesting once we leave the references body.
+        const postRefStopRe = /<span[^>]*class=["'][^"']*\bh2\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["'](?:section|appendix)-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Security\s+Considerations|Acknowledgements?|Author'?s?\s+Address(?:es)?|Chair,\s*Editor,\s*and\s+Authors?'?\s+Addresses?)\b[\s\S]*$/i;
+        const appendixChangesRe = /\bAppendix\b[\s\S]{0,120}\bchanges\s+since\s+RFC\s*\d{3,5}\b[\s\S]*$/i;
+        const appendixChangesFromRe = /\bAppendix\b[\s\S]{0,120}\bchanges\s+from\s+RFC\s*\d{3,5}\b[\s\S]*$/i;
+        const appendixDeltaHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Changes?\s+(?:since|from)\s+(?:<a[^>]*>\s*)?RFC\s*\d{3,5}(?:\s*<\/a>)?)\b[\s\S]*$/i;
+        const genericChangesDeltaRe = /\bChanges?\s+(?:since|from)\s+RFC\s*\d{3,5}\b[\s\S]*$/i;
+        const trimmedSlice = matchSlice
+          .replace(postRefStopRe, (m) => ' '.repeat(m.length))
+          .replace(appendixChangesRe, (m) => ' '.repeat(m.length))
+          .replace(appendixChangesFromRe, (m) => ' '.repeat(m.length))
+          .replace(appendixDeltaHeadingRe, (m) => ' '.repeat(m.length))
+          .replace(genericChangesDeltaRe, (m) => ' '.repeat(m.length));
+        const isInsideAnchoredResolvedRange = (relIdx) => {
+          const absIdx = sliceStart + relIdx;
+          return anchoredResolvedRanges.some((r) => absIdx >= r.start && absIdx < r.end);
+        };
         const pushId = (id) => {
           if (!id) return;
           if (String(id) === String(currentDocId)) return;
@@ -1441,11 +1681,20 @@ function extractRefs($, currentDocId, opts = {}) {
         const set = new Set();
         let rm;
         const bracketRe = /\[\s*(?:<a[^>]*>)?\s*RFC\s*([0-9]{3,5})\s*(?:<\/a>)?\s*\]/ig;
-        while ((rm = bracketRe.exec(cleanedSlice)) !== null) set.add(`RFC${parseInt(rm[1], 10)}`);
+        while ((rm = bracketRe.exec(trimmedSlice)) !== null) {
+          if (isInsideAnchoredResolvedRange(rm.index)) continue;
+          set.add(`RFC${parseInt(rm[1], 10)}`);
+        }
         const hrefRe = /href=["'][^"']*\/rfc([0-9]{3,5})(?:[.#?/"'][^"']*)?["']/ig;
-        while ((rm = hrefRe.exec(cleanedSlice)) !== null) set.add(`RFC${parseInt(rm[1], 10)}`);
+        while ((rm = hrefRe.exec(trimmedSlice)) !== null) {
+          if (isInsideAnchoredResolvedRange(rm.index)) continue;
+          set.add(`RFC${parseInt(rm[1], 10)}`);
+        }
         const bareRe = /\bRFC\s*([0-9]{3,5})\b/ig;
-        while ((rm = bareRe.exec(cleanedSlice)) !== null) set.add(`RFC${parseInt(rm[1], 10)}`);
+        while ((rm = bareRe.exec(trimmedSlice)) !== null) {
+          if (isInsideAnchoredResolvedRange(rm.index)) continue;
+          set.add(`RFC${parseInt(rm[1], 10)}`);
+        }
         for (const id of set) pushId(id);
       };
 
@@ -1454,8 +1703,20 @@ function extractRefs($, currentDocId, opts = {}) {
         const end = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
         if (end <= start) continue;
         const slice = raw.slice(start, end);
-        addRfcFromSlice(slice, bounds[i].key);
+        addRfcFromSlice(slice, bounds[i].key, start);
       }
+    }
+
+    const mixedRefLayoutRisk =
+      parserDiag.anchoredMarkers > 0
+      && parserDiag.proseBlocksTotal > 0
+      && parserDiag.proseBlocksSkippedForAnchor > 0;
+    if (mixedRefLayoutRisk) {
+      out.flags.push({
+        scope: 'references.bibliographic',
+        code: 'MIXED_REF_LAYOUT_RISK',
+        detail: `anchored=${parserDiag.anchoredMarkers} proseBlocks=${parserDiag.proseBlocksTotal} skippedAnchorBlocks=${parserDiag.proseBlocksSkippedForAnchor}`
+      });
     }
 
     if (Array.isArray(out.references.normative)) {
@@ -1479,6 +1740,15 @@ function extractRefs($, currentDocId, opts = {}) {
       if (href) return true;
       if (!text) return false;
       if (/^\[?\s*\d+(?:\.\d+)?\s*\]?$/.test(text)) return false;
+      const normalized = text
+        .toLowerCase()
+        .replace(/^\[\s*\*\s*\]\s*/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (normalized === 'non-ascii character') return false;
+      // Cross-reference-only placeholders (e.g., "MIME See [Base64]") are not
+      // standalone citations and should not be emitted as unresolved bad refs.
+      if (/^[a-z0-9._-]+\s*\]?\s+see\s+\[\s*[a-z0-9._-]+\s*\]?$/i.test(normalized)) return false;
       return true;
     });
     return out;
