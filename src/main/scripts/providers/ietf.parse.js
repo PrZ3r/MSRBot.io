@@ -1109,6 +1109,7 @@ function createIetfParser(deps) {
 
       let normative = [];
       let bibliographic = [];
+      const metaFlags = {};
       if ($html) {
         const parsedHtmlRefs = extractRefs($html, `RFC${rfcNum}`, {
           mode: 'ietf-rfc-html',
@@ -1120,6 +1121,14 @@ function createIetfParser(deps) {
           .filter(id => id !== `RFC${rfcNum}`);
         const localBad = Array.isArray(parsedHtmlRefs.badRefs) ? parsedHtmlRefs.badRefs : [];
         if (localBad.length && typeof onBadRefs === 'function') onBadRefs(localBad);
+        const localFlags = Array.isArray(parsedHtmlRefs.flags) ? parsedHtmlRefs.flags : [];
+        const mixedFlag = localFlags.find((f) => String(f?.code || '') === 'MIXED_REF_LAYOUT_RISK');
+        if (mixedFlag) {
+          metaFlags['references.bibliographic'] = {
+            reviewRequired: true,
+            flag: `MIXED_REF_LAYOUT_RISK ${String(mixedFlag.detail || '').trim()}`.trim()
+          };
+        }
 
         // Keep legacy section scan as fallback safety if structured RFC HTML parse yields nothing.
         normative = htmlNorm.length
@@ -1189,6 +1198,7 @@ function createIetfParser(deps) {
 
       Object.defineProperty(doc, '__sourceUrl', { value: seed, enumerable: false });
       Object.defineProperty(doc, '__metaNotes', { value: metaNotes, enumerable: false });
+      Object.defineProperty(doc, '__metaFlags', { value: metaFlags, enumerable: false });
       return [doc];
     }
 
@@ -1372,6 +1382,7 @@ function createIetfParser(deps) {
 
     Object.defineProperty(doc, '__sourceUrl', { value: seed, enumerable: false });
     Object.defineProperty(doc, '__metaNotes', { value: metaNotes, enumerable: false });
+    Object.defineProperty(doc, '__metaFlags', { value: {}, enumerable: false });
     return [doc];
   }
 

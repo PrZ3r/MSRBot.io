@@ -7,11 +7,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased] - yyyy-mm-dd
+
+### Added
+- No unreleased changes yet.
+
+### Changed
+
+### Fixed
+ 
+## [v1.4.1] - 2026-03-06
  
 ### Added
 - Added `npm run local-server` shortcut to start a local HTTP server for previewing the built site.
 - Added shared keyword normalization utility at `src/main/scripts/utils/keyword.normalize.js` to centralize acronym/special-case keyword casing rules used during ingestion and keyword sync.
 - Added persistent bad-reference reporting snapshot at `src/main/reports/badRefs.latest.json` from extraction runs, so unresolved refs can be backfilled outside PR log text.
+- Added `npm run review-refs` helper (`src/main/scripts/utils/review.refs.js`) to manage reference review state:
+  - `npm run review-refs -- list` to enumerate flagged docs.
+  - Expanded `npm run review-refs -- list` reporting to be provider/publisher agnostic and reference-type agnostic:
+    - covers all docs/providers
+    - reports both `normative` and `bibliographic` review flags
+    - correlates with `badRefs.latest` and reports unflagged docs with bad refs
+  - `npm run review-refs -- resolve <DOCID...>` to clear review flags after manual verification.
+  - Updated `npm run review-refs -- resolve <DOCID...>` to clear review flags for both `references.normative$meta` and `references.bibliographic$meta`.
+- Added extraction parser diagnostics flagging for mixed reference layouts (`MIXED_REF_LAYOUT_RISK`) and propagated this as structured review metadata instead of bad-ref noise.
 
 ### Changed
 - Refactored `src/main/scripts/providers/ietf.parse.js` to use shared keyword normalization (`splitAndNormalizeKeywords`) instead of inline acronym/title-case logic.
@@ -20,12 +38,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Extraction workflows (`extract-docs-ietf.yml`, `extract-docs-smpte.yml`) now append unknown-keyword warnings from `npm run validate -- --warn` output into PR notes, so warn-only keyword drift is visible before merge.
 - Extraction workflows now track `src/main/reports/badRefs.latest.json` in extract PRs (and no longer depend on per-run bad-ref log artifacts).
 - Removed old `stats` API veiwer template. 
+- Mixed-layout reference risk now lands in `references.bibliographic$meta` with:
+  - `reviewRequired: true`
+  - `flag: "MIXED_REF_LAYOUT_RISK ..."`
+  and downgrades confidence to `medium` for that field until reviewed.
+- Updated docs schema to permit new `$meta` keys: `reviewRequired` and `flag`.
 
 ### Fixed
 - **gh-pages push contention** (#910) — replaced `peaceiris/actions-gh-pages` with manual git deploy in PR Build Preview and main site build workflows; added push-with-retry (pull --rebase, up to 3 attempts) to all four workflows that push to `gh-pages` (site build, PR preview, PR cleanup, PR sweeper). The site build's two-step cleanup-then-publish is now a single atomic commit.
 - **URL validation over-triggering** — added a daily throttle for workflow-chain URL validation so `Validate Document URLs` skips workflow-run invocations if a successful URL validation already completed within the previous 24 hours.
 - **IETF references canonicalization noise on new extracts** — fixed new-document extraction/merge so empty `references.normative`/`references.bibliographic` arrays are not persisted; IETF parser now emits sparse `references` keys (only when non-empty), preventing canonicalization from injecting manual `references.normative$meta` for parser-empty placeholders.
 - **Docs index search in PR previews** — fixed docs search asset loading in `src/site/js/docList.js` to use `window.msrAssetPrefix` with relative fallbacks instead of root-absolute `/docs/...` paths, so searches return results on preview URLs under subpaths (for example, `/pr/<num>/docs/`) while continuing to work locally.
+- **IETF reference boundary/parsing regressions in legacy RFC HTML** — tightened fallback section detection and stop conditions to reduce non-reference soak-through while still capturing appendix-based reference content:
+  - Added strict old-page bibliography boundary support for `<hr class='noprint'/> <!--NewPage--> <pre class='newpage'> ... Bibliography ... BIBLIOGRAPHY ...`.
+  - Added appendix heading support for `Appendix <X>: Recommended reading` as bibliographic reference bounds.
+  - Updated prose fallback stop logic so `Appendix` headings do not prematurely terminate parsing when the active bound is a recommended-reading reference section.
+  - Backfilled cite→refId normalization rules in `src/main/input/refMap.json` for unresolved legacy citations (notably RFC732/RFC733/RFC2130 reference blocks, including ARPANET NIC, ANSI X3.51, and Jerman-Blazic bibliography entries).
 
 ## [v1.4.0] - 2026-02-28
 

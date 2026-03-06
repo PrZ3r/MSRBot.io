@@ -12,6 +12,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `docs-sort`: sort `documents.json` by `docId` using validator-compatible ordering.
 - `docs-validate`: run the standard validation script.
 - `docs-fix`: sort then validate in one command.
+- `review-refs`: list and resolve reference review flags in `documents.json`.
 - `validate-url`: run URL reachability/audit checks.
 - `normalize-url`: apply URL normalization/backfill from URL audit.
 - `canonicalize`: normalize/sort registry JSON output format.
@@ -129,6 +130,21 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `npm run docs-fix`
   - Runs: `npm run docs-sort && npm run docs-validate`
   - Action: One-shot helper for manual doc edits: reorder then validate.
+
+- `npm run review-refs -- list`
+  - Runs: `node src/main/scripts/utils/review.refs.js list`
+  - Action: Lists review flags across all docs/providers for both reference types:
+    - `references.normative$meta.reviewRequired === true`
+    - `references.bibliographic$meta.reviewRequired === true`
+  - Includes per-entry ref count, `badRefs.latest` count, and summary gap reporting for docs with bad refs but no review flag.
+
+- `npm run review-refs -- resolve <docId...>`
+  - Runs: `node src/main/scripts/utils/review.refs.js resolve <docId...>`
+  - Action: Clears `reviewRequired`, removes `flag`, and appends a manual-review note on both:
+    - `references.normative$meta`
+    - `references.bibliographic$meta`
+  - Example:
+    - `npm run review-refs -- resolve RFC2130 RFC2141`
 
 ### Audit and Utilities
 

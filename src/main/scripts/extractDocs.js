@@ -237,6 +237,9 @@ function injectMeta(doc, field, source, mode, oldValue) {
   const noteOverride = (doc && doc.__metaNotes && typeof doc.__metaNotes[field] === 'string')
     ? doc.__metaNotes[field]
     : '';
+  const flagOverride = (doc && doc.__metaFlags && typeof doc.__metaFlags[field] === 'object')
+    ? doc.__metaFlags[field]
+    : null;
   const meta = {
     source,
     confidence: defaults.confidence,
@@ -246,6 +249,17 @@ function injectMeta(doc, field, source, mode, oldValue) {
     sourceUrl: doc.__sourceUrl,
     version: SCRIPT_VERSION
   };
+  if (flagOverride) {
+    if (typeof flagOverride.reviewRequired === 'boolean') {
+      meta.reviewRequired = flagOverride.reviewRequired;
+      if (flagOverride.reviewRequired && meta.confidence === 'high') {
+        meta.confidence = 'medium';
+      }
+    }
+    if (typeof flagOverride.flag === 'string' && flagOverride.flag.trim()) {
+      meta.flag = flagOverride.flag.trim();
+    }
+  }
   if (mode === 'update' && oldValue !== undefined && oldValue !== doc[field]) {
     meta.overridden = true;
   }
@@ -277,12 +291,37 @@ function buildScopedMetaNotes(notes, prefix) {
   return out;
 }
 
+function buildScopedMetaFlags(flags, prefix) {
+  const out = {};
+  if (!flags || typeof flags !== 'object') return out;
+  const p = `${prefix}.`;
+  for (const [k, v] of Object.entries(flags)) {
+    if (!v || typeof v !== 'object' || Array.isArray(v)) continue;
+    if (!k.startsWith(p)) continue;
+    out[k.slice(p.length)] = { ...v };
+  }
+  return out;
+}
+
 function attachMetaNotes(target, notes) {
   if (!target || typeof target !== 'object') return;
   if (!notes || typeof notes !== 'object') return;
   try {
     Object.defineProperty(target, '__metaNotes', {
       value: notes,
+      enumerable: false,
+      configurable: true,
+      writable: true
+    });
+  } catch (_) {}
+}
+
+function attachMetaFlags(target, flags) {
+  if (!target || typeof target !== 'object') return;
+  if (!flags || typeof flags !== 'object') return;
+  try {
+    Object.defineProperty(target, '__metaFlags', {
+      value: flags,
       enumerable: false,
       configurable: true,
       writable: true
@@ -487,10 +526,13 @@ for (const doc of results) {
       const sourceType = doc.__inferred ? 'inferred' : 'parsed';
       attachMetaSourceUrl(doc, doc.__sourceUrl);
       attachMetaNotes(doc, doc.__metaNotes || {});
+      attachMetaFlags(doc, doc.__metaFlags || {});
       attachMetaSourceUrl(doc.status, doc.__sourceUrl);
       attachMetaNotes(doc.status, buildScopedMetaNotes(doc.__metaNotes, 'status'));
+      attachMetaFlags(doc.status, buildScopedMetaFlags(doc.__metaFlags, 'status'));
       attachMetaSourceUrl(doc.references, doc.__sourceUrl);
       attachMetaNotes(doc.references, buildScopedMetaNotes(doc.__metaNotes, 'references'));
+      attachMetaFlags(doc.references, buildScopedMetaFlags(doc.__metaFlags, 'references'));
        if (doc.repo && !(await urlExistsNoRedirect(doc.repo))) {
         delete doc.repo;
       }
@@ -560,10 +602,13 @@ for (const doc of results) {
       const existingDoc = existingDocs[index];
       attachMetaSourceUrl(existingDoc, doc.__sourceUrl);
       attachMetaNotes(existingDoc, doc.__metaNotes || {});
+      attachMetaFlags(existingDoc, doc.__metaFlags || {});
       attachMetaSourceUrl(existingDoc.status, doc.__sourceUrl);
       attachMetaNotes(existingDoc.status, buildScopedMetaNotes(doc.__metaNotes, 'status'));
+      attachMetaFlags(existingDoc.status, buildScopedMetaFlags(doc.__metaFlags, 'status'));
       attachMetaSourceUrl(existingDoc.references, doc.__sourceUrl);
       attachMetaNotes(existingDoc.references, buildScopedMetaNotes(doc.__metaNotes, 'references'));
+      attachMetaFlags(existingDoc.references, buildScopedMetaFlags(doc.__metaFlags, 'references'));
       let changedFields = [];
       const oldValues = { ...existingDoc, status: { ...(existingDoc.status || {}) } };
       const newValues = { ...doc, status: { ...(doc.status || {}) } };
@@ -631,6 +676,7 @@ for (const doc of results) {
             if (!existingDoc.references) existingDoc.references = {};
             attachMetaSourceUrl(existingDoc.references, doc.__sourceUrl);
             attachMetaNotes(existingDoc.references, buildScopedMetaNotes(doc.__metaNotes, 'references'));
+            attachMetaFlags(existingDoc.references, buildScopedMetaFlags(doc.__metaFlags, 'references'));
 
             if (hasNormNew && normChanged) {
               const resNorm = updateFieldGuarded(existingDoc, 'references.normative', newRefs.normative, { incomingSource: fieldSource, log: true });
@@ -696,6 +742,7 @@ for (const doc of results) {
             }
             attachMetaSourceUrl(existingDoc.status, doc.__sourceUrl);
             attachMetaNotes(existingDoc.status, buildScopedMetaNotes(doc.__metaNotes, 'status'));
+            attachMetaFlags(existingDoc.status, buildScopedMetaFlags(doc.__metaFlags, 'status'));
 
             const statusFields = [
               'active',

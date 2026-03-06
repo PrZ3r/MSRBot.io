@@ -142,6 +142,8 @@ npm run validate -- --warn
 npm run docs-sort
 npm run docs-validate
 npm run docs-fix
+npm run review-refs -- list
+npm run review-refs -- resolve {docId}
 npm run keywords-sync
 npm run keywords-sync -- --write
 npm run build
@@ -156,6 +158,7 @@ Quick reference:
 - `docs-sort`: sort `documents.json` by `docId` (validator-compatible order).
 - `docs-validate`: run document validation flow.
 - `docs-fix`: run `docs-sort` then `docs-validate`.
+- `review-refs`: list/resolve reference review flags (`reviewRequired`) in `documents.json`.
 - `validate-url`: run URL reachability/audit checks.
 - `normalize-url`: apply URL normalization/backfill from URL audit.
 - `canonicalize`: normalize/sort registry JSON output format.
@@ -180,6 +183,11 @@ For the full command and flag reference (including `build-mri`, `build-msi`, `au
 #### Reference Resolution and MRI
 - Shared reference parsing/resolution lives in `src/main/lib/referencing.js` and is reused across providers.
 - `badRefs` reports only citations that cannot be parsed into a canonical `docId`.
+- Mixed reference layouts (anchor + prose risk) are currently flagged on `references.bibliographic$meta` via:
+  - `reviewRequired: true`
+  - `flag: "MIXED_REF_LAYOUT_RISK ..."`
+- `npm run review-refs -- list` reports review flags across all docs/providers and both reference types (`references.normative$meta` and `references.bibliographic$meta`), plus `badRefs.latest` correlation.
+- `npm run review-refs -- resolve <DOCID...>` clears review flags on both reference types for the provided `docId` values after manual review.
 - Parseable refs that are not yet present as source documents are tracked in MRI with unresolved presence state (`sourcePresent: false`) and should be backfilled via data updates or targeted `refMap` rules.
 - Prefer href-based normalization rules in `parseRefId` for stable web patterns (for example, Unicode versions, Bugzilla issue links) and use `src/main/input/refMap.json` for curated/manual edge mappings.
 
