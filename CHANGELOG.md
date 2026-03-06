@@ -7,6 +7,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased] - yyyy-mm-dd
+
+### Added
+- No unreleased changes yet.
+
+### Changed
+
+### Fixed
+ 
+## [v1.4.1] - 2026-03-06
  
 ### Added
 - Added `npm run local-server` shortcut to start a local HTTP server for previewing the built site.
@@ -40,6 +49,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **URL validation over-triggering** — added a daily throttle for workflow-chain URL validation so `Validate Document URLs` skips workflow-run invocations if a successful URL validation already completed within the previous 24 hours.
 - **IETF references canonicalization noise on new extracts** — fixed new-document extraction/merge so empty `references.normative`/`references.bibliographic` arrays are not persisted; IETF parser now emits sparse `references` keys (only when non-empty), preventing canonicalization from injecting manual `references.normative$meta` for parser-empty placeholders.
 - **Docs index search in PR previews** — fixed docs search asset loading in `src/site/js/docList.js` to use `window.msrAssetPrefix` with relative fallbacks instead of root-absolute `/docs/...` paths, so searches return results on preview URLs under subpaths (for example, `/pr/<num>/docs/`) while continuing to work locally.
+- **IETF reference boundary/parsing regressions in legacy RFC HTML** — tightened fallback section detection and stop conditions to reduce non-reference soak-through while still capturing appendix-based reference content:
+  - Added strict old-page bibliography boundary support for `<hr class='noprint'/> <!--NewPage--> <pre class='newpage'> ... Bibliography ... BIBLIOGRAPHY ...`.
+  - Added appendix heading support for `Appendix <X>: Recommended reading` as bibliographic reference bounds.
+  - Updated prose fallback stop logic so `Appendix` headings do not prematurely terminate parsing when the active bound is a recommended-reading reference section.
+  - Backfilled cite→refId normalization rules in `src/main/input/refMap.json` for unresolved legacy citations (notably RFC732/RFC733/RFC2130 reference blocks, including ARPANET NIC, ANSI X3.51, and Jerman-Blazic bibliography entries).
 
 ## [v1.4.0] - 2026-02-28
 

@@ -1245,21 +1245,41 @@ function extractRefs($, currentDocId, opts = {}) {
       const refsHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>(?:\s|&nbsp;|<a[^>]*>[^<]*<\/a>)*\.?(?:\s*(?:--|[-–—:])\s*)?(?:\s|&nbsp;)*References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
       // Appendix-style reference headings are common in older RFC HTML renderings.
       const refsHeadingAppendixRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Appendix(?:es)?(?:\s+[A-Z0-9]+)?(?:\s*(?:--|[-–—:])\s*)?)?References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
+      // Some RFCs place citations under appendix headings such as
+      // "Appendix E: Recommended reading".
+      const recommendedReadingAppendixRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Appendix(?:es)?(?:\s+[A-Z0-9]+)?(?:\s*(?:--|[-–—:])\s*)?)?Recommended\s+reading(?:\s|&nbsp;)*<\/span>/ig;
       // Plain-text heading fallbacks (line-start only). These are strict to avoid
       // matching prose mentions of "references" elsewhere in the document body.
       const normHeadingLineRe = /(?:^|\n)\s*(?:\d+(?:\.\d+)?)?\.?\s*Normative\s+References\s*(?=\n|$)/ig;
       const infoHeadingLineRe = /(?:^|\n)\s*(?:\d+(?:\.\d+)?)?\.?\s*Informative\s+References\s*(?=\n|$)/ig;
       const refsHeadingLineRe = /(?:^|\n)\s*(?:\d+(?:\.\d+)?)?\.?\s*References(?:\s+and\s+(?:Bibliography|Citations))?\s*(?=\n|$)/ig;
       const refsHeadingAppendixLineRe = /(?:^|\n)\s*Appendix(?:es)?\s+[A-Z0-9]+(?:\s*(?:--|[-–—:])\s*)?\s*References(?:\s+and\s+(?:Bibliography|Citations))?\s*(?=\n|$)/ig;
+      const recommendedReadingAppendixLineRe = /(?:^|\n)\s*Appendix(?:es)?\s+[A-Z0-9]+(?:\s*(?:--|[-–—:])\s*)?\s*Recommended\s+reading\s*(?=\n|$)/ig;
+      // Older RFC pages can use a preformatted bibliography header instead of "References":
+      // <hr class='noprint'/><!--NewPage--><pre class='newpage'>... Bibliography ... BIBLIOGRAPHY ...
+      // Keep this strict to avoid treating incidental prose as a reference boundary.
+      const bibliographyPreHeadingRe = /<hr[^>]*class=["'][^"']*\bnoprint\b[^"']*["'][^>]*>\s*<!--\s*NewPage\s*-->\s*<pre[^>]*class=["'][^"']*\bnewpage\b[^"']*["'][^>]*>[\s\S]{0,1400}?(?:^|\n)\s*Bibliography\s*(?:\n|$)[\s\S]{0,900}?(?:^|\n)\s*BIBLIOGRAPHY\s*(?:\n|$)/gim;
 
       let normPositions = findHeadingPositions(normHeadingRe);
       let infoPositions = findHeadingPositions(infoHeadingRe);
+      const bibliographyPrePositions = findHeadingPositions(bibliographyPreHeadingRe);
       let refsPositions = findHeadingPositions(refsHeadingRe);
       refsPositions = refsPositions.concat(findHeadingPositions(refsHeadingAppendixRe));
+      refsPositions = refsPositions.concat(findHeadingPositions(recommendedReadingAppendixRe));
       if (!normPositions.length) normPositions = findHeadingPositions(normHeadingLineRe);
       if (!infoPositions.length) infoPositions = findHeadingPositions(infoHeadingLineRe);
       if (!refsPositions.length) refsPositions = findHeadingPositions(refsHeadingLineRe);
       refsPositions = refsPositions.concat(findHeadingPositions(refsHeadingAppendixLineRe));
+      refsPositions = refsPositions.concat(findHeadingPositions(recommendedReadingAppendixLineRe));
+      refsPositions = refsPositions.concat(bibliographyPrePositions);
+      // When we have the strict old-RFC bibliography preformatted heading and
+      // no explicit normative/informative split, prefer that boundary over any
+      // earlier generic "References" hits (e.g., table-of-contents lines).
+      if (bibliographyPrePositions.length && !normPositions.length && !infoPositions.length) {
+        const firstBibPos = Math.min(...bibliographyPrePositions);
+        refsPositions = refsPositions.filter((p) => p >= firstBibPos);
+        if (!refsPositions.length) refsPositions = [firstBibPos];
+      }
       refsPositions = Array.from(new Set(refsPositions)).sort((a, b) => a - b);
       const hasNorm = normPositions.length > 0;
       const hasInfo = infoPositions.length > 0;
@@ -1560,6 +1580,13 @@ function extractRefs($, currentDocId, opts = {}) {
         if (end <= start) continue;
         const key = bounds[b].key;
         const sectionSlice = raw.slice(start, end);
+        const sectionHeadText = sectionSlice
+          .slice(0, 600)
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/&nbsp;/ig, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        const recommendedReadingBound = /\bRecommended\s+reading\b/i.test(sectionHeadText);
         // Split prose references by blank lines and by likely author-start lines.
         // Older RFC HTML sometimes omits blank lines between adjacent references.
         const blocks = sectionSlice
@@ -1576,10 +1603,11 @@ function extractRefs($, currentDocId, opts = {}) {
             .replace(/\s+/g, ' ')
             .trim();
           // Stop parsing this reference bound once we hit obvious post-reference headings.
+          const appendixHeading = /^APPENDIX(?:ES)?\b/i.test(blockTextForStop);
           if (/^(?:\d+(?:\.\d+)?)?\s*\.?\s*AUTHOR'?S?\s+ADDRESS(?:ES)?\b/i.test(blockTextForStop)
             || /^(?:\d+(?:\.\d+)?)?\s*\.?\s*CHAIR,\s*EDITOR,\s*AND\s+AUTHORS?'?\s+ADDRESSES?\b/i.test(blockTextForStop)
             || /^(?:\d+(?:\.\d+)?)?\s*\.?\s*ACKNOWLEDGEMENTS?\b/i.test(blockTextForStop)
-            || /^APPENDIX(?:ES)?\b/i.test(blockTextForStop)
+            || (appendixHeading && !recommendedReadingBound)
             || /^(?:[A-Z]\s*\.\s*)?Changes?\s+(?:since|from)\s+RFC\s*\d{3,5}\b/i.test(blockTextForStop)) {
             break;
           }
