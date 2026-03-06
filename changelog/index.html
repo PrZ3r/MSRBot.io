@@ -396,9 +396,39 @@
         <div class="card-body small">
           <h6 class="fw-semibold mt-3 mb-1">Added</h6>
 <ul class="mb-1">
+<li>No unreleased changes yet.</li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+        </div>
+      </div>
+      <div class="card mb-3" id="v1.4.1">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>
+              <i class="bi bi-tag me-1"></i>
+            [v1.4.1] - 2026-03-06
+          </span>
+              <span class="badge text-bg-secondary">2026-03-06</span>
+        </div>
+        <div class="card-body small">
+          <h6 class="fw-semibold mt-3 mb-1">Added</h6>
+<ul class="mb-1">
 <li>Added <code>npm run local-server</code> shortcut to start a local HTTP server for previewing the built site.</li>
 <li>Added shared keyword normalization utility at <code>src/main/scripts/utils/keyword.normalize.js</code> to centralize acronym/special-case keyword casing rules used during ingestion and keyword sync.</li>
 <li>Added persistent bad-reference reporting snapshot at <code>src/main/reports/badRefs.latest.json</code> from extraction runs, so unresolved refs can be backfilled outside PR log text.</li>
+<li>Added <code>npm run review-refs</code> helper (<code>src/main/scripts/utils/review.refs.js</code>) to manage reference review state:</li>
+<ul class="mb-1">
+<li><code>npm run review-refs -- list</code> to enumerate flagged docs.</li>
+<li>Expanded <code>npm run review-refs -- list</code> reporting to be provider/publisher agnostic and reference-type agnostic:</li>
+<ul class="mb-1">
+<li>covers all docs/providers</li>
+<li>reports both <code>normative</code> and <code>bibliographic</code> review flags</li>
+<li>correlates with <code>badRefs.latest</code> and reports unflagged docs with bad refs</li>
+</ul>
+<li><code>npm run review-refs -- resolve &lt;DOCID...&gt;</code> to clear review flags after manual verification.</li>
+<li>Updated <code>npm run review-refs -- resolve &lt;DOCID...&gt;</code> to clear review flags for both <code>references.normative$meta</code> and <code>references.bibliographic$meta</code>.</li>
+</ul>
+<li>Added extraction parser diagnostics flagging for mixed reference layouts (<code>MIXED<em>REF</em>LAYOUT_RISK</code>) and propagated this as structured review metadata instead of bad-ref noise.</li>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Changed</h6>
 <ul class="mb-1">
@@ -408,6 +438,15 @@
 <li>Extraction workflows (<code>extract-docs-ietf.yml</code>, <code>extract-docs-smpte.yml</code>) now append unknown-keyword warnings from <code>npm run validate -- --warn</code> output into PR notes, so warn-only keyword drift is visible before merge.</li>
 <li>Extraction workflows now track <code>src/main/reports/badRefs.latest.json</code> in extract PRs (and no longer depend on per-run bad-ref log artifacts).</li>
 <li>Removed old <code>stats</code> API veiwer template. </li>
+<li>Mixed-layout reference risk now lands in <code>references.bibliographic$meta</code> with:</li>
+<ul class="mb-1">
+<li><code>reviewRequired: true</code></li>
+<li><code>flag: "MIXED<em>REF</em>LAYOUT_RISK ..."</code></li>
+</ul>
+</ul>
+<p>  and downgrades confidence to <code>medium</code> for that field until reviewed.</p>
+<ul class="mb-1">
+<li>Updated docs schema to permit new <code>$meta</code> keys: <code>reviewRequired</code> and <code>flag</code>.</li>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
 <ul class="mb-1">
@@ -415,6 +454,13 @@
 <li><strong>URL validation over-triggering</strong> — added a daily throttle for workflow-chain URL validation so <code>Validate Document URLs</code> skips workflow-run invocations if a successful URL validation already completed within the previous 24 hours.</li>
 <li><strong>IETF references canonicalization noise on new extracts</strong> — fixed new-document extraction/merge so empty <code>references.normative</code>/<code>references.bibliographic</code> arrays are not persisted; IETF parser now emits sparse <code>references</code> keys (only when non-empty), preventing canonicalization from injecting manual <code>references.normative$meta</code> for parser-empty placeholders.</li>
 <li><strong>Docs index search in PR previews</strong> — fixed docs search asset loading in <code>src/site/js/docList.js</code> to use <code>window.msrAssetPrefix</code> with relative fallbacks instead of root-absolute <code>/docs/...</code> paths, so searches return results on preview URLs under subpaths (for example, <code>/pr/&lt;num&gt;/docs/</code>) while continuing to work locally.</li>
+<li><strong>IETF reference boundary/parsing regressions in legacy RFC HTML</strong> — tightened fallback section detection and stop conditions to reduce non-reference soak-through while still capturing appendix-based reference content:</li>
+<ul class="mb-1">
+<li>Added strict old-page bibliography boundary support for <code>&lt;hr class='noprint'/&gt; &lt;!--NewPage--&gt; &lt;pre class='newpage'&gt; ... Bibliography ... BIBLIOGRAPHY ...</code>.</li>
+<li>Added appendix heading support for <code>Appendix &lt;X&gt;: Recommended reading</code> as bibliographic reference bounds.</li>
+<li>Updated prose fallback stop logic so <code>Appendix</code> headings do not prematurely terminate parsing when the active bound is a recommended-reading reference section.</li>
+<li>Backfilled cite→refId normalization rules in <code>src/main/input/refMap.json</code> for unresolved legacy citations (notably RFC732/RFC733/RFC2130 reference blocks, including ARPANET NIC, ANSI X3.51, and Jerman-Blazic bibliography entries).</li>
+</ul>
 </ul>
         </div>
       </div>
@@ -779,8 +825,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>b8c6349eeb503aa001ffa8fa3ad17d4242d251a3</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-03T22:38:19.474Z</code>
+              <span class="fw-semibold">Site version:</span> <code>e45ceb4d255aa31805269dd14885b7f573788610</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-06T19:49:00.527Z</code>
             </p>
           </small>
         </div>
