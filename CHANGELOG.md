@@ -9,11 +9,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [Unreleased] - yyyy-mm-dd
 
 ### Added
-- No unreleased changes yet.
+- Added `npm run seed-backfill-ietf` helper (`src/main/scripts/utils/seedBackfill.ietf.js`) to compare MRI presence-audit missing RFC refs against `src/main/input/seedUrls.ietf.json`, with:
+  - dry-run reporting (default)
+  - `--write` mode to append missing RFC seeds and canonicalize/dedupe the full seed list.
 
 ### Changed
 
 ### Fixed
+- **URL validation throttle false positives on skip-only runs** — refined `.github/workflows/validate-urls.yml` daily throttle to count only runs that actually executed `Run URL validation` successfully; skip-only successful runs (for example, upstream open-PR marker skips) no longer satisfy throttle.
  
 ## [v1.4.1] - 2026-03-06
  

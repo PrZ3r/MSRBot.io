@@ -125,6 +125,10 @@ Event-driven workflows run on upstream completion or repository events:
 - `Validate Document URLs` (after MRI)
 - `PR Build Preview (MSRBot.io site)` (`pull_request` and extract/MSI/MRI/URL Validate workflow runs)
 
+URL validation throttle behavior:
+- Daily throttle only considers prior runs where `Run URL validation` executed successfully.
+- Skip-only successful runs (for example, upstream open-PR marker skips) do not trigger throttle.
+
 ### Development
 Requires Node 20 + npm.  
 Run scripts with:
@@ -134,6 +138,7 @@ npm run extract-smpte
 npm run extract-ietf
 npm run build-msi
 npm run build-mri
+npm run seed-backfill-ietf
 npm run validate-url
 npm run normalize-url
 npm run canonicalize
@@ -154,6 +159,7 @@ Quick reference:
 - `extract-ietf`: run IETF document extraction.
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
+- `seed-backfill-ietf`: backfill missing RFC seeds from MRI presence-audit (`--write` to apply + canonicalize).
 - `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
 - `docs-sort`: sort `documents.json` by `docId` (validator-compatible order).
 - `docs-validate`: run document validation flow.
@@ -189,6 +195,7 @@ For the full command and flag reference (including `build-mri`, `build-msi`, `au
 - `npm run review-refs -- list` reports review flags across all docs/providers and both reference types (`references.normative$meta` and `references.bibliographic$meta`), plus `badRefs.latest` correlation.
 - `npm run review-refs -- resolve <DOCID...>` clears review flags on both reference types for the provided `docId` values after manual review.
 - Parseable refs that are not yet present as source documents are tracked in MRI with unresolved presence state (`sourcePresent: false`) and should be backfilled via data updates or targeted `refMap` rules.
+- Use `npm run seed-backfill-ietf` to identify missing RFC seed URLs from MRI presence-audit; use `npm run seed-backfill-ietf -- --write` to append, dedupe, and canonicalize `src/main/input/seedUrls.ietf.json`.
 - Prefer href-based normalization rules in `parseRefId` for stable web patterns (for example, Unicode versions, Bugzilla issue links) and use `src/main/input/refMap.json` for curated/manual edge mappings.
 
 #### Keyword Governance

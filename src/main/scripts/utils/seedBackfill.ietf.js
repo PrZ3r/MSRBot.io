@@ -1,0 +1,115 @@
+/*
+Backfill IETF RFC seed URLs from MRI presence-audit missing refs.
+
+Usage:
+  node src/main/scripts/utils/seedBackfill.ietf.js
+  node src/main/scripts/utils/seedBackfill.ietf.js --write
+*/
+
+const fs = require('fs');
+const path = require('path');
+
+const AUDIT_PATH = path.resolve(process.cwd(), 'src/main/reports/mri_presence_audit.json');
+const SEED_PATH = path.resolve(process.cwd(), 'src/main/input/seedUrls.ietf.json');
+
+function loadJson(p) {
+  return JSON.parse(fs.readFileSync(p, 'utf8'));
+}
+
+function saveJson(p, v) {
+  fs.writeFileSync(p, `${JSON.stringify(v, null, 2)}\n`);
+}
+
+function asRfcNum(refId) {
+  const m = String(refId || '').toUpperCase().match(/^RFC(\d{1,5})$/);
+  return m ? Number(m[1]) : null;
+}
+
+function toRfcUrl(n) {
+  return `https://www.rfc-editor.org/info/rfc${n}`;
+}
+
+function normalizeUrl(v) {
+  return String(v || '').trim();
+}
+
+function classifySeed(url) {
+  const s = String(url || '').toLowerCase();
+  if (/^https?:\/\/datatracker\.ietf\.org\/doc\/html\/draft-/.test(s)) return 'draft';
+  if (/^https?:\/\/www\.rfc-editor\.org\/info\/rfc\d{1,5}$/.test(s)) return 'rfc';
+  return 'other';
+}
+
+function rfcNum(url) {
+  const m = String(url || '').toLowerCase().match(/\/rfc(\d{1,5})$/);
+  return m ? Number(m[1]) : Number.POSITIVE_INFINITY;
+}
+
+function canonicalizeSeeds(list) {
+  const seen = new Set();
+  const uniq = [];
+  for (const raw of list) {
+    const v = normalizeUrl(raw);
+    if (!v) continue;
+    const k = v.toLowerCase();
+    if (seen.has(k)) continue;
+    seen.add(k);
+    uniq.push(v);
+  }
+
+  const drafts = uniq.filter((u) => classifySeed(u) === 'draft').sort((a, b) => a.localeCompare(b));
+  const rfcs = uniq
+    .filter((u) => classifySeed(u) === 'rfc')
+    .sort((a, b) => rfcNum(a) - rfcNum(b) || a.localeCompare(b));
+  const others = uniq.filter((u) => classifySeed(u) === 'other').sort((a, b) => a.localeCompare(b));
+
+  return [...drafts, ...rfcs, ...others];
+}
+
+function main() {
+  const doWrite = process.argv.includes('--write');
+  if (!fs.existsSync(AUDIT_PATH)) {
+    console.error(`Missing file: ${AUDIT_PATH}`);
+    process.exit(1);
+  }
+  if (!fs.existsSync(SEED_PATH)) {
+    console.error(`Missing file: ${SEED_PATH}`);
+    process.exit(1);
+  }
+
+  const audit = loadJson(AUDIT_PATH);
+  const seeds = loadJson(SEED_PATH);
+  if (!Array.isArray(seeds)) {
+    console.error('seedUrls.ietf.json is not an array');
+    process.exit(1);
+  }
+  const missingRows = Array.isArray(audit?.missing) ? audit.missing : [];
+  const rfcNums = [...new Set(
+    missingRows
+      .map((row) => asRfcNum(row?.refId))
+      .filter((n) => Number.isInteger(n))
+  )].sort((a, b) => a - b);
+
+  const seedSet = new Set(seeds.map((s) => String(s).toLowerCase()));
+  const missingSeedNums = rfcNums.filter((n) => !seedSet.has(toRfcUrl(n).toLowerCase()));
+  const missingSeedUrls = missingSeedNums.map((n) => toRfcUrl(n));
+
+  console.log(`MRI missing refs: ${missingRows.length}`);
+  console.log(`MRI missing RFC refs: ${rfcNums.length}`);
+  console.log(`RFC refs not in seedUrls.ietf.json: ${missingSeedUrls.length}`);
+  if (!missingSeedUrls.length) return;
+
+  for (const u of missingSeedUrls) console.log(`- ${u}`);
+
+  if (!doWrite) {
+    console.log('\nDry run only. Re-run with --write to append these seeds.');
+    return;
+  }
+
+  const out = [...seeds];
+  for (const u of missingSeedUrls) out.push(u);
+  saveJson(SEED_PATH, canonicalizeSeeds(out));
+  console.log(`\nUpdated ${SEED_PATH} (+${missingSeedUrls.length} RFC seed URL(s)).`);
+}
+
+main();
