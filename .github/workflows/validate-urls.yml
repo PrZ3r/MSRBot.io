@@ -59,20 +59,44 @@ jobs:
             const recentRuns = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
               owner,
               repo,
-              event: 'workflow_run',
               status: 'completed',
               per_page: 100
             });
 
-            const recentSuccess = recentRuns.find(r =>
+            const candidates = recentRuns
+              .filter(r =>
               r.id !== context.runId &&
               r.name === context.workflow &&
               r.conclusion === 'success' &&
               (now - new Date(r.created_at).getTime()) < oneDayMs
-            );
+              )
+              .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
+            async function ranValidationStepSuccessfully(runId) {
+              const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, {
+                owner,
+                repo,
+                run_id: runId,
+                per_page: 100
+              });
+              for (const job of jobs) {
+                const steps = Array.isArray(job?.steps) ? job.steps : [];
+                const validateStep = steps.find((s) => s?.name === 'Run URL validation');
+                if (validateStep && validateStep.conclusion === 'success') return true;
+              }
+              return false;
+            }
+
+            let recentSuccess = null;
+            for (const run of candidates) {
+              if (await ranValidationStepSuccessfully(run.id)) {
+                recentSuccess = run;
+                break;
+              }
+            }
 
             if (recentSuccess) {
-              core.info(`Daily throttle hit. Recent successful run: ${recentSuccess.html_url}`);
+              core.info(`Daily throttle hit. Recent successful URL-validate run: ${recentSuccess.html_url}`);
               core.setOutput('skip', 'true');
               core.setOutput('pr', '');
               core.setOutput('skip_reason', 'daily-throttle');
