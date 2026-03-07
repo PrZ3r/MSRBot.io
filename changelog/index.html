@@ -396,10 +396,26 @@
         <div class="card-body small">
           <h6 class="fw-semibold mt-3 mb-1">Added</h6>
 <ul class="mb-1">
-<li>No unreleased changes yet.</li>
+<li>Added <code>npm run seed-backfill-ietf</code> helper (<code>src/main/scripts/utils/seedBackfill.ietf.js</code>) to compare MRI presence-audit missing RFC refs against <code>src/main/input/seedUrls.ietf.json</code>, with:</li>
+<ul class="mb-1">
+<li>dry-run reporting (default)</li>
+<li><code>--write</code> mode to append missing RFC seeds and canonicalize/dedupe the full seed list.</li>
+</ul>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<ul class="mb-1">
+<li>IETF RFC HTML reference extraction now includes a modern xml2rfc-HTML path:</li>
+<ul class="mb-1">
+<li>Detects modern RFC pages via <code>xml2rfc</code> generator metadata and/or <code>application/rfc+xml</code> alternate links.</li>
+<li>Parses structured <code>dl.references</code> entries using <code>dt</code>/<code>dd</code> boundaries for normative/informative sections.</li>
+<li>Falls back to legacy section/anchor heuristics only when structured extraction is unavailable or incomplete.</li>
+</ul>
+<li>Reference normalization now includes generic DOI/ISBN fallback parsing in <code>parseRefId</code>, reducing manual <code>refMap</code> backfills for citations that include canonical identifiers.</li>
+</ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+<ul class="mb-1">
+<li><strong>URL validation throttle false positives on skip-only runs</strong> — refined <code>.github/workflows/validate-urls.yml</code> daily throttle to count only runs that actually executed <code>Run URL validation</code> successfully; skip-only successful runs (for example, upstream open-PR marker skips) no longer satisfy throttle.</li>
+</ul>
         </div>
       </div>
       <div class="card mb-3" id="v1.4.1">
@@ -825,8 +841,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>f7eb82702897a399ea51b4ba7d81a6f6e3d420fc</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-07T05:23:35.316Z</code>
+              <span class="fw-semibold">Site version:</span> <code>96e1120f0bbd8325de318d299225451b4cbe79d4</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-07T05:30:23.094Z</code>
             </p>
           </small>
         </div>
