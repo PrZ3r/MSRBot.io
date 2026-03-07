@@ -744,6 +744,12 @@ function parseRefId(text, href = '', opts = {}) {
     const [, shortname, yyyymmdd] = href.match(/REC-([^\/?#]+)-(\d{8})/i);
     { const refId = `W3C.${String(shortname).toLowerCase()}.${yyyymmdd}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'w3c:dated-REC' } } : refId; }
   }
+  // W3C dated REC tokens in cite text (no href available), e.g.:
+  // "W3C Recommendation REC-xmlschema-1-20041028"
+  if (/\bREC-([A-Za-z0-9._-]+)-(\d{8})\b/i.test(text)) {
+    const [, shortname, yyyymmdd] = text.match(/\bREC-([A-Za-z0-9._-]+)-(\d{8})\b/i);
+    { const refId = `W3C.${String(shortname).toLowerCase()}.${yyyymmdd}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'w3c:dated-REC-cite' } } : refId; }
+  }
   // xml2rfc bibxml4 W3C dated entries (e.g., reference.W3C.REC-ldp-20150226.xml)
   if (/reference\.W3C\.([A-Za-z]+)-([A-Za-z0-9._-]+)-(\d{8})\.xml(?:[?#].*)?$/i.test(href)) {
     const [, stage, shortname, yyyymmdd] = href.match(/reference\.W3C\.([A-Za-z]+)-([A-Za-z0-9._-]+)-(\d{8})\.xml/i);
@@ -916,6 +922,61 @@ function parseRefId(text, href = '', opts = {}) {
     const num = m[1];
     const rev = m[2] ? `-${m[2]}` : '';
     { const refId = `NIST.FIPS.${num}${rev}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-fips-path' } } : refId; }
+  }
+
+  // Generic DOI normalization fallback.
+  // Keep this after RFC/NIST-specific logic so canonical RFC/NIST mappings win.
+  {
+    const doiSource = `${String(text || '')} ${String(href || '')}`;
+    const doiMatch = doiSource.match(/\b(10\.\d{4,9}\/[-._;()/:A-Z0-9]+)\b/i);
+    if (doiMatch?.[1]) {
+      const raw = String(doiMatch[1] || '')
+        .trim()
+        .replace(/[>,.;:]+$/g, '');
+      const normalized = raw
+        .replace(/\//g, '-')
+        .replace(/[()]/g, '_')
+        .replace(/[^A-Za-z0-9._-]/g, '_');
+      if (normalized) {
+        const refId = normalized;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'doi-generic' } } : refId;
+      }
+    }
+  }
+
+  // Generic ISBN normalization fallback.
+  {
+    const isbnSource = String(text || '');
+    const isbnMatch = isbnSource.match(/\bISBN(?:-1[03])?(?:[.:]|\s)*([0-9Xx][0-9Xx\-\s]{8,24}[0-9Xx])\b/i);
+    if (isbnMatch?.[1]) {
+      const digits = String(isbnMatch[1] || '').replace(/[^0-9Xx]/g, '').toUpperCase();
+      if (digits.length === 10 || digits.length === 13) {
+        const refId = `ISBN.${digits}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'isbn-generic' } } : refId;
+      }
+    }
+  }
+
+  // IEEE standards (generic)
+  // Examples:
+  // - "IEEE Std 1363a-2004"
+  // - "IEEE Std 1003.1 -1988/Int, 1992 edition" (explicit refMap may still override)
+  // - "IEEE 754:2008"
+  {
+    const src = String(text || '');
+    const stdMatch = src.match(/\bIEEE\s+Std\.?\s*([0-9]{2,5}(?:\.[0-9A-Za-z]+)?[A-Za-z]?)(?:\s*[-:]\s*(\d{4})(?:\/[A-Za-z0-9.-]+)?)?/i);
+    const genericMatch = src.match(/\bIEEE\s+([0-9]{2,5}(?:\.[0-9A-Za-z]+)?[A-Za-z]?)\s*[:\-]\s*(\d{4})\b/i);
+    const m = stdMatch || genericMatch;
+    if (m?.[1]) {
+      const designator = String(m[1] || '').replace(/\s+/g, '').toUpperCase();
+      const year = String(m[2] || '').trim() || ((src.match(/\b(19|20)\d{2}\b/) || [])[0] || '');
+      if (designator) {
+        const refId = `IEEE.STD${designator}${year ? `.${year}` : ''}`;
+        return wantDiag
+          ? { refId, diag: { mapSource: 'regex', mapDetail: stdMatch ? 'ieee-std' : 'ieee-generic' } }
+          : refId;
+      }
+    }
   }
 
   // ITU-T / historical CCITT recommendations
@@ -1138,7 +1199,11 @@ function extractRefs($, currentDocId, opts = {}) {
       return text.replace(tailStopRe, '').trim();
     };
     const normalizeMarker = (markerRaw) => {
-      const marker = String(markerRaw || '').trim();
+      const marker = String(markerRaw || '')
+        .trim()
+        .replace(/^ref-/i, '')
+        .replace(/^\[\s*([^\]]+?)\s*\]$/, '$1')
+        .trim();
       const rfcMatch = marker.match(/^RFC[\s._-]*0*([0-9]{1,5})$/i);
       if (rfcMatch?.[1]) return `RFC${parseInt(rfcMatch[1], 10)}`;
       return marker;
@@ -1149,6 +1214,115 @@ function extractRefs($, currentDocId, opts = {}) {
       out.references[key].push(refId);
     };
     const parsedMarkers = new Set();
+    const parsedDtKeys = new Set();
+
+    const parseStructuredDlReferences = (sectionKey, $root) => {
+      if (!$root || !$root.length) return;
+      $root.find('dl.references dt').each((_, dtEl) => {
+        const $dt = $(dtEl);
+        const markerRaw = String($dt.attr('id') || $dt.text() || '').trim();
+        const marker = normalizeMarker(markerRaw);
+        if (!marker) return;
+
+        const dtGlobalIndex = $('dt').index(dtEl);
+        const dtKey = `${sectionKey}::${dtGlobalIndex}::${marker}`;
+        if (parsedDtKeys.has(dtKey)) return;
+        parsedDtKeys.add(dtKey);
+        parsedMarkers.add(marker);
+
+        const $dds = $dt.nextUntil('dt').filter('dd');
+        const $ctx = $dds.length ? $dds : $dt.parent();
+        const ctxTextRaw = ($ctx.text() || '').replace(/\s+/g, ' ').trim();
+        const ctxText = trimRfcRefTail(ctxTextRaw);
+        const hrefs = sanitizeRfcHtmlHrefs(
+          $ctx.find('a[href]')
+            .map((__, linkEl) => String($(linkEl).attr('href') || '').trim())
+            .get()
+        );
+        const markerText = marker.replace(/[_-]+/g, ' ').trim();
+        const markerIsOrdinal = isOrdinalMarker(marker);
+        const markerIsRfc = isRfcMarker(marker);
+        const refId = markerIsRfc
+          ? normalizeMarker(marker)
+          : resolveXmlRefId(
+            [
+              ctxText,
+              `${markerText} ${ctxText}`.trim(),
+              ...(markerIsOrdinal ? [] : [marker, markerText])
+            ],
+            hrefs
+          );
+
+        if (refId) {
+          addRef(sectionKey, refId);
+          recordSighting({
+            docId: currentDocId,
+            type: sectionKey,
+            refId,
+            cite: marker,
+            href: hrefs[0] || '',
+            mapSource: 'ietf-rfc-html',
+            mapDetail: 'dl.references dt/dd',
+            rawRef: ctxText || marker,
+            title: null
+          });
+        } else {
+          out.badRefs.push({
+            docId: currentDocId,
+            type: sectionKey,
+            refText: ctxText || markerText || marker,
+            href: hrefs[0] || ''
+          });
+        }
+      });
+    };
+
+    const isModernRfcHtml =
+      $('meta[name="generator"][content*="xml2rfc" i]').length > 0
+      || $('link[rel="alternate"][type="application/rfc+xml"]').length > 0
+      || $('dl.references dt[id]').length > 0;
+
+    if (isModernRfcHtml) {
+      const parseByHeading = (headingSelector, key) => {
+        $(headingSelector).each((_, hEl) => {
+          const $section = $(hEl).closest('section');
+          if ($section.length) parseStructuredDlReferences(key, $section);
+        });
+      };
+      parseByHeading('h3#name-normative-references', 'normative');
+      parseByHeading('h3#name-informative-references', 'bibliographic');
+
+      // ID/text fallbacks for modern-ish markup variants.
+      $('section').each((_, secEl) => {
+        const $sec = $(secEl);
+        const secId = String($sec.attr('id') || '').toLowerCase();
+        const headText = $sec.children('h2,h3').first().text().replace(/\s+/g, ' ').trim().toLowerCase();
+        if (/normative-references/.test(secId) || /normative references/.test(headText)) {
+          parseStructuredDlReferences('normative', $sec);
+        } else if (/informative-references/.test(secId) || /informative references/.test(headText)) {
+          parseStructuredDlReferences('bibliographic', $sec);
+        }
+      });
+
+      // Some RFCs keep all refs under a single "References" section with no split.
+      const splitPresent =
+        (Array.isArray(out.references.normative) && out.references.normative.length > 0)
+        || (Array.isArray(out.references.bibliographic) && out.references.bibliographic.length > 0);
+      if (!splitPresent) {
+        $('h2#name-references').each((_, hEl) => {
+          const $section = $(hEl).closest('section');
+          if ($section.length) parseStructuredDlReferences('bibliographic', $section);
+        });
+        $('section').each((_, secEl) => {
+          const $sec = $(secEl);
+          const secId = String($sec.attr('id') || '').toLowerCase();
+          const headText = $sec.children('h2,h3').first().text().replace(/\s+/g, ' ').trim().toLowerCase();
+          if (/references/.test(secId) || /^references(?: and (?:bibliography|citations))?$/.test(headText)) {
+            parseStructuredDlReferences('bibliographic', $sec);
+          }
+        });
+      }
+    }
 
     const sectionDefs = [
       {
