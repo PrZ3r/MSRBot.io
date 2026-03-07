@@ -403,6 +403,15 @@
 </ul>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<ul class="mb-1">
+<li>IETF RFC HTML reference extraction now includes a modern xml2rfc-HTML path:</li>
+<ul class="mb-1">
+<li>Detects modern RFC pages via <code>xml2rfc</code> generator metadata and/or <code>application/rfc+xml</code> alternate links.</li>
+<li>Parses structured <code>dl.references</code> entries using <code>dt</code>/<code>dd</code> boundaries for normative/informative sections.</li>
+<li>Falls back to legacy section/anchor heuristics only when structured extraction is unavailable or incomplete.</li>
+</ul>
+<li>Reference normalization now includes generic DOI/ISBN fallback parsing in <code>parseRefId</code>, reducing manual <code>refMap</code> backfills for citations that include canonical identifiers.</li>
+</ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
 <ul class="mb-1">
 <li><strong>URL validation throttle false positives on skip-only runs</strong> — refined <code>.github/workflows/validate-urls.yml</code> daily throttle to count only runs that actually executed <code>Run URL validation</code> successfully; skip-only successful runs (for example, upstream open-PR marker skips) no longer satisfy throttle.</li>
@@ -832,8 +841,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>fbfea8b4c330f0af5d8c58d081afc34d893e5faa</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-06T22:21:45.734Z</code>
+              <span class="fw-semibold">Site version:</span> <code>dc017237fffac511f4d2dc377d09ec45a24d9c49</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-07T05:23:00.569Z</code>
             </p>
           </small>
         </div>
