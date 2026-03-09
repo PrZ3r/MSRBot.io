@@ -952,18 +952,51 @@ for (const doc of results) {
   // Persist badRefs so unresolved citations can be backfilled later without
   // relying only on PR body/log excerpts.
   try {
+    const nowIso = new Date().toISOString();
     const badRefItems = badRefs.map((ref) => ({
+      provider: providerKey,
       docId: String(ref.docId || '').trim(),
       type: String(ref.type || '').trim(),
       cite: formatBadRefText(ref.refText),
       href: String(ref.href || '').trim()
     }));
+
+    let existingItems = [];
+    try {
+      if (fs.existsSync(badRefsLatestPath)) {
+        const existingPayload = JSON.parse(fs.readFileSync(badRefsLatestPath, 'utf-8'));
+        const existingList = Array.isArray(existingPayload?.badRefs) ? existingPayload.badRefs : [];
+        existingItems = existingList.map((item) => ({
+          provider: String(item?.provider || '').trim().toLowerCase(),
+          docId: String(item?.docId || '').trim(),
+          type: String(item?.type || '').trim(),
+          cite: String(item?.cite || '').trim(),
+          href: String(item?.href || '').trim()
+        })).filter((item) => item.provider && item.docId && item.type && item.cite);
+      }
+    } catch (readErr) {
+      console.warn(`⚠️ Failed to read existing bad refs snapshot for merge: ${readErr.message}`);
+    }
+
+    const preservedOtherProviders = existingItems.filter((item) => item.provider !== providerKey);
+    const merged = [...preservedOtherProviders, ...badRefItems];
+    const dedupe = new Map();
+    for (const item of merged) {
+      const key = [
+        item.provider,
+        item.docId,
+        item.type.toLowerCase(),
+        item.cite.toLowerCase(),
+        item.href.toLowerCase()
+      ].join('||');
+      if (!dedupe.has(key)) dedupe.set(key, item);
+    }
+    const mergedItems = [...dedupe.values()];
     const payload = {
-      generatedAt: new Date().toISOString(),
-      provider: providerKey,
+      generatedAt: nowIso,
       sourcePath: outputPath,
-      total: badRefItems.length,
-      badRefs: badRefItems
+      total: mergedItems.length,
+      badRefs: mergedItems
     };
     fs.mkdirSync('src/main/reports', { recursive: true });
     fs.writeFileSync(badRefsLatestPath, JSON.stringify(payload, null, 2) + '\n');

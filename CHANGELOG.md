@@ -19,6 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - Parses structured `dl.references` entries using `dt`/`dd` boundaries for normative/informative sections.
   - Falls back to legacy section/anchor heuristics only when structured extraction is unavailable or incomplete.
 - Reference normalization now includes generic DOI/ISBN fallback parsing in `parseRefId`, reducing manual `refMap` backfills for citations that include canonical identifiers.
+- `badRefs.latest.json` writing now merges per provider into a single snapshot file:
+  - each bad-ref item includes `provider`
+  - each extract run replaces only the current provider's items and preserves other providers' entries
 
 ### Fixed
 - **URL validation throttle false positives on skip-only runs** — refined `.github/workflows/validate-urls.yml` daily throttle to count only runs that actually executed `Run URL validation` successfully; skip-only successful runs (for example, upstream open-PR marker skips) no longer satisfy throttle.
