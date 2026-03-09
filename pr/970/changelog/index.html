@@ -411,6 +411,11 @@
 <li>Falls back to legacy section/anchor heuristics only when structured extraction is unavailable or incomplete.</li>
 </ul>
 <li>Reference normalization now includes generic DOI/ISBN fallback parsing in <code>parseRefId</code>, reducing manual <code>refMap</code> backfills for citations that include canonical identifiers.</li>
+<li><code>badRefs.latest.json</code> writing now merges per provider into a single snapshot file:</li>
+<ul class="mb-1">
+<li>each bad-ref item includes <code>provider</code></li>
+<li>each extract run replaces only the current provider's items and preserves other providers' entries</li>
+</ul>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
 <ul class="mb-1">
@@ -841,8 +846,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>edaad69404f6119f5b9dce86ae7bb43e7c512d2c</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-09T05:47:12.988Z</code>
+              <span class="fw-semibold">Site version:</span> <code>b90026f5b68e363af4d4be9736d5128f2e9f96f0</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-09T17:05:30.362Z</code>
             </p>
           </small>
         </div>
