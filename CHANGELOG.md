@@ -19,12 +19,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - Parses structured `dl.references` entries using `dt`/`dd` boundaries for normative/informative sections.
   - Falls back to legacy section/anchor heuristics only when structured extraction is unavailable or incomplete.
 - Reference normalization now includes generic DOI/ISBN fallback parsing in `parseRefId`, reducing manual `refMap` backfills for citations that include canonical identifiers.
+- Reference normalization now includes generic 3GPP Technical Specification parsing from cite text (including Draft TS forms), with month-aware suffixes (e.g., `3GPP.33.501.202107`).
 - `badRefs.latest.json` writing now merges per provider into a single snapshot file:
   - each bad-ref item includes `provider`
   - each extract run replaces only the current provider's items and preserves other providers' entries
 
 ### Fixed
 - **URL validation throttle false positives on skip-only runs** — refined `.github/workflows/validate-urls.yml` daily throttle to count only runs that actually executed `Run URL validation` successfully; skip-only successful runs (for example, upstream open-PR marker skips) no longer satisfy throttle.
+- **IETF filter prefix overmatch in seed-first extraction** — fixed `src/main/scripts/providers/ietf.discovery.js` URL filtering so short RFC filters (for example, `.../rfc861`) no longer overmatch longer IDs (for example, `.../rfc8615`, `.../rfc8820`):
+  - filter comparisons now use normalized URL forms
+  - prefix matching now requires explicit intent via trailing `/` in the filter entry.
+- **W3C dated TR stage references not resolving** — expanded W3C URL parsing in `parseRefId` to resolve dated `/TR/YYYY/<STAGE>-<shortname>-<date>` forms beyond REC (for example `WD-CSP3-20160913`, `CR-referrer-policy-20170126`).
  
 ## [v1.4.1] - 2026-03-06
  

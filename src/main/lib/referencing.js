@@ -739,10 +739,18 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
-  // W3C dated REC (allow with/without trailing slash)
-  if (/w3\.org\/TR\/\d{4}\/REC-([^\/?#]+)-(\d{8})(?:\/)?(?:[?#].*)?$/i.test(href)) {
-    const [, shortname, yyyymmdd] = href.match(/REC-([^\/?#]+)-(\d{8})/i);
-    { const refId = `W3C.${String(shortname).toLowerCase()}.${yyyymmdd}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'w3c:dated-REC' } } : refId; }
+  // W3C dated stage docs under /TR/YYYY/, e.g.:
+  // - .../TR/2017/REC-foo-20170101
+  // - .../TR/2017/CR-referrer-policy-20170126
+  // - .../TR/2016/WD-CSP3-20160913
+  if (/w3\.org\/TR\/\d{4}\/([A-Za-z]+)-([^\/?#]+)-(\d{8})(?:\/)?(?:[?#].*)?$/i.test(href)) {
+    const [, stageRaw, shortnameRaw, yyyymmdd] = href.match(/w3\.org\/TR\/\d{4}\/([A-Za-z]+)-([^\/?#]+)-(\d{8})/i);
+    const stage = String(stageRaw || '').toUpperCase();
+    const shortname = String(shortnameRaw || '').toLowerCase();
+    const refId = stage === 'REC'
+      ? `W3C.${shortname}.${yyyymmdd}`
+      : `W3C.${stage}-${shortname}.${yyyymmdd}`;
+    return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'w3c:dated-stage' } } : refId;
   }
   // W3C dated REC tokens in cite text (no href available), e.g.:
   // "W3C Recommendation REC-xmlschema-1-20041028"
@@ -832,6 +840,44 @@ function parseRefId(text, href = '', opts = {}) {
         { const refId = `${lineage}.${suffix}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'smpte-designator' } } : refId; }
       }
       { const refId = `${lineage}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'smpte-designator' } } : refId; }
+    }
+  }
+
+  // 3GPP Technical Specifications
+  // Examples:
+  // - "3GPP Technical Specification 33.501, July 2021."
+  // - "3GPP Draft Technical Specification 24.501, June 2021."
+  // - "3GPP TS 33.501, September 2024."
+  {
+    const src = String(text || '');
+    const m3gpp = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{3})\b/i);
+    if (m3gpp?.[1] && m3gpp?.[2]) {
+      const spec = `${m3gpp[1]}.${m3gpp[2]}`;
+      const monthMap = {
+        jan: '01', january: '01',
+        feb: '02', february: '02',
+        mar: '03', march: '03',
+        apr: '04', april: '04',
+        may: '05',
+        jun: '06', june: '06',
+        jul: '07', july: '07',
+        aug: '08', august: '08',
+        sep: '09', sept: '09', september: '09',
+        oct: '10', october: '10',
+        nov: '11', november: '11',
+        dec: '12', december: '12'
+      };
+      let suffix = '';
+      const monthYear = src.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\b[\s,.-]*(\d{4})\b/i);
+      if (monthYear?.[1] && monthYear?.[2]) {
+        const mm = monthMap[String(monthYear[1]).toLowerCase()] || '';
+        suffix = mm ? `${monthYear[2]}${mm}` : String(monthYear[2]);
+      } else {
+        const y = src.match(/\b(19|20)\d{2}\b/);
+        if (y?.[0]) suffix = String(y[0]);
+      }
+      const refId = `3GPP.TS-${spec}${suffix ? `.${suffix}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: '3gpp-ts' } } : refId;
     }
   }
 
