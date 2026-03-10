@@ -54850,6 +54850,7 @@
     "referencedBy": [
       "ISO.26430-4.2009",
       "RFC2104",
+      "RFC9048",
       "SMPTE.ST427.2009",
       "SMPTE.ST430-4.2008",
       "SMPTE.ST430-4.2008Am1.2011"
@@ -54950,6 +54951,7 @@
     "referencedBy": [
       "ISO.26430-2.2008",
       "ISO.26430-3.2008",
+      "RFC9048",
       "SMPTE.ST430-2.2017",
       "SMPTE.ST430-3.2012"
     ],
@@ -55137,6 +55139,7 @@
       }
     ],
     "referencedBy": [
+      "RFC9048",
       "RFC9231"
     ],
     "docDependancy": true,
@@ -63118,6 +63121,7 @@
     },
     "referencedBy": [
       "ISO.26429-6.2008",
+      "RFC9048",
       "RFC9231",
       "SMPTE.ST429-6.2006",
       "SMPTE.ST429-6.2006Am1.2017",
@@ -63216,6 +63220,10 @@
       "IETF.draft-bhutton-json-schema-00",
       "IETF.draft-bhutton-json-schema-01",
       "IETF.draft-bhutton-json-schema-validation-01",
+      "RFC8526",
+      "RFC8615",
+      "RFC8820",
+      "RFC9048",
       "RFC9141",
       "RFC9231",
       "RFC9678"
@@ -65409,6 +65417,8 @@
       "IETF.draft-bhutton-json-schema-00",
       "IETF.draft-bhutton-json-schema-01",
       "IETF.draft-bhutton-json-schema-validation-01",
+      "RFC8615",
+      "RFC8820",
       "RFC9231",
       "SMPTE.AG05",
       "SMPTE.AG21",
@@ -65669,6 +65679,7 @@
       }
     ],
     "referencedBy": [
+      "RFC9048",
       "RFC9678",
       "SMPTE.ST429-6.2023-05"
     ],
@@ -66257,7 +66268,10 @@
         "__isNewestInBase": true
       }
     ],
-    "docDependancy": false,
+    "referencedBy": [
+      "RFC8615"
+    ],
+    "docDependancy": true,
     "currentStatus": "Superseded"
   },
   {
@@ -66588,6 +66602,7 @@
       }
     ],
     "referencedBy": [
+      "RFC9048",
       "RFC9678"
     ],
     "docDependancy": true,
@@ -66755,7 +66770,10 @@
         "__isNewestInBase": true
       }
     ],
-    "docDependancy": false,
+    "referencedBy": [
+      "RFC8615"
+    ],
+    "docDependancy": true,
     "currentStatus": "Superseded"
   },
   {
@@ -67232,6 +67250,7 @@
       }
     ],
     "referencedBy": [
+      "RFC8615",
       "SMPTE.ST430-15.2017"
     ],
     "docDependancy": true,
@@ -67274,6 +67293,7 @@
     "referencedBy": [
       "IETF.draft-bhutton-json-schema-00",
       "IETF.draft-bhutton-json-schema-01",
+      "RFC8615",
       "SMPTE.ST430-15.2017"
     ],
     "docDependancy": true,
@@ -67804,7 +67824,10 @@
         "__isNewestInBase": true
       }
     ],
-    "docDependancy": false,
+    "referencedBy": [
+      "RFC8615"
+    ],
+    "docDependancy": true,
     "currentStatus": "Superseded"
   },
   {
@@ -68189,6 +68212,7 @@
       }
     ],
     "referencedBy": [
+      "RFC8526",
       "SMPTE.ST2029.2022",
       "SMPTE.ST2029.2023-10"
     ],
@@ -68430,7 +68454,10 @@
         "__isNewestInBase": true
       }
     ],
-    "docDependancy": false,
+    "referencedBy": [
+      "RFC8526"
+    ],
+    "docDependancy": true,
     "currentStatus": "Active"
   },
   {
@@ -68548,17 +68575,58 @@
     "currentStatus": "Active"
   },
   {
+    "abstract": "This document extends the Network Configuration Protocol (NETCONF) defined in RFC 6241 in order to support the Network Management Datastore Architecture (NMDA) defined in RFC 8342. This document updates RFCs 6241 and 7950. The update to RFC 6241 adds new <get-data> and <edit-data> operations and augments existing <lock>, <unlock>, and <validate> operations. The update to RFC 7950 requires the usage of the YANG library (described in RFC 8525) by NETCONF servers implementing the NMDA.",
+    "authors": [
+      "Martin Björklund",
+      "Jürgen Schönwälder",
+      "Phil Shafer",
+      "Kent Watsen",
+      "Robert Wilton"
+    ],
     "docId": "RFC8526",
     "docLabel": "IETF RFC 8526",
+    "docNumber": "8526",
     "docTitle": "NETCONF Extensions to Support the Network Management Datastore Architecture",
     "docType": "Standard",
-    "href": "https://www.rfc-editor.org/info/rfc8526",
+    "doi": "10.17487/RFC8526",
+    "href": "https://doi.org/10.17487/RFC8526",
+    "issn": "2070-1721",
+    "keywords": [
+      "NMDA"
+    ],
+    "pages": "23",
     "publicationDate": "2019-03-01",
     "publisher": "IETF",
-    "resolvedHref": "https://datatracker.ietf.org/doc/html/rfc8526",
+    "references": {
+      "bibliographic": [
+        "RFC8340"
+      ],
+      "normative": [
+        "RFC2119",
+        "RFC3688",
+        "RFC6020",
+        "RFC6241",
+        "RFC6242",
+        "RFC6243",
+        "RFC6991",
+        "RFC7950",
+        "RFC8174",
+        "RFC8341",
+        "RFC8342",
+        "RFC8525"
+      ]
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8526",
     "status": {
       "active": true,
-      "latestVersion": true
+      "amends": [
+        "RFC6241",
+        "RFC7950"
+      ],
+      "errataExist": false,
+      "latestVersion": true,
+      "statusNote": "Proposed Standard",
+      "superseded": false
     },
     "msiLatestAny": "RFC8526",
     "msiLatestBase": "RFC8526",
@@ -68571,31 +68639,154 @@
       {
         "docId": "RFC8526",
         "docLabel": "IETF RFC 8526",
-        "href": "https://www.rfc-editor.org/info/rfc8526",
+        "href": "https://doi.org/10.17487/RFC8526",
         "publicationDate": "2019-03-01",
         "status": {
           "active": true,
-          "latestVersion": true
+          "amends": [
+            "RFC6241",
+            "RFC7950"
+          ],
+          "errataExist": false,
+          "latestVersion": true,
+          "statusNote": "Proposed Standard",
+          "superseded": false
         },
         "isLatestBase": true,
         "__isNewestInBase": true
       }
     ],
-    "docDependancy": false,
-    "currentStatus": "Active"
+    "referencesResolved": {
+      "normative": [
+        {
+          "id": "RFC2119"
+        },
+        {
+          "id": "RFC3688",
+          "undated": true
+        },
+        {
+          "id": "RFC6020",
+          "undated": true
+        },
+        {
+          "id": "RFC6241",
+          "undated": true
+        },
+        {
+          "id": "RFC6242",
+          "undated": true
+        },
+        {
+          "id": "RFC6243",
+          "undated": true
+        },
+        {
+          "id": "RFC6991",
+          "undated": true
+        },
+        {
+          "id": "RFC7950"
+        },
+        {
+          "id": "RFC8174",
+          "undated": true
+        },
+        {
+          "id": "RFC8341",
+          "undated": true
+        },
+        {
+          "id": "RFC8342"
+        },
+        {
+          "id": "RFC8525",
+          "undated": true
+        }
+      ],
+      "bibliographic": [
+        {
+          "id": "RFC8340",
+          "undated": true
+        }
+      ]
+    },
+    "referenceTree": [
+      "RFC2119",
+      "RFC3688",
+      "RFC6020",
+      "RFC6241",
+      "RFC6242",
+      "RFC6243",
+      "RFC6991",
+      "RFC7950",
+      "RFC8174",
+      "RFC8340",
+      "RFC8341",
+      "RFC8342",
+      "RFC8525"
+    ],
+    "docDependancy": true,
+    "currentStatus": "Active*"
   },
   {
+    "abstract": "This memo defines a path prefix for \"well-known locations\", \"/.well-known/\", in selected Uniform Resource Identifier (URI) schemes. In doing so, it obsoletes RFC 5785 and updates the URI schemes defined in RFC 7230 to reserve that space. It also updates RFC 7595 to track URI schemes that support well-known URIs in their registry.",
+    "authors": [
+      "Mark Nottingham"
+    ],
     "docId": "RFC8615",
     "docLabel": "IETF RFC 8615",
+    "docNumber": "8615",
     "docTitle": "Well-Known Uniform Resource Identifiers (URIs)",
     "docType": "Standard",
-    "href": "https://www.rfc-editor.org/info/rfc8615",
+    "doi": "10.17487/RFC8615",
+    "href": "https://doi.org/10.17487/RFC8615",
+    "issn": "2070-1721",
+    "pages": "12",
     "publicationDate": "2019-05-01",
     "publisher": "IETF",
-    "resolvedHref": "https://datatracker.ietf.org/doc/html/rfc8615",
+    "references": {
+      "bibliographic": [
+        "RFC2026",
+        "RFC3552",
+        "RFC4918",
+        "RFC5785",
+        "RFC6265",
+        "RFC7231",
+        "RFC7252",
+        "RFC7320",
+        "RFC8307",
+        "RFC8323",
+        "W3C.CR-referrer-policy.20170126",
+        "W3C.WD-csp3.20160913",
+        "W3C.p3p.20020416",
+        "W3C.webstorage.20160419",
+        "WHATWG.FETCH",
+        "WHATWG.HTML"
+      ],
+      "normative": [
+        "RFC2119",
+        "RFC3986",
+        "RFC6454",
+        "RFC7230",
+        "RFC8126",
+        "RFC8174"
+      ]
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8615",
     "status": {
       "active": true,
-      "latestVersion": true
+      "amends": [
+        "RFC7230",
+        "RFC7595"
+      ],
+      "errataExist": false,
+      "latestVersion": true,
+      "statusNote": "Proposed Standard",
+      "superseded": false,
+      "supersedes": [
+        "RFC5785"
+      ]
     },
     "msiLatestAny": "RFC8615",
     "msiLatestBase": "RFC8615",
@@ -68608,30 +68799,191 @@
       {
         "docId": "RFC8615",
         "docLabel": "IETF RFC 8615",
-        "href": "https://www.rfc-editor.org/info/rfc8615",
+        "href": "https://doi.org/10.17487/RFC8615",
         "publicationDate": "2019-05-01",
         "status": {
           "active": true,
-          "latestVersion": true
+          "amends": [
+            "RFC7230",
+            "RFC7595"
+          ],
+          "errataExist": false,
+          "latestVersion": true,
+          "statusNote": "Proposed Standard",
+          "superseded": false,
+          "supersedes": [
+            "RFC5785"
+          ]
         },
         "isLatestBase": true,
         "__isNewestInBase": true
       }
     ],
-    "docDependancy": false,
-    "currentStatus": "Active"
+    "referencesResolved": {
+      "normative": [
+        {
+          "id": "RFC2119"
+        },
+        {
+          "id": "RFC3986"
+        },
+        {
+          "id": "RFC6454",
+          "undated": true
+        },
+        {
+          "id": "RFC7230"
+        },
+        {
+          "id": "RFC8126",
+          "undated": true
+        },
+        {
+          "id": "RFC8174",
+          "undated": true
+        }
+      ],
+      "bibliographic": [
+        {
+          "id": "RFC2026",
+          "undated": true
+        },
+        {
+          "id": "RFC3552",
+          "undated": true
+        },
+        {
+          "id": "RFC4918"
+        },
+        {
+          "id": "RFC5785"
+        },
+        {
+          "id": "RFC6265",
+          "undated": true
+        },
+        {
+          "id": "RFC7231"
+        },
+        {
+          "id": "RFC7252",
+          "undated": true
+        },
+        {
+          "id": "RFC7320"
+        },
+        {
+          "id": "RFC8307",
+          "undated": true
+        },
+        {
+          "id": "RFC8323",
+          "undated": true
+        },
+        {
+          "id": "W3C.CR-referrer-policy.20170126",
+          "undated": false
+        },
+        {
+          "id": "W3C.WD-csp3.20160913",
+          "undated": false
+        },
+        {
+          "id": "W3C.p3p.20020416",
+          "undated": false
+        },
+        {
+          "id": "W3C.webstorage.20160419",
+          "undated": false
+        },
+        {
+          "id": "WHATWG.FETCH",
+          "undated": true
+        },
+        {
+          "id": "WHATWG.HTML"
+        }
+      ]
+    },
+    "referencedBy": [
+      "RFC8820"
+    ],
+    "referenceTree": [
+      "RFC2026",
+      "RFC2119",
+      "RFC3552",
+      "RFC3986",
+      "RFC4918",
+      "RFC5785",
+      "RFC6265",
+      "RFC6454",
+      "RFC7230",
+      "RFC7231",
+      "RFC7252",
+      "RFC7320",
+      "RFC8126",
+      "RFC8174",
+      "RFC8307",
+      "RFC8323",
+      "W3C.CR-referrer-policy.20170126",
+      "W3C.WD-csp3.20160913",
+      "W3C.p3p.20020416",
+      "W3C.webstorage.20160419",
+      "WHATWG.FETCH",
+      "WHATWG.HTML"
+    ],
+    "docDependancy": true,
+    "currentStatus": "Active*"
   },
   {
+    "abstract": "Section 1.1.1 of RFC 3986 defines URI syntax as \"a federated and extensible naming system wherein each scheme's specification may further restrict the syntax and semantics of identifiers using that scheme.\" In other words, the structure of a URI is defined by its scheme. While it is common for schemes to further delegate their substructure to the URI's owner, publishing independent standards that mandate particular forms of substructure in URIs is often problematic. This document provides guidance on the specification of URI substructure in standards. This document obsoletes RFC 7320 and updates RFC 3986.",
+    "authors": [
+      "Mark Nottingham"
+    ],
     "docId": "RFC8820",
     "docLabel": "IETF RFC 8820",
+    "docNumber": "8820",
     "docTitle": "URI Design and Ownership",
-    "docType": "Standard",
-    "href": "https://www.rfc-editor.org/info/rfc8820",
-    "publicationDate": "2022-06-01",
+    "docType": "Best Practice",
+    "doi": "10.17487/RFC8820",
+    "href": "https://doi.org/10.17487/RFC8820",
+    "keywords": [
+      "URI Structure"
+    ],
+    "pages": "8",
+    "publicationDate": "2020-06-01",
     "publisher": "IETF",
+    "references": {
+      "bibliographic": [
+        "RFC1034",
+        "RFC6570",
+        "RFC6901",
+        "RFC6943",
+        "RFC7595",
+        "RFC8288",
+        "RFC8615",
+        "WHATWG.HTML"
+      ],
+      "normative": [
+        "RFC2119",
+        "RFC3986",
+        "RFC8174",
+        "W3C.webarch.20041215"
+      ]
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8820",
     "status": {
       "active": true,
-      "latestVersion": true
+      "amends": [
+        "RFC3986"
+      ],
+      "errataExist": false,
+      "latestVersion": true,
+      "statusNote": "Best Current Practice",
+      "superseded": false,
+      "supersedes": [
+        "RFC7320"
+      ]
     },
     "msiLatestAny": "RFC8820",
     "msiLatestBase": "RFC8820",
@@ -68644,42 +68996,198 @@
       {
         "docId": "RFC8820",
         "docLabel": "IETF RFC 8820",
-        "href": "https://www.rfc-editor.org/info/rfc8820",
-        "publicationDate": "2022-06-01",
+        "href": "https://doi.org/10.17487/RFC8820",
+        "publicationDate": "2020-06-01",
         "status": {
           "active": true,
-          "latestVersion": true
+          "amends": [
+            "RFC3986"
+          ],
+          "errataExist": false,
+          "latestVersion": true,
+          "statusNote": "Best Current Practice",
+          "superseded": false,
+          "supersedes": [
+            "RFC7320"
+          ]
         },
         "isLatestBase": true,
         "__isNewestInBase": true
       }
     ],
-    "docDependancy": false,
-    "currentStatus": "Active"
+    "referencesResolved": {
+      "normative": [
+        {
+          "id": "RFC2119"
+        },
+        {
+          "id": "RFC3986"
+        },
+        {
+          "id": "RFC8174",
+          "undated": true
+        },
+        {
+          "id": "W3C.webarch.20041215",
+          "undated": false
+        }
+      ],
+      "bibliographic": [
+        {
+          "id": "RFC1034",
+          "undated": true
+        },
+        {
+          "id": "RFC6570",
+          "undated": true
+        },
+        {
+          "id": "RFC6901",
+          "undated": true
+        },
+        {
+          "id": "RFC6943",
+          "undated": true
+        },
+        {
+          "id": "RFC7595",
+          "undated": true
+        },
+        {
+          "id": "RFC8288",
+          "undated": true
+        },
+        {
+          "id": "RFC8615"
+        },
+        {
+          "id": "WHATWG.HTML"
+        }
+      ]
+    },
+    "referenceTree": [
+      "RFC1034",
+      "RFC2026",
+      "RFC2119",
+      "RFC3552",
+      "RFC3986",
+      "RFC4918",
+      "RFC5785",
+      "RFC6265",
+      "RFC6454",
+      "RFC6570",
+      "RFC6901",
+      "RFC6943",
+      "RFC7230",
+      "RFC7231",
+      "RFC7252",
+      "RFC7320",
+      "RFC7595",
+      "RFC8126",
+      "RFC8174",
+      "RFC8288",
+      "RFC8307",
+      "RFC8323",
+      "RFC8615",
+      "W3C.CR-referrer-policy.20170126",
+      "W3C.WD-csp3.20160913",
+      "W3C.p3p.20020416",
+      "W3C.webarch.20041215",
+      "W3C.webstorage.20160419",
+      "WHATWG.FETCH",
+      "WHATWG.HTML"
+    ],
+    "docDependancy": true,
+    "currentStatus": "Active*"
   },
   {
-    "abstract": "The 3GPP mobile network Authentication and Key Agreement (AKA) is an authentication mechanism for devices wishing to access mobile networks. RFC 4187 (EAP-AKA) made the use of this mechanism possible within the Extensible Authentication Protocol (EAP) framework. RFC 5448 (EAP-AKA') was an improved version of EAP-AKA.\n This document is the most recent specification of EAP-AKA', including, for instance, details about and references related to operating EAP-AKA' in 5G networks.\n EAP-AKA' differs from EAP-AKA by providing a key derivation function that binds the keys derived within the method to the name of the access network. The key derivation function has been defined in the 3rd Generation Partnership Project (3GPP). EAP-AKA' allows its use in EAP in an interoperable manner. EAP-AKA' also updates the algorithm used in hash functions, as it employs SHA-256 / HMAC-SHA-256 instead of SHA-1 / HMAC-SHA-1, which is used in EAP-AKA.\n This version of the EAP-AKA' specification defines the protocol behavior for both 4G and 5G deployments, whereas the previous version defined protocol behavior for 4G deployments only. While EAP-AKA' as defined in RFC 5448 is not obsolete, this document defines the most recent and fully backwards-compatible specification of EAP-AKA'. This document updates both RFCs 4187 and 5448.",
+    "abstract": "The 3GPP mobile network Authentication and Key Agreement (AKA) is an authentication mechanism for devices wishing to access mobile networks. RFC 4187 (EAP-AKA) made the use of this mechanism possible within the Extensible Authentication Protocol (EAP) framework. RFC 5448 (EAP-AKA') was an improved version of EAP-AKA. This document is the most recent specification of EAP-AKA', including, for instance, details about and references related to operating EAP-AKA' in 5G networks. EAP-AKA' differs from EAP-AKA by providing a key derivation function that binds the keys derived within the method to the name of the access network. The key derivation function has been defined in the 3rd Generation Partnership Project (3GPP). EAP-AKA' allows its use in EAP in an interoperable manner. EAP-AKA' also updates the algorithm used in hash functions, as it employs SHA-256 / HMAC-SHA-256 instead of SHA-1 / HMAC-SHA-1, which is used in EAP-AKA. This version of the EAP-AKA' specification defines the protocol behavior for both 4G and 5G deployments, whereas the previous version defined protocol behavior for 4G deployments only. While EAP-AKA' as defined in RFC 5448 is not obsolete, this document defines the most recent and fully backwards-compatible specification of EAP-AKA'. This document updates both RFCs 4187 and 5448.",
     "authors": [
-      "J. Arkko",
-      "V. Lehtovirta",
-      "V. Torvinen",
-      "P. Eronen"
+      "Jari Arkko",
+      "Vesa Lehtovirta",
+      "Vesa Torvinen",
+      "Pasi Eronen"
     ],
     "docId": "RFC9048",
     "docLabel": "IETF RFC 9048",
+    "docNumber": "9048",
     "docTitle": "Improved Extensible Authentication Protocol Method for 3GPP Mobile Network Authentication and Key Agreement (EAP-AKA')",
     "docType": "Standard",
     "doi": "10.17487/RFC9048",
-    "href": "https://www.rfc-editor.org/info/rfc9048",
+    "href": "https://doi.org/10.17487/RFC9048",
+    "keywords": [
+      "EAP",
+      "AKA",
+      "AKA'",
+      "3GPP"
+    ],
+    "pages": "40",
     "publicationDate": "2021-10-01",
     "publisher": "IETF",
+    "references": {
+      "bibliographic": [
+        "10.1007-978-3-642-33704-8_6",
+        "10.1109-TWC.2004.842941",
+        "10.1145-2382196.2382221",
+        "10.1145-3243734.3243846",
+        "10.14722-ndss.2016.23236",
+        "10.14722-ndss.2019.23442",
+        "10.2478-popets-2019-0039",
+        "10.5555-2534748.2534755",
+        "3GPP.TS-35.208.202007",
+        "IETF.draft-ietf-emu-aka-pfs-05",
+        "INTERCEPT.great-sim-heist.2015-02",
+        "ISOC.NDSS.GSM.201202",
+        "NIST.FIPS.180-1",
+        "NIST.FIPS.180-2",
+        "RFC3310",
+        "RFC4086",
+        "RFC4169",
+        "RFC4186",
+        "RFC4284",
+        "RFC4306",
+        "RFC5113",
+        "RFC5247",
+        "RFC5281",
+        "RFC5448",
+        "RFC6194",
+        "RFC6973",
+        "RFC7170",
+        "RFC7258",
+        "RFC7296"
+      ],
+      "normative": [
+        "3GPP.TS-23.003.202106",
+        "3GPP.TS-23.501.202106",
+        "3GPP.TS-24.302.202007",
+        "3GPP.TS-24.501.202106",
+        "3GPP.TS-33.102.202007",
+        "3GPP.TS-33.402.202007",
+        "3GPP.TS-33.501.202107",
+        "NIST.FIPS.180-4",
+        "RFC2104",
+        "RFC2119",
+        "RFC3748",
+        "RFC4187",
+        "RFC7542",
+        "RFC8126",
+        "RFC8174"
+      ]
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9048",
     "status": {
-      "active": false,
-      "superseded": true,
-      "supersededBy": [
+      "active": true,
+      "amendedBy": [
         "RFC9678"
       ],
-      "latestVersion": true
+      "amends": [
+        "RFC5448",
+        "RFC4187"
+      ],
+      "errataExist": false,
+      "latestVersion": true,
+      "statusNote": "Proposed Standard",
+      "superseded": false
     },
     "msiLatestAny": "RFC9048",
     "msiLatestBase": "RFC9048",
@@ -68692,25 +69200,266 @@
       {
         "docId": "RFC9048",
         "docLabel": "IETF RFC 9048",
-        "href": "https://www.rfc-editor.org/info/rfc9048",
+        "href": "https://doi.org/10.17487/RFC9048",
         "publicationDate": "2021-10-01",
         "status": {
-          "active": false,
-          "superseded": true,
-          "supersededBy": [
+          "active": true,
+          "amendedBy": [
             "RFC9678"
           ],
-          "latestVersion": true
+          "amends": [
+            "RFC5448",
+            "RFC4187"
+          ],
+          "errataExist": false,
+          "latestVersion": true,
+          "statusNote": "Proposed Standard",
+          "superseded": false
         },
         "isLatestBase": true,
         "__isNewestInBase": true
       }
     ],
+    "referencesResolved": {
+      "normative": [
+        {
+          "id": "3GPP.TS-23.003.202106",
+          "undated": true
+        },
+        {
+          "id": "3GPP.TS-23.501.202106",
+          "undated": true
+        },
+        {
+          "id": "3GPP.TS-24.302.202007",
+          "undated": true
+        },
+        {
+          "id": "3GPP.TS-24.501.202106",
+          "undated": true
+        },
+        {
+          "id": "3GPP.TS-33.102.202007",
+          "undated": true
+        },
+        {
+          "id": "3GPP.TS-33.402.202007",
+          "undated": true
+        },
+        {
+          "id": "3GPP.TS-33.501.202107",
+          "undated": true
+        },
+        {
+          "id": "NIST.FIPS.180-4"
+        },
+        {
+          "id": "RFC2104"
+        },
+        {
+          "id": "RFC2119"
+        },
+        {
+          "id": "RFC3748",
+          "undated": true
+        },
+        {
+          "id": "RFC4187"
+        },
+        {
+          "id": "RFC7542",
+          "undated": true
+        },
+        {
+          "id": "RFC8126",
+          "undated": true
+        },
+        {
+          "id": "RFC8174",
+          "undated": true
+        }
+      ],
+      "bibliographic": [
+        {
+          "id": "10.1007-978-3-642-33704-8_6",
+          "undated": true
+        },
+        {
+          "id": "10.1109-TWC.2004.842941",
+          "undated": true
+        },
+        {
+          "id": "10.1145-2382196.2382221",
+          "undated": true
+        },
+        {
+          "id": "10.1145-3243734.3243846",
+          "undated": true
+        },
+        {
+          "id": "10.14722-ndss.2016.23236",
+          "undated": true
+        },
+        {
+          "id": "10.14722-ndss.2019.23442",
+          "undated": true
+        },
+        {
+          "id": "10.2478-popets-2019-0039",
+          "undated": true
+        },
+        {
+          "id": "10.5555-2534748.2534755",
+          "undated": true
+        },
+        {
+          "id": "3GPP.TS-35.208.202007",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-ietf-emu-aka-pfs-05",
+          "undated": true
+        },
+        {
+          "id": "INTERCEPT.great-sim-heist.2015-02",
+          "undated": false
+        },
+        {
+          "id": "ISOC.NDSS.GSM.201202",
+          "undated": true
+        },
+        {
+          "id": "NIST.FIPS.180-1"
+        },
+        {
+          "id": "NIST.FIPS.180-2"
+        },
+        {
+          "id": "RFC3310",
+          "undated": true
+        },
+        {
+          "id": "RFC4086",
+          "undated": true
+        },
+        {
+          "id": "RFC4169",
+          "undated": true
+        },
+        {
+          "id": "RFC4186",
+          "undated": true
+        },
+        {
+          "id": "RFC4284",
+          "undated": true
+        },
+        {
+          "id": "RFC4306",
+          "undated": true
+        },
+        {
+          "id": "RFC5113",
+          "undated": true
+        },
+        {
+          "id": "RFC5247",
+          "undated": true
+        },
+        {
+          "id": "RFC5281",
+          "undated": true
+        },
+        {
+          "id": "RFC5448"
+        },
+        {
+          "id": "RFC6194",
+          "undated": true
+        },
+        {
+          "id": "RFC6973",
+          "undated": true
+        },
+        {
+          "id": "RFC7170",
+          "undated": true
+        },
+        {
+          "id": "RFC7258",
+          "undated": true
+        },
+        {
+          "id": "RFC7296",
+          "undated": true
+        }
+      ]
+    },
     "referencedBy": [
       "RFC9678"
     ],
+    "referenceTree": [
+      "10.1007-3-540-60865-6_44",
+      "10.1007-978-3-642-33704-8_6",
+      "10.1109-TWC.2004.842941",
+      "10.1145-141809.141812",
+      "10.1145-191177.191231",
+      "10.1145-2382196.2382221",
+      "10.1145-3243734.3243846",
+      "10.14722-ndss.2016.23236",
+      "10.14722-ndss.2019.23442",
+      "10.2478-popets-2019-0039",
+      "10.5555-2534748.2534755",
+      "10.5555-646755.705223",
+      "10.5555-646760.705865",
+      "10.5555-646761.706031",
+      "10.5555-874062.875481",
+      "3GPP.TS-23.003.202106",
+      "3GPP.TS-23.501.202106",
+      "3GPP.TS-24.302.202007",
+      "3GPP.TS-24.501.202106",
+      "3GPP.TS-33.102.202007",
+      "3GPP.TS-33.402.202007",
+      "3GPP.TS-33.501.202107",
+      "3GPP.TS-35.208.202007",
+      "ANSI.X9.9.1986",
+      "IETF.draft-ietf-emu-aka-pfs-05",
+      "INTERCEPT.great-sim-heist.2015-02",
+      "ISBN.9780471048923",
+      "ISOC.NDSS.GSM.201202",
+      "NIST.FIPS.180-1",
+      "NIST.FIPS.180-2",
+      "NIST.FIPS.180-4",
+      "RFC1320",
+      "RFC1321",
+      "RFC1826",
+      "RFC2104",
+      "RFC2119",
+      "RFC3310",
+      "RFC3748",
+      "RFC4086",
+      "RFC4169",
+      "RFC4186",
+      "RFC4187",
+      "RFC4284",
+      "RFC4306",
+      "RFC5113",
+      "RFC5247",
+      "RFC5281",
+      "RFC5448",
+      "RFC6194",
+      "RFC6973",
+      "RFC7170",
+      "RFC7258",
+      "RFC7296",
+      "RFC7542",
+      "RFC8126",
+      "RFC8174",
+      "RSA.crypto.v2n2.1996",
+      "T-REC-X.509.1988"
+    ],
     "docDependancy": true,
-    "currentStatus": "Superseded"
+    "currentStatus": "Active*"
   },
   {
     "abstract": "The IETF FTP service running at ftp.ietf.org, ops.ietf.org, and ietf.org will be retired. A number of published RFCs in the IETF and IAB streams include URIs that reference this FTP service. To ensure that the materials referenced using the IETF FTP service can still be found, this document updates the FTP-based references in these affected documents with HTTPS URIs.",
@@ -69545,7 +70294,7 @@
       "bibliographic": [
         "10.1007-BF00124891",
         "10.1109-Trustcom.2015.506",
-        "ETSI.TS-133-501.2024",
+        "3GPP.TS-33.501.202409",
         "IETF.draft-4.pdf",
         "INTERCEPT.great-sim-heist.2015-02",
         "NSA.UOO115131-21.20210225",
@@ -69672,7 +70421,7 @@
           "undated": true
         },
         {
-          "id": "ETSI.TS-133-501.2024",
+          "id": "3GPP.TS-33.501.202409",
           "undated": true
         },
         {
@@ -69710,28 +70459,73 @@
       ]
     },
     "referenceTree": [
+      "10.1007-3-540-60865-6_44",
+      "10.1007-978-3-642-33704-8_6",
       "10.1007-BF00124891",
+      "10.1109-TWC.2004.842941",
       "10.1109-Trustcom.2015.506",
-      "ETSI.TS-133-501.2024",
+      "10.1145-141809.141812",
+      "10.1145-191177.191231",
+      "10.1145-2382196.2382221",
+      "10.1145-3243734.3243846",
+      "10.14722-ndss.2016.23236",
+      "10.14722-ndss.2019.23442",
+      "10.2478-popets-2019-0039",
+      "10.5555-2534748.2534755",
+      "10.5555-646760.705865",
+      "10.5555-646761.706031",
+      "10.5555-874062.875481",
+      "3GPP.TS-23.003.202106",
+      "3GPP.TS-23.501.202106",
+      "3GPP.TS-24.302.202007",
+      "3GPP.TS-24.501.202106",
+      "3GPP.TS-33.102.202007",
+      "3GPP.TS-33.402.202007",
+      "3GPP.TS-33.501.202107",
+      "3GPP.TS-33.501.202409",
+      "3GPP.TS-35.208.202007",
+      "ANSI.X9.9.1986",
       "IETF.draft-4.pdf",
+      "IETF.draft-ietf-emu-aka-pfs-05",
       "INTERCEPT.great-sim-heist.2015-02",
+      "ISBN.9780471048923",
+      "ISOC.NDSS.GSM.201202",
+      "NIST.FIPS.180-1",
+      "NIST.FIPS.180-2",
+      "NIST.FIPS.180-4",
       "NIST.SP.800-186",
       "NIST.SP.800-56Ar3",
       "NSA.UOO115131-21.20210225",
+      "RFC1321",
+      "RFC1826",
+      "RFC2104",
       "RFC2119",
+      "RFC3310",
       "RFC3748",
+      "RFC4086",
+      "RFC4169",
       "RFC4186",
       "RFC4187",
+      "RFC4284",
+      "RFC4306",
+      "RFC5113",
       "RFC5216",
+      "RFC5247",
+      "RFC5281",
       "RFC5448",
+      "RFC6194",
+      "RFC6973",
+      "RFC7170",
       "RFC7258",
       "RFC7296",
+      "RFC7542",
       "RFC7624",
       "RFC7748",
       "RFC8126",
       "RFC8174",
       "RFC9048",
       "RFC9190",
+      "RSA.crypto.v2n2.1996",
       "SECG.SEC1.v2.2009-05",
       "SECG.SEC2.v2.2010-01"
     ],
@@ -199030,6 +199824,8 @@
       }
     ],
     "referencedBy": [
+      "RFC8615",
+      "RFC8820",
       "SMPTE.AG05",
       "SMPTE.AG26",
       "SMPTE.AG29"

@@ -411,6 +411,7 @@
 <li>Falls back to legacy section/anchor heuristics only when structured extraction is unavailable or incomplete.</li>
 </ul>
 <li>Reference normalization now includes generic DOI/ISBN fallback parsing in <code>parseRefId</code>, reducing manual <code>refMap</code> backfills for citations that include canonical identifiers.</li>
+<li>Reference normalization now includes generic 3GPP Technical Specification parsing from cite text (including Draft TS forms), with month-aware suffixes (e.g., <code>3GPP.33.501.202107</code>).</li>
 <li><code>badRefs.latest.json</code> writing now merges per provider into a single snapshot file:</li>
 <ul class="mb-1">
 <li>each bad-ref item includes <code>provider</code></li>
@@ -420,6 +421,12 @@
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
 <ul class="mb-1">
 <li><strong>URL validation throttle false positives on skip-only runs</strong> — refined <code>.github/workflows/validate-urls.yml</code> daily throttle to count only runs that actually executed <code>Run URL validation</code> successfully; skip-only successful runs (for example, upstream open-PR marker skips) no longer satisfy throttle.</li>
+<li><strong>IETF filter prefix overmatch in seed-first extraction</strong> — fixed <code>src/main/scripts/providers/ietf.discovery.js</code> URL filtering so short RFC filters (for example, <code>.../rfc861</code>) no longer overmatch longer IDs (for example, <code>.../rfc8615</code>, <code>.../rfc8820</code>):</li>
+<ul class="mb-1">
+<li>filter comparisons now use normalized URL forms</li>
+<li>prefix matching now requires explicit intent via trailing <code>/</code> in the filter entry.</li>
+</ul>
+<li><strong>W3C dated TR stage references not resolving</strong> — expanded W3C URL parsing in <code>parseRefId</code> to resolve dated <code>/TR/YYYY/&lt;STAGE&gt;-&lt;shortname&gt;-&lt;date&gt;</code> forms beyond REC (for example <code>WD-CSP3-20160913</code>, <code>CR-referrer-policy-20170126</code>).</li>
 </ul>
         </div>
       </div>
@@ -846,8 +853,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>17e11f3de1ab863a39658224790dfeac54047ad3</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-09T17:57:38.596Z</code>
+              <span class="fw-semibold">Site version:</span> <code>f9b83ef22364193e72defba572f313e0bfff315b</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-10T00:31:15.807Z</code>
             </p>
           </small>
         </div>
