@@ -427,6 +427,7 @@
 <li>prefix matching now requires explicit intent via trailing <code>/</code> in the filter entry.</li>
 </ul>
 <li><strong>W3C dated TR stage references not resolving</strong> — expanded W3C URL parsing in <code>parseRefId</code> to resolve dated <code>/TR/YYYY/&lt;STAGE&gt;-&lt;shortname&gt;-&lt;date&gt;</code> forms beyond REC (for example <code>WD-CSP3-20160913</code>, <code>CR-referrer-policy-20170126</code>).</li>
+<li><strong>MRI add-then-prune churn across extract/build-MRI workflows</strong> — extraction now prunes MRI variants to current <code>documents.json</code> reference truth before flush, preventing transient rawVariants (for example self-cites or non-persisted sightings) from being added by extract and then removed by later <code>buildMasterReferenceIndex</code> runs.</li>
 </ul>
         </div>
       </div>
@@ -853,8 +854,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>a514d0e610652043ca2adc91b0ab7c434f048378</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-10T17:03:36.134Z</code>
+              <span class="fw-semibold">Site version:</span> <code>7308b255f7572e0dae655c5e7a5f233b2c313f9c</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-10T18:27:41.615Z</code>
             </p>
           </small>
         </div>
