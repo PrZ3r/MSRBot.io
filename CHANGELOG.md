@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - filter comparisons now use normalized URL forms
   - prefix matching now requires explicit intent via trailing `/` in the filter entry.
 - **W3C dated TR stage references not resolving** — expanded W3C URL parsing in `parseRefId` to resolve dated `/TR/YYYY/<STAGE>-<shortname>-<date>` forms beyond REC (for example `WD-CSP3-20160913`, `CR-referrer-policy-20170126`).
+- **MRI add-then-prune churn across extract/build-MRI workflows** — extraction now prunes MRI variants to current `documents.json` reference truth before flush, preventing transient rawVariants (for example self-cites or non-persisted sightings) from being added by extract and then removed by later `buildMasterReferenceIndex` runs.
  
 ## [v1.4.1] - 2026-03-06
  

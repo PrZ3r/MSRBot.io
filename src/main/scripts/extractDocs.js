@@ -75,7 +75,7 @@ const badRefsLatestPath = `src/main/reports/badRefs.latest.json`;
 // Raw URL (kept for logging/diagnostics)
 const detailsFileRawUrl = `https://raw.githubusercontent.com/PrZ3r/MSRBot.io/main/${fullDetailsPath}`;
 
-const { parseRefId, extractRefs, mapRefByCite, mriFlush, mriEnsureFile } = require('../lib/referencing');
+const { parseRefId, extractRefs, mapRefByCite, mriFlush, mriEnsureFile, mriPruneToSightings } = require('../lib/referencing');
 
 // Guard to avoid double logging/flushing MRI on multiple exit signals
 let _mriFlushedOnce = false;
@@ -219,6 +219,24 @@ const baseMetaConfig = {
 const metaConfig = mergeMetaConfig(baseMetaConfig, activeProvider.metaConfig || {});
 
 const badRefs = [];
+
+function buildMriSightingIndexFromDocs(docs = []) {
+  const idx = new Set();
+  for (const d of (Array.isArray(docs) ? docs : [])) {
+    const docId = String(d?.docId || '').trim();
+    if (!docId) continue;
+    const refs = d?.references && typeof d.references === 'object' ? d.references : {};
+    for (const [key, type] of [['normative', 'normative'], ['bibliographic', 'bibliographic']]) {
+      const arr = Array.isArray(refs[key]) ? refs[key] : [];
+      for (const refIdRaw of arr) {
+        const refId = String(refIdRaw || '').trim();
+        if (!refId) continue;
+        idx.add(`${refId}||${docId}||${type}`);
+      }
+    }
+  }
+  return idx;
+}
 
 function refsAreDifferent(a, b) {
   const aSorted = [...a].sort();
@@ -928,6 +946,19 @@ for (const doc of results) {
     skippedDocs.forEach(docId => {
       console.log(`- ${docId}`);
     });
+  }
+
+  // Keep MRI variants aligned with current documents truth during extract runs,
+  // so extract-time sightings do not create transient entries later pruned by
+  // buildMasterReferenceIndex.
+  try {
+    const sightIdx = buildMriSightingIndexFromDocs(existingDocs);
+    const pr = mriPruneToSightings(sightIdx, { removeEmptyRefs: true });
+    if ((pr.removedVariants || 0) > 0 || (pr.removedRefs || 0) > 0 || (pr.removedOrphans || 0) > 0) {
+      console.log(`🧹 MRI prune during extract: -${pr.removedVariants || 0} variants, -${pr.removedRefs || 0} refs, -${pr.removedOrphans || 0} orphans`);
+    }
+  } catch (e) {
+    console.warn(`⚠️ MRI prune during extract failed: ${e.message}`);
   }
 
   const formatBadRefText = (raw) => String(raw || '')
