@@ -990,7 +990,20 @@ for (const doc of results) {
       type: String(ref.type || '').trim(),
       cite: formatBadRefText(ref.refText),
       href: String(ref.href || '').trim()
-    }));
+    })).filter((item) => {
+      const cite = String(item.cite || '').trim();
+      const href = String(item.href || '').trim();
+      if (!cite && !href) return false;
+      // Final write-time guard: if a citation is now resolvable (by parser or
+      // refMap mapping), do not persist it in badRefs.latest.json.
+      try {
+        if (parseRefId(cite, href)) return false;
+      } catch {}
+      try {
+        if (mapRefByCite(cite)) return false;
+      } catch {}
+      return true;
+    });
 
     let existingItems = [];
     try {
@@ -1011,13 +1024,19 @@ for (const doc of results) {
 
     const preservedOtherProviders = existingItems.filter((item) => item.provider !== providerKey);
     const merged = [...preservedOtherProviders, ...badRefItems];
+    const normalizeBadRefCiteForKey = (cite) => String(cite || '')
+      // Collapse local citation keys like "Huelsing13a " when followed by author text.
+      // Keep base labels like "Huelsing13".
+      .replace(/^[A-Za-z][A-Za-z0-9_.:-]{0,23}\d{2,4}[a-z]\s+(?=[A-Z][A-Za-z'`-]{1,63},\s)/u, '')
+      .trim();
     const dedupe = new Map();
     for (const item of merged) {
+      const citeKey = normalizeBadRefCiteForKey(item.cite).toLowerCase();
       const key = [
         item.provider,
         item.docId,
         item.type.toLowerCase(),
-        item.cite.toLowerCase(),
+        citeKey,
         item.href.toLowerCase()
       ].join('||');
       if (!dedupe.has(key)) dedupe.set(key, item);

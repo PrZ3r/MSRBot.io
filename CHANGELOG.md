@@ -31,6 +31,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - prefix matching now requires explicit intent via trailing `/` in the filter entry.
 - **W3C dated TR stage references not resolving** — expanded W3C URL parsing in `parseRefId` to resolve dated `/TR/YYYY/<STAGE>-<shortname>-<date>` forms beyond REC (for example `WD-CSP3-20160913`, `CR-referrer-policy-20170126`).
 - **MRI add-then-prune churn across extract/build-MRI workflows** — extraction now prunes MRI variants to current `documents.json` reference truth before flush, preventing transient rawVariants (for example self-cites or non-persisted sightings) from being added by extract and then removed by later `buildMasterReferenceIndex` runs.
+- **Resolved citations leaking into `badRefs.latest.json`** — tightened bad-ref suppression in both `extractRefs` (`src/main/lib/referencing.js`) and extract report persistence (`src/main/scripts/extractDocs.js`) so any citation that resolves via `parseRefId` or `mapRefByCite` is excluded from bad-ref output, eliminating stale false positives during mixed parser-path runs.
+- **NIST SP reference normalization gap** — added generic NIST SP parsing in `parseRefId` for CSRC `.../publications/detail/sp/.../rev-...` URLs and text forms like `NIST 800-67, Rev. 2`, producing canonical IDs such as `NIST.SP.800-67r2`.
  
 ## [v1.4.1] - 2026-03-06
  

@@ -856,8 +856,13 @@ function parseRefId(text, href = '', opts = {}) {
   // - "3GPP TS 33.501, September 2024."
   {
     const src = String(text || '');
-    const m3gpp = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{3})\b/i);
-    if (m3gpp?.[1] && m3gpp?.[2]) {
+    const has3gpp = /\b3GPP\b/i.test(src);
+    // Direct form: "3GPP TS 33.501" or "3GPP Technical Specification 33.501"
+    const direct = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{3})\b/i);
+    // Split form: "3GPP, ... TS 33.501, ..." (3GPP appears earlier, TS appears later)
+    const split = has3gpp ? src.match(/\bTS\s+(\d{2})\.(\d{3})\b/i) : null;
+    const m3gpp = direct || split;
+    if (m3gpp?.[1] && m3gpp?.[2] && has3gpp) {
       const spec = `${m3gpp[1]}.${m3gpp[2]}`;
       const monthMap = {
         jan: '01', january: '01',
@@ -883,7 +888,7 @@ function parseRefId(text, href = '', opts = {}) {
         if (y?.[0]) suffix = String(y[0]);
       }
       const refId = `3GPP.TS-${spec}${suffix ? `.${suffix}` : ''}`;
-      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: '3gpp-ts' } } : refId;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: direct ? '3gpp-ts-direct' : '3gpp-ts-split' } } : refId;
     }
   }
 
@@ -974,6 +979,31 @@ function parseRefId(text, href = '', opts = {}) {
     const num = m[1];
     const rev = m[2] ? `-${m[2]}` : '';
     { const refId = `NIST.FIPS.${num}${rev}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-fips-path' } } : refId; }
+  }
+  // NIST Special Publications in CSRC paths, e.g.:
+  // - https://csrc.nist.gov/publications/detail/sp/800-67/rev-2/final
+  {
+    const m = String(href || '').match(/csrc\.nist\.gov\/publications\/detail\/sp\/(800-[0-9A-Za-z-]+)(?:\/rev-?([0-9]+))?/i);
+    if (m?.[1]) {
+      const sp = String(m[1]).toUpperCase();
+      const rev = m[2] ? `r${m[2]}` : '';
+      const refId = `NIST.SP.${sp}${rev}`;
+      return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-sp-path' } } : refId;
+    }
+  }
+  // NIST SP references in citation text when DOI/path are absent, e.g.:
+  // - "NIST 800-67, Rev. 2"
+  // - "NIST SP 800-56A Rev. 3"
+  {
+    const src = String(text || '');
+    const m = src.match(/\bNIST\b[\s\S]{0,120}?\b(?:SP|Special\s+Publication)?\s*(800-[0-9A-Za-z-]+)\b/i);
+    if (m?.[1]) {
+      const sp = String(m[1]).toUpperCase();
+      const revMatch = src.match(/\bRev\.?\s*([0-9]+)\b/i);
+      const rev = revMatch?.[1] ? `r${revMatch[1]}` : '';
+      const refId = `NIST.SP.${sp}${rev}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'nist-sp-text' } } : refId;
+    }
   }
 
   // Generic DOI normalization fallback.
@@ -1178,6 +1208,31 @@ function extractRefs($, currentDocId, opts = {}) {
   function recordSighting(payload) {
     if (!recordSightings) return;
     mriRecordSighting(payload);
+  }
+
+  // Final guard: if a "bad ref" now resolves via parser/refMap, suppress it.
+  // This prevents cases where one extraction path emits badRefs while another
+  // path resolves the same citation in the same run.
+  function suppressResolvableBadRefs() {
+    if (!Array.isArray(out.badRefs) || !out.badRefs.length) return;
+    const dedupe = new Set();
+    out.badRefs = out.badRefs.filter((r) => {
+      const docId = String(r?.docId || '').trim();
+      const type = String(r?.type || '').trim();
+      const refText = String(r?.refText || '').trim();
+      const href = String(r?.href || '').trim();
+      if (!refText && !href) return false;
+      try {
+        if (parseRefId(refText, href)) return false;
+      } catch {}
+      try {
+        if (mapRefByCite(refText)) return false;
+      } catch {}
+      const key = [docId.toLowerCase(), type.toLowerCase(), refText.toLowerCase(), href.toLowerCase()].join('||');
+      if (dedupe.has(key)) return false;
+      dedupe.add(key);
+      return true;
+    });
   }
 
   function resolveXmlRefId(citeCandidates = [], hrefCandidates = []) {
@@ -2005,6 +2060,7 @@ function extractRefs($, currentDocId, opts = {}) {
       if (/^[a-z0-9._-]+\s*\]?\s+see\s+\[\s*[a-z0-9._-]+\s*\]?$/i.test(normalized)) return false;
       return true;
     });
+    suppressResolvableBadRefs();
     return out;
   }
 
@@ -2177,6 +2233,7 @@ function extractRefs($, currentDocId, opts = {}) {
       out.references.bibliographic = [...new Set(out.references.bibliographic)];
       if (!out.references.bibliographic.length) delete out.references.bibliographic;
     }
+    suppressResolvableBadRefs();
     return out;
   }
 
@@ -2251,6 +2308,7 @@ function extractRefs($, currentDocId, opts = {}) {
     });
     if (list.length > 0) out.references[s.key] = list;
   }
+  suppressResolvableBadRefs();
   return out;
 }
 
