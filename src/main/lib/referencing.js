@@ -397,6 +397,12 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
 
   _dirty = true;
 
+  // Keep MRI aligned with documents.json reference semantics:
+  // do not record self-references (e.g., RFC2049 citing "this document").
+  if (refId && docId && String(refId).trim().toUpperCase() === String(docId).trim().toUpperCase()) {
+    return;
+  }
+
   if (refId) {
     const entry = _ensureRef(refId);
     // provenance
