@@ -66,9 +66,14 @@ function createIetfDiscovery({ options = {} }) {
 
   function shouldFilterUrl(url) {
     if (!filterEnabled) return false;
+    const normalizedUrl = normalizeSeedUrl(url);
     for (const f of filterList) {
-      if (f === url) return true;
-      if (url.startsWith(f)) return true;
+      const rawFilter = String(f || '');
+      const normalizedFilter = normalizeSeedUrl(rawFilter);
+      if (normalizedFilter === normalizedUrl) return true;
+      // Prefix filtering must be explicit (trailing slash), otherwise we can
+      // accidentally block RFC8615 via an RFC861 entry, etc.
+      if (rawFilter.endsWith('/') && normalizedUrl.startsWith(normalizedFilter)) return true;
     }
     return false;
   }
