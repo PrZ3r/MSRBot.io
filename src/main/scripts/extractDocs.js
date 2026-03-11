@@ -971,11 +971,37 @@ for (const doc of results) {
     .replace(/\s*\]\s*$/u, '')
     .trim();
 
-  if (badRefs.length > 0) {
+  const toBadRefItem = (ref) => ({
+    provider: providerKey,
+    docId: String(ref.docId || '').trim(),
+    type: String(ref.type || '').trim(),
+    cite: formatBadRefText(ref.refText),
+    href: String(ref.href || '').trim()
+  });
+  const shouldKeepBadRefItem = (item) => {
+    const cite = String(item.cite || '').trim();
+    const href = String(item.href || '').trim();
+    if (!cite && !href) return false;
+    // Suppress known procedural appendix example lines that can leak from
+    // legacy RFC HTML fallback parsing (not bibliographic citations).
+    if (/^\d+\.\s+The\s+CoAP\s+client\b/i.test(cite)) return false;
+    // Final guard: if a citation is now resolvable (by parser or refMap mapping),
+    // do not emit/persist it as unparseable.
+    try {
+      if (parseRefId(cite, href)) return false;
+    } catch {}
+    try {
+      if (mapRefByCite(cite)) return false;
+    } catch {}
+    return true;
+  };
+  const filteredBadRefItems = badRefs.map(toBadRefItem).filter(shouldKeepBadRefItem);
+
+  if (filteredBadRefItems.length > 0) {
     console.log('🚫 Unparseable References Found:');
-    badRefs.forEach(ref => {
+    filteredBadRefItems.forEach((ref) => {
       console.log(`- From ${ref.docId} (${ref.type}):`);
-      console.log(`  - cite: ${formatBadRefText(ref.refText)}`);
+      console.log(`  - cite: ${ref.cite}`);
       if (ref.href) console.log(`  - href: ${ref.href}`);
     });
   }
@@ -984,13 +1010,7 @@ for (const doc of results) {
   // relying only on PR body/log excerpts.
   try {
     const nowIso = new Date().toISOString();
-    const badRefItems = badRefs.map((ref) => ({
-      provider: providerKey,
-      docId: String(ref.docId || '').trim(),
-      type: String(ref.type || '').trim(),
-      cite: formatBadRefText(ref.refText),
-      href: String(ref.href || '').trim()
-    }));
+    const badRefItems = filteredBadRefItems;
 
     let existingItems = [];
     try {
@@ -1011,13 +1031,19 @@ for (const doc of results) {
 
     const preservedOtherProviders = existingItems.filter((item) => item.provider !== providerKey);
     const merged = [...preservedOtherProviders, ...badRefItems];
+    const normalizeBadRefCiteForKey = (cite) => String(cite || '')
+      // Collapse local citation keys like "Huelsing13a " when followed by author text.
+      // Keep base labels like "Huelsing13".
+      .replace(/^[A-Za-z][A-Za-z0-9_.:-]{0,23}\d{2,4}[a-z]\s+(?=[A-Z][A-Za-z'`-]{1,63},\s)/u, '')
+      .trim();
     const dedupe = new Map();
     for (const item of merged) {
+      const citeKey = normalizeBadRefCiteForKey(item.cite).toLowerCase();
       const key = [
         item.provider,
         item.docId,
         item.type.toLowerCase(),
-        item.cite.toLowerCase(),
+        citeKey,
         item.href.toLowerCase()
       ].join('||');
       if (!dedupe.has(key)) dedupe.set(key, item);
@@ -1168,11 +1194,11 @@ for (const doc of results) {
   });
   fullDetailsLines.push('');
   // Add unparseable refs if any
-  if (badRefs.length > 0) {
+  if (filteredBadRefItems.length > 0) {
     fullDetailsLines.push('### 🚫 Unparseable References Found:\n');
-    badRefs.forEach(ref => {
+    filteredBadRefItems.forEach((ref) => {
       fullDetailsLines.push(`- From ${ref.docId} (${ref.type}):`);
-      fullDetailsLines.push(`  - cite: ${formatBadRefText(ref.refText)}`);
+      fullDetailsLines.push(`  - cite: ${ref.cite}`);
       if (ref.href) fullDetailsLines.push(`  - href: ${ref.href}`);
     });
     fullDetailsLines.push('');
@@ -1206,11 +1232,11 @@ for (const doc of results) {
   prLines.push(`### ⚠️ Skipped ${skippedDocs.length} duplicate(s)`);
   prLines.push('');
   // Add unparseable refs summary to PR log if present
-  if (badRefs.length > 0) {
+  if (filteredBadRefItems.length > 0) {
     prLines.push('### 🚫 Unparseable References Found:\n');
-    badRefs.forEach(ref => {
+    filteredBadRefItems.forEach((ref) => {
       prLines.push(`- From ${ref.docId} (${ref.type}):`);
-      prLines.push(`  - cite: ${formatBadRefText(ref.refText)}`);
+      prLines.push(`  - cite: ${ref.cite}`);
       if (ref.href) prLines.push(`  - href: ${ref.href}`);
     });
     prLines.push('');

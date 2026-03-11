@@ -856,8 +856,13 @@ function parseRefId(text, href = '', opts = {}) {
   // - "3GPP TS 33.501, September 2024."
   {
     const src = String(text || '');
-    const m3gpp = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{3})\b/i);
-    if (m3gpp?.[1] && m3gpp?.[2]) {
+    const has3gpp = /\b3GPP\b/i.test(src);
+    // Direct form: "3GPP TS 33.501" or "3GPP Technical Specification 33.501"
+    const direct = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{3})\b/i);
+    // Split form: "3GPP, ... TS 33.501, ..." (3GPP appears earlier, TS appears later)
+    const split = has3gpp ? src.match(/\bTS\s+(\d{2})\.(\d{3})\b/i) : null;
+    const m3gpp = direct || split;
+    if (m3gpp?.[1] && m3gpp?.[2] && has3gpp) {
       const spec = `${m3gpp[1]}.${m3gpp[2]}`;
       const monthMap = {
         jan: '01', january: '01',
@@ -883,7 +888,7 @@ function parseRefId(text, href = '', opts = {}) {
         if (y?.[0]) suffix = String(y[0]);
       }
       const refId = `3GPP.TS-${spec}${suffix ? `.${suffix}` : ''}`;
-      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: '3gpp-ts' } } : refId;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: direct ? '3gpp-ts-direct' : '3gpp-ts-split' } } : refId;
     }
   }
 
@@ -974,6 +979,31 @@ function parseRefId(text, href = '', opts = {}) {
     const num = m[1];
     const rev = m[2] ? `-${m[2]}` : '';
     { const refId = `NIST.FIPS.${num}${rev}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-fips-path' } } : refId; }
+  }
+  // NIST Special Publications in CSRC paths, e.g.:
+  // - https://csrc.nist.gov/publications/detail/sp/800-67/rev-2/final
+  {
+    const m = String(href || '').match(/csrc\.nist\.gov\/publications\/detail\/sp\/(800-[0-9A-Za-z-]+)(?:\/rev-?([0-9]+))?/i);
+    if (m?.[1]) {
+      const sp = String(m[1]).toUpperCase();
+      const rev = m[2] ? `r${m[2]}` : '';
+      const refId = `NIST.SP.${sp}${rev}`;
+      return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-sp-path' } } : refId;
+    }
+  }
+  // NIST SP references in citation text when DOI/path are absent, e.g.:
+  // - "NIST 800-67, Rev. 2"
+  // - "NIST SP 800-56A Rev. 3"
+  {
+    const src = String(text || '');
+    const m = src.match(/\bNIST\b[\s\S]{0,120}?\b(?:SP|Special\s+Publication)?\s*(800-[0-9A-Za-z-]+)\b/i);
+    if (m?.[1]) {
+      const sp = String(m[1]).toUpperCase();
+      const revMatch = src.match(/\bRev\.?\s*([0-9]+)\b/i);
+      const rev = revMatch?.[1] ? `r${revMatch[1]}` : '';
+      const refId = `NIST.SP.${sp}${rev}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'nist-sp-text' } } : refId;
+    }
   }
 
   // Generic DOI normalization fallback.
@@ -1180,15 +1210,67 @@ function extractRefs($, currentDocId, opts = {}) {
     mriRecordSighting(payload);
   }
 
+  // Final guard: if a "bad ref" now resolves via parser/refMap, suppress it.
+  // This prevents cases where one extraction path emits badRefs while another
+  // path resolves the same citation in the same run.
+  function suppressResolvableBadRefs() {
+    if (!Array.isArray(out.badRefs) || !out.badRefs.length) return;
+    const dedupe = new Set();
+    out.badRefs = out.badRefs.filter((r) => {
+      const docId = String(r?.docId || '').trim();
+      const type = String(r?.type || '').trim();
+      const refText = String(r?.refText || '').trim();
+      const href = String(r?.href || '').trim();
+      if (!refText && !href) return false;
+      try {
+        if (parseRefId(refText, href)) return false;
+      } catch {}
+      try {
+        if (mapRefByCite(refText)) return false;
+      } catch {}
+      const key = [docId.toLowerCase(), type.toLowerCase(), refText.toLowerCase(), href.toLowerCase()].join('||');
+      if (dedupe.has(key)) return false;
+      dedupe.add(key);
+      return true;
+    });
+  }
+
   function resolveXmlRefId(citeCandidates = [], hrefCandidates = []) {
     const cites = [...new Set(citeCandidates.map(v => String(v || '').trim()).filter(Boolean))];
     const hrefs = [...new Set(hrefCandidates.map(v => String(v || '').trim()).filter(Boolean))];
     const conciseCites = cites.filter(c => c.length <= 120);
 
     // 1) IETF draft shortcut
-    for (const v of [...cites, ...hrefs]) {
-      const m = String(v).match(/\b(draft-[A-Za-z0-9._-]+)\b/i);
-      if (m?.[1]) return `IETF.${m[1].toLowerCase()}`;
+    // Prefer href-derived draft tokens when present (more authoritative than
+    // wrapped/prose cite text), then fall back to cite-derived tokens.
+    {
+      const extractDraftTokens = (values = []) => {
+        const out = [];
+        for (const v of values) {
+          const src = String(v || '').replace(/\s*-\s*/g, '-');
+          const m = src.match(/\b(draft-[A-Za-z0-9._-]+)\b/i);
+          if (!m?.[1]) continue;
+          const token = String(m[1] || '')
+            .replace(/[)\],.;:]+$/g, '')
+            .replace(/\.(?:txt|xml|html?|pdf)$/i, '')
+            .toLowerCase();
+          // Reject false positives from generic filenames such as
+          // "...preliminary-draft-4.pdf".
+          if (/^draft-\d+(?:\.\d+)?$/.test(token)) continue;
+          if (!/^draft-[a-z0-9]/i.test(token)) continue;
+          out.push(token);
+        }
+        return out;
+      };
+      const pickLongest = (arr = []) => {
+        const uniq = [...new Set(arr)];
+        uniq.sort((a, b) => b.length - a.length);
+        return uniq[0] || '';
+      };
+      const hrefToken = pickLongest(extractDraftTokens(hrefs));
+      if (hrefToken) return `IETF.${hrefToken}`;
+      const citeToken = pickLongest(extractDraftTokens(cites));
+      if (citeToken) return `IETF.${citeToken}`;
     }
 
     // 2) canonical parser (cite + href), prioritize full cite variants first so
@@ -1466,8 +1548,8 @@ function extractRefs($, currentDocId, opts = {}) {
         return pos;
       };
       // Prefer true RFC heading markup (span.h2/h3 + section selflink) over text fallbacks.
-      const normHeadingRe = /<span[^>]*class=["'][^"']*\bh3\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Normative\s+References(?:\s|&nbsp;)*<\/span>/ig;
-      const infoHeadingRe = /<span[^>]*class=["'][^"']*\bh3\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Informative\s+References(?:\s|&nbsp;)*<\/span>/ig;
+      const normHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Normative\s+References(?:\s|&nbsp;)*<\/span>/ig;
+      const infoHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Informative\s+References(?:\s|&nbsp;)*<\/span>/ig;
       const refsHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>(?:\s|&nbsp;|<a[^>]*>[^<]*<\/a>)*\.?(?:\s*(?:--|[-–—:])\s*)?(?:\s|&nbsp;)*References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
       // Appendix-style reference headings are common in older RFC HTML renderings.
       const refsHeadingAppendixRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Appendix(?:es)?(?:\s+[A-Z0-9]+)?(?:\s*(?:--|[-–—:])\s*)?)?References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
@@ -1788,12 +1870,21 @@ function extractRefs($, currentDocId, opts = {}) {
               title: null
             });
           } else {
-            out.badRefs.push({
-              docId: currentDocId,
-              type: key,
-              refText: cleanedChunkText,
-              href: hrefs[0] || ''
-            });
+            // Only emit as badRef when numbered text looks citation-like;
+            // this avoids appendix/procedure step leakage (e.g., examples).
+            const looksCitationLike = /\b(19|20)\d{2}\b/.test(cleanedChunkText)
+              || /\bRFC\s*[0-9]{3,5}\b/i.test(cleanedChunkText)
+              || /\b(?:ISO|IEC|IEEE|STD|IETF|draft-ietf)\b/i.test(cleanedChunkText)
+              || /["“][^"”]{8,}["”]/.test(cleanedChunkText)
+              || /\b[A-Z][A-Za-z'`.-]+,\s*[A-Z]\./.test(cleanedChunkText);
+            if (looksCitationLike) {
+              out.badRefs.push({
+                docId: currentDocId,
+                type: key,
+                refText: cleanedChunkText,
+                href: hrefs[0] || ''
+              });
+            }
           }
         }
       }
@@ -1829,7 +1920,14 @@ function extractRefs($, currentDocId, opts = {}) {
             .replace(/\s+/g, ' ')
             .trim();
           // Stop parsing this reference bound once we hit obvious post-reference headings.
-          const appendixHeading = /^APPENDIX(?:ES)?\b/i.test(blockTextForStop);
+          const appendixHeading =
+            /^APPENDIX(?:ES)?\b/i.test(blockTextForStop)
+            // Older RFC HTML often embeds appendix headings with selflink markup
+            // and page header text before "Appendix ...", so anchor-id detection
+            // is a reliable boundary signal.
+            || /\bid=["']appendix-[^"']+["']/i.test(block)
+            // Catch inline appendix headings even when not at column 0.
+            || /\bAppendix(?:es)?\s+[A-Z0-9]+\b\s*(?:\.|:|--|-)/i.test(blockTextForStop);
           if (/^(?:\d+(?:\.\d+)?)?\s*\.?\s*AUTHOR'?S?\s+ADDRESS(?:ES)?\b/i.test(blockTextForStop)
             || /^(?:\d+(?:\.\d+)?)?\s*\.?\s*CHAIR,\s*EDITOR,\s*AND\s+AUTHORS?'?\s+ADDRESSES?\b/i.test(blockTextForStop)
             || /^(?:\d+(?:\.\d+)?)?\s*\.?\s*ACKNOWLEDGEMENTS?\b/i.test(blockTextForStop)
@@ -2005,6 +2103,7 @@ function extractRefs($, currentDocId, opts = {}) {
       if (/^[a-z0-9._-]+\s*\]?\s+see\s+\[\s*[a-z0-9._-]+\s*\]?$/i.test(normalized)) return false;
       return true;
     });
+    suppressResolvableBadRefs();
     return out;
   }
 
@@ -2177,6 +2276,7 @@ function extractRefs($, currentDocId, opts = {}) {
       out.references.bibliographic = [...new Set(out.references.bibliographic)];
       if (!out.references.bibliographic.length) delete out.references.bibliographic;
     }
+    suppressResolvableBadRefs();
     return out;
   }
 
@@ -2251,6 +2351,7 @@ function extractRefs($, currentDocId, opts = {}) {
     });
     if (list.length > 0) out.references[s.key] = list;
   }
+  suppressResolvableBadRefs();
   return out;
 }
 

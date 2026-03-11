@@ -1,5 +1,5 @@
 /*
-Backfill IETF RFC seed URLs from MRI presence-audit missing refs.
+Backfill IETF seed URLs (RFC + IETF drafts) from MRI presence-audit missing refs.
 
 Usage:
   node src/main/scripts/utils/seedBackfill.ietf.js
@@ -25,8 +25,21 @@ function asRfcNum(refId) {
   return m ? Number(m[1]) : null;
 }
 
+function asDraftName(refId) {
+  const m = String(refId || '').match(/^IETF\.(draft-[A-Za-z0-9._-]+)$/i);
+  if (!m || !m[1]) return null;
+  return String(m[1])
+    .toLowerCase()
+    .replace(/\.(?:txt|xml|html?|pdf)$/i, '')
+    .trim();
+}
+
 function toRfcUrl(n) {
   return `https://www.rfc-editor.org/info/rfc${n}`;
+}
+
+function toDraftUrl(name) {
+  return `https://datatracker.ietf.org/doc/html/${name}`;
 }
 
 function normalizeUrl(v) {
@@ -89,17 +102,28 @@ function main() {
       .map((row) => asRfcNum(row?.refId))
       .filter((n) => Number.isInteger(n))
   )].sort((a, b) => a - b);
+  const draftNames = [...new Set(
+    missingRows
+      .map((row) => asDraftName(row?.refId))
+      .filter(Boolean)
+  )].sort((a, b) => a.localeCompare(b));
 
   const seedSet = new Set(seeds.map((s) => String(s).toLowerCase()));
   const missingSeedNums = rfcNums.filter((n) => !seedSet.has(toRfcUrl(n).toLowerCase()));
   const missingSeedUrls = missingSeedNums.map((n) => toRfcUrl(n));
+  const missingDraftNames = draftNames.filter((name) => !seedSet.has(toDraftUrl(name).toLowerCase()));
+  const missingDraftUrls = missingDraftNames.map((name) => toDraftUrl(name));
+  const missingAll = [...missingDraftUrls, ...missingSeedUrls];
 
   console.log(`MRI missing refs: ${missingRows.length}`);
   console.log(`MRI missing RFC refs: ${rfcNums.length}`);
+  console.log(`MRI missing IETF draft refs: ${draftNames.length}`);
+  console.log(`IETF draft refs not in seedUrls.ietf.json: ${missingDraftUrls.length}`);
   console.log(`RFC refs not in seedUrls.ietf.json: ${missingSeedUrls.length}`);
-  if (!missingSeedUrls.length) return;
+  console.log(`Total refs to backfill into seedUrls.ietf.json: ${missingAll.length}`);
+  if (!missingAll.length) return;
 
-  for (const u of missingSeedUrls) console.log(`- ${u}`);
+  for (const u of missingAll) console.log(`- ${u}`);
 
   if (!doWrite) {
     console.log('\nDry run only. Re-run with --write to append these seeds.');
@@ -107,9 +131,9 @@ function main() {
   }
 
   const out = [...seeds];
-  for (const u of missingSeedUrls) out.push(u);
+  for (const u of missingAll) out.push(u);
   saveJson(SEED_PATH, canonicalizeSeeds(out));
-  console.log(`\nUpdated ${SEED_PATH} (+${missingSeedUrls.length} RFC seed URL(s)).`);
+  console.log(`\nUpdated ${SEED_PATH} (+${missingAll.length} seed URL(s): ${missingDraftUrls.length} draft, ${missingSeedUrls.length} RFC).`);
 }
 
 main();

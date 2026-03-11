@@ -66,6 +66,7 @@ When creating an issue or pull request:
 
 ## Release hygiene
 - Before creating a release tag, run a final data sweep: `npm run validate` and `npm run canonicalize`.
+- When bumping a release version, update `CHANGELOG.md` and keep `package.json` + `package-lock.json` versions in sync.
 
 ## Changelog, documentation, and provenance
 - If behavior, workflow, policy, or contributor expectations change, update `CHANGELOG.md` in **[Unreleased]**.
