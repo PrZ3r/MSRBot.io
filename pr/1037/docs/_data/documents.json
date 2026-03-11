@@ -46080,7 +46080,7 @@
       "ETSI.TS-101-154.2009",
       "IEEE.754.1985",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.PSZ.199306",
       "ISO.11578.1998",
@@ -61184,7 +61184,7 @@
         "10.5555-124304.124329",
         "CERN.HTTP.1993",
         "IETF.WIP.PublicArchivesDirectory.199111",
-        "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+        "IETF.draft-ietf-uri-irl-fun-req-02",
         "INCITS.X3.4.1986",
         "ISI.PSZ.199306",
         "PSI.NIR.199106",
@@ -61287,7 +61287,7 @@
           "undated": true
         },
         {
-          "id": "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+          "id": "IETF.draft-ietf-uri-irl-fun-req-02",
           "undated": true
         },
         {
@@ -61390,7 +61390,7 @@
       "HI.IB-1866A.1970",
       "IBM.GA27-2739-4.1973",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.IEN116",
       "ISI.PSZ.199306",
@@ -63222,6 +63222,7 @@
       "IETF.draft-bhutton-json-schema-00",
       "IETF.draft-bhutton-json-schema-01",
       "IETF.draft-bhutton-json-schema-validation-01",
+      "RFC8323",
       "RFC8341",
       "RFC8391",
       "RFC8439",
@@ -65426,6 +65427,7 @@
       "IETF.draft-bhutton-json-schema-00",
       "IETF.draft-bhutton-json-schema-01",
       "IETF.draft-bhutton-json-schema-validation-01",
+      "RFC8323",
       "RFC8615",
       "RFC8820",
       "RFC9231",
@@ -66407,6 +66409,7 @@
       }
     ],
     "referencedBy": [
+      "RFC8323",
       "SMPTE.AG25",
       "SMPTE.RP2079.2013",
       "SMPTE.RP2079.2017",
@@ -66463,6 +66466,7 @@
     ],
     "referencedBy": [
       "DCI.DCSS.v1.4.2.2022-0615",
+      "RFC8323",
       "RFC8341",
       "RFC9190",
       "SMPTE.ST430-15.2017"
@@ -66788,6 +66792,7 @@
       }
     ],
     "referencedBy": [
+      "RFC8323",
       "RFC8615"
     ],
     "docDependancy": true,
@@ -67267,6 +67272,7 @@
       }
     ],
     "referencedBy": [
+      "RFC8323",
       "RFC8341",
       "RFC8615",
       "SMPTE.ST430-15.2017"
@@ -68230,6 +68236,7 @@
       }
     ],
     "referencedBy": [
+      "RFC8340",
       "RFC8341",
       "RFC8525",
       "RFC8526",
@@ -68441,6 +68448,433 @@
     "currentStatus": "Active"
   },
   {
+    "abstract": "The Constrained Application Protocol (CoAP), although inspired by HTTP, was designed to use UDP instead of TCP. The message layer of CoAP over UDP includes support for reliable delivery, simple congestion control, and flow control. Some environments benefit from the availability of CoAP carried over reliable transports such as TCP or Transport Layer Security (TLS). This document outlines the changes required to use CoAP over TCP, TLS, and WebSockets transports. It also formally updates RFC 7641 for use with these transports and RFC 7959 to enable the use of larger messages over a reliable transport.",
+    "authors": [
+      "Carsten Bormann",
+      "Simon Lemay",
+      "Hannes Tschofenig",
+      "Klaus Hartke",
+      "Bill Silverajan",
+      "Brian Raymor"
+    ],
+    "docId": "RFC8323",
+    "docLabel": "IETF RFC 8323",
+    "docNumber": "8323",
+    "docTitle": "CoAP (Constrained Application Protocol) over TCP, TLS, and WebSockets",
+    "docType": "Standard",
+    "doi": "10.17487/RFC8323",
+    "href": "https://doi.org/10.17487/RFC8323",
+    "issn": "2070-1721",
+    "keywords": [
+      "CoAP",
+      "Constrained Application Protocol",
+      "REST",
+      "IoT",
+      "Internet Of Things",
+      "NAT Traversal",
+      "CoAP In Browsers"
+    ],
+    "pages": "54",
+    "publicationDate": "2018-02-01",
+    "publisher": "IETF",
+    "references": {
+      "bibliographic": [
+        "10.1145-1879141.1879174",
+        "10.48550-arXiv.1612.07816",
+        "IAB.IETF-SAD.20110214",
+        "IANA.URI",
+        "IETF.96P-QUIC.201607",
+        "IETF.draft-byrne-opsec-udp-advisory-00",
+        "IETF.draft-ietf-core-cocoa-02",
+        "IETF.draft-ietf-core-object-security-08",
+        "IETF.draft-ietf-lwig-tcp-constrained-node-networks-01",
+        "IETF.draft-silverajan-core-coap-alternative-transports-10",
+        "IETF.draft-thaler-appsawg-multi-transport-uris-01",
+        "OMA.TS-LightweightM2M.V1_0.20170208",
+        "RFC6335",
+        "RFC6347",
+        "RFC7230",
+        "RFC7540",
+        "RFC768"
+      ],
+      "normative": [
+        "RFC2119",
+        "RFC3986",
+        "RFC5234",
+        "RFC5246",
+        "RFC5785",
+        "RFC6066",
+        "RFC6455",
+        "RFC7252",
+        "RFC7301",
+        "RFC7525",
+        "RFC7595",
+        "RFC7641",
+        "RFC7925",
+        "RFC793",
+        "RFC7959",
+        "RFC8126",
+        "RFC8174",
+        "RFC8307"
+      ]
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8323",
+    "status": {
+      "active": true,
+      "amendedBy": [
+        "RFC8974"
+      ],
+      "amends": [
+        "RFC7641",
+        "RFC7959"
+      ],
+      "errataExist": false,
+      "latestVersion": true,
+      "statusNote": "Proposed Standard",
+      "superseded": false
+    },
+    "msiLatestAny": "RFC8323",
+    "msiLatestBase": "RFC8323",
+    "isLatestAny": true,
+    "docBase": "IETF|RFC|8323|",
+    "docBaseLabel": "IETF RFC 8323",
+    "isLatestBase": true,
+    "__isNewestInBase": true,
+    "docVersion": [
+      {
+        "docId": "RFC8323",
+        "docLabel": "IETF RFC 8323",
+        "href": "https://doi.org/10.17487/RFC8323",
+        "publicationDate": "2018-02-01",
+        "status": {
+          "active": true,
+          "amendedBy": [
+            "RFC8974"
+          ],
+          "amends": [
+            "RFC7641",
+            "RFC7959"
+          ],
+          "errataExist": false,
+          "latestVersion": true,
+          "statusNote": "Proposed Standard",
+          "superseded": false
+        },
+        "isLatestBase": true,
+        "__isNewestInBase": true
+      }
+    ],
+    "referencesResolved": {
+      "normative": [
+        {
+          "id": "RFC2119"
+        },
+        {
+          "id": "RFC3986"
+        },
+        {
+          "id": "RFC5234"
+        },
+        {
+          "id": "RFC5246"
+        },
+        {
+          "id": "RFC5785"
+        },
+        {
+          "id": "RFC6066",
+          "undated": true
+        },
+        {
+          "id": "RFC6455",
+          "undated": true
+        },
+        {
+          "id": "RFC7252",
+          "undated": true
+        },
+        {
+          "id": "RFC7301",
+          "undated": true
+        },
+        {
+          "id": "RFC7525",
+          "undated": true
+        },
+        {
+          "id": "RFC7595",
+          "undated": true
+        },
+        {
+          "id": "RFC7641",
+          "undated": true
+        },
+        {
+          "id": "RFC7925",
+          "undated": true
+        },
+        {
+          "id": "RFC793",
+          "undated": true
+        },
+        {
+          "id": "RFC7959",
+          "undated": true
+        },
+        {
+          "id": "RFC8126",
+          "undated": true
+        },
+        {
+          "id": "RFC8174",
+          "undated": true
+        },
+        {
+          "id": "RFC8307",
+          "undated": true
+        }
+      ],
+      "bibliographic": [
+        {
+          "id": "10.1145-1879141.1879174",
+          "undated": true
+        },
+        {
+          "id": "10.48550-arXiv.1612.07816",
+          "undated": true
+        },
+        {
+          "id": "IAB.IETF-SAD.20110214",
+          "undated": false
+        },
+        {
+          "id": "IANA.URI",
+          "undated": true
+        },
+        {
+          "id": "IETF.96P-QUIC.201607",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-byrne-opsec-udp-advisory-00",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-ietf-core-cocoa-02",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-ietf-core-object-security-08",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-ietf-lwig-tcp-constrained-node-networks-01",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-silverajan-core-coap-alternative-transports-10",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-thaler-appsawg-multi-transport-uris-01",
+          "undated": true
+        },
+        {
+          "id": "OMA.TS-LightweightM2M.V1_0.20170208",
+          "undated": false
+        },
+        {
+          "id": "RFC6335",
+          "undated": true
+        },
+        {
+          "id": "RFC6347",
+          "undated": true
+        },
+        {
+          "id": "RFC7230"
+        },
+        {
+          "id": "RFC7540",
+          "undated": true
+        },
+        {
+          "id": "RFC768",
+          "undated": true
+        }
+      ]
+    },
+    "referencedBy": [
+      "RFC8615"
+    ],
+    "referenceTree": [
+      "10.1145-1879141.1879174",
+      "10.48550-arXiv.1612.07816",
+      "IAB.IETF-SAD.20110214",
+      "IANA.URI",
+      "IETF.96P-QUIC.201607",
+      "IETF.draft-byrne-opsec-udp-advisory-00",
+      "IETF.draft-ietf-core-cocoa-02",
+      "IETF.draft-ietf-core-object-security-08",
+      "IETF.draft-ietf-lwig-tcp-constrained-node-networks-01",
+      "IETF.draft-silverajan-core-coap-alternative-transports-10",
+      "IETF.draft-thaler-appsawg-multi-transport-uris-01",
+      "OMA.TS-LightweightM2M.V1_0.20170208",
+      "RFC2119",
+      "RFC3986",
+      "RFC5234",
+      "RFC5246",
+      "RFC5785",
+      "RFC6066",
+      "RFC6335",
+      "RFC6347",
+      "RFC6455",
+      "RFC7230",
+      "RFC7252",
+      "RFC7301",
+      "RFC7525",
+      "RFC7540",
+      "RFC7595",
+      "RFC7641",
+      "RFC768",
+      "RFC7925",
+      "RFC793",
+      "RFC7959",
+      "RFC8126",
+      "RFC8174",
+      "RFC8307"
+    ],
+    "docDependancy": true,
+    "currentStatus": "Active*"
+  },
+  {
+    "abstract": "This document captures the current syntax used in YANG module tree diagrams. The purpose of this document is to provide a single location for this definition. This syntax may be updated from time to time based on the evolution of the YANG language.",
+    "authors": [
+      "Martin Björklund",
+      "Lou Berger"
+    ],
+    "docId": "RFC8340",
+    "docLabel": "IETF RFC 8340",
+    "docNumber": "8340",
+    "docTitle": "YANG Tree Diagrams",
+    "docType": "Best Practice",
+    "doi": "10.17487/RFC8340",
+    "href": "https://doi.org/10.17487/RFC8340",
+    "issn": "2070-1721",
+    "pages": "13",
+    "publicationDate": "2018-03-01",
+    "publisher": "IETF",
+    "references": {
+      "bibliographic": [
+        "GITHUB.mbj4668.pyang.201802",
+        "IETF.draft-ietf-netmod-rfc8022bis-11",
+        "IETF.draft-ietf-netmod-schema-mount-08",
+        "IETF.draft-ietf-ospf-yang-10",
+        "IETF.draft-ietf-rtgwg-ni-model-11",
+        "RFC7407",
+        "RFC7950",
+        "RFC8040",
+        "RFC8343"
+      ],
+      "normative": []
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8340",
+    "status": {
+      "active": true,
+      "amendedBy": [
+        "RFC8791"
+      ],
+      "errataExist": false,
+      "latestVersion": true,
+      "statusNote": "Best Current Practice",
+      "superseded": false
+    },
+    "msiLatestAny": "RFC8340",
+    "msiLatestBase": "RFC8340",
+    "isLatestAny": true,
+    "docBase": "IETF|RFC|8340|",
+    "docBaseLabel": "IETF RFC 8340",
+    "isLatestBase": true,
+    "__isNewestInBase": true,
+    "docVersion": [
+      {
+        "docId": "RFC8340",
+        "docLabel": "IETF RFC 8340",
+        "href": "https://doi.org/10.17487/RFC8340",
+        "publicationDate": "2018-03-01",
+        "status": {
+          "active": true,
+          "amendedBy": [
+            "RFC8791"
+          ],
+          "errataExist": false,
+          "latestVersion": true,
+          "statusNote": "Best Current Practice",
+          "superseded": false
+        },
+        "isLatestBase": true,
+        "__isNewestInBase": true
+      }
+    ],
+    "referencesResolved": {
+      "bibliographic": [
+        {
+          "id": "GITHUB.mbj4668.pyang.201802",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-ietf-netmod-rfc8022bis-11",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-ietf-netmod-schema-mount-08",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-ietf-ospf-yang-10",
+          "undated": true
+        },
+        {
+          "id": "IETF.draft-ietf-rtgwg-ni-model-11",
+          "undated": true
+        },
+        {
+          "id": "RFC7407",
+          "undated": true
+        },
+        {
+          "id": "RFC7950"
+        },
+        {
+          "id": "RFC8040",
+          "undated": true
+        },
+        {
+          "id": "RFC8343",
+          "undated": true
+        }
+      ],
+      "normative": []
+    },
+    "referencedBy": [
+      "RFC8525",
+      "RFC8526"
+    ],
+    "referenceTree": [
+      "GITHUB.mbj4668.pyang.201802",
+      "IETF.draft-ietf-netmod-rfc8022bis-11",
+      "IETF.draft-ietf-netmod-schema-mount-08",
+      "IETF.draft-ietf-ospf-yang-10",
+      "IETF.draft-ietf-rtgwg-ni-model-11",
+      "RFC7407",
+      "RFC7950",
+      "RFC8040",
+      "RFC8343"
+    ],
+    "docDependancy": true,
+    "currentStatus": "Active*"
+  },
+  {
     "abstract": "The standardization of network configuration interfaces for use with the Network Configuration Protocol (NETCONF) or the RESTCONF protocol requires a structured and secure operating environment that promotes human usability and multi-vendor interoperability. There is a need for standard mechanisms to restrict NETCONF or RESTCONF protocol access for particular users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content. This document defines such an access control model. This document obsoletes RFC 6536.",
     "authors": [
       "Andy Bierman",
@@ -68499,6 +68933,37 @@
         "RFC6536"
       ]
     },
+    "msiLatestAny": "RFC8341",
+    "msiLatestBase": "RFC8341",
+    "isLatestAny": true,
+    "docBase": "IETF|RFC|8341|",
+    "docBaseLabel": "IETF RFC 8341",
+    "isLatestBase": true,
+    "__isNewestInBase": true,
+    "docVersion": [
+      {
+        "docId": "RFC8341",
+        "docLabel": "IETF RFC 8341",
+        "href": "https://doi.org/10.17487/RFC8341",
+        "publicationDate": "2018-03-01",
+        "status": {
+          "active": true,
+          "errataExist": true,
+          "errataUrl": [
+            "https://www.rfc-editor.org/errata/rfc8341",
+            "https://www.rfc-editor.org/errata_search.php?rfc=8341"
+          ],
+          "latestVersion": true,
+          "statusNote": "Internet Standard",
+          "superseded": false,
+          "supersedes": [
+            "RFC6536"
+          ]
+        },
+        "isLatestBase": true,
+        "__isNewestInBase": true
+      }
+    ],
     "referencesResolved": {
       "normative": [
         {
@@ -68703,6 +69168,35 @@
       "statusNote": "Informational",
       "superseded": false
     },
+    "msiLatestAny": "RFC8391",
+    "msiLatestBase": "RFC8391",
+    "isLatestAny": true,
+    "docBase": "IETF|RFC|8391|",
+    "docBaseLabel": "IETF RFC 8391",
+    "isLatestBase": true,
+    "__isNewestInBase": true,
+    "docVersion": [
+      {
+        "docId": "RFC8391",
+        "docLabel": "IETF RFC 8391",
+        "href": "https://doi.org/10.17487/RFC8391",
+        "publicationDate": "2018-05-01",
+        "status": {
+          "active": true,
+          "errataExist": true,
+          "errataUrl": [
+            "https://www.rfc-editor.org/errata/rfc8391",
+            "https://www.rfc-editor.org/errata_search.php?rfc=8391",
+            "https://www.rfc-editor.org/rfc/inline-errata/rfc8391.html"
+          ],
+          "latestVersion": true,
+          "statusNote": "Informational",
+          "superseded": false
+        },
+        "isLatestBase": true,
+        "__isNewestInBase": true
+      }
+    ],
     "referencesResolved": {
       "normative": [
         {
@@ -68937,6 +69431,38 @@
         "RFC7539"
       ]
     },
+    "msiLatestAny": "RFC8439",
+    "msiLatestBase": "RFC8439",
+    "isLatestAny": true,
+    "docBase": "IETF|RFC|8439|",
+    "docBaseLabel": "IETF RFC 8439",
+    "isLatestBase": true,
+    "__isNewestInBase": true,
+    "docVersion": [
+      {
+        "docId": "RFC8439",
+        "docLabel": "IETF RFC 8439",
+        "href": "https://doi.org/10.17487/RFC8439",
+        "publicationDate": "2018-06-01",
+        "status": {
+          "active": true,
+          "errataExist": true,
+          "errataUrl": [
+            "https://www.rfc-editor.org/errata/rfc8439",
+            "https://www.rfc-editor.org/errata_search.php?rfc=8439",
+            "https://www.rfc-editor.org/rfc/inline-errata/rfc8439.html"
+          ],
+          "latestVersion": true,
+          "statusNote": "Informational",
+          "superseded": false,
+          "supersedes": [
+            "RFC7539"
+          ]
+        },
+        "isLatestBase": true,
+        "__isNewestInBase": true
+      }
+    ],
     "referencesResolved": {
       "normative": [
         {
@@ -69148,6 +69674,37 @@
         "RFC7895"
       ]
     },
+    "msiLatestAny": "RFC8525",
+    "msiLatestBase": "RFC8525",
+    "isLatestAny": true,
+    "docBase": "IETF|RFC|8525|",
+    "docBaseLabel": "IETF RFC 8525",
+    "isLatestBase": true,
+    "__isNewestInBase": true,
+    "docVersion": [
+      {
+        "docId": "RFC8525",
+        "docLabel": "IETF RFC 8525",
+        "href": "https://doi.org/10.17487/RFC8525",
+        "publicationDate": "2019-03-01",
+        "status": {
+          "active": true,
+          "errataExist": true,
+          "errataUrl": [
+            "https://www.rfc-editor.org/errata/rfc8525",
+            "https://www.rfc-editor.org/errata_search.php?rfc=8525"
+          ],
+          "latestVersion": true,
+          "statusNote": "Proposed Standard",
+          "superseded": false,
+          "supersedes": [
+            "RFC7895"
+          ]
+        },
+        "isLatestBase": true,
+        "__isNewestInBase": true
+      }
+    ],
     "referencesResolved": {
       "normative": [
         {
@@ -69208,8 +69765,7 @@
           "undated": true
         },
         {
-          "id": "RFC8340",
-          "undated": true
+          "id": "RFC8340"
         },
         {
           "id": "RFC8343",
@@ -69244,6 +69800,11 @@
       "RFC8526"
     ],
     "referenceTree": [
+      "GITHUB.mbj4668.pyang.201802",
+      "IETF.draft-ietf-netmod-rfc8022bis-11",
+      "IETF.draft-ietf-netmod-schema-mount-08",
+      "IETF.draft-ietf-ospf-yang-10",
+      "IETF.draft-ietf-rtgwg-ni-model-11",
       "RFC2119",
       "RFC3688",
       "RFC5277",
@@ -69253,6 +69814,7 @@
       "RFC6243",
       "RFC6470",
       "RFC6991",
+      "RFC7407",
       "RFC7895",
       "RFC7950",
       "RFC8040",
@@ -69403,8 +69965,7 @@
       ],
       "bibliographic": [
         {
-          "id": "RFC8340",
-          "undated": true
+          "id": "RFC8340"
         }
       ]
     },
@@ -69412,6 +69973,11 @@
       "RFC8525"
     ],
     "referenceTree": [
+      "GITHUB.mbj4668.pyang.201802",
+      "IETF.draft-ietf-netmod-rfc8022bis-11",
+      "IETF.draft-ietf-netmod-schema-mount-08",
+      "IETF.draft-ietf-ospf-yang-10",
+      "IETF.draft-ietf-rtgwg-ni-model-11",
       "RFC2119",
       "RFC3688",
       "RFC5277",
@@ -69421,6 +69987,7 @@
       "RFC6243",
       "RFC6470",
       "RFC6991",
+      "RFC7407",
       "RFC7895",
       "RFC7950",
       "RFC8040",
@@ -69589,8 +70156,7 @@
           "undated": true
         },
         {
-          "id": "RFC8323",
-          "undated": true
+          "id": "RFC8323"
         },
         {
           "id": "W3C.CR-referrer-policy.20170126",
@@ -69621,18 +70187,45 @@
       "RFC8820"
     ],
     "referenceTree": [
+      "10.1145-1879141.1879174",
+      "10.48550-arXiv.1612.07816",
+      "IAB.IETF-SAD.20110214",
+      "IANA.URI",
+      "IETF.96P-QUIC.201607",
+      "IETF.draft-byrne-opsec-udp-advisory-00",
+      "IETF.draft-ietf-core-cocoa-02",
+      "IETF.draft-ietf-core-object-security-08",
+      "IETF.draft-ietf-lwig-tcp-constrained-node-networks-01",
+      "IETF.draft-silverajan-core-coap-alternative-transports-10",
+      "IETF.draft-thaler-appsawg-multi-transport-uris-01",
+      "OMA.TS-LightweightM2M.V1_0.20170208",
       "RFC2026",
       "RFC2119",
       "RFC3552",
       "RFC3986",
       "RFC4918",
+      "RFC5234",
+      "RFC5246",
       "RFC5785",
+      "RFC6066",
       "RFC6265",
+      "RFC6335",
+      "RFC6347",
       "RFC6454",
+      "RFC6455",
       "RFC7230",
       "RFC7231",
       "RFC7252",
+      "RFC7301",
       "RFC7320",
+      "RFC7525",
+      "RFC7540",
+      "RFC7595",
+      "RFC7641",
+      "RFC768",
+      "RFC7925",
+      "RFC793",
+      "RFC7959",
       "RFC8126",
       "RFC8174",
       "RFC8307",
@@ -69778,23 +70371,49 @@
       ]
     },
     "referenceTree": [
+      "10.1145-1879141.1879174",
+      "10.48550-arXiv.1612.07816",
+      "IAB.IETF-SAD.20110214",
+      "IANA.URI",
+      "IETF.96P-QUIC.201607",
+      "IETF.draft-byrne-opsec-udp-advisory-00",
+      "IETF.draft-ietf-core-cocoa-02",
+      "IETF.draft-ietf-core-object-security-08",
+      "IETF.draft-ietf-lwig-tcp-constrained-node-networks-01",
+      "IETF.draft-silverajan-core-coap-alternative-transports-10",
+      "IETF.draft-thaler-appsawg-multi-transport-uris-01",
+      "OMA.TS-LightweightM2M.V1_0.20170208",
       "RFC1034",
       "RFC2026",
       "RFC2119",
       "RFC3552",
       "RFC3986",
       "RFC4918",
+      "RFC5234",
+      "RFC5246",
       "RFC5785",
+      "RFC6066",
       "RFC6265",
+      "RFC6335",
+      "RFC6347",
       "RFC6454",
+      "RFC6455",
       "RFC6570",
       "RFC6901",
       "RFC6943",
       "RFC7230",
       "RFC7231",
       "RFC7252",
+      "RFC7301",
       "RFC7320",
+      "RFC7525",
+      "RFC7540",
       "RFC7595",
+      "RFC7641",
+      "RFC768",
+      "RFC7925",
+      "RFC793",
+      "RFC7959",
       "RFC8126",
       "RFC8174",
       "RFC8288",
@@ -70569,6 +71188,37 @@
       "statusNote": "Proposed Standard",
       "superseded": false
     },
+    "msiLatestAny": "RFC9190",
+    "msiLatestBase": "RFC9190",
+    "isLatestAny": true,
+    "docBase": "IETF|RFC|9190|",
+    "docBaseLabel": "IETF RFC 9190",
+    "isLatestBase": true,
+    "__isNewestInBase": true,
+    "docVersion": [
+      {
+        "docId": "RFC9190",
+        "docLabel": "IETF RFC 9190",
+        "href": "https://doi.org/10.17487/RFC9190",
+        "publicationDate": "2022-02-01",
+        "status": {
+          "active": true,
+          "amends": [
+            "RFC5216"
+          ],
+          "errataExist": true,
+          "errataUrl": [
+            "https://www.rfc-editor.org/errata/rfc9190",
+            "https://www.rfc-editor.org/errata_search.php?rfc=9190"
+          ],
+          "latestVersion": true,
+          "statusNote": "Proposed Standard",
+          "superseded": false
+        },
+        "isLatestBase": true,
+        "__isNewestInBase": true
+      }
+    ],
     "referencesResolved": {
       "normative": [
         {
@@ -71345,8 +71995,8 @@
         "10.1007-BF00124891",
         "10.1109-Trustcom.2015.506",
         "3GPP.TS-33.501.202409",
-        "IETF.draft-4.pdf",
         "INTERCEPT.great-sim-heist.2015-02",
+        "NIST.SP.1800-35pd4.2024",
         "NSA.UOO115131-21.20210225",
         "RFC4186",
         "RFC5216",
@@ -71475,12 +72125,12 @@
           "undated": true
         },
         {
-          "id": "IETF.draft-4.pdf",
-          "undated": true
-        },
-        {
           "id": "INTERCEPT.great-sim-heist.2015-02",
           "undated": false
+        },
+        {
+          "id": "NIST.SP.1800-35pd4.2024",
+          "undated": true
         },
         {
           "id": "NSA.UOO115131-21.20210225",
@@ -71538,7 +72188,6 @@
       "3GPP.TS-33.501.202409",
       "3GPP.TS-35.208.202007",
       "ANSI.X9.9.1986",
-      "IETF.draft-4.pdf",
       "IETF.draft-ietf-emu-aka-pfs-05",
       "IETF.draft-ietf-emu-tls-eap-types-04",
       "IETF.draft-ietf-tls-rfc8446bis-03",
@@ -71551,6 +72200,7 @@
       "NIST.FIPS.180-1",
       "NIST.FIPS.180-2",
       "NIST.FIPS.180-4",
+      "NIST.SP.1800-35pd4.2024",
       "NIST.SP.800-186",
       "NIST.SP.800-56Ar3",
       "NSA.UOO115131-21.20210225",
@@ -90917,7 +91567,7 @@
       "IANA.LSR",
       "IEC.61966-2-1.1999",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.9781119183471",
       "ISDCF.DCNC",
@@ -108331,7 +108981,7 @@
       "AES5.2003",
       "CERN.HTTP.1993",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.PSZ.199306",
       "ISO.639-2.1998",
@@ -108492,7 +109142,7 @@
       "CIE.015.2004",
       "ICC.1.2004",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.PSZ.199306",
       "ISO.10527.1991",
@@ -121016,7 +121666,7 @@
       "IEEE.STD1394.1995",
       "IEEE.STD802.1990",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.9780226103891",
       "ISBN.9780877798071",
@@ -133948,7 +134598,7 @@
       "IEEE.STD1394.1995",
       "IEEE.STD802.1990",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.0201615983",
       "ISBN.9780226103891",
@@ -176914,7 +177564,7 @@
       "ETSI.TS-101-154.2009",
       "IEEE.754.1985",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.PSZ.199306",
       "ISO.11578.1998",
@@ -177643,7 +178293,7 @@
       "ETSI.TS-101-154.2009",
       "IEEE.754.1985",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.9780226103891",
       "ISBN.9780877798071",
@@ -177902,7 +178552,7 @@
       "IEEE.STD1394.2008",
       "IEEE.STD802.2014",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.0201325632",
       "ISBN.0201571684",
@@ -178181,7 +178831,7 @@
       "IANA.LSR",
       "IANA.MT",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.9780877798071",
       "ISDCF.DCNC",
@@ -178445,7 +179095,7 @@
       "IANA.LSR",
       "IANA.MT",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISDCF.DCNC",
       "ISI.PSZ.199306",
@@ -178770,7 +179420,7 @@
       "ETSI.TS-101-154.2009",
       "IEEE.754.1985",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.9780226103891",
       "ISBN.9780877798071",
@@ -179020,7 +179670,7 @@
       "CERN.HTTP.1993",
       "IEC.61966-2-1.1999",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.9780471048923",
       "ISI.IEN116",
@@ -186446,7 +187096,7 @@
       "10.5555-124304.124329",
       "CERN.HTTP.1993",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.PSZ.199306",
       "PSI.NIR.199106",
@@ -186733,7 +187383,7 @@
       "CERN.HTTP.1993",
       "IANA.MT",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.PSZ.199306",
       "PSI.NIR.199106",
@@ -187743,7 +188393,7 @@
       "CERN.HTTP.1993",
       "IANA.MT",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.0201615983",
       "ISBN.0444873287",
@@ -188116,7 +188766,7 @@
       "CERN.HTTP.1993",
       "IANA.MT",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.0201615983",
       "ISBN.0444873287",
@@ -188466,7 +189116,7 @@
       "IANA.MT",
       "IEC.61966-2-1.1999",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.0201615983",
       "ISBN.9780471048923",
@@ -188698,7 +189348,7 @@
       "CERN.HTTP.1993",
       "IANA.PN",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.PSZ.199306",
       "PSI.NIR.199106",
@@ -193063,7 +193713,7 @@
       "CERN.HTTP.1993",
       "IANA.PN",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISBN.0201615983",
       "ISI.PSZ.199306",
@@ -193435,7 +194085,7 @@
       "IANA.MT",
       "IEEE.STD1003.1.2004",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.PSZ.199306",
       "PSI.NIR.199106",
@@ -193682,7 +194332,7 @@
       "IANA.MT",
       "IEEE.STD1003.1.2004",
       "IETF.WIP.PublicArchivesDirectory.199111",
-      "IETF.draft-ietf-uri-irl-fun-req-02.txt",
+      "IETF.draft-ietf-uri-irl-fun-req-02",
       "INCITS.X3.4.1986",
       "ISI.PSZ.199306",
       "PSI.NIR.199106",
