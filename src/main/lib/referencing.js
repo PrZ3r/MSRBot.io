@@ -1241,9 +1241,36 @@ function extractRefs($, currentDocId, opts = {}) {
     const conciseCites = cites.filter(c => c.length <= 120);
 
     // 1) IETF draft shortcut
-    for (const v of [...cites, ...hrefs]) {
-      const m = String(v).match(/\b(draft-[A-Za-z0-9._-]+)\b/i);
-      if (m?.[1]) return `IETF.${m[1].toLowerCase()}`;
+    // Prefer href-derived draft tokens when present (more authoritative than
+    // wrapped/prose cite text), then fall back to cite-derived tokens.
+    {
+      const extractDraftTokens = (values = []) => {
+        const out = [];
+        for (const v of values) {
+          const src = String(v || '').replace(/\s*-\s*/g, '-');
+          const m = src.match(/\b(draft-[A-Za-z0-9._-]+)\b/i);
+          if (!m?.[1]) continue;
+          const token = String(m[1] || '')
+            .replace(/[)\],.;:]+$/g, '')
+            .replace(/\.(?:txt|xml|html?|pdf)$/i, '')
+            .toLowerCase();
+          // Reject false positives from generic filenames such as
+          // "...preliminary-draft-4.pdf".
+          if (/^draft-\d+(?:\.\d+)?$/.test(token)) continue;
+          if (!/^draft-[a-z0-9]/i.test(token)) continue;
+          out.push(token);
+        }
+        return out;
+      };
+      const pickLongest = (arr = []) => {
+        const uniq = [...new Set(arr)];
+        uniq.sort((a, b) => b.length - a.length);
+        return uniq[0] || '';
+      };
+      const hrefToken = pickLongest(extractDraftTokens(hrefs));
+      if (hrefToken) return `IETF.${hrefToken}`;
+      const citeToken = pickLongest(extractDraftTokens(cites));
+      if (citeToken) return `IETF.${citeToken}`;
     }
 
     // 2) canonical parser (cite + href), prioritize full cite variants first so
@@ -1521,8 +1548,8 @@ function extractRefs($, currentDocId, opts = {}) {
         return pos;
       };
       // Prefer true RFC heading markup (span.h2/h3 + section selflink) over text fallbacks.
-      const normHeadingRe = /<span[^>]*class=["'][^"']*\bh3\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Normative\s+References(?:\s|&nbsp;)*<\/span>/ig;
-      const infoHeadingRe = /<span[^>]*class=["'][^"']*\bh3\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Informative\s+References(?:\s|&nbsp;)*<\/span>/ig;
+      const normHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Normative\s+References(?:\s|&nbsp;)*<\/span>/ig;
+      const infoHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Informative\s+References(?:\s|&nbsp;)*<\/span>/ig;
       const refsHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>(?:\s|&nbsp;|<a[^>]*>[^<]*<\/a>)*\.?(?:\s*(?:--|[-–—:])\s*)?(?:\s|&nbsp;)*References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
       // Appendix-style reference headings are common in older RFC HTML renderings.
       const refsHeadingAppendixRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Appendix(?:es)?(?:\s+[A-Z0-9]+)?(?:\s*(?:--|[-–—:])\s*)?)?References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
@@ -1843,12 +1870,21 @@ function extractRefs($, currentDocId, opts = {}) {
               title: null
             });
           } else {
-            out.badRefs.push({
-              docId: currentDocId,
-              type: key,
-              refText: cleanedChunkText,
-              href: hrefs[0] || ''
-            });
+            // Only emit as badRef when numbered text looks citation-like;
+            // this avoids appendix/procedure step leakage (e.g., examples).
+            const looksCitationLike = /\b(19|20)\d{2}\b/.test(cleanedChunkText)
+              || /\bRFC\s*[0-9]{3,5}\b/i.test(cleanedChunkText)
+              || /\b(?:ISO|IEC|IEEE|STD|IETF|draft-ietf)\b/i.test(cleanedChunkText)
+              || /["“][^"”]{8,}["”]/.test(cleanedChunkText)
+              || /\b[A-Z][A-Za-z'`.-]+,\s*[A-Z]\./.test(cleanedChunkText);
+            if (looksCitationLike) {
+              out.badRefs.push({
+                docId: currentDocId,
+                type: key,
+                refText: cleanedChunkText,
+                href: hrefs[0] || ''
+              });
+            }
           }
         }
       }
@@ -1884,7 +1920,14 @@ function extractRefs($, currentDocId, opts = {}) {
             .replace(/\s+/g, ' ')
             .trim();
           // Stop parsing this reference bound once we hit obvious post-reference headings.
-          const appendixHeading = /^APPENDIX(?:ES)?\b/i.test(blockTextForStop);
+          const appendixHeading =
+            /^APPENDIX(?:ES)?\b/i.test(blockTextForStop)
+            // Older RFC HTML often embeds appendix headings with selflink markup
+            // and page header text before "Appendix ...", so anchor-id detection
+            // is a reliable boundary signal.
+            || /\bid=["']appendix-[^"']+["']/i.test(block)
+            // Catch inline appendix headings even when not at column 0.
+            || /\bAppendix(?:es)?\s+[A-Z0-9]+\b\s*(?:\.|:|--|-)/i.test(blockTextForStop);
           if (/^(?:\d+(?:\.\d+)?)?\s*\.?\s*AUTHOR'?S?\s+ADDRESS(?:ES)?\b/i.test(blockTextForStop)
             || /^(?:\d+(?:\.\d+)?)?\s*\.?\s*CHAIR,\s*EDITOR,\s*AND\s+AUTHORS?'?\s+ADDRESSES?\b/i.test(blockTextForStop)
             || /^(?:\d+(?:\.\d+)?)?\s*\.?\s*ACKNOWLEDGEMENTS?\b/i.test(blockTextForStop)

@@ -9,6 +9,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [Unreleased] - yyyy-mm-dd
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [v1.4.2] - 2026-03-11
+
+### Added
 - Added `npm run seed-backfill-ietf` helper (`src/main/scripts/utils/seedBackfill.ietf.js`) to compare MRI presence-audit missing RFC refs against `src/main/input/seedUrls.ietf.json`, with:
   - dry-run reporting (default)
   - `--write` mode to append missing RFC seeds and canonicalize/dedupe the full seed list.
@@ -18,11 +26,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - Detects modern RFC pages via `xml2rfc` generator metadata and/or `application/rfc+xml` alternate links.
   - Parses structured `dl.references` entries using `dt`/`dd` boundaries for normative/informative sections.
   - Falls back to legacy section/anchor heuristics only when structured extraction is unavailable or incomplete.
+- Expanded keyword normalization acronym map in `src/main/scripts/utils/keyword.normalize.js`:
+  - added additional crypto/protocol acronyms (for example `XMSS`, `WOTS`, `W-OTS`, `WOTS+`, `W-OTS+`)
+  - reformatted acronym definitions to sorted one-per-line entries for readability and safer diffs.
 - Reference normalization now includes generic DOI/ISBN fallback parsing in `parseRefId`, reducing manual `refMap` backfills for citations that include canonical identifiers.
 - Reference normalization now includes generic 3GPP Technical Specification parsing from cite text (including Draft TS forms), with month-aware suffixes (e.g., `3GPP.33.501.202107`).
 - `badRefs.latest.json` writing now merges per provider into a single snapshot file:
   - each bad-ref item includes `provider`
   - each extract run replaces only the current provider's items and preserves other providers' entries
+- Updated `npm run seed-backfill-ietf` (`src/main/scripts/utils/seedBackfill.ietf.js`) to also backfill missing `IETF.draft-*` refs from MRI presence-audit (in addition to RFC refs), including draft filename-extension normalization (`.txt/.xml/.html/.pdf`).
 
 ### Fixed
 - **URL validation throttle false positives on skip-only runs** — refined `.github/workflows/validate-urls.yml` daily throttle to count only runs that actually executed `Run URL validation` successfully; skip-only successful runs (for example, upstream open-PR marker skips) no longer satisfy throttle.
@@ -33,6 +45,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **MRI add-then-prune churn across extract/build-MRI workflows** — extraction now prunes MRI variants to current `documents.json` reference truth before flush, preventing transient rawVariants (for example self-cites or non-persisted sightings) from being added by extract and then removed by later `buildMasterReferenceIndex` runs.
 - **Resolved citations leaking into `badRefs.latest.json`** — tightened bad-ref suppression in both `extractRefs` (`src/main/lib/referencing.js`) and extract report persistence (`src/main/scripts/extractDocs.js`) so any citation that resolves via `parseRefId` or `mapRefByCite` is excluded from bad-ref output, eliminating stale false positives during mixed parser-path runs.
 - **NIST SP reference normalization gap** — added generic NIST SP parsing in `parseRefId` for CSRC `.../publications/detail/sp/.../rev-...` URLs and text forms like `NIST 800-67, Rev. 2`, producing canonical IDs such as `NIST.SP.800-67r2`.
+- **Legacy RFC appendix/procedure spillover into unparseable refs** — tightened IETF HTML fallback boundaries and numbered-item badRef gating to avoid treating appendix example steps (for example CoAP WebSocket procedure lines) as bibliographic references.
+- **IETF draft token misclassification/normalization issues** — improved draft extraction to:
+  - strip filename extensions from draft IDs (`.txt/.xml/.html/.pdf`)
+  - reject generic filename false positives (for example `...preliminary-draft-4.pdf`)
+  - prefer `href`-derived draft IDs over cite-derived variants when both are present
+  - choose the longest valid draft token to avoid truncated wrapped-text matches.
+- **IETF legacy heading detection gaps** — broadened fallback heading recognition for `Normative References` / `Informative References` in `<span class="h2">` and `<span class="h3">` variants.
+- **Reference mapping coverage gaps** — expanded `src/main/input/refMap.json` with additional DOI/IANA/IAB/OMA/GitHub/arXiv and legacy citation variants resolved during IETF backfill passes.
  
 ## [v1.4.1] - 2026-03-06
  

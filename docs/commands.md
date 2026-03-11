@@ -8,7 +8,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `extract-ietf`: run IETF document extraction.
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
-- `seed-backfill-ietf`: backfill missing RFC seeds from MRI presence-audit.
+- `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit.
 - `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
 - `docs-sort`: sort `documents.json` by `docId` using validator-compatible ordering.
 - `docs-validate`: run the standard validation script.
@@ -97,10 +97,10 @@ This is the canonical CLI reference for local scripts in `package.json`.
 
 - `npm run seed-backfill-ietf`
   - Runs: `node src/main/scripts/utils/seedBackfill.ietf.js`
-  - Action: Compares `src/main/reports/mri_presence_audit.json` missing RFC refs against `src/main/input/seedUrls.ietf.json` and reports RFC seeds that are missing.
+  - Action: Compares `src/main/reports/mri_presence_audit.json` missing IETF refs (`RFC####` and `IETF.draft-*`) against `src/main/input/seedUrls.ietf.json` and reports missing seeds.
   - Modes:
-    - Dry-run (default): prints missing RFC seed URLs only.
-    - Apply + canonicalize: `npm run seed-backfill-ietf -- --write` (appends missing RFC URLs, de-duplicates, and canonical-orders the full seed list).
+    - Dry-run (default): prints missing draft + RFC seed URLs.
+    - Apply + canonicalize: `npm run seed-backfill-ietf -- --write` (appends missing draft + RFC URLs, de-duplicates, and canonical-orders the full seed list).
 
 ### Validation and Normalization
 

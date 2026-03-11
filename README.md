@@ -159,7 +159,7 @@ Quick reference:
 - `extract-ietf`: run IETF document extraction.
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
-- `seed-backfill-ietf`: backfill missing RFC seeds from MRI presence-audit (`--write` to apply + canonicalize).
+- `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit (`--write` to apply + canonicalize).
 - `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
 - `docs-sort`: sort `documents.json` by `docId` (validator-compatible order).
 - `docs-validate`: run document validation flow.
@@ -195,7 +195,7 @@ For the full command and flag reference (including `build-mri`, `build-msi`, `au
 - `npm run review-refs -- list` reports review flags across all docs/providers and both reference types (`references.normative$meta` and `references.bibliographic$meta`), plus `badRefs.latest` correlation.
 - `npm run review-refs -- resolve <DOCID...>` clears review flags on both reference types for the provided `docId` values after manual review.
 - Parseable refs that are not yet present as source documents are tracked in MRI with unresolved presence state (`sourcePresent: false`) and should be backfilled via data updates or targeted `refMap` rules.
-- Use `npm run seed-backfill-ietf` to identify missing RFC seed URLs from MRI presence-audit; use `npm run seed-backfill-ietf -- --write` to append, dedupe, and canonicalize `src/main/input/seedUrls.ietf.json`.
+- Use `npm run seed-backfill-ietf` to identify missing IETF seed URLs (RFC + drafts) from MRI presence-audit; use `npm run seed-backfill-ietf -- --write` to append, dedupe, and canonicalize `src/main/input/seedUrls.ietf.json`.
 - Prefer href-based normalization rules in `parseRefId` for stable web patterns (for example, Unicode versions, Bugzilla issue links) and use `src/main/input/refMap.json` for curated/manual edge mappings.
 
 #### Keyword Governance
