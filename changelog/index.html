@@ -395,6 +395,20 @@
         </div>
         <div class="card-body small">
           <h6 class="fw-semibold mt-3 mb-1">Added</h6>
+<h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+        </div>
+      </div>
+      <div class="card mb-3" id="v1.4.2">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>
+              <i class="bi bi-tag me-1"></i>
+            [v1.4.2] - 2026-03-11
+          </span>
+              <span class="badge text-bg-secondary">2026-03-11</span>
+        </div>
+        <div class="card-body small">
+          <h6 class="fw-semibold mt-3 mb-1">Added</h6>
 <ul class="mb-1">
 <li>Added <code>npm run seed-backfill-ietf</code> helper (<code>src/main/scripts/utils/seedBackfill.ietf.js</code>) to compare MRI presence-audit missing RFC refs against <code>src/main/input/seedUrls.ietf.json</code>, with:</li>
 <ul class="mb-1">
@@ -410,6 +424,11 @@
 <li>Parses structured <code>dl.references</code> entries using <code>dt</code>/<code>dd</code> boundaries for normative/informative sections.</li>
 <li>Falls back to legacy section/anchor heuristics only when structured extraction is unavailable or incomplete.</li>
 </ul>
+<li>Expanded keyword normalization acronym map in <code>src/main/scripts/utils/keyword.normalize.js</code>:</li>
+<ul class="mb-1">
+<li>added additional crypto/protocol acronyms (for example <code>XMSS</code>, <code>WOTS</code>, <code>W-OTS</code>, <code>WOTS+</code>, <code>W-OTS+</code>)</li>
+<li>reformatted acronym definitions to sorted one-per-line entries for readability and safer diffs.</li>
+</ul>
 <li>Reference normalization now includes generic DOI/ISBN fallback parsing in <code>parseRefId</code>, reducing manual <code>refMap</code> backfills for citations that include canonical identifiers.</li>
 <li>Reference normalization now includes generic 3GPP Technical Specification parsing from cite text (including Draft TS forms), with month-aware suffixes (e.g., <code>3GPP.33.501.202107</code>).</li>
 <li><code>badRefs.latest.json</code> writing now merges per provider into a single snapshot file:</li>
@@ -417,6 +436,7 @@
 <li>each bad-ref item includes <code>provider</code></li>
 <li>each extract run replaces only the current provider's items and preserves other providers' entries</li>
 </ul>
+<li>Updated <code>npm run seed-backfill-ietf</code> (<code>src/main/scripts/utils/seedBackfill.ietf.js</code>) to also backfill missing <code>IETF.draft-*</code> refs from MRI presence-audit (in addition to RFC refs), including draft filename-extension normalization (<code>.txt/.xml/.html/.pdf</code>).</li>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
 <ul class="mb-1">
@@ -428,6 +448,18 @@
 </ul>
 <li><strong>W3C dated TR stage references not resolving</strong> — expanded W3C URL parsing in <code>parseRefId</code> to resolve dated <code>/TR/YYYY/&lt;STAGE&gt;-&lt;shortname&gt;-&lt;date&gt;</code> forms beyond REC (for example <code>WD-CSP3-20160913</code>, <code>CR-referrer-policy-20170126</code>).</li>
 <li><strong>MRI add-then-prune churn across extract/build-MRI workflows</strong> — extraction now prunes MRI variants to current <code>documents.json</code> reference truth before flush, preventing transient rawVariants (for example self-cites or non-persisted sightings) from being added by extract and then removed by later <code>buildMasterReferenceIndex</code> runs.</li>
+<li><strong>Resolved citations leaking into <code>badRefs.latest.json</code></strong> — tightened bad-ref suppression in both <code>extractRefs</code> (<code>src/main/lib/referencing.js</code>) and extract report persistence (<code>src/main/scripts/extractDocs.js</code>) so any citation that resolves via <code>parseRefId</code> or <code>mapRefByCite</code> is excluded from bad-ref output, eliminating stale false positives during mixed parser-path runs.</li>
+<li><strong>NIST SP reference normalization gap</strong> — added generic NIST SP parsing in <code>parseRefId</code> for CSRC <code>.../publications/detail/sp/.../rev-...</code> URLs and text forms like <code>NIST 800-67, Rev. 2</code>, producing canonical IDs such as <code>NIST.SP.800-67r2</code>.</li>
+<li><strong>Legacy RFC appendix/procedure spillover into unparseable refs</strong> — tightened IETF HTML fallback boundaries and numbered-item badRef gating to avoid treating appendix example steps (for example CoAP WebSocket procedure lines) as bibliographic references.</li>
+<li><strong>IETF draft token misclassification/normalization issues</strong> — improved draft extraction to:</li>
+<ul class="mb-1">
+<li>strip filename extensions from draft IDs (<code>.txt/.xml/.html/.pdf</code>)</li>
+<li>reject generic filename false positives (for example <code>...preliminary-draft-4.pdf</code>)</li>
+<li>prefer <code>href</code>-derived draft IDs over cite-derived variants when both are present</li>
+<li>choose the longest valid draft token to avoid truncated wrapped-text matches.</li>
+</ul>
+<li><strong>IETF legacy heading detection gaps</strong> — broadened fallback heading recognition for <code>Normative References</code> / <code>Informative References</code> in <code>&lt;span class="h2"&gt;</code> and <code>&lt;span class="h3"&gt;</code> variants.</li>
+<li><strong>Reference mapping coverage gaps</strong> — expanded <code>src/main/input/refMap.json</code> with additional DOI/IANA/IAB/OMA/GitHub/arXiv and legacy citation variants resolved during IETF backfill passes.</li>
 </ul>
         </div>
       </div>
@@ -854,8 +886,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>15b38bfb4cf7e5978f97cf1bc9c6090cffb2e4b2</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-10T18:50:01.690Z</code>
+              <span class="fw-semibold">Site version:</span> <code>f093b1a40072924f97dd55dd1653c5f87bb8522e</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-03-11T20:41:23.513Z</code>
             </p>
           </small>
         </div>
