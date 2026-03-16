@@ -1,16 +1,14 @@
 {
-  "generatedAt": "2026-03-14T05:32:22.619Z",
+  "generatedAt": "2026-03-16T22:50:31.831Z",
   "target": "documents.json",
-  "good": 2024,
+  "good": 2055,
   "skippedByDomain": 0,
   "skippedByPublisher": 0,
   "index": {
-    "error": 227,
+    "error": 198,
     "errorBreakdown": {
       "Unreachable (403)": 48,
-      "Unreachable (404)": 140,
-      "Unreachable (503)": 1,
-      "Unreachable (ECONNABORTED)": 29,
+      "Unreachable (404)": 141,
       "Unreachable (ENOTFOUND)": 2,
       "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 2,
       "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)": 4,
@@ -352,6 +350,16 @@
           "riskLevel": "High"
         },
         {
+          "docId": "ISBN.9780226103891",
+          "publisher": "University of Chicago Press",
+          "field": "href",
+          "url": "https://www.chicagomanualofstyle.org/",
+          "message": "Unreachable (403)",
+          "explanation": "The server refused access to the URL.",
+          "recommendedAction": "Check if the resource requires authentication or is private.",
+          "riskLevel": "High"
+        },
+        {
           "docId": "ISBN.9780471223573",
           "publisher": "John Wiley & Sons, Inc.",
           "field": "href",
@@ -500,16 +508,6 @@
           "explanation": "The server refused access to the URL.",
           "recommendedAction": "Check if the resource requires authentication or is private.",
           "riskLevel": "High"
-        },
-        {
-          "docId": "x509-sg.2000",
-          "publisher": "University of Auckland",
-          "field": "href",
-          "url": "https://www.cs.auckland.ac.nz/~pgut001/pubs/x509guide.txt",
-          "message": "Unreachable (403)",
-          "explanation": "The server refused access to the URL.",
-          "recommendedAction": "Check if the resource requires authentication or is private.",
-          "riskLevel": "High"
         }
       ],
       "404": [
@@ -654,10 +652,30 @@
           "riskLevel": "High"
         },
         {
+          "docId": "AES5.2018",
+          "publisher": "AES",
+          "field": "href",
+          "url": "http://www.aes.org/publications/standards/search.cfm?docID=14",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
           "docId": "AES6.2008",
           "publisher": "AES",
           "field": "href",
           "url": "https://www.aes.org/publications/standards/search.cfm?docID=15",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "AES7.2000",
+          "publisher": "AES",
+          "field": "href",
+          "url": "https://www.aes.org/publications/standards/search.cfm?docID=16",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -704,30 +722,20 @@
           "riskLevel": "High"
         },
         {
+          "docId": "NIST.SP.800-38A-Add",
+          "publisher": "NIST",
+          "field": "href",
+          "url": "https://doi.org/10.6028/NIST.SP.800-38A-Add",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
           "docId": "NIST.SP.800-38F",
           "publisher": "NIST",
           "field": "href",
           "url": "https://csrc.nist.gov/pubs/sp/800/38/f/final",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "NIST.SP.800-57pt2r1",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57pt2r1",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "NIST.SP.800-57pt3r1",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57pt3r1",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -1914,310 +1922,6 @@
           "riskLevel": "High"
         }
       ],
-      "503": [
-        {
-          "docId": "ISBN.9780226103891",
-          "publisher": "University of Chicago Press",
-          "field": "href",
-          "url": "https://www.chicagomanualofstyle.org/",
-          "message": "Unreachable (503)",
-          "explanation": "Service is temporarily unavailable or overloaded.",
-          "recommendedAction": "Try again later. Consider flagging for recheck.",
-          "riskLevel": "Medium-High"
-        }
-      ],
-      "ECONNABORTED": [
-        {
-          "docId": "AES5.2018",
-          "publisher": "AES",
-          "field": "href",
-          "url": "http://www.aes.org/publications/standards/search.cfm?docID=14",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "AES7.2000",
-          "publisher": "AES",
-          "field": "href",
-          "url": "https://www.aes.org/publications/standards/search.cfm?docID=16",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.60268-10.1991",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/1205",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.60268-17.1990",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/1216",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.60268-17.1990cor1.1991",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/1215",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.60268-3.2000",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/32788",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.60268-3.2018",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/32788",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.60958.2023",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/4048",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61672-1.2013",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/5708#additionalinfo",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-1.2003",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/20139",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-1.2007",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/6124",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-1.2021",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/62828",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-11.2010",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/6126",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-11.2021",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/66294",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-2.2003",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/20141",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-2.2007Amd1.2011",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/6130",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-3.2003",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/20143",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-5.2002",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/20144",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-5.2019",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/64573",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-6.2002",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/20145",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-6.2006",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/6136",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-7.2002",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/20146",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937-7.2016",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/24807",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61937.2000",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/en/publication/20147",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61966-2-1.1999",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/6169",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61966-2-1.1999amd1.2003",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/6168",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61966-2-1.1999cor1.2014",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/6170",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61966-2-4.2006",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/6173",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "IEC.61966-2-4.2006amd2.2021",
-          "publisher": "IEC",
-          "field": "href",
-          "url": "https://webstore.iec.ch/publication/69929",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        }
-      ],
       "ERR_TLS_CERT_ALTNAME_INVALID": [
         {
           "docId": "IMFUG.BP.001.2020",
@@ -2325,7 +2029,7 @@
           "publisher": "IOP Publishing Ltd",
           "field": "href",
           "url": "https://doi.org/10.1088/0950-7671/1/3/302",
-          "resolvedUrl": "https://validate.perfdrive.com/fb803c746e9148689b3984a31fccd902/?ssa=6c9b9f08-408a-46b6-864a-1e6a039752db&ssb=03979214740&ssc=https%3A%2F%2Fiopscience.iop.org%2Farticle%2F10.1088%2F0950-7671%2F1%2F3%2F302&ssi=5c516e18-cnvj-4561-b2d9-19d10fae22eb&ssk=botmanager_support@radware.com&ssm=77918954504228895100091744336172&ssn=2c8cbe18a40454be16863d3498eb54173aa0d6a6c50b-4675-4900-99def8&sso=2717859c-0b74bbb36aa9084936f6e01862baabe328fe4262bc70e43f&ssp=90061984361773457930177340242765489&ssq=36093146547408329599765474999674467652695&ssr=NC4yNDYuMTM1LjY0&sst=axios/1.13.5&ssu=&ssv=&ssw=&ssx=eyJyZCI6ImlvcC5vcmciLCJfX3V6bWYiOiI3ZjkwMDBkNmE2YzUwYi00Njc1LTQ5MDAtOTU5Yy0wYjc0YmJiMzZhYTkxLTE3NzM0NjU0NzQxMTUwLTAwMjY3ZjRiNGJhZDk4OGEwYTExMCIsInV6bXgiOiI3ZjkwMDAyZjYxNDZlMS0xYjljLTQ0MWMtOTY1Yy03YmY1NDAwNDQ4MjMxLTE3NzM0NjU0NzQxMTUwLTkyZWIxYjdmOTRiMGY1MWIxMCJ9",
+          "resolvedUrl": "https://validate.perfdrive.com/fb803c746e9148689b3984a31fccd902/?ssa=c1bffcd6-5703-46f9-a5c3-cee53b015725&ssb=90794204707&ssc=https%3A%2F%2Fiopscience.iop.org%2Farticle%2F10.1088%2F0950-7671%2F1%2F3%2F302&ssi=fc0b4b79-cnvj-4496-946e-cea038f9501b&ssk=botmanager_support@radware.com&ssm=65632395413840526107297166695045&ssn=9d036bcb6e836d88f2f623bf5876b699182a62ce2b8b-232d-42a8-af9427&sso=968a2838-ab7997dbce941cd7c278817d71d77cb7c0ae2630efa1be8b&ssp=51248387761773735618177379568161131&ssq=52968620057850366453100578121655284814269&ssr=NTIuMTYxLjQ1LjIzNQ==&sst=axios/1.13.5&ssu=&ssv=&ssw=&ssx=eyJ1em14IjoiN2Y5MDAwOWU0MjU3NzAtNTFlOC00ZDExLThlOTgtZTY3N2E5MTFjMDgwMS0xNzczNzAwNTc4MTkxMC00NmVkYmFlMDIxMTk1NDA5MTAiLCJyZCI6ImlvcC5vcmciLCJfX3V6bWYiOiI3ZjkwMDA2MmNlMmI4Yi0yMzJkLTQyYTgtYTgzOC1hYjc5OTdkYmNlOTQxLTE3NzM3MDA1NzgxOTEwLTAwMjdhZDJkZWYxZGNjN2JlMzAxMCJ9",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://iopscience.iop.org/article/10.1088/0950-7671/1/3/302",
           "message": "resolved url mismatch"
