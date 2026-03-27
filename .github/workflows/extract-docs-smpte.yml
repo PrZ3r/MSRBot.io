@@ -169,7 +169,7 @@ jobs:
       - name: Commit and create PR
         if: steps.skipcheck.outputs.skip == 'false'
         id: cpr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.app-token.outputs.token }}
           commit-message: "chore: Update documents.json from SMPTE sources"

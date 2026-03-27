@@ -240,7 +240,7 @@ jobs:
 
       - name: Create PR for normalized URLs
         if: steps.guard.outputs.skip != 'true' && steps.norm.outputs.applied != '0' && github.ref != 'refs/heads/chore/url-normalize'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.app-token.outputs.token }}
           commit-message: 'fix: backfill resolved* from URL validation (missing resolved)'
