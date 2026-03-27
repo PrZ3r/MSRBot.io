@@ -26,7 +26,7 @@ When creating an issue or pull request:
 - Add tags/labels that already exist in the repository/project.
 - Do **not** invent new tags/labels.
 - Choose tags/labels that fit the context of the work.
-- Include a tag/label that identifies the creating entity when available (for example: `codex`, `cursor`, etc.).
+- Include a tag/label that identifies the creating entity when available (for example: `codex`, `cursor`, `claude`, etc.).
 
 ## Issue and PR templates
 When creating an issue or pull request:
