@@ -19,18 +19,18 @@ jobs:
     steps:
       - name: Mint PrZ3 Unit token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
 
@@ -49,7 +49,7 @@ jobs:
 
       - name: Upload full extract log (post-extraction)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: extract-full-log
           path: ${{ runner.temp }}/extract-full.log
@@ -169,7 +169,7 @@ jobs:
       - name: Commit and create PR
         if: steps.skipcheck.outputs.skip == 'false'
         id: cpr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.app-token.outputs.token }}
           commit-message: "chore: Update documents.json from SMPTE sources"
@@ -188,7 +188,7 @@ jobs:
       # NEW: rewrite the PR body to use the PR Files diff anchor (not the raw URL)
       - name: Update PR body with diff link
         if: steps.skipcheck.outputs.skip == 'false' && steps.details.outputs.file != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
