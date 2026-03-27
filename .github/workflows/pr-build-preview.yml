@@ -118,7 +118,7 @@ jobs:
           exit 1
 
       - name: Comment preview URL on PR
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
           header: msr-preview

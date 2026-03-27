@@ -26,7 +26,7 @@ jobs:
       - name: Check upstream PR marker
         id: guard
         if: github.event_name == 'workflow_run'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const run = context.payload.workflow_run;
@@ -71,7 +71,7 @@ jobs:
           echo "MRI skipped due to upstream PR #${{ needs.gate.outputs.pr }} (run ${{ github.run_id }})" > .emit/skip-site-build.txt
 
       - name: Upload skip-site-build artifact (gate)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: skip-site-build-pr-${{ needs.gate.outputs.pr }}
           path: .emit/skip-site-build.txt
@@ -158,7 +158,7 @@ jobs:
       - name: Create PR for MRI
         id: create_pr_mri
         if: steps.decide_mri.outputs.onlyMeta != 'true' && !startsWith(github.ref, 'refs/heads/chore/build-masterreference')
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "chore: Build MasterReferenceIndex (data change)"
           title: "Build MasterReferenceIndex (data change)"
@@ -181,14 +181,14 @@ jobs:
 
       - name: Upload skip-site-build artifact (MRI)
         if: steps.decide_mri.outputs.onlyMeta != 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: skip-site-build-pr-${{ steps.create_pr_mri.outputs.pull-request-number }}
           path: .emit/skip-site-build.txt
           retention-days: 3
 
       - name: Ensure issues for missing refs (idempotent)
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
