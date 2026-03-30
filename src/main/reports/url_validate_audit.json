@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-03-28T05:53:37.679Z",
+  "generatedAt": "2026-03-30T20:19:45.322Z",
   "target": "documents.json",
-  "good": 2056,
+  "good": 2058,
   "skippedByDomain": 0,
   "skippedByPublisher": 0,
   "index": {
-    "error": 199,
+    "error": 197,
     "errorBreakdown": {
       "Unreachable (403)": 48,
-      "Unreachable (404)": 143,
+      "Unreachable (404)": 140,
+      "Unreachable (ECONNABORTED)": 1,
       "Unreachable (ENOTFOUND)": 2,
       "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 2,
       "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)": 4
@@ -691,16 +692,6 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.FIPS.140-2",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.140-2",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
           "docId": "NIST.FIPS.180-1",
           "publisher": "NIST",
           "field": "href",
@@ -711,20 +702,10 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.FIPS.197-upd1",
+          "docId": "NIST.FIPS.186-4",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.197-upd1",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "NIST.SP.800-38A-Add",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-38A-Add",
+          "url": "https://doi.org/10.6028/NIST.FIPS.186-4",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -735,16 +716,6 @@
           "publisher": "NIST",
           "field": "href",
           "url": "https://doi.org/10.6028/NIST.SP.800-57p1r2007",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "NIST.SP.800-57pt2r1",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57pt2r1",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -1983,6 +1954,18 @@
           "riskLevel": "Unknown"
         }
       ],
+      "ECONNABORTED": [
+        {
+          "docId": "ISO.14496-2.2004cor3.2008",
+          "publisher": "ISO/IEC",
+          "field": "href",
+          "url": "https://www.iso.org/standard/50995.html",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        }
+      ],
       "ERR_FR_TOO_MANY_REDIRECTS": [
         {
           "docId": "IST.157",
@@ -2036,7 +2019,7 @@
           "publisher": "IOP Publishing Ltd",
           "field": "href",
           "url": "https://doi.org/10.1088/0950-7671/1/3/302",
-          "resolvedUrl": "https://validate.perfdrive.com/fb803c746e9148689b3984a31fccd902/?ssa=9a6785c0-9bba-4086-8f53-ac883388c122&ssb=67031252386&ssc=https%3A%2F%2Fiopscience.iop.org%2Farticle%2F10.1088%2F0950-7671%2F1%2F3%2F302&ssi=7a3cc498-cnvj-443c-8843-cc2ebc898386&ssk=botmanager_support@radware.com&ssm=53601422261230340101722036376743&ssn=2ed74cd4fcce35e181e79aa7e3877e3a82baa8ba2717-c92e-48c3-964d97&sso=89129fec-a4b29d55d2d45a6f052372c825fe95008eaf9570656f450e&ssp=77995023501774650823177465031355542&ssq=08083377621708058774976217310350902523185&ssr=NTIuMTYxLjUxLjE1Mg==&sst=axios/1.14.0&ssu=&ssv=&ssw=&ssx=eyJyZCI6ImlvcC5vcmciLCJ1em14IjoiN2Y5MDAwYTg2YTEyM2EtYWE3My00MjZkLTgyZWEtMjY1YmQ2YWEzN2RmMS0xNzc0Njc2MjE3MDE5MC1lMmFhOTkxNzI5ZDBmNDhkMTAiLCJfX3V6bWYiOiI3ZjkwMDBhOGJhMjcxNy1jOTJlLTQ4YzMtOWZlYy1hNGIyOWQ1NWQyZDQxLTE3NzQ2NzYyMTcwMTkwLTAwM2MwYjEyODBhOGJmZDc5ZWExMCJ9",
+          "resolvedUrl": "https://validate.perfdrive.com/fb803c746e9148689b3984a31fccd902/?ssa=ef8c2e34-011b-4537-92ea-6fbe1e3d91b6&ssb=58979291443&ssc=https%3A%2F%2Fiopscience.iop.org%2Farticle%2F10.1088%2F0950-7671%2F1%2F3%2F302&ssi=2690bd86-cnvj-4f7c-9e85-de8c19251cc2&ssk=botmanager_support@radware.com&ssm=69431359583604818105616512906937&ssn=29269ed4a3ecda66009f01e50cb896eaf5c70f3586ab-f7d1-4717-8bf224&sso=ef2cf0d3-99705c1ffbec136262a42e6f6c44de34fb906638fd15dcf5&ssp=83479790351774938793177495347646793&ssq=74121270124179808604501241280923336114210&ssr=MTMyLjE5Ni44MC4xNTA=&sst=axios/1.14.0&ssu=&ssv=&ssw=&ssx=eyJfX3V6bWYiOiI3ZjkwMDAwZjM1ODZhYi1mN2QxLTQ3MTctODBkMy05OTcwNWMxZmZiZWMxLTE3NzQ5MDEyNDE1NzkwLTAwM2U1NTg1MDU0YWJmOTU0YzExMCIsInJkIjoiaW9wLm9yZyIsInV6bXgiOiI3ZjkwMDA5YzI4NWM2Ni00MzM1LTRiNDQtYjUzMy1iNzg5Mjg1NjIyNmIxLTE3NzQ5MDEyNDE1NzkwLTViMjQxOTU4ODNjYTIxODcxMCJ9",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://iopscience.iop.org/article/10.1088/0950-7671/1/3/302",
           "message": "resolved url mismatch"
