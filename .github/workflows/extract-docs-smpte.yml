@@ -188,7 +188,7 @@ jobs:
       # NEW: rewrite the PR body to use the PR Files diff anchor (not the raw URL)
       - name: Update PR body with diff link
         if: steps.skipcheck.outputs.skip == 'false' && steps.details.outputs.file != ''
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
