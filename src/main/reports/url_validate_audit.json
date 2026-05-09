@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-05-02T06:38:23.714Z",
+  "generatedAt": "2026-05-09T06:41:01.198Z",
   "target": "documents.json",
-  "good": 2046,
+  "good": 2047,
   "skippedByDomain": 0,
   "skippedByPublisher": 0,
   "index": {
     "error": 206,
     "errorBreakdown": {
       "Unreachable (403)": 48,
-      "Unreachable (404)": 146,
-      "Unreachable (ECONNABORTED)": 4,
+      "Unreachable (404)": 148,
+      "Unreachable (ECONNABORTED)": 2,
       "Unreachable (ENOTFOUND)": 2,
       "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 2,
       "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)": 4
     },
-    "redirectMismatch": 21,
+    "redirectMismatch": 20,
     "redirectBreakdown": {
       "undefined": 0,
-      "other": 21
+      "other": 20
     },
     "expectationMismatch": 35,
     "expectationBreakdown": {
@@ -742,10 +742,20 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.FIPS.186-4",
+          "docId": "NIST.FIPS.140-2",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.186-4",
+          "url": "https://doi.org/10.6028/NIST.FIPS.140-2",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "NIST.FIPS.197",
+          "publisher": "NIST",
+          "field": "href",
+          "url": "https://doi.org/10.6028/NIST.FIPS.197",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -762,20 +772,30 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.SP.800-57pt2r1",
+          "docId": "NIST.SP.800-38A",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57pt2r1",
+          "url": "https://doi.org/10.6028/NIST.SP.800-38A",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.SP.800-57pt3r1",
+          "docId": "NIST.SP.800-38F",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57pt3r1",
+          "url": "https://csrc.nist.gov/pubs/sp/800/38/f/final",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "NIST.SP.800-57pt1r5",
+          "publisher": "NIST",
+          "field": "href",
+          "url": "https://doi.org/10.6028/NIST.SP.800-57pt1r5",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -1972,48 +1992,6 @@
           "riskLevel": "High"
         }
       ],
-      "ECONNABORTED": [
-        {
-          "docId": "ICAO.REF08-Doc9674",
-          "publisher": "International Civil Aviation Organization",
-          "field": "href",
-          "url": "https://www2023.icao.int/NACC/Documents/Meetings/2014/ECARAIM/REF08-Doc9674.pdf",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "JAES.v45-i6-456-466.199706",
-          "publisher": "AES",
-          "field": "href",
-          "url": "https://secure.aes.org/forum/pubs/journal/?elib=7853",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "NIST.FIPS.140-3",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.140-3",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "NIST.FIPS.198-1",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.198-1",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        }
-      ],
       "ERR_TLS_CERT_ALTNAME_INVALID": [
         {
           "docId": "IMFUG.BP.001.2020",
@@ -2078,6 +2056,28 @@
           "riskLevel": "Medium"
         }
       ],
+      "ECONNABORTED": [
+        {
+          "docId": "JAES.v45-i6-456-466.199706",
+          "publisher": "AES",
+          "field": "href",
+          "url": "https://secure.aes.org/forum/pubs/journal/?elib=7853",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "ML3807.M56.1916",
+          "publisher": "MacMillan Co.",
+          "field": "href",
+          "url": "https://ia800204.us.archive.org/19/items/scienceofmusical00mill/scienceofmusical00mill.pdf",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        }
+      ],
       "ENOTFOUND": [
         {
           "docId": "W3C.rddl.2002",
@@ -2122,16 +2122,6 @@
           "resolvedUrl": "https://aes.org/publications/elibrary-page/?id=37",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://aes2.org/publications/elibrary-page/?id=37",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "ML3807.M56.1916",
-          "publisher": "MacMillan Co.",
-          "field": "href",
-          "url": "https://ia800204.us.archive.org/19/items/scienceofmusical00mill/scienceofmusical00mill.pdf",
-          "resolvedUrl": "https://ia801303.us.archive.org/1/items/scienceofmusical00mill/scienceofmusical00mill.pdf",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "https://ia601303.us.archive.org/1/items/scienceofmusical00mill/scienceofmusical00mill.pdf",
           "message": "resolved url mismatch"
         },
         {
