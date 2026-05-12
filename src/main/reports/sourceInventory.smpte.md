@@ -1,6 +1,6 @@
-# _source/SMPTE Inventory — 2026-04-17T21:55:22.990Z
+# _source/SMPTE Inventory — 2026-05-12T21:55:09.076Z
 
-Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 docs at scan time)
+Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 docs at scan time)
 
 ## Totals
 - Directories walked: 16413
@@ -12,10 +12,11 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 ## Buckets
 | Bucket          | Count | Notes                                          |
 |-----------------|-------|------------------------------------------------|
-| Found           | 99    | already in documents.json, no change           |
-| Update          | 852   | in registry, source has new fields             |
+| Found (verified)| 0     | XML read AND every comparable field matched    |
+| Found (unverif.)| 36    | docId matches registry but no source XML found |
+| Update          | 915   | in registry, source has new or different fields|
 | Gap             | 20239 | in source, not in registry — new records       |
-| Registry-only   | 543   | in registry (SMPTE), no local source archived  |
+| Registry-only   | 547   | in registry (SMPTE), no local source archived  |
 | Unidentifiable  | 7     | in source, no DOI derivable — manual triage    |
 | Non-record      | 37227 | not a document (analytics/schema/db/image)     |
 
@@ -23,11 +24,84 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 | Vendor            | Found | Update | Gap | Unid. | Non-rec |
 |-------------------|-------|--------|-----|-------|---------|
 | ALLEN PRESS       | 0     | 0      | 659 | 0     | 116     |
-| APTARA            | 976   | 8980   | 97335 | 2     | 33288   |
-| HIGHWIRE          | 184   | 1487   | 39986 | 5     | 2439    |
-| IEEE              | 1     | 28     | 341 | 0     | 1363    |
+| APTARA            | 137   | 9819   | 97335 | 2     | 33288   |
+| HIGHWIRE          | 56    | 1615   | 39986 | 5     | 2439    |
+| IEEE              | 0     | 29     | 341 | 0     | 1363    |
 | IEEE DL Usage     | 0     | 0      | 0   | 0     | 18      |
 | Zoho              | 0     | 0      | 0   | 0     | 2       |
+
+## Field deltas across the Update bucket (registry vs source)
+
+Per-field counts of how registry values compare to what the source XML provides. Tallies are per registry-matched bucket entry (Found + Update = 951) where the source XML actually carries that field.
+
+- **Delta** = both sides populated, normalized values differ → review
+- **Narrowed** = source is more precise (e.g. year → full date) → safe to auto-accept
+- **Fillable** = registry empty, source has a value
+- **Agree** = both populated and equal after normalization (no action)
+
+| Field             | Delta | Narrowed | Fillable | Agree | Total |
+|-------------------|-------|----------|----------|-------|-------|
+| docTitle          |   477 |        0 |        0 |   269 |   746 |
+| references        |   221 |        0 |      566 |     0 |   787 |
+| group             |   181 |        0 |      470 |   101 |   752 |
+| keywords          |   115 |        0 |      533 |   104 |   752 |
+| publicationDate   |    80 |        0 |        2 |   787 |   869 |
+| docLabel          |    52 |        0 |        0 |   699 |   751 |
+| docType           |    15 |        0 |        0 |   936 |   951 |
+| abstract          |     8 |        0 |      739 |     6 |   753 |
+| docNumber         |     2 |        0 |        0 |   867 |   869 |
+| publisher         |     1 |        0 |        0 |   950 |   951 |
+| doi               |     1 |        0 |        3 |   947 |   951 |
+| docPart           |     1 |        0 |        0 |   278 |   279 |
+| standardId        |     0 |        0 |      766 |     0 |   766 |
+| pages             |     0 |        0 |      753 |     0 |   753 |
+| copyright         |     0 |        0 |      753 |     0 |   753 |
+| publisherLocation |     0 |        0 |      753 |     0 |   753 |
+| isbn              |     0 |        0 |      752 |     0 |   752 |
+| productNumber     |     0 |        0 |      752 |     0 |   752 |
+| approvalDate      |     0 |        0 |      752 |     0 |   752 |
+| icsCodes          |     0 |        0 |      750 |     0 |   750 |
+| familyId          |     0 |        0 |      690 |     0 |   690 |
+| docSuite          |     0 |        0 |      205 |     0 |   205 |
+| issn              |     0 |        0 |        1 |     0 |     1 |
+| abbrevTitle       |     0 |        0 |        1 |     0 |     1 |
+| journalAcronym    |     0 |        0 |        1 |     0 |     1 |
+| articleType       |     0 |        0 |        1 |     0 |     1 |
+| volume            |     0 |        0 |        1 |     0 |     1 |
+| number            |     0 |        0 |        1 |     0 |     1 |
+| authors           |     0 |        0 |        0 |     1 |     1 |
+
+## Sample value deltas (first 30 of all in JSON)
+- `10.5594-J01273` `references`: registry=`{"bibliographic":["10.5594-J05508","10.5594-J05389"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["The Principles of the Light-Valve","A Dynamic Check on the Processing of Film for…`
+- `10.5594-J05384` `references`: registry=`{"bibliographic":["10.5594-J07429","10.5594-J07431"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Continuous Optical Reduction Printing","Optical Reduction Sound Printing"]}`
+- `10.5594-J05389` `references`: registry=`{"bibliographic":["10.5594-J08011","JOSA.4.000420"],"bibliographic$meta":{"confidence":"medium","sou…` vs source=`{"bibliographic":["Straight-Line and Toe Records with the Light-Valve","On the Theory of Tone Reprod…`
+- `10.5594-J05391` `references`: registry=`{"bibliographic":["10.5594-J13051","10.5594-J07506","10.5594-J13134","10.5594-J05467","10.5594-J1010…` vs source=`{"bibliographic":["The Aperture Effect","The Effect of Exposure and Development on the Quality of Va…`
+- `10.5594-J05436` `references`: registry=`{"bibliographic":["10.5594-J02042","10.5594-J13051","10.5594-J05604","10.5594-J07507","10.5594-J1476…` vs source=`{"bibliographic":["Sound Recording and Reproducing Using 16-Mm. Film","The Aperture Effect","Scannin…`
+- `10.5594-J05467` `references`: registry=`{"bibliographic":["10.5594-J05608"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["A New Recorder for Variable Area Recording"]}`
+- `10.5594-J05482` `references`: registry=`{"bibliographic":["10.5594-J06552","10.5594-J14793","ML3807.M56.1916","10.5594-J13132","10.5594-J129…` vs source=`{"bibliographic":["The Processing of Variable Density Sound Records","Apparatus for the Analysis of …`
+- `10.5594-J05508` `references`: registry=`{"bibliographic":["10.1002-j.1538-7305.1925.tb00946.x","10.5594-J13132","10.5594-J05521","ISBN.97811…` vs source=`{"bibliographic":["The Transmission of Pictures over Telephone Circuits","Sound Recording with the L…`
+- `10.5594-J05521` `references`: registry=`{"bibliographic":["10.1002-j.1538-7305.1927.tb00216.x","10.5594-J08011"],"bibliographic$meta":{"conf…` vs source=`{"bibliographic":["New York-London Telephone Circuit","Straight-Line and Toe Records with the Light …`
+- `10.5594-J06549` `references`: registry=`{"bibliographic":["PJv49n33p200.1909","PJv56n40p49.1916","JOSA.12.000559","JOSA.14.000365","10.5594-…` vs source=`{"bibliographic":["The Absorption and Scatter of Light by Photographic Negatives, Measured by Means …`
+- `10.5594-J07428` `references`: registry=`{"bibliographic":["10.5594-J14768"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["Galvanometers for Variable-Area Recording"]}`
+- `10.5594-J07429` `references`: registry=`{"bibliographic":["10.5594-J04161","10.5594-J18005"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["The Continuous Reduction Printer","The Portable Projector: Its Present Status and…`
+- `10.5594-J07430` `references`: registry=`{"bibliographic":["10.5594-J12978","10.5594-J05514"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Sound Film Printing","This type of drive was applied also to sound-film printers …`
+- `10.5594-J07431` `references`: registry=`{"bibliographic":["10.5594-J12979","10.5594-J05608","10.5594-J12978","10.5594-J10150","10.5594-J1014…` vs source=`{"bibliographic":["Wave Form Analysis of Variable-Width Sound Records","A New Recorder for Variable-…`
+- `10.5594-J07459` `references`: registry=`{"bibliographic":["10.5594-J12978"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["Sound Film Printing—I"]}`
+- `10.5594-J07462` `references`: registry=`{"bibliographic":["10.5594-J02042"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["Sound Recording and Reproducing Using 16-Mm. Film"]}`
+- `10.5594-J07506` `references`: registry=`{"bibliographic":["10.5594-J06591","10.5594-J13051"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["The Rendering of Tone Values in the Photographic Recording of Sound","The Apertur…`
+- `10.5594-J07507` `references`: registry=`{"bibliographic":["10.5594-J13050"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["The Photographic Treatment of Variable Area Sound Films"]}`
+- `10.5594-J07544` `docType`: registry=`Technical Journal` vs source=`Journal Article`
+- `10.5594-J07583` `references`: registry=`{"bibliographic":["10.5594-J14711","SMPTE.PH22-52.1960","10.5594-J12600"],"bibliographic$meta":{"con…` vs source=`{"bibliographic":["Modulated high-frequency recording as a means of determining conditions for optim…`
+- `10.5594-J08011` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J08349` `doi`: registry=`10.1093/J08349` vs source=`10.5594/J08349`
+- `10.5594-J08632` `references`: registry=`{"bibliographic":["10.5594-J05391","10.5594-J07430"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Characteristics of Photophone Light Modulating System","A Non-Slip Sound Printer"…`
+- `10.5594-J10122` `references`: registry=`{"bibliographic":["10.5594-J07431","10.5594-J12979"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Optical Reduction Sound Printing","Wave Form Analysis of Variable-Width Sound Rec…`
+- `10.5594-J10133` `references`: registry=`{"bibliographic":["10.5594-J05467","10.5594-J10122","10.5594-J05608"],"bibliographic$meta":{"confide…` vs source=`{"bibliographic":["Extension of the Frequency Range of Film Recording and Reproduction","Film Record…`
+- `10.5594-J10149` `references`: registry=`{"bibliographic":["10.5594-J05608","10.5594-J05467"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["A New Recorder for Variable Area Recording","Extension of the Frequency Range of …`
+- `10.5594-J11957` `references`: registry=`{"bibliographic":["10.5594-J07462","10.5594-J07431","10.5594-J05436","10.5594-J10122","10.5594-J0538…` vs source=`{"bibliographic":["Sixteen-Mini. Sound on Film","Optical Reduction Sound Printing","The Development …`
+- `10.5594-J11990` `references`: registry=`{"bibliographic":["10.5594-J05508","10.5594-J01273","10.5594-J05482","10.5594-J08011","10.5594-J1471…` vs source=`{"bibliographic":["The Principles of the Light-Valve","Harmonic Distortion in Variable Density Recor…`
+- `10.5594-J12600` `references`: registry=`{"bibliographic":["10.5594-J12978","10.5594-J07459","10.5594-J07430","10.5594-J05514","10.5594-J0743…` vs source=`{"bibliographic":["Soand film printing, I","Soand film printing, II","A non-slip soand printer","A s…`
+- `10.5594-J12632` `references`: registry=`{"bibliographic":["10.5594-J11990","JRPROC.1941.233634","JRPROC.1947.232603"],"bibliographic$meta":{…` vs source=`{"bibliographic":["Analysis and measurement of distortion of variable-density recording","Distortion…`
 
 ## Top duplicates
 - `SMPTE.ST2021-1.2009` — 29 copies (aptara:24, highwire:3, ieee:2)
@@ -56,21 +130,51 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `SMPTE.RP2021-5.2013` — 27 copies (aptara:23, highwire:2, ieee:2)
 - `SMPTE.ST12-1.2013Am1` — 27 copies (aptara:25, highwire:2)
 
-## Updates (852 — details in JSON)
+## Updates (915 — details in JSON)
 - `10.5594-J01217` — fillable: references
+- `10.5594-J01273` — fillable: 
 - `10.5594-J02284` — fillable: references
 - `10.5594-J02285` — fillable: references
 - `10.5594-J02850` — fillable: references
 - `10.5594-J02945` — fillable: references
 - `10.5594-J04132` — fillable: references
 - `10.5594-J05297` — fillable: references
+- `10.5594-J05384` — fillable: 
+- `10.5594-J05389` — fillable: 
+- `10.5594-J05391` — fillable: 
+- `10.5594-J05436` — fillable: 
+- `10.5594-J05467` — fillable: 
+- `10.5594-J05482` — fillable: 
+- `10.5594-J05508` — fillable: 
+- `10.5594-J05521` — fillable: 
 - `10.5594-J05569` — fillable: references
+- `10.5594-J06549` — fillable: 
+- `10.5594-J07428` — fillable: 
+- `10.5594-J07429` — fillable: 
+- `10.5594-J07430` — fillable: 
+- `10.5594-J07431` — fillable: 
+- `10.5594-J07459` — fillable: 
+- `10.5594-J07462` — fillable: 
+- `10.5594-J07506` — fillable: 
+- `10.5594-J07507` — fillable: 
 - `10.5594-J07544` — fillable: references
+- `10.5594-J07583` — fillable: 
+- `10.5594-J08011` — fillable: abstract, issn, pages, keywords, docSuite, abbrevTitle, journalAcronym, articleType, copyright, publisherLocation, volume, number
 - `10.5594-J08310` — fillable: references
 - `10.5594-J08349` — fillable: references
+- `10.5594-J08632` — fillable: 
 - `10.5594-J09039` — fillable: references
 - `10.5594-J10104` — fillable: references
+- `10.5594-J10122` — fillable: 
+- `10.5594-J10133` — fillable: 
+- `10.5594-J10149` — fillable: 
 - `10.5594-J10150` — fillable: references
+- `10.5594-J11957` — fillable: 
+- `10.5594-J11990` — fillable: 
+- `10.5594-J12600` — fillable: 
+- `10.5594-J12632` — fillable: 
+- `10.5594-J12979` — fillable: 
+- `10.5594-J12983` — fillable: 
 - `10.5594-J13565` — fillable: references
 - `10.5594-J13858` — fillable: references
 - `10.5594-J14711` — fillable: doi, references
@@ -104,6 +208,7 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `SMPTE.EG2074.2013` — fillable: abstract, isbn, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
 - `SMPTE.EG21.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
 - `SMPTE.EG22.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG23.2005` — fillable: 
 - `SMPTE.EG24.1995` — fillable: references
 - `SMPTE.EG26.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
 - `SMPTE.EG28.1993` — fillable: references
@@ -129,6 +234,7 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `SMPTE.EG42.2015` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
 - `SMPTE.EG43.2009` — fillable: abstract, isbn, group, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
 - `SMPTE.EG432-1.2010` — fillable: standardId
+- `SMPTE.EG432-2.2006` — fillable: 
 - `SMPTE.EG44.2005` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
 - `SMPTE.EG5.2003` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
 - `SMPTE.EG8.1993` — fillable: abstract, isbn, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
@@ -225,39 +331,7 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `SMPTE.RP157.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
 - `SMPTE.RP158.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
 - `SMPTE.RP160.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP161.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP162.1993` — fillable: abstract, isbn, group, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP165.1994` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP166.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP167.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP168.2009` — fillable: standardId
-- `SMPTE.RP169.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP173.2002` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP174.1993` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP175.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP176.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP177.1993` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP178.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP179.2002` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP180.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP181.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP182.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP183.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP184.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP184.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP185.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP186.2008` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP187.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP189.1996` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP190.1996` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP192.2003` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP192.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP194.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP195.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP197.2003` — fillable: abstract, isbn, group, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP198.1998` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP199.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- … 652 more
+- … 715 more
 
 ## Gaps (20239 — details in JSON)
 - `10.5594-J00021`
@@ -762,7 +836,7 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `10.5594-J00518`
 - … 19739 more
 
-## Registry-only (543 — indexed but no archived source)
+## Registry-only (547 — indexed but no archived source)
 - `SMPTE.AG01`
 - `SMPTE.AG01.2014`
 - `SMPTE.AG01.2020`
@@ -821,6 +895,7 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `SMPTE.AG29`
 - `SMPTE.AG30`
 - `SMPTE.AG31`
+- `SMPTE.AG33`
 - `SMPTE.EG10.2003`
 - `SMPTE.EG15.2005`
 - `SMPTE.EG16.2014`
@@ -843,6 +918,7 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `SMPTE.EG25.2003`
 - `SMPTE.EG27.2004`
 - `SMPTE.EG428-23`
+- `SMPTE.EG428-23.2026-04`
 - `SMPTE.EG7.1994`
 - `SMPTE.EG9.1995`
 - `SMPTE.ER0989.2014`
@@ -1088,6 +1164,7 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `SMPTE.ST2067-201.2019`
 - `SMPTE.ST2067-201.2020`
 - `SMPTE.ST2067-201.2021`
+- `SMPTE.ST2067-201.2026-03`
 - `SMPTE.ST2067-202.2022`
 - `SMPTE.ST2067-203.2023-09`
 - `SMPTE.ST2067-21.2020`
@@ -1161,6 +1238,7 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `SMPTE.ST2117-1.2020`
 - `SMPTE.ST2117-1.2022`
 - `SMPTE.ST2117-10.2024-07`
+- `SMPTE.ST2120-1.2026-03`
 - `SMPTE.ST2122.2020`
 - `SMPTE.ST2123.2020`
 - `SMPTE.ST2123.2021`
@@ -1259,18 +1337,14 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 
 - `SMPTE.ST429-17.2017`
 - `SMPTE.ST429-18.2019`
 - `SMPTE.ST429-18.2023-09`
-- `SMPTE.ST429-19.2019`
-- `SMPTE.ST429-19.2023-09`
-- `SMPTE.ST429-2.2011Am1.2013`
-- `SMPTE.ST429-2.2013Am1.2018`
-- … 43 more
+- … 47 more
 
 ## DOI reconciliation — where filename and XML disagree
-- agree: 5244
+- agree: 5341
 - xmlWins:scheme (e.g. symbolic vs ISBN form): 53
 - xmlWins:year (folder year vs DOI year): 2
 - xmlWins:other: 63
-- xmlMissing (no DOI in any sibling XML — kept name-derived): 15729
+- xmlMissing (no DOI in any sibling XML — kept name-derived): 15632
 - xmlBogus (XML DOI was a collection-level / shared placeholder — reverted to name-derived): 99
 
 ### First 50 xmlWins reconciliations

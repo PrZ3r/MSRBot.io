@@ -88,6 +88,147 @@ const FIELDS_FOR_UPDATE = [
   'publisherLocation', 'icsCodes', 'volume', 'number', 'references',
 ];
 
+// --- Field value comparison (registry vs source) -----------------------------
+// Returns one of: 'equal' | 'fillable' | 'sourceEmpty' | 'delta' | 'narrowed'
+
+function isAbsent(v) {
+  return v === undefined || v === null || v === ''
+    || (Array.isArray(v) && v.length === 0)
+    || (typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0);
+}
+
+function normalizeText(s) {
+  if (s == null) return null;
+  return String(s)
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&apos;/g, "'")
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => { try { return String.fromCodePoint(parseInt(h, 16)); } catch { return _; } })
+    .replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
+    .replace(/[–—]/g, '-')
+    .replace(/\s+/g, ' ').trim().toLowerCase();
+}
+
+function normalizeIsbnIssn(s) {
+  if (s == null) return null;
+  return String(s).replace(/[-\s]/g, '').toLowerCase();
+}
+
+function normalizeDate(s) {
+  if (s == null) return null;
+  const m = String(s).trim().match(/^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/);
+  if (!m) return { raw: String(s).trim(), precision: 'none' };
+  const [, y, mo, d] = m;
+  if (d) return { iso: `${y}-${mo}-${d}`, precision: 'day', y, mo, d };
+  if (mo) return { iso: `${y}-${mo}`, precision: 'month', y, mo };
+  return { iso: y, precision: 'year', y };
+}
+
+function compareDate(reg, src) {
+  const r = normalizeDate(reg);
+  const s = normalizeDate(src);
+  if (r.precision === 'none' || s.precision === 'none') {
+    return normalizeText(reg) === normalizeText(src) ? 'equal' : 'delta';
+  }
+  if (r.iso === s.iso) return 'equal';
+  // Source is more precise than registry → narrowed (safe to accept)
+  if (r.precision === 'year' && s.y === r.y) return 'narrowed';
+  if (r.precision === 'month' && s.y === r.y && s.mo === r.mo) return 'narrowed';
+  // Source is less precise than registry → registry already has the better data → equal (no action)
+  if (s.precision === 'year' && r.y === s.y) return 'equal';
+  if (s.precision === 'month' && r.y === s.y && r.mo === s.mo) return 'equal';
+  return 'delta';
+}
+
+function compareArraySet(reg, src) {
+  const ra = new Set((reg || []).map((x) => normalizeText(typeof x === 'string' ? x : JSON.stringify(x))));
+  const sa = new Set((src || []).map((x) => normalizeText(typeof x === 'string' ? x : JSON.stringify(x))));
+  if (ra.size !== sa.size) return 'delta';
+  for (const v of ra) if (!sa.has(v)) return 'delta';
+  return 'equal';
+}
+
+function compareArrayOrdered(reg, src) {
+  const ra = (reg || []).map((x) => normalizeText(typeof x === 'string' ? x : JSON.stringify(x)));
+  const sa = (src || []).map((x) => normalizeText(typeof x === 'string' ? x : JSON.stringify(x)));
+  if (ra.length !== sa.length) return 'delta';
+  for (let i = 0; i < ra.length; i++) if (ra[i] !== sa[i]) return 'delta';
+  return 'equal';
+}
+
+function compareIcsCodes(reg, src) {
+  const r = new Set((reg || []).map((x) => (x && x.code ? String(x.code).trim() : null)).filter(Boolean));
+  const s = new Set((src || []).map((x) => (x && x.code ? String(x.code).trim() : null)).filter(Boolean));
+  if (r.size !== s.size) return 'delta';
+  for (const v of r) if (!s.has(v)) return 'delta';
+  return 'equal';
+}
+
+function compareIssn(reg, src) {
+  // either side may be string OR { print, electronic }
+  const toSet = (v) => {
+    if (!v) return new Set();
+    if (typeof v === 'string') return new Set([normalizeIsbnIssn(v)].filter(Boolean));
+    return new Set([v.print, v.electronic].filter(Boolean).map(normalizeIsbnIssn));
+  };
+  const r = toSet(reg), s = toSet(src);
+  if (r.size !== s.size) return 'delta';
+  for (const v of r) if (!s.has(v)) return 'delta';
+  return 'equal';
+}
+
+function compareObjectShallow(reg, src) {
+  if (typeof reg !== 'object' || typeof src !== 'object') {
+    return normalizeText(JSON.stringify(reg)) === normalizeText(JSON.stringify(src)) ? 'equal' : 'delta';
+  }
+  const keys = new Set([...Object.keys(reg), ...Object.keys(src)]);
+  for (const k of keys) {
+    if (normalizeText(reg[k] || '') !== normalizeText(src[k] || '')) return 'delta';
+  }
+  return 'equal';
+}
+
+function compareField(field, registryValue, sourceValue) {
+  const regAbsent = isAbsent(registryValue);
+  const srcAbsent = isAbsent(sourceValue);
+  if (regAbsent && srcAbsent) return 'equal';
+  if (regAbsent) return 'fillable';
+  if (srcAbsent) return 'sourceEmpty';
+
+  switch (field) {
+    case 'publicationDate':
+    case 'approvalDate':
+      return compareDate(registryValue, sourceValue);
+    case 'isbn':
+      return normalizeIsbnIssn(registryValue) === normalizeIsbnIssn(sourceValue) ? 'equal' : 'delta';
+    case 'issn':
+      return compareIssn(registryValue, sourceValue);
+    case 'keywords':
+      return compareArraySet(registryValue, sourceValue);
+    case 'authors':
+      return compareArrayOrdered(registryValue, sourceValue);
+    case 'icsCodes':
+      return compareIcsCodes(registryValue, sourceValue);
+    case 'copyright':
+    case 'publisherLocation':
+      return compareObjectShallow(registryValue, sourceValue);
+    case 'references': {
+      const norm = compareArraySet(
+        [...((registryValue || {}).normative || []), ...((registryValue || {}).bibliographic || [])],
+        [...((sourceValue || {}).normative || []), ...((sourceValue || {}).bibliographic || [])]
+      );
+      return norm;
+    }
+    case 'doiAliases':
+      return compareArraySet(registryValue, sourceValue);
+    case 'docLabel':
+      // strip leading "SMPTE " prefix on either side before comparing
+      return normalizeText(String(registryValue).replace(/^smpte\s+/i, '')) === normalizeText(String(sourceValue).replace(/^smpte\s+/i, ''))
+        ? 'equal' : 'delta';
+    default:
+      return normalizeText(registryValue) === normalizeText(sourceValue) ? 'equal' : 'delta';
+  }
+}
+
 function readFailedExtractions() {
   if (!fs.existsSync(FAILED_EXTRACTIONS)) return new Set();
   const raw = fs.readFileSync(FAILED_EXTRACTIONS, 'utf8');
@@ -385,21 +526,31 @@ function locateXmlForSourcePath(absSourcePath, bucket) {
       return null;
     }
 
-    // Journal article PDF: sibling -ref.xml in same dir
+    // Journal article PDF: try in priority order
+    //   1. stem-named per-article XML (e.g. 10-5594_J08011.xml) — same shape as issue-metadata
+    //   2. stem-named ref XML (e.g. 10-5594_J08011-ref.xml)
+    //   3. sibling issue-metadata.xml (Allen Press deliveries)
+    const sibStem = path.join(dir, stem + '.xml');
     const sibRef = path.join(dir, stem + '-ref.xml');
-    if (fs.existsSync(sibRef)) {
-      // Also check for an Allen Press issue-metadata sibling for richer metadata
-      const issueXml = listDirSafe(dir).find((e) => /-issue-metadata\.xml$/i.test(e));
+    const issueXmlEntry = listDirSafe(dir).find((e) => /-issue-metadata\.xml$/i.test(e));
+    const issueXml = issueXmlEntry ? path.join(dir, issueXmlEntry) : null;
+    if (fs.existsSync(sibStem)) {
       return {
         kind: 'journalArticle',
-        refXml: sibRef,
-        issueXml: issueXml ? path.join(dir, issueXml) : null,
+        issueXml: sibStem, // per-article XML uses the same content_batch/journal_metadata/journal_article shape
+        refXml: fs.existsSync(sibRef) ? sibRef : null,
         articleFile: base,
       };
     }
-    // Allen Press article: only issue-metadata, no per-article ref
-    const issueXml = listDirSafe(dir).find((e) => /-issue-metadata\.xml$/i.test(e));
-    if (issueXml) return { kind: 'journalArticle', issueXml: path.join(dir, issueXml), articleFile: base };
+    if (fs.existsSync(sibRef)) {
+      return {
+        kind: 'journalArticle',
+        refXml: sibRef,
+        issueXml,
+        articleFile: base,
+      };
+    }
+    if (issueXml) return { kind: 'journalArticle', issueXml, articleFile: base };
     return null;
   }
 
@@ -724,6 +875,39 @@ function isEmpty(v) {
     || (typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0);
 }
 
+// Return a $meta object reflecting the provenance of `field` within this bucket.
+// Mirrors buildCandidateRecord()'s pattern so update[] entries and gap[].candidateRecord
+// fields carry consistent metadata that a downstream merge script can lift verbatim into
+// documents.json (writing `existing[field+'$meta'] = entry.proposedMeta`).
+const XML_PROVENANCE_FIELDS = new Set([
+  'docTitle', 'docLabel', 'abstract', 'isbn', 'issn', 'group', 'pages', 'authors',
+  'keywords', 'docSuite', 'standardId', 'productNumber', 'familyId',
+  'approvalDate', 'abbrevTitle', 'journalAcronym', 'articleType', 'copyright',
+  'publisherLocation', 'icsCodes', 'volume', 'number', 'references',
+]);
+
+function metaForField(field, bucket) {
+  const xml = bucket.xmlData || {};
+  const xmlPath = (bucket.xmlPaths && bucket.xmlPaths[0]) ? path.relative(REPO_ROOT, bucket.xmlPaths[0]) : null;
+  const updated = new Date().toISOString();
+  const fromXml = XML_PROVENANCE_FIELDS.has(field) || (xml[field] !== undefined && xml[field] !== null);
+  if (fromXml) {
+    return {
+      source: 'parsed',
+      confidence: 'high',
+      note: xmlPath ? `Parsed from sibling XML (${xmlPath})` : 'Parsed from sibling XML',
+      updated,
+    };
+  }
+  // Inferred from filename / folder pattern (docNumber, docPart, publicationDate when no XML, etc.)
+  return {
+    source: 'inferred',
+    confidence: 'medium',
+    note: 'Inferred from source folder/filename pattern',
+    updated,
+  };
+}
+
 function classifyAgainstRegistry(report, registry) {
   const found = [];
   const update = [];
@@ -751,27 +935,87 @@ function classifyAgainstRegistry(report, registry) {
     }
 
     const fillable = [];
+    const valueDeltas = [];
+    const valueNarrows = [];
+    const excludedDeltas = []; // fields locked by registry's $meta.excludeChanges
+    const fieldAgrees = []; // for histogram only
+    const xmlPath = (bucket.xmlPaths || [])[0] ? path.relative(REPO_ROOT, bucket.xmlPaths[0]) : null;
     for (const field of FIELDS_FOR_UPDATE) {
       const cur = existing[field];
       const proposed = view[field];
-      if (!isEmpty(proposed) && isEmpty(cur)) {
-        fillable.push({ field, currentValue: cur === undefined ? null : cur, proposedValue: proposed });
+      // Honor curator lock: if the registry's $meta says excludeChanges, skip — nothing
+      // we propose should land on this field. Surface it for audit visibility.
+      const curMeta = existing[field + '$meta'];
+      if (curMeta && curMeta.excludeChanges === true) {
+        const wouldBeOutcome = compareField(field, cur, proposed);
+        if (wouldBeOutcome === 'fillable' || wouldBeOutcome === 'delta' || wouldBeOutcome === 'narrowed') {
+          excludedDeltas.push({
+            field,
+            registryValue: cur === undefined ? null : cur,
+            sourceValue: proposed,
+            sourceMetaPath: xmlPath,
+            wouldBeOutcome,
+            reason: 'registry $meta.excludeChanges = true',
+          });
+        }
+        continue;
+      }
+      const outcome = compareField(field, cur, proposed);
+      if (outcome === 'fillable') {
+        fillable.push({
+          field,
+          currentValue: cur === undefined ? null : cur,
+          proposedValue: proposed,
+          proposedMeta: metaForField(field, bucket),
+        });
+      } else if (outcome === 'delta') {
+        valueDeltas.push({
+          field,
+          registryValue: cur === undefined ? null : cur,
+          sourceValue: proposed,
+          sourceMetaPath: xmlPath,
+          proposedMeta: metaForField(field, bucket),
+        });
+      } else if (outcome === 'narrowed') {
+        valueNarrows.push({
+          field,
+          registryValue: cur === undefined ? null : cur,
+          sourceValue: proposed,
+          sourceMetaPath: xmlPath,
+          proposedMeta: metaForField(field, bucket),
+        });
+      } else if (outcome === 'equal' && !isAbsent(proposed)) {
+        // Only count 'agree' when source actually provided a value (skip the both-empty case)
+        fieldAgrees.push(field);
       }
     }
-    if (fillable.length) {
+    if (fillable.length || valueDeltas.length || valueNarrows.length) {
       update.push({
         docId,
         doi: bucket.doi,
         fillableFields: fillable,
+        valueDeltas,
+        valueNarrows,
+        excludedDeltas,
+        agreeFields: fieldAgrees, // populated only on update entries; consumed by summarise()
         sourcePaths: bucket.sourcePaths,
         sourceXmlPaths: (bucket.xmlPaths || []).map((p) => path.relative(REPO_ROOT, p)),
         vendors: bucket.vendorCounts,
       });
     } else {
+      // 'found' entry — but distinguish verified-equal from unverifiable.
+      // verifiedAgainstSource: at least one XML-only field (abstract/isbn/group/etc., not docId/doi/publisher
+      // which are derivable from the filename alone) was compared AND matched. Otherwise the agreement is just
+      // "filename-derived doi matched the registry's doi" which proves nothing about the registry's correctness.
+      const verifiedAgainstSource = fieldAgrees.some((f) => XML_PROVENANCE_FIELDS.has(f));
       found.push({
         docId,
         doi: bucket.doi,
+        verifiedAgainstSource,
+        agreeFields: fieldAgrees,
+        excludedDeltas: excludedDeltas.length ? excludedDeltas : undefined,
         sourcePaths: bucket.sourcePaths,
+        sourceXmlPaths: (bucket.xmlPaths || []).map((p) => path.relative(REPO_ROOT, p)),
         vendors: bucket.vendorCounts,
       });
     }
@@ -897,8 +1141,12 @@ function buildCandidateRecord(view, bucket) {
 }
 
 function summarise(report, buckets) {
+  const foundVerified = buckets.found.filter((f) => f.verifiedAgainstSource).length;
+  const foundUnverifiable = buckets.found.length - foundVerified;
   const byBucket = {
     found: buckets.found.length,
+    foundVerified,
+    foundUnverifiable,
     update: buckets.update.length,
     gap: buckets.gap.length,
     registryOnly: buckets.registryOnly.length,
@@ -941,6 +1189,24 @@ function summarise(report, buckets) {
     .slice(0, 25)
     .map((b) => ({ docId: b.docId, copies: b.sourcePaths.length, vendors: b.vendorCounts }));
 
+  // Per-field counts across the update bucket.
+  // delta + narrowed + fillable + agree should equal "update entries where source provides this field".
+  const fieldDeltasAcrossUpdate = {};
+  const ensure = (field) => {
+    if (!fieldDeltasAcrossUpdate[field]) fieldDeltasAcrossUpdate[field] = { delta: 0, narrowed: 0, fillable: 0, agree: 0 };
+    return fieldDeltasAcrossUpdate[field];
+  };
+  for (const u of buckets.update) {
+    for (const f of u.fillableFields || []) ensure(f.field).fillable++;
+    for (const f of u.valueDeltas || []) ensure(f.field).delta++;
+    for (const f of u.valueNarrows || []) ensure(f.field).narrowed++;
+    for (const fname of u.agreeFields || []) ensure(fname).agree++;
+  }
+  // 'found' entries also contribute to 'agree' (registry value matches source value)
+  for (const f of buckets.found) {
+    for (const fname of f.agreeFields || []) ensure(fname).agree++;
+  }
+
   return {
     filesScanned: report.stats.filesScanned,
     dirsScanned: report.stats.dirsScanned,
@@ -950,6 +1216,7 @@ function summarise(report, buckets) {
     byBucket,
     byVendor,
     topDuplicates,
+    fieldDeltasAcrossUpdate,
   };
 }
 
@@ -969,8 +1236,9 @@ function renderMarkdown(totals, buckets, generatedAt, registryDocCount, reconcil
   L.push('## Buckets');
   L.push('| Bucket          | Count | Notes                                          |');
   L.push('|-----------------|-------|------------------------------------------------|');
-  L.push(`| Found           | ${totals.byBucket.found.toString().padEnd(5)} | already in documents.json, no change           |`);
-  L.push(`| Update          | ${totals.byBucket.update.toString().padEnd(5)} | in registry, source has new fields             |`);
+  L.push(`| Found (verified)| ${totals.byBucket.foundVerified.toString().padEnd(5)} | XML read AND every comparable field matched    |`);
+  L.push(`| Found (unverif.)| ${totals.byBucket.foundUnverifiable.toString().padEnd(5)} | docId matches registry but no source XML found |`);
+  L.push(`| Update          | ${totals.byBucket.update.toString().padEnd(5)} | in registry, source has new or different fields|`);
   L.push(`| Gap             | ${totals.byBucket.gap.toString().padEnd(5)} | in source, not in registry — new records       |`);
   L.push(`| Registry-only   | ${totals.byBucket.registryOnly.toString().padEnd(5)} | in registry (SMPTE), no local source archived  |`);
   L.push(`| Unidentifiable  | ${totals.byBucket.unidentifiable.toString().padEnd(5)} | in source, no DOI derivable — manual triage    |`);
@@ -992,6 +1260,49 @@ function renderMarkdown(totals, buckets, generatedAt, registryDocCount, reconcil
     L.push(`| ${label.padEnd(17)} | ${String(v.found).padEnd(5)} | ${String(v.update).padEnd(6)} | ${String(v.gap).padEnd(3)} | ${String(v.unidentifiable).padEnd(5)} | ${String(v.nonRecord).padEnd(7)} |`);
   }
   L.push('');
+
+  // Field deltas across the Update bucket (registry vs source)
+  const fda = totals.fieldDeltasAcrossUpdate || {};
+  const fields = Object.keys(fda)
+    .map((f) => ({ field: f, ...fda[f], total: fda[f].delta + fda[f].narrowed + fda[f].fillable + fda[f].agree }))
+    .filter((r) => r.total > 0)
+    .sort((a, b) => (b.delta + b.narrowed) - (a.delta + a.narrowed) || b.total - a.total);
+  L.push('## Field deltas across the Update bucket (registry vs source)');
+  L.push('');
+  L.push(`Per-field counts of how registry values compare to what the source XML provides. Tallies are per registry-matched bucket entry (Found + Update = ${totals.byBucket.found + totals.byBucket.update}) where the source XML actually carries that field.`);
+  L.push('');
+  L.push('- **Delta** = both sides populated, normalized values differ → review');
+  L.push('- **Narrowed** = source is more precise (e.g. year → full date) → safe to auto-accept');
+  L.push('- **Fillable** = registry empty, source has a value');
+  L.push('- **Agree** = both populated and equal after normalization (no action)');
+  L.push('');
+  L.push('| Field             | Delta | Narrowed | Fillable | Agree | Total |');
+  L.push('|-------------------|-------|----------|----------|-------|-------|');
+  for (const r of fields) {
+    L.push(`| ${r.field.padEnd(17)} | ${String(r.delta).padStart(5)} | ${String(r.narrowed).padStart(8)} | ${String(r.fillable).padStart(8)} | ${String(r.agree).padStart(5)} | ${String(r.total).padStart(5)} |`);
+  }
+  L.push('');
+
+  // Sample deltas — first ~30 across the update bucket, sorted by docId
+  const sampleDeltas = [];
+  for (const u of buckets.update) {
+    for (const d of u.valueDeltas || []) {
+      sampleDeltas.push({ docId: u.docId, ...d });
+      if (sampleDeltas.length >= 30) break;
+    }
+    if (sampleDeltas.length >= 30) break;
+  }
+  L.push(`## Sample value deltas (first ${sampleDeltas.length} of all in JSON)`);
+  if (!sampleDeltas.length) L.push('- (none)');
+  const truncate = (v, n = 100) => {
+    const s = typeof v === 'string' ? v : JSON.stringify(v);
+    return s.length > n ? s.slice(0, n) + '…' : s;
+  };
+  for (const d of sampleDeltas) {
+    L.push(`- \`${d.docId}\` \`${d.field}\`: registry=\`${truncate(d.registryValue)}\` vs source=\`${truncate(d.sourceValue)}\``);
+  }
+  L.push('');
+
   L.push('## Top duplicates');
   if (!totals.topDuplicates.length) L.push('- (none)');
   for (const d of totals.topDuplicates) {
@@ -1096,8 +1407,8 @@ function main() {
     generatedAt,
     registrySnapshot: { path: path.relative(REPO_ROOT, DOCS_JSON), docCount: registry.all.length },
     totals,
-    found: buckets.found.sort((a, b) => a.docId.localeCompare(b.docId)),
-    update: buckets.update.sort((a, b) => a.docId.localeCompare(b.docId)),
+    found: buckets.found.sort((a, b) => a.docId.localeCompare(b.docId)).map(({ agreeFields, ...rest }) => rest),
+    update: buckets.update.sort((a, b) => a.docId.localeCompare(b.docId)).map(({ agreeFields, ...rest }) => rest),
     gap: buckets.gap.sort((a, b) => a.docId.localeCompare(b.docId)),
     registryOnly: buckets.registryOnly.sort((a, b) => a.docId.localeCompare(b.docId)),
     doiReconciliation: reconciliation.sort((a, b) => (a.nameDerivedDocId || '').localeCompare(b.nameDerivedDocId || '')),

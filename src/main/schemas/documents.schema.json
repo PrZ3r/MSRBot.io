@@ -137,6 +137,25 @@
                 "properties": {
                   "print":      { "type": "string" },
                   "electronic": { "type": "string" }
+                },
+                "patternProperties": {
+                  "^[a-zA-Z0-9]+\\$meta$": {
+                    "type": "object",
+                    "properties": {
+                      "source":         { "type": "string", "enum": ["parsed","inferred","manual","resolved","unknown"] },
+                      "confidence":     { "type": "string", "enum": ["low","medium","high","unknown"] },
+                      "note":           { "type": "string" },
+                      "updated":        { "type": "string", "format": "date-time" },
+                      "originalValue":  {},
+                      "sourceUrl":      { "type": "string", "format": "uri" },
+                      "overridden":     { "type": "boolean" },
+                      "excludeChanges": { "type": "boolean" },
+                      "reviewRequired": { "type": "boolean" },
+                      "flag":           { "type": "string" },
+                      "version":        { "type": "string" }
+                    },
+                    "additionalProperties": false
+                  }
                 }
               }
             ]
@@ -169,6 +188,25 @@
             "properties": {
               "holder": { "type": "string" },
               "year":   { "type": "string" }
+            },
+            "patternProperties": {
+              "^[a-zA-Z0-9]+\\$meta$": {
+                "type": "object",
+                "properties": {
+                  "source":         { "type": "string", "enum": ["parsed","inferred","manual","resolved","unknown"] },
+                  "confidence":     { "type": "string", "enum": ["low","medium","high","unknown"] },
+                  "note":           { "type": "string" },
+                  "updated":        { "type": "string", "format": "date-time" },
+                  "originalValue":  {},
+                  "sourceUrl":      { "type": "string", "format": "uri" },
+                  "overridden":     { "type": "boolean" },
+                  "excludeChanges": { "type": "boolean" },
+                  "reviewRequired": { "type": "boolean" },
+                  "flag":           { "type": "string" },
+                  "version":        { "type": "string" }
+                },
+                "additionalProperties": false
+              }
             }
           },
           "publisherLocation": {
@@ -177,6 +215,25 @@
             "properties": {
               "city":    { "type": "string" },
               "country": { "type": "string" }
+            },
+            "patternProperties": {
+              "^[a-zA-Z0-9]+\\$meta$": {
+                "type": "object",
+                "properties": {
+                  "source":         { "type": "string", "enum": ["parsed","inferred","manual","resolved","unknown"] },
+                  "confidence":     { "type": "string", "enum": ["low","medium","high","unknown"] },
+                  "note":           { "type": "string" },
+                  "updated":        { "type": "string", "format": "date-time" },
+                  "originalValue":  {},
+                  "sourceUrl":      { "type": "string", "format": "uri" },
+                  "overridden":     { "type": "boolean" },
+                  "excludeChanges": { "type": "boolean" },
+                  "reviewRequired": { "type": "boolean" },
+                  "flag":           { "type": "string" },
+                  "version":        { "type": "string" }
+                },
+                "additionalProperties": false
+              }
             }
           },
           "icsCodes": {

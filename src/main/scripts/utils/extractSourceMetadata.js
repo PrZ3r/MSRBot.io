@@ -87,8 +87,8 @@ function composeDate(blockText) {
   const monthNum = monthToNum(month);
   const dd = day ? String(day).padStart(2, '0') : null;
   if (monthNum && dd) return `${year}-${monthNum}-${dd}`;
-  if (monthNum) return `${year}-${monthNum}-01`;
-  return `${year}-01-01`;
+  if (monthNum) return `${year}-${monthNum}`;
+  return year;
 }
 
 function monthToNum(m) {
