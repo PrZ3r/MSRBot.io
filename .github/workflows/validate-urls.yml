@@ -30,7 +30,7 @@ jobs:
       - name: Check upstream PR marker
         id: guard
         if: github.event_name == 'workflow_run'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const run = context.payload.workflow_run;
@@ -261,7 +261,7 @@ jobs:
 
       - name: Upsert URL issues 
         if: (success() || failure()) && steps.guard.outputs.skip != 'true'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
