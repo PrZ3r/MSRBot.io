@@ -1,0 +1,1334 @@
+# _source/SMPTE Inventory — 2026-04-17T21:55:22.990Z
+
+Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2309 docs at scan time)
+
+## Totals
+- Directories walked: 16413
+- Files scanned: 229775
+- Files skipped: failed-extraction 982, zip containers 121, noise 67
+- Unique assets (dedup by docId): 21190
+- Duplicate copies detected: 128787
+
+## Buckets
+| Bucket          | Count | Notes                                          |
+|-----------------|-------|------------------------------------------------|
+| Found           | 99    | already in documents.json, no change           |
+| Update          | 852   | in registry, source has new fields             |
+| Gap             | 20239 | in source, not in registry — new records       |
+| Registry-only   | 543   | in registry (SMPTE), no local source archived  |
+| Unidentifiable  | 7     | in source, no DOI derivable — manual triage    |
+| Non-record      | 37227 | not a document (analytics/schema/db/image)     |
+
+## By vendor
+| Vendor            | Found | Update | Gap | Unid. | Non-rec |
+|-------------------|-------|--------|-----|-------|---------|
+| ALLEN PRESS       | 0     | 0      | 659 | 0     | 116     |
+| APTARA            | 976   | 8980   | 97335 | 2     | 33288   |
+| HIGHWIRE          | 184   | 1487   | 39986 | 5     | 2439    |
+| IEEE              | 1     | 28     | 341 | 0     | 1363    |
+| IEEE DL Usage     | 0     | 0      | 0   | 0     | 18      |
+| Zoho              | 0     | 0      | 0   | 0     | 2       |
+
+## Top duplicates
+- `SMPTE.ST2021-1.2009` — 29 copies (aptara:24, highwire:3, ieee:2)
+- `SMPTE.ST429-6.2006` — 29 copies (aptara:24, highwire:3, ieee:2)
+- `SMPTE.EG2021-3.2013` — 28 copies (aptara:24, highwire:2, ieee:2)
+- `SMPTE.OV2021-0.2012` — 28 copies (aptara:23, ieee:2, highwire:3)
+- `SMPTE.ST2021-1.2012` — 28 copies (aptara:24, highwire:2, ieee:2)
+- `SMPTE.ST429-7.2006` — 28 copies (aptara:24, highwire:2, ieee:2)
+- `SMPTE.ST429-9.2014` — 28 copies (aptara:23, highwire:3, ieee:2)
+- `10.5594-S9781614820130` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820192` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820215` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820048` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820697` — 28 copies (aptara:26, highwire:2)
+- `SMPTE.RP17.1964` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820727` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820734` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820833` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820840` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820895` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820901` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820918` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820925` — 28 copies (aptara:26, highwire:2)
+- `10.5594-S9781614820642` — 28 copies (aptara:26, highwire:2)
+- `SMPTE.OV2021-0.2009` — 27 copies (aptara:23, ieee:2, highwire:2)
+- `SMPTE.RP2021-5.2013` — 27 copies (aptara:23, highwire:2, ieee:2)
+- `SMPTE.ST12-1.2013Am1` — 27 copies (aptara:25, highwire:2)
+
+## Updates (852 — details in JSON)
+- `10.5594-J01217` — fillable: references
+- `10.5594-J02284` — fillable: references
+- `10.5594-J02285` — fillable: references
+- `10.5594-J02850` — fillable: references
+- `10.5594-J02945` — fillable: references
+- `10.5594-J04132` — fillable: references
+- `10.5594-J05297` — fillable: references
+- `10.5594-J05569` — fillable: references
+- `10.5594-J07544` — fillable: references
+- `10.5594-J08310` — fillable: references
+- `10.5594-J08349` — fillable: references
+- `10.5594-J09039` — fillable: references
+- `10.5594-J10104` — fillable: references
+- `10.5594-J10150` — fillable: references
+- `10.5594-J13565` — fillable: references
+- `10.5594-J13858` — fillable: references
+- `10.5594-J14711` — fillable: doi, references
+- `10.5594-J15292` — fillable: references
+- `10.5594-J15628` — fillable: references
+- `10.5594-J17253` — fillable: references
+- `10.5594-J17622` — fillable: references
+- `10.5594-J17832` — fillable: references
+- `10.5594-J17833` — fillable: references
+- `10.5594-M00395` — fillable: references
+- `SMPTE.EG1.1990` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG12.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG13.1986` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG13.2012` — fillable: standardId
+- `SMPTE.EG14.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG16.2002` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG18.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG2.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG2021-3.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG2021-3.2013` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG2021-3.2015` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG2021-3.2017` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG2021-4.2009` — fillable: references
+- `SMPTE.EG2021-4.2013` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG2039.2008` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG2046-3.2010` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG2050-2.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG2059-10.2016` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG2061.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG2069.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG2074.2013` — fillable: abstract, isbn, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG21.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG22.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG24.1995` — fillable: references
+- `SMPTE.EG26.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG28.1993` — fillable: references
+- `SMPTE.EG29.1993` — fillable: references
+- `SMPTE.EG3.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG30.1995` — fillable: references
+- `SMPTE.EG31.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG32.1996` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG33.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG34.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG35.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG35.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG36.2000` — fillable: references
+- `SMPTE.EG37.2001` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG377-3.2013` — fillable: references
+- `SMPTE.EG38.2001` — fillable: references
+- `SMPTE.EG39.2003` — fillable: references
+- `SMPTE.EG40.2002` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG40.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG40.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG41.2004` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG42.2004` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG42.2015` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG43.2009` — fillable: abstract, isbn, group, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG432-1.2010` — fillable: standardId
+- `SMPTE.EG44.2005` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG5.2003` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG8.1993` — fillable: abstract, isbn, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG9.2005` — fillable: abstract, isbn, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2021-0.2009` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2021-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2021-0.2013` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2036-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2036-0.2015` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2048-0.2011` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2048-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2052-0.2010` — fillable: abstract, isbn, group, pages, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2073-0.2016` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2081-0.2015` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2081-0.2016` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2082-0.2015` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV2082-0.2016` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV299-0.2010` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV425-0.2011` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV425-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV425-0.2014` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.OV435-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD10.2006` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD11.2007` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD18.2012` — fillable: standardId
+- `SMPTE.RDD19.2011` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD22.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD24.2013` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD26.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD29.2014` — fillable: abstract, isbn, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD33.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD34.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD35.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD36.2015` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD37.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD38.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD39.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD40.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD41.2016` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD42.2016` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD43.2016` — fillable: abstract, isbn, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD44.2017` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD6.2008` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD8.2008` — fillable: abstract, isbn, group, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RDD9.2009` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RDD9.2013` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP104.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP105.2003` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP106.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP109.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP11.1994` — fillable: abstract, isbn, group, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP110.1992` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP111.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP113.1996` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP114.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP115.1997` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP116.2000` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP12.1997` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP120.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP121.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, references
+- `SMPTE.RP122.1993` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP123.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP124.1998` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP127.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP128.2002` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP129.1995` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP130.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP131.2002` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP132.1994` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP133.1991` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP134.1994` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP135.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP136.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP138.1996` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP139.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP14.1997` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP140.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP141.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP142.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP143.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP144.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP145.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP148.1987` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP149.1992` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP15.1997` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP150.2000` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP151.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP152.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP153.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP155.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP155.2014` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP156.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP157.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP157.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP158.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP160.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP161.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP162.1993` — fillable: abstract, isbn, group, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP165.1994` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP166.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP167.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP168.2009` — fillable: standardId
+- `SMPTE.RP169.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP173.2002` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP174.1993` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP175.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP176.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP177.1993` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP178.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP179.2002` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP180.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP181.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP182.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP183.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP184.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP184.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP185.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP186.2008` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP187.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP189.1996` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP190.1996` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP192.2003` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP192.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP194.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP195.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP197.2003` — fillable: abstract, isbn, group, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.RP198.1998` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.RP199.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- … 652 more
+
+## Gaps (20239 — details in JSON)
+- `10.5594-J00021`
+- `10.5594-J00022`
+- `10.5594-J00023`
+- `10.5594-J00024`
+- `10.5594-J00025`
+- `10.5594-J00026`
+- `10.5594-J00027`
+- `10.5594-J00028`
+- `10.5594-J00029`
+- `10.5594-J00030`
+- `10.5594-J00031`
+- `10.5594-J00032`
+- `10.5594-J00033`
+- `10.5594-J00034`
+- `10.5594-J00035`
+- `10.5594-J00036`
+- `10.5594-J00037`
+- `10.5594-J00038`
+- `10.5594-J00039`
+- `10.5594-J00040`
+- `10.5594-J00041`
+- `10.5594-J00042`
+- `10.5594-J00043`
+- `10.5594-J00044`
+- `10.5594-J00045`
+- `10.5594-J00046`
+- `10.5594-J00047`
+- `10.5594-J00048`
+- `10.5594-J00049`
+- `10.5594-J00050`
+- `10.5594-J00051`
+- `10.5594-J00052`
+- `10.5594-J00053`
+- `10.5594-J00054`
+- `10.5594-J00055`
+- `10.5594-J00056`
+- `10.5594-J00057`
+- `10.5594-J00058`
+- `10.5594-J00059`
+- `10.5594-J00060`
+- `10.5594-J00061`
+- `10.5594-J00062`
+- `10.5594-J00063`
+- `10.5594-J00064`
+- `10.5594-J00065`
+- `10.5594-J00066`
+- `10.5594-J00067`
+- `10.5594-J00068`
+- `10.5594-J00069`
+- `10.5594-J00070`
+- `10.5594-J00071`
+- `10.5594-J00072`
+- `10.5594-J00073`
+- `10.5594-J00074`
+- `10.5594-J00075`
+- `10.5594-J00076`
+- `10.5594-J00077`
+- `10.5594-J00078`
+- `10.5594-J00079`
+- `10.5594-J00080`
+- `10.5594-J00081`
+- `10.5594-J00082`
+- `10.5594-J00083`
+- `10.5594-J00084`
+- `10.5594-J00085`
+- `10.5594-J00086`
+- `10.5594-J00087`
+- `10.5594-J00088`
+- `10.5594-J00089`
+- `10.5594-J00090`
+- `10.5594-J00091`
+- `10.5594-J00092`
+- `10.5594-J00093`
+- `10.5594-J00094`
+- `10.5594-J00095`
+- `10.5594-J00096`
+- `10.5594-J00097`
+- `10.5594-J00098`
+- `10.5594-J00099`
+- `10.5594-J00100`
+- `10.5594-J00101`
+- `10.5594-J00102`
+- `10.5594-J00103`
+- `10.5594-J00104`
+- `10.5594-J00105`
+- `10.5594-J00106`
+- `10.5594-J00107`
+- `10.5594-J00108`
+- `10.5594-J00109`
+- `10.5594-J00110`
+- `10.5594-J00111`
+- `10.5594-J00112`
+- `10.5594-J00113`
+- `10.5594-J00114`
+- `10.5594-J00115`
+- `10.5594-J00116`
+- `10.5594-J00117`
+- `10.5594-J00118`
+- `10.5594-J00119`
+- `10.5594-J00120`
+- `10.5594-J00121`
+- `10.5594-J00122`
+- `10.5594-J00123`
+- `10.5594-J00124`
+- `10.5594-J00125`
+- `10.5594-J00126`
+- `10.5594-J00127`
+- `10.5594-J00128`
+- `10.5594-J00129`
+- `10.5594-J00130`
+- `10.5594-J00131`
+- `10.5594-J00132`
+- `10.5594-J00133`
+- `10.5594-J00134`
+- `10.5594-J00135`
+- `10.5594-J00136`
+- `10.5594-J00137`
+- `10.5594-J00138`
+- `10.5594-J00139`
+- `10.5594-J00140`
+- `10.5594-J00141`
+- `10.5594-J00142`
+- `10.5594-J00143`
+- `10.5594-J00144`
+- `10.5594-J00145`
+- `10.5594-J00146`
+- `10.5594-J00147`
+- `10.5594-J00148`
+- `10.5594-J00149`
+- `10.5594-J00150`
+- `10.5594-J00151`
+- `10.5594-J00152`
+- `10.5594-J00153`
+- `10.5594-J00154`
+- `10.5594-J00155`
+- `10.5594-J00156`
+- `10.5594-J00157`
+- `10.5594-J00158`
+- `10.5594-J00159`
+- `10.5594-J00160`
+- `10.5594-J00161`
+- `10.5594-J00162`
+- `10.5594-J00163`
+- `10.5594-J00164`
+- `10.5594-J00165`
+- `10.5594-J00166`
+- `10.5594-J00167`
+- `10.5594-J00168`
+- `10.5594-J00169`
+- `10.5594-J00170`
+- `10.5594-J00171`
+- `10.5594-J00172`
+- `10.5594-J00173`
+- `10.5594-J00174`
+- `10.5594-J00175`
+- `10.5594-J00176`
+- `10.5594-J00177`
+- `10.5594-J00178`
+- `10.5594-J00179`
+- `10.5594-J00180`
+- `10.5594-J00181`
+- `10.5594-J00182`
+- `10.5594-J00183`
+- `10.5594-J00184`
+- `10.5594-J00185`
+- `10.5594-J00186`
+- `10.5594-J00187`
+- `10.5594-J00188`
+- `10.5594-J00189`
+- `10.5594-J00190`
+- `10.5594-J00191`
+- `10.5594-J00192`
+- `10.5594-J00193`
+- `10.5594-J00194`
+- `10.5594-J00195`
+- `10.5594-J00196`
+- `10.5594-J00197`
+- `10.5594-J00198`
+- `10.5594-J00199`
+- `10.5594-J00200`
+- `10.5594-J00201`
+- `10.5594-J00202`
+- `10.5594-J00203`
+- `10.5594-J00204`
+- `10.5594-J00205`
+- `10.5594-J00206`
+- `10.5594-J00207`
+- `10.5594-J00208`
+- `10.5594-J00209`
+- `10.5594-J00210`
+- `10.5594-J00211`
+- `10.5594-J00212`
+- `10.5594-J00213`
+- `10.5594-J00214`
+- `10.5594-J00215`
+- `10.5594-J00216`
+- `10.5594-J00217`
+- `10.5594-J00218`
+- `10.5594-J00219`
+- `10.5594-J00220`
+- `10.5594-J00221`
+- `10.5594-J00222`
+- `10.5594-J00223`
+- `10.5594-J00224`
+- `10.5594-J00225`
+- `10.5594-J00226`
+- `10.5594-J00227`
+- `10.5594-J00228`
+- `10.5594-J00229`
+- `10.5594-J00230`
+- `10.5594-J00231`
+- `10.5594-J00232`
+- `10.5594-J00233`
+- `10.5594-J00234`
+- `10.5594-J00235`
+- `10.5594-J00236`
+- `10.5594-J00237`
+- `10.5594-J00238`
+- `10.5594-J00239`
+- `10.5594-J00240`
+- `10.5594-J00241`
+- `10.5594-J00242`
+- `10.5594-J00243`
+- `10.5594-J00244`
+- `10.5594-J00245`
+- `10.5594-J00246`
+- `10.5594-J00247`
+- `10.5594-J00248`
+- `10.5594-J00249`
+- `10.5594-J00250`
+- `10.5594-J00251`
+- `10.5594-J00252`
+- `10.5594-J00253`
+- `10.5594-J00254`
+- `10.5594-J00255`
+- `10.5594-J00256`
+- `10.5594-J00257`
+- `10.5594-J00258`
+- `10.5594-J00259`
+- `10.5594-J00260`
+- `10.5594-J00261`
+- `10.5594-J00262`
+- `10.5594-J00263`
+- `10.5594-J00264`
+- `10.5594-J00265`
+- `10.5594-J00266`
+- `10.5594-J00267`
+- `10.5594-J00268`
+- `10.5594-J00269`
+- `10.5594-J00270`
+- `10.5594-J00271`
+- `10.5594-J00272`
+- `10.5594-J00273`
+- `10.5594-J00274`
+- `10.5594-J00275`
+- `10.5594-J00276`
+- `10.5594-J00277`
+- `10.5594-J00278`
+- `10.5594-J00279`
+- `10.5594-J00280`
+- `10.5594-J00281`
+- `10.5594-J00282`
+- `10.5594-J00283`
+- `10.5594-J00284`
+- `10.5594-J00285`
+- `10.5594-J00286`
+- `10.5594-J00287`
+- `10.5594-J00288`
+- `10.5594-J00289`
+- `10.5594-J00290`
+- `10.5594-J00291`
+- `10.5594-J00292`
+- `10.5594-J00293`
+- `10.5594-J00294`
+- `10.5594-J00295`
+- `10.5594-J00296`
+- `10.5594-J00297`
+- `10.5594-J00298`
+- `10.5594-J00299`
+- `10.5594-J00300`
+- `10.5594-J00301`
+- `10.5594-J00302`
+- `10.5594-J00303`
+- `10.5594-J00304`
+- `10.5594-J00305`
+- `10.5594-J00306`
+- `10.5594-J00307`
+- `10.5594-J00308`
+- `10.5594-J00309`
+- `10.5594-J00310`
+- `10.5594-J00311`
+- `10.5594-J00312`
+- `10.5594-J00313`
+- `10.5594-J00314`
+- `10.5594-J00315`
+- `10.5594-J00316`
+- `10.5594-J00317`
+- `10.5594-J00318`
+- `10.5594-J00319`
+- `10.5594-J00320`
+- `10.5594-J00321`
+- `10.5594-J00322`
+- `10.5594-J00323`
+- `10.5594-J00324`
+- `10.5594-J00325`
+- `10.5594-J00326`
+- `10.5594-J00327`
+- `10.5594-J00328`
+- `10.5594-J00329`
+- `10.5594-J00330`
+- `10.5594-J00331`
+- `10.5594-J00332`
+- `10.5594-J00333`
+- `10.5594-J00334`
+- `10.5594-J00335`
+- `10.5594-J00336`
+- `10.5594-J00337`
+- `10.5594-J00338`
+- `10.5594-J00339`
+- `10.5594-J00340`
+- `10.5594-J00341`
+- `10.5594-J00342`
+- `10.5594-J00343`
+- `10.5594-J00344`
+- `10.5594-J00345`
+- `10.5594-J00346`
+- `10.5594-J00347`
+- `10.5594-J00348`
+- `10.5594-J00349`
+- `10.5594-J00350`
+- `10.5594-J00351`
+- `10.5594-J00352`
+- `10.5594-J00353`
+- `10.5594-J00354`
+- `10.5594-J00355`
+- `10.5594-J00356`
+- `10.5594-J00357`
+- `10.5594-J00358`
+- `10.5594-J00359`
+- `10.5594-J00360`
+- `10.5594-J00361`
+- `10.5594-J00362`
+- `10.5594-J00363`
+- `10.5594-J00364`
+- `10.5594-J00365`
+- `10.5594-J00366`
+- `10.5594-J00367`
+- `10.5594-J00368`
+- `10.5594-J00369`
+- `10.5594-J00370`
+- `10.5594-J00371`
+- `10.5594-J00372`
+- `10.5594-J00373`
+- `10.5594-J00374`
+- `10.5594-J00375`
+- `10.5594-J00376`
+- `10.5594-J00377`
+- `10.5594-J00378`
+- `10.5594-J00379`
+- `10.5594-J00380`
+- `10.5594-J00381`
+- `10.5594-J00382`
+- `10.5594-J00383`
+- `10.5594-J00384`
+- `10.5594-J00385`
+- `10.5594-J00386`
+- `10.5594-J00387`
+- `10.5594-J00388`
+- `10.5594-J00389`
+- `10.5594-J00390`
+- `10.5594-J00391`
+- `10.5594-J00392`
+- `10.5594-J00393`
+- `10.5594-J00394`
+- `10.5594-J00395`
+- `10.5594-J00396`
+- `10.5594-J00397`
+- `10.5594-J00398`
+- `10.5594-J00399`
+- `10.5594-J00400`
+- `10.5594-J00401`
+- `10.5594-J00402`
+- `10.5594-J00403`
+- `10.5594-J00404`
+- `10.5594-J00405`
+- `10.5594-J00406`
+- `10.5594-J00407`
+- `10.5594-J00408`
+- `10.5594-J00409`
+- `10.5594-J00410`
+- `10.5594-J00411`
+- `10.5594-J00412`
+- `10.5594-J00413`
+- `10.5594-J00414`
+- `10.5594-J00415`
+- `10.5594-J00416`
+- `10.5594-J00417`
+- `10.5594-J00418`
+- `10.5594-J00419`
+- `10.5594-J00420`
+- `10.5594-J00421`
+- `10.5594-J00422`
+- `10.5594-J00423`
+- `10.5594-J00424`
+- `10.5594-J00425`
+- `10.5594-J00426`
+- `10.5594-J00427`
+- `10.5594-J00428`
+- `10.5594-J00429`
+- `10.5594-J00430`
+- `10.5594-J00431`
+- `10.5594-J00432`
+- `10.5594-J00433`
+- `10.5594-J00434`
+- `10.5594-J00435`
+- `10.5594-J00436`
+- `10.5594-J00437`
+- `10.5594-J00438`
+- `10.5594-J00439`
+- `10.5594-J00440`
+- `10.5594-J00441`
+- `10.5594-J00442`
+- `10.5594-J00443`
+- `10.5594-J00444`
+- `10.5594-J00445`
+- `10.5594-J00446`
+- `10.5594-J00447`
+- `10.5594-J00448`
+- `10.5594-J00449`
+- `10.5594-J00450`
+- `10.5594-J00451`
+- `10.5594-J00452`
+- `10.5594-J00453`
+- `10.5594-J00454`
+- `10.5594-J00455`
+- `10.5594-J00456`
+- `10.5594-J00457`
+- `10.5594-J00458`
+- `10.5594-J00459`
+- `10.5594-J00460`
+- `10.5594-J00461`
+- `10.5594-J00462`
+- `10.5594-J00463`
+- `10.5594-J00464`
+- `10.5594-J00465`
+- `10.5594-J00466`
+- `10.5594-J00467`
+- `10.5594-J00468`
+- `10.5594-J00469`
+- `10.5594-J00470`
+- `10.5594-J00471`
+- `10.5594-J00472`
+- `10.5594-J00473`
+- `10.5594-J00474`
+- `10.5594-J00475`
+- `10.5594-J00476`
+- `10.5594-J00477`
+- `10.5594-J00478`
+- `10.5594-J00479`
+- `10.5594-J00480`
+- `10.5594-J00481`
+- `10.5594-J00482`
+- `10.5594-J00483`
+- `10.5594-J00484`
+- `10.5594-J00485`
+- `10.5594-J00486`
+- `10.5594-J00487`
+- `10.5594-J00488`
+- `10.5594-J00489`
+- `10.5594-J00490`
+- `10.5594-J00491`
+- `10.5594-J00492`
+- `10.5594-J00493`
+- `10.5594-J00494`
+- `10.5594-J00495`
+- `10.5594-J00496`
+- `10.5594-J00496a`
+- `10.5594-J00496b`
+- `10.5594-J00497`
+- `10.5594-J00498`
+- `10.5594-J00499`
+- `10.5594-J00500`
+- `10.5594-J00501`
+- `10.5594-J00502`
+- `10.5594-J00503`
+- `10.5594-J00504`
+- `10.5594-J00505`
+- `10.5594-J00506`
+- `10.5594-J00507`
+- `10.5594-J00508`
+- `10.5594-J00509`
+- `10.5594-J00510`
+- `10.5594-J00511`
+- `10.5594-J00512`
+- `10.5594-J00513`
+- `10.5594-J00514`
+- `10.5594-J00515`
+- `10.5594-J00516`
+- `10.5594-J00517`
+- `10.5594-J00518`
+- … 19739 more
+
+## Registry-only (543 — indexed but no archived source)
+- `SMPTE.AG01`
+- `SMPTE.AG01.2014`
+- `SMPTE.AG01.2020`
+- `SMPTE.AG02`
+- `SMPTE.AG02.2014`
+- `SMPTE.AG02.2015`
+- `SMPTE.AG03`
+- `SMPTE.AG03.2014`
+- `SMPTE.AG04`
+- `SMPTE.AG04.2016`
+- `SMPTE.AG04.EG.2020`
+- `SMPTE.AG04.RP.2020`
+- `SMPTE.AG04.ST.2020`
+- `SMPTE.AG05`
+- `SMPTE.AG05.2018`
+- `SMPTE.AG06`
+- `SMPTE.AG06-01.2020`
+- `SMPTE.AG06-02.2021`
+- `SMPTE.AG06.2016`
+- `SMPTE.AG06.2020`
+- `SMPTE.AG07`
+- `SMPTE.AG07.2016`
+- `SMPTE.AG08`
+- `SMPTE.AG08.2014`
+- `SMPTE.AG10`
+- `SMPTE.AG10.2020`
+- `SMPTE.AG10B`
+- `SMPTE.AG10B.2020`
+- `SMPTE.AG10C`
+- `SMPTE.AG12`
+- `SMPTE.AG12.2017`
+- `SMPTE.AG12.2021`
+- `SMPTE.AG14`
+- `SMPTE.AG14.2014`
+- `SMPTE.AG15`
+- `SMPTE.AG15.2015`
+- `SMPTE.AG16`
+- `SMPTE.AG16.2020`
+- `SMPTE.AG16.2020-08`
+- `SMPTE.AG18`
+- `SMPTE.AG18.2017`
+- `SMPTE.AG19`
+- `SMPTE.AG19.2019`
+- `SMPTE.AG20`
+- `SMPTE.AG20.2019`
+- `SMPTE.AG21`
+- `SMPTE.AG22`
+- `SMPTE.AG22.2018`
+- `SMPTE.AG22.2020`
+- `SMPTE.AG24`
+- `SMPTE.AG24.2019`
+- `SMPTE.AG25`
+- `SMPTE.AG26`
+- `SMPTE.AG27`
+- `SMPTE.AG28`
+- `SMPTE.AG29`
+- `SMPTE.AG30`
+- `SMPTE.AG31`
+- `SMPTE.EG10.2003`
+- `SMPTE.EG15.2005`
+- `SMPTE.EG16.2014`
+- `SMPTE.EG17.2002`
+- `SMPTE.EG20.1997`
+- `SMPTE.EG2021-3.2009`
+- `SMPTE.EG2021-3.2019`
+- `SMPTE.EG2021-3.2022`
+- `SMPTE.EG2021-4.2012`
+- `SMPTE.EG2021-4.2017`
+- `SMPTE.EG2032-4.2014`
+- `SMPTE.EG2059-10.2022`
+- `SMPTE.EG2076-2.2016`
+- `SMPTE.EG2098-3.2020`
+- `SMPTE.EG2111-1.2020`
+- `SMPTE.EG2111-2.2018`
+- `SMPTE.EG2111-3.2020`
+- `SMPTE.EG2112-2.2018`
+- `SMPTE.EG2112-2.2020`
+- `SMPTE.EG25.2003`
+- `SMPTE.EG27.2004`
+- `SMPTE.EG428-23`
+- `SMPTE.EG7.1994`
+- `SMPTE.EG9.1995`
+- `SMPTE.ER0989.2014`
+- `SMPTE.ER0994.2014`
+- `SMPTE.ER1006.2021`
+- `SMPTE.ER1008.2022`
+- `SMPTE.J107.9.603.815.1998`
+- `SMPTE.OM.BL.2010`
+- `SMPTE.OM.Mem.2018`
+- `SMPTE.OM.Std`
+- `SMPTE.OM.Std.2015`
+- `SMPTE.OV2021-0.2017`
+- `SMPTE.OV2021-0.2019`
+- `SMPTE.OV2021-0.2020`
+- `SMPTE.OV2036-0.2013`
+- `SMPTE.OV2052-0.2014`
+- `SMPTE.OV2067-0.2018`
+- `SMPTE.OV2067-0.2021`
+- `SMPTE.OV2073-0.2018`
+- `SMPTE.OV2073-0.2023-02`
+- `SMPTE.OV2081-0.2018`
+- `SMPTE.OV2082-0.2018`
+- `SMPTE.OV2110-0.2018`
+- `SMPTE.OV2112-0.2018`
+- `SMPTE.OV292-0.2011`
+- `SMPTE.OV292-0.2018`
+- `SMPTE.PH22-52.1960`
+- `SMPTE.PH22-55.1966`
+- `SMPTE.PubReg.2018`
+- `SMPTE.RA.2021`
+- `SMPTE.RDD1.2003`
+- `SMPTE.RDD14.2010`
+- `SMPTE.RDD15.2007`
+- `SMPTE.RDD16.2008`
+- `SMPTE.RDD17.2009`
+- `SMPTE.RDD18.2010`
+- `SMPTE.RDD18.2021`
+- `SMPTE.RDD2.2007`
+- `SMPTE.RDD20.2010`
+- `SMPTE.RDD25.2014`
+- `SMPTE.RDD26.2014`
+- `SMPTE.RDD28.2014`
+- `SMPTE.RDD29.2018`
+- `SMPTE.RDD3.2008`
+- `SMPTE.RDD30.2014`
+- `SMPTE.RDD31.2014`
+- `SMPTE.RDD32.2014`
+- `SMPTE.RDD32.2017`
+- `SMPTE.RDD36.2022`
+- `SMPTE.RDD4.2005`
+- `SMPTE.RDD44.2017-11`
+- `SMPTE.RDD44.2022`
+- `SMPTE.RDD45.2017`
+- `SMPTE.RDD45.2022`
+- `SMPTE.RDD46.2019`
+- `SMPTE.RDD47.2018`
+- `SMPTE.RDD48.2018`
+- `SMPTE.RDD48.2018Am1.2022`
+- `SMPTE.RDD49.2019`
+- `SMPTE.RDD5.2006`
+- `SMPTE.RDD50.2019`
+- `SMPTE.RDD51.2020`
+- `SMPTE.RDD52.2020`
+- `SMPTE.RDD53`
+- `SMPTE.RDD54.2022`
+- `SMPTE.RDD55.2022`
+- `SMPTE.RDD56.2021`
+- `SMPTE.RDD57.2021`
+- `SMPTE.RDD58.2021`
+- `SMPTE.RDD59-1.2022`
+- `SMPTE.RDD60.2025-05`
+- `SMPTE.RDD61.2025-05`
+- `SMPTE.RDD9.2006`
+- `SMPTE.RP103.1994`
+- `SMPTE.RP105.1994`
+- `SMPTE.RP105.1995`
+- `SMPTE.RP107.1993`
+- `SMPTE.RP141.1990`
+- `SMPTE.RP141.1995`
+- `SMPTE.RP141.2020`
+- `SMPTE.RP16.1993`
+- `SMPTE.RP163.1992`
+- `SMPTE.RP170.1993`
+- `SMPTE.RP171.1993`
+- `SMPTE.RP172.1993`
+- `SMPTE.RP19.2003`
+- `SMPTE.RP191.1996`
+- `SMPTE.RP194.1998`
+- `SMPTE.RP195.1998`
+- `SMPTE.RP20.2003`
+- `SMPTE.RP2021-1.2019`
+- `SMPTE.RP2021-1.2020`
+- `SMPTE.RP2021-9.2009`
+- `SMPTE.RP2021-9.2012`
+- `SMPTE.RP2042-3.2022`
+- `SMPTE.RP2047-1.2022`
+- `SMPTE.RP2047-3.2022`
+- `SMPTE.RP2047-5.2017Am1.2018`
+- `SMPTE.RP2047-5.2022`
+- `SMPTE.RP205.2000`
+- `SMPTE.RP2052-10.2010Am1.2012`
+- `SMPTE.RP2059-15.2022`
+- `SMPTE.RP2073-2.2017`
+- `SMPTE.RP2073-2.2022`
+- `SMPTE.RP2076-1.2016`
+- `SMPTE.RP2079.2018`
+- `SMPTE.RP2091-2.2018`
+- `SMPTE.RP2093.2020`
+- `SMPTE.RP2096-1.2017`
+- `SMPTE.RP2096-2.2017`
+- `SMPTE.RP210.2007`
+- `SMPTE.RP210.2012`
+- `SMPTE.RP2110-23.2019`
+- `SMPTE.RP2110-24.2022`
+- `SMPTE.RP2110-25.2023-04`
+- `SMPTE.RP2112-1.2018`
+- `SMPTE.RP2112-1.2020`
+- `SMPTE.RP2112-11.2018`
+- `SMPTE.RP2112-11.2020`
+- `SMPTE.RP2112-21.2018`
+- `SMPTE.RP2112-21.2020`
+- `SMPTE.RP2129.2023-08`
+- `SMPTE.RP219-2.2016`
+- `SMPTE.RP224.2011`
+- `SMPTE.RP224.2012`
+- `SMPTE.RP268-3.2023-08`
+- `SMPTE.RP27-1.1989`
+- `SMPTE.RP27-2.1989`
+- `SMPTE.RP27-3.1989`
+- `SMPTE.RP27-5.1989`
+- `SMPTE.RP27.4.1994`
+- `SMPTE.RP34.1997`
+- `SMPTE.RP36.1999`
+- `SMPTE.RP38.1989`
+- `SMPTE.RP428-22.2025-06`
+- `SMPTE.RP431-2.2007`
+- `SMPTE.RP47.1999`
+- `SMPTE.RP48.1995`
+- `SMPTE.RP48.1999`
+- `SMPTE.RP49.1995`
+- `SMPTE.RP50.1995`
+- `SMPTE.RP59.1986`
+- `SMPTE.RP59.1995`
+- `SMPTE.RP67.1993`
+- `SMPTE.RP82.1990`
+- `SMPTE.RP82.1995`
+- `SMPTE.RP82.2005`
+- `SMPTE.RP86.1990`
+- `SMPTE.RP9.1995`
+- `SMPTE.RP95.1994`
+- `SMPTE.SGR.21DC.AFR.200707`
+- `SMPTE.SGR.21DC.HFR.201111`
+- `SMPTE.SGR.21DC.S.2005`
+- `SMPTE.ST102.1997`
+- `SMPTE.ST109.1992`
+- `SMPTE.ST109.1998`
+- `SMPTE.ST11.1995`
+- `SMPTE.ST111.1996`
+- `SMPTE.ST112.1994`
+- `SMPTE.ST112.1999`
+- `SMPTE.ST119.1999`
+- `SMPTE.ST12-1.2008`
+- `SMPTE.ST12-1.2008Am1.2013`
+- `SMPTE.ST12-2.2008`
+- `SMPTE.ST12-2.2008Am1.2013`
+- `SMPTE.ST12-3.2016`
+- `SMPTE.ST12.1999`
+- `SMPTE.ST137.1994`
+- `SMPTE.ST139.1986`
+- `SMPTE.ST139.1996`
+- `SMPTE.ST145.1999`
+- `SMPTE.ST149.1994`
+- `SMPTE.ST149.1999`
+- `SMPTE.ST152.1994`
+- `SMPTE.ST154.1993`
+- `SMPTE.ST154.1998`
+- `SMPTE.ST157.1994`
+- `SMPTE.ST160.1990`
+- `SMPTE.ST164.1993`
+- `SMPTE.ST165.1994`
+- `SMPTE.ST166.1999`
+- `SMPTE.ST168.1991`
+- `SMPTE.ST168.1996`
+- `SMPTE.ST185.1993`
+- `SMPTE.ST192.1991`
+- `SMPTE.ST194.1991`
+- `SMPTE.ST194.1997`
+- `SMPTE.ST195.1984`
+- `SMPTE.ST195.1993`
+- `SMPTE.ST196.1993`
+- `SMPTE.ST196.1995`
+- `SMPTE.ST2001-1.2015`
+- `SMPTE.ST2019-1.2016Am1.2022`
+- `SMPTE.ST2019-4.2016Am1.2024`
+- `SMPTE.ST202.1991`
+- `SMPTE.ST202.1998`
+- `SMPTE.ST2021-1.2017`
+- `SMPTE.ST2021-2.2019`
+- `SMPTE.ST2021-4.2018`
+- `SMPTE.ST2021-4.2020`
+- `SMPTE.ST2021-4.2022`
+- `SMPTE.ST2021-4.2023-09`
+- `SMPTE.ST2021.2008`
+- `SMPTE.ST2022-3.2019`
+- `SMPTE.ST2022-7.2018`
+- `SMPTE.ST2022-8.2019`
+- `SMPTE.ST2029.2022`
+- `SMPTE.ST2029.2023-10`
+- `SMPTE.ST2035.2020`
+- `SMPTE.ST2036-2.2008`
+- `SMPTE.ST2036-3.2018`
+- `SMPTE.ST2036-4.2019`
+- `SMPTE.ST2038.2020`
+- `SMPTE.ST2042-1.2022`
+- `SMPTE.ST2042-2.2017`
+- `SMPTE.ST2042-4.2018`
+- `SMPTE.ST2048-1.2024-08`
+- `SMPTE.ST2048-2.2024-08`
+- `SMPTE.ST2048-3.2024-08`
+- `SMPTE.ST2051.2010Am1.2013`
+- `SMPTE.ST2059-1.2020`
+- `SMPTE.ST2059-1.2021`
+- `SMPTE.ST2059-2.2020`
+- `SMPTE.ST2065-1.2020`
+- `SMPTE.ST2065-1.2021`
+- `SMPTE.ST2065-2.2020`
+- `SMPTE.ST2065-3.2020`
+- `SMPTE.ST2065-4.2022`
+- `SMPTE.ST2065-4.2023-02`
+- `SMPTE.ST2065-5.2023-02`
+- `SMPTE.ST2067-100.2014`
+- `SMPTE.ST2067-101.2014`
+- `SMPTE.ST2067-101.2018`
+- `SMPTE.ST2067-102.2014`
+- `SMPTE.ST2067-102.2017`
+- `SMPTE.ST2067-102.2022`
+- `SMPTE.ST2067-103.2014`
+- `SMPTE.ST2067-103.2020`
+- `SMPTE.ST2067-103.2021`
+- `SMPTE.ST2067-2.2013`
+- `SMPTE.ST2067-2.2020`
+- `SMPTE.ST2067-200.2018`
+- `SMPTE.ST2067-201.2019`
+- `SMPTE.ST2067-201.2020`
+- `SMPTE.ST2067-201.2021`
+- `SMPTE.ST2067-202.2022`
+- `SMPTE.ST2067-203.2023-09`
+- `SMPTE.ST2067-21.2020`
+- `SMPTE.ST2067-21.2020Am1.2020`
+- `SMPTE.ST2067-21.2022`
+- `SMPTE.ST2067-21.2023-02`
+- `SMPTE.ST2067-3.2013`
+- `SMPTE.ST2067-3.2020`
+- `SMPTE.ST2067-40.2016Am1.2017`
+- `SMPTE.ST2067-40.2021`
+- `SMPTE.ST2067-5.2020`
+- `SMPTE.ST2067-50.2018`
+- `SMPTE.ST2067-60.2022`
+- `SMPTE.ST2067-70.2024-08`
+- `SMPTE.ST2067-71.2024-07`
+- `SMPTE.ST2067-9.2018`
+- `SMPTE.ST2073-5.2015`
+- `SMPTE.ST2073-6.2015`
+- `SMPTE.ST2073-7.2022`
+- `SMPTE.ST2081-1.2023-10`
+- `SMPTE.ST2081-10.2018`
+- `SMPTE.ST2081-11.2019`
+- `SMPTE.ST2081-12.2019`
+- `SMPTE.ST2081-30.2017`
+- `SMPTE.ST2082-1.2023-11`
+- `SMPTE.ST2082-10.2018`
+- `SMPTE.ST2082-11.2019`
+- `SMPTE.ST2082-12.2019`
+- `SMPTE.ST2082-30.2017`
+- `SMPTE.ST2086.2018`
+- `SMPTE.ST2088.2019`
+- `SMPTE.ST2094-10.2020`
+- `SMPTE.ST2094-10.2021`
+- `SMPTE.ST2094-2.2023-04`
+- `SMPTE.ST2094-40.2020`
+- `SMPTE.ST2094-60.2025-12`
+- `SMPTE.ST2095-1.2023-09`
+- `SMPTE.ST2098-1.2018`
+- `SMPTE.ST2098-2.2018`
+- `SMPTE.ST2098-2.2019`
+- `SMPTE.ST2098-2.2022`
+- `SMPTE.ST2098-5.2018`
+- `SMPTE.ST2102.2017`
+- `SMPTE.ST2108-1.2018`
+- `SMPTE.ST2108-2.2019`
+- `SMPTE.ST2109.2019`
+- `SMPTE.ST2110-10.2017`
+- `SMPTE.ST2110-10.2022`
+- `SMPTE.ST2110-20.2017`
+- `SMPTE.ST2110-20.2022`
+- `SMPTE.ST2110-21.2017`
+- `SMPTE.ST2110-21.2022`
+- `SMPTE.ST2110-22.2019`
+- `SMPTE.ST2110-22.2022`
+- `SMPTE.ST2110-30.2017`
+- `SMPTE.ST2110-30.2025-10`
+- `SMPTE.ST2110-31.2018`
+- `SMPTE.ST2110-31.2022`
+- `SMPTE.ST2110-40.2018`
+- `SMPTE.ST2110-40.2023-12`
+- `SMPTE.ST2110-41.2024-03`
+- `SMPTE.ST2110-43.2021`
+- `SMPTE.ST2112-10.2018`
+- `SMPTE.ST2112-10.2020`
+- `SMPTE.ST2112-20.2018`
+- `SMPTE.ST2112-20.2020`
+- `SMPTE.ST2113.2018`
+- `SMPTE.ST2115.2019`
+- `SMPTE.ST2115.2020`
+- `SMPTE.ST2116.2019`
+- `SMPTE.ST2117-1.2020`
+- `SMPTE.ST2117-1.2022`
+- `SMPTE.ST2117-10.2024-07`
+- `SMPTE.ST2122.2020`
+- `SMPTE.ST2123.2020`
+- `SMPTE.ST2123.2021`
+- `SMPTE.ST2123.2021-01`
+- `SMPTE.ST2123.2022`
+- `SMPTE.ST2123.2023-04`
+- `SMPTE.ST2123.2024-03`
+- `SMPTE.ST2123.2025-03`
+- `SMPTE.ST2124.2020`
+- `SMPTE.ST2126.2025-08`
+- `SMPTE.ST2127-1.2022`
+- `SMPTE.ST2127-10.2022`
+- `SMPTE.ST2127-2.2024-03`
+- `SMPTE.ST2134.2025-01`
+- `SMPTE.ST2136-1.2026-02`
+- `SMPTE.ST2139.2025-12`
+- `SMPTE.ST214.1999`
+- `SMPTE.ST217.2015`
+- `SMPTE.ST223.1996`
+- `SMPTE.ST231.1995`
+- `SMPTE.ST231.1999`
+- `SMPTE.ST233.1992`
+- `SMPTE.ST233.1998`
+- `SMPTE.ST237.1998`
+- `SMPTE.ST239.1994`
+- `SMPTE.ST239.1999`
+- `SMPTE.ST242.1993`
+- `SMPTE.ST254.2002`
+- `SMPTE.ST258.1993`
+- `SMPTE.ST268-2.2018`
+- `SMPTE.ST268-2.2018Am1.2022`
+- `SMPTE.ST268-2.2023-06`
+- `SMPTE.ST270.1994`
+- `SMPTE.ST270.2005`
+- `SMPTE.ST271.2002`
+- `SMPTE.ST274.2003`
+- `SMPTE.ST274.2005`
+- `SMPTE.ST292-1.2018`
+- `SMPTE.ST292.2008`
+- `SMPTE.ST298.1997`
+- `SMPTE.ST301.1999`
+- `SMPTE.ST313.1999`
+- `SMPTE.ST313.2005`
+- `SMPTE.ST330.2022`
+- `SMPTE.ST331.2011Am1.2023`
+- `SMPTE.ST334-2.2015`
+- `SMPTE.ST335.2012Am1.2019`
+- `SMPTE.ST336.2001`
+- `SMPTE.ST338.2008`
+- `SMPTE.ST338.2016Am1.2019`
+- `SMPTE.ST352.2002`
+- `SMPTE.ST352.2010`
+- `SMPTE.ST352.2011Am1.2011`
+- `SMPTE.ST370.2006Am1.2009`
+- `SMPTE.ST372.2002`
+- `SMPTE.ST372.2009`
+- `SMPTE.ST372.2017`
+- `SMPTE.ST377-1.2009`
+- `SMPTE.ST377-1.2011Am2.2012`
+- `SMPTE.ST377-1.2019`
+- `SMPTE.ST377-2.2019`
+- `SMPTE.ST377-4.2021`
+- `SMPTE.ST377-41.2021`
+- `SMPTE.ST377-41.2023-04`
+- `SMPTE.ST377-42.2021`
+- `SMPTE.ST381-2.2018`
+- `SMPTE.ST381-3.2017`
+- `SMPTE.ST381-3.2025-01`
+- `SMPTE.ST381-5.2020`
+- `SMPTE.ST381-5.2023-02`
+- `SMPTE.ST382.2022`
+- `SMPTE.ST385.2012Am1.2022`
+- `SMPTE.ST390.2004`
+- `SMPTE.ST40.1997`
+- `SMPTE.ST41.1994`
+- `SMPTE.ST41.1999`
+- `SMPTE.ST421.2006Am1.2007`
+- `SMPTE.ST421.2006Am2.2011`
+- `SMPTE.ST422.2019`
+- `SMPTE.ST422.2022`
+- `SMPTE.ST425-1.2011`
+- `SMPTE.ST425-1.2011Am1.2014`
+- `SMPTE.ST425-1.2017`
+- `SMPTE.ST425-3.2019`
+- `SMPTE.ST425-5.2019`
+- `SMPTE.ST425.2006`
+- `SMPTE.ST425.2008`
+- `SMPTE.ST428-1.2019`
+- `SMPTE.ST428-24.2024-11`
+- `SMPTE.ST428-7.2010`
+- `SMPTE.ST428-7.2014`
+- `SMPTE.ST429-10.2023-09`
+- `SMPTE.ST429-14.2023-09`
+- `SMPTE.ST429-16.2014`
+- `SMPTE.ST429-16.2023-09`
+- `SMPTE.ST429-17.2017`
+- `SMPTE.ST429-18.2019`
+- `SMPTE.ST429-18.2023-09`
+- `SMPTE.ST429-19.2019`
+- `SMPTE.ST429-19.2023-09`
+- `SMPTE.ST429-2.2011Am1.2013`
+- `SMPTE.ST429-2.2013Am1.2018`
+- … 43 more
+
+## DOI reconciliation — where filename and XML disagree
+- agree: 5244
+- xmlWins:scheme (e.g. symbolic vs ISBN form): 53
+- xmlWins:year (folder year vs DOI year): 2
+- xmlWins:other: 63
+- xmlMissing (no DOI in any sibling XML — kept name-derived): 15729
+- xmlBogus (XML DOI was a collection-level / shared placeholder — reverted to name-derived): 99
+
+### First 50 xmlWins reconciliations
+| Outcome | Name-derived docId | XML-derived docId | XML source |
+|---|---|---|---|
+| xmlWins:other | `10.5594-J10748b` | `10.5594-J10748158161A` | `_source/SMPTE/APTARA/DL Project Files/08182015 BACKFILE JOURNAL FRESH/smptej_79_2/10-5594_J10748b-ref.xml` |
+| xmlWins:other | `10.5594-M00112` | `10.5594-M001120` | `_source/SMPTE/APTARA/DL Project Files/08092015 CONFERENCES DEPOSIT/smptem_1996_15/10-5594_M00112-ref.xml` |
+| xmlWins:other | `10.5594-M00113` | `10.5594-M001130` | `_source/SMPTE/APTARA/DL Project Files/08092015 CONFERENCES DEPOSIT/smptem_1996_15/10-5594_M00113-ref.xml` |
+| xmlWins:other | `10.5594-M00127` | `10.5594-M001276` | `_source/SMPTE/APTARA/DL Project Files/08092015 CONFERENCES DEPOSIT/smptem_1996_15/10-5594_M00127-ref.xml` |
+| xmlWins:scheme | `SMPTE.EG10.2003` | `10.5594-S9781614820079` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/22 JUNE/eg0010-2003_stable2010-ref.xml` |
+| xmlWins:scheme | `SMPTE.EG15.2005` | `10.5594-S9781614820116` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/22 JUNE/eg0015-2005_stable2010-ref.xml` |
+| xmlWins:other | `SMPTE.EG16.2014` | `SMPTE.SMPTEEG16.2014` | `_source/SMPTE/APTARA/DL Project Files/08242015 STANDARDS REVISED DEPOSIT/smptes_eg-16-2014_1/eg0016-2014.xml` |
+| xmlWins:scheme | `SMPTE.EG17.2002` | `10.5594-S9781614820130` | `_source/SMPTE/APTARA/DL Project Files/05252015 MANUAL REFERENCE SAMPLES/smptes_eg-17-2002_1/eg0017-2002_stable2009-ref.xml` |
+| xmlWins:scheme | `SMPTE.EG20.1997` | `10.5594-S9781614820147` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/22 JUNE/eg0020-1997_stable2010-ref.xml` |
+| xmlWins:scheme | `SMPTE.EG2021-3.2009` | `10.5594-S9781614820413` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/eg2021-3-2009-ref.xml` |
+| xmlWins:scheme | `SMPTE.EG2021-4.2012` | `10.5594-S9781614826880` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/26 JUNE/eg2021-4-2012-ref.xml` |
+| xmlWins:scheme | `SMPTE.EG25.2003` | `10.5594-S9781614820192` | `_source/SMPTE/APTARA/DL Project Files/05252015 MANUAL REFERENCE SAMPLES/smptes_eg-25-2003_1/eg0025-2003_stable2009-ref.xml` |
+| xmlWins:scheme | `SMPTE.EG27.2004` | `10.5594-S9781614820215` | `_source/SMPTE/APTARA/DL Project Files/05252015 MANUAL REFERENCE SAMPLES/smptes_eg-27-2004_1/eg0027-2004_stable2010-ref.xml` |
+| xmlWins:year | `SMPTE.EG43.2004` | `SMPTE.EG43.2009` | `_source/SMPTE/APTARA/DL Project Files/08242015 STANDARDS REVISED DEPOSIT/smptes_eg-43-2004_1/eg0043-2009.xml` |
+| xmlWins:scheme | `SMPTE.EG7.1994` | `10.5594-S9781614820048` | `_source/SMPTE/APTARA/DL Project Files/05252015 MANUAL REFERENCE SAMPLES/smptes_eg-7-1994_1/eg0007-1994_stable2004-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD1.2003` | `10.5594-S9781614820468` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0001-2003-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD14.2010` | `10.5594-S9781614820567` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0014-2010-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD15.2007` | `10.5594-S9781614820574` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0015-2007-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD16.2008` | `10.5594-S9781614820581` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0016-2008-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD17.2009` | `10.5594-S9781614820598` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0017-2009-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD18.2010` | `10.5594-S9781614820604` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0018-2010-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD2.2007` | `10.5594-S9781614820475` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0002-2007-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD20.2010` | `10.5594-S9781614820628` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0020-2010-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD25.2014` | `10.5594-S9781614827962` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd25-2014-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD26.2014` | `10.5594-S9781614828006` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd26-2014-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD28.2014` | `10.5594-S9781614828143` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd28-2014-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD3.2008` | `10.5594-S9781614820482` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0003-2008-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD30.2014` | `10.5594-S9781614828303` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd30-2014-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD31.2014` | `10.5594-S9781614828310` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd31-2014-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD32.2014` | `10.5594-S9781614828365` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd32-2014-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD4.2005` | `10.5594-S9781614820499` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0004-2005-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD5.2006` | `10.5594-S9781614820505` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0005-2006-ref.xml` |
+| xmlWins:scheme | `SMPTE.RDD9.2006` | `10.5594-S9781614820536` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rdd0009-2006-ref.xml` |
+| xmlWins:scheme | `SMPTE.RP16.1993` | `10.5594-S9781614820697` | `_source/SMPTE/APTARA/DL Project Files/05252015 MANUAL REFERENCE SAMPLES/smptes_rp-16-1993_1/rp0016-1993_stable2010-ref.xml` |
+| xmlWins:other | `SMPTE.RP163.1992` | `SMPTE.RP163-1992` | `_source/SMPTE/APTARA/DL Project Files/08252015 STANDARDS REVISED DEPOSIT/smptes_rp-163-1992_1/rp0163-1992_stable2003.xml` |
+| xmlWins:other | `SMPTE.RP168.2002` | `SMPTE.RP168-2009` | `_source/SMPTE/APTARA/DL Project Files/08262015 STANDARDS REVISED DEPOSIT/smptes_rp-168-2002_1/rp0168-2009.xml` |
+| xmlWins:other | `SMPTE.RP170.1993` | `SMPTE.RP170-1993` | `_source/SMPTE/APTARA/DL Project Files/08252015 STANDARDS REVISED DEPOSIT/smptes_rp-170-1993_1/rp0170-1993_stable2003.xml` |
+| xmlWins:other | `SMPTE.RP171.1993` | `SMPTE.RP171-1993` | `_source/SMPTE/APTARA/DL Project Files/08252015 STANDARDS REVISED DEPOSIT/smptes_rp-171-1993_1/rp0171-1993_stable2003.xml` |
+| xmlWins:other | `SMPTE.RP172.1993` | `SMPTE.RP172-1993` | `_source/SMPTE/APTARA/DL Project Files/08252015 STANDARDS REVISED DEPOSIT/smptes_rp-172-1993_1/rp0172-1993_stable2003.xml` |
+| xmlWins:scheme | `SMPTE.RP19.2003` | `10.5594-S9781614820727` | `_source/SMPTE/APTARA/DL Project Files/05252015 MANUAL REFERENCE SAMPLES/smptes_rp-19-2003_1/rp0019-2003_stable2008-ref.xml` |
+| xmlWins:other | `SMPTE.RP191.1996` | `SMPTE.RP191-1996` | `_source/SMPTE/APTARA/DL Project Files/08262015 STANDARDS REVISED DEPOSIT/smptes_rp-191-1996_1/rp0191-1996_stable2003.xml` |
+| xmlWins:scheme | `SMPTE.RP20.2003` | `10.5594-S9781614820734` | `_source/SMPTE/APTARA/DL Project Files/05252015 MANUAL REFERENCE SAMPLES/smptes_rp-20-2003_1/rp0020-2003_stable2010-ref.xml` |
+| xmlWins:scheme | `SMPTE.RP2021-9.2009` | `10.5594-S9781614822509` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/25 JUNE/rp2021-9-2009-ref.xml` |
+| xmlWins:scheme | `SMPTE.RP2021-9.2012` | `10.5594-S9781614826958` | `_source/SMPTE/APTARA/DL Project Files/06302015 INITIAL LEGACY CONVERSION BATCH FOR STANDARDS/26 JUNE/rp2021-9-2012-ref.xml` |
+| xmlWins:other | `SMPTE.RP2052-10.2012Am1` | `SMPTE.RP2052-10.2010-A1` | `_source/SMPTE/APTARA/DL Project Files/08262015 STANDARDS REVISED DEPOSIT/smptes_rp-2052-10-2010-a1_1/rp2052-10-A1-2012.xml` |
+| xmlWins:other | `SMPTE.RP2057.2013Am1` | `SMPTE.RP2057.2011Am1.2013` | `_source/SMPTE/APTARA/DL Project Files/08262015 STANDARDS REVISED DEPOSIT/smptes_rp-2057-2011-am1-2013_1/rp2057-Am1-2013.xml` |
+| xmlWins:other | `SMPTE.RP2092-1.2017Am1` | `SMPTE.RP2092-1.2015Am1.2017` | `_source/SMPTE/APTARA/METADATA and PDFs ALL CONTENT/Standard/rp2092-1-Am1-2017/rp2092-1-Am1-2017.xml` |
+| xmlWins:other | `SMPTE.RP210-10.2007` | `SMPTE.RP210.10.2007` | `_source/SMPTE/APTARA/DL Project Files/08262015 STANDARDS REVISED DEPOSIT/smptes_rp-210-10-2007_1/rp0210-10-2007.xml` |
+| xmlWins:other | `SMPTE.RP210-13.2012` | `SMPTE.RP210v13.2012` | `_source/SMPTE/APTARA/DL Project Files/11122015 BACKFILES STANDARDS REVISED/smptes_rp-210v13-2012_1/rp0210v13-2012.xml` |
+| xmlWins:year | `SMPTE.RP218.2002` | `SMPTE.RP218.2009` | `_source/SMPTE/APTARA/DL Project Files/08262015 STANDARDS REVISED DEPOSIT/smptes_rp-218-2002_1/rp0218-2009.xml` |
+
+## Field conflicts — XML vs filename / year drift (20090 — details in JSON)
+- `year`: 20087
+- `docType`: 3
+
+## Unidentifiable (7 — details in JSON)
