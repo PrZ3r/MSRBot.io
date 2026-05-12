@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.1.1",
+  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.2.0",
   "$comment": "Copyright (c) 2025-26 PrZ3 LLC (d/b/a [PrZ3](https://github.com/PrZ3r))",
   "docTitle": "Schema for MSRBot.io - Documents",
   "items": {
@@ -118,6 +118,7 @@
               "Registered Disclosure Document",
               "Standard",
               "Study Group Report",
+              "Technical Specification",
               "White Paper"
             ]
           },
@@ -128,7 +129,71 @@
             "type": "string"
           },
           "issn": {
+            "oneOf": [
+              { "type": "string" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "print":      { "type": "string" },
+                  "electronic": { "type": "string" }
+                }
+              }
+            ]
+          },
+          "standardId": {
             "type": "string"
+          },
+          "productNumber": {
+            "type": "string"
+          },
+          "familyId": {
+            "type": "string"
+          },
+          "approvalDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "abbrevTitle": {
+            "type": "string"
+          },
+          "journalAcronym": {
+            "type": "string"
+          },
+          "articleType": {
+            "type": "string"
+          },
+          "copyright": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "holder": { "type": "string" },
+              "year":   { "type": "string" }
+            }
+          },
+          "publisherLocation": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "city":    { "type": "string" },
+              "country": { "type": "string" }
+            }
+          },
+          "icsCodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["code"],
+              "additionalProperties": false,
+              "properties": {
+                "code":        { "type": "string" },
+                "description": { "type": "string" }
+              }
+            }
+          },
+          "doiAliases": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
           },
           "group": {
             "type": "string"
