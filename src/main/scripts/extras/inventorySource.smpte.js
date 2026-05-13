@@ -180,7 +180,10 @@ function compareObjectShallow(reg, src) {
   if (typeof reg !== 'object' || typeof src !== 'object') {
     return normalizeText(JSON.stringify(reg)) === normalizeText(JSON.stringify(src)) ? 'equal' : 'delta';
   }
-  const keys = new Set([...Object.keys(reg), ...Object.keys(src)]);
+  // Strip $meta sibling keys before comparing — registry carries leaf provenance for
+  // object-shaped fields (copyright/publisherLocation/issn) but source never does.
+  const realKeys = (o) => Object.keys(o).filter((k) => !k.endsWith('$meta'));
+  const keys = new Set([...realKeys(reg), ...realKeys(src)]);
   for (const k of keys) {
     if (normalizeText(reg[k] || '') !== normalizeText(src[k] || '')) return 'delta';
   }

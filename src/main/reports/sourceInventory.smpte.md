@@ -1,4 +1,4 @@
-# _source/SMPTE Inventory — 2026-05-12T21:55:09.076Z
+# _source/SMPTE Inventory — 2026-05-13T20:34:09.077Z
 
 Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 docs at scan time)
 
@@ -12,9 +12,9 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 
 ## Buckets
 | Bucket          | Count | Notes                                          |
 |-----------------|-------|------------------------------------------------|
-| Found (verified)| 0     | XML read AND every comparable field matched    |
+| Found (verified)| 23    | XML read AND every comparable field matched    |
 | Found (unverif.)| 36    | docId matches registry but no source XML found |
-| Update          | 915   | in registry, source has new or different fields|
+| Update          | 892   | in registry, source has new or different fields|
 | Gap             | 20239 | in source, not in registry — new records       |
 | Registry-only   | 547   | in registry (SMPTE), no local source archived  |
 | Unidentifiable  | 7     | in source, no DOI derivable — manual triage    |
@@ -24,8 +24,8 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 
 | Vendor            | Found | Update | Gap | Unid. | Non-rec |
 |-------------------|-------|--------|-----|-------|---------|
 | ALLEN PRESS       | 0     | 0      | 659 | 0     | 116     |
-| APTARA            | 137   | 9819   | 97335 | 2     | 33288   |
-| HIGHWIRE          | 56    | 1615   | 39986 | 5     | 2439    |
+| APTARA            | 337   | 9619   | 97335 | 2     | 33288   |
+| HIGHWIRE          | 96    | 1575   | 39986 | 5     | 2439    |
 | IEEE              | 0     | 29     | 341 | 0     | 1363    |
 | IEEE DL Usage     | 0     | 0      | 0   | 0     | 18      |
 | Zoho              | 0     | 0      | 0   | 0     | 2       |
@@ -43,33 +43,33 @@ Per-field counts of how registry values compare to what the source XML provides.
 |-------------------|-------|----------|----------|-------|-------|
 | docTitle          |   477 |        0 |        0 |   269 |   746 |
 | references        |   221 |        0 |      566 |     0 |   787 |
-| group             |   181 |        0 |      470 |   101 |   752 |
-| keywords          |   115 |        0 |      533 |   104 |   752 |
+| group             |   181 |        0 |        0 |   571 |   752 |
+| keywords          |   114 |        0 |        0 |   638 |   752 |
 | publicationDate   |    80 |        0 |        2 |   787 |   869 |
 | docLabel          |    52 |        0 |        0 |   699 |   751 |
 | docType           |    15 |        0 |        0 |   936 |   951 |
-| abstract          |     8 |        0 |      739 |     6 |   753 |
+| abstract          |     8 |        0 |        0 |   745 |   753 |
 | docNumber         |     2 |        0 |        0 |   867 |   869 |
 | publisher         |     1 |        0 |        0 |   950 |   951 |
 | doi               |     1 |        0 |        3 |   947 |   951 |
 | docPart           |     1 |        0 |        0 |   278 |   279 |
-| standardId        |     0 |        0 |      766 |     0 |   766 |
-| pages             |     0 |        0 |      753 |     0 |   753 |
-| copyright         |     0 |        0 |      753 |     0 |   753 |
-| publisherLocation |     0 |        0 |      753 |     0 |   753 |
-| isbn              |     0 |        0 |      752 |     0 |   752 |
-| productNumber     |     0 |        0 |      752 |     0 |   752 |
-| approvalDate      |     0 |        0 |      752 |     0 |   752 |
-| icsCodes          |     0 |        0 |      750 |     0 |   750 |
-| familyId          |     0 |        0 |      690 |     0 |   690 |
-| docSuite          |     0 |        0 |      205 |     0 |   205 |
-| issn              |     0 |        0 |        1 |     0 |     1 |
-| abbrevTitle       |     0 |        0 |        1 |     0 |     1 |
-| journalAcronym    |     0 |        0 |        1 |     0 |     1 |
-| articleType       |     0 |        0 |        1 |     0 |     1 |
-| volume            |     0 |        0 |        1 |     0 |     1 |
-| number            |     0 |        0 |        1 |     0 |     1 |
+| standardId        |     0 |        0 |        0 |   766 |   766 |
+| pages             |     0 |        0 |        0 |   753 |   753 |
+| copyright         |     0 |        0 |        0 |   753 |   753 |
+| publisherLocation |     0 |        0 |        0 |   753 |   753 |
+| isbn              |     0 |        0 |        0 |   752 |   752 |
+| productNumber     |     0 |        0 |        0 |   752 |   752 |
+| approvalDate      |     0 |        0 |        0 |   752 |   752 |
+| icsCodes          |     0 |        0 |        0 |   750 |   750 |
+| familyId          |     0 |        0 |        0 |   690 |   690 |
+| docSuite          |     0 |        0 |        0 |   205 |   205 |
+| issn              |     0 |        0 |        0 |     1 |     1 |
 | authors           |     0 |        0 |        0 |     1 |     1 |
+| abbrevTitle       |     0 |        0 |        0 |     1 |     1 |
+| journalAcronym    |     0 |        0 |        0 |     1 |     1 |
+| articleType       |     0 |        0 |        0 |     1 |     1 |
+| volume            |     0 |        0 |        0 |     1 |     1 |
+| number            |     0 |        0 |        0 |     1 |     1 |
 
 ## Sample value deltas (first 30 of all in JSON)
 - `10.5594-J01273` `references`: registry=`{"bibliographic":["10.5594-J05508","10.5594-J05389"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["The Principles of the Light-Valve","A Dynamic Check on the Processing of Film for…`
@@ -130,7 +130,7 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.RP2021-5.2013` — 27 copies (aptara:23, highwire:2, ieee:2)
 - `SMPTE.ST12-1.2013Am1` — 27 copies (aptara:25, highwire:2)
 
-## Updates (915 — details in JSON)
+## Updates (892 — details in JSON)
 - `10.5594-J01217` — fillable: references
 - `10.5594-J01273` — fillable: 
 - `10.5594-J02284` — fillable: references
@@ -159,7 +159,7 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `10.5594-J07507` — fillable: 
 - `10.5594-J07544` — fillable: references
 - `10.5594-J07583` — fillable: 
-- `10.5594-J08011` — fillable: abstract, issn, pages, keywords, docSuite, abbrevTitle, journalAcronym, articleType, copyright, publisherLocation, volume, number
+- `10.5594-J08011` — fillable: 
 - `10.5594-J08310` — fillable: references
 - `10.5594-J08349` — fillable: references
 - `10.5594-J08632` — fillable: 
@@ -185,153 +185,153 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `10.5594-J17832` — fillable: references
 - `10.5594-J17833` — fillable: references
 - `10.5594-M00395` — fillable: references
-- `SMPTE.EG1.1990` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG12.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG13.1986` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG13.2012` — fillable: standardId
-- `SMPTE.EG14.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG16.2002` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG18.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG2.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG2021-3.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG2021-3.2013` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG2021-3.2015` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG2021-3.2017` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG1.1990` — fillable: 
+- `SMPTE.EG12.1994` — fillable: 
+- `SMPTE.EG13.1986` — fillable: 
+- `SMPTE.EG14.2005` — fillable: 
+- `SMPTE.EG16.2002` — fillable: references
+- `SMPTE.EG18.1994` — fillable: 
+- `SMPTE.EG2.1999` — fillable: 
+- `SMPTE.EG2021-3.2012` — fillable: 
+- `SMPTE.EG2021-3.2013` — fillable: 
 - `SMPTE.EG2021-4.2009` — fillable: references
-- `SMPTE.EG2021-4.2013` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG2039.2008` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG2046-3.2010` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG2050-2.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG2059-10.2016` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG2061.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG2069.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG2074.2013` — fillable: abstract, isbn, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG21.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG22.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG2021-4.2013` — fillable: 
+- `SMPTE.EG2046-3.2010` — fillable: references
+- `SMPTE.EG2050-2.2012` — fillable: references
+- `SMPTE.EG2059-10.2016` — fillable: references
+- `SMPTE.EG2061.2016` — fillable: 
+- `SMPTE.EG2069.2012` — fillable: references
+- `SMPTE.EG2074.2013` — fillable: 
+- `SMPTE.EG21.1997` — fillable: references
+- `SMPTE.EG22.1997` — fillable: references
 - `SMPTE.EG23.2005` — fillable: 
 - `SMPTE.EG24.1995` — fillable: references
-- `SMPTE.EG26.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG26.1995` — fillable: references
 - `SMPTE.EG28.1993` — fillable: references
 - `SMPTE.EG29.1993` — fillable: references
-- `SMPTE.EG3.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
+- `SMPTE.EG3.1994` — fillable: 
 - `SMPTE.EG30.1995` — fillable: references
-- `SMPTE.EG31.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG32.1996` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG33.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG34.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG35.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG35.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG31.1995` — fillable: 
+- `SMPTE.EG32.1996` — fillable: references
+- `SMPTE.EG33.2004` — fillable: references
+- `SMPTE.EG34.2004` — fillable: references
+- `SMPTE.EG35.1999` — fillable: references
+- `SMPTE.EG35.2012` — fillable: references
 - `SMPTE.EG36.2000` — fillable: references
-- `SMPTE.EG37.2001` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
+- `SMPTE.EG37.2001` — fillable: references
 - `SMPTE.EG377-3.2013` — fillable: references
 - `SMPTE.EG38.2001` — fillable: references
 - `SMPTE.EG39.2003` — fillable: references
-- `SMPTE.EG40.2002` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG40.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG40.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG41.2004` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG42.2004` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG42.2015` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG43.2009` — fillable: abstract, isbn, group, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG432-1.2010` — fillable: standardId
+- `SMPTE.EG40.2002` — fillable: references
+- `SMPTE.EG40.2012` — fillable: references
+- `SMPTE.EG40.2016` — fillable: references
+- `SMPTE.EG41.2004` — fillable: references
+- `SMPTE.EG42.2004` — fillable: references
+- `SMPTE.EG42.2015` — fillable: 
+- `SMPTE.EG43.2009` — fillable: references
 - `SMPTE.EG432-2.2006` — fillable: 
-- `SMPTE.EG44.2005` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.EG5.2003` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG8.1993` — fillable: abstract, isbn, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.EG9.2005` — fillable: abstract, isbn, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2021-0.2009` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2021-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2021-0.2013` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2036-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2036-0.2015` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2048-0.2011` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2048-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2052-0.2010` — fillable: abstract, isbn, group, pages, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2073-0.2016` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2081-0.2015` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2081-0.2016` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2082-0.2015` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV2082-0.2016` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV299-0.2010` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV425-0.2011` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV425-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV425-0.2014` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.OV435-0.2012` — fillable: abstract, isbn, group, pages, keywords, docSuite, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD10.2006` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD11.2007` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD18.2012` — fillable: standardId
-- `SMPTE.RDD19.2011` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD22.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD24.2013` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD26.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD29.2014` — fillable: abstract, isbn, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD33.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD34.2015` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD35.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD36.2015` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD37.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD38.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD39.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD40.2016` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD41.2016` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD42.2016` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD43.2016` — fillable: abstract, isbn, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD44.2017` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD6.2008` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD8.2008` — fillable: abstract, isbn, group, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RDD9.2009` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RDD9.2013` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP104.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP105.2003` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP106.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP109.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP11.1994` — fillable: abstract, isbn, group, pages, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP110.1992` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP111.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP113.1996` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP114.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP115.1997` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP116.2000` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP12.1997` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP120.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP121.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, references
-- `SMPTE.RP122.1993` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP123.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP124.1998` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP127.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP128.2002` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP129.1995` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP130.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP131.2002` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP132.1994` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP133.1991` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP134.1994` — fillable: abstract, isbn, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP135.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP136.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP138.1996` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP139.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP14.1997` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP140.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP141.2005` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP142.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP143.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP144.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP145.2004` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP148.1987` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP149.1992` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP15.1997` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP150.2000` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP151.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP152.1994` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP153.1999` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP155.2004` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP155.2014` — fillable: abstract, isbn, pages, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP156.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP157.1995` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP157.2012` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, approvalDate, copyright, publisherLocation, icsCodes
-- `SMPTE.RP158.1999` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- `SMPTE.RP160.1997` — fillable: abstract, isbn, group, pages, keywords, standardId, productNumber, familyId, approvalDate, copyright, publisherLocation, icsCodes, references
-- … 715 more
+- `SMPTE.EG44.2005` — fillable: references
+- `SMPTE.EG5.2003` — fillable: 
+- `SMPTE.EG8.1993` — fillable: 
+- `SMPTE.EG9.2005` — fillable: 
+- `SMPTE.OV2021-0.2009` — fillable: 
+- `SMPTE.OV2021-0.2012` — fillable: 
+- `SMPTE.OV2021-0.2013` — fillable: 
+- `SMPTE.OV2036-0.2012` — fillable: 
+- `SMPTE.OV2036-0.2015` — fillable: 
+- `SMPTE.OV2048-0.2011` — fillable: 
+- `SMPTE.OV2048-0.2012` — fillable: 
+- `SMPTE.OV2052-0.2010` — fillable: 
+- `SMPTE.OV2073-0.2016` — fillable: 
+- `SMPTE.OV2081-0.2015` — fillable: 
+- `SMPTE.OV2081-0.2016` — fillable: 
+- `SMPTE.OV2082-0.2015` — fillable: 
+- `SMPTE.OV2082-0.2016` — fillable: 
+- `SMPTE.OV299-0.2010` — fillable: 
+- `SMPTE.OV425-0.2011` — fillable: 
+- `SMPTE.OV425-0.2012` — fillable: 
+- `SMPTE.OV425-0.2014` — fillable: 
+- `SMPTE.OV435-0.2012` — fillable: 
+- `SMPTE.RDD10.2006` — fillable: 
+- `SMPTE.RDD11.2007` — fillable: 
+- `SMPTE.RDD19.2011` — fillable: 
+- `SMPTE.RDD22.2012` — fillable: 
+- `SMPTE.RDD26.2015` — fillable: references
+- `SMPTE.RDD29.2014` — fillable: 
+- `SMPTE.RDD33.2015` — fillable: references
+- `SMPTE.RDD34.2015` — fillable: references
+- `SMPTE.RDD35.2016` — fillable: references
+- `SMPTE.RDD36.2015` — fillable: references
+- `SMPTE.RDD37.2016` — fillable: references
+- `SMPTE.RDD38.2016` — fillable: references
+- `SMPTE.RDD39.2016` — fillable: references
+- `SMPTE.RDD40.2016` — fillable: references
+- `SMPTE.RDD41.2016` — fillable: 
+- `SMPTE.RDD42.2016` — fillable: 
+- `SMPTE.RDD43.2016` — fillable: 
+- `SMPTE.RDD44.2017` — fillable: references
+- `SMPTE.RDD6.2008` — fillable: 
+- `SMPTE.RDD8.2008` — fillable: 
+- `SMPTE.RDD9.2009` — fillable: references
+- `SMPTE.RDD9.2013` — fillable: references
+- `SMPTE.RP104.2005` — fillable: 
+- `SMPTE.RP105.2003` — fillable: 
+- `SMPTE.RP106.1994` — fillable: 
+- `SMPTE.RP109.1994` — fillable: 
+- `SMPTE.RP11.1994` — fillable: 
+- `SMPTE.RP110.1992` — fillable: 
+- `SMPTE.RP111.1999` — fillable: 
+- `SMPTE.RP113.1996` — fillable: references
+- `SMPTE.RP114.1994` — fillable: 
+- `SMPTE.RP115.1997` — fillable: 
+- `SMPTE.RP116.2000` — fillable: 
+- `SMPTE.RP12.1997` — fillable: 
+- `SMPTE.RP120.2005` — fillable: 
+- `SMPTE.RP121.1997` — fillable: references
+- `SMPTE.RP122.1993` — fillable: 
+- `SMPTE.RP123.2004` — fillable: 
+- `SMPTE.RP124.1998` — fillable: 
+- `SMPTE.RP127.2004` — fillable: 
+- `SMPTE.RP128.2002` — fillable: 
+- `SMPTE.RP129.1995` — fillable: 
+- `SMPTE.RP130.2004` — fillable: 
+- `SMPTE.RP131.2002` — fillable: 
+- `SMPTE.RP132.1994` — fillable: references
+- `SMPTE.RP135.2004` — fillable: 
+- `SMPTE.RP136.2004` — fillable: 
+- `SMPTE.RP139.1997` — fillable: references
+- `SMPTE.RP14.1997` — fillable: 
+- `SMPTE.RP140.2005` — fillable: 
+- `SMPTE.RP141.2005` — fillable: 
+- `SMPTE.RP142.2004` — fillable: references
+- `SMPTE.RP143.2004` — fillable: 
+- `SMPTE.RP144.1999` — fillable: references
+- `SMPTE.RP145.2004` — fillable: references
+- `SMPTE.RP149.1992` — fillable: 
+- `SMPTE.RP15.1997` — fillable: 
+- `SMPTE.RP150.2000` — fillable: 
+- `SMPTE.RP151.1999` — fillable: 
+- `SMPTE.RP152.1994` — fillable: 
+- `SMPTE.RP153.1999` — fillable: 
+- `SMPTE.RP155.2004` — fillable: 
+- `SMPTE.RP155.2014` — fillable: 
+- `SMPTE.RP156.1999` — fillable: references
+- `SMPTE.RP157.1995` — fillable: 
+- `SMPTE.RP157.2012` — fillable: 
+- `SMPTE.RP158.1999` — fillable: references
+- `SMPTE.RP160.1997` — fillable: references
+- `SMPTE.RP161.1999` — fillable: references
+- `SMPTE.RP162.1993` — fillable: 
+- `SMPTE.RP165.1994` — fillable: references
+- `SMPTE.RP166.1995` — fillable: references
+- `SMPTE.RP167.1995` — fillable: references
+- `SMPTE.RP169.1995` — fillable: references
+- `SMPTE.RP17.1964` — fillable: 
+- `SMPTE.RP173.2002` — fillable: 
+- `SMPTE.RP174.1993` — fillable: references
+- `SMPTE.RP175.1997` — fillable: references
+- `SMPTE.RP176.1997` — fillable: references
+- … 692 more
 
 ## Gaps (20239 — details in JSON)
 - `10.5594-J00021`

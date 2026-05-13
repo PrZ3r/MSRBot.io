@@ -46,8 +46,8 @@ const ACRONYM_MAP = new Map([
   "ChaCha",
   "ChaCha20",
   "CoAP",
+  "CPL",
   "DCDM",
-  "D-Cinema",
   "DigestMethod",
   "DNS",
   "DOI",
@@ -120,7 +120,8 @@ function normalizeKeyword(input) {
       const lower = word.toLowerCase();
       if (ACRONYM_MAP.has(lower)) return ACRONYM_MAP.get(lower);
       if (/^b-?chain$/i.test(word)) return "B-Chain";
-      if (/^dcinema$/i.test(word)) return "DCinema";
+      if (/^d-?cinema$/i.test(word)) return "DCinema";
+      if (/^subtitles?$/i.test(word)) return "Subtitles";
       if (/^sha-?1$/i.test(word)) return "SHA-1";
       if (/^dcp(?=$|[-/])/i.test(word)) return word.replace(/^dcp/i, "DCP");
       // Preserve MIME/media-type forms as lowercase per convention.
