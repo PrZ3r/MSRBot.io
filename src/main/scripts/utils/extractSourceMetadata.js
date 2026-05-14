@@ -203,11 +203,18 @@ function readStandardXml(absPath) {
     const typeAttr = firstAttr(stdMetaBlock, 'standard_type', 'type');
     const subtypeAttr = firstAttr(stdMetaBlock, 'standard_subtype', 'type');
     out.docType = mapDocTypeFromStandardXml(typeAttr, subtypeAttr);
-    out.docLabel = firstTagText(stdMetaBlock, 'normalized_title') || firstTagText(stdMetaBlock, 'full_title');
+    // NOTE: do NOT extract docLabel from <normalized_title> / <full_title>.
+    // For legacy SMPTE deposits those tags hold the article TITLE rather than the
+    // short SMPTE designator the registry uses for docLabel. The registry constructs
+    // docLabel from publisher + type + number + part + year — that's the canonical
+    // source. Leaving docLabel unset here means audit comparison short-circuits to
+    // "source absent" and won't generate spurious deltas.
     out.standardId = firstTagText(stdMetaBlock, 'standard_id');
     out.productNumber = firstTagText(stdMetaBlock, 'product_number');
     out.familyId = firstTagText(stdMetaBlock, 'family');
-    out.docSuite = firstTagText(stdMetaBlock, 'root_title');
+    // docSuite removed wholesale — registry uses docSuiteTitle as the canonical
+    // suite-name field. Keeping <root_title> available via docSuiteTitle below.
+    out.docSuiteTitle = firstTagText(stdMetaBlock, 'root_title') || undefined;
     out.docNumber = firstTagText(stdMetaBlock, 'root');
 
     // ISBN electronic preferred

@@ -55,7 +55,7 @@ const STAGE2_FIELDS = new Set([
   'issn',
   'volume',
   'number',
-  'docSuite',
+  'docSuiteTitle',
 ]);
 
 const APPLY = process.argv.includes('--apply');

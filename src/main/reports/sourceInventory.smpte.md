@@ -1,4 +1,4 @@
-# _source/SMPTE Inventory — 2026-05-13T20:34:09.077Z
+# _source/SMPTE Inventory — 2026-05-13T22:03:59.269Z
 
 Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 docs at scan time)
 
@@ -12,9 +12,9 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 
 ## Buckets
 | Bucket          | Count | Notes                                          |
 |-----------------|-------|------------------------------------------------|
-| Found (verified)| 23    | XML read AND every comparable field matched    |
-| Found (unverif.)| 36    | docId matches registry but no source XML found |
-| Update          | 892   | in registry, source has new or different fields|
+| Found (verified)| 53    | XML read AND every comparable field matched    |
+| Found (unverif.)| 37    | docId matches registry but no source XML found |
+| Update          | 861   | in registry, source has new or different fields|
 | Gap             | 20239 | in source, not in registry — new records       |
 | Registry-only   | 547   | in registry (SMPTE), no local source archived  |
 | Unidentifiable  | 7     | in source, no DOI derivable — manual triage    |
@@ -24,9 +24,9 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 
 | Vendor            | Found | Update | Gap | Unid. | Non-rec |
 |-------------------|-------|--------|-----|-------|---------|
 | ALLEN PRESS       | 0     | 0      | 659 | 0     | 116     |
-| APTARA            | 337   | 9619   | 97335 | 2     | 33288   |
-| HIGHWIRE          | 96    | 1575   | 39986 | 5     | 2439    |
-| IEEE              | 0     | 29     | 341 | 0     | 1363    |
+| APTARA            | 798   | 9158   | 97335 | 2     | 33288   |
+| HIGHWIRE          | 164   | 1507   | 39986 | 5     | 2439    |
+| IEEE              | 11    | 18     | 341 | 0     | 1363    |
 | IEEE DL Usage     | 0     | 0      | 0   | 0     | 18      |
 | Zoho              | 0     | 0      | 0   | 0     | 2       |
 
@@ -43,16 +43,12 @@ Per-field counts of how registry values compare to what the source XML provides.
 |-------------------|-------|----------|----------|-------|-------|
 | docTitle          |   477 |        0 |        0 |   269 |   746 |
 | references        |   221 |        0 |      566 |     0 |   787 |
-| group             |   181 |        0 |        0 |   571 |   752 |
-| keywords          |   114 |        0 |        0 |   638 |   752 |
-| publicationDate   |    80 |        0 |        2 |   787 |   869 |
-| docLabel          |    52 |        0 |        0 |   699 |   751 |
-| docType           |    15 |        0 |        0 |   936 |   951 |
-| abstract          |     8 |        0 |        0 |   745 |   753 |
-| docNumber         |     2 |        0 |        0 |   867 |   869 |
-| publisher         |     1 |        0 |        0 |   950 |   951 |
-| doi               |     1 |        0 |        3 |   947 |   951 |
-| docPart           |     1 |        0 |        0 |   278 |   279 |
+| keywords          |    66 |        0 |        0 |   686 |   752 |
+| doi               |     0 |        0 |        0 |   951 |   951 |
+| publisher         |     0 |        0 |        0 |   950 |   950 |
+| docType           |     0 |        0 |        0 |   938 |   938 |
+| docNumber         |     0 |        0 |        0 |   867 |   867 |
+| publicationDate   |     0 |        0 |        0 |   787 |   787 |
 | standardId        |     0 |        0 |        0 |   766 |   766 |
 | pages             |     0 |        0 |        0 |   753 |   753 |
 | copyright         |     0 |        0 |        0 |   753 |   753 |
@@ -61,7 +57,10 @@ Per-field counts of how registry values compare to what the source XML provides.
 | productNumber     |     0 |        0 |        0 |   752 |   752 |
 | approvalDate      |     0 |        0 |        0 |   752 |   752 |
 | icsCodes          |     0 |        0 |        0 |   750 |   750 |
+| abstract          |     0 |        0 |        0 |   745 |   745 |
 | familyId          |     0 |        0 |        0 |   690 |   690 |
+| group             |     0 |        0 |        0 |   573 |   573 |
+| docPart           |     0 |        0 |        0 |   278 |   278 |
 | docSuite          |     0 |        0 |        0 |   205 |   205 |
 | issn              |     0 |        0 |        0 |     1 |     1 |
 | authors           |     0 |        0 |        0 |     1 |     1 |
@@ -90,10 +89,7 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `10.5594-J07462` `references`: registry=`{"bibliographic":["10.5594-J02042"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["Sound Recording and Reproducing Using 16-Mm. Film"]}`
 - `10.5594-J07506` `references`: registry=`{"bibliographic":["10.5594-J06591","10.5594-J13051"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["The Rendering of Tone Values in the Photographic Recording of Sound","The Apertur…`
 - `10.5594-J07507` `references`: registry=`{"bibliographic":["10.5594-J13050"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["The Photographic Treatment of Variable Area Sound Films"]}`
-- `10.5594-J07544` `docType`: registry=`Technical Journal` vs source=`Journal Article`
 - `10.5594-J07583` `references`: registry=`{"bibliographic":["10.5594-J14711","SMPTE.PH22-52.1960","10.5594-J12600"],"bibliographic$meta":{"con…` vs source=`{"bibliographic":["Modulated high-frequency recording as a means of determining conditions for optim…`
-- `10.5594-J08011` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
-- `10.5594-J08349` `doi`: registry=`10.1093/J08349` vs source=`10.5594/J08349`
 - `10.5594-J08632` `references`: registry=`{"bibliographic":["10.5594-J05391","10.5594-J07430"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Characteristics of Photophone Light Modulating System","A Non-Slip Sound Printer"…`
 - `10.5594-J10122` `references`: registry=`{"bibliographic":["10.5594-J07431","10.5594-J12979"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Optical Reduction Sound Printing","Wave Form Analysis of Variable-Width Sound Rec…`
 - `10.5594-J10133` `references`: registry=`{"bibliographic":["10.5594-J05467","10.5594-J10122","10.5594-J05608"],"bibliographic$meta":{"confide…` vs source=`{"bibliographic":["Extension of the Frequency Range of Film Recording and Reproduction","Film Record…`
@@ -102,6 +98,9 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `10.5594-J11990` `references`: registry=`{"bibliographic":["10.5594-J05508","10.5594-J01273","10.5594-J05482","10.5594-J08011","10.5594-J1471…` vs source=`{"bibliographic":["The Principles of the Light-Valve","Harmonic Distortion in Variable Density Recor…`
 - `10.5594-J12600` `references`: registry=`{"bibliographic":["10.5594-J12978","10.5594-J07459","10.5594-J07430","10.5594-J05514","10.5594-J0743…` vs source=`{"bibliographic":["Soand film printing, I","Soand film printing, II","A non-slip soand printer","A s…`
 - `10.5594-J12632` `references`: registry=`{"bibliographic":["10.5594-J11990","JRPROC.1941.233634","JRPROC.1947.232603"],"bibliographic$meta":{…` vs source=`{"bibliographic":["Analysis and measurement of distortion of variable-density recording","Distortion…`
+- `10.5594-J12979` `references`: registry=`{"bibliographic":["10.5594-J06591","10.5594-J13051","10.5594-J07506","10.5594-J13050","10.5594-J0750…` vs source=`{"bibliographic":["The Rendering of Tone Values in the Photographic Recording of Sound","The Apertur…`
+- `10.5594-J12983` `references`: registry=`{"bibliographic":["10.5594-J13034"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["The Measurement of Light Valve Resonance by the Absorption Method"]}`
+- `SMPTE.EG14.2005` `docTitle`: registry=`Acoustical Background Noise Levels in Dubbing Stages` vs source=`Artificial Acoustical Background Noise in Dubbing Stages`
 
 ## Top duplicates
 - `SMPTE.ST2021-1.2009` — 29 copies (aptara:24, highwire:3, ieee:2)
@@ -130,7 +129,7 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.RP2021-5.2013` — 27 copies (aptara:23, highwire:2, ieee:2)
 - `SMPTE.ST12-1.2013Am1` — 27 copies (aptara:25, highwire:2)
 
-## Updates (892 — details in JSON)
+## Updates (861 — details in JSON)
 - `10.5594-J01217` — fillable: references
 - `10.5594-J01273` — fillable: 
 - `10.5594-J02284` — fillable: references
@@ -159,7 +158,6 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `10.5594-J07507` — fillable: 
 - `10.5594-J07544` — fillable: references
 - `10.5594-J07583` — fillable: 
-- `10.5594-J08011` — fillable: 
 - `10.5594-J08310` — fillable: references
 - `10.5594-J08349` — fillable: references
 - `10.5594-J08632` — fillable: 
@@ -177,7 +175,7 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `10.5594-J12983` — fillable: 
 - `10.5594-J13565` — fillable: references
 - `10.5594-J13858` — fillable: references
-- `10.5594-J14711` — fillable: doi, references
+- `10.5594-J14711` — fillable: references
 - `10.5594-J15292` — fillable: references
 - `10.5594-J15628` — fillable: references
 - `10.5594-J17253` — fillable: references
@@ -185,17 +183,11 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `10.5594-J17832` — fillable: references
 - `10.5594-J17833` — fillable: references
 - `10.5594-M00395` — fillable: references
-- `SMPTE.EG1.1990` — fillable: 
-- `SMPTE.EG12.1994` — fillable: 
-- `SMPTE.EG13.1986` — fillable: 
 - `SMPTE.EG14.2005` — fillable: 
 - `SMPTE.EG16.2002` — fillable: references
 - `SMPTE.EG18.1994` — fillable: 
 - `SMPTE.EG2.1999` — fillable: 
-- `SMPTE.EG2021-3.2012` — fillable: 
-- `SMPTE.EG2021-3.2013` — fillable: 
 - `SMPTE.EG2021-4.2009` — fillable: references
-- `SMPTE.EG2021-4.2013` — fillable: 
 - `SMPTE.EG2046-3.2010` — fillable: references
 - `SMPTE.EG2050-2.2012` — fillable: references
 - `SMPTE.EG2059-10.2016` — fillable: references
@@ -211,7 +203,6 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.EG29.1993` — fillable: references
 - `SMPTE.EG3.1994` — fillable: 
 - `SMPTE.EG30.1995` — fillable: references
-- `SMPTE.EG31.1995` — fillable: 
 - `SMPTE.EG32.1996` — fillable: references
 - `SMPTE.EG33.2004` — fillable: references
 - `SMPTE.EG34.2004` — fillable: references
@@ -232,12 +223,9 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.EG432-2.2006` — fillable: 
 - `SMPTE.EG44.2005` — fillable: references
 - `SMPTE.EG5.2003` — fillable: 
-- `SMPTE.EG8.1993` — fillable: 
-- `SMPTE.EG9.2005` — fillable: 
 - `SMPTE.OV2021-0.2009` — fillable: 
 - `SMPTE.OV2021-0.2012` — fillable: 
 - `SMPTE.OV2021-0.2013` — fillable: 
-- `SMPTE.OV2036-0.2012` — fillable: 
 - `SMPTE.OV2036-0.2015` — fillable: 
 - `SMPTE.OV2048-0.2011` — fillable: 
 - `SMPTE.OV2048-0.2012` — fillable: 
@@ -252,7 +240,6 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.OV425-0.2012` — fillable: 
 - `SMPTE.OV425-0.2014` — fillable: 
 - `SMPTE.OV435-0.2012` — fillable: 
-- `SMPTE.RDD10.2006` — fillable: 
 - `SMPTE.RDD11.2007` — fillable: 
 - `SMPTE.RDD19.2011` — fillable: 
 - `SMPTE.RDD22.2012` — fillable: 
@@ -277,23 +264,16 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.RP104.2005` — fillable: 
 - `SMPTE.RP105.2003` — fillable: 
 - `SMPTE.RP106.1994` — fillable: 
-- `SMPTE.RP109.1994` — fillable: 
-- `SMPTE.RP11.1994` — fillable: 
 - `SMPTE.RP110.1992` — fillable: 
-- `SMPTE.RP111.1999` — fillable: 
 - `SMPTE.RP113.1996` — fillable: references
-- `SMPTE.RP114.1994` — fillable: 
 - `SMPTE.RP115.1997` — fillable: 
 - `SMPTE.RP116.2000` — fillable: 
 - `SMPTE.RP12.1997` — fillable: 
 - `SMPTE.RP120.2005` — fillable: 
 - `SMPTE.RP121.1997` — fillable: references
-- `SMPTE.RP122.1993` — fillable: 
 - `SMPTE.RP123.2004` — fillable: 
-- `SMPTE.RP124.1998` — fillable: 
 - `SMPTE.RP127.2004` — fillable: 
 - `SMPTE.RP128.2002` — fillable: 
-- `SMPTE.RP129.1995` — fillable: 
 - `SMPTE.RP130.2004` — fillable: 
 - `SMPTE.RP131.2002` — fillable: 
 - `SMPTE.RP132.1994` — fillable: references
@@ -307,17 +287,14 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.RP143.2004` — fillable: 
 - `SMPTE.RP144.1999` — fillable: references
 - `SMPTE.RP145.2004` — fillable: references
-- `SMPTE.RP149.1992` — fillable: 
 - `SMPTE.RP15.1997` — fillable: 
 - `SMPTE.RP150.2000` — fillable: 
 - `SMPTE.RP151.1999` — fillable: 
-- `SMPTE.RP152.1994` — fillable: 
 - `SMPTE.RP153.1999` — fillable: 
 - `SMPTE.RP155.2004` — fillable: 
 - `SMPTE.RP155.2014` — fillable: 
 - `SMPTE.RP156.1999` — fillable: references
 - `SMPTE.RP157.1995` — fillable: 
-- `SMPTE.RP157.2012` — fillable: 
 - `SMPTE.RP158.1999` — fillable: references
 - `SMPTE.RP160.1997` — fillable: references
 - `SMPTE.RP161.1999` — fillable: references
@@ -327,11 +304,33 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.RP167.1995` — fillable: references
 - `SMPTE.RP169.1995` — fillable: references
 - `SMPTE.RP17.1964` — fillable: 
-- `SMPTE.RP173.2002` — fillable: 
 - `SMPTE.RP174.1993` — fillable: references
 - `SMPTE.RP175.1997` — fillable: references
 - `SMPTE.RP176.1997` — fillable: references
-- … 692 more
+- `SMPTE.RP177.1993` — fillable: references
+- `SMPTE.RP178.2004` — fillable: references
+- `SMPTE.RP179.2002` — fillable: references
+- `SMPTE.RP18.1995` — fillable: 
+- `SMPTE.RP180.1999` — fillable: 
+- `SMPTE.RP181.1999` — fillable: references
+- `SMPTE.RP182.1995` — fillable: references
+- `SMPTE.RP183.2004` — fillable: references
+- `SMPTE.RP184.2004` — fillable: references
+- `SMPTE.RP184.2015` — fillable: references
+- `SMPTE.RP185.2004` — fillable: 
+- `SMPTE.RP186.2008` — fillable: references
+- `SMPTE.RP187.1995` — fillable: references
+- `SMPTE.RP189.1996` — fillable: references
+- `SMPTE.RP190.1996` — fillable: 
+- `SMPTE.RP192.2003` — fillable: references
+- `SMPTE.RP192.2015` — fillable: references
+- `SMPTE.RP194.2004` — fillable: 
+- `SMPTE.RP195.2004` — fillable: 
+- `SMPTE.RP197.2003` — fillable: 
+- `SMPTE.RP198.1998` — fillable: references
+- `SMPTE.RP199.2004` — fillable: references
+- `SMPTE.RP200.2002` — fillable: 
+- … 661 more
 
 ## Gaps (20239 — details in JSON)
 - `10.5594-J00021`

@@ -83,7 +83,7 @@ const NON_RECORD_REASONS = {
 const FIELDS_FOR_UPDATE = [
   'docTitle', 'docLabel', 'abstract', 'docType', 'publisher', 'publicationDate',
   'docNumber', 'docPart', 'doi', 'isbn', 'issn', 'group', 'pages', 'authors',
-  'keywords', 'docSuite', 'standardId', 'productNumber', 'familyId',
+  'keywords', 'docSuiteTitle', 'standardId', 'productNumber', 'familyId',
   'approvalDate', 'abbrevTitle', 'journalAcronym', 'articleType', 'copyright',
   'publisherLocation', 'icsCodes', 'volume', 'number', 'references',
 ];
@@ -631,7 +631,7 @@ function extractFromLocatedXml(located) {
         }
         if (issue.journalSuite) {
           const s = issue.journalSuite;
-          if (s.fullTitle) merged.docSuite = s.fullTitle;
+          if (s.fullTitle && !merged.docSuiteTitle) merged.docSuiteTitle = s.fullTitle;
           if (s.abbrevTitle) merged.abbrevTitle = s.abbrevTitle;
           if (s.journalAcronym) merged.journalAcronym = s.journalAcronym;
           if (s.issn) merged.issn = s.issn;
@@ -842,7 +842,7 @@ function mergedView(bucket) {
     abstract: x.abstract || null,
     docNumber: bucket.docNumber || x.docNumber || null,
     docPart: bucket.docPart || null,
-    docSuite: x.docSuite || null,
+    docSuiteTitle: x.docSuiteTitle || null,
     publisher: x.publisher || bucket.publisher || 'SMPTE',
     publicationDate: x.publicationDate || bucket.publicationDate || null,
     releaseTag: bucket.releaseTag || null,
@@ -884,7 +884,7 @@ function isEmpty(v) {
 // documents.json (writing `existing[field+'$meta'] = entry.proposedMeta`).
 const XML_PROVENANCE_FIELDS = new Set([
   'docTitle', 'docLabel', 'abstract', 'isbn', 'issn', 'group', 'pages', 'authors',
-  'keywords', 'docSuite', 'standardId', 'productNumber', 'familyId',
+  'keywords', 'docSuiteTitle', 'standardId', 'productNumber', 'familyId',
   'approvalDate', 'abbrevTitle', 'journalAcronym', 'articleType', 'copyright',
   'publisherLocation', 'icsCodes', 'volume', 'number', 'references',
 ]);
@@ -1103,7 +1103,7 @@ function buildCandidateRecord(view, bucket) {
   rec.status = defaultStatus(view);
   rec.status$meta = view.statusFlags ? parsedMeta('Mapped from standard_status / standard_modifier') : inferredMeta('Default status (active, latestVersion) for newly-discovered SMPTE doc');
   // docTitle / docLabel already handled above.
-  if (view.docSuite) rec.docSuite = view.docSuite, rec.docSuite$meta = parsedMeta('Parsed from root_title / journal full_title');
+  if (view.docSuiteTitle) rec.docSuiteTitle = view.docSuiteTitle, rec.docSuiteTitle$meta = parsedMeta('Parsed from root_title / journal full_title');
   if (view.abstract) rec.abstract = view.abstract, rec.abstract$meta = parsedMeta('Parsed from <abstract>');
   if (view.isbn) rec.isbn = view.isbn, rec.isbn$meta = parsedMeta('Parsed from <isbn>');
   if (view.issn) rec.issn = view.issn, rec.issn$meta = parsedMeta('Parsed from <issn> (print/electronic)');
