@@ -1,4 +1,4 @@
-# _source/SMPTE Inventory — 2026-05-13T22:03:59.269Z
+# _source/SMPTE Inventory — 2026-05-14T23:03:42.140Z
 
 Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 docs at scan time)
 
@@ -12,9 +12,9 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 
 ## Buckets
 | Bucket          | Count | Notes                                          |
 |-----------------|-------|------------------------------------------------|
-| Found (verified)| 53    | XML read AND every comparable field matched    |
+| Found (verified)| 46    | XML read AND every comparable field matched    |
 | Found (unverif.)| 37    | docId matches registry but no source XML found |
-| Update          | 861   | in registry, source has new or different fields|
+| Update          | 868   | in registry, source has new or different fields|
 | Gap             | 20239 | in source, not in registry — new records       |
 | Registry-only   | 547   | in registry (SMPTE), no local source archived  |
 | Unidentifiable  | 7     | in source, no DOI derivable — manual triage    |
@@ -24,9 +24,9 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 
 | Vendor            | Found | Update | Gap | Unid. | Non-rec |
 |-------------------|-------|--------|-----|-------|---------|
 | ALLEN PRESS       | 0     | 0      | 659 | 0     | 116     |
-| APTARA            | 798   | 9158   | 97335 | 2     | 33288   |
-| HIGHWIRE          | 164   | 1507   | 39986 | 5     | 2439    |
-| IEEE              | 11    | 18     | 341 | 0     | 1363    |
+| APTARA            | 696   | 9260   | 97335 | 2     | 33288   |
+| HIGHWIRE          | 154   | 1517   | 39986 | 5     | 2439    |
+| IEEE              | 6     | 23     | 341 | 0     | 1363    |
 | IEEE DL Usage     | 0     | 0      | 0   | 0     | 18      |
 | Zoho              | 0     | 0      | 0   | 0     | 2       |
 
@@ -41,8 +41,9 @@ Per-field counts of how registry values compare to what the source XML provides.
 
 | Field             | Delta | Narrowed | Fillable | Agree | Total |
 |-------------------|-------|----------|----------|-------|-------|
-| docTitle          |   477 |        0 |        0 |   269 |   746 |
+| docTitle          |   458 |        0 |        0 |   269 |   727 |
 | references        |   221 |        0 |      566 |     0 |   787 |
+| docSuiteTitle     |    70 |        0 |        4 |   131 |   205 |
 | keywords          |    66 |        0 |        0 |   686 |   752 |
 | doi               |     0 |        0 |        0 |   951 |   951 |
 | publisher         |     0 |        0 |        0 |   950 |   950 |
@@ -61,7 +62,6 @@ Per-field counts of how registry values compare to what the source XML provides.
 | familyId          |     0 |        0 |        0 |   690 |   690 |
 | group             |     0 |        0 |        0 |   573 |   573 |
 | docPart           |     0 |        0 |        0 |   278 |   278 |
-| docSuite          |     0 |        0 |        0 |   205 |   205 |
 | issn              |     0 |        0 |        0 |     1 |     1 |
 | authors           |     0 |        0 |        0 |     1 |     1 |
 | abbrevTitle       |     0 |        0 |        0 |     1 |     1 |
@@ -129,7 +129,7 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.RP2021-5.2013` — 27 copies (aptara:23, highwire:2, ieee:2)
 - `SMPTE.ST12-1.2013Am1` — 27 copies (aptara:25, highwire:2)
 
-## Updates (861 — details in JSON)
+## Updates (868 — details in JSON)
 - `10.5594-J01217` — fillable: references
 - `10.5594-J01273` — fillable: 
 - `10.5594-J02284` — fillable: references
@@ -158,6 +158,7 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `10.5594-J07507` — fillable: 
 - `10.5594-J07544` — fillable: references
 - `10.5594-J07583` — fillable: 
+- `10.5594-J08011` — fillable: docSuiteTitle
 - `10.5594-J08310` — fillable: references
 - `10.5594-J08349` — fillable: references
 - `10.5594-J08632` — fillable: 
@@ -187,13 +188,18 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.EG16.2002` — fillable: references
 - `SMPTE.EG18.1994` — fillable: 
 - `SMPTE.EG2.1999` — fillable: 
+- `SMPTE.EG2021-3.2012` — fillable: 
+- `SMPTE.EG2021-3.2013` — fillable: 
+- `SMPTE.EG2021-3.2015` — fillable: 
+- `SMPTE.EG2021-3.2017` — fillable: 
 - `SMPTE.EG2021-4.2009` — fillable: references
+- `SMPTE.EG2021-4.2013` — fillable: 
 - `SMPTE.EG2046-3.2010` — fillable: references
 - `SMPTE.EG2050-2.2012` — fillable: references
 - `SMPTE.EG2059-10.2016` — fillable: references
 - `SMPTE.EG2061.2016` — fillable: 
 - `SMPTE.EG2069.2012` — fillable: references
-- `SMPTE.EG2074.2013` — fillable: 
+- `SMPTE.EG2074.2013` — fillable: docSuiteTitle
 - `SMPTE.EG21.1997` — fillable: references
 - `SMPTE.EG22.1997` — fillable: references
 - `SMPTE.EG23.2005` — fillable: 
@@ -263,7 +269,6 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.RDD9.2013` — fillable: references
 - `SMPTE.RP104.2005` — fillable: 
 - `SMPTE.RP105.2003` — fillable: 
-- `SMPTE.RP106.1994` — fillable: 
 - `SMPTE.RP110.1992` — fillable: 
 - `SMPTE.RP113.1996` — fillable: references
 - `SMPTE.RP115.1997` — fillable: 
@@ -325,12 +330,7 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.RP192.2003` — fillable: references
 - `SMPTE.RP192.2015` — fillable: references
 - `SMPTE.RP194.2004` — fillable: 
-- `SMPTE.RP195.2004` — fillable: 
-- `SMPTE.RP197.2003` — fillable: 
-- `SMPTE.RP198.1998` — fillable: references
-- `SMPTE.RP199.2004` — fillable: references
-- `SMPTE.RP200.2002` — fillable: 
-- … 661 more
+- … 668 more
 
 ## Gaps (20239 — details in JSON)
 - `10.5594-J00021`
