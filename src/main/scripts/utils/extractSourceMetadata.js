@@ -32,6 +32,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // and pulling in an XML parser isn't warranted for a one-shot audit script.
 
 const fs = require('fs');
+const { splitAndNormalizeKeywords } = require('./keyword.normalize');
 
 const HTML_ENTITIES = {
   '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&apos;': "'",
@@ -87,8 +88,8 @@ function composeDate(blockText) {
   const monthNum = monthToNum(month);
   const dd = day ? String(day).padStart(2, '0') : null;
   if (monthNum && dd) return `${year}-${monthNum}-${dd}`;
-  if (monthNum) return `${year}-${monthNum}-01`;
-  return `${year}-01-01`;
+  if (monthNum) return `${year}-${monthNum}`;
+  return year;
 }
 
 function monthToNum(m) {
@@ -202,11 +203,18 @@ function readStandardXml(absPath) {
     const typeAttr = firstAttr(stdMetaBlock, 'standard_type', 'type');
     const subtypeAttr = firstAttr(stdMetaBlock, 'standard_subtype', 'type');
     out.docType = mapDocTypeFromStandardXml(typeAttr, subtypeAttr);
-    out.docLabel = firstTagText(stdMetaBlock, 'normalized_title') || firstTagText(stdMetaBlock, 'full_title');
+    // NOTE: do NOT extract docLabel from <normalized_title> / <full_title>.
+    // For legacy SMPTE deposits those tags hold the article TITLE rather than the
+    // short SMPTE designator the registry uses for docLabel. The registry constructs
+    // docLabel from publisher + type + number + part + year — that's the canonical
+    // source. Leaving docLabel unset here means audit comparison short-circuits to
+    // "source absent" and won't generate spurious deltas.
     out.standardId = firstTagText(stdMetaBlock, 'standard_id');
     out.productNumber = firstTagText(stdMetaBlock, 'product_number');
     out.familyId = firstTagText(stdMetaBlock, 'family');
-    out.docSuite = firstTagText(stdMetaBlock, 'root_title');
+    // docSuite removed wholesale — registry uses docSuiteTitle as the canonical
+    // suite-name field. Keeping <root_title> available via docSuiteTitle below.
+    out.docSuiteTitle = firstTagText(stdMetaBlock, 'root_title') || undefined;
     out.docNumber = firstTagText(stdMetaBlock, 'root');
 
     // ISBN electronic preferred
@@ -258,17 +266,22 @@ function readStandardXml(absPath) {
     const relAttr = stdMetaBlock.match(/<standard_relationship\s+type="S"\s+relationship_date="([^"]+)"/i);
     if (relAttr) out.statusFlags.supersededDate = relAttr[1];
 
-    // keywords from topical + standardtopicset + ICS descriptions
-    const keywords = new Set();
+    // keywords from topical + standardtopicset
+    // Source XMLs sometimes pack multiple terms into a single comma-separated string
+    // (e.g. "Image Formats, Interfaces, Television") — splitAndNormalizeKeywords splits
+    // on comma/semicolon and runs ACRONYM_MAP-aware case normalization (e.g. "AAF",
+    // lowercase "and", "DCinema").
+    const rawKeywords = [];
     matchAll(stdMetaBlock, /<topic[^>]*>([^<]+)<\/topic>/gi).forEach((m) => {
       const t = normText(m[1]);
-      if (t) keywords.add(t);
+      if (t) rawKeywords.push(t);
     });
     matchAll(stdMetaBlock, /<standard_topic[^>]*>([^<]+)<\/standard_topic>/gi).forEach((m) => {
       const t = normText(m[1]);
-      if (t) keywords.add(t);
+      if (t) rawKeywords.push(t);
     });
-    if (keywords.size) out.keywords = [...keywords];
+    const keywords = splitAndNormalizeKeywords(rawKeywords);
+    if (keywords.length) out.keywords = keywords;
 
     // ICS codes
     const ics = [];
@@ -300,10 +313,10 @@ function readStandardXml(absPath) {
       const articleDoi = firstTagText(articleBlock, 'doi');
       if (articleDoi) out.doi = articleDoi;
     }
-    // Article-level index_terms / keywords merge into keywords
+    // Article-level index_terms / keywords merge into keywords (with comma-split + case norm)
     const indexTerms = matchAll(articleBlock, /<term[^>]*>([^<]+)<\/term>/gi).map((m) => normText(m[1])).filter(Boolean);
     if (indexTerms.length) {
-      out.keywords = [...new Set([...(out.keywords || []), ...indexTerms])];
+      out.keywords = splitAndNormalizeKeywords([...(out.keywords || []), ...indexTerms]);
     }
   }
 
@@ -394,11 +407,12 @@ function readIssueMetadataXml(absPath) {
       const full = [given, surname].filter(Boolean).join(' ').trim();
       if (full) authors.push(full);
     }
-    const keywords = [];
+    const rawKeywords = [];
     for (const kwMatch of matchAll(block, /<(major_topic|minor_topic)>([^<]+)<\/\1>/gi)) {
       const t = normText(kwMatch[2]);
-      if (t) keywords.push(t);
+      if (t) rawKeywords.push(t);
     }
+    const keywords = splitAndNormalizeKeywords(rawKeywords);
     articles.set(file, {
       doi,
       docTitle: title,

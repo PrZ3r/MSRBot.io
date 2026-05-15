@@ -28,7 +28,9 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 const ACRONYM_MAP = new Map([
+  "and",
   "3GPP",
+  "AAF",
   "ACES",
   "AEAD",
   "AES",
@@ -37,17 +39,26 @@ const ACRONYM_MAP = new Map([
   "AKA'",
   "API",
   "ASCII",
+  "ATM",
+  "AVC",
+  "AXF",
+  "BXF",
   "ChaCha",
   "ChaCha20",
   "CoAP",
+  "CPL",
   "DCDM",
   "DigestMethod",
   "DNS",
   "DOI",
+  "DV",
   "EAP",
   "EAP-AKA'",
+  "EOTF",
   "EncryptionMethod",
   "FS",
+  "HDR",
+  "HDTV",
   "HTJ2K",
   "HTTP",
   "HTTPS",
@@ -56,10 +67,12 @@ const ACRONYM_MAP = new Map([
   "IMAPV4",
   "IMF",
   "IoT",
+  "IP",
   "IPSEC",
   "ISO",
   "ITU",
   "JPEG2000",
+  "JPEG",
   "JSON",
   "KDM",
   "KeyDerivationMethod",
@@ -70,6 +83,7 @@ const ACRONYM_MAP = new Map([
   "NAT",
   "NETCONF",
   "NMDA",
+  "NTSC",
   "OPL",
   "POLY1305",
   "REST",
@@ -78,6 +92,8 @@ const ACRONYM_MAP = new Map([
   "SDI",
   "SigntureMethod",
   "SMTP",
+  "UHDTV",
+  "UMID",
   "URI",
   "URL",
   "URN",
@@ -104,7 +120,8 @@ function normalizeKeyword(input) {
       const lower = word.toLowerCase();
       if (ACRONYM_MAP.has(lower)) return ACRONYM_MAP.get(lower);
       if (/^b-?chain$/i.test(word)) return "B-Chain";
-      if (/^dcinema$/i.test(word)) return "DCinema";
+      if (/^d-?cinema$/i.test(word)) return "DCinema";
+      if (/^subtitles?$/i.test(word)) return "Subtitles";
       if (/^sha-?1$/i.test(word)) return "SHA-1";
       if (/^dcp(?=$|[-/])/i.test(word)) return word.replace(/^dcp/i, "DCP");
       // Preserve MIME/media-type forms as lowercase per convention.
