@@ -782,6 +782,26 @@ function parseRefId(text, href = '', opts = {}) {
     { const refId = `W3C.${normalized}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: mRec ? 'w3c:shortname-rec' : 'w3c:shortname' } } : refId; }
   }
 
+  // SMPTE DOI/HREF-first canonical parsing.
+  // Prefer explicit DOI tokens (including amendment suffixes) when present.
+  // Examples:
+  // - https://doi.org/10.5594/SMPTE.RP2057.2011
+  // - https://doi.org/10.5594/SMPTE.RP2057.2011Am1.2013
+  // - .../SMPTE.ST2067-201.2026
+  {
+    const hrefStr = String(href || '').trim();
+    const doiToken = hrefStr.match(/\b10\.5594\/(SMPTE\.(?:ST|RP|RDD|EG|AG|OV|OM)[A-Za-z0-9-]*(?:\.\d{4}(?:-\d{2})?)?(?:Am\d+\.\d{4})?)\b/i);
+    if (doiToken?.[1]) {
+      const refId = String(doiToken[1]).replace(/\s+/g, '');
+      return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'smpte:doi-token' } } : refId;
+    }
+    const pubToken = hrefStr.match(/\bSMPTE\.(?:ST|RP|RDD|EG|AG|OV|OM)[A-Za-z0-9-]*(?:\.\d{4}(?:-\d{2})?)?(?:Am\d+\.\d{4})?\b/i);
+    if (pubToken?.[0]) {
+      const refId = String(pubToken[0]).replace(/\s+/g, '');
+      return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'smpte:href-token' } } : refId;
+    }
+  }
+
   // ECMA canonical pages / cites.
   // Preferred suffix: YYYYMM if month is known, else YYYY, else edition.
   {
