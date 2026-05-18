@@ -77,7 +77,9 @@ function argInt(name, def) {
   }
   return def;
 }
-const OFFSET = Math.max(0, argInt('--offset', 0));
+// --limit caps how many docs this run processes. There is no --offset: each --apply run
+// recomputes the target list (registry docs with EMPTY references), so already-filled docs
+// drop out automatically. Re-run `--apply --limit N` until "remaining" reaches 0.
 const LIMIT = Math.max(0, argInt('--limit', Infinity));
 
 function loadJson(p) { return JSON.parse(fs.readFileSync(p, 'utf8')); }
@@ -263,7 +265,7 @@ for (const [docId, refXmlPath] of refXmlByDocId) {
   targets.push({ docId, refXmlPath });
 }
 targets.sort((a, b) => a.docId.localeCompare(b.docId));
-const slice = targets.slice(OFFSET, OFFSET + LIMIT);
+const slice = targets.slice(0, LIMIT);
 
 // --- process the slice --------------------------------------------------------------------
 if (APPLY) { try { mriEnsureFile(); } catch { /* ignore */ } }
@@ -354,10 +356,10 @@ console.log(`-ref.xml files scanned: ${refXmlFilesSeen} (${refXmlByDocId.size} u
 console.log(`Skipped — docId not in registry: ${skip.notInRegistry}`);
 console.log(`Skipped — references already populated: ${skip.alreadyPopulated}`);
 console.log(`Target docs (in registry, empty references): ${targets.length}`);
-const processedThrough = OFFSET + slice.length;
-console.log(`Chunk: --offset ${OFFSET} --limit ${LIMIT === Infinity ? 'all' : LIMIT}  →  ${slice.length} docs`);
+const remainingAfter = Math.max(0, targets.length - slice.length);
+console.log(`Batch: first ${LIMIT === Infinity ? 'all' : LIMIT} of ${targets.length} remaining targets  →  ${slice.length} docs`);
 if (slice.length) console.log(`  docId range: ${slice[0].docId} … ${slice[slice.length - 1].docId}`);
-console.log(`  targets remaining after this chunk: ${Math.max(0, targets.length - processedThrough)}`);
+console.log(`  targets still empty after this batch: ${remainingAfter}`);
 console.log('');
 console.log(`Docs filled (≥1 resolved ref):     ${docsFilled}`);
 console.log(`Docs with refs but none resolved:  ${docsNoResolved}`);
@@ -409,8 +411,12 @@ if (APPLY) {
   console.log(`\nWrote ${path.relative(REPO_ROOT, REGISTRY)} (${docsFilled} docs filled).`);
   console.log(`MRI flush: ${mri.wrote ? `updated — uniqueRefIds=${mri.uniqueRefIds}, orphans=${mri.orphanCount}` : `no change (${mri.reason})`}`);
   console.log(`Wrote ${path.relative(REPO_ROOT, UNRESOLVED_OUT)} (${unresolved.length} this chunk, ${mergedUnresolved.length} cumulative).`);
-  console.log('Reminder: run `npm run canonicalize` and `npm run validate`, commit this chunk,');
-  console.log(`then re-run with --offset ${processedThrough}.`);
+  console.log('Reminder: run `npm run canonicalize` and `npm run validate`, commit this batch,');
+  if (remainingAfter > 0) {
+    console.log(`then re-run the SAME command — ${remainingAfter} targets still to fill.`);
+  } else {
+    console.log('All targets filled. Done.');
+  }
 } else {
   console.log('\nDry run — no changes written. Pass --apply to write.');
 }
