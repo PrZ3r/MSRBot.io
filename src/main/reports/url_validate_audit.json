@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-05-12T02:19:00.561Z",
+  "generatedAt": "2026-05-18T19:21:27.055Z",
   "target": "documents.json",
-  "good": 2050,
+  "good": 2056,
   "skippedByDomain": 0,
   "skippedByPublisher": 0,
   "index": {
-    "error": 206,
+    "error": 210,
     "errorBreakdown": {
       "Unreachable (403)": 48,
-      "Unreachable (404)": 147,
-      "Unreachable (ECONNABORTED)": 3,
+      "Unreachable (404)": 148,
+      "Unreachable (ECONNABORTED)": 6,
       "Unreachable (ENOTFOUND)": 2,
       "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 2,
       "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)": 4
     },
-    "redirectMismatch": 17,
+    "redirectMismatch": 16,
     "redirectBreakdown": {
       "undefined": 0,
-      "other": 17
+      "other": 16
     },
-    "expectationMismatch": 35,
+    "expectationMismatch": 36,
     "expectationBreakdown": {
+      "SMPTE.resolvedHref.journals-prefix": 2,
       "SMPTE.href.ag-prefix": 33,
-      "SMPTE.href.doi-prefix": 1,
-      "SMPTE.resolvedHref.journals-prefix": 1
+      "SMPTE.href.doi-prefix": 1
     }
   },
   "report": {
@@ -742,20 +742,10 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.FIPS.186-4",
+          "docId": "NIST.FIPS.140-2",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.186-4",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "NIST.FIPS.197",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.197",
+          "url": "https://doi.org/10.6028/NIST.FIPS.140-2",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -772,20 +762,20 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.SP.800-57pt2r1",
+          "docId": "NIST.SP.800-57pt3r1",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57pt2r1",
+          "url": "https://doi.org/10.6028/NIST.SP.800-57pt3r1",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.SP.800-57pt3r1",
-          "publisher": "NIST",
+          "docId": "SMPTE.DOC-LIB",
+          "publisher": "SMPTE",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57pt3r1",
+          "url": "https://github.com/SMPTE/document-library",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -846,6 +836,16 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/SMPTE.EG2111-3.2020",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "SMPTE.EG428-23.2026-04",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/SMPTE.EG428-23.2026",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -1442,6 +1442,16 @@
           "riskLevel": "High"
         },
         {
+          "docId": "SMPTE.ST2067-201.2026-03",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/SMPTE.ST2067-201.2026",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
           "docId": "SMPTE.ST2067-202.2022",
           "publisher": "SMPTE",
           "field": "href",
@@ -1984,10 +1994,40 @@
       ],
       "ECONNABORTED": [
         {
-          "docId": "IEEE.STD1180.1990",
+          "docId": "IEEE.754.1985",
           "publisher": "IEEE",
           "field": "href",
-          "url": "https://standards.ieee.org/ieee/1180/1789/",
+          "url": "https://standards.ieee.org/standard/754-1985.html",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "IEEE.754.2008",
+          "publisher": "IEEE",
+          "field": "href",
+          "url": "https://standards.ieee.org/standard/754-2008.html",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "ISO.10646-1.2000",
+          "publisher": "ISO/IEC",
+          "field": "href",
+          "url": "https://www.iso.org/standard/29819.html",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "ISO.10646.2003",
+          "publisher": "ISO/IEC",
+          "field": "href",
+          "url": "https://www.iso.org/standard/39921.html",
           "message": "Unreachable (ECONNABORTED)",
           "explanation": "Connection timed out.",
           "recommendedAction": "Retry later or check the server’s responsiveness.",
@@ -2263,20 +2303,28 @@
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://my.smpte.org/s/product-details?id=a1BVR0000007NeM2AU",
           "message": "resolved url mismatch"
-        },
-        {
-          "docId": "UNICODE.UTF.BOM",
-          "publisher": "Unicode Consortium",
-          "field": "href",
-          "url": "http://www.unicode.org/faq/utf_bom.html",
-          "resolvedUrl": "http://www.unicode.org/faq/utf_bom",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "https://www.unicode.org/faq/utf_bom",
-          "message": "resolved url mismatch"
         }
       ]
     },
     "expectation": {
+      "SMPTE.resolvedHref.journals-prefix": [
+        {
+          "docId": "10.5594-M00395",
+          "publisher": "SMPTE",
+          "field": "resolvedHref",
+          "actual": "https://journal.smpte.org/conferences/147th%20SMPTE%20Technical%20Conference%20and%20Exhibition/19/",
+          "expectedPrefix": "https://journal.smpte.org/periodicals/",
+          "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
+        },
+        {
+          "docId": "SMPTE.J107.9.603.815.1998",
+          "publisher": "SMPTE",
+          "field": "resolvedHref",
+          "actual": "https://tech.ebu.ch/docs/techreview/ebu-smpte-tf-bitstreams.pdf",
+          "expectedPrefix": "https://journal.smpte.org/periodicals/",
+          "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
+        }
+      ],
       "SMPTE.href.ag-prefix": [
         {
           "docId": "SMPTE.AG01.2014",
@@ -2551,16 +2599,6 @@
           "actual": "https://tech.ebu.ch/docs/techreview/ebu-smpte-tf-bitstreams.pdf",
           "expectedPrefix": "https://doi.org/10.5594/",
           "message": "Expected href to start with https://doi.org/10.5594/"
-        }
-      ],
-      "SMPTE.resolvedHref.journals-prefix": [
-        {
-          "docId": "SMPTE.J107.9.603.815.1998",
-          "publisher": "SMPTE",
-          "field": "resolvedHref",
-          "actual": "https://tech.ebu.ch/docs/techreview/ebu-smpte-tf-bitstreams.pdf",
-          "expectedPrefix": "https://journal.smpte.org/periodicals/",
-          "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         }
       ]
     }
