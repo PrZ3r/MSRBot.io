@@ -48,7 +48,8 @@ const stringify = require('json-stable-stringify');
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 process.chdir(REPO_ROOT); // MRI path resolves relative to cwd
-const { mriRecordSighting, mriFlush, mriEnsureFile } = require('../../lib/referencing');
+const { parseRefId, reloadRefMap, mriRecordSighting, mriFlush, mriEnsureFile } = require('../../lib/referencing');
+reloadRefMap();
 
 const REGISTRY = path.join(REPO_ROOT, 'src', 'main', 'data', 'documents.json');
 const SCHEMA = path.join(REPO_ROOT, 'src', 'main', 'schemas', 'documents.schema.json');
@@ -94,40 +95,78 @@ function addRef(doc, type, refId) {
   doc.references[metaKey] = existing
     ? { ...existing, updated: NOW }
     : { source: 'parsed', confidence: 'medium',
-        note: 'Resolved from sibling -ref.xml via resolveSmpteSourceRefs.js (title match)',
+        note: 'Resolved from sibling -ref.xml via resolveSmpteSourceRefs.js',
         updated: NOW };
   return true;
+}
+
+function decodeEntities(s) {
+  return String(s || '')
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCharCode(parseInt(d, 10)))
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+}
+// The <standardnum> element from the raw <ref> XML — the most conformed input for parseRefId.
+function standardnumOf(rawRef) {
+  const m = String(rawRef || '').match(/<standardnum>([^<]+)<\/standardnum>/i);
+  return m ? decodeEntities(m[1]).trim() : null;
+}
+// Reject obviously-bad refIds — self-references and generic org ids (e.g. W3C.ORG).
+function qualityOk(refId, citingDocId) {
+  if (!refId || typeof refId !== 'string') return false;
+  if (refId === citingDocId) return false;
+  if (/\.ORG$/i.test(refId)) return false;
+  return true;
+}
+// Resolve one unresolved entry → { refId, via }. standardnum (parseRefId) is preferred over
+// title match — it is the more conformed identifier. via: 'standardnum' | 'titlematch'
+// | 'ambiguous' (title hit >1 doc) | null.
+function resolveEntry(u) {
+  const sn = standardnumOf(u.rawRef);
+  if (sn) {
+    let id = null;
+    try { id = parseRefId(sn, ''); } catch { /* ignore */ }
+    if (qualityOk(id, u.docId)) return { refId: id, via: 'standardnum' };
+  }
+  const t = normTitle(u.title);
+  if (t) {
+    const matches = titleIdx.get(t);
+    if (matches && matches.length === 1 && qualityOk(matches[0], u.docId)) {
+      return { refId: matches[0], via: 'titlematch' };
+    }
+    if (matches && matches.length > 1) return { refId: null, via: 'ambiguous' };
+  }
+  return { refId: null, via: null };
 }
 
 if (APPLY) { try { mriEnsureFile(); } catch { /* ignore */ } }
 
 let resolved = 0;
+let viaStandardnum = 0;
+let viaTitle = 0;
 let skippedAmbiguous = 0;
-let skippedSelf = 0;
-let skippedNoTitle = 0;
 let skippedDup = 0;
 const stillUnresolved = [];
 const samples = [];
 
 for (const u of entries) {
-  const t = normTitle(u.title);
-  if (!t) { skippedNoTitle++; stillUnresolved.push(u); continue; }
-  const matches = titleIdx.get(t);
-  if (!matches || matches.length !== 1) {
-    if (matches && matches.length > 1) skippedAmbiguous++; else skippedNoTitle++;
+  const { refId, via } = resolveEntry(u);
+  if (!refId) {
+    if (via === 'ambiguous') skippedAmbiguous++;
     stillUnresolved.push(u);
     continue;
   }
-  const refId = matches[0];
-  if (refId === u.docId) { skippedSelf++; continue; } // resolved-to-self — drop, nothing to add
   const doc = docById.get(u.docId);
   if (!doc) { stillUnresolved.push(u); continue; }
 
   resolved++;
-  if (samples.length < 12) samples.push(`${u.docId} ${u.refXmlId} (${u.type}): "${u.title}" → ${refId}`);
+  if (via === 'standardnum') viaStandardnum++; else viaTitle++;
+  if (samples.length < 14) {
+    const probe = (standardnumOf(u.rawRef) || u.title || '').slice(0, 46);
+    samples.push(`${u.docId} ${u.refXmlId} (${via}): "${probe}" → ${refId}`);
+  }
   if (APPLY) {
-    const added = addRef(doc, u.type, refId);
-    if (!added) skippedDup++;
+    if (!addRef(doc, u.type, refId)) skippedDup++;
     mriRecordSighting({
       docId: u.docId,
       type: u.type,
@@ -136,8 +175,8 @@ for (const u of entries) {
       href: '',
       rawRef: u.rawRef || '',
       title: u.title || null,
-      mapSource: 'smpte-ref-titlematch',
-      mapDetail: u.refXmlId || '',
+      mapSource: 'smpte-ref-resolve',
+      mapDetail: `${u.refXmlId || ''}:${via}`,
     });
   }
 }
@@ -148,16 +187,16 @@ const validate = ajv.compile(schema);
 const ok = validate(docs);
 
 // --- report -------------------------------------------------------------------------------
-console.log('=== SMPTE source-reference resolution (title match) ===\n');
+console.log('=== SMPTE source-reference resolution (standardnum + title) ===\n');
 console.log(`Mode: ${APPLY ? 'APPLY' : 'DRY-RUN'}`);
 console.log(`Unresolved entries read: ${entries.length}`);
 console.log('');
-console.log(`Resolved (exact 1:1 title → registry docId): ${resolved}`);
-console.log(`  skipped — ambiguous title (>1 doc):        ${skippedAmbiguous}`);
-console.log(`  skipped — resolved to self:                ${skippedSelf}`);
-console.log(`  skipped — no/blank title:                  ${skippedNoTitle}`);
-if (skippedDup) console.log(`  note — refId already on the doc:           ${skippedDup}`);
-console.log(`Still unresolved after this pass:            ${stillUnresolved.length}`);
+console.log(`Resolved: ${resolved}`);
+console.log(`  via standardnum (parseRefId): ${viaStandardnum}`);
+console.log(`  via exact 1:1 title match:    ${viaTitle}`);
+console.log(`  skipped — ambiguous title (>1 doc): ${skippedAmbiguous}`);
+if (skippedDup) console.log(`  note — refId already on the doc:   ${skippedDup}`);
+console.log(`Still unresolved after this pass:    ${stillUnresolved.length}`);
 console.log(`\nSchema validation: ${ok ? 'PASS' : 'FAIL'}`);
 if (!ok) for (const e of validate.errors.slice(0, 10)) console.log('  -', e.dataPath || e.instancePath, e.message);
 

@@ -869,6 +869,22 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // Legacy SMPTE designators with no ST/RP/EG type token:
+  //   "SMPTE 259M-2006", "SMPTE 299M-2004", "ANSI/SMPTE 244M-1995", "SMPTE 145-2004"
+  // The M-suffixed (or bare) number is always a Standard — RP/EG/AG/OM/RDD/OV always carry
+  // their type token (handled by the block above) — so emit SMPTE.ST<num>[-part].<year>.
+  {
+    const m = text.match(/(?:\bANSI\s*\/\s*)?\bSMPTE\s+(\d{1,4})(M)?\b(?:-(\d{1,2})(?=[-\s,]|$))?(?:[-:\s]\s*(\d{4}))?/i);
+    if (m && (m[2] || m[4])) { // require an M suffix or a year — don't match bare prose
+      const num = m[1];
+      const part = m[3];
+      const year = m[4];
+      const lineage = `SMPTE.ST${part ? `${num}-${part}` : num}`;
+      const refId = year ? `${lineage}.${year}` : lineage;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'smpte-legacy-designator' } } : refId;
+    }
+  }
+
   // 3GPP Technical Specifications
   // Examples:
   // - "3GPP Technical Specification 33.501, July 2021."
@@ -1107,6 +1123,33 @@ function parseRefId(text, href = '', opts = {}) {
       const part = rec[3] ? `-${parseInt(rec[3], 10)}` : '';
       const refId = `T-REC-${series}.${num}${part}${year ? `.${year}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-recommendation' } } : refId;
+    }
+  }
+
+  // ITU-R / ITU-T recommendations carrying the sector token (broader than the block above,
+  // which only catches the classic "Recommendation X.nnn" form). Matches a <standardnum> or
+  // the designator embedded in prose.
+  //   "ITU-R BT.601-5 (10/95)"        → R-REC-BT.601-5
+  //   "Recommendation ITU-T G.694.2"  → T-REC-G.694.2
+  //   "ITU-R TF.457-1"                → R-REC-TF.457-1
+  {
+    const m = String(text || '').match(/\b(?:Recommendation\s+)?ITU[-\s]?([RT])\s+(?:Rec\.?\s+)?([A-Z]{1,2})\.?\s*(\d+(?:\.\d+)?)(?:-(\d+))?/i);
+    if (m) {
+      const sector = m[1].toUpperCase();
+      const series = m[2].toUpperCase();
+      const rev = m[4] ? `-${m[4]}` : '';
+      const refId = `${sector}-REC-${series}.${m[3]}${rev}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itu-recommendation' } } : refId;
+    }
+  }
+
+  // ANSI committee standards: "ANSI S4.40-1992", "ANSI PH5.4-1970", "ANSI S4.6-1982 (R1992)".
+  // (ANSI/SMPTE co-designations are handled by the legacy-SMPTE block — slash, not space.)
+  {
+    const m = String(text || '').match(/\bANSI\s+([A-Z]{1,4}\d{0,3})\.(\d+(?:\.\d+)?[A-Za-z]?)[\s‐-―-]+(\d{4})/i);
+    if (m) {
+      const refId = `ANSI.${m[1].toUpperCase()}.${m[2].toUpperCase()}.${m[3]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator' } } : refId;
     }
   }
 
