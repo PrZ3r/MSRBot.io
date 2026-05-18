@@ -100,6 +100,16 @@ const schema = loadJson(SCHEMA);
 const docById = new Map(docs.map((d) => [d.docId, d]));
 const registryDocIds = new Set(docById.keys());
 
+// ISBN-13 digits → docId. SMPTE standards carry an `isbn` field; their ref XMLs cite each
+// other via an ISBN-form DOI (objidref "10.5594/S<isbn13>"), so this index turns that DOI
+// back into the canonical docId.
+const docIdByIsbn = new Map();
+for (const d of docs) {
+  if (!d.isbn) continue;
+  const digits = String(d.isbn).replace(/\D/g, '');
+  if (digits.length === 13 && !docIdByIsbn.has(digits)) docIdByIsbn.set(digits, d.docId);
+}
+
 // --- reference resolution -----------------------------------------------------------------
 // Legacy SMPTE designators ("SMPTE 274M-2005") carry no ST/RP/EG token, so parseRefId misses
 // them. Match against the registry docId set — resolve only to a docId that already exists.
@@ -146,26 +156,41 @@ function tryParse(text) {
   return null;
 }
 
+// Resolve an objidref DOI. ISBN-form SMPTE DOIs (10.5594/S<isbn13>) map to a canonical
+// docId via the registry ISBN index; everything else (journal 10.5594/J*, canonical
+// 10.5594/SMPTE.* …) conforms directly via doiToDocId.
+let isbnHits = 0;
+function resolveObjidref(objidref) {
+  const m = String(objidref).match(/\/S(\d{13})$/);
+  if (m) {
+    const hit = docIdByIsbn.get(m[1]);
+    if (hit) { isbnHits++; return hit; }
+  }
+  return doiToDocId(objidref);
+}
+
 // Resolve one parsed <ref> record to a canonical short refId. Returns { refId, via }.
+// Order matters: canonical SMPTE.ST*/ISO.* forms first, raw-DOI form (objidref) last.
 function resolveRef(ref) {
-  // 1. standardnum → canonical standard id (SMPTE.ST*, ISO.*, …) — matches registry docIds
+  // 1. standardnum → canonical standard id (modern SMPTE ST/RP/EG, ISO, IEC, …)
   if (ref.standardnum) {
     const id = tryParse(ref.standardnum);
     if (id) return { refId: id, via: 'standardnum' };
   }
-  // 2. objidref DOI — journal-article DOIs (10.5594/J*) conform straight to registry docIds
-  if (ref.objidref) {
-    const id = doiToDocId(ref.objidref);
-    if (id) return { refId: id, via: 'objidref' };
-  }
+  // 2. legacy SMPTE designator ("SMPTE 331M-2004") matched against registry docIds —
+  //    before objidref, so we prefer the canonical SMPTE.ST* form over the raw DOI form.
+  const legacy = resolveLegacySmpte(ref.standardnum || ref.cite);
+  if (legacy) return { refId: legacy, via: 'legacy-smpte' };
   // 3. citation text (refMap.json + standard-designator regexes)
   if (ref.cite) {
     const id = tryParse(ref.cite);
     if (id) return { refId: id, via: 'cite' };
   }
-  // 4. legacy SMPTE designator matched against existing registry docIds
-  const legacy = resolveLegacySmpte(ref.cite || ref.standardnum);
-  if (legacy) return { refId: legacy, via: 'legacy-smpte' };
+  // 4. objidref DOI — last resort (ISBN-DOI → docId via the registry ISBN index)
+  if (ref.objidref) {
+    const id = resolveObjidref(ref.objidref);
+    if (id) return { refId: id, via: 'objidref' };
+  }
   return { refId: null, via: null };
 }
 
@@ -338,7 +363,7 @@ console.log(`Docs filled (≥1 resolved ref):     ${docsFilled}`);
 console.log(`Docs with refs but none resolved:  ${docsNoResolved}`);
 console.log(`References: ${totalRefs} total → ${totalResolved} resolved, ${unresolved.length} unresolved`);
 console.log(`  via standardnum:  ${viaCounts.standardnum}`);
-console.log(`  via objidref DOI: ${viaCounts.objidref}`);
+console.log(`  via objidref DOI: ${viaCounts.objidref} (of which ${isbnHits} via registry ISBN index)`);
 console.log(`  via cite text:    ${viaCounts.cite}`);
 console.log(`  via legacy SMPTE: ${viaCounts['legacy-smpte']}`);
 console.log(`\nSchema validation: ${ok ? 'PASS' : 'FAIL'}`);
