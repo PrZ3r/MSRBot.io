@@ -14,6 +14,7 @@ For the full contributor guide, see [CONTRIBUTING.md](../CONTRIBUTING.md).
 Run the following before opening a PR:
 
 ```bash
+npm test
 npm run validate
 npm run canonicalize
 npm run build
@@ -30,12 +31,24 @@ Using a browser, open http://127.0.0.1:8080/ after starting the http-server to i
 
 ---
 
-## Do Not Edit Generated Files
-The following are built automatically:
-- `src/main/data/documents.json`
+## Source of Truth vs Generated Files
+
+The document registry source of truth is the per-doc files under `src/main/data/docs/`
+(one JSON file per document, sharded by `{publisher}/{docType}/`; title-identified
+docTypes such as journal articles add a `{year}/` level). Edit those files directly, or
+scaffold a new one with `npm run new-doc`.
+
+A file's path is derived from its own `publisher`, `docType`, `docId` (and
+`publicationDate`) — if you change any of those, run `npm run canonicalize` and it
+re-homes the file to the correct shard and prunes any emptied folder. `npm run validate`
+fails if a file is not at its derived path.
+
+The following are built automatically — **do not edit**:
+
+- The assembled `documents.json` monolith, registry slices, and per-docId API (all under `build/`)
 - All reports under `src/main/reports/`
 
-Changes to these files must come from running the proper workflows or scripts, not manual edits.
+Changes to generated files must come from running the proper workflows or scripts, not manual edits.
 
 ## Schema Compliance
 If you modify metadata or structure, validate against the appropriate schema:

@@ -39,6 +39,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const fs = require('fs');
 const path = require('path');
+const { loadAllDocs } = require('../lib/registry');
 
 function has(flag) { return process.argv.includes(flag); }
 function arg(name, def) {
@@ -46,7 +47,8 @@ function arg(name, def) {
   return i !== -1 && process.argv[i+1] ? process.argv[i+1] : def;
 }
 
-const IN  = arg('--in',  'src/main/data/documents.json');
+// --in is optional: when omitted, the per-doc registry under src/main/data/docs/ is used.
+const IN  = arg('--in',  null);
 const OUT = arg('--out', 'src/main/reports/documents_audit.json');
 const PRETTY = Number(arg('--pretty', '2')); // 0..n
 
@@ -143,7 +145,7 @@ function collect(allDocs) {
 }
 
 function main() {
-  const docs = readJson(IN);
+  const docs = IN ? readJson(IN) : loadAllDocs();
   const items = collect(docs);
 
   ensureDir(OUT);
@@ -166,7 +168,7 @@ function main() {
 
   const payload = {
     generatedAt: new Date().toISOString(),
-    sourcePath: IN,
+    sourcePath: IN || 'src/main/data/docs',
     total: items.length,
     grouped: groupedReport
   };

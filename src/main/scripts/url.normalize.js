@@ -29,12 +29,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const fs = require('fs');
 const path = require('path');
+const { loadAllDocs, saveDoc } = require('../lib/registry');
 
 const APPLY = process.argv.includes('--apply');
-const DATA_DIR = 'src/main/data';
 const REPORT_DIR = 'src/main/reports';
 const AUDIT_PATH = path.join(REPORT_DIR, 'url_validate_audit.json');
-const DOCS_PATH = path.join(DATA_DIR, 'documents.json');
 const COMBINED_PATH = path.join(REPORT_DIR, 'url_validate_normalize.json');
 
 function loadJson(p) {
@@ -59,7 +58,7 @@ function setWithMeta(obj, key, value, meta) {
 
 function main() {
   const audit = loadJson(AUDIT_PATH);
-  const docs = loadJson(DOCS_PATH);
+  const docs = loadAllDocs();
 
   // Build index by docId for quick lookup
   const byDocId = new Map();
@@ -124,8 +123,12 @@ function main() {
   fs.writeFileSync(COMBINED_PATH, JSON.stringify(combined, null, 2));
 
   if (APPLY) {
-    fs.writeFileSync(DOCS_PATH, JSON.stringify(docs, null, 2));
-    console.log(`✅ Applied ${applied} backfills to ${DOCS_PATH}`);
+    const touched = new Set(proposals.map((p) => p.docId));
+    let saved = 0;
+    for (const d of docs) {
+      if (touched.has(d.docId)) { saveDoc(d); saved++; }
+    }
+    console.log(`✅ Applied ${applied} backfills across ${saved} registry file(s)`);
   }
   console.log(`🧾 Enrich report → ${COMBINED_PATH} (backfillable: ${backfillable}, eligible: ${eligible}, considered: ${considered})`);
 }

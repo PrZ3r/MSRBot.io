@@ -41,7 +41,8 @@ When creating an issue or pull request:
 
 ## Validation expectations by change type
 - **Docs-only changes**: sanity-check formatting and links where practical.
-- **Data changes** (for example `src/main/data/*.json`): run `npm run validate` and `npm run canonicalize`.
+- **Data changes** to the document registry: edit the per-doc files under `src/main/data/docs/{publisher}/{docType}/[{year}/]{docId}.json` (one JSON file per document — never the assembled `documents.json`, which is a build artifact). Scaffold new docs with `npm run new-doc -- --docId <id> --publisher <pub> --docType <type>`. Then run `npm run canonicalize` (re-homes the file if you changed publisher/docType/docId/publicationDate, and injects `$meta`) and `npm run validate`.
+- **Other registry data** (`groups.json`, `projects.json`, `portals.json`, etc.): run `npm run validate` and `npm run canonicalize`.
 - **URL/normalization changes**: run `npm run validate-url` and, when appropriate, `npm run normalize-url`.
 - **Build/output-affecting changes**: run `npm run build` (or the smallest relevant build script).
 

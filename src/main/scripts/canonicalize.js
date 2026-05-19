@@ -35,30 +35,28 @@ const { listRegistries } = require('./utils/registryList');
 const documentsCanonicalize = require('./documents.canonicalize');
 
 async function run() {
-  const regs = {};
-
   for (const reg of listRegistries()) {
+    if (reg.isDirectory) {
+      // Directory-backed registry (issue #1108): canonicalize per-doc files.
+      console.log(`🔄 Canonicalizing ${reg.name} registry (per-doc files)`);
+      documentsCanonicalize.canonicalizeDirectory();
+      continue;
+    }
+
     if (!fs.existsSync(reg.dataPath)) {
       console.warn(`[WARN] No data file found for ${reg.name}, skipping...`);
       continue;
     }
-    regs[reg.name] = {
-      name: reg.name,
-      data: JSON.parse(fs.readFileSync(reg.dataPath, 'utf8')),
-      dataFilePath: reg.dataPath
-    };
-  }
 
-  // Canonicalize each registry
-  for (const reg_name in regs) {
-    console.log(`🔄 Canonicalizing ${regs[reg_name].name} registry`);
+    console.log(`🔄 Canonicalizing ${reg.name} registry`);
+    const data = JSON.parse(fs.readFileSync(reg.dataPath, 'utf8'));
 
-    if (reg_name === "documents") {
-      documentsCanonicalize(regs[reg_name].data, regs[reg_name].dataFilePath);
+    if (reg.name === "documents") {
+      documentsCanonicalize(data, reg.dataPath);
     } else {
       fs.writeFileSync(
-        regs[reg_name].dataFilePath,
-        stringify(regs[reg_name].data, { space: '  ' }) + "\n"
+        reg.dataPath,
+        stringify(data, { space: '  ' }) + "\n"
       );
     }
   }

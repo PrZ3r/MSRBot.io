@@ -31,6 +31,7 @@ const fs = require('fs');
 const path = require('path');
 const { resolveUrl } = require('./url.resolve.js');
 const { checkExpectations } = require('../lib/url.rules.js');
+const { loadAllDocs } = require('../lib/registry');
 
 
 const SKIP_VALIDATION_DOMAINS = [
@@ -112,14 +113,18 @@ const FULL_PATH = path.join(DATA_PATH, TARGET_FILE);
 const REPORT_FILE = 'url_validate_audit.json';
 const reportPath = path.join(REPORT_PATH, REPORT_FILE);
 
-if (!fs.existsSync(FULL_PATH)) {
+const TARGET_IS_DOCUMENTS = TARGET_BASE === 'documents';
+
+if (!TARGET_IS_DOCUMENTS && !fs.existsSync(FULL_PATH)) {
   console.error(`❌ File not found: ${FULL_PATH}`);
   process.exit(1);
 }
 
-console.log(`🔍 Checking URL fields in ${TARGET_FILE}`);
+console.log(`🔍 Checking URL fields in ${TARGET_IS_DOCUMENTS ? 'the document registry' : TARGET_FILE}`);
 
-const registry = JSON.parse(fs.readFileSync(FULL_PATH, 'utf8'));
+const registry = TARGET_IS_DOCUMENTS
+  ? loadAllDocs()
+  : JSON.parse(fs.readFileSync(FULL_PATH, 'utf8'));
 const issues = [];
 const errorStats = {};
 

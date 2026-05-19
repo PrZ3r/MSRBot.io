@@ -58,6 +58,7 @@ const {
 } = require('../lib/referencing');
 
 const keying = require('../lib/keying');
+const { loadAllDocs } = require('../lib/registry');
 const { keyFromDocId } = keying;
 
 const REGISTRIES_REPO_PATH = 'src/main';
@@ -76,7 +77,8 @@ function arg(flag, def = null) {
 }
 function has(flag) { return process.argv.includes(flag); }
 
-const IN = arg('--in', 'src/main/data/documents.json');
+// --in is optional: when omitted, the per-doc registry under src/main/data/docs/ is used.
+const IN = arg('--in', null);
 const PRESENCE_ONLY = has('--presence-only');
 const AUDIT_OUT = arg('--audit-out', 'src/main/reports/mri_presence_audit.json');
 const LIMIT = parseInt(arg('--limit', ''), 10);
@@ -86,6 +88,9 @@ const QUIET = has('--quiet');
 function ensureDir(p) { fs.mkdirSync(path.dirname(p), { recursive: true }); }
 
 function loadDocuments(inPath) {
+  if (!inPath) {
+    return loadAllDocs();
+  }
   if (!fs.existsSync(inPath)) {
     console.error(`❌ Input not found: ${inPath}`);
     process.exit(1);

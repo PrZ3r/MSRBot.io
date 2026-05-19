@@ -65,10 +65,7 @@ jobs:
         run: npm run validate
 
       - name: Build site preview
-        run: npm run build   # produces ./build
-
-      - name: Generate API stats preview
-        run: npm run build-stats  # produces stats
+        run: npm run build   # produces ./build (includes build/api/stats.json)
 
       - name: Verify build output exists
         run: |

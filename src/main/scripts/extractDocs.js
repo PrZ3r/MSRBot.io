@@ -39,6 +39,7 @@ const dayjs = require('dayjs');
 const fs = require('fs');
 const { execSync } = require('child_process');
 const { getProvider, listProviders } = require('./providers');
+const { loadAllDocs, saveDoc } = require('../lib/registry');
 
 // --- Hashing for extractor script versioning ---
 const crypto = require('crypto');
@@ -509,18 +510,8 @@ const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
     }
   }
 
-  const outputPath = 'src/main/data/documents.json';
-  let existingDocs = [];
-
-  if (fs.existsSync(outputPath)) {
-    const raw = fs.readFileSync(outputPath, 'utf-8');
-    try {
-      const parsed = JSON.parse(raw);
-      existingDocs = Array.isArray(parsed) ? parsed : parsed.documents || [];
-    } catch (err) {
-      console.error('Failed to parse existing documents.json:', err.message);
-    }
-  }
+  // Source of truth is the per-doc registry under src/main/data/docs/.
+  let existingDocs = loadAllDocs();
 
   const newDocs = [];
   const updatedDocs = [];
@@ -930,14 +921,23 @@ for (const doc of results) {
   
   logSmart(`\n✅ Merge/update phase complete — processed ${processed}/${results.length}`);
 
-  // Sort documents by docId
+  // Keep the in-memory array sorted for the MRI consumers below.
   existingDocs.sort((a, b) => a.docId.localeCompare(b.docId));
 
-  // Write sorted documents to file
-  fs.writeFileSync(
-    outputPath,
-    JSON.stringify(existingDocs, null, 2) + '\n'
-  );
+  // Persist only the docs this run touched, each to its own shard file.
+  // saveDoc() re-homes a doc whose publisher/docType/docId changed.
+  const touchedIds = new Set([
+    ...newDocs.map(d => d.docId),
+    ...updatedDocs.map(u => u.docId)
+  ]);
+  let savedCount = 0;
+  for (const d of existingDocs) {
+    if (touchedIds.has(d.docId)) {
+      saveDoc(d);
+      savedCount++;
+    }
+  }
+  console.log(`💾 Wrote ${savedCount} per-doc registry file(s).`);
 
   console.log(`✅ Added ${newDocs.length} new documents.`);
   console.log(`🔁 Updated ${updatedDocs.length} documents.`);
@@ -1051,7 +1051,7 @@ for (const doc of results) {
     const mergedItems = [...dedupe.values()];
     const payload = {
       generatedAt: nowIso,
-      sourcePath: outputPath,
+      sourcePath: 'src/main/data/docs',
       total: mergedItems.length,
       badRefs: mergedItems
     };

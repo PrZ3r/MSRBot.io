@@ -41,7 +41,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 ### Key Artifacts
 - Core data stored as JSON: [`src/main/data`](src/main/data/)
 - Schema for data: [`src/main/schemas`](src/main/schemas/)
-- Main document Dataset: [`documents.json`](src/main/data/documents.json)
+- Main document Dataset: [`src/main/data/docs/`](src/main/data/docs/) — one JSON file per document, sharded by `{publisher}/{docType}/` (title-identified docTypes such as journal articles add a `{year}/` level). The `documents.json` monolith, registry slices, and per-docId API are build artifacts assembled from these files.
 - Document lineages: [Master Suite Index (MSI)](src/main/reports/masterSuiteIndex.json)
 - Document reference maps: [Master Reference Index (MRI)](src/main/reports/masterReferenceIndex.json)
 - API Explorer: [msrbot.io/api/](https://msrbot.io/api/)
@@ -144,13 +144,14 @@ npm run normalize-url
 npm run canonicalize
 npm run validate
 npm run validate -- --warn
-npm run docs-sort
 npm run docs-validate
-npm run docs-fix
+npm test
+npm run new-doc -- --docId {id} --publisher {pub} --docType {type}
 npm run review-refs -- list
 npm run review-refs -- resolve {docId}
 npm run keywords-sync
 npm run keywords-sync -- --write
+npm run assemble
 npm run build
 npm run local-server
 ```

@@ -8,8 +8,8 @@ Usage:
 
 const fs = require('fs');
 const path = require('path');
+const { loadAllDocs, saveDoc } = require('../../lib/registry');
 
-const DOCS_PATH = path.resolve(process.cwd(), 'src/main/data/documents.json');
 const BAD_REFS_PATH = path.resolve(process.cwd(), 'src/main/reports/badRefs.latest.json');
 
 function loadJson(p) {
@@ -124,13 +124,9 @@ function resolveDocs(docs, ids) {
 }
 
 function main() {
-  if (!fs.existsSync(DOCS_PATH)) {
-    console.error(`Missing file: ${DOCS_PATH}`);
-    process.exit(1);
-  }
-  const docs = loadJson(DOCS_PATH);
+  const docs = loadAllDocs();
   if (!Array.isArray(docs)) {
-    console.error('documents.json is not an array');
+    console.error('document registry did not produce an array');
     process.exit(1);
   }
 
@@ -179,7 +175,10 @@ function main() {
       process.exit(1);
     }
     const changed = resolveDocs(docs, ids);
-    saveJson(DOCS_PATH, docs);
+    const wanted = new Set(ids);
+    for (const d of docs) {
+      if (wanted.has(d.docId)) saveDoc(d);
+    }
     console.log(`Updated review flags for ${changed} reference meta field(s).`);
     return;
   }

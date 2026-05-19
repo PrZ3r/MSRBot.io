@@ -34,15 +34,25 @@ const DATA_PATH = path.resolve("src/main/data/");
 const SCHEMA_PATH = path.resolve("src/main/schemas/");
 const VALIDATE_PATH = path.resolve("src/main/scripts/");
 
+// Registries whose source of truth is a directory of per-doc JSON files
+// rather than a single monolithic {name}.json (issue #1108).
+const DIRECTORY_REGISTRIES = {
+  documents: path.join(DATA_PATH, "docs")
+};
+
 function listRegistries() {
   return fs.readdirSync(SCHEMA_PATH)
     .filter(f => f.endsWith(".schema.json"))
     .map(schemaFile => {
       const name = schemaFile.replace(".schema.json", "");
+      const dataDir = DIRECTORY_REGISTRIES[name] || null;
+      const isDirectory = !!dataDir && fs.existsSync(dataDir);
       return {
         name,
         schemaPath: path.join(SCHEMA_PATH, schemaFile),
         dataPath: path.join(DATA_PATH, `${name}.json`),
+        dataDir,
+        isDirectory,
         validatePath: path.join(VALIDATE_PATH, `${name}.validate.js`)
       };
     });

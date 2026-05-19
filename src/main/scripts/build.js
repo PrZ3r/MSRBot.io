@@ -158,6 +158,9 @@ hb.registerHelper('refHref', function (refId) {
 
 // Minimal shared keying import for MSI lineage lookups
 const keying = require('../lib/keying');
+const { loadAllDocs } = require('../lib/registry');
+const { assembleSlices } = require('./build.assemble-registry');
+const buildStats = require('./utils/buildStats');
 const { lineageKeyFromDoc, lineageKeyFromDocId } = keying;
 
 // --- Suites/Collections lookup (from masterSuiteIndex.json) ---
@@ -480,22 +483,21 @@ async function emitDocumentsApiOnce() {
   }
   __docsApiEmitted = true;
 
-  const docsPath = path.join('src', 'main', 'data', 'documents.json');
+  const docsPath = path.join('src', 'main', 'data', 'docs');
   let docs;
 
   try {
-    const raw = await fs.readFile(docsPath, 'utf8');
-    docs = JSON.parse(raw);
+    docs = loadAllDocs();
   } catch (e) {
     console.warn(
-      '[api] Failed to read src/main/data/documents.json for API emit:',
+      '[api] Failed to load the per-doc registry for API emit:',
       e && e.message ? e.message : e
     );
     return;
   }
 
   if (!Array.isArray(docs)) {
-    console.warn('[api] documents.json did not contain an array; skipping /api/documents.json emit.');
+    console.warn('[api] registry did not produce an array; skipping /api/documents.json emit.');
     return;
   }
 
@@ -742,8 +744,11 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
   var DATA_PATH = path.join(REGISTRIES_REPO_PATH, "data/" + listType + ".json");
   var TEMPLATE_PATH = "src/main/templates/" + templateName + ".hbs";
 
-  // Load registry data before emitting JSON files
-  let data = JSON.parse(await fs.readFile(DATA_PATH, 'utf8'));
+  // Load registry data before emitting JSON files. The documents registry is
+  // a directory of per-doc files (issue #1108); other registries stay monolithic.
+  let data = (listType === 'documents')
+    ? loadAllDocs()
+    : JSON.parse(await fs.readFile(DATA_PATH, 'utf8'));
   const raw = data;
   // --- Registry JSON emit
   // Normalized groups must ONLY be emitted during the groups pass.
@@ -1366,8 +1371,10 @@ function _titleOf(doc){
     }
   });
   
-  // --- Load registries (data only). 
-  let registryDocument = JSON.parse(await fs.readFile(DATA_PATH, 'utf8'));
+  // --- Load registries (data only).
+  let registryDocument = (listType === 'documents')
+    ? loadAllDocs()
+    : JSON.parse(await fs.readFile(DATA_PATH, 'utf8'));
   // Fast lookup of existing docIds in the current registry — used to short-circuit MSI ref upgrades
   const __docIdSet = new Set(Array.isArray(registryDocument) ? registryDocument.map(d => d && d.docId).filter(Boolean) : []);
   let registryGroup = [];
@@ -2986,6 +2993,12 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       } catch (e) {
         console.warn('[build] Could not write documents snapshot:', e && e.message ? e.message : e);
       }
+      // Emit per-publisher / per-docType slices from the same built state.
+      try {
+        assembleSlices(registryDocument);
+      } catch (e) {
+        console.warn('[build] Could not write registry slices:', e && e.message ? e.message : e);
+      }
       try {
         const { stdout } = await execFile('node', [path.join('src','main','scripts','build.search-index.js'), EFFECTIVE_DOCS_PATH]);
         if (stdout && stdout.trim()) console.log(stdout.trim());
@@ -3073,6 +3086,13 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     } catch (e) {
       console.warn('[api] Documents API emit failed:', e && e.message ? e.message : e);
     }
+
+    // Emit build/api/stats.json (folded in from the former build-stats step).
+    try {
+      buildStats();
+    } catch (e) {
+      console.warn('[api] Stats emit failed:', e && e.message ? e.message : e);
+    }
   
   /* set the CHROMEPATH environment variable to provide your own Chrome executable */
   var pptr_options = {};
@@ -3096,7 +3116,11 @@ hb.registerHelper('docProjLookup', function(collection, id) {
   }
 
   (async () => {
-    const data = await parseJSONFile(inputFileName);
+    // The documents registry is a directory of per-doc files (issue #1108);
+    // use the already-loaded in-memory array instead of reading a monolith.
+    const data = (listType === 'documents')
+      ? registryDocument
+      : await parseJSONFile(inputFileName);
     // Remove all fields where the key contains "$meta" before exporting to CSV
     const stripped = JSON.parse(
       JSON.stringify(
