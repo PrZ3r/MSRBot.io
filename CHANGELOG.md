@@ -14,50 +14,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-## [v2.0.0] - yyyy-mm-dd
+## [v2.0.0] - 2026-05-20
 
-Major release — the document registry model is inverted. The source of truth
-moves from the monolithic `src/main/data/documents.json` to one JSON file per
-document under `src/main/data/docs/`, sharded by `{publisher}/{docType}/` (with
-a `{year}/` level for title-identified docTypes). The monolith, per-publisher/
-docType slices, and the per-docId API all become build artifacts. See
-[#1108](https://github.com/PrZ3r/MSRBot.io/issues/1108).
+Major release — the document registry model is inverted. The source of truth moves from the monolithic `src/main/data/documents.json` to one JSON file per document under `src/main/data/docs/`, sharded by `{publisher}/{docType}/` (with a `{year}/` level for title-identified docTypes). The monolith, per-publisher/docType slices, and the per-docId API all become build artifacts. See [#1108](https://github.com/PrZ3r/MSRBot.io/issues/1108).
 
 ### Added
-- **Per-doc document registry** — the registry source of truth is now one JSON
-  file per document under `src/main/data/docs/{publisher}/{docType}/{docId}.json`;
-  title-identified docTypes (`site.json#titleLabelDocTypes`) add a `{year}/` level.
-  This removes the single-file scale ceiling (GitHub's 50/100 MB limits, whole-file
-  rewrites, unreviewable diffs) ahead of the journal-article backfill.
-- New `src/main/lib/registry.js` — central registry access: `loadAllDocs`,
-  `loadDoc`, `saveDoc`, `slug`, `docIdSlug`, `docPath`.
-- New `npm run new-doc` — scaffolds a new per-doc file from the template straight
-  into its correct shard path.
-- New `npm run assemble` (`build.assemble-registry.js`) — emits per-publisher and
-  per-publisher/docType registry slices under `build/`.
-- New one-time `src/main/scripts/migrate.explode-documents.js` — explodes the
-  legacy `documents.json` into the per-doc tree (dry-run by default; `--apply`).
+- **Per-doc document registry** — the registry source of truth is now one JSON file per document under `src/main/data/docs/{publisher}/{docType}/{docId}.json`; title-identified docTypes (`site.json#titleLabelDocTypes`) add a `{year}/` level. Removes the single-file scale ceiling (GitHub's 50/100 MB limits, whole-file rewrites, unreviewable diffs) ahead of the journal-article backfill.
+- New `src/main/lib/registry.js` — central registry access: `loadAllDocs`, `loadDoc`, `saveDoc`, `slug`, `docIdSlug`, `docPath`.
+- New `npm run new-doc` — scaffolds a new per-doc file from the template straight into its correct shard path.
+- New `npm run assemble` (`build.assemble-registry.js`) — emits per-publisher and per-publisher/docType registry slices under `build/`.
+- New one-time `src/main/scripts/migrate.explode-documents.js` — explodes the legacy `documents.json` into the per-doc tree (dry-run by default; `--apply`).
 
 ### Changed
-- `documents.json`, the per-publisher/docType slices, and the per-docId API are
-  now **build artifacts** assembled from the per-doc registry — never hand-edited.
-- `npm run canonicalize` runs per-file: key-sorts each doc, injects `$meta`,
-  re-homes any file not at the shard path its own fields derive, and prunes
-  emptied directories.
-- `npm run validate` runs per-file and adds a path-consistency check — a file
-  must sit where its `publisher`/`docType`/`docId`/`publicationDate` fields derive.
-- `extractDocs` writes only the docs a run touched, each to its own shard file,
-  via `saveDoc()` (which re-homes on publisher/docType/docId changes).
-- `npm run build` now emits `build/api/stats.json` itself — the former
-  `build-stats` workflow step is folded in.
-- `build-msi` / `build-mri` `--in` is now optional, defaulting to the per-doc
-  registry; ~13 registry read sites swapped to `loadAllDocs()`.
-- Extract, URL-validate, and index-build workflows updated to operate on
-  `src/main/data/docs/`.
+- `documents.json`, the per-publisher/docType slices, and the per-docId API are now **build artifacts** assembled from the per-doc registry — never hand-edited.
+- `npm run canonicalize` runs per-file: key-sorts each doc, injects `$meta`, re-homes any file not at the shard path its own fields derive, and prunes emptied directories.
+- `npm run validate` runs per-file and adds a path-consistency check — a file must sit where its `publisher`/`docType`/`docId`/`publicationDate` fields derive.
+- `extractDocs` writes only the docs a run touched, each to its own shard file, via `saveDoc()` (which re-homes on publisher/docType/docId changes).
+- `npm run build` now emits `build/api/stats.json` itself — the former `build-stats` workflow step is folded in.
+- `build-msi` / `build-mri` `--in` is now optional, defaulting to the per-doc registry; ~13 registry read sites swapped to `loadAllDocs()`.
+- Extract, URL-validate, and index-build workflows updated to operate on `src/main/data/docs/`.
 
 ### Removed
-- `npm run docs-sort` and `npm run docs-fix` (and `src/main/scripts/utils/docIdSort.js`)
-  — array order is now derived from filenames; `canonicalize` owns ordering and placement.
+- `npm run docs-sort` and `npm run docs-fix` (and `src/main/scripts/utils/docIdSort.js`) — array order is now derived from filenames; `canonicalize` owns ordering and placement.
 - The separate "Generate API stats" workflow step — folded into `npm run build`.
 
 ## [v1.4.2] - 2026-03-11
