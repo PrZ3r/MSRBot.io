@@ -138,6 +138,13 @@ function isbnRefIdOf(rawRef) {
   }
   return null;
 }
+// Patent designator text for a reftype="patent" ref (from <patentnum> or a patent <ref_pubtitle>).
+function patentOf(rawRef) {
+  if (!/reftype="patent"/i.test(rawRef || '')) return null;
+  let m = String(rawRef).match(/<patentnum>([^<]+)<\/patentnum>/i);
+  if (!m) m = String(rawRef).match(/<ref_pubtitle>([^<]*Patent[^<]*)<\/ref_pubtitle>/i);
+  return m ? decodeEntities(m[1]).trim() : null;
+}
 // Reject obviously-bad refIds — self-references and generic org ids (e.g. W3C.ORG).
 function qualityOk(refId, citingDocId) {
   if (!refId || typeof refId !== 'string') return false;
@@ -148,7 +155,7 @@ function qualityOk(refId, citingDocId) {
 // Resolve one unresolved entry → { refId, via }. Order: standardnum (most conformed) →
 // online-cite URL as href (W3C/Unicode URL resolvers — structural, safe) → exact title match.
 // Free-text cite-scanning is intentionally NOT used — it mis-grabs designators from prose.
-// via: 'standardnum' | 'url' | 'isbn' | 'titlematch' | 'ambiguous' | null.
+// via: 'standardnum' | 'url' | 'isbn' | 'patent' | 'titlematch' | 'ambiguous' | null.
 function resolveEntry(u) {
   const sn = standardnumOf(u.rawRef);
   if (sn) {
@@ -164,6 +171,12 @@ function resolveEntry(u) {
   }
   const isbn = isbnRefIdOf(u.rawRef);
   if (qualityOk(isbn, u.docId)) return { refId: isbn, via: 'isbn' };
+  const pat = patentOf(u.rawRef);
+  if (pat) {
+    let id = null;
+    try { id = parseRefId(pat, ''); } catch { /* ignore */ }
+    if (qualityOk(id, u.docId)) return { refId: id, via: 'patent' };
+  }
   const t = normTitle(u.title);
   if (t) {
     const matches = titleIdx.get(t);
@@ -178,7 +191,7 @@ function resolveEntry(u) {
 if (APPLY) { try { mriEnsureFile(); } catch { /* ignore */ } }
 
 let resolved = 0;
-const viaCount = { standardnum: 0, url: 0, isbn: 0, titlematch: 0 };
+const viaCount = { standardnum: 0, url: 0, isbn: 0, patent: 0, titlematch: 0 };
 const refMapCandidates = {}; // refId → [cite patterns] proposed for refMap.json
 let skippedAmbiguous = 0;
 let skippedDup = 0;
@@ -237,6 +250,7 @@ console.log(`Resolved: ${resolved}`);
 console.log(`  via standardnum (parseRefId):   ${viaCount.standardnum}`);
 console.log(`  via online-cite URL (href):     ${viaCount.url}`);
 console.log(`  via ISBN (idnum):               ${viaCount.isbn}`);
+console.log(`  via patent number:              ${viaCount.patent}`);
 console.log(`  via exact 1:1 title match:      ${viaCount.titlematch}`);
 console.log(`  skipped — ambiguous title (>1 doc): ${skippedAmbiguous}`);
 if (skippedDup) console.log(`  note — refId already on the doc:   ${skippedDup}`);

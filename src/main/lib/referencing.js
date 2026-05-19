@@ -854,7 +854,9 @@ function parseRefId(text, href = '', opts = {}) {
 
   // SMPTE (ST/RP/RDD/EG/AG/OV), optional part, optional year[:YYYY or YYYY-MM]
   {
-    const smpteRe = /SMPTE\s+(ST|RP|RDD|EG|AG|OV)[\s\u00A0\u2010-\u2015\-]+(\d+[A-Za-z]?)(?:-(\d+))?(?::\s*(\d{4})(?:-(\d{2}))?)?/i;
+    // part is 1-3 digits NOT followed by another digit, so a hyphen-separated year
+    // ("SMPTE EG 21-1993") is read as the year, not as part "1993"/"199".
+    const smpteRe = /SMPTE\s+(ST|RP|RDD|EG|AG|OV)[\s\u00A0\u2010-\u2015\-]+(\d+[A-Za-z]?)(?:-(\d{1,3})(?!\d))?(?:[:\u2010-\u2015-]\s*(\d{4})(?:-(\d{2}))?)?/i;
     const m = text.match(smpteRe);
     if (m) {
       const [, type, numRaw, part, year, month] = m;
@@ -981,9 +983,10 @@ function parseRefId(text, href = '', opts = {}) {
   // Examples:
   // - "U.S. Patent No. 5,724,428"
   // - "US Patent No 5835600"
+  // - "U.S. Patent #5,848,159"  (the "#" / "&#x0023;" form)
   // Canonical docId format in this repo is "US########".
   {
-    const patentMatch = String(text || '').match(/\b(?:U\.?\s*S\.?|US)\s+Patent(?:\s+No\.?)?\s*(\d[\d,\s]{5,})\b/i);
+    const patentMatch = String(text || '').match(/\b(?:U\.?\s*S\.?|US)\s+Patent(?:\s+No\.?)?\s*[##]?\s*(\d[\d,\s]{5,})\b/i);
     if (patentMatch?.[1]) {
       const digits = String(patentMatch[1]).replace(/[^\d]/g, '');
       if (digits.length >= 6) {
@@ -1189,6 +1192,66 @@ function parseRefId(text, href = '', opts = {}) {
     if (m) {
       const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2]}` : ''}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-designator' } } : refId;
+    }
+  }
+
+  // ETSI: "ETSI TS 101 154", "ETSI ETS-300706", "ETSI EN 300 743" → ETSI.TS-101-154[.year]
+  {
+    const m = String(text || '').match(/\bETSI\s+(TS|TR|EN|ES|ETS|ETR)[\s‐-―-]+(\d[\d\s‐-―-]*\d)/i);
+    if (m) {
+      const num = m[2].replace(/[\s‐-―-]+/g, '-');
+      const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `ETSI.${m[1].toUpperCase()}-${num}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'etsi-designator' } } : refId;
+    }
+  }
+
+  // ARIB: "ARIB STD-B11", "ARIB TR-B4" → ARIB.STD-B11
+  {
+    const m = String(text || '').match(/\bARIB\s+(STD|TR)[\s‐-―-]*B[\s‐-―-]*(\d+)/i);
+    if (m) {
+      const refId = `ARIB.${m[1].toUpperCase()}-B${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'arib-designator' } } : refId;
+    }
+  }
+
+  // ATSC: "ATSC A/53", "ATSC A/65C" → ATSC.A53[.year]
+  {
+    const m = String(text || '').match(/\bATSC\s+A\/?\s*(\d+[A-Z]?)/i);
+    if (m) {
+      const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `ATSC.A${m[1].toUpperCase()}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'atsc-designator' } } : refId;
+    }
+  }
+
+  // TIA: "TIA-232 (2002)", "TIA-604-5-E-2015" → TIA.232[.year]
+  {
+    const m = String(text || '').match(/\bTIA[\s‐-―-](\d{2,4}(?:-\d+)?)/i);
+    if (m) {
+      const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `TIA.${m[1].toUpperCase()}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'tia-designator' } } : refId;
+    }
+  }
+
+  // EIA: "EIA-189-A", "EIA RS-170" → EIA.189-A / EIA.RS-170
+  {
+    const m = String(text || '').match(/\bEIA[\s‐-―-]+(RS[\s‐-―-]?\d+|\d{2,4}[\s‐-―-]?[A-Z]?)/i);
+    if (m) {
+      const id = m[1].replace(/[\s‐-―-]+/g, '-').toUpperCase().replace(/-+$/, '');
+      return wantDiag
+        ? { refId: `EIA.${id}`, diag: { mapSource: 'regex', mapDetail: 'eia-designator' } }
+        : `EIA.${id}`;
+    }
+  }
+
+  // DVB: "DVB-A010" → DVB.A010  (DVB/ETSI forms resolve via the ETSI block above)
+  {
+    const m = String(text || '').match(/\bDVB[\s‐-―-]([A-Z]?\d{2,4}[A-Za-z]?)\b/i);
+    if (m) {
+      const refId = `DVB.${m[1].toUpperCase()}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'dvb-designator' } } : refId;
     }
   }
 
