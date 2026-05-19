@@ -117,6 +117,12 @@ function standardnumOf(rawRef) {
   if (/^(ST|RP|EG|RDD|AG|OM|OV)\b/i.test(sn) && !/^SMPTE\b/i.test(sn)) sn = `SMPTE ${sn}`;
   return sn;
 }
+// The <date><year> of the ref — many org designators carry no year in <standardnum>
+// (it lives in <date>), so it must be appended to the parseRefId input to get a dated refId.
+function dateYearOf(rawRef) {
+  const m = String(rawRef || '').match(/<date>[\s\S]*?<year>\s*((?:19|20)\d{2})\s*<\/year>/i);
+  return m ? m[1] : null;
+}
 // The first <online-cite> URL — used as the href arg to parseRefId (W3C/Unicode URL resolvers).
 function onlineCiteOf(rawRef) {
   const m = String(rawRef || '').match(/<online-cite[^>]*>([^<]+)<\/online-cite>/i);
@@ -159,9 +165,16 @@ function qualityOk(refId, citingDocId) {
 function resolveEntry(u) {
   const sn = standardnumOf(u.rawRef);
   if (sn) {
-    let id = null;
-    try { id = parseRefId(sn, ''); } catch { /* ignore */ }
-    if (qualityOk(id, u.docId)) return { refId: id, via: 'standardnum' };
+    // Try the bare standardnum and (when the year isn't already in it) the standardnum with
+    // the <date> year appended — then prefer a dated refId over an undated lineage form.
+    const yr = dateYearOf(u.rawRef);
+    const probes = (yr && !sn.includes(yr)) ? [sn, `${sn} ${yr}`] : [sn];
+    const hits = [];
+    for (const p of probes) {
+      try { const id = parseRefId(p, ''); if (qualityOk(id, u.docId)) hits.push(id); } catch { /* ignore */ }
+    }
+    const pick = hits.find((h) => /\.\d{4}(-\d{2})?$/.test(h)) || hits[0];
+    if (pick) return { refId: pick, via: 'standardnum' };
   }
   const url = onlineCiteOf(u.rawRef);
   if (url) {

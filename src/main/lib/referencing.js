@@ -1167,13 +1167,15 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
-  // EBU (European Broadcasting Union): "EBU R48-1988", "EBU D84-1999", "EBU Tech. 3267 (1992)",
-  // "EBU Tech 3285" → EBU.R48.1988 / EBU.Tech3267.1992
+  // EBU (European Broadcasting Union): "EBU R48-1988", "EBU D84-1999",
+  // "EBU Tech. 3250-E — Specification of … Third Edition 2004" → EBU.R48.1988 / EBU.Tech3250.2004
+  // (year scanned from anywhere in the cite — it often trails the title, not the designator)
   {
-    const m = String(text || '').match(/\bEBU\s+(?:Tech(?:nical)?\.?\s*(\d{1,4}[a-z]?)|([RD]\d{1,4}[A-Za-z]?))(?:[\s:(‐-―-]+((?:19|20)\d{2}))?/i);
+    const m = String(text || '').match(/\bEBU\s+(?:Tech(?:nical)?\.?\s*(\d{1,4}[a-z]?)|([RD]\d{1,4}[A-Za-z]?))/i);
     if (m) {
       const series = m[1] ? `Tech${m[1]}` : m[2].toUpperCase();
-      const refId = `EBU.${series}${m[3] ? `.${m[3]}` : ''}`;
+      const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `EBU.${series}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ebu-designator' } } : refId;
     }
   }
