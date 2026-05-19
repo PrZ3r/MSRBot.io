@@ -1156,6 +1156,18 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // ANSI co-designations — drop the "ANSI/" and resolve to the inner org:
+  //   "ANSI/SCTE 127 2007" → SCTE.127.2007    "ANSI/ASTM D638M-91" → ASTM.D638M.1991
+  //   "ANSI/ASME B1.1-1989" → ASME.B1.1.1989  "ANSI/AIIM MS34-1990" → AIIM.MS34.1990
+  {
+    const m = String(text || '').match(/\bANSI[\/\s]([A-Z]{2,6})\s+([A-Z]{0,4}\d[\w.]*?)[\s‐-―-]+((?:19|20)?\d{2})\b/i);
+    if (m) {
+      const yr = m[3].length === 2 ? `19${m[3]}` : m[3];
+      const refId = `${m[1].toUpperCase()}.${m[2].toUpperCase()}.${yr}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-codesignation' } } : refId;
+    }
+  }
+
   // AES (Audio Engineering Society): "AES3-2003", "AES3-3:2009" (part 3), "AES3-4-2009",
   // "AES11-2009 (r2014)" → AES3.2003 / AES3-3.2009
   {
@@ -1274,6 +1286,15 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // FCC (US Federal Communications Commission): "FCC 08-255-2008" → FCC.08-255.2008
+  {
+    const m = String(text || '').match(/\bFCC\s+(\d+(?:-\d+)*)[\s‐-―-]+((?:19|20)\d{2})\b/i);
+    if (m) {
+      const refId = `FCC.${m[1]}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fcc-designator' } } : refId;
+    }
+  }
+
   // ISO marker-first legacy forms seen in older RFCs:
   // e.g., "[ISO-10744] ... ISO/IEC 10744:1992 ..." or
   // "[ISO-8879] ... Part 1 ... 1987".
@@ -1333,7 +1354,7 @@ function parseRefId(text, href = '', opts = {}) {
   };
 
   {
-    const best = pickBestStdMatch(/\bISO(?:\s*\/\s*IEC|\/IEC)\s+(?:(?:DIS|FDIS|CD|FCD|WD|PDTR|PDTS|CDV)[\s\/]+)?([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
+    const best = pickBestStdMatch(/\bISO\s*\/\s*(?:IEC|CIE)\s+(?:(?:DIS|FDIS|CD|FCD|WD|PDTR|PDTS|CDV)[\s\/]+)?([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
     if (best) {
       const refId = `ISO.${best.base}${best.year ? `.${best.year}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso|iec designator' } } : refId;
