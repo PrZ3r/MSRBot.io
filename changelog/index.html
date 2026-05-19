@@ -399,6 +399,42 @@
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
         </div>
       </div>
+      <div class="card mb-3" id="v2.0.0">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>
+              <i class="bi bi-tag me-1"></i>
+            [v2.0.0] - 2026-05-19
+          </span>
+              <span class="badge text-bg-secondary">2026-05-19</span>
+        </div>
+        <div class="card-body small">
+          <p>Major release — the document registry model is inverted. The source of truth moves from the monolithic <code>src/main/data/documents.json</code> to one JSON file per document under <code>src/main/data/docs/</code>, sharded by <code>{publisher}/{docType}/</code> (with a <code>{year}/</code> level for title-identified docTypes). The monolith, per-publisher/docType slices, and the per-docId API all become build artifacts. See <a href="https://github.com/PrZ3r/MSRBot.io/issues/1108" target="_blank" rel="noopener">#1108</a>.</p>
+<h6 class="fw-semibold mt-3 mb-1">Added</h6>
+<ul class="mb-1">
+<li><strong>Per-doc document registry</strong> — the registry source of truth is now one JSON file per document under <code>src/main/data/docs/{publisher}/{docType}/{docId}.json</code>; title-identified docTypes (<code>site.json#titleLabelDocTypes</code>) add a <code>{year}/</code> level. Removes the single-file scale ceiling (GitHub's 50/100 MB limits, whole-file rewrites, unreviewable diffs) ahead of the journal-article backfill.</li>
+<li>New <code>src/main/lib/registry.js</code> — central registry access: <code>loadAllDocs</code>, <code>loadDoc</code>, <code>saveDoc</code>, <code>slug</code>, <code>docIdSlug</code>, <code>docPath</code>.</li>
+<li>New <code>npm run new-doc</code> — scaffolds a new per-doc file from the template straight into its correct shard path.</li>
+<li>New <code>npm run assemble</code> (<code>build.assemble-registry.js</code>) — emits per-publisher and per-publisher/docType registry slices under <code>build/</code>.</li>
+<li>New one-time <code>src/main/scripts/migrate.explode-documents.js</code> — explodes the legacy <code>documents.json</code> into the per-doc tree (dry-run by default; <code>--apply</code>). Removed after the v2.0.0 migration; preserved in the commit history if ever needed again.</li>
+<li>New <code>npm test</code> (<code>src/main/scripts/test/registry.test.js</code>) — self-contained smoke tests pinning the <code>slug</code> / <code>docIdSlug</code> / <code>docPath</code> invariants in <code>src/main/lib/registry.js</code> (including the <code><em>unknown</code> / <code></em>undated</code> buckets and the year third-shard).</li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<ul class="mb-1">
+<li><code>documents.json</code>, the per-publisher/docType slices, and the per-docId API are now <strong>build artifacts</strong> assembled from the per-doc registry — never hand-edited.</li>
+<li><code>npm run canonicalize</code> runs per-file: key-sorts each doc, injects <code>$meta</code>, re-homes any file not at the shard path its own fields derive, and prunes emptied directories.</li>
+<li><code>npm run validate</code> runs per-file and adds a path-consistency check — a file must sit where its <code>publisher</code>/<code>docType</code>/<code>docId</code>/<code>publicationDate</code> fields derive. Each per-doc file is validated directly against the item schema, so Ajv error paths read <code>/docId</code> etc. rather than <code>/0/docId</code>.</li>
+<li><code>extractDocs</code> writes only the docs a run touched, each to its own shard file, via <code>saveDoc()</code> (which re-homes on publisher/docType/docId changes).</li>
+<li><code>npm run build</code> now emits <code>build/api/stats.json</code> itself — the former <code>build-stats</code> workflow step is folded in.</li>
+<li><code>build-msi</code> / <code>build-mri</code> <code>--in</code> is now optional, defaulting to the per-doc registry; ~13 registry read sites swapped to <code>loadAllDocs()</code>.</li>
+<li>Extract, URL-validate, and index-build workflows updated to operate on <code>src/main/data/docs/</code>.</li>
+</ul>
+<h6 class="fw-semibold mt-3 mb-1">Removed</h6>
+<ul class="mb-1">
+<li><code>npm run docs-sort</code> and <code>npm run docs-fix</code> (and <code>src/main/scripts/utils/docIdSort.js</code>) — array order is now derived from filenames; <code>canonicalize</code> owns ordering and placement.</li>
+<li>The separate "Generate API stats" workflow step — folded into <code>npm run build</code>.</li>
+</ul>
+        </div>
+      </div>
       <div class="card mb-3" id="v1.4.2">
         <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
           <span>
@@ -886,8 +922,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8a0ac8475d51828bbd9dcacbcf171649cd9fe05e</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-05-19T18:11:30.880Z</code>
+              <span class="fw-semibold">Site version:</span> <code>b528a4d0a72bb8dc595515837e07c742b44adbc7</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-05-19T21:50:55.838Z</code>
             </p>
           </small>
         </div>
