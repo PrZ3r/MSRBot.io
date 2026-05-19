@@ -14,6 +14,7 @@ For the full contributor guide, see [CONTRIBUTING.md](../CONTRIBUTING.md).
 Run the following before opening a PR:
 
 ```bash
+npm test
 npm run validate
 npm run canonicalize
 npm run build

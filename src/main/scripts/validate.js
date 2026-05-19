@@ -52,8 +52,9 @@ function validateDirectoryRegistry(reg, validateFn) {
       throw new Error(`Invalid JSON in ${file}: ${err.message}`);
     }
 
-    // Schema check — wrap as a 1-element array to reuse the array schema.
-    if (!validateFn([doc])) {
+    // Schema check — validate the doc directly against the item schema so error
+    // paths read /docId, /publisher, etc. (not /0/docId from a wrapped array).
+    if (!validateFn(doc)) {
       const text = new Ajv({ allErrors: true })
         .errorsText(validateFn.errors, { separator: "\n  " });
       throw new Error(`Schema validation failed for ${file}:\n  ${text}`);
@@ -110,8 +111,28 @@ async function registries() {
     let data;
 
     if (reg.isDirectory) {
-      // Directory-backed registry: validate each per-doc file individually.
-      data = validateDirectoryRegistry(reg, validateFn);
+      // Directory-backed registry: compile the item schema once so each per-doc
+      // file is validated directly (clean /docId-style error paths). Falls
+      // back to the wrapping array validator if the item schema can't compile
+      // standalone (e.g. unusable internal $id).
+      let itemValidateFn = validateFn;
+      try {
+        const rawItem = (schema.items && Array.isArray(schema.items.anyOf) && schema.items.anyOf[0])
+          || schema.items
+          || null;
+        if (rawItem) {
+          const { $id, ...itemSchema } = rawItem; // strip relative $id
+          itemValidateFn = ajvFactory.compile(itemSchema);
+        }
+      } catch (e) {
+        console.warn(`[validate] Could not compile item schema standalone (${e.message}); falling back to array validator.`);
+        itemValidateFn = function wrapValidate(doc) {
+          const ok = validateFn([doc]);
+          wrapValidate.errors = validateFn.errors;
+          return ok;
+        };
+      }
+      data = validateDirectoryRegistry(reg, itemValidateFn);
     } else {
       data = JSON.parse(fs.readFileSync(reg.dataPath, "utf8"));
       const valid = validateFn(data);

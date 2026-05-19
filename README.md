@@ -144,13 +144,14 @@ npm run normalize-url
 npm run canonicalize
 npm run validate
 npm run validate -- --warn
-npm run docs-sort
 npm run docs-validate
-npm run docs-fix
+npm test
+npm run new-doc -- --docId {id} --publisher {pub} --docType {type}
 npm run review-refs -- list
 npm run review-refs -- resolve {docId}
 npm run keywords-sync
 npm run keywords-sync -- --write
+npm run assemble
 npm run build
 npm run local-server
 ```

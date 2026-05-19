@@ -11,6 +11,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit.
 - `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
 - `docs-validate`: run the standard validation script.
+- `test`: run the `registry.js` smoke tests (slug / docPath / year-shard invariants).
 - `new-doc`: scaffold a new per-doc registry file from the blank template.
 - `review-refs`: list and resolve reference review flags in the document registry.
 - `validate-url`: run URL reachability/audit checks.
@@ -113,10 +114,14 @@ This is the canonical CLI reference for local scripts in `package.json`.
 
 - `npm run validate`
   - Runs: `node src/main/scripts/validate.js`
-  - Action: Runs schema validation + registry-specific validation checks.
+  - Action: Runs schema validation + registry-specific validation checks. For the per-doc document registry, each file is validated directly against the item schema (clean `/docId`-style error paths) and asserted to sit at the shard path its own fields derive.
   - Keyword mode flags:
     - `npm run validate -- --error` (strict; default)
     - `npm run validate -- --warn` (warn-only for unknown keywords)
+
+- `npm test`
+  - Runs: `node src/main/scripts/test/registry.test.js`
+  - Action: Smoke-tests the path-derivation invariants in `src/main/lib/registry.js` — `slug` / `docIdSlug` / `docPath`, the `_unknown` and `_undated` buckets, and the year third-shard for title-identified docTypes. Self-contained (no test framework), exits non-zero on any failure.
 
 - `npm run validate-url`
   - Runs: `node src/main/scripts/url.validate.js`
