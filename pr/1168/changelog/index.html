@@ -415,13 +415,14 @@
 <li>New <code>src/main/lib/registry.js</code> — central registry access: <code>loadAllDocs</code>, <code>loadDoc</code>, <code>saveDoc</code>, <code>slug</code>, <code>docIdSlug</code>, <code>docPath</code>.</li>
 <li>New <code>npm run new-doc</code> — scaffolds a new per-doc file from the template straight into its correct shard path.</li>
 <li>New <code>npm run assemble</code> (<code>build.assemble-registry.js</code>) — emits per-publisher and per-publisher/docType registry slices under <code>build/</code>.</li>
-<li>New one-time <code>src/main/scripts/migrate.explode-documents.js</code> — explodes the legacy <code>documents.json</code> into the per-doc tree (dry-run by default; <code>--apply</code>).</li>
+<li>New one-time <code>src/main/scripts/migrate.explode-documents.js</code> — explodes the legacy <code>documents.json</code> into the per-doc tree (dry-run by default; <code>--apply</code>). Removed after the v2.0.0 migration; preserved in the commit history if ever needed again.</li>
+<li>New <code>npm test</code> (<code>src/main/scripts/test/registry.test.js</code>) — self-contained smoke tests pinning the <code>slug</code> / <code>docIdSlug</code> / <code>docPath</code> invariants in <code>src/main/lib/registry.js</code> (including the <code><em>unknown</code> / <code></em>undated</code> buckets and the year third-shard).</li>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Changed</h6>
 <ul class="mb-1">
 <li><code>documents.json</code>, the per-publisher/docType slices, and the per-docId API are now <strong>build artifacts</strong> assembled from the per-doc registry — never hand-edited.</li>
 <li><code>npm run canonicalize</code> runs per-file: key-sorts each doc, injects <code>$meta</code>, re-homes any file not at the shard path its own fields derive, and prunes emptied directories.</li>
-<li><code>npm run validate</code> runs per-file and adds a path-consistency check — a file must sit where its <code>publisher</code>/<code>docType</code>/<code>docId</code>/<code>publicationDate</code> fields derive.</li>
+<li><code>npm run validate</code> runs per-file and adds a path-consistency check — a file must sit where its <code>publisher</code>/<code>docType</code>/<code>docId</code>/<code>publicationDate</code> fields derive. Each per-doc file is validated directly against the item schema, so Ajv error paths read <code>/docId</code> etc. rather than <code>/0/docId</code>.</li>
 <li><code>extractDocs</code> writes only the docs a run touched, each to its own shard file, via <code>saveDoc()</code> (which re-homes on publisher/docType/docId changes).</li>
 <li><code>npm run build</code> now emits <code>build/api/stats.json</code> itself — the former <code>build-stats</code> workflow step is folded in.</li>
 <li><code>build-msi</code> / <code>build-mri</code> <code>--in</code> is now optional, defaulting to the per-doc registry; ~13 registry read sites swapped to <code>loadAllDocs()</code>.</li>
@@ -921,8 +922,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>eb8745a3ad30d199e66a45f637e5b1b53eb49d68</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-05-19T21:31:21.573Z</code>
+              <span class="fw-semibold">Site version:</span> <code>fbb25a8fc4974e7f64f1fb8615e16cfc04727c97</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-05-19T21:40:34.516Z</code>
             </p>
           </small>
         </div>
