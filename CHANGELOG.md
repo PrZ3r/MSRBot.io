@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-## [v2.0.0] - 2026-05-20
+## [v2.0.0] - 2026-05-19
 
 Major release — the document registry model is inverted. The source of truth moves from the monolithic `src/main/data/documents.json` to one JSON file per document under `src/main/data/docs/`, sharded by `{publisher}/{docType}/` (with a `{year}/` level for title-identified docTypes). The monolith, per-publisher/docType slices, and the per-docId API all become build artifacts. See [#1108](https://github.com/PrZ3r/MSRBot.io/issues/1108).
 
