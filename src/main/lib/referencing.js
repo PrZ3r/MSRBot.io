@@ -874,11 +874,11 @@ function parseRefId(text, href = '', opts = {}) {
   // The M-suffixed (or bare) number is always a Standard — RP/EG/AG/OM/RDD/OV always carry
   // their type token (handled by the block above) — so emit SMPTE.ST<num>[-part].<year>.
   {
-    const m = text.match(/(?:\bANSI\s*\/\s*)?\bSMPTE\s+(\d{1,4})(M)?\b(?:-(\d{1,2})(?=[-\s,]|$))?(?:[-:\s]\s*(\d{4}))?/i);
-    if (m && (m[2] || m[4])) { // require an M suffix or a year — don't match bare prose
+    const m = text.match(/(?:\bANSI\s*\/\s*)?\bSMPTE\s+(\d{1,4})(?:\.(\d+))?(M)?\b(?:-(\d{1,2})(?=[-:\s,]|$))?(?:[-:\s]\s*(\d{4}))?/i);
+    if (m && (m[3] || m[5])) { // require an M suffix or a year — don't match bare prose
       const num = m[1];
-      const part = m[3];
-      const year = m[4];
+      const part = m[2] || m[4]; // dotted ("305.2M") or hyphenated ("2016-1:2008") part
+      const year = m[5];
       const lineage = `SMPTE.ST${part ? `${num}-${part}` : num}`;
       const refId = year ? `${lineage}.${year}` : lineage;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'smpte-legacy-designator' } } : refId;
@@ -1133,7 +1133,7 @@ function parseRefId(text, href = '', opts = {}) {
   //   "Recommendation ITU-T G.694.2"  → T-REC-G.694.2
   //   "ITU-R TF.457-1"                → R-REC-TF.457-1
   {
-    const m = String(text || '').match(/\b(?:Recommendation\s+)?ITU[-\s]?([RT])\s+(?:Rec\.?\s+)?([A-Z]{1,2})\.?\s*(\d+(?:\.\d+)?)(?:-(\d+))?/i);
+    const m = String(text || '').match(/\b(?:Recommendation\s+)?ITU[-\s]?([RT])\s+(?:Rec(?:ommendation)?\.?\s+)?([A-Z]{1,2})\.?\s*(\d+(?:\.\d+)?)(?:-(\d+))?/i);
     if (m) {
       const sector = m[1].toUpperCase();
       const series = m[2].toUpperCase();
@@ -1150,6 +1150,45 @@ function parseRefId(text, href = '', opts = {}) {
     if (m) {
       const refId = `ANSI.${m[1].toUpperCase()}.${m[2].toUpperCase()}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator' } } : refId;
+    }
+  }
+
+  // AES (Audio Engineering Society): "AES3-2003", "AES11-2009 (r2014)" → AES3.2003
+  {
+    const m = String(text || '').match(/\bAES[-\s]?(\d{1,4}[A-Za-z]?)[\s‐-―-]+(\d{4})/i);
+    if (m) {
+      const refId = `AES${m[1].toUpperCase()}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'aes-designator' } } : refId;
+    }
+  }
+
+  // EBU (European Broadcasting Union) R-/D-series: "EBU R48-1988", "EBU D84-1999" → EBU.R48.1988
+  {
+    const m = String(text || '').match(/\bEBU\s+([RD]\d{1,4}[A-Za-z]?)[\s‐-―-]+(\d{4})/i);
+    if (m) {
+      const refId = `EBU.${m[1].toUpperCase()}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ebu-designator' } } : refId;
+    }
+  }
+
+  // CIE: "CIE 15:2004" → CIE.015.2004, "CIE S001 (1986)" → CIE.S001.1986
+  // (pure-numeric CIE numbers are zero-padded to 3 digits to match registry docIds)
+  {
+    const m = String(text || '').match(/\bCIE\s+(?:Publication\s+)?(S\d{1,4}|\d{1,4})\b[^\d]{0,12}?(\d{4})/i);
+    if (m) {
+      let num = m[1].toUpperCase();
+      if (/^\d+$/.test(num)) num = num.padStart(3, '0');
+      const refId = `CIE.${num}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'cie-designator' } } : refId;
+    }
+  }
+
+  // IEEE standards: "IEEE Standard 1588-2008", "IEEE 802-1990", "... P754-2008" → IEEE.STD1588.2008
+  {
+    const m = String(text || '').match(/\bIEEE\s+(?:Std\.?\s+|Standard\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+))?[\s‐-―-]+(\d{4})/i);
+    if (m) {
+      const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2]}` : ''}.${m[3]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-designator' } } : refId;
     }
   }
 
