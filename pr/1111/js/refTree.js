@@ -59,8 +59,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   let cacheUpLevels = [];
   let cacheDownLevels = [];
-  let cacheUpRoutes = [];
-  let cacheDownRoutes = [];
+  let cacheUpTree = null;
+  let cacheDownTree = null;
 
   function buildLevels(startId, direction, maxDepth) {
     const levels = [];
@@ -92,12 +92,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return levels;
   }
 
-  // Build explicit route paths from a root, up to maxDepth edges.
-  // For downstream, routes look like: [root, child, grandchild, ...]
-  // For upstream, we'll reverse the route at render time so it reads: ancestor → ... → root.
-  function buildRoutes(startId, direction, maxDepth) {
-    const routes = [];
-    if (!refGraph || !refGraph[startId]) return routes;
+  // Build a reference tree from a root, expanding each node's subtree at most ONCE
+  // (per-node dedup). A node reached again — via another branch or a cycle — is shown as
+  // a compact leaf (dedup:true) and not re-expanded. This keeps the tree O(V+E) instead of
+  // O(number-of-root-to-leaf-paths), which exploded on the now-much-denser ref graph.
+  function buildTreeDedup(startId, direction, maxDepth) {
+    if (!refGraph || !refGraph[startId]) return null;
 
     const neighborOf = (id) => {
       const node = refGraph[id];
@@ -105,29 +105,21 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       return direction === 'up' ? (node.refsIn || []) : (node.refsOut || []);
     };
 
-    function dfs(path, depth) {
-      const current = path[path.length - 1];
-      if (depth >= maxDepth) {
-        routes.push([...path]);
-        return;
-      }
+    const expanded = new Set(); // ids whose subtree has already been built once
 
-      const neighbors = neighborOf(current);
-      if (!neighbors.length) {
-        routes.push([...path]);
-        return;
+    function build(id, depth) {
+      const node = { id, children: [] };
+      if (depth >= maxDepth) return node;
+      if (expanded.has(id)) { node.dedup = true; return node; }
+      expanded.add(id);
+      for (const n of neighborOf(id).slice().sort()) {
+        if (n === startId) continue; // don't loop back through the root
+        node.children.push(build(n, depth + 1));
       }
-
-      for (const n of neighbors) {
-        // prevent trivial cycles within a single path; duplicates
-        // across *different* branches are allowed
-        if (path.includes(n)) continue;
-        dfs([...path, n], depth + 1);
-      }
+      return node;
     }
 
-    dfs([startId], 0);
-    return routes;
+    return build(startId, 0);
   }
 
   // --- Helpers for doc metadata rendering (label, status, icons) ---
@@ -298,51 +290,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   }
 
 
-  // Merge route paths into a nested tree and render as a connector tree
-  function buildTreeFromRoutes(routes) {
-    if (!routes || !routes.length) return null;
-
-    // Expect routes like [rootId, child, grandchild, ...]; root itself is not re-rendered here.
-    const rootId = Array.isArray(routes[0]) && routes[0].length ? routes[0][0] : null;
-    if (!rootId) return null;
-
-    const root = { id: rootId, children: new Map() };
-
-    for (const path of routes) {
-      if (!Array.isArray(path) || path.length <= 1) continue;
-      let node = root;
-      for (let i = 1; i < path.length; i++) {
-        const id = path[i];
-        if (!id) continue;
-        let child = node.children.get(id);
-        if (!child) {
-          child = { id, children: new Map() };
-          node.children.set(id, child);
-        }
-        node = child;
-      }
-    }
-
-    function toPlain(n) {
-      return {
-        id: n.id,
-        children: Array.from(n.children.values()).map(toPlain),
-      };
-    }
-
-    return toPlain(root);
-  }
-
-  function renderTree(containerId, routes, direction) {
+  function renderTree(containerId, tree, direction) {
     const el = document.getElementById(containerId);
     if (!el) return;
 
-    if (!routes || !routes.length) {
-      el.innerHTML = '<p class="text-muted mb-0">No entries.</p>';
-      return;
-    }
-
-    const tree = buildTreeFromRoutes(routes);
     if (!tree || !Array.isArray(tree.children) || !tree.children.length) {
       el.innerHTML = '<p class="text-muted mb-0">No entries.</p>';
       return;
@@ -386,6 +337,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         ${(!isSuite && !inRegistry) ? '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>' : ''}
         ${(!isSuite && statusIcon) ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
         ${(!isSuite && projIcon) ? '<span class="ms-1">' + projIcon + '</span>' : ''}
+        ${node.dedup ? '<span class="rt-dedup text-muted ms-1" title="Subtree already expanded above">⤴</span>' : ''}
       `;
       li.appendChild(chip);
 
@@ -453,14 +405,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (viewModeUp === 'levels') {
       renderLevels('rt-upstream', cacheUpLevels || [], 'up');
     } else {
-      renderTree('rt-upstream', cacheUpRoutes || [], 'up');
+      renderTree('rt-upstream', cacheUpTree, 'up');
     }
 
     // Downstream
     if (viewModeDown === 'levels') {
       renderLevels('rt-downstream', cacheDownLevels || [], 'down');
     } else {
-      renderTree('rt-downstream', cacheDownRoutes || [], 'down');
+      renderTree('rt-downstream', cacheDownTree, 'down');
     }
   }
 
@@ -531,7 +483,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </div>
         <section class="mt-3 d-flex justify-content-between align-items-center gap-2">
           <span class="small text-muted">
-            Click a document ID below to re-center the tree on that document.
+            Click a document ID below to re-center the tree on that document and explore deeper.
           </span>
           <span class="text-nowrap">
             <a href="../${encodeURIComponent(id)}/"
@@ -552,7 +504,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     currentRoot = id;
     const depthSelect = document.getElementById('rt-depth-select');
     if (depthSelect) {
-      depthSelect.value = (maxDepth === Number.MAX_SAFE_INTEGER) ? 'max' : String(maxDepth);
+      depthSelect.value = String(maxDepth);
     }
 
     renderRoot(id);
@@ -562,8 +514,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     // Recompute caches for this root
     cacheUpLevels = buildLevels(id, 'up', effectiveDepth);
     cacheDownLevels = buildLevels(id, 'down', effectiveDepth);
-    cacheUpRoutes = buildRoutes(id, 'up', effectiveDepth);
-    cacheDownRoutes = buildRoutes(id, 'down', effectiveDepth);
+    cacheUpTree = buildTreeDedup(id, 'up', effectiveDepth);
+    cacheDownTree = buildTreeDedup(id, 'down', effectiveDepth);
 
     // Render according to current view modes
     renderPanels();
@@ -723,19 +675,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     const depthSelect = document.getElementById('rt-depth-select');
     if (depthSelect) {
       // Initialize select from current maxDepth
-      depthSelect.value = (maxDepth === Number.MAX_SAFE_INTEGER) ? 'max' : String(maxDepth);
+      depthSelect.value = String(maxDepth);
       depthSelect.addEventListener('change', (ev) => {
-        const raw = ev.target.value;
-        if (raw === 'max') {
-          maxDepth = Number.MAX_SAFE_INTEGER;
-        } else {
-          const val = parseInt(raw, 10);
-          if (!Number.isNaN(val) && val > 0) {
-            maxDepth = val;
-          } else {
-            maxDepth = MAX_DEPTH_DEFAULT;
-          }
-        }
+        const val = parseInt(ev.target.value, 10);
+        // Hard cap at MAX_DEPTH_DEFAULT — deeper trees overload the page on the dense
+        // ref graph; to explore further, click a node to re-center the tree there.
+        maxDepth = (!Number.isNaN(val) && val > 0)
+          ? Math.min(val, MAX_DEPTH_DEFAULT)
+          : MAX_DEPTH_DEFAULT;
         reroot(currentRoot);
       });
     }
