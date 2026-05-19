@@ -273,6 +273,11 @@
       "POSTSCRIPT2",
       "Adobe Systems, Inc., PostScript Language Reference Manual, Addison-Wesley, Second Edition, 1990."
     ],
+    "ANSI.PH4.11.1986": [
+      "PH4.11",
+      "PH4.11 — American National Standard Method for Determining the Melting Point of a Nonsupport Layer of Films, Plates and Papers",
+      "/\\bPH4\\.11\\s+—\\s+American\\s+National\\s+Standard\\s+Method\\s+for\\s+Determining\\s+the\\s+Melting\\s+Point\\s+of\\s+a\\s+Nonsupport\\s+Layer\\s+of\\s+Films,\\s+Plates\\s+and\\s+Papers\\b/i"
+    ],
     "ANSI.X3.51.1975": [
       "ANSI. Representations of universal time, local time differentials, and United States time zone references for information interchange. ANSI X3.51-1975; American National Standards Institute: New York, 1975.",
       "/\\bRepresentations\\s+of\\s+universal\\s+time,\\s*local\\s*time\\s+differentials,\\s*and\\s+United\\s+States\\s+time\\s+zone\\s+references\\s+for\\s+information\\s+interchange\\b/i",
@@ -410,6 +415,14 @@
       "Hazeltine 2000 Desk Top Display Operating Instructions. Hazeltine IB-1866A, 1870.",
       "/^\\s*(?:\\d+\\.\\s*)?Hazeltine\\s+2000\\s+Desk\\s+Top\\s+Display\\s+Operating\\s+Instructions\\.\\s*Hazeltine\\s+IB-1866A,\\s*(?:1870|1970)\\.?\\s*$/i"
     ],
+    "IAB.IETF-SAD.20110214": [
+      "Polk, T. and S. Turner, \"Security Challenges For the Internet Of Things\", Interconnecting Smart Objects with the Internet / IAB Workshop, February 2011, <https://www.iab.org/wp-content/IAB-uploads/2011/03/Turner.pdf>.",
+      "Security Challenges For the Internet Of Things",
+      "https://www.iab.org/wp-content/IAB-uploads/2011/03/Turner.pdf",
+      "/\\bPolk\\b.*\\bTurner\\b.*\\bSecurity\\s+Challenges\\s+For\\s+the\\s+Internet\\s+Of\\s+Things\\b/i",
+      "/\\bInterconnecting\\s+Smart\\s+Objects\\s+with\\s+the\\s+Internet\\b.*\\bIAB\\s+Workshop\\b.*\\bFebruary\\s+2011\\b/i",
+      "/\\biab\\.org\\/wp-content\\/IAB-uploads\\/2011\\/03\\/Turner\\.pdf\\b/i"
+    ],
     "IANA": [
       "IANA"
     ],
@@ -441,22 +454,6 @@
       "/\\bIANA\\b.*\\bXMSS:\\s*Extended\\s+Hash-Based\\s+Signatures\\b/i",
       "/\\biana\\.org\\/assignments\\/xmss-extended-hash-based-signatures\\b/i"
     ],
-    "IAB.IETF-SAD.20110214": [
-      "Polk, T. and S. Turner, \"Security Challenges For the Internet Of Things\", Interconnecting Smart Objects with the Internet / IAB Workshop, February 2011, <https://www.iab.org/wp-content/IAB-uploads/2011/03/Turner.pdf>.",
-      "Security Challenges For the Internet Of Things",
-      "https://www.iab.org/wp-content/IAB-uploads/2011/03/Turner.pdf",
-      "/\\bPolk\\b.*\\bTurner\\b.*\\bSecurity\\s+Challenges\\s+For\\s+the\\s+Internet\\s+Of\\s+Things\\b/i",
-      "/\\bInterconnecting\\s+Smart\\s+Objects\\s+with\\s+the\\s+Internet\\b.*\\bIAB\\s+Workshop\\b.*\\bFebruary\\s+2011\\b/i",
-      "/\\biab\\.org\\/wp-content\\/IAB-uploads\\/2011\\/03\\/Turner\\.pdf\\b/i"
-    ],
-    "IETF.96P-QUIC.201607": [
-      "Swett, I., \"QUIC Deployment Experience @Google\", IETF 96 Proceedings, Berlin, Germany, July 2016, <https://www.ietf.org/proceedings/96/slides/slides-96-quic-3.pdf>.",
-      "QUIC Deployment Experience @Google",
-      "https://www.ietf.org/proceedings/96/slides/slides-96-quic-3.pdf",
-      "/\\bSwett\\b.*\\bQUIC\\s+Deployment\\s+Experience\\s*@Google\\b/i",
-      "/\\bIETF\\s*96\\s+Proceedings\\b.*\\bJuly\\s+2016\\b/i",
-      "/\\bietf\\.org\\/proceedings\\/96\\/slides\\/slides-96-quic-3\\.pdf\\b/i"
-    ],
     "IBM.GA27-2739-4.1973": [
       "An Introduction to the IBM 3270 Information Display System. IBM GA27-2739-4. 1973.",
       "/^\\s*(?:\\d+\\.\\s*)?An\\s+Introduction\\s+to\\s+the\\s+IBM\\s+3270\\s+Information\\s+Display\\s+System\\.\\s*IBM\\s+GA27-2739-4\\.\\s*1973\\.?\\s*$/i"
@@ -466,6 +463,14 @@
       "/\\bIEEE\\s+standard\\s+interpretations\\b.*\\bportable\\s+operating\\s+systems\\s+interface\\b.*\\bIEEE\\s+Std\\s*1003\\.1\\s*-1988\\/Int\\b.*\\b1992\\s+edition\\b/i",
       "/\\bPOSIX\\b.*\\bIEEE\\s+Std\\s*1003\\.1\\s*-1988\\/Int\\b.*\\b1992\\b/i",
       "/\\bTechnical\\s+Committee\\s+on\\s+Operating\\s+Systems\\s+of\\s+the\\s+IEEE\\s+Computer\\s+Society\\b/i"
+    ],
+    "IETF.96P-QUIC.201607": [
+      "Swett, I., \"QUIC Deployment Experience @Google\", IETF 96 Proceedings, Berlin, Germany, July 2016, <https://www.ietf.org/proceedings/96/slides/slides-96-quic-3.pdf>.",
+      "QUIC Deployment Experience @Google",
+      "https://www.ietf.org/proceedings/96/slides/slides-96-quic-3.pdf",
+      "/\\bSwett\\b.*\\bQUIC\\s+Deployment\\s+Experience\\s*@Google\\b/i",
+      "/\\bIETF\\s*96\\s+Proceedings\\b.*\\bJuly\\s+2016\\b/i",
+      "/\\bietf\\.org\\/proceedings\\/96\\/slides\\/slides-96-quic-3\\.pdf\\b/i"
     ],
     "IETF.draft-bhutton-json-schema-00": [
       "IETF draft-bhutton-json-schema-00",
@@ -766,6 +771,11 @@
       "MS-PEAP",
       "/\\bMicrosoft\\s+Corporation\\b.*\\[MS-PEAP\\]:\\s*Protected\\s+Extensible\\s+Authentication\\s+Protocol\\s*\\(PEAP\\)\\b.*\\bJune\\s+2021\\b/i"
     ],
+    "NAPM.IT9.1.1989": [
+      "IT9.1",
+      "IT9.1 — American National Standard for Imaging Media (Film) - Silver-Gelatin Type - Specifications for Stability",
+      "/\\bIT9\\.1\\s+—\\s+American\\s+National\\s+Standard\\s+for\\s+Imaging\\s+Media\\s+\\(Film\\)\\s+-\\s+Silver-Gelatin\\s+Type\\s+-\\s+Specifications\\s+for\\s+Stability\\b/i"
+    ],
     "NIH.HTBIN.1995": [
       "[2] Fitzgerald P., \"Molecules-R-Us Interface to the Brookhaven Data Base\", Computational Molecular Biology Section, National Institutes of Health, USA; see http://www.nih.gov/htbin/pdb for further details; Peitsch M.C, Wells T.N.C., Stampf D.R., Sussman S. J., \"The Swiss-3D Image Collection And PDP-Browser On The Worldwide Web\", Trends In Biochemical Sciences, 1995, 20, 82.",
       "Fitzgerald P., \"Molecules-R-Us Interface to the Brookhaven Data Base\"",
@@ -773,6 +783,14 @@
       "/\\bFitzgerald\\s+P\\.?\\b.*\\bMolecules-R-Us\\s+Interface\\s+to\\s+the\\s+Brookhaven\\s+Data\\s+Base\\b/i",
       "/\\bNational\\s+Institutes\\s+of\\s+Health\\b.*\\bhttp:\\/\\/www\\.nih\\.gov\\/htbin\\/pdb\\b/i",
       "/\\bSwiss-3D\\s+Image\\s+Collection\\b.*\\bTrends\\s+In\\s+Biochemical\\s+Sciences\\b.*\\b1995\\b/i"
+    ],
+    "NIST.IGESTS.1994": [
+      "L. Rosenthal, \"Initial Graphics Exchange Specification (IGES) Test Service\", http://speckle.ncsl.nist.gov/~jacki/igests.htm",
+      "Initial Graphics Exchange Specification (IGES) Test Service",
+      "http://speckle.ncsl.nist.gov/~jacki/igests.htm",
+      "/\\bL\\.\\s*Rosenthal\\b.*\\bInitial\\s+Graphics\\s+Exchange\\s+Specification\\s*\\(IGES\\)\\s+Test\\s+Service\\b/i",
+      "/\\bspeckle\\.ncsl\\.nist\\.gov\\/~jacki\\/igests\\.htm\\b/i",
+      "/\\bIGES\\s+Test\\s+Service\\b/i"
     ],
     "NIST.SP.1800-35pd4.2024": [
       "NIST-ZT",
@@ -783,14 +801,6 @@
       "/\\bNational\\s+Institute\\s+of\\s+Standards\\s+and\\s+Technology\\b.*\\bImplementing\\s+a\\s+Zero\\s+Trust\\s+Architecture\\b.*\\bNIST\\s+SP\\s+1800-35\\b.*\\bJuly\\s+2024\\b/i",
       "/\\bnccoe\\.nist\\.gov\\/sites\\/default\\/files\\/2024-07\\/zta-nist-sp-1800-35-preliminary-draft-4\\.pdf\\b/i"
     ],
-    "NIST.IGESTS.1994": [
-      "L. Rosenthal, \"Initial Graphics Exchange Specification (IGES) Test Service\", http://speckle.ncsl.nist.gov/~jacki/igests.htm",
-      "Initial Graphics Exchange Specification (IGES) Test Service",
-      "http://speckle.ncsl.nist.gov/~jacki/igests.htm",
-      "/\\bL\\.\\s*Rosenthal\\b.*\\bInitial\\s+Graphics\\s+Exchange\\s+Specification\\s*\\(IGES\\)\\s+Test\\s+Service\\b/i",
-      "/\\bspeckle\\.ncsl\\.nist\\.gov\\/~jacki\\/igests\\.htm\\b/i",
-      "/\\bIGES\\s+Test\\s+Service\\b/i"
-    ],
     "NSA.UOO115131-21.20210225": [
       "National Security Agency, \"Embracing a Zero Trust Security Model\", February 2021, https://media.defense.gov/2021/Feb/25/2002588479/-1/-1/0/CSI_EMBRACING_ZT_SECURITY_MODEL_UOO115131-21.PDF",
       "Embracing a Zero Trust Security Model",
@@ -799,6 +809,13 @@
       "/\\bNational\\s+Security\\s+Agency\\b.*\\bEmbracing\\s+a\\s+Zero\\s+Trust\\s+Security\\s+Model\\b.*\\bFebruary\\s+2021\\b/i",
       "/\\bUOO115131-21\\b/i",
       "/\\bmedia\\.defense\\.gov\\/2021\\/Feb\\/25\\/2002588479\\/-1\\/-1\\/0\\/CSI_EMBRACING_ZT_SECURITY_MODEL_UOO115131-21\\.PDF\\b/i"
+    ],
+    "OMA.TS-LightweightM2M.V1_0.20170208": [
+      "Open Mobile Alliance, \"Lightweight Machine to Machine Technical Specification Version 1.0\", February 2017, <http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf>.",
+      "Lightweight Machine to Machine Technical Specification Version 1.0",
+      "http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf",
+      "/\\bOpen\\s+Mobile\\s+Alliance\\b.*\\bLightweight\\s+Machine\\s+to\\s+Machine\\b.*\\bVersion\\s+1\\.0\\b.*\\bFebruary\\s+2017\\b/i",
+      "/\\bopenmobilealliance\\.org\\/release\\/LightweightM2M\\/V1_0-20170208-A\\/OMA-TS-LightweightM2M-V1_0-20170208-A\\.pdf\\b/i"
     ],
     "OMG.XMI": [
       "XML Metadata Interchange (XMI)"
@@ -810,13 +827,6 @@
       "ftp://uu.psi.com/wp/nir.txt",
       "URL:ftp://uu.psi.com/wp/nir.txt",
       "/\\bTowards\\s+Networked\\s+Information\\s+Retrieval\\b/i"
-    ],
-    "OMA.TS-LightweightM2M.V1_0.20170208": [
-      "Open Mobile Alliance, \"Lightweight Machine to Machine Technical Specification Version 1.0\", February 2017, <http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf>.",
-      "Lightweight Machine to Machine Technical Specification Version 1.0",
-      "http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf",
-      "/\\bOpen\\s+Mobile\\s+Alliance\\b.*\\bLightweight\\s+Machine\\s+to\\s+Machine\\b.*\\bVersion\\s+1\\.0\\b.*\\bFebruary\\s+2017\\b/i",
-      "/\\bopenmobilealliance\\.org\\/release\\/LightweightM2M\\/V1_0-20170208-A\\/OMA-TS-LightweightM2M-V1_0-20170208-A\\.pdf\\b/i"
     ],
     "RC.TER536.1976": [
       "Naffah, N. \"Protocole Appareil Virtuel type Ecran\" Reseau Cyclades. TER 536. 1976.",

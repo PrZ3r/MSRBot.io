@@ -1008,8 +1008,8 @@ function parseRefId(text, href = '', opts = {}) {
   }
   // FIPS references that don't include contiguous "NIST FIPS" tokens, e.g.:
   // "National Institute ... (NIST). FIPS PUB 46-2: ..."
-  if (/\bFIPS\s+(?:PUB\s+)?(\d+)(-\d+)?\b/i.test(text)) {
-    const [, num, rev] = text.match(/\bFIPS\s+(?:PUB\s+)?(\d+)(-\d+)?\b/i);
+  if (/\bFIPS[\s-]+(?:PUB[\s-]+)?(\d+)(-\d+)?\b/i.test(text)) {
+    const [, num, rev] = text.match(/\bFIPS[\s-]+(?:PUB[\s-]+)?(\d+)(-\d+)?\b/i);
     { const refId = `NIST.FIPS.${num}${rev || ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fips-generic' } } : refId; }
   }
   // FIPS structure in hrefs .../fips/186/2/...
@@ -1156,32 +1156,38 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
-  // AES (Audio Engineering Society): "AES3-2003", "AES11-2009 (r2014)" → AES3.2003
+  // AES (Audio Engineering Society): "AES3-2003", "AES3-3:2009" (part 3), "AES3-4-2009",
+  // "AES11-2009 (r2014)" → AES3.2003 / AES3-3.2009
   {
-    const m = String(text || '').match(/\bAES[-\s]?(\d{1,4}[A-Za-z]?)[\s‐-―-]+(\d{4})/i);
+    const m = String(text || '').match(/\bAES[-\s]?(\d{1,4}[A-Za-z]?)(?:-(\d{1,2}))?[\s:‐-―-]+(\d{4})/i);
     if (m) {
-      const refId = `AES${m[1].toUpperCase()}.${m[2]}`;
+      const num = m[2] ? `${m[1].toUpperCase()}-${m[2]}` : m[1].toUpperCase();
+      const refId = `AES${num}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'aes-designator' } } : refId;
     }
   }
 
-  // EBU (European Broadcasting Union) R-/D-series: "EBU R48-1988", "EBU D84-1999" → EBU.R48.1988
+  // EBU (European Broadcasting Union): "EBU R48-1988", "EBU D84-1999", "EBU Tech. 3267 (1992)",
+  // "EBU Tech 3285" → EBU.R48.1988 / EBU.Tech3267.1992
   {
-    const m = String(text || '').match(/\bEBU\s+([RD]\d{1,4}[A-Za-z]?)[\s‐-―-]+(\d{4})/i);
+    const m = String(text || '').match(/\bEBU\s+(?:Tech(?:nical)?\.?\s*(\d{1,4}[a-z]?)|([RD]\d{1,4}[A-Za-z]?))(?:[\s:(‐-―-]+((?:19|20)\d{2}))?/i);
     if (m) {
-      const refId = `EBU.${m[1].toUpperCase()}.${m[2]}`;
+      const series = m[1] ? `Tech${m[1]}` : m[2].toUpperCase();
+      const refId = `EBU.${series}${m[3] ? `.${m[3]}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ebu-designator' } } : refId;
     }
   }
 
-  // CIE: "CIE 15:2004" → CIE.015.2004, "CIE S001 (1986)" → CIE.S001.1986
-  // (pure-numeric CIE numbers are zero-padded to 3 digits to match registry docIds)
+  // CIE: "CIE 15:2004", "CIE S001 (1986)", "CIE Publication 15.2 (1986)" → CIE.015.2004
+  // (numeric CIE numbers zero-padded to 3 digits; an edition suffix like ".2" is dropped —
+  //  the year distinguishes editions, matching registry docIds like CIE.015.2004)
   {
-    const m = String(text || '').match(/\bCIE\s+(?:Publication\s+)?(S\d{1,4}|\d{1,4})\b[^\d]{0,12}?(\d{4})/i);
+    const m = String(text || '').match(/\bCIE\s+(?:Publication\s+|Pub\.?\s+)?(S?\d{1,4})(?:\.\d+)?\b/i);
     if (m) {
       let num = m[1].toUpperCase();
       if (/^\d+$/.test(num)) num = num.padStart(3, '0');
-      const refId = `CIE.${num}.${m[2]}`;
+      const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `CIE.${num}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'cie-designator' } } : refId;
     }
   }
@@ -1255,6 +1261,17 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // CEA / ANSI-CEA (Consumer Electronics Association): "CEA-608-E (ANSI) (2008)", "CEA-708"
+  // → CEA.608.2008  (revision letter dropped — the year distinguishes, matching registry docIds)
+  {
+    const m = String(text || '').match(/\b(?:ANSI[\/-])?CEA[\s‐-―-](\d{2,4})(?:[\s‐-―-][A-Z])?\b/i);
+    if (m) {
+      const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `CEA.${m[1]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'cea-designator' } } : refId;
+    }
+  }
+
   // ISO marker-first legacy forms seen in older RFCs:
   // e.g., "[ISO-10744] ... ISO/IEC 10744:1992 ..." or
   // "[ISO-8879] ... Part 1 ... 1987".
@@ -1314,14 +1331,14 @@ function parseRefId(text, href = '', opts = {}) {
   };
 
   {
-    const best = pickBestStdMatch(/\bISO(?:\s*\/\s*IEC|\/IEC)\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
+    const best = pickBestStdMatch(/\bISO(?:\s*\/\s*IEC|\/IEC)\s+(?:(?:DIS|FDIS|CD|FCD|WD|PDTR|PDTS|CDV)[\s\/]+)?([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
     if (best) {
       const refId = `ISO.${best.base}${best.year ? `.${best.year}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso|iec designator' } } : refId;
     }
   }
   {
-    const best = pickBestStdMatch(/\bISO(?!\s*\/\s*IEC|\/IEC)\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
+    const best = pickBestStdMatch(/\bISO(?!\s*\/\s*IEC|\/IEC)\s+(?:(?:DIS|FDIS|CD|FCD|WD|PDTR|PDTS|CDV)[\s\/]+)?([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
     if (best) {
       const refId = `ISO.${best.base}${best.year ? `.${best.year}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso designator' } } : refId;
