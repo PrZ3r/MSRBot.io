@@ -448,29 +448,43 @@ function readRefXml(absPath, parseRefId) {
   const containerDoiMatch = text.match(/<objid\s+objidtype="doi">([^<]+)<\/objid>/i);
   const containerDoi = containerDoiMatch ? normText(containerDoiMatch[1]) : null;
 
-  const normative = [];
-  const bibliographic = [];
-  const referencedDocIds = new Set();
-
+  // Parse each <ref> into a structured record. `rawRef` is the literal
+  // <ref>…</ref> XML block, so a downstream consumer can carry the full source
+  // citation into the MRI (mirrors how IETF sightings carry the raw <reference>).
+  const refs = [];
   for (const refMatch of matchAll(text, /<ref\s+id="(ref-[a-z]+-\d+)"[^>]*>([\s\S]*?)<\/ref>/gi)) {
     const id = refMatch[1];
+    const rawRef = refMatch[0];
     const body = refMatch[2];
     const pubTitle = firstTagText(body, 'ref_pubtitle');
     const articleTitle = firstTagText(body, 'ref_articletitle');
     const standardnum = firstTagText(body, 'standardnum');
     const chapterTitle = firstTagText(body, 'chaptertitle');
-    const objidref = (body.match(/<objidref\s+objidreftype="doi">([^<]+)<\/objidref>/i) || [])[1];
-    const citation = [standardnum, articleTitle || pubTitle || chapterTitle].filter(Boolean).join(' — ');
-    const bucket = /^ref-norm-/i.test(id) ? normative : bibliographic;
-    if (citation) bucket.push(normText(citation));
-    if (objidref && parseRefId) {
+    const objidref = (body.match(/<objidref\s+objidreftype="doi">([^<]+)<\/objidref>/i) || [])[1] || null;
+    const title = articleTitle || chapterTitle || null;
+    const cite = normText([standardnum, title || pubTitle].filter(Boolean).join(' — ')) || null;
+    refs.push({
+      id,
+      type: /^ref-norm-/i.test(id) ? 'normative' : 'bibliographic',
+      standardnum: standardnum || null,
+      objidref,
+      title: title ? normText(title) : null,
+      cite,
+      rawRef,
+    });
+  }
+
+  // Legacy citation-string fields, derived from refs[] so existing callers
+  // (inventorySource.smpte.js) keep working unchanged.
+  const normative = [];
+  const bibliographic = [];
+  const referencedDocIds = new Set();
+  for (const r of refs) {
+    if (r.cite) (r.type === 'normative' ? normative : bibliographic).push(r.cite);
+    if (parseRefId) {
       try {
-        const resolved = parseRefId(objidref) || parseRefId(standardnum);
-        if (resolved) referencedDocIds.add(resolved);
-      } catch { /* ignore */ }
-    } else if (standardnum && parseRefId) {
-      try {
-        const resolved = parseRefId(standardnum);
+        const resolved = (r.objidref && parseRefId(r.objidref))
+          || (r.standardnum && parseRefId(r.standardnum));
         if (resolved) referencedDocIds.add(resolved);
       } catch { /* ignore */ }
     }
@@ -478,6 +492,7 @@ function readRefXml(absPath, parseRefId) {
 
   return {
     containerDoi,
+    refs,
     normative,
     bibliographic,
     referencedDocIds: [...referencedDocIds],
