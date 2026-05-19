@@ -97,14 +97,13 @@ jobs:
       - name: Build MasterSuiteIndex
         run: |
           node src/main/scripts/buildMasterSuiteIndex.js \
-            --in src/main/data/documents.json \
             --out src/main/reports/masterSuiteIndex.json \
             --pub-out src/main/reports/masterSuiteIndex-publisherCounts.json \
             --skips-out src/main/reports/masterSuiteIndex-skippedDocs.json
 
       - name: Sanity check invariant sourcePath
         run: |
-          jq -e '.sourcePath == "src/main/data/documents.json"' src/main/reports/masterSuiteIndex.json >/dev/null \
+          jq -e '.sourcePath == "src/main/data/docs"' src/main/reports/masterSuiteIndex.json >/dev/null \
             || (echo "sourcePath changed; failing run"; exit 1)
 
       - name: Fetch baseline

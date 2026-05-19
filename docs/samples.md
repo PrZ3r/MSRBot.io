@@ -17,7 +17,7 @@ _Crawls defined URL maps to parse and populate data (currently only SMPTE). Crea
 **Sample Run:** [Run #18390426360](https://github.com/PrZ3r/MSRBot.io/actions/runs/18390426360/job/52399243873)
 
 **Dataset:**  
-- [`src/main/data/documents.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/data/documents.json)  
+- [`src/main/data/docs/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/data/docs)  
 - [`src/main/reports/masterSuiteIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterSuiteIndex.json)
 
 **Reports (as needed):**  
@@ -35,7 +35,7 @@ _Builds a master lineage of documents, mapping each family, suite, and amendment
 **Workflow:** [Build MSI](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml)  
 **Sample Run:** [Run #18388247185](https://github.com/PrZ3r/MSRBot.io/actions/runs/18388247185)
 
-**Dataset:** [`src/main/data/documents.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/data/documents.json)  
+**Dataset:** [`src/main/data/docs/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/data/docs)  
 **Reports:**  
 - [`src/main/reports/masterSuiteIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterSuiteIndex.json)
 
@@ -52,7 +52,7 @@ _Builds a master reference map and determines whether referenced documents are p
 **Workflow:** [Build MRI](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml)  
 **Sample Run:** [Run #18388267876](https://github.com/PrZ3r/MSRBot.io/actions/runs/18388267876)
 
-**Dataset:** [`src/main/data/documents.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/data/documents.json)
+**Dataset:** [`src/main/data/docs/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/data/docs)
 
 **Reports:**  
 - [`src/main/reports/masterReferenceIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterReferenceIndex.json)  
@@ -72,7 +72,7 @@ _Builds the front-end site from data and publishes to GitHub Pages._
 **Sample Run:** [Run #18388295172](https://github.com/PrZ3r/MSRBot.io/actions/runs/18388295172) → [Publish to GH Pages](https://github.com/PrZ3r/MSRBot.io/actions/runs/18388308918)
 
 **Dataset:**  
-- [`src/main/data/documents.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/data/documents.json)  
+- [`src/main/data/docs/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/data/docs)  
 - [`src/main/reports/masterSuiteIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterSuiteIndex.json)  
 - [`src/main/reports/masterReferenceIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterReferenceIndex.json)
 
@@ -113,7 +113,7 @@ _Build preview of MSR site during PR creation, prior to publication to manually 
 - [Fix 404 - ITUR (#514)](https://github.com/PrZ3r/MSRBot.io/pull/514)  
 - [Update documents.json (20251010-193337) (#520)](https://github.com/PrZ3r/MSRBot.io/pull/520)  
 
-> **Trigger:** creation of PR with changes to `src/main/data/documents.json` or site rendering. 
+> **Trigger:** creation of PR with changes to `src/main/data/docs/` or site rendering. 
 
 ---
 

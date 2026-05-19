@@ -69,7 +69,7 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Validate documents.json
+      - name: Validate document registry
         if: steps.skipcheck.outputs.skip == 'false'
         run: npm run validate -- --warn 2>&1 | tee "${{ runner.temp }}/validate.log"
 
@@ -104,7 +104,7 @@ jobs:
             } >> "$PRLOG"
           fi
 
-      - name: Canonicalize documents.json
+      - name: Canonicalize document registry
         if: steps.skipcheck.outputs.skip == 'false'
         env:
           IS_PR_RUN: true
@@ -116,8 +116,8 @@ jobs:
         run: |
           git config user.name "PrZ3 Unit"
           git config user.email "prz3-unit[bot]@users.noreply.github.com"
-          git add src/main/data/documents.json
-          git diff --cached --quiet || git commit -m "Canonicalize documents.json"
+          git add -A src/main/data/docs/
+          git diff --cached --quiet || git commit -m "Canonicalize document registry"
 
       - name: Commit PR update details file
         run: |
@@ -172,15 +172,15 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.app-token.outputs.token }}
-          commit-message: "chore: Update documents.json from SMPTE sources"
+          commit-message: "chore: Update document registry from SMPTE sources"
           commit-options: '--allow-empty'
           branch: chore/extract-docs-smpte     
           labels: automated, msr, extract, smpte  
           delete-branch: true      
-          title: "Update documents.json - extract SMPTE (${{ env.ts }})"
+          title: "Update document registry - extract SMPTE (${{ env.ts }})"
           body: ${{ steps.prlog.outputs.body }}
           add-paths: |
-            src/main/data/documents.json
+            src/main/data/docs
             src/main/reports/masterReferenceIndex.json
             src/main/reports/badRefs.latest.json
           base: main

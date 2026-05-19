@@ -215,28 +215,28 @@ jobs:
           echo "applied=$APPLIED" >> $GITHUB_OUTPUT
           echo "normalizeApplied=$APPLIED"
 
-      - name: Validate documents.json
+      - name: Validate document registry
         if: steps.guard.outputs.skip != 'true' && steps.norm.outputs.applied != '0'
         run: npm run validate
 
-      - name: Canonicalize documents.json
+      - name: Canonicalize document registry
         if: steps.guard.outputs.skip != 'true' && steps.norm.outputs.applied != '0'
         env:
           IS_PR_RUN: true
           PR_LOG_PATH: ${{ runner.temp }}/pr-log.log
         run: npm run canonicalize
 
-      - name: Commit canonicalized documents.json
+      - name: Commit canonicalized document registry
         if: steps.guard.outputs.skip != 'true' && steps.norm.outputs.applied != '0'
         run: |
           git config user.name "PrZ3 Unit"
           git config user.email "prz3-unit[bot]@users.noreply.github.com"
-          git add src/main/data/documents.json
+          git add -A src/main/data/docs/
           if git diff --cached --quiet; then
             echo "No canonicalized changes to commit."
             exit 0
           fi
-          git commit -m "Canonicalize documents.json after normalize"
+          git commit -m "Canonicalize document registry after normalize"
 
       - name: Create PR for normalized URLs
         if: steps.guard.outputs.skip != 'true' && steps.norm.outputs.applied != '0' && github.ref != 'refs/heads/chore/url-normalize'
@@ -256,7 +256,7 @@ jobs:
           base: ${{ github.event.repository.default_branch }}
           delete-branch: true
           add-paths: |
-            src/main/data/documents.json
+            src/main/data/docs
             src/main/reports/url_validate_normalize.json
 
       - name: Upsert URL issues 

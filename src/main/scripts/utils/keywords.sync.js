@@ -30,9 +30,9 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 const fs = require("fs");
 const path = require("path");
 const { normalizeKeyword } = require("./keyword.normalize");
+const { loadAllDocs } = require("../../lib/registry");
 
 const SITE_PATH = path.resolve("src/main/config/site.json");
-const DOCS_PATH = path.resolve("src/main/data/documents.json");
 
 function sortedUnique(values) {
   return Array.from(new Set(values.filter(Boolean))).sort((a, b) => a.localeCompare(b));
@@ -48,14 +48,11 @@ function main() {
   if (!fs.existsSync(SITE_PATH)) {
     throw new Error(`Missing site config: ${SITE_PATH}`);
   }
-  if (!fs.existsSync(DOCS_PATH)) {
-    throw new Error(`Missing documents file: ${DOCS_PATH}`);
-  }
 
   const site = readJson(SITE_PATH);
-  const documents = readJson(DOCS_PATH);
+  const documents = loadAllDocs();
   if (!Array.isArray(documents)) {
-    throw new Error("Expected src/main/data/documents.json to be an array");
+    throw new Error("Expected the document registry to produce an array");
   }
 
   const current = sortedUnique(

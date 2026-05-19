@@ -8,7 +8,7 @@ and Master Reference Index (MRI). Before this, SMPTE `references` were almost
 all hand-curated `source: "manual"` and SMPTE refs had never reached the MRI.
 
 It follows the IETF model: rich raw `<ref>` data lives in the MRI as sightings;
-`documents.json` `references[]` holds **resolved short refIds only**. Unresolved
+the registry's `references[]` holds **resolved short refIds only**. Unresolved
 refs go to a report + MRI orphans — never into the registry.
 
 ## Outcome
@@ -58,7 +58,7 @@ These are the actual product of the backfill, not scaffolding:
   AES, EBU, CIE, IEEE, ETSI, ARIB, ATSC, TIA, EIA, DVB, CEA, FCC, legacy-SMPTE,
   patents, ISO drafts, FIPS).
 - `src/main/input/refMap.json` — ISBN book + one-off entries.
-- `src/main/data/documents.json`, `src/main/reports/masterReferenceIndex.json` —
+- `src/main/data/docs/`, `src/main/reports/masterReferenceIndex.json` —
   the registry and MRI (the output).
 - `src/site/js/refTree.js`, `src/main/templates/refTree.hbs` — refTree dedup +
   depth-cap fix shipped alongside.

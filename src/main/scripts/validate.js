@@ -28,9 +28,55 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 const fs = require("fs");
+const path = require("path");
 const Ajv = require("ajv");
 const jsonSourceMap = require("json-source-map");
 const { listRegistries } = require("./utils/registryList");
+const { loadAllDocs, walkJsonFiles, docPath, DOCS_ROOT } = require("../lib/registry");
+
+/**
+ * Validate a directory-backed registry (issue #1108): every per-doc file is
+ * schema-checked individually (a failure names the exact file), and each file
+ * is asserted to sit at the shard path its own fields derive (decision 2).
+ * Returns the merged docs array, sorted by docId.
+ */
+function validateDirectoryRegistry(reg, validateFn) {
+  const files = walkJsonFiles(reg.dataDir).sort();
+  const pathErrors = [];
+
+  for (const file of files) {
+    let doc;
+    try {
+      doc = JSON.parse(fs.readFileSync(file, "utf8"));
+    } catch (err) {
+      throw new Error(`Invalid JSON in ${file}: ${err.message}`);
+    }
+
+    // Schema check — wrap as a 1-element array to reuse the array schema.
+    if (!validateFn([doc])) {
+      const text = new Ajv({ allErrors: true })
+        .errorsText(validateFn.errors, { separator: "\n  " });
+      throw new Error(`Schema validation failed for ${file}:\n  ${text}`);
+    }
+
+    // Path-consistency check — the in-file fields must derive this file's path.
+    const expected = path.join(DOCS_ROOT, docPath(doc));
+    if (path.resolve(file) !== path.resolve(expected)) {
+      pathErrors.push(
+        `  ${path.relative(DOCS_ROOT, file)}\n    -> expected ${path.relative(DOCS_ROOT, expected)}`
+      );
+    }
+  }
+
+  if (pathErrors.length) {
+    throw new Error(
+      `${pathErrors.length} file(s) not at their derived shard path ` +
+      `(run \`npm run canonicalize\` to re-home):\n${pathErrors.join("\n")}`
+    );
+  }
+
+  return loadAllDocs();
+}
 
 function applyValidationModeFromArgs(argv = []) {
   const args = new Set(argv.map((a) => String(a || "").trim()));
@@ -50,38 +96,44 @@ async function registries() {
   const regs = {};
 
   for (const reg of listRegistries()) {
-    if (!fs.existsSync(reg.dataPath)) {
+    if (!reg.isDirectory && !fs.existsSync(reg.dataPath)) {
       console.warn(`[WARN] No data file found for ${reg.name}, skipping...`);
       continue;
     }
 
     console.log(`\nChecking ${reg.name} registry...`);
 
-    // Load schema + data
+    // Load schema
     const schema = JSON.parse(fs.readFileSync(reg.schemaPath, "utf8"));
-    const data = JSON.parse(fs.readFileSync(reg.dataPath, "utf8"));
-
-    // Compile and validate schema
     const validateFn = ajvFactory.compile(schema);
-    const valid = validateFn(data);
 
-    if (!valid) {
-      let errorMessage = '';
-      const sourceMap = jsonSourceMap.stringify(data, null, 2);
-      const jsonLines = sourceMap.json.split('\n');
+    let data;
 
-      validateFn.errors.forEach(error => {
-        errorMessage += '\n\n' + ajvFactory.errorsText([error]);
-        const errorPointer = sourceMap.pointers[error.instancePath || error.dataPath];
-        if (errorPointer) {
-          errorMessage += '\n> ' + jsonLines
-            .slice(errorPointer.value.line, errorPointer.valueEnd.line)
-            .join('\n> ');
-        }
-      });
+    if (reg.isDirectory) {
+      // Directory-backed registry: validate each per-doc file individually.
+      data = validateDirectoryRegistry(reg, validateFn);
+    } else {
+      data = JSON.parse(fs.readFileSync(reg.dataPath, "utf8"));
+      const valid = validateFn(data);
 
-      console.error(`❌ Schema validation failed for ${reg.name} registry:\n${errorMessage}`);
-      throw new Error(`Schema validation failed for ${reg.name}`);
+      if (!valid) {
+        let errorMessage = '';
+        const sourceMap = jsonSourceMap.stringify(data, null, 2);
+        const jsonLines = sourceMap.json.split('\n');
+
+        validateFn.errors.forEach(error => {
+          errorMessage += '\n\n' + ajvFactory.errorsText([error]);
+          const errorPointer = sourceMap.pointers[error.instancePath || error.dataPath];
+          if (errorPointer) {
+            errorMessage += '\n> ' + jsonLines
+              .slice(errorPointer.value.line, errorPointer.valueEnd.line)
+              .join('\n> ');
+          }
+        });
+
+        console.error(`❌ Schema validation failed for ${reg.name} registry:\n${errorMessage}`);
+        throw new Error(`Schema validation failed for ${reg.name}`);
+      }
     }
 
     console.log(`✅ Schema validation passed for ${reg.name}`);

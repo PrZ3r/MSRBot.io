@@ -32,6 +32,7 @@ const path = require('path');
 const crypto = require('crypto');
 
 const keying = require('../lib/keying');
+const { loadAllDocs } = require('../lib/registry');
 const {
   W3C_ALIAS_MAP,
   NIST_ALIAS_MAP,
@@ -63,7 +64,10 @@ function arg(flag, def = null) {
 }
 function has(flag) { return process.argv.includes(flag); }
 
-const IN = arg('--in', 'src/main/data/documents.json');
+// --in is optional: when omitted, the per-doc registry under src/main/data/docs/ is used.
+const IN = arg('--in', null);
+// Stable label recorded as sourcePath in emitted reports.
+const SOURCE_LABEL = IN || 'src/main/data/docs';
 const OUT = arg('--out', 'src/main/reports/masterSuiteIndex.json');
 const COUNT_ONLY = has('--count-only');
 const PUB_COUNTS_OUT = arg('--pub-out', 'src/main/reports/masterSuiteIndex-publisherCounts.json');
@@ -78,6 +82,10 @@ function sha256File(p) {
   const h = crypto.createHash('sha256');
   h.update(fs.readFileSync(p));
   return 'sha256:' + h.digest('hex');
+}
+
+function sha256String(s) {
+  return 'sha256:' + crypto.createHash('sha256').update(String(s)).digest('hex');
 }
 
 function ensureDir(p) {
@@ -1031,18 +1039,21 @@ function buildIndex(allDocs) {
 }
 
 (function main() {
-  if (!fs.existsSync(IN)) {
-    console.error(`❌ Input not found: ${IN}`);
-    process.exit(1);
-  }
-  const raw = fs.readFileSync(IN, 'utf8');
   let docs = [];
-  try {
-    const parsed = JSON.parse(raw);
-    docs = Array.isArray(parsed) ? parsed : parsed.documents || [];
-  } catch (e) {
-    console.error(`❌ Failed to parse JSON: ${e.message}`);
-    process.exit(1);
+  if (IN) {
+    if (!fs.existsSync(IN)) {
+      console.error(`❌ Input not found: ${IN}`);
+      process.exit(1);
+    }
+    try {
+      const parsed = JSON.parse(fs.readFileSync(IN, 'utf8'));
+      docs = Array.isArray(parsed) ? parsed : parsed.documents || [];
+    } catch (e) {
+      console.error(`❌ Failed to parse JSON: ${e.message}`);
+      process.exit(1);
+    }
+  } else {
+    docs = loadAllDocs();
   }
 
   // Pre-calc skipped docs (unkeyed/filtered) grouped by publisher for reporting
@@ -1085,7 +1096,7 @@ function buildIndex(allDocs) {
       fs.writeFileSync(PUB_COUNTS_OUT, JSON.stringify(summary, null, 2));
       console.log(`📝 Publisher counts written: ${PUB_COUNTS_OUT}`);
       ensureDir(SKIPS_OUT);
-      fs.writeFileSync(SKIPS_OUT, JSON.stringify({ generatedAt: new Date().toISOString(), sourcePath: IN, totalSkipped: skippedDocs.length, byPublisher: skippedByPublisher }, null, 2));
+      fs.writeFileSync(SKIPS_OUT, JSON.stringify({ generatedAt: new Date().toISOString(), sourcePath: SOURCE_LABEL, totalSkipped: skippedDocs.length, byPublisher: skippedByPublisher }, null, 2));
       console.log(`📝 Skipped docs report written: ${SKIPS_OUT}`);
     }
     if (COUNT_ONLY) return; // skip building the big index if we only wanted counts
@@ -1101,8 +1112,8 @@ function buildIndex(allDocs) {
   const flagSummary = computeFlagSummary(lineages);
   const outObj = {
     generatedAt: new Date().toISOString(),
-    sourcePath: IN,
-    sourceHash: sha256File(IN),
+    sourcePath: SOURCE_LABEL,
+    sourceHash: IN ? sha256File(IN) : sha256String(JSON.stringify(docs)),
     publisherCounts: pubCountsSummary,
     skippedDocs: {
       totalSkipped: skippedDocs.length,
@@ -1193,7 +1204,7 @@ function buildIndex(allDocs) {
     fs.writeFileSync(PUB_COUNTS_OUT, JSON.stringify(pubCountsSummary, null, 2));
     console.log(`📝 Publisher counts written: ${PUB_COUNTS_OUT}`);
     ensureDir(SKIPS_OUT);
-    fs.writeFileSync(SKIPS_OUT, JSON.stringify({ generatedAt: new Date().toISOString(), sourcePath: IN, totalSkipped: skippedDocs.length, byPublisher: skippedByPublisher }, null, 2));
+    fs.writeFileSync(SKIPS_OUT, JSON.stringify({ generatedAt: new Date().toISOString(), sourcePath: SOURCE_LABEL, totalSkipped: skippedDocs.length, byPublisher: skippedByPublisher }, null, 2));
     console.log(`📝 Skipped docs report written: ${SKIPS_OUT}`);
   }
 

@@ -122,29 +122,16 @@ function mriPruneToSightings(index, opts = {}) {
 const fs = require('fs');
 const path = require('path');
 
-// ---- documents.json presence index (for quick source checks) ----
-// Resolve documents.json robustly (works no matter where Node is launched from)
-function _resolveDocumentsPath() {
-  const candidates = [
-    // Relative to this file's directory (preferred)
-    path.resolve(__dirname, '..', 'data', 'documents.json'), // src/main/reports/documents.json
-    // Relative to repo root based on common cwd patterns
-    path.resolve(process.cwd(), 'src/main/data/documents.json'),
-    path.resolve(process.cwd(), 'data', 'documents.json'),
-  ];
-  for (const p of candidates) {
-    try { if (fs.existsSync(p)) return p; } catch {}
-  }
-  return candidates[0]; // fallback to the expected path relative to __dirname
-}
+// ---- document registry presence index (for quick source checks) ----
+// The registry is a directory of per-doc files (issue #1108); loadAllDocs()
+// globs + parses them no matter where Node is launched from.
+const { loadAllDocs } = require('./registry');
 
-let _DOCS_PATH = null;
+// Retained for debug logging only.
 function _getDocsPath() {
-  if (_DOCS_PATH) return _DOCS_PATH;
-  _DOCS_PATH = _resolveDocumentsPath();
-  return _DOCS_PATH;
+  return path.resolve(process.cwd(), 'src/main/data/docs');
 }
-let _docIdIndex = null; // Set<string> of docIds from documents.json
+let _docIdIndex = null; // Set<string> of docIds from the registry
 let _docBaseIndex = null; // Map<string base, string[]> of docIds by base
 const DATED_TAIL_RE = /\.(?:\d{8}|\d{4}(?:-\d{2}){0,2})$/; // .YYYY | .YYYY-MM | .YYYY-MM-DD | .YYYYMMDD
 
@@ -153,15 +140,6 @@ function _loadDocumentsIndex() {
   try {
     _docIdIndex = new Set();
     _docBaseIndex = new Map();
-    const DOCS_PATH = _getDocsPath();
-    if (!fs.existsSync(DOCS_PATH)) {
-      if (process.env.DEBUG || process.env.MSR_DEBUG) {
-        console.warn(`⚠️ documents.json not found at ${DOCS_PATH} — sourcePresent checks will return false`);
-      }
-      return _docIdIndex;
-    }
-    const raw = fs.readFileSync(DOCS_PATH, 'utf-8');
-    const parsed = JSON.parse(raw);
 
     const addId = (id) => {
       if (!id || typeof id !== 'string') return;
@@ -174,20 +152,10 @@ function _loadDocumentsIndex() {
       }
     };
 
-    if (Array.isArray(parsed)) {
-      for (const d of parsed) {
-        if (d && typeof d === 'object') {
-          if (typeof d.docId === 'string') addId(d.docId);
-          if (typeof d.docBase === 'string') addId(d.docBase);
-        }
-      }
-    } else if (parsed && typeof parsed === 'object') {
-      for (const k of Object.keys(parsed)) addId(k);
-      for (const v of Object.values(parsed)) {
-        if (v && typeof v === 'object') {
-          if (typeof v.docId === 'string') addId(v.docId);
-          if (typeof v.docBase === 'string') addId(v.docBase);
-        }
+    for (const d of loadAllDocs()) {
+      if (d && typeof d === 'object') {
+        if (typeof d.docId === 'string') addId(d.docId);
+        if (typeof d.docBase === 'string') addId(d.docBase);
       }
     }
   } catch {
@@ -269,7 +237,6 @@ function _hasDocIdOrBase(id) {
 function reloadDocumentsIndex() {
   _docIdIndex = null;
   _docBaseIndex = null;
-  _DOCS_PATH = null;
   return _loadDocumentsIndex();
 }
 

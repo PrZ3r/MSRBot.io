@@ -10,17 +10,17 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `build-mri`: build Master Reference Index (cross-doc reference map).
 - `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit.
 - `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
-- `docs-sort`: sort `documents.json` by `docId` using validator-compatible ordering.
 - `docs-validate`: run the standard validation script.
-- `docs-fix`: sort then validate in one command.
-- `review-refs`: list and resolve reference review flags in `documents.json`.
+- `new-doc`: scaffold a new per-doc registry file from the blank template.
+- `review-refs`: list and resolve reference review flags in the document registry.
 - `validate-url`: run URL reachability/audit checks.
 - `normalize-url`: apply URL normalization/backfill from URL audit.
-- `canonicalize`: normalize/sort registry JSON output format.
+- `canonicalize`: canonicalize the per-doc registry files (key-sort, inject `$meta`, re-home strays).
+- `assemble`: emit per-publisher/docType registry slices under `build/`.
 - `keywords-sync`: detect (or `--write` append) controlled keyword updates.
 - `config-sort`: canonicalize/sort `src/main/config/site.json` key ordering.
 - `build-index`: build search index artifacts.
-- `build-stats`: build API/site stats artifact.
+- `build-stats`: regenerate the API/site stats artifact standalone (also run automatically by `build`).
 - `build`: build full static site output.
 - `local-server`: start a local HTTP server to preview the built site.
 - `audit`: generate document audit report.
@@ -41,12 +41,19 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `npm run build-index`
   - Runs: `node src/main/scripts/build.search-index.js`
   - Action: Builds search index artifacts consumed by docs/portal search UI.
+  - Input: the per-doc registry under `src/main/data/docs/` by default.
   - Optional args:
-    - `npm run build-index -- src/main/data/documents.json` (override input path)
+    - `npm run build-index -- <path>` (override with a built `documents.json` snapshot)
 
 - `npm run build-stats`
   - Runs: `node src/main/scripts/utils/buildStats.js`
-  - Action: Generates stats payload for API viewer and site badges/cards.
+  - Action: Generates `build/api/stats.json` (API viewer + site badges/cards).
+  - Note: `npm run build` already runs this automatically — `build-stats` is only needed to regenerate stats standalone.
+
+- `npm run assemble`
+  - Runs: `node src/main/scripts/build.assemble-registry.js`
+  - Action: Assembles per-publisher and per-publisher/docType registry slices from the per-doc registry.
+  - Key outputs: `build/docs/_data/by-publisher/{publisher}.json` and `.../{publisher}/{docType}.json` (`$meta` stripped). Also run automatically as part of `npm run build`.
 
 ### Extraction
 
@@ -65,14 +72,14 @@ This is the canonical CLI reference for local scripts in `package.json`.
 ### Index Builders
 
 - `npm run build-msi`
-  - Runs: `node src/main/scripts/buildMasterSuiteIndex.js --in src/main/data/documents.json --out src/main/reports/masterSuiteIndex.json`
-  - Action: Rebuilds suite/collection lineage index from `documents.json`.
+  - Runs: `node src/main/scripts/buildMasterSuiteIndex.js --out src/main/reports/masterSuiteIndex.json`
+  - Action: Rebuilds suite/collection lineage index from the per-doc registry (`src/main/data/docs/`).
   - Key outputs:
     - `src/main/reports/masterSuiteIndex.json`
     - `src/main/reports/masterSuiteIndex-publisherCounts.json`
     - `src/main/reports/masterSuiteIndex-skippedDocs.json`
   - Supported flags:
-    - `--in <path>`
+    - `--in <path>` (optional; defaults to the per-doc registry when omitted)
     - `--out <path>`
     - `--pub-out <path>`
     - `--skips-out <path>`
@@ -87,7 +94,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
     - `src/main/reports/masterReferenceIndex.json`
     - `src/main/reports/mri_presence_audit.json`
   - Supported flags:
-    - `--in <path>`
+    - `--in <path>` (optional; defaults to the per-doc registry when omitted)
     - `--presence-only`
     - `--audit-out <path>`
     - `--limit <N>`
@@ -123,21 +130,22 @@ This is the canonical CLI reference for local scripts in `package.json`.
 
 - `npm run canonicalize`
   - Runs: `node src/main/scripts/canonicalize.js`
-  - Action: Canonicalizes JSON ordering/shape for stable diffs.
+  - Action: Canonicalizes each per-doc registry file (key-sort via `json-stable-stringify`, inject missing `$meta`).
+  - Re-homing: the shard path is derived from a doc's own fields — `{publisher}/{docType}/{docId}.json`, plus a `{year}/` level (from `publicationDate`) for title-identified docTypes listed in `site.json#titleLabelDocTypes`. If you edit any of those fields, canonicalize moves the file to its new derived path and prunes any directory left empty. (`validate` independently fails if a file is not at its derived path.)
 
 ### Documents Registry Helpers
 
-- `npm run docs-sort`
-  - Runs: `node src/main/scripts/utils/docIdSort.js`
-  - Action: Sorts `src/main/data/documents.json` by `docId` in the same order expected by validation.
+- `npm run new-doc`
+  - Runs: `node src/main/scripts/new-doc.js`
+  - Action: Scaffolds a new per-doc registry file from `src/main/data/templates/documents.json`, written straight to the correct shard path under `src/main/data/docs/`.
+  - Required args: `--docId <id> --publisher <pub> --docType <type>` (these derive the file path). Any other `--field value` is copied onto the template.
+  - Example:
+    - `npm run new-doc -- --docId SMPTE.ST2067-2.2020 --publisher SMPTE --docType Standard`
+  - After scaffolding, fill in remaining fields and run `npm run canonicalize && npm run validate`.
 
 - `npm run docs-validate`
   - Runs: `npm run validate`
   - Action: Alias to run standard schema + registry validation checks.
-
-- `npm run docs-fix`
-  - Runs: `npm run docs-sort && npm run docs-validate`
-  - Action: One-shot helper for manual doc edits: reorder then validate.
 
 - `npm run review-refs -- list`
   - Runs: `node src/main/scripts/utils/review.refs.js list`

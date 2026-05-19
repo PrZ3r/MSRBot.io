@@ -14,7 +14,7 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
 > Changes to data or logic will typically trigger part of this chain automatically.
 
 ## Ways You Can Contribute
-- **Data improvements** — fix or add metadata in `src/main/data/documents.json`
+- **Data improvements** — fix or add metadata in the per-doc files under `src/main/data/docs/` (one JSON file per document; `npm run new-doc` scaffolds a new one)
 - **Extraction logic** — enhance provider discovery/parsing in `src/main/scripts/providers/` and orchestration in `src/main/scripts/extractDocs.js`
 - **Reference parsing/resolution** — improve shared logic in `src/main/lib/referencing.js` and curated mappings in `src/main/input/refMap.json`
 - **Library improvements** — fix or add features in `src/main/lib/`
@@ -76,7 +76,7 @@ When contributing or editing document metadata:
 - For references:
   - Add deterministic parser rules in `src/main/lib/referencing.js` for stable URL/citation patterns.
   - Use `src/main/input/refMap.json` for curated/manual mappings and aliases.
-  - Validate outcomes in both `src/main/data/documents.json` (`references`) and `src/main/reports/masterReferenceIndex.json` (variants, source presence).
+  - Validate outcomes in both `src/main/data/docs/` (`references`) and `src/main/reports/masterReferenceIndex.json` (variants, source presence).
 
 ## Licensing
 All contributed code is licensed under the MIT License.

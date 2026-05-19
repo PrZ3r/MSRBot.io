@@ -39,8 +39,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const fs = require('fs').promises;
 const path = require('path');
+const { loadAllDocs } = require('../lib/registry');
 
-const REG_DEFAULT = path.join('src','main','data','documents.json');
 const GROUPS = path.join('src','main','data','groups.json');
 const PROJECTS = path.join('src','main','data','projects.json');
 const OUT = 'build/docs';
@@ -49,8 +49,9 @@ const IDX = path.join(DATA_OUT, 'search-index.json');
 const FAC = path.join(DATA_OUT, 'facets.json');
 const SYN = path.join('src','main','lib','synonyms.json'); // optional
 
-/** Optional override: accept docs JSON path via argv[2] */
-const DOCS_PATH = (process.argv[2] && String(process.argv[2]).trim()) || REG_DEFAULT;
+/** Optional override: accept a built docs JSON snapshot path via argv[2].
+ *  When omitted, the per-doc registry under src/main/data/docs/ is used. */
+const DOCS_PATH = (process.argv[2] && String(process.argv[2]).trim()) || null;
 
 
 /** Parse full ISO date → timestamp (or null) without throwing */
@@ -67,13 +68,13 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
 /** Build */
 (async () => {
   const [docsRaw, groupsRaw, projectsRaw] = await Promise.all([
-    fs.readFile(DOCS_PATH, 'utf8').catch(() => '[]'),
+    DOCS_PATH ? fs.readFile(DOCS_PATH, 'utf8').catch(() => '[]') : Promise.resolve('[]'),
     fs.readFile(GROUPS, 'utf8').catch(() => '[]'),
     fs.readFile(PROJECTS, 'utf8').catch(() => '[]'),
   ]);
 
   /** Canonical sources */
-  const docs = JSON.parse(docsRaw);
+  const docs = DOCS_PATH ? JSON.parse(docsRaw) : loadAllDocs();
   const groups = JSON.parse(groupsRaw);
   const projects = JSON.parse(projectsRaw);
 
