@@ -54,6 +54,7 @@ reloadRefMap();
 const REGISTRY = path.join(REPO_ROOT, 'src', 'main', 'data', 'documents.json');
 const SCHEMA = path.join(REPO_ROOT, 'src', 'main', 'schemas', 'documents.schema.json');
 const UNRESOLVED = path.join(REPO_ROOT, 'src', 'main', 'reports', 'smpteSourceRefs.unresolved.json');
+const REFMAP_CANDIDATES = path.join(REPO_ROOT, 'src', 'main', 'reports', 'refMap.candidates.json');
 
 const APPLY = process.argv.includes('--apply');
 const NOW = new Date().toISOString();
@@ -107,9 +108,35 @@ function decodeEntities(s) {
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
 }
 // The <standardnum> element from the raw <ref> XML — the most conformed input for parseRefId.
+// SMPTE ref XMLs sometimes drop the "SMPTE" word ("ST 299-1:2009") — restore it so the SMPTE
+// parser fires (context-safe: these are SMPTE source ref XMLs).
 function standardnumOf(rawRef) {
   const m = String(rawRef || '').match(/<standardnum>([^<]+)<\/standardnum>/i);
+  if (!m) return null;
+  let sn = decodeEntities(m[1]).trim();
+  if (/^(ST|RP|EG|RDD|AG|OM|OV)\b/i.test(sn) && !/^SMPTE\b/i.test(sn)) sn = `SMPTE ${sn}`;
+  return sn;
+}
+// The first <online-cite> URL — used as the href arg to parseRefId (W3C/Unicode URL resolvers).
+function onlineCiteOf(rawRef) {
+  const m = String(rawRef || '').match(/<online-cite[^>]*>([^<]+)<\/online-cite>/i);
   return m ? decodeEntities(m[1]).trim() : null;
+}
+// <idnum idnumtype="ISBN"> → canonical ISBN-13 refId (ISBN.<13 digits>). Books carry no
+// standardnum/DOI, so ISBN is their identifier. ISBN-10 is upconverted to ISBN-13.
+function isbnRefIdOf(rawRef) {
+  const m = String(rawRef || '').match(/<idnum\s+idnumtype="ISBN"[^>]*>([^<]+)<\/idnum>/i);
+  if (!m) return null;
+  const v = decodeEntities(m[1]).replace(/^\s*ISBN\s*(?:1[03])?\s*:?\s*/i, '');
+  const raw = v.replace(/[^0-9Xx]/g, '').toUpperCase();
+  if (raw.length === 13) return `ISBN.${raw}`;
+  if (raw.length === 10) {
+    const core = `978${raw.slice(0, 9)}`;
+    let sum = 0;
+    for (let i = 0; i < 12; i++) sum += (i % 2 ? 3 : 1) * Number(core[i]);
+    return `ISBN.${core}${(10 - (sum % 10)) % 10}`;
+  }
+  return null;
 }
 // Reject obviously-bad refIds — self-references and generic org ids (e.g. W3C.ORG).
 function qualityOk(refId, citingDocId) {
@@ -118,9 +145,10 @@ function qualityOk(refId, citingDocId) {
   if (/\.ORG$/i.test(refId)) return false;
   return true;
 }
-// Resolve one unresolved entry → { refId, via }. standardnum (parseRefId) is preferred over
-// title match — it is the more conformed identifier. via: 'standardnum' | 'titlematch'
-// | 'ambiguous' (title hit >1 doc) | null.
+// Resolve one unresolved entry → { refId, via }. Order: standardnum (most conformed) →
+// online-cite URL as href (W3C/Unicode URL resolvers — structural, safe) → exact title match.
+// Free-text cite-scanning is intentionally NOT used — it mis-grabs designators from prose.
+// via: 'standardnum' | 'url' | 'isbn' | 'titlematch' | 'ambiguous' | null.
 function resolveEntry(u) {
   const sn = standardnumOf(u.rawRef);
   if (sn) {
@@ -128,6 +156,14 @@ function resolveEntry(u) {
     try { id = parseRefId(sn, ''); } catch { /* ignore */ }
     if (qualityOk(id, u.docId)) return { refId: id, via: 'standardnum' };
   }
+  const url = onlineCiteOf(u.rawRef);
+  if (url) {
+    let id = null;
+    try { id = parseRefId('', url); } catch { /* ignore */ } // empty text → only URL resolvers fire
+    if (qualityOk(id, u.docId)) return { refId: id, via: 'url' };
+  }
+  const isbn = isbnRefIdOf(u.rawRef);
+  if (qualityOk(isbn, u.docId)) return { refId: isbn, via: 'isbn' };
   const t = normTitle(u.title);
   if (t) {
     const matches = titleIdx.get(t);
@@ -142,8 +178,8 @@ function resolveEntry(u) {
 if (APPLY) { try { mriEnsureFile(); } catch { /* ignore */ } }
 
 let resolved = 0;
-let viaStandardnum = 0;
-let viaTitle = 0;
+const viaCount = { standardnum: 0, url: 0, isbn: 0, titlematch: 0 };
+const refMapCandidates = {}; // refId → [cite patterns] proposed for refMap.json
 let skippedAmbiguous = 0;
 let skippedDup = 0;
 const stillUnresolved = [];
@@ -160,7 +196,13 @@ for (const u of entries) {
   if (!doc) { stillUnresolved.push(u); continue; }
 
   resolved++;
-  if (via === 'standardnum') viaStandardnum++; else viaTitle++;
+  viaCount[via] = (viaCount[via] || 0) + 1;
+  // ISBN-resolved books: propose a refMap entry (book title → ISBN refId) so future
+  // title-only citations of the same book resolve. Curated file — written as candidates.
+  if (via === 'isbn') {
+    const cite = String(u.cite || u.title || '').replace(/[“”"]/g, '').trim();
+    if (cite) (refMapCandidates[refId] = refMapCandidates[refId] || []).push(cite);
+  }
   if (samples.length < 14) {
     const probe = (standardnumOf(u.rawRef) || u.title || '').slice(0, 46);
     samples.push(`${u.docId} ${u.refXmlId} (${via}): "${probe}" → ${refId}`);
@@ -192,8 +234,10 @@ console.log(`Mode: ${APPLY ? 'APPLY' : 'DRY-RUN'}`);
 console.log(`Unresolved entries read: ${entries.length}`);
 console.log('');
 console.log(`Resolved: ${resolved}`);
-console.log(`  via standardnum (parseRefId): ${viaStandardnum}`);
-console.log(`  via exact 1:1 title match:    ${viaTitle}`);
+console.log(`  via standardnum (parseRefId):   ${viaCount.standardnum}`);
+console.log(`  via online-cite URL (href):     ${viaCount.url}`);
+console.log(`  via ISBN (idnum):               ${viaCount.isbn}`);
+console.log(`  via exact 1:1 title match:      ${viaCount.titlematch}`);
 console.log(`  skipped — ambiguous title (>1 doc): ${skippedAmbiguous}`);
 if (skippedDup) console.log(`  note — refId already on the doc:   ${skippedDup}`);
 console.log(`Still unresolved after this pass:    ${stillUnresolved.length}`);
@@ -217,6 +261,16 @@ if (APPLY) {
   console.log(`\nWrote ${path.relative(REPO_ROOT, REGISTRY)} (${resolved} refs resolved).`);
   console.log(`MRI flush: ${mri.wrote ? `updated — uniqueRefIds=${mri.uniqueRefIds}, orphans=${mri.orphanCount}` : `no change (${mri.reason})`}`);
   console.log(`Wrote ${path.relative(REPO_ROOT, UNRESOLVED)} (${stillUnresolved.length} still unresolved).`);
+  const candCount = Object.keys(refMapCandidates).length;
+  if (candCount) {
+    fs.writeFileSync(REFMAP_CANDIDATES, JSON.stringify({
+      generatedAt: NOW,
+      note: 'Proposed refMap.json byCitePatterns additions (book title → ISBN refId). '
+        + 'Review and merge into src/main/input/refMap.json.',
+      byCitePatterns: refMapCandidates,
+    }, null, 2) + '\n');
+    console.log(`Wrote ${path.relative(REPO_ROOT, REFMAP_CANDIDATES)} (${candCount} refMap candidates — review & merge).`);
+  }
   console.log('Reminder: run `npm run canonicalize` and `npm run validate`, then commit.');
 } else {
   console.log('\nDry run — no changes written. Pass --apply to write.');
