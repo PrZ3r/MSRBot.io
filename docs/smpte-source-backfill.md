@@ -27,7 +27,7 @@ the lot once this branch is merged and the follow-ups below have landed.
 Scripts (one-time runners + the audit tool, all built for this project):
 
 - [ ] `src/main/scripts/extras/extractSmpteSourceRefs.js` — `-ref.xml` extraction runner
-- [ ] `src/main/scripts/extras/extractSmpteJournalArticles.js` — NLM journal-article backfill runner
+- [ ] `src/main/scripts/extras/extractSmpteJournalArticles.js` — NLM journal-article + conference-paper backfill runner
 - [ ] `src/main/scripts/extras/resolveSmpteSourceRefs.js` — unresolved-refs resolver pass
 - [ ] `src/main/scripts/extras/fixUndatedSourceRefs.js` — fixup, dates undated org-lineage refIds
 - [ ] `src/main/scripts/extras/inventorySource.smpte.js` — SMPTE source-vs-registry audit tool

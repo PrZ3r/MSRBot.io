@@ -1,124 +1,31 @@
-# SMPTE Journal-Article Import — 2026-05-22T19:19:44.900Z
+# SMPTE NLM Article Import — 2026-05-22T20:01:07.396Z
 
-Mode: **APPLY** · parser `smpte-journal-article-nlm@v1` · source `_source/SMPTE/HIGHWIRE`
+Mode: **DRY-RUN** · source `_source/SMPTE/HIGHWIRE`
+Corpora: Journal Article (`smpte-journal-article-nlm@v1`)
 
 ## Totals
 - sourceFilesMatched: 18283
 - duplicateCopiesCollapsed: 117
 - uniqueArticles: 18166
-- alreadyInRegistry: 5081
-- targets: 13085
-- batchProcessed: 5000
-- written: 5000
+- alreadyInRegistry: 10081
+- targets: 8085
+- batchProcessed: 3
+- written: 3
 - schemaInvalid: 0
 - parseErrors: 0
 - docIdMismatches: 0
-- remainingAfterBatch: 8085
+- remainingAfterBatch: 8082
+
+## By corpus
+- Journal Article: 3
 
 ## By year
-- 1926: 17
-- 1927: 35
-- 1928: 24
-- 1930: 73
-- 1931: 136
-- 1932: 113
-- 1933: 41
-- 1934: 72
-- 1935: 126
-- 1936: 125
-- 1937: 107
-- 1938: 27
-- 1940: 83
-- 1941: 68
-- 1942: 77
-- 1943: 77
-- 1944: 101
-- 1945: 19
-- 1950: 197
-- 1951: 79
-- 1952: 32
-- 1956: 84
-- 1957: 19
-- 1958: 28
-- 1960: 41
-- 1961: 55
-- 1962: 108
-- 1963: 162
-- 1964: 190
-- 1965: 228
-- 1966: 177
-- 1967: 182
-- 1968: 144
-- 1969: 65
-- 1971: 169
-- 1972: 191
-- 1973: 189
-- 1974: 147
-- 1975: 31
-- 1976: 151
-- 1977: 106
-- 1978: 17
-- 1979: 61
-- 1983: 28
-- 1985: 91
-- 1986: 88
-- 1988: 22
-- 1991: 40
-- 1992: 21
-- 1994: 100
-- 1995: 59
-- 1996: 79
-- 1997: 20
-- 1998: 85
-- 1999: 17
-- 2000: 176
+- 1933: 3
 
 ## By articleType
-- abstract: 76
-- addendum: 5
-- announcement: 89
-- book-review: 103
-- calendar: 47
-- correction: 37
-- discussion: 1
-- letter: 27
-- meeting-report: 164
-- news: 1089
-- obituary: 80
-- oration: 1
-- other: 1165
-- reprint: 2
-- research-article: 2111
-- review-article: 3
+- other: 3
 
-## Written (5000 — first 30)
-- `10.5594-J05107` 1951-01-01 — Engineering Activities
-- `10.5594-J05108` 1951-01-01 — Book Reviews
-- `10.5594-J05109` 1951-01-01 — New Members
-- `10.5594-J05110` 1951-01-01 — Obituary
-- `10.5594-J05111` 1951-01-01 — Meetings of Other Societies
-- `10.5594-J05112` 1951-01-01 — New Products
-- `10.5594-J05113` 1950-12-01 — President's Convention Address
-- `10.5594-J05114` 1950-12-01 — Motion Pictures and Television
-- `10.5594-J05115` 1950-12-01 — Motion Picture Production for Television
-- `10.5594-J05116` 1950-12-01 — Lighting Methods for Television Studios
-- `10.5594-J05117` 1950-12-01 — Electrical Printing
-- `10.5594-J05118` 1950-12-01 — Motion Picture Studio Use of Magnetic Recording
-- `10.5594-J05119` 1950-12-01 — High-Speed Photography of Reflection-Lighted Objects in Transonic Wind Tunnel Testing
-- `10.5594-J05120` 1950-12-01 — U.S. Naval Underwater Cinematography Techniques
-- `10.5594-J05121` 1950-12-01 — 35-Mm Ansco Color Theater Prints from 16-Mm Kodachrome
-- `10.5594-J05122` 1950-12-01 — New Laboratory for Processing Monopack Color Film
-- `10.5594-J05123` 1950-12-01 — Errata
-- `10.5594-J05124` 1950-12-01 — 68th Semiannual Convention
-- `10.5594-J05125` 1950-12-01 — Annual Awards
-- `10.5594-J05126` 1950-12-01 — Guest Speaker
-- `10.5594-J05127` 1950-12-01 — New Society Medal
-- `10.5594-J05128` 1950-12-01 — Engineering Activities
-- `10.5594-J05129` 1950-12-01 — Employment Service
-- `10.5594-J05130` 1950-12-01 — New Members
-- `10.5594-J05131` 1950-12-01 — Obituary
-- `10.5594-J05132` 1950-12-01 — Papers Presented at the Lake Placid Convention, October 16–20
-- `10.5594-J05133` 1950-12-01 — Honorary Members and SMPTE Honor Roll
-- `10.5594-J05134` 1950-11-01 — Synthetic Color-Forming Binders for Photographic Emulsions
-- `10.5594-J05135` 1950-11-01 — An Improved Video System for Television Studios
-- `10.5594-J05136` 1950-11-01 — Infrared Photography with Electric-Flash
+## Written (3)
+- `10.5594-J10156` 1933-03-01 — Officers
+- `10.5594-J10157` 1933-03-01 — Committees
+- `10.5594-J10158` 1933-03-01 — Society Announcements
