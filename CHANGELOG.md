@@ -10,7 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **`articleType` page gate** — `site.json#noPageArticleTypes` lists `articleType` values that don't get rendered site pages. Initial set: `obituary`, `other`, `news`, `calendar`, `announcement`, `correction`, `addendum`, `reprint`. Gated docs are skipped at the per-doc page, reference-tree, and sitemap emit loops, and dropped from `search-index.json`/`facets.json` so they don't appear in the browse list either. Stale pages from earlier builds are removed on rebuild. Gated docs remain fully present in the API and registry — the gate only suppresses generated pages, not data. New `src/main/lib/pageGate.js` drives the decision; matching is case-insensitive but exact-value.
+- **`articleType` shown on doc pages** — surfaced in `docId.hbs` directly below Doc Type when present.
+- **Journal Article breakdown in `/api/stats.json`** — new `documents.journalArticles` block: `{ total, articleTypes, byArticleType }` (sorted descending by count). Stats `apiVersion` bumps `1.0.0 → 1.1.0`.
+
 ### Changed
+
+- **`/api/documents.json` is now a lightweight index** (`apiVersion` bumps `1.0.0 → 2.0.0`) — the full-bundle shape grew past GitHub's 100 MB per-file limit on the `gh-pages` branch as the SMPTE journal-article backfill landed. The endpoint now emits one row per doc — `{ docId, publisher, docType, docLabel, docTitle, articleType?, path }` — each linking to `/api/doc/{docId}.json` for the full record with `$meta` provenance. Drops the file from ~120 MB to ~7 MB and stays small as the corpus grows. Per-doc shards are unchanged and remain the canonical full-data endpoint. Closes [#1173](https://github.com/PrZ3r/MSRBot.io/issues/1173).
 
 ### Fixed
 
