@@ -1,6 +1,6 @@
-# SMPTE Journal-Article Import — 2026-05-22T18:48:13.861Z
+# SMPTE Journal-Article Import — 2026-05-22T18:56:53.245Z
 
-Mode: **DRY-RUN** · parser `smpte-journal-article-nlm@v1` · source `_source/SMPTE/HIGHWIRE`
+Mode: **APPLY** · parser `smpte-journal-article-nlm@v1` · source `_source/SMPTE/HIGHWIRE`
 
 ## Totals
 - sourceFilesMatched: 18283
@@ -8,26 +8,75 @@ Mode: **DRY-RUN** · parser `smpte-journal-article-nlm@v1` · source `_source/SM
 - uniqueArticles: 18166
 - alreadyInRegistry: 81
 - targets: 18085
-- batchProcessed: 50
-- written: 50
+- batchProcessed: 5000
+- written: 5000
 - schemaInvalid: 0
 - parseErrors: 0
 - docIdMismatches: 0
-- remainingAfterBatch: 18035
+- remainingAfterBatch: 13085
 
 ## By year
+- 1919: 7
+- 1926: 37
+- 1928: 36
+- 1931: 19
+- 1932: 19
+- 1933: 10
+- 1936: 24
+- 1937: 17
+- 1939: 12
 - 1940: 15
+- 1941: 12
+- 1946: 12
+- 1947: 14
+- 1951: 113
+- 1952: 203
+- 1953: 252
+- 1954: 129
+- 1955: 52
+- 1956: 22
 - 1960: 23
-- 1980: 12
+- 1970: 42
+- 1971: 20
+- 1973: 17
+- 1980: 254
+- 1981: 249
+- 1982: 269
+- 1983: 274
+- 1984: 260
+- 1985: 136
+- 1986: 148
+- 1987: 273
+- 1988: 253
+- 1989: 272
+- 1990: 246
+- 1991: 262
+- 1992: 206
+- 1993: 189
+- 1994: 93
+- 1995: 60
+- 1996: 80
+- 1997: 126
+- 1998: 135
+- 1999: 65
+- 2000: 43
 
 ## By articleType
-- addendum: 1
-- book-review: 7
-- calendar: 1
-- obituary: 1
-- research-article: 40
+- abstract: 6
+- addendum: 22
+- announcement: 7
+- book-review: 60
+- calendar: 128
+- correction: 13
+- letter: 13
+- meeting-report: 68
+- news: 74
+- obituary: 112
+- other: 3004
+- reprint: 3
+- research-article: 1490
 
-## Written (50 — first 30)
+## Written (5000 — first 30)
 - `10.5594-J00021` 1940-01-01 — Report on the Adaptation of Fine-Grain Films to Variable-Density Sound Technics
 - `10.5594-J00022` 1940-01-01 — Improvement in Sound and Picture Release through the Use of Fine-Grain Film
 - `10.5594-J00023` 1940-01-01 — Photographic Duping of Variable-Area Sound
