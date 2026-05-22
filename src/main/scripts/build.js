@@ -516,13 +516,38 @@ async function emitDocumentsApiOnce() {
   await fs.mkdir(perDocRoot, { recursive: true });
 
   const generatedAt = new Date().toISOString();
+
+  // /api/documents.json is an *index* of all documents — lightweight rows that
+  // link to /api/doc/{docId}.json for the full record (including $meta). The
+  // full-bundle shape was retired in apiVersion 2.0.0 because the corpus grew
+  // past GitHub's 100 MB per-file limit on the gh-pages branch; the per-doc
+  // shards remain the canonical source for full provenance.
+  const indexDocuments = docs
+    .filter(d => d && d.docId)
+    .map(d => {
+      const id = String(d.docId);
+      const row = {
+        docId: id,
+        publisher: typeof d.publisher === 'string' ? d.publisher : null,
+        docType: typeof d.docType === 'string' ? d.docType : null,
+        docLabel: typeof d.docLabel === 'string' ? d.docLabel : null,
+        docTitle: typeof d.docTitle === 'string' ? d.docTitle : null,
+        path: `/api/doc/${encodeURIComponent(id)}.json`,
+      };
+      if (typeof d.articleType === 'string' && d.articleType.trim()) {
+        row.articleType = d.articleType.trim();
+      }
+      return row;
+    });
+
   const payload = {
     $schema: '/api/schemas/documents.schema.json',
-    apiVersion: '1.0.0',
+    apiVersion: '2.0.0',
     generatedAt,
     sourcePath: docsPath,
-    total: docs.length,
-    documents: docs,
+    total: indexDocuments.length,
+    note: 'Index only. Fetch /api/doc/{docId}.json for the full record with $meta provenance.',
+    documents: indexDocuments,
   };
 
   try {
@@ -531,7 +556,7 @@ async function emitDocumentsApiOnce() {
       JSON.stringify(payload, null, 2),
       'utf8'
     );
-    console.log(`[api] Wrote build/api/documents.json (total=${docs.length})`);
+    console.log(`[api] Wrote build/api/documents.json index (total=${indexDocuments.length})`);
   } catch (e) {
     console.warn(
       '[api] Failed to write build/api/documents.json:',
