@@ -27,6 +27,7 @@ the lot once this branch is merged and the follow-ups below have landed.
 Scripts (one-time runners + the audit tool, all built for this project):
 
 - [ ] `src/main/scripts/extras/extractSmpteSourceRefs.js` — `-ref.xml` extraction runner
+- [ ] `src/main/scripts/extras/extractSmpteJournalArticles.js` — NLM journal-article backfill runner
 - [ ] `src/main/scripts/extras/resolveSmpteSourceRefs.js` — unresolved-refs resolver pass
 - [ ] `src/main/scripts/extras/fixUndatedSourceRefs.js` — fixup, dates undated org-lineage refIds
 - [ ] `src/main/scripts/extras/inventorySource.smpte.js` — SMPTE source-vs-registry audit tool
@@ -38,6 +39,8 @@ Reports / ad-hoc outputs:
 - [ ] `src/main/reports/sourceInventory.smpte.json` — audit-tool output (stale post-backfill)
 - [ ] `src/main/reports/sourceInventory.smpte.md` — audit-tool output (stale post-backfill)
 - [ ] `src/main/reports/sourceInventory.smpte.schemaMap.md` — audit-tool output (stale post-backfill)
+- [ ] `src/main/reports/smpteJournalImport.json` — journal-backfill runner output
+- [ ] `src/main/reports/smpteJournalImport.md` — journal-backfill runner output
 
 This tracking doc itself:
 
@@ -53,7 +56,8 @@ This tracking doc itself:
 These are the actual product of the backfill, not scaffolding:
 
 - `src/main/scripts/utils/extractSourceMetadata.js` — `readRefXml` restructured
-  to return per-`<ref>` records.
+  to return per-`<ref>` records; `readNlmArticleXml` added for the HIGHWIRE
+  NLM journal-article corpus.
 - `src/main/lib/referencing.js` — new `parseRefId` parser families (ITU, ANSI,
   AES, EBU, CIE, IEEE, ETSI, ARIB, ATSC, TIA, EIA, DVB, CEA, FCC, legacy-SMPTE,
   patents, ISO drafts, FIPS).

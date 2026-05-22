@@ -499,9 +499,128 @@ function readRefXml(absPath, parseRefId) {
   };
 }
 
+// --- NLM Journal Archiving & Interchange article XML ------------------------
+// HIGHWIRE journal deliveries (_source/SMPTE/HIGHWIRE/.../smptej/10.5594_J*.xml)
+// are full-article XML in the NLM Journal Archiving & Interchange DTD — a
+// different schema from the Allen Press journal_metadata format that
+// readIssueMetadataXml() handles. This reads one article's front-matter only;
+// the <back> reference list is intentionally NOT parsed here (refs are a
+// separate, deferred pass). Returns null when the file is not an NLM article.
+// Strip inline NLM markup from a text run: cross-reference / footnote markers
+// (<xref>, <fn>, <label>) are dropped WITH their content; other inline tags
+// (<italic>, <bold>, <sc>, <sub>, <sup>, …) are unwrapped, keeping their text.
+function stripInlineMarkup(s) {
+  if (s == null) return s;
+  return String(s)
+    .replace(/<xref\b[^>]*>[\s\S]*?<\/xref>/gi, '')
+    .replace(/<xref\b[^>]*\/>/gi, '')
+    .replace(/<(fn|label)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+    .replace(/<[^>]+>/g, '');
+}
+
+function readNlmArticleXml(absPath) {
+  let text;
+  try {
+    text = fs.readFileSync(absPath, 'utf8');
+  } catch {
+    return null;
+  }
+  if (!/<article[\s>]/i.test(text)) return null;
+  const front = firstTag(text, 'front');
+  if (!front) return null;
+  const ameta = firstTag(front, 'article-meta');
+  if (!ameta) return null;
+  const jmeta = firstTag(front, 'journal-meta') || '';
+
+  // identity — DOI is mandatory; without it the article cannot be keyed
+  const doiMatch = ameta.match(/<article-id[^>]*\bpub-id-type="doi"[^>]*>([^<]+)<\/article-id>/i);
+  const doi = doiMatch ? normText(doiMatch[1]) : null;
+  if (!doi) return null;
+
+  // journal-meta
+  const journalTitle = firstTagText(jmeta, 'journal-title');
+  const abbrevTitle = firstTagText(jmeta, 'abbrev-journal-title');
+  const issnPrint = (jmeta.match(/<issn[^>]*\bpub-type="ppub"[^>]*>([^<]+)<\/issn>/i) || [])[1];
+  const issnElectronic = (jmeta.match(/<issn[^>]*\bpub-type="epub"[^>]*>([^<]+)<\/issn>/i) || [])[1];
+  const issn = {};
+  if (issnPrint) issn.print = normText(issnPrint);
+  if (issnElectronic) issn.electronic = normText(issnElectronic);
+  const pubBlock = firstTag(jmeta, 'publisher') || '';
+  const publisherName = firstTagText(pubBlock, 'publisher-name');
+  const publisherLoc = firstTagText(pubBlock, 'publisher-loc');
+
+  // article-meta
+  const docTitle = normText(stripInlineMarkup(firstTag(ameta, 'article-title')));
+  const articleType = firstAttr(text, 'article', 'article-type');
+
+  // authors — <contrib contrib-type="author"> only (skip editors/translators)
+  const authors = [];
+  for (const cm of matchAll(ameta, /<contrib\b[^>]*>[\s\S]*?<\/contrib>/gi)) {
+    const block = cm[0];
+    if (!/\bcontrib-type="author"/i.test(block)) continue;
+    const nameBlock = firstTag(block, 'name') || '';
+    const surname = normText(stripInlineMarkup(firstTag(nameBlock, 'surname')));
+    const given = normText(stripInlineMarkup(firstTag(nameBlock, 'given-names')));
+    const full = [given, surname].filter(Boolean).join(' ').trim()
+      || normText(stripInlineMarkup(firstTag(block, 'string-name')));
+    if (full) authors.push(full);
+  }
+
+  // publication date — prefer a <pub-date> carrying ppub, else the first
+  const pubDates = matchAll(ameta, /<pub-date\b[^>]*>[\s\S]*?<\/pub-date>/gi).map((m) => m[0]);
+  const pubDateBlock = pubDates.find((b) => /ppub/i.test(b)) || pubDates[0] || null;
+  const publicationDateRaw = pubDateBlock ? composeDate(pubDateBlock) : null;
+
+  const volume = firstTagText(ameta, 'volume');
+  const issue = firstTagText(ameta, 'issue');
+  const fpage = firstTagText(ameta, 'fpage');
+  const lpage = firstTagText(ameta, 'lpage');
+  let pages = null;
+  if (fpage && lpage) pages = `${fpage}–${lpage}`;
+  else if (fpage) pages = fpage;
+
+  const permBlock = firstTag(ameta, 'permissions') || '';
+  const copyrightHolder = firstTagText(permBlock, 'copyright-holder');
+  const copyrightYear = firstTagText(permBlock, 'copyright-year');
+
+  // abstract — join <p> text, dropping inline markup
+  let abstract = null;
+  const absBlock = firstTag(ameta, 'abstract');
+  if (absBlock) {
+    const paras = matchAll(absBlock, /<p\b[^>]*>([\s\S]*?)<\/p>/gi)
+      .map((m) => normText(stripInlineMarkup(m[1])))
+      .filter(Boolean);
+    abstract = paras.length ? paras.join(' ') : normText(stripInlineMarkup(absBlock));
+  }
+
+  return {
+    doi,
+    docTitle,
+    authors: authors.length ? authors : null,
+    pages,
+    abstract,
+    publicationDateRaw, // null | 'YYYY' | 'YYYY-MM' | 'YYYY-MM-DD'
+    volume: volume || null,
+    issue: issue || null,
+    journalTitle: journalTitle || null,
+    abbrevTitle: abbrevTitle || null,
+    issn: issn.print || issn.electronic ? issn : null,
+    publisherName: publisherName || null,
+    publisherLoc: publisherLoc || null,
+    copyright: copyrightHolder || copyrightYear
+      ? {
+        ...(copyrightHolder ? { holder: copyrightHolder } : {}),
+        ...(copyrightYear ? { year: copyrightYear } : {}),
+      }
+      : null,
+    articleType: articleType || null,
+  };
+}
+
 module.exports = {
   readStandardXml,
   readIssueMetadataXml,
+  readNlmArticleXml,
   readRefXml,
   buildCommitteeSlugReverseIndex,
   committeeToSlug,
