@@ -28,6 +28,7 @@ Scripts (one-time runners + the audit tool, all built for this project):
 
 - [ ] `src/main/scripts/extras/extractSmpteSourceRefs.js` — `-ref.xml` extraction runner
 - [ ] `src/main/scripts/extras/extractSmpteJournalArticles.js` — NLM journal-article + conference-paper backfill runner
+- [ ] `src/main/scripts/extras/extractSmpteJournalIssues.js` — APTARA/Allen Press journal_metadata coverage + cross-fill runner
 - [ ] `src/main/scripts/extras/resolveSmpteSourceRefs.js` — unresolved-refs resolver pass
 - [ ] `src/main/scripts/extras/fixUndatedSourceRefs.js` — fixup, dates undated org-lineage refIds
 - [ ] `src/main/scripts/extras/inventorySource.smpte.js` — SMPTE source-vs-registry audit tool
@@ -41,6 +42,8 @@ Reports / ad-hoc outputs:
 - [ ] `src/main/reports/sourceInventory.smpte.schemaMap.md` — audit-tool output (stale post-backfill)
 - [ ] `src/main/reports/smpteJournalImport.json` — journal-backfill runner output
 - [ ] `src/main/reports/smpteJournalImport.md` — journal-backfill runner output
+- [ ] `src/main/reports/smpteJournalIssueImport.json` — journal-issue (APTARA) runner output
+- [ ] `src/main/reports/smpteJournalIssueImport.md` — journal-issue (APTARA) runner output
 
 This tracking doc itself:
 
