@@ -1385,12 +1385,17 @@ function _titleOf(doc){
   // regardless of what the primary listType is for this build.
   let registryDocsAll = null;
   for (const sub of subRegistry) {
+    // The documents registry is per-doc files (#1108) — no monolithic
+    // data/documents.json — so glob it via loadAllDocs() rather than reading a file.
+    if (sub === 'documents') {
+      registryDocsAll = loadAllDocs();
+      continue;
+    }
     const subDataPath = path.join(REGISTRIES_REPO_PATH, `data/${sub}.json`);
     try {
       const subData = JSON.parse(await fs.readFile(subDataPath, 'utf8'));
       if (sub === 'groups')   registryGroup = subData;
       if (sub === 'projects') registryProject = subData;
-      if (sub === 'documents') registryDocsAll = subData;
     } catch (err) {
       console.warn(`[WARN] Could not load data for sub-registry "${sub}" at ${subDataPath}: ${err.message}`);
     }
