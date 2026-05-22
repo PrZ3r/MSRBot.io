@@ -159,6 +159,7 @@ hb.registerHelper('refHref', function (refId) {
 // Minimal shared keying import for MSI lineage lookups
 const keying = require('../lib/keying');
 const { loadAllDocs } = require('../lib/registry');
+const { noPageArticleTypeSet, isPageGated } = require('../lib/pageGate');
 const { assembleSlices } = require('./build.assemble-registry');
 const buildStats = require('./utils/buildStats');
 const { lineageKeyFromDoc, lineageKeyFromDocId } = keying;
@@ -232,6 +233,14 @@ async function loadSiteConfig() {
   if (process.env.SITE_CANONICAL_BASE) siteConfig.canonicalBase = process.env.SITE_CANONICAL_BASE;
   if (process.env.SITE_NAME) siteConfig.siteName = process.env.SITE_NAME;
   if (process.env.SITE_DESCRIPTION) siteConfig.siteDescription = process.env.SITE_DESCRIPTION;
+}
+
+// Page gate: skip rendered pages for docs whose articleType is listed in
+// siteConfig.noPageArticleTypes (set built lazily, once siteConfig is loaded).
+let __pageGateSet = null;
+function pageGated(doc) {
+  if (__pageGateSet === null) __pageGateSet = noPageArticleTypeSet(siteConfig);
+  return isPageGated(doc, __pageGateSet);
 }
 
 // Recursively copy directories/files (promises API)
@@ -2396,6 +2405,12 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         if (!d || !d.docId) continue;
         const id = String(d.docId);
         const dir = path.join(refTreeRoot, id);
+        // Page gate: no detail page → no reference-tree page either.
+        // Remove any stale page left by an earlier (pre-gate) build.
+        if (pageGated(d)) {
+          await fs.rm(dir, { recursive: true, force: true });
+          continue;
+        }
         await fs.mkdir(dir, { recursive: true });
 
         try {
@@ -2898,11 +2913,18 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     const docsOutRoot = path.join(BUILD_PATH, 'docs');
     await fs.mkdir(docsOutRoot, { recursive: true });
 
-    let __ok = 0, __fail = 0;
+    let __ok = 0, __fail = 0, __gated = 0;
     for (const d of registryDocument) {
       if (!d || !d.docId) continue;
       const id = String(d.docId);
       const docDir = path.join(docsOutRoot, id);
+      // Page gate: gated articleTypes (e.g. obituary, other) get no detail
+      // page. Remove any stale page left by an earlier (pre-gate) build.
+      if (pageGated(d)) {
+        __gated++;
+        await fs.rm(docDir, { recursive: true, force: true });
+        continue;
+      }
       await fs.mkdir(docDir, { recursive: true });
       try {
         // Per‑doc canonical + social meta
@@ -2966,9 +2988,9 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       }
     }
     if (__fail) {
-      console.warn(`[build] Per-doc pages emitted with warnings: ok=${__ok}, failed=${__fail}`);
+      console.warn(`[build] Per-doc pages emitted with warnings: ok=${__ok}, failed=${__fail}, gated=${__gated}`);
     } else {
-      // console.log(`[build] Per-doc pages emitted: ${__ok}`);
+      console.log(`[build] Per-doc pages emitted: ${__ok} (gated by articleType: ${__gated})`);
     }
   } catch (e) {
     console.warn('[build] Could not emit per-doc pages:', e && e.message ? e.message : e);
@@ -3053,6 +3075,8 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         if (Array.isArray(registryDocument)) {
           for (const d of registryDocument) {
             if (!d || !d.docId) continue;
+            // Page gate: only list docs that actually have a detail page.
+            if (pageGated(d)) continue;
             const id = String(d.docId);
             // Encode docId for URL safety; keep canonicalBase handling via URL()
             addUrl(`/docs/${encodeURIComponent(id)}/`, 'weekly', '0.6');

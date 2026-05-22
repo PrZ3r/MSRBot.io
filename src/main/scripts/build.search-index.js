@@ -40,6 +40,16 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 const fs = require('fs').promises;
 const path = require('path');
 const { loadAllDocs } = require('../lib/registry');
+const { noPageArticleTypeSet, isPageGated } = require('../lib/pageGate');
+
+/** Page gate config — gated articleTypes are excluded from the browse/search
+ *  index (and facets), matching the per-doc page gate in build.js. */
+let __gateSet;
+try {
+  __gateSet = noPageArticleTypeSet(require('../config/site.json'));
+} catch (e) {
+  __gateSet = new Set();
+}
 
 const GROUPS = path.join('src','main','data','groups.json');
 const PROJECTS = path.join('src','main','data','projects.json');
@@ -129,8 +139,11 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
 
   /** Build the flat, minimal index strictly from canonical doc fields */
   const idx = [];
+  let gatedCount = 0;
   for (const d of Array.isArray(docs) ? docs : []) {
     if (!d || !d.docId) continue;
+    // Page gate: gated articleTypes stay in the API but not the browse index.
+    if (isPageGated(d, __gateSet)) { gatedCount++; continue; }
 
     const label = d.docLabel;
     const baseTitle = d.docTitle || '';
@@ -383,7 +396,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
   /** Write outputs */
   await fs.writeFile(IDX, JSON.stringify(idx, null, 2), 'utf8');
   await fs.writeFile(FAC, JSON.stringify(facets, null, 2), 'utf8');
-  console.log(`[docList] Wrote ${IDX} (${idx.length} docs), ${FAC}`);
+  console.log(`[docList] Wrote ${IDX} (${idx.length} docs, ${gatedCount} gated by articleType), ${FAC}`);
 })().catch(err => {
   console.error('[docList] Index build failed:', err && err.stack ? err.stack : err);
   process.exitCode = 1;
