@@ -1,23 +1,24 @@
 {
-  "generatedAt": "2026-05-19T22:16:10.126Z",
+  "generatedAt": "2026-05-23T06:59:09.283Z",
   "target": "documents.json",
-  "good": 2056,
+  "good": 1919,
   "skippedByDomain": 0,
   "skippedByPublisher": 0,
   "index": {
-    "error": 210,
+    "error": 213,
     "errorBreakdown": {
       "Unreachable (403)": 48,
-      "Unreachable (404)": 150,
-      "Unreachable (ECONNABORTED)": 4,
+      "Unreachable (404)": 149,
+      "Unreachable (503)": 1,
+      "Unreachable (ECONNABORTED)": 7,
       "Unreachable (ENOTFOUND)": 2,
       "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 2,
       "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)": 4
     },
-    "redirectMismatch": 16,
+    "redirectMismatch": 150,
     "redirectBreakdown": {
-      "undefined": 0,
-      "other": 16
+      "undefined": 10,
+      "other": 140
     },
     "expectationMismatch": 36,
     "expectationBreakdown": {
@@ -712,26 +713,6 @@
           "riskLevel": "High"
         },
         {
-          "docId": "EIDR.ID.201702",
-          "publisher": "EIDR",
-          "field": "href",
-          "url": "http://eidr.org/documents/EIDR_ID_Format.pdf",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "EIDR.ID.201710",
-          "publisher": "EIDR",
-          "field": "href",
-          "url": "http://eidr.org/documents/EIDR_ID_Format.pdf",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
           "docId": "EIDR.SV-DFR.201512",
           "publisher": "EIDR",
           "field": "href",
@@ -742,20 +723,20 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.FIPS.140-3",
+          "docId": "NIST.FIPS.140-2",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.140-3",
+          "url": "https://doi.org/10.6028/NIST.FIPS.140-2",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.FIPS.180-4",
+          "docId": "NIST.FIPS.186-4",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.180-4",
+          "url": "https://doi.org/10.6028/NIST.FIPS.186-4",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -782,10 +763,20 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.SP.800-57pt1r5",
+          "docId": "NIST.SP.800-57pt2r1",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57pt1r5",
+          "url": "https://doi.org/10.6028/NIST.SP.800-57pt2r1",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "RFC3061",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/rfc/inline-errata/rfc3061.html",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -2012,7 +2003,39 @@
           "riskLevel": "High"
         }
       ],
+      "503": [
+        {
+          "docId": "EIDR.ID.201702",
+          "publisher": "EIDR",
+          "field": "href",
+          "url": "http://eidr.org/documents/EIDR_ID_Format.pdf",
+          "message": "Unreachable (503)",
+          "explanation": "Service is temporarily unavailable or overloaded.",
+          "recommendedAction": "Try again later. Consider flagging for recheck.",
+          "riskLevel": "Medium-High"
+        }
+      ],
       "ECONNABORTED": [
+        {
+          "docId": "IEEE.STD1003.1.2004",
+          "publisher": "IEEE",
+          "field": "href",
+          "url": "https://doi.org/10.1109/IEEESTD.2004.94570",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "IEEE.STD1003.1.2008",
+          "publisher": "IEEE",
+          "field": "href",
+          "url": "https://doi.org/10.1109/IEEESTD.2008.4694976",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
         {
           "docId": "IEEE.STD152.1992",
           "publisher": "IEEE",
@@ -2028,6 +2051,16 @@
           "publisher": "IEEE",
           "field": "href",
           "url": "https://doi.org/10.1109/IEEESTD.1990.122158",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "IEEE.STD9945.2009",
+          "publisher": "IEEE",
+          "field": "href",
+          "url": "https://doi.org/10.1109/IEEESTD.2009.5393893",
           "message": "Unreachable (ECONNABORTED)",
           "explanation": "Connection timed out.",
           "recommendedAction": "Retry later or check the server’s responsiveness.",
@@ -2142,7 +2175,108 @@
       ]
     },
     "redirect": {
-      "undefined": [],
+      "undefined": [
+        {
+          "docId": "RFC2302",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2302",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2302/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2518",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2518",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2518/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3302",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3302",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3302/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4187",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4187",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4187/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4452",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4452",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4452/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4918",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4918",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4918/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5448",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5448",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5448/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5689",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5689",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5689/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6557",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6557",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6557/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8259",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc8259",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8259/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "undefined",
+          "message": "resolved url mismatch"
+        }
+      ],
       "other": [
         {
           "docId": "AMPAS.S.2019-001",
@@ -2155,6 +2289,16 @@
           "message": "resolved url mismatch"
         },
         {
+          "docId": "EIDR.ID.201710",
+          "publisher": "EIDR",
+          "field": "href",
+          "url": "http://eidr.org/documents/EIDR_ID_Format.pdf",
+          "resolvedUrl": "https://eidrdotorg.atlassian.net/wiki/spaces/ERL/pages/2355331073/EIDR+ID+FORMAT",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://eidr.org/documents/EIDR_ID_Format.pdf",
+          "message": "resolved url mismatch"
+        },
+        {
           "docId": "JAES.v2-i4-215-218.1954",
           "publisher": "AES",
           "field": "href",
@@ -2162,6 +2306,1236 @@
           "resolvedUrl": "https://aes.org/publications/elibrary-page/?id=37",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://aes2.org/publications/elibrary-page/?id=37",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1035",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1035",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1035/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1035",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1123",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1123",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1123/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1123",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1321",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1321",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1321/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1321",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1494",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1494",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1494/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1494",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1521",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1521",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1521/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1521",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1557",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1557",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1557/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1557",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1590",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1590",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1590/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1590",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1652",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1652",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1652/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1652",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1737",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1737",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1737/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1737",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1738",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1738",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1738/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1738",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1766",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1766",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1766/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1766",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC1874",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC1874",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc1874/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc1874",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2045",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2045",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2045/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2045",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2046",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2046",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2046/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2046",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2047",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2047",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2047/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2047",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2048",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2048",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2048/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2048",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2049",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2049",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2049/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2049",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2060",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2060",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2060/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2060",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2077",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2077",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2077/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2077",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2104",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2104",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2104/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2104",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2119",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2119",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2119/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2119",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2130",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2130",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2130/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2130",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2141",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2141",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2141/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2141",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2231",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2231",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2231/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2231",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2234",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2234",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2234/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2234",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2246",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2246",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2246/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2246",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2253",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2253",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2253/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2253",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2396",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2396",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2396/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2396",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2401",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2401",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2401/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2401",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2437",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2437",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2437/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2437",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2459",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2459",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2459/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2459",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2616",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2616",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2616/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2616",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2617",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2617",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2617/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2617",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2646",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2646",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2646/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2646",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2693",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2693",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2693/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2693",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2818",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc2818",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2818/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc2818",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC2898",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC2898",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc2898/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc2898",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3023",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC3023",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3023/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc3023",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3066",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3066",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3066/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3066",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3174",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3174",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3174/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3174",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3268",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3268",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3268/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3268",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3275",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3275",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3275/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3275",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3280",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3280",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3280/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3280",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3339",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3339",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3339/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3339",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3406",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3406",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3406/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3406",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3447",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3447",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3447/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3447",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3629",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3629",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3629/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3629",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3676",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3676",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3676/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3676",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3798",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3798",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3798/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3798",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC3986",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc3986",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc3986/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc3986",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4051",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4051",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4051/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4051",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4055",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4055",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4055/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4055",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4122",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4122",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4122/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4122",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4234",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4234",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4234/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4234",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4246",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC4246",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4246/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc4246",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4288",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4288",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4288/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4288",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4301",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4301",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4301/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4301",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4346",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4346",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4346/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4346",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4510",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4510",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4510/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4510",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4514",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4514",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4514/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4514",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4539",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4539",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4539/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4539",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4634",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4634",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4634/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4634",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4646",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4646",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4646/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4646",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC4647",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc4647",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc4647/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc4647",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5119",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5119",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5119/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc5119",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5147",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5147",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5147/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc5147",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5234",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5234",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5234/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc5234",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5246",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5246",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5246/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc5246",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5280",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5280",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5280/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc5280",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5322",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5322",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5322/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc5322",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5646",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5646",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5646/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc5646",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5756",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5756",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5756/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc5756",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC5785",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc5785",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc5785/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc5785",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6040",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6040",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6040/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6040",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6151",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6151",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6151/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6151",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6234",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6234",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6234/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6234",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6597",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6597",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6597/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6597",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6657",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6657",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6657/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6657",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6818",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6818",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6818/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6818",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6838",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6838",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6838/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6838",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6854",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6854",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6854/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6854",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6874",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6874",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6874/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6874",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC6931",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc6931",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc6931/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc6931",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7230",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7230",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7230/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7230",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7231",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7231",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7231/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7231",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7232",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7232",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7232/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7232",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7233",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7233",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7233/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7233",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7234",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7234",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7234/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7234",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7235",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7235",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7235/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7235",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7302",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7302",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7302/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7302",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7303",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC7303",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7303/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc7303",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC732",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC0732",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc732/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc732",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7320",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7320",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7320/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7320",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC733",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC0733",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc733/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc733",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7405",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7405",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7405/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7405",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7615",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7615",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7615/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7615",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7616",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7616",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7616/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7616",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7617",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7617",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7617/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7617",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7619",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7619",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7619/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7619",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7950",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7950",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7950/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7950",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC7972",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc7972",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc7972/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc7972",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8017",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc8017",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8017/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc8017",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8098",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc8098",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8098/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc8098",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8141",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc8141",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8141/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc8141",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8323",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC8323",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8323/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc8323",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8340",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC8340",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8340/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc8340",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8341",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC8341",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8341/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc8341",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8342",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc8342",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8342/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc8342",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8391",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC8391",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8391/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc8391",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8398",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc8398",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8398/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc8398",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8399",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc8399",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8399/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc8399",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8439",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC8439",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8439/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc8439",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8446",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://www.rfc-editor.org/info/rfc8446",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8446/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://datatracker.ietf.org/doc/html/rfc8446",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8525",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC8525",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8525/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc8525",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8526",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC8526",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8526/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc8526",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8615",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC8615",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8615/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc8615",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC8820",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC8820",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc8820/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc8820",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC9048",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC9048",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc9048/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc9048",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC9141",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC9141",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc9141/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc9141",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC9190",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC9190",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc9190/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc9190",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC9231",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC9231",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc9231/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc9231",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC9678",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC9678",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc9678/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc9678",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "RFC977",
+          "publisher": "IETF",
+          "field": "href",
+          "url": "https://doi.org/10.17487/RFC0977",
+          "resolvedUrl": "https://www.rfc-editor.org/info/rfc977/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://www.rfc-editor.org/info/rfc977",
           "message": "resolved url mismatch"
         },
         {
