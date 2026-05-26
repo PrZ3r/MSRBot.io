@@ -1,147 +1,25 @@
-# SMPTE NLM Article Import — 2026-05-22T21:44:19.125Z
+# SMPTE NLM Article Import — 2026-05-22T23:38:05.315Z
 
-Mode: **APPLY** · source `_source/SMPTE/HIGHWIRE`
+Mode: **DRY-RUN** · source `_source/SMPTE/HIGHWIRE`
 Corpora: Journal Article (`smpte-journal-article-nlm@v1`), Conference Paper (`smpte-conference-paper-nlm@v1`)
 
 ## Totals
 - sourceFilesMatched: 19985
 - duplicateCopiesCollapsed: 316
 - uniqueArticles: 19669
-- alreadyInRegistry: 15082
-- targets: 4587
-- batchProcessed: 4587
-- written: 4587
+- alreadyInRegistry: 19669
+- targets: 0
+- batchProcessed: 0
+- written: 0
 - schemaInvalid: 0
 - parseErrors: 0
 - docIdMismatches: 0
 - remainingAfterBatch: 0
 
 ## By corpus
-- Conference Paper: 1502
-- Journal Article: 3085
 
 ## By year
-- 1916: 9
-- 1917: 22
-- 1918: 19
-- 1919: 6
-- 1923: 40
-- 1931: 16
-- 1933: 19
-- 1934: 5
-- 1937: 33
-- 1938: 45
-- 1939: 17
-- 1941: 16
-- 1947: 23
-- 1948: 15
-- 1949: 82
-- 1951: 15
-- 1954: 68
-- 1955: 51
-- 1957: 63
-- 1958: 70
-- 1959: 38
-- 1960: 72
-- 1961: 63
-- 1962: 277
-- 1963: 23
-- 1964: 41
-- 1965: 14
-- 1966: 63
-- 1967: 40
-- 1968: 22
-- 1969: 30
-- 1970: 65
-- 1971: 19
-- 1975: 6
-- 1976: 16
-- 1977: 67
-- 1978: 126
-- 1979: 28
-- 1980: 27
-- 1981: 24
-- 1982: 27
-- 1983: 30
-- 1984: 51
-- 1985: 32
-- 1986: 77
-- 1987: 23
-- 1988: 30
-- 1989: 30
-- 1990: 32
-- 1991: 24
-- 1992: 23
-- 1993: 82
-- 1994: 119
-- 1995: 188
-- 1996: 207
-- 1997: 193
-- 1998: 111
-- 1999: 295
-- 2000: 81
-- 2001: 204
-- 2002: 162
-- 2003: 38
-- 2004: 74
-- 2005: 93
-- 2006: 77
-- 2007: 97
-- 2008: 65
-- 2009: 74
-- 2010: 114
-- 2011: 72
-- 2012: 59
-- 2013: 47
-- 2014: 61
 
 ## By articleType
-- abstract: 1522
-- addendum: 5
-- announcement: 34
-- article-commentary: 1
-- book-review: 48
-- calendar: 60
-- correction: 31
-- discussion: 3
-- editorial: 7
-- introduction: 2
-- letter: 12
-- meeting-report: 266
-- news: 587
-- obituary: 66
-- other: 1310
-- reprint: 3
-- research-article: 630
 
-## Written (4587 — first 30)
-- `10.5594-J15192` 2004-04-01 — New Products
-- `10.5594-J15193` 2004-04-01 — Professional Services
-- `10.5594-J15194` 2004-04-01 — SMPTE Section Officers (Chairs
-- `10.5594-J15195` 2004-04-01 — Membership Application
-- `10.5594-J15196` 2004-04-01 — Membership Renewal Invoice SMPTE
-- `10.5594-J15197` 2004-04-01 — SMPTE Sustaining Members
-- `10.5594-J15198` 2004-04-01 — Becoming a New Sustaining Member
-- `10.5594-J15199` 1949-10-01 — Theater Television Today
-- `10.5594-J15200` 1949-10-01 — FCC Allocation of Frequencies for Theater Television
-- `10.5594-J15201` 1949-10-01 — Statement on Theater Television
-- `10.5594-J15202` 1949-10-01 — Portable Device for Measuring Radiant Energy at the Projector Aperture
-- `10.5594-J15203` 1949-10-01 — Report of Lens-Calibration Subcommittee
-- `10.5594-J15204` 1949-10-01 — Precision Lens-Testing and Copying Camera
-- `10.5594-J15205` 1949-10-01 — 35-Mm and 16-Mm Sound-on-Film Reproducing Characteristic
-- `10.5594-J15206` 1949-10-01 — Desirable Locations for Theater Sites
-- `10.5594-J15207` 1949-10-01 — New Portable High-Intensity Arc Spotlight
-- `10.5594-J15208` 1949-10-01 — SMPT Awards
-- `10.5594-J15209` 1949-10-01 — Book Reviews
-- `10.5594-J15210` 1949-10-01 — Book Reviews
-- `10.5594-J15211` 1949-10-01 — Current Literature
-- `10.5594-J15212` 1949-10-01 — To the Editor
-- `10.5594-J15213` 1949-10-01 — European Advisory Committee
-- `10.5594-J15214` 1949-10-01 — New Products
-- `10.5594-J15215` 1948-07-01 — Brightness and Illumination Requirements
-- `10.5594-J15216` 1948-07-01 — Light Modulation by P-Type Crystals
-- `10.5594-J15217` 1948-07-01 — Portable 16-Mm Sound Projector
-- `10.5594-J15218` 1948-07-01 — Optical Problems in Large-Screen Television
-- `10.5594-J15219` 1948-07-01 — Developments in Large-Screen Television
-- `10.5594-J15220` 1948-07-01 — Discussion
-- `10.5594-J15221` 1948-07-01 — Motion Picture Theater Air Conditioning
+## Written (0)
