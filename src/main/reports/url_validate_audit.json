@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-05-30T05:47:28.073Z",
+  "generatedAt": "2026-06-06T05:54:35.365Z",
   "target": "documents.json",
-  "good": 1938,
+  "good": 1935,
   "skippedByDomain": 0,
   "skippedByPublisher": 0,
   "index": {
-    "error": 206,
+    "error": 209,
     "errorBreakdown": {
-      "Unreachable (403)": 48,
-      "Unreachable (404)": 148,
-      "Unreachable (ECONNABORTED)": 2,
+      "Unreachable (403)": 47,
+      "Unreachable (404)": 151,
+      "Unreachable (ECONNABORTED)": 3,
       "Unreachable (ENOTFOUND)": 2,
       "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 2,
       "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)": 4
@@ -354,16 +354,6 @@
           "publisher": "Oxford University Press",
           "field": "href",
           "url": "https://www.oxfordreference.com/display/10.1093/acref/9780195392883.001.0001/acref-9780195392883",
-          "message": "Unreachable (403)",
-          "explanation": "The server refused access to the URL.",
-          "recommendedAction": "Check if the resource requires authentication or is private.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "ISBN.9780226103891",
-          "publisher": "University of Chicago Press",
-          "field": "href",
-          "url": "https://www.chicagomanualofstyle.org/",
           "message": "Unreachable (403)",
           "explanation": "The server refused access to the URL.",
           "recommendedAction": "Check if the resource requires authentication or is private.",
@@ -732,6 +722,16 @@
           "riskLevel": "High"
         },
         {
+          "docId": "NIST.FIPS.186-4",
+          "publisher": "NIST",
+          "field": "href",
+          "url": "https://doi.org/10.6028/NIST.FIPS.186-4",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
           "docId": "NIST.FIPS.197-upd1",
           "publisher": "NIST",
           "field": "href",
@@ -756,6 +756,26 @@
           "publisher": "NIST",
           "field": "href",
           "url": "https://doi.org/10.6028/NIST.SP.800-57pt1r5",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "NIST.SP.800-57pt2r1",
+          "publisher": "NIST",
+          "field": "href",
+          "url": "https://doi.org/10.6028/NIST.SP.800-57pt2r1",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "NIST.SP.800-57pt3r1",
+          "publisher": "NIST",
+          "field": "href",
+          "url": "https://doi.org/10.6028/NIST.SP.800-57pt3r1",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -2034,6 +2054,38 @@
           "riskLevel": "Unknown"
         }
       ],
+      "ECONNABORTED": [
+        {
+          "docId": "ISBN.9780226103891",
+          "publisher": "University of Chicago Press",
+          "field": "href",
+          "url": "https://www.chicagomanualofstyle.org/",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "JAES.v45-i6-456-466.199706",
+          "publisher": "AES",
+          "field": "href",
+          "url": "https://secure.aes.org/forum/pubs/journal/?elib=7853",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "ML3807.M56.1916",
+          "publisher": "MacMillan Co.",
+          "field": "href",
+          "url": "https://ia800204.us.archive.org/19/items/scienceofmusical00mill/scienceofmusical00mill.pdf",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        }
+      ],
       "ERR_FR_TOO_MANY_REDIRECTS": [
         {
           "docId": "IST.157",
@@ -2054,28 +2106,6 @@
           "explanation": "The URL is stuck in a redirect loop.",
           "recommendedAction": "Check the server config or redirect chain.",
           "riskLevel": "Medium"
-        }
-      ],
-      "ECONNABORTED": [
-        {
-          "docId": "JAES.v45-i6-456-466.199706",
-          "publisher": "AES",
-          "field": "href",
-          "url": "https://secure.aes.org/forum/pubs/journal/?elib=7853",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
-        },
-        {
-          "docId": "ML3807.M56.1916",
-          "publisher": "MacMillan Co.",
-          "field": "href",
-          "url": "https://ia800204.us.archive.org/19/items/scienceofmusical00mill/scienceofmusical00mill.pdf",
-          "message": "Unreachable (ECONNABORTED)",
-          "explanation": "Connection timed out.",
-          "recommendedAction": "Retry later or check the server’s responsiveness.",
-          "riskLevel": "Medium-High"
         }
       ],
       "ENOTFOUND": [
