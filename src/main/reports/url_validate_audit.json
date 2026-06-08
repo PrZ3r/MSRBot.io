@@ -1,18 +1,17 @@
 {
-  "generatedAt": "2026-06-06T05:54:35.365Z",
+  "generatedAt": "2026-06-08T16:05:21.325Z",
   "target": "documents.json",
-  "good": 1935,
+  "good": 1940,
   "skippedByDomain": 0,
   "skippedByPublisher": 0,
   "index": {
-    "error": 209,
+    "error": 206,
     "errorBreakdown": {
-      "Unreachable (403)": 47,
-      "Unreachable (404)": 151,
-      "Unreachable (ECONNABORTED)": 3,
+      "Unreachable (403)": 48,
+      "Unreachable (404)": 149,
+      "Unreachable (ECONNABORTED)": 5,
       "Unreachable (ENOTFOUND)": 2,
-      "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 2,
-      "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)": 4
+      "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 2
     },
     "redirectMismatch": 141,
     "redirectBreakdown": {
@@ -354,6 +353,16 @@
           "publisher": "Oxford University Press",
           "field": "href",
           "url": "https://www.oxfordreference.com/display/10.1093/acref/9780195392883.001.0001/acref-9780195392883",
+          "message": "Unreachable (403)",
+          "explanation": "The server refused access to the URL.",
+          "recommendedAction": "Check if the resource requires authentication or is private.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "ISBN.9780226103891",
+          "publisher": "University of Chicago Press",
+          "field": "href",
+          "url": "https://www.chicagomanualofstyle.org/",
           "message": "Unreachable (403)",
           "explanation": "The server refused access to the URL.",
           "recommendedAction": "Check if the resource requires authentication or is private.",
@@ -712,16 +721,6 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.FIPS.180-4",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.180-4",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
           "docId": "NIST.FIPS.186-4",
           "publisher": "NIST",
           "field": "href",
@@ -742,10 +741,10 @@
           "riskLevel": "High"
         },
         {
-          "docId": "NIST.SP.800-38A",
+          "docId": "NIST.SP.800-38F",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-38A",
+          "url": "https://csrc.nist.gov/pubs/sp/800/38/f/final",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -766,16 +765,6 @@
           "publisher": "NIST",
           "field": "href",
           "url": "https://doi.org/10.6028/NIST.SP.800-57pt2r1",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "NIST.SP.800-57pt3r1",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.SP.800-57pt3r1",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -2012,54 +2001,32 @@
           "riskLevel": "High"
         }
       ],
-      "ERR_TLS_CERT_ALTNAME_INVALID": [
-        {
-          "docId": "IMFUG.BP.001.2020",
-          "publisher": "IMFUG",
-          "field": "href",
-          "url": "https://www.imfug.com/TR/timecode-in-imf/",
-          "message": "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)",
-          "explanation": "Unknown error during URL resolution.",
-          "recommendedAction": "Manual investigation required.",
-          "riskLevel": "Unknown"
-        },
-        {
-          "docId": "IMFUG.BP.002.2020",
-          "publisher": "IMFUG",
-          "field": "href",
-          "url": "https://www.imfug.com/TR/pkg-and-delivery/",
-          "message": "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)",
-          "explanation": "Unknown error during URL resolution.",
-          "recommendedAction": "Manual investigation required.",
-          "riskLevel": "Unknown"
-        },
-        {
-          "docId": "IMFUG.BP.003.2020",
-          "publisher": "IMFUG",
-          "field": "href",
-          "url": "https://www.imfug.com/TR/imsc-authoring/",
-          "message": "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)",
-          "explanation": "Unknown error during URL resolution.",
-          "recommendedAction": "Manual investigation required.",
-          "riskLevel": "Unknown"
-        },
-        {
-          "docId": "IMFUG.BP.004.2020",
-          "publisher": "IMFUG",
-          "field": "href",
-          "url": "https://www.imfug.com/TR/audio-track-files/",
-          "message": "Unreachable (ERR_TLS_CERT_ALTNAME_INVALID)",
-          "explanation": "Unknown error during URL resolution.",
-          "recommendedAction": "Manual investigation required.",
-          "riskLevel": "Unknown"
-        }
-      ],
       "ECONNABORTED": [
         {
-          "docId": "ISBN.9780226103891",
-          "publisher": "University of Chicago Press",
+          "docId": "IEEE.STD754.1985",
+          "publisher": "IEEE",
           "field": "href",
-          "url": "https://www.chicagomanualofstyle.org/",
+          "url": "https://standards.ieee.org/standard/754-1985.html",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "IEEE.STD754.2008",
+          "publisher": "IEEE",
+          "field": "href",
+          "url": "https://standards.ieee.org/standard/754-2008.html",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
+          "docId": "IEEE.STD754.2019",
+          "publisher": "IEEE",
+          "field": "href",
+          "url": "https://standards.ieee.org/standard/754-1985.html",
           "message": "Unreachable (ECONNABORTED)",
           "explanation": "Connection timed out.",
           "recommendedAction": "Retry later or check the server’s responsiveness.",
