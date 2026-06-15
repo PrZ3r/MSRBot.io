@@ -54,6 +54,13 @@ function doiToDocId(doi) {
   if (prefix === '10.5594' && /^SMPTE\./i.test(suffix)) {
     return suffix.replace(/^SMPTE\./i, 'SMPTE.');
   }
+  if (prefix === '10.5594') {
+    // SMPTE convention: the suffix's leading article-id letter (J, M, S, …) is
+    // canonical uppercase. APTARA delivers lowercase for some ranges, but DOI
+    // resolution is case-insensitive so unsuffixed lowercase aliases resolve
+    // back to the same article as their uppercase form. Normalise here.
+    return `${prefix}-${suffix.replace(/^[a-z]/, (c) => c.toUpperCase())}`;
+  }
   return `${prefix}-${suffix}`;
 }
 
