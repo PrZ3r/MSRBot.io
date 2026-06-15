@@ -162,7 +162,50 @@ const FIXES = {
   // approval and publication). Align registry to Zoho's form; upstream needs
   // to correct to 1993 to match approval/registration year.
   'SMPTE.RP107.1993':            '10.5594/SMPTE.RP107.1995',
+  // Pattern 6 — year-mismatch DOI registrations. DOI was registered with a
+  // year that doesn't match the doc's actual version year (per the registry's
+  // canonical docId). All share the same generic YEAR_MISMATCH_NOTE.
+  'SMPTE.EG2059-10.2022':        '10.5594/SMPTE.EG2059-10.2023',
+  'SMPTE.EG2111-1.2020':         '10.5594/SMPTE.EG2111-1.2021',
+  'SMPTE.EG2111-2.2018':         '10.5594/SMPTE.EG2111-2.2019',
+  'SMPTE.EG2111-3.2020':         '10.5594/SMPTE.EG2111-3.2021',
+  'SMPTE.RDD29.2018':            '10.5594/SMPTE.RDD29.2019',
+  'SMPTE.RP103.1994':            '10.5594/SMPTE.RP103.1995',
+  'SMPTE.RP2047-1.2022':         '10.5594/SMPTE.RP2047-1.2023',
+  'SMPTE.RP2047-3.2022':         '10.5594/SMPTE.RP2047-3.2023',
+  'SMPTE.RP2059-15.2022':        '10.5594/SMPTE.RP2059-15.2023',
+  'SMPTE.RP2110-24.2022':        '10.5594/SMPTE.RP2110-24.2023',
+  'SMPTE.RP34.1997':             '10.5594/SMPTE.RP34.1998',
+  'SMPTE.RP86.1990':             '10.5594/SMPTE.RP86.1991',
+  'SMPTE.ST2019-1.2016Am1.2022': '10.5594/SMPTE.ST2019-1.2016Amd1.2023',
+  'SMPTE.ST2022-7.2018':         '10.5594/SMPTE.ST2022-7.2019',
+  'SMPTE.ST2038.2020':           '10.5594/SMPTE.ST2038.2021',
+  'SMPTE.ST2059-2.2020':         '10.5594/SMPTE.ST2059-2.2021',
+  'SMPTE.ST2067-202.2022':       '10.5594/SMPTE.ST2067-202.2023',
+  'SMPTE.ST2067-60.2022':        '10.5594/SMPTE.ST2067-60.2023',
+  'SMPTE.ST2117-1.2022':         '10.5594/SMPTE.ST2117-1.2023',
+  'SMPTE.ST382.2022':            '10.5594/SMPTE.ST382.2023',
+  'SMPTE.ST385.2012Am1.2022':    '10.5594/SMPTE.ST385.2012Amd1.2023',
+  'SMPTE.ST429-20.2022':         '10.5594/SMPTE.ST429-20.2023',
+  'SMPTE.ST429-6.2006Am1.2017':  '10.5594/SMPTE.ST429-6.2006Am1.2018',
+  'SMPTE.ST430-14.2021':         '10.5594/SMPTE.ST430-14.2022',
+  'SMPTE.ST430-17.2021':         '10.5594/SMPTE.ST430-17.2022',
+  'SMPTE.ST435-2.2008':          '10.5594/SMPTE.ST435-2.2009',
+  'SMPTE.ST55.2010':             '10.5594/SMPTE.ST55.2011',
 };
+
+// Shared note for Pattern 6 — year-mismatch DOI registrations. Used by every
+// entry in the 27-doc batch below (added to CUSTOM_NOTES programmatically).
+const YEAR_MISMATCH_NOTE = `Year-mismatch DOI registration: the DOI in this field is what's actually registered at doi.org and resolves, but the year in it doesn't match the doc's actual version — the registry's docId carries the canonical version year, and $meta.originalValue preserves the prior (matching) DOI form. UPSTREAM ACTION NEEDED: SMPTE should re-register the DOI with the correct year to match the docId, so the canonical form also resolves. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what currently resolves at doi.org.`;
+const YEAR_MISMATCH_DOC_IDS = [
+  'SMPTE.EG2059-10.2022','SMPTE.EG2111-1.2020','SMPTE.EG2111-2.2018','SMPTE.EG2111-3.2020',
+  'SMPTE.RDD29.2018','SMPTE.RP103.1994','SMPTE.RP2047-1.2022','SMPTE.RP2047-3.2022',
+  'SMPTE.RP2059-15.2022','SMPTE.RP2110-24.2022','SMPTE.RP34.1997','SMPTE.RP86.1990',
+  'SMPTE.ST2019-1.2016Am1.2022','SMPTE.ST2022-7.2018','SMPTE.ST2038.2020','SMPTE.ST2059-2.2020',
+  'SMPTE.ST2067-202.2022','SMPTE.ST2067-60.2022','SMPTE.ST2117-1.2022','SMPTE.ST382.2022',
+  'SMPTE.ST385.2012Am1.2022','SMPTE.ST429-20.2022','SMPTE.ST429-6.2006Am1.2017',
+  'SMPTE.ST430-14.2021','SMPTE.ST430-17.2021','SMPTE.ST435-2.2008','SMPTE.ST55.2010',
+];
 
 // Per-docId custom note overrides. Use when the default "registrar issued
 // malformed DOI" narrative doesn't match the actual cause (e.g. library
@@ -183,6 +226,8 @@ const CUSTOM_NOTES = {
   'SMPTE.ST165.1994': `Registrar typo: the DOI 10.5594/SMPTE.ST165.1999 (per Zoho) is what's actually registered and resolves at doi.org, but the correct version is 1994 — Zoho's Publication_Date and Copyright_Year on that record confirm 1994 is the real year. The 1999 in both the published label and DOI is a typo on SMPTE's side. UPSTREAM ACTION NEEDED: SMPTE should correct the DOI registration from 1999 to 1994 to match the docId. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what currently resolves.`,
   'SMPTE.RP107.1993': `Published-label typo: the DOI 10.5594/SMPTE.RP107.1995 (per Zoho) is what Zoho carries, but the correct version is 1993 — the doc was approved 1993-03-05 and sat unpublished until 1995-01-01; the published label retroactively used 1995 as the version year, cascading into the DOI. The docId correctly reflects the 1993 version year. UPSTREAM ACTION NEEDED: SMPTE should correct the DOI registration from 1995 to 1993 to match the docId. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what Zoho currently has.`,
 };
+// Wire Pattern-6 docs to share YEAR_MISMATCH_NOTE.
+for (const id of YEAR_MISMATCH_DOC_IDS) CUSTOM_NOTES[id] = YEAR_MISMATCH_NOTE;
 
 // Per-docId extra-field corrections cascading from a library mistag. The doi
 // fix alone isn't enough — fields driven off the wrong release tag (dates,
