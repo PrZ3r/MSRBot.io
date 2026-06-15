@@ -136,6 +136,12 @@ const FIELDS = {
     normalize: dateNorm,
     transform: (raw) => dateNorm(raw),
   },
+  'status.stabilizedDate': {
+    zohoKey: 'Stabilized_Date',
+    path: ['status', 'stabilizedDate'],
+    normalize: dateNorm,
+    transform: (raw) => dateNorm(raw),
+  },
 };
 
 function getDeep(obj, parts) {
