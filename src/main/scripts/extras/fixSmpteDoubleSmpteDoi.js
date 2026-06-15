@@ -142,6 +142,26 @@ const FIXES = {
   'SMPTE.EG2032-4.2014': '10.5594/SMPTE.EG2032-4.2007',
   'SMPTE.OV2052-0.2014': '10.5594/SMPTE.OV2052-0.2013',
   'SMPTE.ST434.2015':    '10.5594/SMPTE.ST434.2014',
+  // Library release tag missing the month suffix that Zoho carries.
+  'SMPTE.OV425-0.2012':  '10.5594/SMPTE.OV425-0.2012-06',
+  'SMPTE.ST2123.2021':   '10.5594/SMPTE.ST2123.2021-08',
+  // Am vs Amd amendment-notation drift. Both notations are valid; Zoho uses
+  // "Amd1" while the registry uses "Am1". Both DOI forms should resolve.
+  'SMPTE.RDD48.2018Am1.2022':    '10.5594/SMPTE.RDD48.2018Amd1.2022',
+  'SMPTE.ST2019-4.2016Am1.2024': '10.5594/SMPTE.ST2019-4.2016Amd1.2024',
+  'SMPTE.ST268-2.2018Am1.2022':  '10.5594/SMPTE.ST268-2.2018Amd1.2022',
+  'SMPTE.ST331.2011Am1.2023':    '10.5594/SMPTE.ST331.2011Amd1.2023',
+  // Registrar used the publication month (-05) instead of the approval month
+  // (-03) when minting the DOI; registry's docId is correct using the approval
+  // date convention. Need to flip stored doi to what actually resolves.
+  'SMPTE.ST2123.2024-03':        '10.5594/SMPTE.ST2123.2024-05',
+  // ST165 — registered as 1999 by typo; correct version is 1994. Flip to the
+  // actually-registered (typo) form; upstream needs to fix on SMPTE's side.
+  'SMPTE.ST165.1994':            '10.5594/SMPTE.ST165.1999',
+  // RP107 — Zoho carries 1995 (published label typo, doc sat 2 yr between
+  // approval and publication). Align registry to Zoho's form; upstream needs
+  // to correct to 1993 to match approval/registration year.
+  'SMPTE.RP107.1993':            '10.5594/SMPTE.RP107.1995',
 };
 
 // Per-docId custom note overrides. Use when the default "registrar issued
@@ -152,6 +172,16 @@ const CUSTOM_NOTES = {
   'SMPTE.EG2032-4.2014': `The actually-registered DOI 10.5594/SMPTE.EG2032-4.2007 resolves to the real 2007 publication of EG2032-4. The registry's docId carries a "2014" release tag — that's a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2014 to 2007 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what actually resolves.`,
   'SMPTE.OV2052-0.2014': `The actually-registered DOI 10.5594/SMPTE.OV2052-0.2013 (per Zoho) is the correct one — it resolves to OV 2052-0:2013. The registry's docId carries a "2014" release tag, which is a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2014 to 2013 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment.`,
   'SMPTE.ST434.2015': `The actually-registered DOI 10.5594/SMPTE.ST434.2014 (per Zoho) is the correct one — it resolves to ST 434:2014. The registry's docId carries a "2015" release tag, which is a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2015 to 2014 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment.`,
+  'SMPTE.OV425-0.2012': `The actually-registered DOI 10.5594/SMPTE.OV425-0.2012-06 (per Zoho) is the correct one — it resolves to OV 425-0:2012-06. The registry's docId carries a "2012" release tag missing the "-06" month suffix; that's a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2012 to 2012-06 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment.`,
+  'SMPTE.ST2123.2021': `The actually-registered DOI 10.5594/SMPTE.ST2123.2021-08 (per Zoho) is the correct one — it resolves to ST 2123:2021-08. The registry's docId carries a "2021" release tag missing the "-08" month suffix; that's a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2021 to 2021-08 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment.`,
+  // Am vs Amd amendment-notation drift — same canonical note pattern for all 4.
+  'SMPTE.RDD48.2018Am1.2022': `Amendment notation drift: registry uses "Am1" in the docId while the actually-registered DOI per Zoho uses "Amd1" (10.5594/SMPTE.RDD48.2018Amd1.2022). Both notations are valid for "Amendment 1" — UPSTREAM ACTION NEEDED: SMPTE should register both DOI forms so they're interchangeable. Field locked via excludeChanges so future cross-fills can't toggle this back.`,
+  'SMPTE.ST2019-4.2016Am1.2024': `Amendment notation drift: registry uses "Am1" in the docId while the actually-registered DOI per Zoho uses "Amd1" (10.5594/SMPTE.ST2019-4.2016Amd1.2024). Both notations are valid for "Amendment 1" — UPSTREAM ACTION NEEDED: SMPTE should register both DOI forms so they're interchangeable. Field locked via excludeChanges so future cross-fills can't toggle this back.`,
+  'SMPTE.ST268-2.2018Am1.2022': `Amendment notation drift: registry uses "Am1" in the docId while the actually-registered DOI per Zoho uses "Amd1" (10.5594/SMPTE.ST268-2.2018Amd1.2022). Both notations are valid for "Amendment 1" — UPSTREAM ACTION NEEDED: SMPTE should register both DOI forms so they're interchangeable. Field locked via excludeChanges so future cross-fills can't toggle this back.`,
+  'SMPTE.ST331.2011Am1.2023': `Amendment notation drift: registry uses "Am1" in the docId while the actually-registered DOI per Zoho uses "Amd1" (10.5594/SMPTE.ST331.2011Amd1.2023). Both notations are valid for "Amendment 1" — UPSTREAM ACTION NEEDED: SMPTE should register both DOI forms so they're interchangeable. Field locked via excludeChanges so future cross-fills can't toggle this back.`,
+  'SMPTE.ST2123.2024-03': `Registrar mistake: the DOI 10.5594/SMPTE.ST2123.2024-05 was registered using the publication month (-05, May 2024) when it should have used the approval month (-03, March 2024) — the docId's "-03" is the correct convention. UPSTREAM ACTION NEEDED: SMPTE should re-register this DOI with the -03 suffix to match the docId, or register both forms so the canonical -03 also resolves. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what currently resolves.`,
+  'SMPTE.ST165.1994': `Registrar typo: the DOI 10.5594/SMPTE.ST165.1999 (per Zoho) is what's actually registered and resolves at doi.org, but the correct version is 1994 — Zoho's Publication_Date and Copyright_Year on that record confirm 1994 is the real year. The 1999 in both the published label and DOI is a typo on SMPTE's side. UPSTREAM ACTION NEEDED: SMPTE should correct the DOI registration from 1999 to 1994 to match the docId. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what currently resolves.`,
+  'SMPTE.RP107.1993': `Published-label typo: the DOI 10.5594/SMPTE.RP107.1995 (per Zoho) is what Zoho carries, but the correct version is 1993 — the doc was approved 1993-03-05 and sat unpublished until 1995-01-01; the published label retroactively used 1995 as the version year, cascading into the DOI. The docId correctly reflects the 1993 version year. UPSTREAM ACTION NEEDED: SMPTE should correct the DOI registration from 1995 to 1993 to match the docId. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what Zoho currently has.`,
 };
 
 // Per-docId extra-field corrections cascading from a library mistag. The doi
@@ -172,6 +202,76 @@ const FIELD_OVERRIDES = {
     'copyright.year': {
       value: '2007',
       note: `Library mistag: copyright year is 2007, matching the actual publication year per the registered DOI. The registry's "2014" release tag in the docId is a library error. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side.`,
+    },
+  },
+  'SMPTE.ST2123.2021': {
+    publicationDate: {
+      value: '2021-10-18',
+      note: `Library mistag: this doc is ST 2123:2021-08 (per the actually-registered DOI 10.5594/SMPTE.ST2123.2021-08). Per Zoho, Publication_Date is 2021-10-18; the prior 2021-07-01 stored here is actually the approval date — moved to approvalDate. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side to add the month suffix to the release tag.`,
+    },
+    approvalDate: {
+      value: '2021-07-01',
+      note: `Library mistag: per Zoho's record at the correct DOI, this date is the approval of ST 2123:2021-08. It was previously stored under publicationDate by mistake. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side.`,
+    },
+    'copyright.year': {
+      value: '2021',
+      note: `Library mistag: copyright year is 2021, matching the actual publication year per the registered DOI. The registry was missing the value. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side.`,
+    },
+  },
+  // The 4 Am/Amd docs all have the same cascade: registry stored approval date
+  // as publicationDate; Zoho has the real Publication_Date plus the approval
+  // date and copyright year that were missing.
+  'SMPTE.RDD48.2018Am1.2022': {
+    publicationDate: { value: '2022-05-24', note: `Library cascade: per Zoho's record at the canonical DOI, Publication_Date is 2022-05-24. The prior 2022-02-22 stored here is the approval date — moved to approvalDate.` },
+    approvalDate:    { value: '2022-02-22', note: `Library cascade: per Zoho, approval date is 2022-02-22 (was previously stored as publicationDate).` },
+    'copyright.year':{ value: '2022',       note: `Library cascade: copyright year is 2022 per Zoho.` },
+  },
+  'SMPTE.ST2019-4.2016Am1.2024': {
+    publicationDate: { value: '2024-05-02', note: `Library cascade: per Zoho's record at the canonical DOI, Publication_Date is 2024-05-02. The prior 2024-03-08 stored here is the approval date — moved to approvalDate.` },
+    approvalDate:    { value: '2024-03-08', note: `Library cascade: per Zoho, approval date is 2024-03-08 (was previously stored as publicationDate).` },
+    'copyright.year':{ value: '2024',       note: `Library cascade: copyright year is 2024 per Zoho.` },
+  },
+  'SMPTE.ST268-2.2018Am1.2022': {
+    publicationDate: { value: '2022-05-04', note: `Library cascade: per Zoho's record at the canonical DOI, Publication_Date is 2022-05-04. The prior 2022-02-24 stored here is the approval date — moved to approvalDate.` },
+    approvalDate:    { value: '2022-02-24', note: `Library cascade: per Zoho, approval date is 2022-02-24 (was previously stored as publicationDate).` },
+    'copyright.year':{ value: '2022',       note: `Library cascade: copyright year is 2022 per Zoho.` },
+  },
+  'SMPTE.ST331.2011Am1.2023': {
+    publicationDate: { value: '2024-02-06', note: `Library cascade: per Zoho's record at the canonical DOI, Publication_Date is 2024-02-06. The prior 2023-10-10 stored here is the approval date — moved to approvalDate.` },
+    approvalDate:    { value: '2023-10-10', note: `Library cascade: per Zoho, approval date is 2023-10-10 (was previously stored as publicationDate).` },
+    'copyright.year':{ value: '2023',       note: `Library cascade: copyright year is 2023 per Zoho.` },
+  },
+  'SMPTE.ST2123.2024-03': {
+    publicationDate: { value: '2024-05-09', note: `Library cascade: per Zoho's record at the registered DOI, Publication_Date is 2024-05-09. The prior 2024-03-28 stored here is the approval date — moved to approvalDate.` },
+    approvalDate:    { value: '2024-03-28', note: `Library cascade: per Zoho, approval date is 2024-03-28 (was previously stored as publicationDate). The docId's -03 suffix correctly reflects this approval month.` },
+    'copyright.year':{ value: '2024',       note: `Library cascade: copyright year is 2024 per Zoho.` },
+  },
+  // RP107.1993 — doi/href flip via FIXES to Zoho's 1995 form (with typo note).
+  // publicationDate/approvalDate cascade + copyright.year still need filling.
+  'SMPTE.RP107.1993': {
+    publicationDate: {
+      value: '1995-01-01',
+      note: `Library cascade: per Zoho, Publication_Date is 1995-01-01 — the doc sat ~2 years between approval (1993-03-05) and publication (1995). The prior 1993-03-05 stored here was actually the approval date — moved to approvalDate.`,
+    },
+    approvalDate: {
+      value: '1993-03-05',
+      note: `Per Zoho: approval date is 1993-03-05 (was previously stored as publicationDate by mistake).`,
+    },
+    'copyright.year': {
+      value: '1993',
+      note: `Per Zoho: copyright year is 1993, matching the approval/registration year (not the later 1995 publication year).`,
+    },
+  },
+  // ST165.1994 — doi/href flipped via FIXES to the registered (typo) 1999 form.
+  // Additional missing fields still get filled from Zoho's record.
+  'SMPTE.ST165.1994': {
+    approvalDate: {
+      value: '1994-01-31',
+      note: `Per Zoho's record at the (typo) DOI 10.5594/SMPTE.ST165.1999, Approval_Date is 1994-01-31 — confirming the 1994 version year. Adding to fill the previously-empty field.`,
+    },
+    'copyright.year': {
+      value: '1994',
+      note: `Per Zoho's record, copyright year is 1994 — confirming the 1994 version year despite the registrar's 1999-typo DOI. Adding to fill the previously-empty field.`,
     },
   },
 };
