@@ -148,6 +148,21 @@ const FIELDS = {
     normalize: dateNorm,
     transform: (raw) => dateNorm(raw),
   },
+  // status booleans — derived from Zoho's free-text Modifier column.
+  // transform returns true (set the flag), false (explicitly clear it), or
+  // null (Zoho carries no signal — leave the doc alone).
+  'status.superseded': {
+    zohoKey: 'Modifier',
+    path: ['status', 'superseded'],
+    normalize: (v) => (v === true ? 'true' : (v === false ? 'false' : '')),
+    transform: (raw) => (/^superseded$/i.test(trim(raw)) ? true : null),
+  },
+  'status.withdrawn': {
+    zohoKey: 'Modifier',
+    path: ['status', 'withdrawn'],
+    normalize: (v) => (v === true ? 'true' : (v === false ? 'false' : '')),
+    transform: (raw) => (/^withdrawn$/i.test(trim(raw)) ? true : null),
+  },
 };
 
 function getDeep(obj, parts) {
