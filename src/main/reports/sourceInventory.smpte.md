@@ -1,10 +1,10 @@
-# _source/SMPTE Inventory — 2026-05-14T23:03:42.140Z
+# _source/SMPTE Inventory — 2026-06-15T18:23:21.733Z
 
-Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 docs at scan time)
+Registry snapshot: per-doc registry [src/main/data/docs/](../data/docs/) (26286 docs at scan time)
 
 ## Totals
 - Directories walked: 16413
-- Files scanned: 229775
+- Files scanned: 229776
 - Files skipped: failed-extraction 982, zip containers 121, noise 67
 - Unique assets (dedup by docId): 21190
 - Duplicate copies detected: 128787
@@ -13,26 +13,26 @@ Registry snapshot: [src/main/data/documents.json](../data/documents.json) (2313 
 | Bucket          | Count | Notes                                          |
 |-----------------|-------|------------------------------------------------|
 | Found (verified)| 46    | XML read AND every comparable field matched    |
-| Found (unverif.)| 37    | docId matches registry but no source XML found |
-| Update          | 868   | in registry, source has new or different fields|
-| Gap             | 20239 | in source, not in registry — new records       |
-| Registry-only   | 547   | in registry (SMPTE), no local source archived  |
-| Unidentifiable  | 7     | in source, no DOI derivable — manual triage    |
+| Found (unverif.)| 14441 | docId matches registry but no source XML found |
+| Update          | 6331  | in registry, source has new or different fields|
+| Gap             | 372   | in source, not in registry — new records       |
+| Registry-only   | 4653  | in registry (SMPTE), no local source archived  |
+| Unidentifiable  | 8     | in source, no DOI derivable — manual triage    |
 | Non-record      | 37227 | not a document (analytics/schema/db/image)     |
 
 ## By vendor
 | Vendor            | Found | Update | Gap | Unid. | Non-rec |
 |-------------------|-------|--------|-----|-------|---------|
-| ALLEN PRESS       | 0     | 0      | 659 | 0     | 116     |
-| APTARA            | 696   | 9260   | 97335 | 2     | 33288   |
-| HIGHWIRE          | 154   | 1517   | 39986 | 5     | 2439    |
-| IEEE              | 6     | 23     | 341 | 0     | 1363    |
+| ALLEN PRESS       | 0     | 657    | 2   | 0     | 116     |
+| APTARA            | 70242 | 34520  | 2529 | 2     | 33288   |
+| HIGHWIRE          | 29002 | 12473  | 182 | 5     | 2439    |
+| IEEE              | 6     | 362    | 2   | 0     | 1363    |
 | IEEE DL Usage     | 0     | 0      | 0   | 0     | 18      |
-| Zoho              | 0     | 0      | 0   | 0     | 2       |
+| Zoho              | 0     | 0      | 0   | 1     | 2       |
 
 ## Field deltas across the Update bucket (registry vs source)
 
-Per-field counts of how registry values compare to what the source XML provides. Tallies are per registry-matched bucket entry (Found + Update = 951) where the source XML actually carries that field.
+Per-field counts of how registry values compare to what the source XML provides. Tallies are per registry-matched bucket entry (Found + Update = 20818) where the source XML actually carries that field.
 
 - **Delta** = both sides populated, normalized values differ → review
 - **Narrowed** = source is more precise (e.g. year → full date) → safe to auto-accept
@@ -41,66 +41,66 @@ Per-field counts of how registry values compare to what the source XML provides.
 
 | Field             | Delta | Narrowed | Fillable | Agree | Total |
 |-------------------|-------|----------|----------|-------|-------|
-| docTitle          |   458 |        0 |        0 |   269 |   727 |
-| references        |   221 |        0 |      566 |     0 |   787 |
-| docSuiteTitle     |    70 |        0 |        4 |   131 |   205 |
-| keywords          |    66 |        0 |        0 |   686 |   752 |
-| doi               |     0 |        0 |        0 |   951 |   951 |
-| publisher         |     0 |        0 |        0 |   950 |   950 |
-| docType           |     0 |        0 |        0 |   938 |   938 |
+| docType           |  1500 |        0 |        0 | 19305 | 20805 |
+| references        |   769 |        0 |     4125 |     0 |  4894 |
+| docTitle          |   458 |        0 |        0 |   647 |  1105 |
+| publisher         |    96 |        0 |        0 | 20721 | 20817 |
+| publisherLocation |    96 |        0 |        0 |  1035 |  1131 |
+| articleType       |    96 |        0 |        0 |   283 |   379 |
+| docSuiteTitle     |    70 |        0 |      382 |   131 |   583 |
+| keywords          |    66 |        0 |      263 |   686 |  1015 |
+| abbrevTitle       |    15 |        0 |       46 |   318 |   379 |
+| doi               |     0 |        0 |        0 | 20818 | 20818 |
+| publicationDate   |     0 |        0 |        0 |  1165 |  1165 |
+| pages             |     0 |        0 |        0 |  1131 |  1131 |
+| copyright         |     0 |        0 |        0 |  1129 |  1129 |
 | docNumber         |     0 |        0 |        0 |   867 |   867 |
-| publicationDate   |     0 |        0 |        0 |   787 |   787 |
+| abstract          |     0 |        0 |        6 |   836 |   842 |
 | standardId        |     0 |        0 |        0 |   766 |   766 |
-| pages             |     0 |        0 |        0 |   753 |   753 |
-| copyright         |     0 |        0 |        0 |   753 |   753 |
-| publisherLocation |     0 |        0 |        0 |   753 |   753 |
 | isbn              |     0 |        0 |        0 |   752 |   752 |
 | productNumber     |     0 |        0 |        0 |   752 |   752 |
 | approvalDate      |     0 |        0 |        0 |   752 |   752 |
 | icsCodes          |     0 |        0 |        0 |   750 |   750 |
-| abstract          |     0 |        0 |        0 |   745 |   745 |
 | familyId          |     0 |        0 |        0 |   690 |   690 |
 | group             |     0 |        0 |        0 |   573 |   573 |
+| issn              |     0 |        0 |        0 |   379 |   379 |
+| journalAcronym    |     0 |        0 |       96 |   283 |   379 |
+| volume            |     0 |        0 |        0 |   379 |   379 |
+| number            |     0 |        0 |        0 |   379 |   379 |
 | docPart           |     0 |        0 |        0 |   278 |   278 |
-| issn              |     0 |        0 |        0 |     1 |     1 |
-| authors           |     0 |        0 |        0 |     1 |     1 |
-| abbrevTitle       |     0 |        0 |        0 |     1 |     1 |
-| journalAcronym    |     0 |        0 |        0 |     1 |     1 |
-| articleType       |     0 |        0 |        0 |     1 |     1 |
-| volume            |     0 |        0 |        0 |     1 |     1 |
-| number            |     0 |        0 |        0 |     1 |     1 |
+| authors           |     0 |        0 |        1 |   153 |   154 |
 
 ## Sample value deltas (first 30 of all in JSON)
-- `10.5594-J01273` `references`: registry=`{"bibliographic":["10.5594-J05508","10.5594-J05389"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["The Principles of the Light-Valve","A Dynamic Check on the Processing of Film for…`
-- `10.5594-J05384` `references`: registry=`{"bibliographic":["10.5594-J07429","10.5594-J07431"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Continuous Optical Reduction Printing","Optical Reduction Sound Printing"]}`
-- `10.5594-J05389` `references`: registry=`{"bibliographic":["10.5594-J08011","JOSA.4.000420"],"bibliographic$meta":{"confidence":"medium","sou…` vs source=`{"bibliographic":["Straight-Line and Toe Records with the Light-Valve","On the Theory of Tone Reprod…`
-- `10.5594-J05391` `references`: registry=`{"bibliographic":["10.5594-J13051","10.5594-J07506","10.5594-J13134","10.5594-J05467","10.5594-J1010…` vs source=`{"bibliographic":["The Aperture Effect","The Effect of Exposure and Development on the Quality of Va…`
-- `10.5594-J05436` `references`: registry=`{"bibliographic":["10.5594-J02042","10.5594-J13051","10.5594-J05604","10.5594-J07507","10.5594-J1476…` vs source=`{"bibliographic":["Sound Recording and Reproducing Using 16-Mm. Film","The Aperture Effect","Scannin…`
-- `10.5594-J05467` `references`: registry=`{"bibliographic":["10.5594-J05608"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["A New Recorder for Variable Area Recording"]}`
-- `10.5594-J05482` `references`: registry=`{"bibliographic":["10.5594-J06552","10.5594-J14793","ML3807.M56.1916","10.5594-J13132","10.5594-J129…` vs source=`{"bibliographic":["The Processing of Variable Density Sound Records","Apparatus for the Analysis of …`
-- `10.5594-J05508` `references`: registry=`{"bibliographic":["10.1002-j.1538-7305.1925.tb00946.x","10.5594-J13132","10.5594-J05521","ISBN.97811…` vs source=`{"bibliographic":["The Transmission of Pictures over Telephone Circuits","Sound Recording with the L…`
-- `10.5594-J05521` `references`: registry=`{"bibliographic":["10.1002-j.1538-7305.1927.tb00216.x","10.5594-J08011"],"bibliographic$meta":{"conf…` vs source=`{"bibliographic":["New York-London Telephone Circuit","Straight-Line and Toe Records with the Light …`
-- `10.5594-J06549` `references`: registry=`{"bibliographic":["PJv49n33p200.1909","PJv56n40p49.1916","JOSA.12.000559","JOSA.14.000365","10.5594-…` vs source=`{"bibliographic":["The Absorption and Scatter of Light by Photographic Negatives, Measured by Means …`
-- `10.5594-J07428` `references`: registry=`{"bibliographic":["10.5594-J14768"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["Galvanometers for Variable-Area Recording"]}`
-- `10.5594-J07429` `references`: registry=`{"bibliographic":["10.5594-J04161","10.5594-J18005"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["The Continuous Reduction Printer","The Portable Projector: Its Present Status and…`
-- `10.5594-J07430` `references`: registry=`{"bibliographic":["10.5594-J12978","10.5594-J05514"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Sound Film Printing","This type of drive was applied also to sound-film printers …`
-- `10.5594-J07431` `references`: registry=`{"bibliographic":["10.5594-J12979","10.5594-J05608","10.5594-J12978","10.5594-J10150","10.5594-J1014…` vs source=`{"bibliographic":["Wave Form Analysis of Variable-Width Sound Records","A New Recorder for Variable-…`
-- `10.5594-J07459` `references`: registry=`{"bibliographic":["10.5594-J12978"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["Sound Film Printing—I"]}`
-- `10.5594-J07462` `references`: registry=`{"bibliographic":["10.5594-J02042"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["Sound Recording and Reproducing Using 16-Mm. Film"]}`
-- `10.5594-J07506` `references`: registry=`{"bibliographic":["10.5594-J06591","10.5594-J13051"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["The Rendering of Tone Values in the Photographic Recording of Sound","The Apertur…`
-- `10.5594-J07507` `references`: registry=`{"bibliographic":["10.5594-J13050"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["The Photographic Treatment of Variable Area Sound Films"]}`
-- `10.5594-J07583` `references`: registry=`{"bibliographic":["10.5594-J14711","SMPTE.PH22-52.1960","10.5594-J12600"],"bibliographic$meta":{"con…` vs source=`{"bibliographic":["Modulated high-frequency recording as a means of determining conditions for optim…`
-- `10.5594-J08632` `references`: registry=`{"bibliographic":["10.5594-J05391","10.5594-J07430"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Characteristics of Photophone Light Modulating System","A Non-Slip Sound Printer"…`
-- `10.5594-J10122` `references`: registry=`{"bibliographic":["10.5594-J07431","10.5594-J12979"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["Optical Reduction Sound Printing","Wave Form Analysis of Variable-Width Sound Rec…`
-- `10.5594-J10133` `references`: registry=`{"bibliographic":["10.5594-J05467","10.5594-J10122","10.5594-J05608"],"bibliographic$meta":{"confide…` vs source=`{"bibliographic":["Extension of the Frequency Range of Film Recording and Reproduction","Film Record…`
-- `10.5594-J10149` `references`: registry=`{"bibliographic":["10.5594-J05608","10.5594-J05467"],"bibliographic$meta":{"confidence":"medium","so…` vs source=`{"bibliographic":["A New Recorder for Variable Area Recording","Extension of the Frequency Range of …`
-- `10.5594-J11957` `references`: registry=`{"bibliographic":["10.5594-J07462","10.5594-J07431","10.5594-J05436","10.5594-J10122","10.5594-J0538…` vs source=`{"bibliographic":["Sixteen-Mini. Sound on Film","Optical Reduction Sound Printing","The Development …`
-- `10.5594-J11990` `references`: registry=`{"bibliographic":["10.5594-J05508","10.5594-J01273","10.5594-J05482","10.5594-J08011","10.5594-J1471…` vs source=`{"bibliographic":["The Principles of the Light-Valve","Harmonic Distortion in Variable Density Recor…`
-- `10.5594-J12600` `references`: registry=`{"bibliographic":["10.5594-J12978","10.5594-J07459","10.5594-J07430","10.5594-J05514","10.5594-J0743…` vs source=`{"bibliographic":["Soand film printing, I","Soand film printing, II","A non-slip soand printer","A s…`
-- `10.5594-J12632` `references`: registry=`{"bibliographic":["10.5594-J11990","JRPROC.1941.233634","JRPROC.1947.232603"],"bibliographic$meta":{…` vs source=`{"bibliographic":["Analysis and measurement of distortion of variable-density recording","Distortion…`
-- `10.5594-J12979` `references`: registry=`{"bibliographic":["10.5594-J06591","10.5594-J13051","10.5594-J07506","10.5594-J13050","10.5594-J0750…` vs source=`{"bibliographic":["The Rendering of Tone Values in the Photographic Recording of Sound","The Apertur…`
-- `10.5594-J12983` `references`: registry=`{"bibliographic":["10.5594-J13034"],"bibliographic$meta":{"confidence":"medium","source":"manual","u…` vs source=`{"bibliographic":["The Measurement of Light Valve Resonance by the Absorption Method"]}`
-- `SMPTE.EG14.2005` `docTitle`: registry=`Acoustical Background Noise Levels in Dubbing Stages` vs source=`Artificial Acoustical Background Noise in Dubbing Stages`
+- `10.5594-J00802` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00802` `articleType`: registry=`research-article` vs source=`orig-research`
+- `10.5594-J00802` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
+- `10.5594-J00803` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00803` `articleType`: registry=`research-article` vs source=`orig-research`
+- `10.5594-J00803` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
+- `10.5594-J00804` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00804` `articleType`: registry=`other` vs source=`orig-research`
+- `10.5594-J00804` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
+- `10.5594-J00805` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00805` `articleType`: registry=`research-article` vs source=`orig-research`
+- `10.5594-J00805` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
+- `10.5594-J00806` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00806` `articleType`: registry=`other` vs source=`orig-research`
+- `10.5594-J00806` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
+- `10.5594-J00807` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00807` `articleType`: registry=`other` vs source=`orig-research`
+- `10.5594-J00807` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
+- `10.5594-J00808` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00808` `articleType`: registry=`other` vs source=`orig-research`
+- `10.5594-J00808` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
+- `10.5594-J00809` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00809` `articleType`: registry=`other` vs source=`orig-research`
+- `10.5594-J00809` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
+- `10.5594-J00810` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00810` `articleType`: registry=`other` vs source=`toc`
+- `10.5594-J00810` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
+- `10.5594-J00811` `publisher`: registry=`SMPTE` vs source=`Society of Motion Picture and Television Engineers, Inc.`
+- `10.5594-J00811` `articleType`: registry=`other` vs source=`toc`
+- `10.5594-J00811` `publisherLocation`: registry=`{"city":"White Plains, NY","city$meta":{"confidence":"high","note":"Parsed from NLM article XML (_so…` vs source=`{"city":"White Plains, NY","country":"USA"}`
 
 ## Top duplicates
 - `SMPTE.ST2021-1.2009` — 29 copies (aptara:24, highwire:3, ieee:2)
@@ -129,1214 +129,1085 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `SMPTE.RP2021-5.2013` — 27 copies (aptara:23, highwire:2, ieee:2)
 - `SMPTE.ST12-1.2013Am1` — 27 copies (aptara:25, highwire:2)
 
-## Updates (868 — details in JSON)
-- `10.5594-J01217` — fillable: references
-- `10.5594-J01273` — fillable: 
-- `10.5594-J02284` — fillable: references
-- `10.5594-J02285` — fillable: references
-- `10.5594-J02850` — fillable: references
-- `10.5594-J02945` — fillable: references
-- `10.5594-J04132` — fillable: references
-- `10.5594-J05297` — fillable: references
-- `10.5594-J05384` — fillable: 
-- `10.5594-J05389` — fillable: 
-- `10.5594-J05391` — fillable: 
-- `10.5594-J05436` — fillable: 
-- `10.5594-J05467` — fillable: 
-- `10.5594-J05482` — fillable: 
-- `10.5594-J05508` — fillable: 
-- `10.5594-J05521` — fillable: 
-- `10.5594-J05569` — fillable: references
-- `10.5594-J06549` — fillable: 
-- `10.5594-J07428` — fillable: 
-- `10.5594-J07429` — fillable: 
-- `10.5594-J07430` — fillable: 
-- `10.5594-J07431` — fillable: 
-- `10.5594-J07459` — fillable: 
-- `10.5594-J07462` — fillable: 
-- `10.5594-J07506` — fillable: 
-- `10.5594-J07507` — fillable: 
-- `10.5594-J07544` — fillable: references
-- `10.5594-J07583` — fillable: 
-- `10.5594-J08011` — fillable: docSuiteTitle
-- `10.5594-J08310` — fillable: references
-- `10.5594-J08349` — fillable: references
-- `10.5594-J08632` — fillable: 
-- `10.5594-J09039` — fillable: references
-- `10.5594-J10104` — fillable: references
-- `10.5594-J10122` — fillable: 
-- `10.5594-J10133` — fillable: 
-- `10.5594-J10149` — fillable: 
-- `10.5594-J10150` — fillable: references
-- `10.5594-J11957` — fillable: 
-- `10.5594-J11990` — fillable: 
-- `10.5594-J12600` — fillable: 
-- `10.5594-J12632` — fillable: 
-- `10.5594-J12979` — fillable: 
-- `10.5594-J12983` — fillable: 
-- `10.5594-J13565` — fillable: references
-- `10.5594-J13858` — fillable: references
-- `10.5594-J14711` — fillable: references
-- `10.5594-J15292` — fillable: references
-- `10.5594-J15628` — fillable: references
-- `10.5594-J17253` — fillable: references
-- `10.5594-J17622` — fillable: references
-- `10.5594-J17832` — fillable: references
-- `10.5594-J17833` — fillable: references
-- `10.5594-M00395` — fillable: references
-- `SMPTE.EG14.2005` — fillable: 
-- `SMPTE.EG16.2002` — fillable: references
-- `SMPTE.EG18.1994` — fillable: 
-- `SMPTE.EG2.1999` — fillable: 
-- `SMPTE.EG2021-3.2012` — fillable: 
-- `SMPTE.EG2021-3.2013` — fillable: 
-- `SMPTE.EG2021-3.2015` — fillable: 
-- `SMPTE.EG2021-3.2017` — fillable: 
-- `SMPTE.EG2021-4.2009` — fillable: references
-- `SMPTE.EG2021-4.2013` — fillable: 
-- `SMPTE.EG2046-3.2010` — fillable: references
-- `SMPTE.EG2050-2.2012` — fillable: references
-- `SMPTE.EG2059-10.2016` — fillable: references
-- `SMPTE.EG2061.2016` — fillable: 
-- `SMPTE.EG2069.2012` — fillable: references
-- `SMPTE.EG2074.2013` — fillable: docSuiteTitle
-- `SMPTE.EG21.1997` — fillable: references
-- `SMPTE.EG22.1997` — fillable: references
-- `SMPTE.EG23.2005` — fillable: 
-- `SMPTE.EG24.1995` — fillable: references
-- `SMPTE.EG26.1995` — fillable: references
-- `SMPTE.EG28.1993` — fillable: references
-- `SMPTE.EG29.1993` — fillable: references
-- `SMPTE.EG3.1994` — fillable: 
-- `SMPTE.EG30.1995` — fillable: references
-- `SMPTE.EG32.1996` — fillable: references
-- `SMPTE.EG33.2004` — fillable: references
-- `SMPTE.EG34.2004` — fillable: references
-- `SMPTE.EG35.1999` — fillable: references
-- `SMPTE.EG35.2012` — fillable: references
-- `SMPTE.EG36.2000` — fillable: references
-- `SMPTE.EG37.2001` — fillable: references
-- `SMPTE.EG377-3.2013` — fillable: references
-- `SMPTE.EG38.2001` — fillable: references
-- `SMPTE.EG39.2003` — fillable: references
-- `SMPTE.EG40.2002` — fillable: references
-- `SMPTE.EG40.2012` — fillable: references
-- `SMPTE.EG40.2016` — fillable: references
-- `SMPTE.EG41.2004` — fillable: references
-- `SMPTE.EG42.2004` — fillable: references
-- `SMPTE.EG42.2015` — fillable: 
-- `SMPTE.EG43.2009` — fillable: references
-- `SMPTE.EG432-2.2006` — fillable: 
-- `SMPTE.EG44.2005` — fillable: references
-- `SMPTE.EG5.2003` — fillable: 
-- `SMPTE.OV2021-0.2009` — fillable: 
-- `SMPTE.OV2021-0.2012` — fillable: 
-- `SMPTE.OV2021-0.2013` — fillable: 
-- `SMPTE.OV2036-0.2015` — fillable: 
-- `SMPTE.OV2048-0.2011` — fillable: 
-- `SMPTE.OV2048-0.2012` — fillable: 
-- `SMPTE.OV2052-0.2010` — fillable: 
-- `SMPTE.OV2073-0.2016` — fillable: 
-- `SMPTE.OV2081-0.2015` — fillable: 
-- `SMPTE.OV2081-0.2016` — fillable: 
-- `SMPTE.OV2082-0.2015` — fillable: 
-- `SMPTE.OV2082-0.2016` — fillable: 
-- `SMPTE.OV299-0.2010` — fillable: 
-- `SMPTE.OV425-0.2011` — fillable: 
-- `SMPTE.OV425-0.2012` — fillable: 
-- `SMPTE.OV425-0.2014` — fillable: 
-- `SMPTE.OV435-0.2012` — fillable: 
-- `SMPTE.RDD11.2007` — fillable: 
-- `SMPTE.RDD19.2011` — fillable: 
-- `SMPTE.RDD22.2012` — fillable: 
-- `SMPTE.RDD26.2015` — fillable: references
-- `SMPTE.RDD29.2014` — fillable: 
-- `SMPTE.RDD33.2015` — fillable: references
-- `SMPTE.RDD34.2015` — fillable: references
-- `SMPTE.RDD35.2016` — fillable: references
-- `SMPTE.RDD36.2015` — fillable: references
-- `SMPTE.RDD37.2016` — fillable: references
-- `SMPTE.RDD38.2016` — fillable: references
-- `SMPTE.RDD39.2016` — fillable: references
-- `SMPTE.RDD40.2016` — fillable: references
-- `SMPTE.RDD41.2016` — fillable: 
-- `SMPTE.RDD42.2016` — fillable: 
-- `SMPTE.RDD43.2016` — fillable: 
-- `SMPTE.RDD44.2017` — fillable: references
-- `SMPTE.RDD6.2008` — fillable: 
-- `SMPTE.RDD8.2008` — fillable: 
-- `SMPTE.RDD9.2009` — fillable: references
-- `SMPTE.RDD9.2013` — fillable: references
-- `SMPTE.RP104.2005` — fillable: 
-- `SMPTE.RP105.2003` — fillable: 
-- `SMPTE.RP110.1992` — fillable: 
-- `SMPTE.RP113.1996` — fillable: references
-- `SMPTE.RP115.1997` — fillable: 
-- `SMPTE.RP116.2000` — fillable: 
-- `SMPTE.RP12.1997` — fillable: 
-- `SMPTE.RP120.2005` — fillable: 
-- `SMPTE.RP121.1997` — fillable: references
-- `SMPTE.RP123.2004` — fillable: 
-- `SMPTE.RP127.2004` — fillable: 
-- `SMPTE.RP128.2002` — fillable: 
-- `SMPTE.RP130.2004` — fillable: 
-- `SMPTE.RP131.2002` — fillable: 
-- `SMPTE.RP132.1994` — fillable: references
-- `SMPTE.RP135.2004` — fillable: 
-- `SMPTE.RP136.2004` — fillable: 
-- `SMPTE.RP139.1997` — fillable: references
-- `SMPTE.RP14.1997` — fillable: 
-- `SMPTE.RP140.2005` — fillable: 
-- `SMPTE.RP141.2005` — fillable: 
-- `SMPTE.RP142.2004` — fillable: references
-- `SMPTE.RP143.2004` — fillable: 
-- `SMPTE.RP144.1999` — fillable: references
-- `SMPTE.RP145.2004` — fillable: references
-- `SMPTE.RP15.1997` — fillable: 
-- `SMPTE.RP150.2000` — fillable: 
-- `SMPTE.RP151.1999` — fillable: 
-- `SMPTE.RP153.1999` — fillable: 
-- `SMPTE.RP155.2004` — fillable: 
-- `SMPTE.RP155.2014` — fillable: 
-- `SMPTE.RP156.1999` — fillable: references
-- `SMPTE.RP157.1995` — fillable: 
-- `SMPTE.RP158.1999` — fillable: references
-- `SMPTE.RP160.1997` — fillable: references
-- `SMPTE.RP161.1999` — fillable: references
-- `SMPTE.RP162.1993` — fillable: 
-- `SMPTE.RP165.1994` — fillable: references
-- `SMPTE.RP166.1995` — fillable: references
-- `SMPTE.RP167.1995` — fillable: references
-- `SMPTE.RP169.1995` — fillable: references
-- `SMPTE.RP17.1964` — fillable: 
-- `SMPTE.RP174.1993` — fillable: references
-- `SMPTE.RP175.1997` — fillable: references
-- `SMPTE.RP176.1997` — fillable: references
-- `SMPTE.RP177.1993` — fillable: references
-- `SMPTE.RP178.2004` — fillable: references
-- `SMPTE.RP179.2002` — fillable: references
-- `SMPTE.RP18.1995` — fillable: 
-- `SMPTE.RP180.1999` — fillable: 
-- `SMPTE.RP181.1999` — fillable: references
-- `SMPTE.RP182.1995` — fillable: references
-- `SMPTE.RP183.2004` — fillable: references
-- `SMPTE.RP184.2004` — fillable: references
-- `SMPTE.RP184.2015` — fillable: references
-- `SMPTE.RP185.2004` — fillable: 
-- `SMPTE.RP186.2008` — fillable: references
-- `SMPTE.RP187.1995` — fillable: references
-- `SMPTE.RP189.1996` — fillable: references
-- `SMPTE.RP190.1996` — fillable: 
-- `SMPTE.RP192.2003` — fillable: references
-- `SMPTE.RP192.2015` — fillable: references
-- `SMPTE.RP194.2004` — fillable: 
-- … 668 more
+## Updates (6331 — details in JSON)
+- `10.5594-J00022` — fillable: references
+- `10.5594-J00023` — fillable: references
+- `10.5594-J00024` — fillable: references
+- `10.5594-J00025` — fillable: references
+- `10.5594-J00029` — fillable: references
+- `10.5594-J00030` — fillable: references
+- `10.5594-J00038` — fillable: references
+- `10.5594-J00042` — fillable: references
+- `10.5594-J00078` — fillable: references
+- `10.5594-J00079` — fillable: references
+- `10.5594-J00081` — fillable: references
+- `10.5594-J00095` — fillable: references
+- `10.5594-J00096` — fillable: references
+- `10.5594-J00097` — fillable: references
+- `10.5594-J00098` — fillable: references
+- `10.5594-J00100` — fillable: references
+- `10.5594-J00116` — fillable: references
+- `10.5594-J00117` — fillable: references
+- `10.5594-J00120` — fillable: references
+- `10.5594-J00138` — fillable: references
+- `10.5594-J00139` — fillable: references
+- `10.5594-J00142` — fillable: references
+- `10.5594-J00161` — fillable: references
+- `10.5594-J00164` — fillable: references
+- `10.5594-J00167` — fillable: references
+- `10.5594-J00181` — fillable: references
+- `10.5594-J00182` — fillable: references
+- `10.5594-J00185` — fillable: references
+- `10.5594-J00196` — fillable: references
+- `10.5594-J00197` — fillable: references
+- `10.5594-J00199` — fillable: references
+- `10.5594-J00200` — fillable: references
+- `10.5594-J00201` — fillable: references
+- `10.5594-J00202` — fillable: references
+- `10.5594-J00224` — fillable: references
+- `10.5594-J00225` — fillable: references
+- `10.5594-J00227` — fillable: references
+- `10.5594-J00229` — fillable: references
+- `10.5594-J00230` — fillable: references
+- `10.5594-J00246` — fillable: references
+- `10.5594-J00247` — fillable: references
+- `10.5594-J00248` — fillable: references
+- `10.5594-J00250` — fillable: references
+- `10.5594-J00251` — fillable: references
+- `10.5594-J00269` — fillable: references
+- `10.5594-J00270` — fillable: references
+- `10.5594-J00272` — fillable: references
+- `10.5594-J00273` — fillable: references
+- `10.5594-J00289` — fillable: references
+- `10.5594-J00292` — fillable: references
+- `10.5594-J00293` — fillable: references
+- `10.5594-J00307` — fillable: references
+- `10.5594-J00308` — fillable: references
+- `10.5594-J00310` — fillable: references
+- `10.5594-J00311` — fillable: references
+- `10.5594-J00328` — fillable: references
+- `10.5594-J00342` — fillable: references
+- `10.5594-J00343` — fillable: references
+- `10.5594-J00348` — fillable: references
+- `10.5594-J00349` — fillable: references
+- `10.5594-J00350` — fillable: references
+- `10.5594-J00351` — fillable: references
+- `10.5594-J00358` — fillable: references
+- `10.5594-J00373` — fillable: references
+- `10.5594-J00375` — fillable: references
+- `10.5594-J00376` — fillable: references
+- `10.5594-J00392` — fillable: references
+- `10.5594-J00394` — fillable: references
+- `10.5594-J00395` — fillable: references
+- `10.5594-J00396` — fillable: references
+- `10.5594-J00413` — fillable: references
+- `10.5594-J00414` — fillable: references
+- `10.5594-J00415` — fillable: references
+- `10.5594-J00416` — fillable: references
+- `10.5594-J00445` — fillable: references
+- `10.5594-J00446` — fillable: references
+- `10.5594-J00447` — fillable: references
+- `10.5594-J00448` — fillable: references
+- `10.5594-J00462` — fillable: references
+- `10.5594-J00463` — fillable: references
+- `10.5594-J00464` — fillable: references
+- `10.5594-J00465` — fillable: references
+- `10.5594-J00467` — fillable: references
+- `10.5594-J00468` — fillable: references
+- `10.5594-J00478` — fillable: references
+- `10.5594-J00480` — fillable: references
+- `10.5594-J00481` — fillable: references
+- `10.5594-J00500` — fillable: references
+- `10.5594-J00501` — fillable: references
+- `10.5594-J00502` — fillable: references
+- `10.5594-J00503` — fillable: references
+- `10.5594-J00504` — fillable: references
+- `10.5594-J00505` — fillable: references
+- `10.5594-J00506` — fillable: references
+- `10.5594-J00522` — fillable: references
+- `10.5594-J00524` — fillable: references
+- `10.5594-J00525` — fillable: references
+- `10.5594-J00527` — fillable: references
+- `10.5594-J00564` — fillable: references
+- `10.5594-J00565` — fillable: references
+- `10.5594-J00566` — fillable: references
+- `10.5594-J00567` — fillable: references
+- `10.5594-J00585` — fillable: references
+- `10.5594-J00586` — fillable: references
+- `10.5594-J00587` — fillable: references
+- `10.5594-J00609` — fillable: references
+- `10.5594-J00610` — fillable: references
+- `10.5594-J00611` — fillable: references
+- `10.5594-J00626` — fillable: references
+- `10.5594-J00627` — fillable: references
+- `10.5594-J00630` — fillable: references
+- `10.5594-J00631` — fillable: references
+- `10.5594-J00645` — fillable: references
+- `10.5594-J00646` — fillable: references
+- `10.5594-J00647` — fillable: references
+- `10.5594-J00690` — fillable: references
+- `10.5594-J00712` — fillable: references
+- `10.5594-J00716` — fillable: references
+- `10.5594-J00717` — fillable: references
+- `10.5594-J00730` — fillable: references
+- `10.5594-J00731` — fillable: references
+- `10.5594-J00732` — fillable: references
+- `10.5594-J00733` — fillable: references
+- `10.5594-J00734` — fillable: references
+- `10.5594-J00735` — fillable: references
+- `10.5594-J00736` — fillable: references
+- `10.5594-J00757` — fillable: references
+- `10.5594-J00758` — fillable: references
+- `10.5594-J00773` — fillable: references
+- `10.5594-J00802` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00803` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00804` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00805` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00806` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00807` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00808` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00809` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00810` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00811` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00812` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00813` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00814` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00815` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00816` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00817` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00818` — fillable: keywords, docSuiteTitle, journalAcronym
+- `10.5594-J00820` — fillable: references
+- `10.5594-J00821` — fillable: references
+- `10.5594-J00822` — fillable: references
+- `10.5594-J00823` — fillable: references
+- `10.5594-J00827` — fillable: references
+- `10.5594-J00839` — fillable: references
+- `10.5594-J00842` — fillable: references
+- `10.5594-J00850` — fillable: references
+- `10.5594-J00852` — fillable: references
+- `10.5594-J00853` — fillable: references
+- `10.5594-J00885` — fillable: references
+- `10.5594-J00886` — fillable: references
+- `10.5594-J00887` — fillable: references
+- `10.5594-J00888` — fillable: references
+- `10.5594-J00901` — fillable: references
+- `10.5594-J00902` — fillable: references
+- `10.5594-J00903` — fillable: references
+- `10.5594-J00916` — fillable: references
+- `10.5594-J00917` — fillable: references
+- `10.5594-J00918` — fillable: references
+- `10.5594-J00944` — fillable: references
+- `10.5594-J00945` — fillable: references
+- `10.5594-J00963` — fillable: references
+- `10.5594-J00964` — fillable: references
+- `10.5594-J00981` — fillable: references
+- `10.5594-J00982` — fillable: references
+- `10.5594-J00985` — fillable: references
+- `10.5594-J00986` — fillable: references
+- `10.5594-J00993` — fillable: references
+- `10.5594-J00995` — fillable: references
+- `10.5594-J00997` — fillable: references
+- `10.5594-J00999` — fillable: references
+- `10.5594-J01039` — fillable: references
+- `10.5594-J01042` — fillable: references
+- `10.5594-J01044` — fillable: references
+- `10.5594-J01046` — fillable: references
+- `10.5594-J01047` — fillable: references
+- `10.5594-J01067` — fillable: references
+- `10.5594-J01070` — fillable: references
+- `10.5594-J01072` — fillable: references
+- `10.5594-J01073` — fillable: references
+- `10.5594-J01084` — fillable: references
+- `10.5594-J01088` — fillable: references
+- `10.5594-J01092` — fillable: references
+- `10.5594-J01104` — fillable: references
+- `10.5594-J01105` — fillable: references
+- `10.5594-J01106` — fillable: references
+- `10.5594-J01107` — fillable: references
+- `10.5594-J01125` — fillable: references
+- `10.5594-J01129` — fillable: references
+- `10.5594-J01131` — fillable: references
+- `10.5594-J01145` — fillable: references
+- `10.5594-J01148` — fillable: references
+- `10.5594-J01149` — fillable: references
+- … 6131 more
 
-## Gaps (20239 — details in JSON)
-- `10.5594-J00021`
-- `10.5594-J00022`
-- `10.5594-J00023`
-- `10.5594-J00024`
-- `10.5594-J00025`
-- `10.5594-J00026`
-- `10.5594-J00027`
-- `10.5594-J00028`
-- `10.5594-J00029`
-- `10.5594-J00030`
-- `10.5594-J00031`
-- `10.5594-J00032`
-- `10.5594-J00033`
-- `10.5594-J00034`
-- `10.5594-J00035`
-- `10.5594-J00036`
-- `10.5594-J00037`
-- `10.5594-J00038`
-- `10.5594-J00039`
-- `10.5594-J00040`
-- `10.5594-J00041`
-- `10.5594-J00042`
-- `10.5594-J00043`
-- `10.5594-J00044`
-- `10.5594-J00045`
-- `10.5594-J00046`
-- `10.5594-J00047`
-- `10.5594-J00048`
-- `10.5594-J00049`
-- `10.5594-J00050`
-- `10.5594-J00051`
-- `10.5594-J00052`
-- `10.5594-J00053`
-- `10.5594-J00054`
-- `10.5594-J00055`
-- `10.5594-J00056`
-- `10.5594-J00057`
-- `10.5594-J00058`
-- `10.5594-J00059`
-- `10.5594-J00060`
-- `10.5594-J00061`
-- `10.5594-J00062`
-- `10.5594-J00063`
-- `10.5594-J00064`
-- `10.5594-J00065`
-- `10.5594-J00066`
-- `10.5594-J00067`
-- `10.5594-J00068`
-- `10.5594-J00069`
-- `10.5594-J00070`
-- `10.5594-J00071`
-- `10.5594-J00072`
-- `10.5594-J00073`
-- `10.5594-J00074`
-- `10.5594-J00075`
-- `10.5594-J00076`
-- `10.5594-J00077`
-- `10.5594-J00078`
-- `10.5594-J00079`
-- `10.5594-J00080`
-- `10.5594-J00081`
-- `10.5594-J00082`
-- `10.5594-J00083`
-- `10.5594-J00084`
-- `10.5594-J00085`
-- `10.5594-J00086`
-- `10.5594-J00087`
-- `10.5594-J00088`
-- `10.5594-J00089`
-- `10.5594-J00090`
-- `10.5594-J00091`
-- `10.5594-J00092`
-- `10.5594-J00093`
-- `10.5594-J00094`
-- `10.5594-J00095`
-- `10.5594-J00096`
-- `10.5594-J00097`
-- `10.5594-J00098`
-- `10.5594-J00099`
-- `10.5594-J00100`
-- `10.5594-J00101`
-- `10.5594-J00102`
-- `10.5594-J00103`
-- `10.5594-J00104`
-- `10.5594-J00105`
-- `10.5594-J00106`
-- `10.5594-J00107`
-- `10.5594-J00108`
-- `10.5594-J00109`
-- `10.5594-J00110`
-- `10.5594-J00111`
-- `10.5594-J00112`
-- `10.5594-J00113`
-- `10.5594-J00114`
-- `10.5594-J00115`
-- `10.5594-J00116`
-- `10.5594-J00117`
-- `10.5594-J00118`
-- `10.5594-J00119`
-- `10.5594-J00120`
-- `10.5594-J00121`
-- `10.5594-J00122`
-- `10.5594-J00123`
-- `10.5594-J00124`
-- `10.5594-J00125`
-- `10.5594-J00126`
-- `10.5594-J00127`
-- `10.5594-J00128`
-- `10.5594-J00129`
-- `10.5594-J00130`
-- `10.5594-J00131`
-- `10.5594-J00132`
-- `10.5594-J00133`
-- `10.5594-J00134`
-- `10.5594-J00135`
-- `10.5594-J00136`
-- `10.5594-J00137`
-- `10.5594-J00138`
-- `10.5594-J00139`
-- `10.5594-J00140`
-- `10.5594-J00141`
-- `10.5594-J00142`
-- `10.5594-J00143`
-- `10.5594-J00144`
-- `10.5594-J00145`
-- `10.5594-J00146`
-- `10.5594-J00147`
-- `10.5594-J00148`
-- `10.5594-J00149`
-- `10.5594-J00150`
-- `10.5594-J00151`
-- `10.5594-J00152`
-- `10.5594-J00153`
-- `10.5594-J00154`
-- `10.5594-J00155`
-- `10.5594-J00156`
-- `10.5594-J00157`
-- `10.5594-J00158`
-- `10.5594-J00159`
-- `10.5594-J00160`
-- `10.5594-J00161`
-- `10.5594-J00162`
-- `10.5594-J00163`
-- `10.5594-J00164`
-- `10.5594-J00165`
-- `10.5594-J00166`
-- `10.5594-J00167`
-- `10.5594-J00168`
-- `10.5594-J00169`
-- `10.5594-J00170`
-- `10.5594-J00171`
-- `10.5594-J00172`
-- `10.5594-J00173`
-- `10.5594-J00174`
-- `10.5594-J00175`
-- `10.5594-J00176`
-- `10.5594-J00177`
-- `10.5594-J00178`
-- `10.5594-J00179`
-- `10.5594-J00180`
-- `10.5594-J00181`
-- `10.5594-J00182`
-- `10.5594-J00183`
-- `10.5594-J00184`
-- `10.5594-J00185`
-- `10.5594-J00186`
-- `10.5594-J00187`
-- `10.5594-J00188`
-- `10.5594-J00189`
-- `10.5594-J00190`
-- `10.5594-J00191`
-- `10.5594-J00192`
-- `10.5594-J00193`
-- `10.5594-J00194`
-- `10.5594-J00195`
-- `10.5594-J00196`
-- `10.5594-J00197`
-- `10.5594-J00198`
-- `10.5594-J00199`
-- `10.5594-J00200`
-- `10.5594-J00201`
-- `10.5594-J00202`
-- `10.5594-J00203`
-- `10.5594-J00204`
-- `10.5594-J00205`
-- `10.5594-J00206`
-- `10.5594-J00207`
-- `10.5594-J00208`
-- `10.5594-J00209`
-- `10.5594-J00210`
-- `10.5594-J00211`
-- `10.5594-J00212`
-- `10.5594-J00213`
-- `10.5594-J00214`
-- `10.5594-J00215`
-- `10.5594-J00216`
-- `10.5594-J00217`
-- `10.5594-J00218`
-- `10.5594-J00219`
-- `10.5594-J00220`
-- `10.5594-J00221`
-- `10.5594-J00222`
-- `10.5594-J00223`
-- `10.5594-J00224`
-- `10.5594-J00225`
-- `10.5594-J00226`
-- `10.5594-J00227`
-- `10.5594-J00228`
-- `10.5594-J00229`
-- `10.5594-J00230`
-- `10.5594-J00231`
-- `10.5594-J00232`
-- `10.5594-J00233`
-- `10.5594-J00234`
-- `10.5594-J00235`
-- `10.5594-J00236`
-- `10.5594-J00237`
-- `10.5594-J00238`
-- `10.5594-J00239`
-- `10.5594-J00240`
-- `10.5594-J00241`
-- `10.5594-J00242`
-- `10.5594-J00243`
-- `10.5594-J00244`
-- `10.5594-J00245`
-- `10.5594-J00246`
-- `10.5594-J00247`
-- `10.5594-J00248`
-- `10.5594-J00249`
-- `10.5594-J00250`
-- `10.5594-J00251`
-- `10.5594-J00252`
-- `10.5594-J00253`
-- `10.5594-J00254`
-- `10.5594-J00255`
-- `10.5594-J00256`
-- `10.5594-J00257`
-- `10.5594-J00258`
-- `10.5594-J00259`
-- `10.5594-J00260`
-- `10.5594-J00261`
-- `10.5594-J00262`
-- `10.5594-J00263`
-- `10.5594-J00264`
-- `10.5594-J00265`
-- `10.5594-J00266`
-- `10.5594-J00267`
-- `10.5594-J00268`
-- `10.5594-J00269`
-- `10.5594-J00270`
-- `10.5594-J00271`
-- `10.5594-J00272`
-- `10.5594-J00273`
-- `10.5594-J00274`
-- `10.5594-J00275`
-- `10.5594-J00276`
-- `10.5594-J00277`
-- `10.5594-J00278`
-- `10.5594-J00279`
-- `10.5594-J00280`
-- `10.5594-J00281`
-- `10.5594-J00282`
-- `10.5594-J00283`
-- `10.5594-J00284`
-- `10.5594-J00285`
-- `10.5594-J00286`
-- `10.5594-J00287`
-- `10.5594-J00288`
-- `10.5594-J00289`
-- `10.5594-J00290`
-- `10.5594-J00291`
-- `10.5594-J00292`
-- `10.5594-J00293`
-- `10.5594-J00294`
-- `10.5594-J00295`
-- `10.5594-J00296`
-- `10.5594-J00297`
-- `10.5594-J00298`
-- `10.5594-J00299`
-- `10.5594-J00300`
-- `10.5594-J00301`
-- `10.5594-J00302`
-- `10.5594-J00303`
-- `10.5594-J00304`
-- `10.5594-J00305`
-- `10.5594-J00306`
-- `10.5594-J00307`
-- `10.5594-J00308`
-- `10.5594-J00309`
-- `10.5594-J00310`
-- `10.5594-J00311`
-- `10.5594-J00312`
-- `10.5594-J00313`
-- `10.5594-J00314`
-- `10.5594-J00315`
-- `10.5594-J00316`
-- `10.5594-J00317`
-- `10.5594-J00318`
-- `10.5594-J00319`
-- `10.5594-J00320`
-- `10.5594-J00321`
-- `10.5594-J00322`
-- `10.5594-J00323`
-- `10.5594-J00324`
-- `10.5594-J00325`
-- `10.5594-J00326`
-- `10.5594-J00327`
-- `10.5594-J00328`
-- `10.5594-J00329`
-- `10.5594-J00330`
-- `10.5594-J00331`
-- `10.5594-J00332`
-- `10.5594-J00333`
-- `10.5594-J00334`
-- `10.5594-J00335`
-- `10.5594-J00336`
-- `10.5594-J00337`
-- `10.5594-J00338`
-- `10.5594-J00339`
-- `10.5594-J00340`
-- `10.5594-J00341`
-- `10.5594-J00342`
-- `10.5594-J00343`
-- `10.5594-J00344`
-- `10.5594-J00345`
-- `10.5594-J00346`
-- `10.5594-J00347`
-- `10.5594-J00348`
-- `10.5594-J00349`
-- `10.5594-J00350`
-- `10.5594-J00351`
-- `10.5594-J00352`
-- `10.5594-J00353`
-- `10.5594-J00354`
-- `10.5594-J00355`
-- `10.5594-J00356`
-- `10.5594-J00357`
-- `10.5594-J00358`
-- `10.5594-J00359`
-- `10.5594-J00360`
-- `10.5594-J00361`
-- `10.5594-J00362`
-- `10.5594-J00363`
-- `10.5594-J00364`
-- `10.5594-J00365`
-- `10.5594-J00366`
-- `10.5594-J00367`
-- `10.5594-J00368`
-- `10.5594-J00369`
-- `10.5594-J00370`
-- `10.5594-J00371`
-- `10.5594-J00372`
-- `10.5594-J00373`
-- `10.5594-J00374`
-- `10.5594-J00375`
-- `10.5594-J00376`
-- `10.5594-J00377`
-- `10.5594-J00378`
-- `10.5594-J00379`
-- `10.5594-J00380`
-- `10.5594-J00381`
-- `10.5594-J00382`
-- `10.5594-J00383`
-- `10.5594-J00384`
-- `10.5594-J00385`
-- `10.5594-J00386`
-- `10.5594-J00387`
-- `10.5594-J00388`
-- `10.5594-J00389`
-- `10.5594-J00390`
-- `10.5594-J00391`
-- `10.5594-J00392`
-- `10.5594-J00393`
-- `10.5594-J00394`
-- `10.5594-J00395`
-- `10.5594-J00396`
-- `10.5594-J00397`
-- `10.5594-J00398`
-- `10.5594-J00399`
-- `10.5594-J00400`
-- `10.5594-J00401`
-- `10.5594-J00402`
-- `10.5594-J00403`
-- `10.5594-J00404`
-- `10.5594-J00405`
-- `10.5594-J00406`
-- `10.5594-J00407`
-- `10.5594-J00408`
-- `10.5594-J00409`
-- `10.5594-J00410`
-- `10.5594-J00411`
-- `10.5594-J00412`
-- `10.5594-J00413`
-- `10.5594-J00414`
-- `10.5594-J00415`
-- `10.5594-J00416`
-- `10.5594-J00417`
-- `10.5594-J00418`
-- `10.5594-J00419`
-- `10.5594-J00420`
-- `10.5594-J00421`
-- `10.5594-J00422`
-- `10.5594-J00423`
-- `10.5594-J00424`
-- `10.5594-J00425`
-- `10.5594-J00426`
-- `10.5594-J00427`
-- `10.5594-J00428`
-- `10.5594-J00429`
-- `10.5594-J00430`
-- `10.5594-J00431`
-- `10.5594-J00432`
-- `10.5594-J00433`
-- `10.5594-J00434`
-- `10.5594-J00435`
-- `10.5594-J00436`
-- `10.5594-J00437`
-- `10.5594-J00438`
-- `10.5594-J00439`
-- `10.5594-J00440`
-- `10.5594-J00441`
-- `10.5594-J00442`
-- `10.5594-J00443`
-- `10.5594-J00444`
-- `10.5594-J00445`
-- `10.5594-J00446`
-- `10.5594-J00447`
-- `10.5594-J00448`
-- `10.5594-J00449`
-- `10.5594-J00450`
-- `10.5594-J00451`
-- `10.5594-J00452`
-- `10.5594-J00453`
-- `10.5594-J00454`
-- `10.5594-J00455`
-- `10.5594-J00456`
-- `10.5594-J00457`
-- `10.5594-J00458`
-- `10.5594-J00459`
-- `10.5594-J00460`
-- `10.5594-J00461`
-- `10.5594-J00462`
-- `10.5594-J00463`
-- `10.5594-J00464`
-- `10.5594-J00465`
-- `10.5594-J00466`
-- `10.5594-J00467`
-- `10.5594-J00468`
-- `10.5594-J00469`
-- `10.5594-J00470`
-- `10.5594-J00471`
-- `10.5594-J00472`
-- `10.5594-J00473`
-- `10.5594-J00474`
-- `10.5594-J00475`
-- `10.5594-J00476`
-- `10.5594-J00477`
-- `10.5594-J00478`
-- `10.5594-J00479`
-- `10.5594-J00480`
-- `10.5594-J00481`
-- `10.5594-J00482`
-- `10.5594-J00483`
-- `10.5594-J00484`
-- `10.5594-J00485`
-- `10.5594-J00486`
-- `10.5594-J00487`
-- `10.5594-J00488`
-- `10.5594-J00489`
-- `10.5594-J00490`
-- `10.5594-J00491`
-- `10.5594-J00492`
-- `10.5594-J00493`
-- `10.5594-J00494`
-- `10.5594-J00495`
-- `10.5594-J00496`
+## Gaps (372 — details in JSON)
 - `10.5594-J00496a`
 - `10.5594-J00496b`
-- `10.5594-J00497`
-- `10.5594-J00498`
-- `10.5594-J00499`
-- `10.5594-J00500`
-- `10.5594-J00501`
-- `10.5594-J00502`
-- `10.5594-J00503`
-- `10.5594-J00504`
-- `10.5594-J00505`
-- `10.5594-J00506`
-- `10.5594-J00507`
-- `10.5594-J00508`
-- `10.5594-J00509`
-- `10.5594-J00510`
-- `10.5594-J00511`
-- `10.5594-J00512`
-- `10.5594-J00513`
-- `10.5594-J00514`
-- `10.5594-J00515`
-- `10.5594-J00516`
-- `10.5594-J00517`
-- `10.5594-J00518`
-- … 19739 more
+- `10.5594-J00536a`
+- `10.5594-J00536b`
+- `10.5594-J01060a`
+- `10.5594-J01060b`
+- `10.5594-J01167a`
+- `10.5594-J01167b`
+- `10.5594-J01306a`
+- `10.5594-J01306b`
+- `10.5594-J01348a`
+- `10.5594-J01348b`
+- `10.5594-J01399a`
+- `10.5594-J01399b`
+- `10.5594-J01721a`
+- `10.5594-J01721b`
+- `10.5594-J01746a`
+- `10.5594-J01746b`
+- `10.5594-J03331a`
+- `10.5594-J03331b`
+- `10.5594-J03678a`
+- `10.5594-J03678b`
+- `10.5594-J04114a`
+- `10.5594-J04114b`
+- `10.5594-J04866a`
+- `10.5594-J04866b`
+- `10.5594-J05047a`
+- `10.5594-J05047b`
+- `10.5594-J05454a`
+- `10.5594-J05454b`
+- `10.5594-J05484a`
+- `10.5594-J05484b`
+- `10.5594-J05505a`
+- `10.5594-J05505b`
+- `10.5594-J05564a`
+- `10.5594-J05564b`
+- `10.5594-J05594a`
+- `10.5594-J05594b`
+- `10.5594-J05619a`
+- `10.5594-J05619b`
+- `10.5594-J06185a`
+- `10.5594-J06185b`
+- `10.5594-J06256a`
+- `10.5594-J06256b`
+- `10.5594-J06531a`
+- `10.5594-J06531b`
+- `10.5594-J07118a`
+- `10.5594-J07118b`
+- `10.5594-J07314a`
+- `10.5594-J07314b`
+- `10.5594-J07360a`
+- `10.5594-J07360b`
+- `10.5594-J07497a`
+- `10.5594-J07497b`
+- `10.5594-J07595a`
+- `10.5594-J07595b`
+- `10.5594-J07903a`
+- `10.5594-J07903b`
+- `10.5594-J08021a`
+- `10.5594-J08021b`
+- `10.5594-J08089a`
+- `10.5594-J08089b`
+- `10.5594-J08282a`
+- `10.5594-J08282b`
+- `10.5594-J08994a`
+- `10.5594-J08994b`
+- `10.5594-J09083A`
+- `10.5594-J09083B`
+- `10.5594-J09411a`
+- `10.5594-J09411b`
+- `10.5594-J09465a`
+- `10.5594-J09465b`
+- `10.5594-J10155a`
+- `10.5594-J10155b`
+- `10.5594-J10370a`
+- `10.5594-J10370b`
+- `10.5594-J10457a`
+- `10.5594-J10457b`
+- `10.5594-J10748a`
+- `10.5594-J10959a`
+- `10.5594-J10959b`
+- `10.5594-J10976a`
+- `10.5594-J10976b`
+- `10.5594-J11118a`
+- `10.5594-J11118b`
+- `10.5594-J11162a`
+- `10.5594-J11162b`
+- `10.5594-J11283a`
+- `10.5594-J11283b`
+- `10.5594-J11369a`
+- `10.5594-J11369b`
+- `10.5594-J11914a`
+- `10.5594-J11914b`
+- `10.5594-J13037a`
+- `10.5594-J13037b`
+- `10.5594-J13292a`
+- `10.5594-J13292b`
+- `10.5594-J13558a`
+- `10.5594-J13558b`
+- `10.5594-J13680a`
+- `10.5594-J13680b`
+- `10.5594-J13745a`
+- `10.5594-J13745b`
+- `10.5594-J14020a`
+- `10.5594-J14020b`
+- `10.5594-J14473a`
+- `10.5594-J14473b`
+- `10.5594-J14520a`
+- `10.5594-J14520b`
+- `10.5594-J14797a`
+- `10.5594-J14797b`
+- `10.5594-J15397a`
+- `10.5594-J15397b`
+- `10.5594-J15461a`
+- `10.5594-J15461b`
+- `10.5594-J15597a`
+- `10.5594-J15597b`
+- `10.5594-J15617a`
+- `10.5594-J15617b`
+- `10.5594-J15648a`
+- `10.5594-J15648b`
+- `10.5594-J16567a`
+- `10.5594-J16567b`
+- `10.5594-J16621a`
+- `10.5594-J16621b`
+- `10.5594-J16765a`
+- `10.5594-J16765b`
+- `10.5594-J17070a`
+- `10.5594-J17070b`
+- `10.5594-J17418a`
+- `10.5594-J17418b`
+- `10.5594-J18503`
+- `10.5594-M001596`
+- `10.5594-M001597`
+- `10.5594-M001598`
+- `10.5594-M001599`
+- `10.5594-M001600`
+- `10.5594-M001601`
+- `10.5594-M001602`
+- `10.5594-M001603`
+- `10.5594-M001604`
+- `10.5594-M001605`
+- `10.5594-M001606`
+- `10.5594-M001607`
+- `10.5594-M001608`
+- `10.5594-M001609`
+- `10.5594-M001610`
+- `10.5594-M001611`
+- `10.5594-M001612`
+- `10.5594-M001613`
+- `10.5594-M001614`
+- `10.5594-M001615`
+- `10.5594-M001616`
+- `10.5594-M001617`
+- `10.5594-M001618`
+- `10.5594-M001619`
+- `10.5594-M001620`
+- `10.5594-M001621`
+- `10.5594-M001622`
+- `10.5594-M001623`
+- `10.5594-M001624`
+- `10.5594-M001625`
+- `10.5594-M001626`
+- `10.5594-M001627`
+- `10.5594-M001628`
+- `10.5594-M001629`
+- `10.5594-M001630`
+- `10.5594-M001631`
+- `10.5594-M001632`
+- `10.5594-M001633`
+- `10.5594-M001634`
+- `10.5594-M001635`
+- `10.5594-M001636`
+- `10.5594-M001637`
+- `10.5594-M001638`
+- `10.5594-M001639`
+- `10.5594-M001640`
+- `10.5594-M001641`
+- `10.5594-M001642`
+- `10.5594-M001643`
+- `10.5594-M001644`
+- `10.5594-M001645`
+- `10.5594-M001646`
+- `10.5594-M001647`
+- `10.5594-M001648`
+- `10.5594-M001649`
+- `10.5594-M001650`
+- `10.5594-M001651`
+- `10.5594-M001652`
+- `10.5594-M001653`
+- `10.5594-M001654`
+- `10.5594-M001655`
+- `10.5594-M001656`
+- `10.5594-M001657`
+- `10.5594-M001658`
+- `10.5594-M001659`
+- `10.5594-M001660`
+- `10.5594-M001661`
+- `10.5594-M001662`
+- `10.5594-M001663`
+- `10.5594-M001664`
+- `10.5594-M001665`
+- `10.5594-M001666`
+- `10.5594-M001667`
+- `10.5594-M001668`
+- `10.5594-M001669`
+- `10.5594-M001670`
+- `10.5594-M001671`
+- `10.5594-M001672`
+- `10.5594-M001673`
+- `10.5594-M001674`
+- `10.5594-M001675`
+- `10.5594-M001676`
+- `10.5594-M001677`
+- `10.5594-M001678`
+- `10.5594-M001679`
+- `10.5594-M001680`
+- `10.5594-M001681`
+- `10.5594-M001682`
+- `10.5594-M001683`
+- `10.5594-M001684`
+- `10.5594-M001685`
+- `10.5594-M001686`
+- `10.5594-M001687`
+- `10.5594-M001688`
+- `10.5594-M001689`
+- `10.5594-M001690`
+- `10.5594-M001691`
+- `10.5594-M001692`
+- `10.5594-M001693`
+- `10.5594-M001694`
+- `10.5594-M001695`
+- `10.5594-M001696`
+- `10.5594-M001697`
+- `10.5594-M001698`
+- `10.5594-M001699`
+- `10.5594-M001700`
+- `10.5594-M001701`
+- `10.5594-M001702`
+- `10.5594-M001703`
+- `10.5594-M001704`
+- `10.5594-M001705`
+- `10.5594-M001706`
+- `10.5594-M001707`
+- `10.5594-M001708`
+- `10.5594-M001709`
+- `10.5594-M001710`
+- `10.5594-M001711`
+- `10.5594-M001712`
+- `10.5594-M001713`
+- `10.5594-M001714`
+- `10.5594-M001715`
+- `10.5594-M001716`
+- `10.5594-M001717`
+- `10.5594-M001718`
+- `10.5594-M001719`
+- `10.5594-M001720`
+- `10.5594-M001721`
+- `10.5594-M001722`
+- `10.5594-M001723`
+- `10.5594-M001724`
+- `10.5594-M001725`
+- `10.5594-M001726`
+- `10.5594-M001727`
+- `10.5594-M001728`
+- `10.5594-M001729`
+- `10.5594-M001730`
+- `10.5594-M001731`
+- `10.5594-M001732`
+- `10.5594-M001733`
+- `10.5594-M001734`
+- `10.5594-S9781614820048`
+- `10.5594-S9781614820079`
+- `10.5594-S9781614820116`
+- `10.5594-S9781614820130`
+- `10.5594-S9781614820147`
+- `10.5594-S9781614820192`
+- `10.5594-S9781614820215`
+- `10.5594-S9781614820413`
+- `10.5594-S9781614820468`
+- `10.5594-S9781614820475`
+- `10.5594-S9781614820482`
+- `10.5594-S9781614820499`
+- `10.5594-S9781614820505`
+- `10.5594-S9781614820536`
+- `10.5594-S9781614820567`
+- `10.5594-S9781614820574`
+- `10.5594-S9781614820581`
+- `10.5594-S9781614820598`
+- `10.5594-S9781614820604`
+- `10.5594-S9781614820628`
+- `10.5594-S9781614820642`
+- `10.5594-S9781614820697`
+- `10.5594-S9781614820727`
+- `10.5594-S9781614820734`
+- `10.5594-S9781614820833`
+- `10.5594-S9781614820840`
+- `10.5594-S9781614820895`
+- `10.5594-S9781614820901`
+- `10.5594-S9781614820918`
+- `10.5594-S9781614820925`
+- `10.5594-S9781614822509`
+- `10.5594-S9781614822684`
+- `10.5594-S9781614822691`
+- `10.5594-S9781614825616`
+- `10.5594-S9781614825708`
+- `10.5594-S9781614825944`
+- `10.5594-S9781614826880`
+- `10.5594-S9781614826958`
+- `10.5594-S9781614827498`
+- `10.5594-S9781614827856`
+- `10.5594-S9781614827962`
+- `10.5594-S9781614827993`
+- `10.5594-S9781614828006`
+- `10.5594-S9781614828143`
+- `10.5594-S9781614828303`
+- `10.5594-S9781614828310`
+- `10.5594-S9781614828327`
+- `10.5594-S9781614828365`
+- `10.5594-S9781614828433`
+- `10.5594-S9781614828488`
+- `10.5594-S9781614828495`
+- `10.5594-S9781614828501`
+- `10.5594-S9781614828518`
+- `SMPTE.EG2032-4.2007`
+- `SMPTE.RP103.1995`
+- `SMPTE.RP107.1995`
+- `SMPTE.RP163-1992`
+- `SMPTE.RP168-2009`
+- `SMPTE.RP170-1993`
+- `SMPTE.RP171-1993`
+- `SMPTE.RP172-1993`
+- `SMPTE.RP191-1996`
+- `SMPTE.RP2027.2011`
+- `SMPTE.RP2052-10.2010-A1`
+- `SMPTE.RP210.10.2007`
+- `SMPTE.RP210v13.2012`
+- `SMPTE.RP224-11.2011`
+- `SMPTE.RP224-9.2008`
+- `SMPTE.RP224v12.2012`
+- `SMPTE.RP27.1.1989`
+- `SMPTE.RP27.2.1989`
+- `SMPTE.RP27.5.1989`
+- `SMPTE.RP38.1.1989`
+- `SMPTE.RP86.1991`
+- `SMPTE.SMPTE430-3-2008Am2.2012`
+- `SMPTE.SMPTEEG16.2014`
+- `SMPTE.SMPTEST12-3.2016`
+- `SMPTE.SMPTEST2001-1.2015`
+- `SMPTE.SMPTEST217.2015`
+- `SMPTE.ST11-1995`
+- `SMPTE.ST12-1.2013Am1`
+- `SMPTE.ST12-2.2013Am1`
+- `SMPTE.ST165.1999`
+- `SMPTE.ST2021M.2008`
+- `SMPTE.ST2036-0.2013`
+- `SMPTE.ST2036-2-2008`
+- `SMPTE.ST2051.2010AM1.2013`
+- `SMPTE.ST2052-0.2013`
+- `SMPTE.ST292-0.2011`
+- `SMPTE.ST370.2006_Amt1.2009`
+- `SMPTE.ST377-1.2011Amt.2.2012`
+- `SMPTE.ST379M.2004`
+- `SMPTE.ST421-A1.2006`
+- `SMPTE.ST421-A2.2011`
+- `SMPTE.ST425-1.2014Am1`
+- `SMPTE.ST429-9Am1.2010`
+- `SMPTE.ST430-1.2006Am1`
+- `SMPTE.ST430-1.2009Am1`
+- `SMPTE.ST434.2014`
+- `SMPTE.ST435-2.2009`
+- `SMPTE.ST55.2011`
 
-## Registry-only (547 — indexed but no archived source)
-- `SMPTE.AG01`
-- `SMPTE.AG01.2014`
-- `SMPTE.AG01.2020`
-- `SMPTE.AG02`
-- `SMPTE.AG02.2014`
-- `SMPTE.AG02.2015`
-- `SMPTE.AG03`
-- `SMPTE.AG03.2014`
-- `SMPTE.AG04`
-- `SMPTE.AG04.2016`
-- `SMPTE.AG04.EG.2020`
-- `SMPTE.AG04.RP.2020`
-- `SMPTE.AG04.ST.2020`
-- `SMPTE.AG05`
-- `SMPTE.AG05.2018`
-- `SMPTE.AG06`
-- `SMPTE.AG06-01.2020`
-- `SMPTE.AG06-02.2021`
-- `SMPTE.AG06.2016`
-- `SMPTE.AG06.2020`
-- `SMPTE.AG07`
-- `SMPTE.AG07.2016`
-- `SMPTE.AG08`
-- `SMPTE.AG08.2014`
-- `SMPTE.AG10`
-- `SMPTE.AG10.2020`
-- `SMPTE.AG10B`
-- `SMPTE.AG10B.2020`
-- `SMPTE.AG10C`
-- `SMPTE.AG12`
-- `SMPTE.AG12.2017`
-- `SMPTE.AG12.2021`
-- `SMPTE.AG14`
-- `SMPTE.AG14.2014`
-- `SMPTE.AG15`
-- `SMPTE.AG15.2015`
-- `SMPTE.AG16`
-- `SMPTE.AG16.2020`
-- `SMPTE.AG16.2020-08`
-- `SMPTE.AG18`
-- `SMPTE.AG18.2017`
-- `SMPTE.AG19`
-- `SMPTE.AG19.2019`
-- `SMPTE.AG20`
-- `SMPTE.AG20.2019`
-- `SMPTE.AG21`
-- `SMPTE.AG22`
-- `SMPTE.AG22.2018`
-- `SMPTE.AG22.2020`
-- `SMPTE.AG24`
-- `SMPTE.AG24.2019`
-- `SMPTE.AG25`
-- `SMPTE.AG26`
-- `SMPTE.AG27`
-- `SMPTE.AG28`
-- `SMPTE.AG29`
-- `SMPTE.AG30`
-- `SMPTE.AG31`
-- `SMPTE.AG33`
-- `SMPTE.EG10.2003`
-- `SMPTE.EG15.2005`
-- `SMPTE.EG16.2014`
-- `SMPTE.EG17.2002`
-- `SMPTE.EG20.1997`
-- `SMPTE.EG2021-3.2009`
-- `SMPTE.EG2021-3.2019`
-- `SMPTE.EG2021-3.2022`
-- `SMPTE.EG2021-4.2012`
-- `SMPTE.EG2021-4.2017`
-- `SMPTE.EG2032-4.2014`
-- `SMPTE.EG2059-10.2022`
-- `SMPTE.EG2076-2.2016`
-- `SMPTE.EG2098-3.2020`
-- `SMPTE.EG2111-1.2020`
-- `SMPTE.EG2111-2.2018`
-- `SMPTE.EG2111-3.2020`
-- `SMPTE.EG2112-2.2018`
-- `SMPTE.EG2112-2.2020`
-- `SMPTE.EG25.2003`
-- `SMPTE.EG27.2004`
-- `SMPTE.EG428-23`
-- `SMPTE.EG428-23.2026-04`
-- `SMPTE.EG7.1994`
-- `SMPTE.EG9.1995`
-- `SMPTE.ER0989.2014`
-- `SMPTE.ER0994.2014`
-- `SMPTE.ER1006.2021`
-- `SMPTE.ER1008.2022`
-- `SMPTE.J107.9.603.815.1998`
-- `SMPTE.OM.BL.2010`
-- `SMPTE.OM.Mem.2018`
-- `SMPTE.OM.Std`
-- `SMPTE.OM.Std.2015`
-- `SMPTE.OV2021-0.2017`
-- `SMPTE.OV2021-0.2019`
-- `SMPTE.OV2021-0.2020`
-- `SMPTE.OV2036-0.2013`
-- `SMPTE.OV2052-0.2014`
-- `SMPTE.OV2067-0.2018`
-- `SMPTE.OV2067-0.2021`
-- `SMPTE.OV2073-0.2018`
-- `SMPTE.OV2073-0.2023-02`
-- `SMPTE.OV2081-0.2018`
-- `SMPTE.OV2082-0.2018`
-- `SMPTE.OV2110-0.2018`
-- `SMPTE.OV2112-0.2018`
-- `SMPTE.OV292-0.2011`
-- `SMPTE.OV292-0.2018`
-- `SMPTE.PH22-52.1960`
-- `SMPTE.PH22-55.1966`
-- `SMPTE.PubReg.2018`
-- `SMPTE.RA.2021`
-- `SMPTE.RDD1.2003`
-- `SMPTE.RDD14.2010`
-- `SMPTE.RDD15.2007`
-- `SMPTE.RDD16.2008`
-- `SMPTE.RDD17.2009`
-- `SMPTE.RDD18.2010`
-- `SMPTE.RDD18.2021`
-- `SMPTE.RDD2.2007`
-- `SMPTE.RDD20.2010`
-- `SMPTE.RDD25.2014`
-- `SMPTE.RDD26.2014`
-- `SMPTE.RDD28.2014`
-- `SMPTE.RDD29.2018`
-- `SMPTE.RDD3.2008`
-- `SMPTE.RDD30.2014`
-- `SMPTE.RDD31.2014`
-- `SMPTE.RDD32.2014`
-- `SMPTE.RDD32.2017`
-- `SMPTE.RDD36.2022`
-- `SMPTE.RDD4.2005`
-- `SMPTE.RDD44.2017-11`
-- `SMPTE.RDD44.2022`
-- `SMPTE.RDD45.2017`
-- `SMPTE.RDD45.2022`
-- `SMPTE.RDD46.2019`
-- `SMPTE.RDD47.2018`
-- `SMPTE.RDD48.2018`
-- `SMPTE.RDD48.2018Am1.2022`
-- `SMPTE.RDD49.2019`
-- `SMPTE.RDD5.2006`
-- `SMPTE.RDD50.2019`
-- `SMPTE.RDD51.2020`
-- `SMPTE.RDD52.2020`
-- `SMPTE.RDD53`
-- `SMPTE.RDD54.2022`
-- `SMPTE.RDD55.2022`
-- `SMPTE.RDD56.2021`
-- `SMPTE.RDD57.2021`
-- `SMPTE.RDD58.2021`
-- `SMPTE.RDD59-1.2022`
-- `SMPTE.RDD60.2025-05`
-- `SMPTE.RDD61.2025-05`
-- `SMPTE.RDD9.2006`
-- `SMPTE.RP103.1994`
-- `SMPTE.RP105.1994`
-- `SMPTE.RP105.1995`
-- `SMPTE.RP107.1993`
-- `SMPTE.RP141.1990`
-- `SMPTE.RP141.1995`
-- `SMPTE.RP141.2020`
-- `SMPTE.RP16.1993`
-- `SMPTE.RP163.1992`
-- `SMPTE.RP170.1993`
-- `SMPTE.RP171.1993`
-- `SMPTE.RP172.1993`
-- `SMPTE.RP19.2003`
-- `SMPTE.RP191.1996`
-- `SMPTE.RP194.1998`
-- `SMPTE.RP195.1998`
-- `SMPTE.RP20.2003`
-- `SMPTE.RP2021-1.2019`
-- `SMPTE.RP2021-1.2020`
-- `SMPTE.RP2021-9.2009`
-- `SMPTE.RP2021-9.2012`
-- `SMPTE.RP2042-3.2022`
-- `SMPTE.RP2047-1.2022`
-- `SMPTE.RP2047-3.2022`
-- `SMPTE.RP2047-5.2017Am1.2018`
-- `SMPTE.RP2047-5.2022`
-- `SMPTE.RP205.2000`
-- `SMPTE.RP2052-10.2010Am1.2012`
-- `SMPTE.RP2059-15.2022`
-- `SMPTE.RP2073-2.2017`
-- `SMPTE.RP2073-2.2022`
-- `SMPTE.RP2076-1.2016`
-- `SMPTE.RP2079.2018`
-- `SMPTE.RP2091-2.2018`
-- `SMPTE.RP2093.2020`
-- `SMPTE.RP2096-1.2017`
-- `SMPTE.RP2096-2.2017`
-- `SMPTE.RP210.2007`
-- `SMPTE.RP210.2012`
-- `SMPTE.RP2110-23.2019`
-- `SMPTE.RP2110-24.2022`
-- `SMPTE.RP2110-25.2023-04`
-- `SMPTE.RP2112-1.2018`
-- `SMPTE.RP2112-1.2020`
-- `SMPTE.RP2112-11.2018`
-- `SMPTE.RP2112-11.2020`
-- `SMPTE.RP2112-21.2018`
-- `SMPTE.RP2112-21.2020`
-- `SMPTE.RP2129.2023-08`
-- `SMPTE.RP219-2.2016`
-- `SMPTE.RP224.2011`
-- `SMPTE.RP224.2012`
-- `SMPTE.RP268-3.2023-08`
-- `SMPTE.RP27-1.1989`
-- `SMPTE.RP27-2.1989`
-- `SMPTE.RP27-3.1989`
-- `SMPTE.RP27-5.1989`
-- `SMPTE.RP27.4.1994`
-- `SMPTE.RP34.1997`
-- `SMPTE.RP36.1999`
-- `SMPTE.RP38.1989`
-- `SMPTE.RP428-22.2025-06`
-- `SMPTE.RP431-2.2007`
-- `SMPTE.RP47.1999`
-- `SMPTE.RP48.1995`
-- `SMPTE.RP48.1999`
-- `SMPTE.RP49.1995`
-- `SMPTE.RP50.1995`
-- `SMPTE.RP59.1986`
-- `SMPTE.RP59.1995`
-- `SMPTE.RP67.1993`
-- `SMPTE.RP82.1990`
-- `SMPTE.RP82.1995`
-- `SMPTE.RP82.2005`
-- `SMPTE.RP86.1990`
-- `SMPTE.RP9.1995`
-- `SMPTE.RP95.1994`
-- `SMPTE.SGR.21DC.AFR.200707`
-- `SMPTE.SGR.21DC.HFR.201111`
-- `SMPTE.SGR.21DC.S.2005`
-- `SMPTE.ST102.1997`
-- `SMPTE.ST109.1992`
-- `SMPTE.ST109.1998`
-- `SMPTE.ST11.1995`
-- `SMPTE.ST111.1996`
-- `SMPTE.ST112.1994`
-- `SMPTE.ST112.1999`
-- `SMPTE.ST119.1999`
-- `SMPTE.ST12-1.2008`
-- `SMPTE.ST12-1.2008Am1.2013`
-- `SMPTE.ST12-2.2008`
-- `SMPTE.ST12-2.2008Am1.2013`
-- `SMPTE.ST12-3.2016`
-- `SMPTE.ST12.1999`
-- `SMPTE.ST137.1994`
-- `SMPTE.ST139.1986`
-- `SMPTE.ST139.1996`
-- `SMPTE.ST145.1999`
-- `SMPTE.ST149.1994`
-- `SMPTE.ST149.1999`
-- `SMPTE.ST152.1994`
-- `SMPTE.ST154.1993`
-- `SMPTE.ST154.1998`
-- `SMPTE.ST157.1994`
-- `SMPTE.ST160.1990`
-- `SMPTE.ST164.1993`
-- `SMPTE.ST165.1994`
-- `SMPTE.ST166.1999`
-- `SMPTE.ST168.1991`
-- `SMPTE.ST168.1996`
-- `SMPTE.ST185.1993`
-- `SMPTE.ST192.1991`
-- `SMPTE.ST194.1991`
-- `SMPTE.ST194.1997`
-- `SMPTE.ST195.1984`
-- `SMPTE.ST195.1993`
-- `SMPTE.ST196.1993`
-- `SMPTE.ST196.1995`
-- `SMPTE.ST2001-1.2015`
-- `SMPTE.ST2019-1.2016Am1.2022`
-- `SMPTE.ST2019-4.2016Am1.2024`
-- `SMPTE.ST202.1991`
-- `SMPTE.ST202.1998`
-- `SMPTE.ST2021-1.2017`
-- `SMPTE.ST2021-2.2019`
-- `SMPTE.ST2021-4.2018`
-- `SMPTE.ST2021-4.2020`
-- `SMPTE.ST2021-4.2022`
-- `SMPTE.ST2021-4.2023-09`
-- `SMPTE.ST2021.2008`
-- `SMPTE.ST2022-3.2019`
-- `SMPTE.ST2022-7.2018`
-- `SMPTE.ST2022-8.2019`
-- `SMPTE.ST2029.2022`
-- `SMPTE.ST2029.2023-10`
-- `SMPTE.ST2035.2020`
-- `SMPTE.ST2036-2.2008`
-- `SMPTE.ST2036-3.2018`
-- `SMPTE.ST2036-4.2019`
-- `SMPTE.ST2038.2020`
-- `SMPTE.ST2042-1.2022`
-- `SMPTE.ST2042-2.2017`
-- `SMPTE.ST2042-4.2018`
-- `SMPTE.ST2048-1.2024-08`
-- `SMPTE.ST2048-2.2024-08`
-- `SMPTE.ST2048-3.2024-08`
-- `SMPTE.ST2051.2010Am1.2013`
-- `SMPTE.ST2059-1.2020`
-- `SMPTE.ST2059-1.2021`
-- `SMPTE.ST2059-2.2020`
-- `SMPTE.ST2065-1.2020`
-- `SMPTE.ST2065-1.2021`
-- `SMPTE.ST2065-2.2020`
-- `SMPTE.ST2065-3.2020`
-- `SMPTE.ST2065-4.2022`
-- `SMPTE.ST2065-4.2023-02`
-- `SMPTE.ST2065-5.2023-02`
-- `SMPTE.ST2067-100.2014`
-- `SMPTE.ST2067-101.2014`
-- `SMPTE.ST2067-101.2018`
-- `SMPTE.ST2067-102.2014`
-- `SMPTE.ST2067-102.2017`
-- `SMPTE.ST2067-102.2022`
-- `SMPTE.ST2067-103.2014`
-- `SMPTE.ST2067-103.2020`
-- `SMPTE.ST2067-103.2021`
-- `SMPTE.ST2067-2.2013`
-- `SMPTE.ST2067-2.2020`
-- `SMPTE.ST2067-200.2018`
-- `SMPTE.ST2067-201.2019`
-- `SMPTE.ST2067-201.2020`
-- `SMPTE.ST2067-201.2021`
-- `SMPTE.ST2067-201.2026-03`
-- `SMPTE.ST2067-202.2022`
-- `SMPTE.ST2067-203.2023-09`
-- `SMPTE.ST2067-21.2020`
-- `SMPTE.ST2067-21.2020Am1.2020`
-- `SMPTE.ST2067-21.2022`
-- `SMPTE.ST2067-21.2023-02`
-- `SMPTE.ST2067-3.2013`
-- `SMPTE.ST2067-3.2020`
-- `SMPTE.ST2067-40.2016Am1.2017`
-- `SMPTE.ST2067-40.2021`
-- `SMPTE.ST2067-5.2020`
-- `SMPTE.ST2067-50.2018`
-- `SMPTE.ST2067-60.2022`
-- `SMPTE.ST2067-70.2024-08`
-- `SMPTE.ST2067-71.2024-07`
-- `SMPTE.ST2067-9.2018`
-- `SMPTE.ST2073-5.2015`
-- `SMPTE.ST2073-6.2015`
-- `SMPTE.ST2073-7.2022`
-- `SMPTE.ST2081-1.2023-10`
-- `SMPTE.ST2081-10.2018`
-- `SMPTE.ST2081-11.2019`
-- `SMPTE.ST2081-12.2019`
-- `SMPTE.ST2081-30.2017`
-- `SMPTE.ST2082-1.2023-11`
-- `SMPTE.ST2082-10.2018`
-- `SMPTE.ST2082-11.2019`
-- `SMPTE.ST2082-12.2019`
-- `SMPTE.ST2082-30.2017`
-- `SMPTE.ST2086.2018`
-- `SMPTE.ST2088.2019`
-- `SMPTE.ST2094-10.2020`
-- `SMPTE.ST2094-10.2021`
-- `SMPTE.ST2094-2.2023-04`
-- `SMPTE.ST2094-40.2020`
-- `SMPTE.ST2094-60.2025-12`
-- `SMPTE.ST2095-1.2023-09`
-- `SMPTE.ST2098-1.2018`
-- `SMPTE.ST2098-2.2018`
-- `SMPTE.ST2098-2.2019`
-- `SMPTE.ST2098-2.2022`
-- `SMPTE.ST2098-5.2018`
-- `SMPTE.ST2102.2017`
-- `SMPTE.ST2108-1.2018`
-- `SMPTE.ST2108-2.2019`
-- `SMPTE.ST2109.2019`
-- `SMPTE.ST2110-10.2017`
-- `SMPTE.ST2110-10.2022`
-- `SMPTE.ST2110-20.2017`
-- `SMPTE.ST2110-20.2022`
-- `SMPTE.ST2110-21.2017`
-- `SMPTE.ST2110-21.2022`
-- `SMPTE.ST2110-22.2019`
-- `SMPTE.ST2110-22.2022`
-- `SMPTE.ST2110-30.2017`
-- `SMPTE.ST2110-30.2025-10`
-- `SMPTE.ST2110-31.2018`
-- `SMPTE.ST2110-31.2022`
-- `SMPTE.ST2110-40.2018`
-- `SMPTE.ST2110-40.2023-12`
-- `SMPTE.ST2110-41.2024-03`
-- `SMPTE.ST2110-43.2021`
-- `SMPTE.ST2112-10.2018`
-- `SMPTE.ST2112-10.2020`
-- `SMPTE.ST2112-20.2018`
-- `SMPTE.ST2112-20.2020`
-- `SMPTE.ST2113.2018`
-- `SMPTE.ST2115.2019`
-- `SMPTE.ST2115.2020`
-- `SMPTE.ST2116.2019`
-- `SMPTE.ST2117-1.2020`
-- `SMPTE.ST2117-1.2022`
-- `SMPTE.ST2117-10.2024-07`
-- `SMPTE.ST2120-1.2026-03`
-- `SMPTE.ST2122.2020`
-- `SMPTE.ST2123.2020`
-- `SMPTE.ST2123.2021`
-- `SMPTE.ST2123.2021-01`
-- `SMPTE.ST2123.2022`
-- `SMPTE.ST2123.2023-04`
-- `SMPTE.ST2123.2024-03`
-- `SMPTE.ST2123.2025-03`
-- `SMPTE.ST2124.2020`
-- `SMPTE.ST2126.2025-08`
-- `SMPTE.ST2127-1.2022`
-- `SMPTE.ST2127-10.2022`
-- `SMPTE.ST2127-2.2024-03`
-- `SMPTE.ST2134.2025-01`
-- `SMPTE.ST2136-1.2026-02`
-- `SMPTE.ST2139.2025-12`
-- `SMPTE.ST214.1999`
-- `SMPTE.ST217.2015`
-- `SMPTE.ST223.1996`
-- `SMPTE.ST231.1995`
-- `SMPTE.ST231.1999`
-- `SMPTE.ST233.1992`
-- `SMPTE.ST233.1998`
-- `SMPTE.ST237.1998`
-- `SMPTE.ST239.1994`
-- `SMPTE.ST239.1999`
-- `SMPTE.ST242.1993`
-- `SMPTE.ST254.2002`
-- `SMPTE.ST258.1993`
-- `SMPTE.ST268-2.2018`
-- `SMPTE.ST268-2.2018Am1.2022`
-- `SMPTE.ST268-2.2023-06`
-- `SMPTE.ST270.1994`
-- `SMPTE.ST270.2005`
-- `SMPTE.ST271.2002`
-- `SMPTE.ST274.2003`
-- `SMPTE.ST274.2005`
-- `SMPTE.ST292-1.2018`
-- `SMPTE.ST292.2008`
-- `SMPTE.ST298.1997`
-- `SMPTE.ST301.1999`
-- `SMPTE.ST313.1999`
-- `SMPTE.ST313.2005`
-- `SMPTE.ST330.2022`
-- `SMPTE.ST331.2011Am1.2023`
-- `SMPTE.ST334-2.2015`
-- `SMPTE.ST335.2012Am1.2019`
-- `SMPTE.ST336.2001`
-- `SMPTE.ST338.2008`
-- `SMPTE.ST338.2016Am1.2019`
-- `SMPTE.ST352.2002`
-- `SMPTE.ST352.2010`
-- `SMPTE.ST352.2011Am1.2011`
-- `SMPTE.ST370.2006Am1.2009`
-- `SMPTE.ST372.2002`
-- `SMPTE.ST372.2009`
-- `SMPTE.ST372.2017`
-- `SMPTE.ST377-1.2009`
-- `SMPTE.ST377-1.2011Am2.2012`
-- `SMPTE.ST377-1.2019`
-- `SMPTE.ST377-2.2019`
-- `SMPTE.ST377-4.2021`
-- `SMPTE.ST377-41.2021`
-- `SMPTE.ST377-41.2023-04`
-- `SMPTE.ST377-42.2021`
-- `SMPTE.ST381-2.2018`
-- `SMPTE.ST381-3.2017`
-- `SMPTE.ST381-3.2025-01`
-- `SMPTE.ST381-5.2020`
-- `SMPTE.ST381-5.2023-02`
-- `SMPTE.ST382.2022`
-- `SMPTE.ST385.2012Am1.2022`
-- `SMPTE.ST390.2004`
-- `SMPTE.ST40.1997`
-- `SMPTE.ST41.1994`
-- `SMPTE.ST41.1999`
-- `SMPTE.ST421.2006Am1.2007`
-- `SMPTE.ST421.2006Am2.2011`
-- `SMPTE.ST422.2019`
-- `SMPTE.ST422.2022`
-- `SMPTE.ST425-1.2011`
-- `SMPTE.ST425-1.2011Am1.2014`
-- `SMPTE.ST425-1.2017`
-- `SMPTE.ST425-3.2019`
-- `SMPTE.ST425-5.2019`
-- `SMPTE.ST425.2006`
-- `SMPTE.ST425.2008`
-- `SMPTE.ST428-1.2019`
-- `SMPTE.ST428-24.2024-11`
-- `SMPTE.ST428-7.2010`
-- `SMPTE.ST428-7.2014`
-- `SMPTE.ST429-10.2023-09`
-- `SMPTE.ST429-14.2023-09`
-- `SMPTE.ST429-16.2014`
-- `SMPTE.ST429-16.2023-09`
-- `SMPTE.ST429-17.2017`
-- `SMPTE.ST429-18.2019`
-- `SMPTE.ST429-18.2023-09`
-- … 47 more
+## Registry-only (4653 — indexed but no archived source)
+- `10.5594-J00021C1`
+- `10.5594-J00021iiA`
+- `10.5594-J00021iiiiA`
+- `10.5594-J00036C1`
+- `10.5594-J00036iiA`
+- `10.5594-J00036iiiiA`
+- `10.5594-J0005911A`
+- `10.5594-J00059C1`
+- `10.5594-J00059iiA`
+- `10.5594-J00059iiiiA`
+- `10.5594-J00076C1`
+- `10.5594-J00076iiA`
+- `10.5594-J00076iiiiA`
+- `10.5594-J00076iiiiiiA`
+- `10.5594-J00093801801A`
+- `10.5594-J00093C1`
+- `10.5594-J00093iiA`
+- `10.5594-J00113C1`
+- `10.5594-J00113iiA`
+- `10.5594-J00113iiiiA`
+- `10.5594-J00135C1`
+- `10.5594-J00135iiA`
+- `10.5594-J00135iiiiA`
+- `10.5594-J00157C1`
+- `10.5594-J00157C2`
+- `10.5594-J00157C3`
+- `10.5594-J00157iiA`
+- `10.5594-J00157iiiiA`
+- `10.5594-J00178C1`
+- `10.5594-J00178iiA`
+- `10.5594-J00178iiiiA`
+- `10.5594-J00194C1`
+- `10.5594-J00194iiA`
+- `10.5594-J00194iiiiA`
+- `10.5594-J00221C1`
+- `10.5594-J00221C2`
+- `10.5594-J00221C3`
+- `10.5594-J00221iiA`
+- `10.5594-J00221iiiiA`
+- `10.5594-J00244C1`
+- `10.5594-J00244C2`
+- `10.5594-J00244C3`
+- `10.5594-J00244iiA`
+- `10.5594-J00244iiiiA`
+- `10.5594-J00267C1`
+- `10.5594-J00267iiA`
+- `10.5594-J00267iiiiA`
+- `10.5594-J00287C1`
+- `10.5594-J00287iiA`
+- `10.5594-J00287iiiiA`
+- `10.5594-J00305C1`
+- `10.5594-J00305iiA`
+- `10.5594-J00305iiiiA`
+- `10.5594-J00323C1`
+- `10.5594-J00323iiA`
+- `10.5594-J00323iiiiA`
+- `10.5594-J00340C1`
+- `10.5594-J00340iiA`
+- `10.5594-J00340iiiiA`
+- `10.5594-J00369C1`
+- `10.5594-J00369iiA`
+- `10.5594-J00369iiiiA`
+- `10.5594-J00390C1`
+- `10.5594-J00390iiA`
+- `10.5594-J00390iiiiA`
+- `10.5594-J00410C1`
+- `10.5594-J00410iiA`
+- `10.5594-J00410iiiiA`
+- `10.5594-J00427C1`
+- `10.5594-J00427iiA`
+- `10.5594-J00427iiiiA`
+- `10.5594-J00443C1`
+- `10.5594-J00443iiA`
+- `10.5594-J00443iiiiA`
+- `10.5594-J00462C1`
+- `10.5594-J00462iiA`
+- `10.5594-J00478C1`
+- `10.5594-J00478iiA`
+- `10.5594-J00496491492A`
+- `10.5594-J00500C1`
+- `10.5594-J00500iiA`
+- `10.5594-J00522C1`
+- `10.5594-J00522iiA`
+- `10.5594-J00522iiiiA`
+- `10.5594-J00536142142A`
+- `10.5594-J00562202202A`
+- `10.5594-J00562C1`
+- `10.5594-J00563207207A`
+- `10.5594-J00585767767A`
+- `10.5594-J00585768768A`
+- `10.5594-J00585C1`
+- `10.5594-J00609481481A`
+- `10.5594-J00609482482A`
+- `10.5594-J00609C1`
+- `10.5594-J006259259A`
+- `10.5594-J00643371371A`
+- `10.5594-J00643C1`
+- `10.5594-J00643iiA`
+- `10.5594-J006481481A`
+- `10.5594-J006482482A`
+- `10.5594-J00664259259A`
+- `10.5594-J00664C1`
+- `10.5594-J00664C2`
+- `10.5594-J00664iiA`
+- `10.5594-J00688179179A`
+- `10.5594-J00688C1`
+- `10.5594-J00688iiA`
+- `10.5594-J00710C1`
+- `10.5594-J00710iiA`
+- `10.5594-J00710iiiiA`
+- `10.5594-J00728C1`
+- `10.5594-J00728iiA`
+- `10.5594-J00728iiiiA`
+- `10.5594-J00749C1`
+- `10.5594-J00749C2`
+- `10.5594-J00749C3`
+- `10.5594-J00749C4`
+- `10.5594-J00749IIA`
+- `10.5594-J00749IIIIA`
+- `10.5594-J00749IIIIIIA`
+- `10.5594-J00784C1`
+- `10.5594-J00784iiA`
+- `10.5594-J00784iiiiA`
+- `10.5594-J00784iiiiiiA`
+- `10.5594-J007IVIIIA`
+- `10.5594-J008022`
+- `10.5594-J008023`
+- `10.5594-J00802C1`
+- `10.5594-J008181`
+- `10.5594-J00819C1`
+- `10.5594-J00819iiA`
+- `10.5594-J00819iiiiA`
+- `10.5594-J00839C1`
+- `10.5594-J00839iiA`
+- `10.5594-J00839iiiiA`
+- `10.5594-J00866C1`
+- `10.5594-J00866iiA`
+- `10.5594-J00866iiiiA`
+- `10.5594-J00866iiiiiiA`
+- `10.5594-J00884C1`
+- `10.5594-J00884iiA`
+- `10.5594-J00884iiiiA`
+- `10.5594-J00899C1`
+- `10.5594-J00899iiA`
+- `10.5594-J008C1`
+- `10.5594-J008C2`
+- `10.5594-J008C3`
+- `10.5594-J008I`
+- `10.5594-J00914C1`
+- `10.5594-J00914iiA`
+- `10.5594-J00941C1`
+- `10.5594-J00941C2`
+- `10.5594-J00941iiA`
+- `10.5594-J00963C1`
+- `10.5594-J00963iiA`
+- `10.5594-J00980C1`
+- `10.5594-J00980iiA`
+- `10.5594-J00993C1`
+- `10.5594-J00993iiA`
+- `10.5594-J01038C1`
+- `10.5594-J01038iiA`
+- `10.5594-J01060743743A`
+- `10.5594-J01067C1`
+- `10.5594-J01067C2`
+- `10.5594-J01067iiA`
+- `10.5594-J01084C1`
+- `10.5594-J01084iiA`
+- `10.5594-J01104C1`
+- `10.5594-J01104iiA`
+- `10.5594-J01125C1`
+- `10.5594-J01125iiA`
+- `10.5594-J01144C1`
+- `10.5594-J01144C2`
+- `10.5594-J01144iiA`
+- `10.5594-J011544545A`
+- `10.5594-J01167544545A`
+- `10.5594-J01177C1`
+- `10.5594-J01177iiA`
+- `10.5594-J01196C1`
+- `10.5594-J01196C2`
+- `10.5594-J01196iiA`
+- `10.5594-J01215C1`
+- `10.5594-J01215C2`
+- `10.5594-J01215iiA`
+- `10.5594-J01232C1`
+- `10.5594-J01232C2`
+- `10.5594-J01232C3`
+- `10.5594-J01232C4`
+- `10.5594-J01232iiA`
+- `10.5594-J01232iiiiA`
+- `10.5594-J01244C1`
+- `10.5594-J01244iiA`
+- `10.5594-J01244iiiiA`
+- `10.5594-J01256C1`
+- `10.5594-J01256C2`
+- `10.5594-J01256C3`
+- `10.5594-J01256iiA`
+- `10.5594-J01256iiiiA`
+- `10.5594-J01268C1`
+- `10.5594-J01268IIA`
+- `10.5594-J01268IIIA`
+- `10.5594-J01268IIIIA`
+- `10.5594-J01280C1`
+- `10.5594-J01280iiA`
+- `10.5594-J01280iiiiA`
+- `10.5594-J01293C1`
+- `10.5594-J01293iiA`
+- `10.5594-J01293iiiiA`
+- `10.5594-J01306306306A`
+- `10.5594-J01313C1`
+- `10.5594-J01313iiA`
+- `10.5594-J01313iiiiA`
+- `10.5594-J01335C1`
+- `10.5594-J01335iiA`
+- `10.5594-J01335iiiiA`
+- `10.5594-J01348536536A`
+- `10.5594-J01355C1`
+- `10.5594-J01355C2`
+- `10.5594-J01355C3`
+- `10.5594-J01355iiA`
+- `10.5594-J01355iiiiA`
+- `10.5594-J01383C1`
+- `10.5594-J01383C2`
+- `10.5594-J01383C3`
+- `10.5594-J01383iiA`
+- `10.5594-J01383iiiiA`
+- `10.5594-J013868883A`
+- `10.5594-J01399868883A`
+- `10.5594-J01407C1`
+- `10.5594-J01407iiA`
+- `10.5594-J01407iiiiA`
+- `10.5594-J01423C1`
+- `10.5594-J01423iiA`
+- `10.5594-J01423iiiiA`
+- `10.5594-J01444C1`
+- `10.5594-J01444iiA`
+- `10.5594-J01444iiiiA`
+- `10.5594-J01459C1`
+- `10.5594-J01459C2`
+- `10.5594-J01459C3`
+- `10.5594-J01459iiA`
+- `10.5594-J01459iiiiA`
+- `10.5594-J01481C1`
+- `10.5594-J01481iiA`
+- `10.5594-J01481iiiiA`
+- `10.5594-J01498C1`
+- `10.5594-J01498iiA`
+- `10.5594-J01498iiiiA`
+- `10.5594-J01520C1`
+- `10.5594-J01520iiA`
+- `10.5594-J01520iiiiA`
+- `10.5594-J01539C1`
+- `10.5594-J01539C2`
+- `10.5594-J01539C3`
+- `10.5594-J01539iiA`
+- `10.5594-J01539iiiiA`
+- `10.5594-J01558C1`
+- `10.5594-J01558C2`
+- `10.5594-J01558C3`
+- `10.5594-J01558iiA`
+- `10.5594-J01558iiiiA`
+- `10.5594-J01581C1`
+- `10.5594-J01581iiA`
+- `10.5594-J01581iiiiA`
+- `10.5594-J01604C1`
+- `10.5594-J01604C2`
+- `10.5594-J01604iiA`
+- `10.5594-J01627C1`
+- `10.5594-J01627iiA`
+- `10.5594-J01627iiiiA`
+- `10.5594-J0165010931093A`
+- `10.5594-J0165010941094A`
+- `10.5594-J01650C1`
+- `10.5594-J01667401401A`
+- `10.5594-J01667C1`
+- `10.5594-J01667iiA`
+- `10.5594-J01689C1`
+- `10.5594-J01689iiA`
+- `10.5594-J01689iiiiA`
+- `10.5594-J01706C1`
+- `10.5594-J01706iiA`
+- `10.5594-J01706iiiiA`
+- `10.5594-J017186186A`
+- `10.5594-J017219798A`
+- `10.5594-J01725C1`
+- `10.5594-J01725C2`
+- `10.5594-J01725iiA`
+- `10.5594-J01746186186A`
+- `10.5594-J01750C1`
+- `10.5594-J01750C2`
+- `10.5594-J01750iiA`
+- `10.5594-J01778C1`
+- `10.5594-J01778C2`
+- `10.5594-J01778iiA`
+- `10.5594-J01826C1`
+- `10.5594-J01826iiivA`
+- `10.5594-J01847C1`
+- `10.5594-J01847iiA`
+- `10.5594-J01869C1`
+- `10.5594-J01869iiA`
+- `10.5594-J01869iiiiA`
+- `10.5594-J01878182184A`
+- `10.5594-J01883123123A`
+- `10.5594-J01883C1`
+- `10.5594-J01883iiA`
+- `10.5594-J01905C1`
+- `10.5594-J01905IIA`
+- `10.5594-J01905IIIIA`
+- `10.5594-J01905IIIIB`
+- `10.5594-J01952329329A`
+- `10.5594-J01952C1`
+- `10.5594-J01952iiA`
+- `10.5594-J01961C1`
+- `10.5594-J01961C2`
+- `10.5594-J01961C3`
+- `10.5594-J01961iiA`
+- `10.5594-J01961iiiiA`
+- `10.5594-J01982C1`
+- `10.5594-J01982iiA`
+- `10.5594-J01982iiiiA`
+- `10.5594-J02003C1`
+- `10.5594-J02003iiA`
+- `10.5594-J02003iiiiA`
+- `10.5594-J02036C1`
+- `10.5594-J02036iiA`
+- `10.5594-J02047C1`
+- `10.5594-J02047iiA`
+- `10.5594-J02047iiiiA`
+- `10.5594-J020642642A`
+- `10.5594-J020643643A`
+- `10.5594-J02069642642A`
+- `10.5594-J02069643643A`
+- `10.5594-J02069C1`
+- `10.5594-J02069C2`
+- `10.5594-J02069iiA`
+- `10.5594-J0208711A`
+- `10.5594-J02087C1`
+- `10.5594-J02087iiA`
+- `10.5594-J02111A`
+- `10.5594-J02122305305A`
+- `10.5594-J02122C1`
+- `10.5594-J02122iiA`
+- `10.5594-J02122iiiiA`
+- `10.5594-J0214211A`
+- `10.5594-J02142C1`
+- `10.5594-J02142C2`
+- `10.5594-J02142iiA`
+- `10.5594-J02167841841A`
+- `10.5594-J02167C1`
+- `10.5594-J02167C2`
+- `10.5594-J02167iiA`
+- `10.5594-J021769769A`
+- `10.5594-J021841841A`
+- `10.5594-J02185769769A`
+- `10.5594-J02185C1`
+- `10.5594-J02185C2`
+- `10.5594-J02185iiA`
+- `10.5594-J02201673673A`
+- `10.5594-J02201C1`
+- `10.5594-J02201C2`
+- `10.5594-J02201iiA`
+- `10.5594-J02222601601A`
+- `10.5594-J02222C1`
+- `10.5594-J02222iiA`
+- `10.5594-J02239465465A`
+- `10.5594-J02239C1`
+- `10.5594-J02239iiA`
+- `10.5594-J02260393393`
+- `10.5594-J02260C1`
+- `10.5594-J02260iiA`
+- `10.5594-J022673673A`
+- `10.5594-J02280321321A`
+- `10.5594-J02280C1`
+- `10.5594-J02280iiA`
+- `10.5594-J02300225225A`
+- `10.5594-J02300C1`
+- `10.5594-J02300iiA`
+- `10.5594-J02319C1`
+- `10.5594-J02320129129A`
+- `10.5594-J02320iiiiA`
+- `10.5594-J02338C1`
+- `10.5594-J02338iiA`
+- `10.5594-J023396565A`
+- `10.5594-J0235311A`
+- `10.5594-J02355C1`
+- `10.5594-J02355iiA`
+- `10.5594-J02375937937A`
+- `10.5594-J02375C1`
+- `10.5594-J02375C2`
+- `10.5594-J02375C3`
+- `10.5594-J02375iiA`
+- `10.5594-J02375iiiiA`
+- `10.5594-J023937937A`
+- `10.5594-J02403857857A`
+- `10.5594-J02403C1`
+- `10.5594-J02403iiA`
+- `10.5594-J02403iiiiA`
+- `10.5594-J02425777777A`
+- `10.5594-J02425C1`
+- `10.5594-J02425iiA`
+- `10.5594-J02425iiiiA`
+- `10.5594-J02447665665A`
+- `10.5594-J02447C1`
+- `10.5594-J02447iiA`
+- `10.5594-J02447iiiiA`
+- `10.5594-J02473593593A`
+- `10.5594-J02473C1`
+- `10.5594-J02473iiA`
+- `10.5594-J02473iiiiA`
+- `10.5594-J02494153153A`
+- `10.5594-J02494C1`
+- `10.5594-J02494iiA`
+- `10.5594-J02494iiiiA`
+- `10.5594-J025168989A`
+- `10.5594-J02516C1`
+- `10.5594-J02516iiA`
+- `10.5594-J02516iiiiA`
+- `10.5594-J02534969969A`
+- `10.5594-J02534C1`
+- `10.5594-J02534iiA`
+- `10.5594-J02534iiiiA`
+- `10.5594-J02563881881A`
+- `10.5594-J02563C1`
+- `10.5594-J02563iiA`
+- `10.5594-J02563iiiiA`
+- `10.5594-J02583C1`
+- `10.5594-J02583iiA`
+- `10.5594-J02583iiiiA`
+- `10.5594-J02583iiiiiiA`
+- `10.5594-J02606609609A`
+- `10.5594-J02606C1`
+- `10.5594-J02606C2`
+- `10.5594-J02606C3`
+- `10.5594-J02606iiA`
+- `10.5594-J02606iiiiA`
+- `10.5594-J02635729729A`
+- `10.5594-J02635C1`
+- `10.5594-J02635iiA`
+- `10.5594-J02635iiiiA`
+- `10.5594-J02659633633A`
+- `10.5594-J02659C1`
+- `10.5594-J02659C2`
+- `10.5594-J02659C3`
+- `10.5594-J02659iiA`
+- `10.5594-J02659iiiiA`
+- `10.5594-J026609609A`
+- `10.5594-J026633633A`
+- `10.5594-J02686553553A`
+- `10.5594-J02686C1`
+- `10.5594-J02686iiA`
+- `10.5594-J02686iiiiA`
+- `10.5594-J02711481481A`
+- `10.5594-J02711C1`
+- `10.5594-J02711iiA`
+- `10.5594-J027233233A`
+- `10.5594-J02733417417A`
+- `10.5594-J02733C1`
+- `10.5594-J02733iiA`
+- `10.5594-J02733iiiiA`
+- `10.5594-J02754345345A`
+- `10.5594-J02754C1`
+- `10.5594-J02754iiA`
+- `10.5594-J02754iiiiA`
+- `10.5594-J02778233233A`
+- `10.5594-J02778C1`
+- `10.5594-J02778C2`
+- `10.5594-J02778C3`
+- `10.5594-J02778iiA`
+- `10.5594-J02778iiiiA`
+- `10.5594-J02801161161A`
+- `10.5594-J02801C1`
+- `10.5594-J02801iiA`
+- `10.5594-J02801iiiiA`
+- `10.5594-J028219797A`
+- `10.5594-J02821C1`
+- `10.5594-J02821iiA`
+- `10.5594-J02821iiiiA`
+- `10.5594-J02844963963A`
+- `10.5594-J02844C1`
+- `10.5594-J02844iiA`
+- `10.5594-J02844iiiiA`
+- `10.5594-J028675675A`
+- `10.5594-J02867803803A`
+- `10.5594-J02867C1`
+- `10.5594-J02867iiA`
+- `10.5594-J02888675675A`
+- `10.5594-J02888C1`
+- `10.5594-J02888C2`
+- `10.5594-J02888C3`
+- `10.5594-J02888iiA`
+- `10.5594-J02888iiiiA`
+- `10.5594-J02911A`
+- `10.5594-J02916523523A`
+- `10.5594-J02916C1`
+- `10.5594-J02916iiA`
+- `10.5594-J02916iiiiA`
+- `10.5594-J02940443443A`
+- `10.5594-J02940C1`
+- `10.5594-J02940iiA`
+- `10.5594-J0296311A`
+- … 4153 more
 
 ## DOI reconciliation — where filename and XML disagree
 - agree: 5341
@@ -1404,4 +1275,4 @@ Per-field counts of how registry values compare to what the source XML provides.
 - `year`: 20087
 - `docType`: 3
 
-## Unidentifiable (7 — details in JSON)
+## Unidentifiable (8 — details in JSON)
