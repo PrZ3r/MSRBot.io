@@ -175,6 +175,12 @@ const FIELDS = {
   // so the transform reads the whole record (passed as second arg). Output
   // shape matches the registry's existing icsCodes items: {code, description?}.
   // Duplicates within a record are collapsed; comparison sorts both sides.
+  docTitle: {
+    zohoKey: 'Document_Title',
+    path: ['docTitle'],
+    normalize: lower,
+    transform: (raw) => trim(raw),
+  },
   icsCodes: {
     zohoKey: null,
     path: ['icsCodes'],
@@ -306,6 +312,7 @@ const agrees = [];
 const regOnly = [];
 const bothEmpty = [];
 const noMatch = [];
+const locked = []; // docs with $meta.excludeChanges = true on this field
 
 for (const r of zohoRecords) {
   if (!r.DOI_IEEE) continue;
@@ -314,15 +321,22 @@ for (const r of zohoRecords) {
   const doc = byId.get(docId);
   if (!doc) { noMatch.push(docId); continue; }
   const regVal = getDeep(doc, def.path);
+  const regMeta = getDeepMeta(doc, def.path);
   const zohoRaw = def.zohoKey ? r[def.zohoKey] : null;
   const newVal = def.transform(zohoRaw, r);
   const regNorm = def.normalize(regVal);
   const zohoNorm = def.normalize(newVal);
+  // Hard lock — never touch a field whose $meta says excludeChanges: true.
+  // Honoured even with --zoho-wins or --merge-conflicts.
+  if (regMeta && regMeta.excludeChanges === true) {
+    locked.push({ docId, registry: regVal, zoho: newVal });
+    continue;
+  }
   if (!regNorm && !zohoNorm) bothEmpty.push(docId);
   else if (!regNorm && zohoNorm) adds.push({ docId, value: newVal });
   else if (regNorm && !zohoNorm) regOnly.push(docId);
   else if (regNorm === zohoNorm) agrees.push(docId);
-  else conflicts.push({ docId, registry: regVal, registryMeta: getDeepMeta(doc, def.path), zoho: newVal });
+  else conflicts.push({ docId, registry: regVal, registryMeta: regMeta, zoho: newVal });
 }
 
 console.log('');
@@ -336,6 +350,7 @@ console.log(`  Conflict (different values):        ${conflicts.length}`);
 console.log(`  Agree (same value, no-op):          ${agrees.length}`);
 console.log(`  Registry-only (Zoho empty):         ${regOnly.length}`);
 console.log(`  Both empty:                         ${bothEmpty.length}`);
+console.log(`  Locked ($meta.excludeChanges):      ${locked.length}`);
 console.log(`  Zoho records with no registry doc:  ${noMatch.length}`);
 
 function fmtMeta(m) {
