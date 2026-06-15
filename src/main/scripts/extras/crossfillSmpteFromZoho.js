@@ -35,13 +35,16 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // Y) are logged for human review, not written.
 //
 // CLI:
-//   --field <name>     field to cross-fill (required)
-//   --apply            write changes (default dry-run)
-//   --zoho-wins        also overwrite conflicts with Zoho's value, capturing the
-//                      prior registry value into $meta.originalValue and setting
-//                      $meta.overridden: true (audit-traceable replacement).
-//                      Default: never overwrite — conflicts are logged only.
-//   --max-conflicts    cap the conflict list in console output (default 200)
+//   --field <name>      field to cross-fill (required)
+//   --apply             write changes (default dry-run)
+//   --zoho-wins         overwrite conflicts with Zoho's value (audit-traceable
+//                       via $meta.originalValue + overridden: true).
+//   --merge-conflicts   for fields whose def supplies a `conflictMerge`
+//                       function (e.g. icsCodes), union the registry and Zoho
+//                       values rather than overwrite. Use when "conflict"
+//                       really means complementary, not contradictory.
+//                       Mutually exclusive with --zoho-wins.
+//   --max-conflicts     cap the conflict list in console output (default 200)
 //
 // Available fields:
 //   isbn                       string
@@ -67,6 +70,11 @@ const ZOHO_PATH = path.join(REPO_ROOT, '_source', 'SMPTE', 'Zoho',
 
 const APPLY = process.argv.includes('--apply');
 const ZOHO_WINS = process.argv.includes('--zoho-wins');
+const MERGE_CONFLICTS = process.argv.includes('--merge-conflicts');
+if (ZOHO_WINS && MERGE_CONFLICTS) {
+  console.error('Cannot combine --zoho-wins and --merge-conflicts; pick one.');
+  process.exit(1);
+}
 function argStr(name, def) {
   const i = process.argv.indexOf(name);
   return i >= 0 && process.argv[i + 1] != null ? process.argv[i + 1] : def;
@@ -163,6 +171,55 @@ const FIELDS = {
     normalize: (v) => (v === true ? 'true' : (v === false ? 'false' : '')),
     transform: (raw) => (/^withdrawn$/i.test(trim(raw)) ? true : null),
   },
+  // icsCodes derives from three flat Zoho columns rather than a single key,
+  // so the transform reads the whole record (passed as second arg). Output
+  // shape matches the registry's existing icsCodes items: {code, description?}.
+  // Duplicates within a record are collapsed; comparison sorts both sides.
+  icsCodes: {
+    zohoKey: null,
+    path: ['icsCodes'],
+    normalize: (v) => {
+      if (!Array.isArray(v) || !v.length) return '';
+      const dedup = new Map();
+      for (const e of v) {
+        if (!e || !e.code) continue;
+        if (!dedup.has(e.code)) dedup.set(e.code, e.description || '');
+      }
+      const sorted = [...dedup.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+      return JSON.stringify(sorted.map(([code, description]) => ({ code, description })));
+    },
+    transform: (_, r) => {
+      const seen = new Set();
+      const codes = [];
+      for (let i = 1; i <= 3; i += 1) {
+        const code = trim(r[`ICS_Number_Topic_${i}.ICS_Number`]);
+        const desc = trim(r[`ICS_Number_Topic_${i}.ICS_Topic`]);
+        if (!code || seen.has(code)) continue;
+        seen.add(code);
+        const item = { code };
+        if (desc) item.description = desc;
+        codes.push(item);
+      }
+      return codes.length ? codes : null;
+    },
+    // Union the two ICS sets, deduped by code (registry's description wins when
+    // both sides describe the same code). Used with --merge-conflicts.
+    conflictMerge: (regVal, zohoVal) => {
+      const merged = new Map();
+      const lists = [regVal, zohoVal].filter(Array.isArray);
+      for (const arr of lists) {
+        for (const e of arr) {
+          if (!e || !e.code) continue;
+          if (!merged.has(e.code)) merged.set(e.code, e.description || '');
+        }
+      }
+      return [...merged.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([code, description]) => {
+        const item = { code };
+        if (description) item.description = description;
+        return item;
+      });
+    },
+  },
 };
 
 function getDeep(obj, parts) {
@@ -257,8 +314,8 @@ for (const r of zohoRecords) {
   const doc = byId.get(docId);
   if (!doc) { noMatch.push(docId); continue; }
   const regVal = getDeep(doc, def.path);
-  const zohoRaw = r[def.zohoKey];
-  const newVal = def.transform(zohoRaw);
+  const zohoRaw = def.zohoKey ? r[def.zohoKey] : null;
+  const newVal = def.transform(zohoRaw, r);
   const regNorm = def.normalize(regVal);
   const zohoNorm = def.normalize(newVal);
   if (!regNorm && !zohoNorm) bothEmpty.push(docId);
@@ -269,7 +326,11 @@ for (const r of zohoRecords) {
 }
 
 console.log('');
-console.log(`=== Field: ${FIELD}    Mode: ${APPLY ? 'APPLY' : 'DRY-RUN'}${ZOHO_WINS ? ' (Zoho wins on conflicts)' : ''} ===`);
+console.log(`=== Field: ${FIELD}    Mode: ${APPLY ? 'APPLY' : 'DRY-RUN'}${
+  ZOHO_WINS ? ' (Zoho wins on conflicts)' :
+  MERGE_CONFLICTS ? (def.conflictMerge ? ' (merge conflicts)' : ' (merge requested but field has no conflictMerge — conflicts skipped)') :
+  ''
+} ===`);
 console.log(`  Add (registry empty, Zoho fills):  ${adds.length}`);
 console.log(`  Conflict (different values):        ${conflicts.length}`);
 console.log(`  Agree (same value, no-op):          ${agrees.length}`);
@@ -325,19 +386,35 @@ fs.writeFileSync(reportPath, md.join('\n') + '\n');
 console.log(`\nWrote ${path.relative(REPO_ROOT, reportPath)}`);
 
 if (!APPLY) {
-  console.log(`\nDry run — pass --apply to write ${adds.length} adds`
-    + (ZOHO_WINS ? ` + ${conflicts.length} conflict overwrite(s).` : '. Conflicts are never overwritten in default mode.'));
+  let suffix = '. Conflicts are never overwritten in default mode.';
+  if (ZOHO_WINS) suffix = ` + ${conflicts.length} conflict overwrite(s).`;
+  if (MERGE_CONFLICTS && def.conflictMerge) suffix = ` + ${conflicts.length} conflict merge(s).`;
+  console.log(`\nDry run — pass --apply to write ${adds.length} adds${suffix}`);
+  if (MERGE_CONFLICTS && def.conflictMerge && conflicts.length) {
+    console.log(`\n-- Sample merged values (first 3) --`);
+    for (const c of conflicts.slice(0, 3)) {
+      const merged = def.conflictMerge(c.registry, c.zoho);
+      console.log(`  ${c.docId}`);
+      console.log(`    merged = ${JSON.stringify(merged)}`);
+    }
+  }
   process.exit(0);
 }
 
-// Apply: write ADDS and (if --zoho-wins) CONFLICT overwrites. Bypass saveDoc
-// for speed — no index rebuild churn — write straight to docAbsPath.
+// Apply: write ADDS and (if --zoho-wins or --merge-conflicts) the matching
+// conflict resolutions. Bypass saveDoc for speed (no index rebuild churn).
 let writtenAdds = 0;
 let writtenOverwrites = 0;
+let writtenMerges = 0;
 const toWrite = [...adds.map((a) => ({ ...a, kind: 'add' }))];
 if (ZOHO_WINS) {
   for (const c of conflicts) {
     toWrite.push({ docId: c.docId, value: c.zoho, kind: 'overwrite', originalValue: c.registry });
+  }
+} else if (MERGE_CONFLICTS && def.conflictMerge) {
+  for (const c of conflicts) {
+    const merged = def.conflictMerge(c.registry, c.zoho);
+    toWrite.push({ docId: c.docId, value: merged, kind: 'merge', originalValue: c.registry });
   }
 }
 for (const item of toWrite) {
@@ -347,6 +424,9 @@ for (const item of toWrite) {
     fieldMeta.originalValue = item.originalValue == null ? null : item.originalValue;
     fieldMeta.overridden = true;
     fieldMeta.note = `Cross-filled from Zoho standards export (${ZOHO_REL}); Zoho is canonical for SMPTE standards metadata, registry value overwritten`;
+  } else if (item.kind === 'merge') {
+    fieldMeta.originalValue = item.originalValue == null ? null : item.originalValue;
+    fieldMeta.note = `Cross-filled from Zoho standards export (${ZOHO_REL}); registry value merged with Zoho's set (union deduped)`;
   }
   setDeepWithMeta(doc, def.path, item.value, fieldMeta);
   const sorted = sortKeysDeep(doc);
@@ -354,7 +434,11 @@ for (const item of toWrite) {
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, JSON.stringify(sorted, null, 2) + '\n');
   if (item.kind === 'add') writtenAdds += 1;
-  else writtenOverwrites += 1;
+  else if (item.kind === 'overwrite') writtenOverwrites += 1;
+  else writtenMerges += 1;
 }
-console.log(`\nApplied ${writtenAdds} adds${ZOHO_WINS ? ` + ${writtenOverwrites} conflict overwrites` : ''}.`);
+const summary = [`${writtenAdds} adds`];
+if (writtenOverwrites) summary.push(`${writtenOverwrites} overwrites`);
+if (writtenMerges) summary.push(`${writtenMerges} merges`);
+console.log(`\nApplied ${summary.join(' + ')}.`);
 console.log('Reminder: run `npm run canonicalize` and `npm run validate`, then commit.');
