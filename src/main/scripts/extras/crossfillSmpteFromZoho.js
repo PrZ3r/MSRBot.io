@@ -142,6 +142,12 @@ const FIELDS = {
     normalize: dateNorm,
     transform: (raw) => dateNorm(raw),
   },
+  approvalDate: {
+    zohoKey: 'Approval_Date',
+    path: ['approvalDate'],
+    normalize: dateNorm,
+    transform: (raw) => dateNorm(raw),
+  },
 };
 
 function getDeep(obj, parts) {
