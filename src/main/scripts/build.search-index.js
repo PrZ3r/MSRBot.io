@@ -249,6 +249,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
       publisher: d.publisher || 'Unknown',
       docType: d.docType,                  // required field
       docTypeAbr: d.docTypeAbr || null,    // optional abbreviation (e.g., ST, RP)
+      articleType: d.articleType || null,  // journal-article subtype (filter via ?f.articleType=)
       status,                // array of all true flags (no primary)
       statusFlags,           // canonical booleans
       pubDate,               // full canonical date
