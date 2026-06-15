@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-15T18:11:33.952Z",
+  "generatedAt": "2026-06-15T23:04:03.484Z",
   "sourcePath": "src/main/data/docs",
-  "sourceHash": "sha256:2e900bef2eacfbee7fabcff5eaaea6a30ba26e435c081f87d04709f6812ebfaf",
+  "sourceHash": "sha256:ded32d4bc5cc478340f2de631f715ae180422c447093b0ac3e21d8c8403f21ae",
   "publisherCounts": {
-    "total": 26286,
+    "total": 26287,
     "counts": {
-      "SMPTE": 25471,
+      "SMPTE": 25472,
       "IETF": 138,
       "ISO": 108,
       "ISO/IEC": 98,
@@ -193963,7 +193963,7 @@
     }
   },
   "flagSummary": {
-    "totalFlags": 327,
+    "totalFlags": 328,
     "byType": {
       "DOCID_PUBDATE_MISMATCH": {
         "count": 40,
@@ -194620,7 +194620,7 @@
         ]
       },
       "SMPTE_MISSING_RELEASE_TAG": {
-        "count": 118,
+        "count": 119,
         "examples": [
           {
             "lineage": "SMPTE|EG|9|",
@@ -194973,6 +194973,10 @@
           {
             "lineage": "SMPTE|ST|291|",
             "flag": "SMPTE_MISSING_RELEASE_TAG:SMPTE.ST291.2011"
+          },
+          {
+            "lineage": "SMPTE|ST|292|0",
+            "flag": "SMPTE_MISSING_RELEASE_TAG:SMPTE.ST292-0.2011"
           },
           {
             "lineage": "SMPTE|ST|292|",
@@ -221071,7 +221075,7 @@
           "releaseTag": "20140617-pub",
           "statusActive": false,
           "statusSuperseded": true,
-          "statusWithdrawn": false,
+          "statusWithdrawn": true,
           "statusStabilized": false,
           "statusAmended": false,
           "statusVersionless": false
@@ -221094,7 +221098,7 @@
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
       "hasActiveBase": true,
-      "hasWithdrawn": false,
+      "hasWithdrawn": true,
       "hasStabilized": false,
       "latestActiveBaseId": "SMPTE.RDD29.2018",
       "latestSupersededBaseId": "SMPTE.RDD29.2014",
@@ -239813,6 +239817,47 @@
       "latestSupersededBaseId": null,
       "prevBaseId": null,
       "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "SMPTE|ST|292|0",
+      "publisher": "SMPTE",
+      "type": "ST",
+      "number": "292",
+      "part": "0",
+      "suiteTitle": "Serial Digital Interface 1.5 Gb/s",
+      "suiteTitleSource": "unique",
+      "docs": [
+        {
+          "docId": "SMPTE.ST292-0.2011",
+          "publicationDate": "2011-03-11",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "SMPTE.ST292-0.2011",
+      "latestAnyId": "SMPTE.ST292-0.2011",
+      "latestDateKey": "20110311",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "SMPTE.ST292-0.2011",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [
+        "SMPTE_MISSING_RELEASE_TAG:SMPTE.ST292-0.2011"
+      ],
       "counts": {
         "bases": 1,
         "amendments": 0,
@@ -262080,6 +262125,7 @@
       ],
       "lineages": [
         "SMPTE|OV|292|0",
+        "SMPTE|ST|292|0",
         "SMPTE|ST|292|",
         "SMPTE|ST|292|1",
         "SMPTE|ST|292|2"
@@ -262127,10 +262173,10 @@
         "SMPTE.ST292-2.2011"
       ],
       "counts": {
-        "lineages": 4,
+        "lineages": 5,
         "parts": 3,
-        "docs": 7,
-        "bases": 7,
+        "docs": 8,
+        "bases": 8,
         "amendments": 0,
         "supplements": 0
       },

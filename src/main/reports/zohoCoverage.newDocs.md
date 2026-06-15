@@ -1,132 +1,196 @@
-# Zoho coverage — 115 Zoho-only docs categorised — 2026-06-15T21:02:08.701Z
+# Zoho Coverage — Categorised — 2026-06-15T23:01:21.725Z
 
 Source: `_source/SMPTE/Zoho/SMPTE Standards Document Zoho Export 2026-05-21.json`
 
-## Categories
+## Summary
 
 | Category | Count | Action |
 |---|---|---|
-| `junk` | 4 | skip (double-prefix `SMPTE.SMPTE*` from malformed DOI source) |
-| `punct-only` | 10 | no action — same doc as registry under different separator; fix `doiToDocId` to normalise |
-| `new-edition` | 89 | coverage add (newer year version of existing standard) |
-| `brand-new` | 12 | coverage add (no older sibling in registry; revisits the inventory "garbage" 48 assumption) |
+| `junk` | 0 | already handled via fix script (Pattern 1) |
+| `punct-only` | 0 | already handled via fix script (Pattern 2) |
+| `doi-match` | 75 | already in registry, doi field matches Zoho — no action |
+| `new-edition` | 39 | needs triage — see year-delta sub-groups |
+| `brand-new` | 0 | needs coverage import |
+| **total** | **114** | |
 
-## Records
+## new-edition — by year delta (Zoho year − closest sibling year)
 
-| Category | Zoho docId | docType | Status | Modifier | Doc # | Pub Date | ISBN | Title | Registry match / siblings |
-|---|---|---|---|---|---|---|---|---|---|
-| junk | `SMPTE.SMPTERDD56.2021` | Standard | Active |  | SMPTE RDD 56:2021 | 2021-08-17 | 978-1-68303-253-3 | Track File for JPEG 2000 Codestreams with Time-Synchronous Metadata |  |
-| junk | `SMPTE.SMPTERDD58.2021` | Standard | Active |  | SMPTE RDD 58:2021 | 2021-08-16 | 978-1-68303-249-6 | Carriage of Live Production Metadata |  |
-| junk | `SMPTE.SMPTEST2110-43.2021` | Standard | Active |  | SMPTE ST 2110-43:2021 | 2021-08-16 | 978-1-68303-252-6 | Professional Media Over Managed IP Networks: Timed Text Markup Language for Capt |  |
-| junk | `SMPTE.SMPTEST377-42.2021` | Standard | Active |  | SMPTE ST 377-42:2021 | 2021-08-16 | 978-1-68303-251-9 | MCA Label Controlled Vocabulary |  |
-| punct-only | `SMPTE.OV2067-0-2021` | Overview Document | Active |  | OV 2067-0-2021 | 2021-08-16 | 978-1-68303-248-9 | Interoperable Master Format | `SMPTE.OV2067-0.2021` |
-| punct-only | `SMPTE.RP163-1992` | Recommended Practice | Active | Stable | RP 163-1992 | 1992-09-01 | 978-1-61482-178-6 | Television - System Service Messages | `SMPTE.RP163.1992` |
-| punct-only | `SMPTE.RP170-1993` | Recommended Practice | Active | Stable | RP 170-1993 | 1993-07-01 | 978-1-61482-184-7 | Video Tape Recorder Type-Specific Messages for Digital Control Interface Annex A | `SMPTE.RP170.1993` |
-| punct-only | `SMPTE.RP171-1993` | Recommended Practice | Active | Stable | RP 171-1993 | 1993-07-01 | 978-1-61482-185-4 | Type-Specific Messages for Digital Control Interface of Analog Audio Tape Record | `SMPTE.RP171.1993` |
-| punct-only | `SMPTE.RP172-1993` | Recommended Practice | Active | Stable | RP 172-1993 | 1993-07-01 | 978-1-61482-186-1 | Common Messages for Digital Control Interface | `SMPTE.RP172.1993` |
-| punct-only | `SMPTE.RP191-1996` | Recommended Practice | Active | Stable | RP 191-1996 | 1996-09-01 | 978-1-61482-204-2 | Routing Switcher Type-Specific Messages for Remote Control of Broadcast Equipmen | `SMPTE.RP191.1996` |
-| punct-only | `SMPTE.RP27.1.1989` | Recommended Practice | Active | Stable | RP 27.1:1989 | 1989-02-28 | 978-1-61482-077-2 | Specifications for Operational Alignment Test Pattern for Television | `SMPTE.RP27-1.1989` |
-| punct-only | `SMPTE.RP27.2.1989` | Recommended Practice | Active | Stable | RP 27.2:1989 | 1989-02-28 | 978-1-61482-078-9 | Specifications for Operational Registration Test Pattern for Multiple-Channel Te | `SMPTE.RP27-2.1989` |
-| punct-only | `SMPTE.RP27.5.1989` | Recommended Practice | Active | Stable | RP 27.5:1989 | 1989-03-29 | 978-1-61482-081-9 | Specifications for Mid-Frequency Response Test Pattern for Television | `SMPTE.RP27-5.1989` |
-| punct-only | `SMPTE.ST11-1995` | Standard | Active | Stable | ST 11-1995 | 1995-02-13 | 978-1-61482-267-7 | Video Recording - Quadruplex Recorders Operating at 7.5 in/s - Audio Level and M | `SMPTE.ST11.1995` |
-| new-edition | `SMPTE.EG2032-4.2007` | Engineering Guideline | Active | Stable | EG 2032-4:2007 | 2007-01-01 | 978-1-61482-043-7 | Media Dispatch Protocol (MDP) - Engineering Guideline (Informative)   | `SMPTE.EG2032-4.2014` |
-| new-edition | `SMPTE.EG2059-10.2023` | Engineering Guideline | Active |  | EG 2059-10:2023 | 2023-08-08 | 978-1-68303-306-6 | Introduction to the New Synchronization System (SMPTE ST 2059) | `SMPTE.EG2059-10.2016`, `SMPTE.EG2059-10.2022` |
-| new-edition | `SMPTE.EG2111-1.2021` | Engineering Guideline | Active |  | EG 2111-1:2021 | 2021-04-09 | 978-1-68303-242-7 | SD-SDI and HD-SDI Standards Roadmap | `SMPTE.EG2111-1.2020` |
-| new-edition | `SMPTE.EG2111-2.2019` | Engineering Guideline | Active |  | EG 2111-2:2019 | 2019-07-23 | 978-1-68303-184-0 | 3/6/12 & 24 Gbit/s SDI Standards Roadmap | `SMPTE.EG2111-2.2018` |
-| new-edition | `SMPTE.EG2111-3.2021` | Engineering Guideline | Active |  | EG 2111-3:2021 | 2021-04-09 | 978-1-68303-243-4 | 10G-SDI Standards Roadmap | `SMPTE.EG2111-3.2020` |
-| new-edition | `SMPTE.OV2052-0.2013` | Overview Document | Active |  | OV 2052-0:2013 | 2014-08-14 | 978-1-61482-891-4 | SMPTE-TT and Format Translation – Roadmap for the 2052 Document Suite | `SMPTE.OV2052-0.2010`, `SMPTE.OV2052-0.2014` |
-| new-edition | `SMPTE.OV2073-0.2023` | Overview Document | Active |  | OV 2073-0:2023 | 2023-04-15 | 978-1-68303-291-5 | VC-5 Video Essence – Document Suite Overview | `SMPTE.OV2073-0.2016`, `SMPTE.OV2073-0.2018`, `SMPTE.OV2073-0.2023-02` |
-| new-edition | `SMPTE.OV425-0.2012-06` | Overview Document | Inactive | Superseded | OV 425-0:2012-06 | 2012-06-21 | 978-1-61482-893-8 | SMPTE Bit-Serial Interfaces at 3 Gb/s — Roadmap for the 425 Document Suite | `SMPTE.OV425-0.2011`, `SMPTE.OV425-0.2012`, `SMPTE.OV425-0.2014` |
-| new-edition | `SMPTE.RDD29.2019` | Standard | Active |  | RDD 29:2019 | 2019-01-24 | 978-1-68303-168-0 | Dolby Atmos® Bitstream Specification | `SMPTE.RDD29.2014`, `SMPTE.RDD29.2018` |
-| new-edition | `SMPTE.RDD48.2018Amd1.2022` | Standard | Active |  | RDD 48:2018 Amd 1:2022 | 2022-05-24 | 978-1-68303-260-1 | MXF Archive and Preservation Format Application Specification – Amendment 1 | `SMPTE.RDD48.2018`, `SMPTE.RDD48.2018Am1.2022` |
-| new-edition | `SMPTE.RDD60.2025` | Registered Disclosure Document | Active |  | RDD 60:2025 | 2025-06-06 | 978-1-68303-345-5 | Material Exchange Format (MXF) — Mapping Immersive Audio Bitstream into the MXF  | `SMPTE.RDD60.2025-05` |
-| new-edition | `SMPTE.RDD61.2025` | Registered Disclosure Document | Active |  | RDD 61:2025 | 2025-06-13 | 978-1-68303-346-2 | Material Exchange Format — Mapping ARRICORE Bitstreams into the MXF Generic Cont | `SMPTE.RDD61.2025-05` |
-| new-edition | `SMPTE.RP103.1995` | Recommended Practice | Active | Stable | RP 103:1995 | 1995-01-01 | 978-1-61482-130-4 | Care, Storage, Operation, Handling and Shipping of Magnetic Tape for Television | `SMPTE.RP103.1994` |
-| new-edition | `SMPTE.RP107.1995` | Recommended Practice | Active | Stable | RP 107:1995 | 1995-01-01 | 978-1-61482-134-2 | Video and Audio Reference Tape for 1-in Type B Helical-Scan Format | `SMPTE.RP107.1993` |
-| new-edition | `SMPTE.RP2047-1.2023` | Recommended Practice | Active |  | RP 2047-1:2023 | 2023-04-15 | 978-1-68303-292-2 | VC-2 Mezzanine Level Compression of 1080P High Definition Video Sources | `SMPTE.RP2047-1.2009`, `SMPTE.RP2047-1.2022` |
-| new-edition | `SMPTE.RP2047-3.2023` | Recommended Practice | Active |  | RP 2047-3:2023 | 2023-04-15 | 978-1-68303-293-9 | VC-2 Level 65 Compression of High Definition Video Sources for Use with a Standa | `SMPTE.RP2047-3.2011`, `SMPTE.RP2047-3.2016`, `SMPTE.RP2047-3.2022` |
-| new-edition | `SMPTE.RP2059-15.2023` | Recommended Practice | Active |  | RP 2059-15:2023 | 2023-11-30 | 978-1-68303-310-3 | YANG Data Model for ST 2059-2 PTP Device Monitoring in Professional Broadcast Ap | `SMPTE.RP2059-15.2022` |
-| new-edition | `SMPTE.RP2110-24.2023` | Recommended Practice | Active |  | RP 2110-24:2023 | 2023-02-20 | 978-1-68303-285-4 | Special Considerations for Standard Definition Video Using SMPTE ST 2110-20 | `SMPTE.RP2110-24.2022` |
-| new-edition | `SMPTE.RP2110-25.2023` | Recommended Practice | Active |  | RP 2110-25:2023 | 2023-07-06 | 978-1-68303-302-8 | Professional Media over Managed IP Networks: Measurement Practices | `SMPTE.RP2110-25.2023-04` |
-| new-edition | `SMPTE.RP2129.2023` | Recommended Practice | Active |  | RP 2129:2023 | 2023-11-30 | 978-1-68303-311-0 | Inter-Entity Trust Boundary | `SMPTE.RP2129.2023-08` |
-| new-edition | `SMPTE.RP268-3.2023` | Recommended Practice | Active |  | RP 268-3:2023 | 2023-11-22 | 978-1-68303-308-0 | Reference Materials for DPX V2.0 HDR Implementations | `SMPTE.RP268-3.2023-08` |
-| new-edition | `SMPTE.RP34.1998` | Recommended Practice | Active | Stable | RP 34:1998 | 1998-01-01 | 978-1-61482-083-3 | Dimensions for 16-mm Motion-Picture Projector Reel Spindles | `SMPTE.RP34.1997` |
-| new-edition | `SMPTE.RP428-22.2025` | Recommended Practice | Active |  | RP 428-22:2025 | 2025-07-21 | 978-1-68303-347-9 | D-Cinema Distribution Master — Minimal Timed Text XML Requirements | `SMPTE.RP428-22.2025-06` |
-| new-edition | `SMPTE.RP86.1991` | Recommended Practice | Active | Stable | RP 86:1991 | 1991-01-01 | 978-1-61482-119-9 | Video Record Parameters for 1-in Type C Helical-Scan Television Tape Recording   | `SMPTE.RP86.1990` |
-| new-edition | `SMPTE.ST165.1999` | Standard | Active | Stable | ST 165:1999 | 1994-01-31 | 978-1-61482-331-5 | Motion-Picture Film (35-mm) - Perforated 8-mm Type S, 5R (1-3-5-7-0) | `SMPTE.ST165.1994` |
-| new-edition | `SMPTE.ST2019-1.2016Amd1.2023` | Standard | Active |  | ST 2019-1:2016 Amd 1:2023 | 2023-04-15 | 978-1-68303-295-3 | VC-3 Picture Compression and Data Stream Format – Amendment 1 | `SMPTE.ST2019-1.2008`, `SMPTE.ST2019-1.2014`, `SMPTE.ST2019-1.2016`, `SMPTE.ST2019-1.2016Am1.2022` |
-| new-edition | `SMPTE.ST2019-4.2016Amd1.2024` | Standard | Active |  | ST 2019-4:2016 Amd1:2024 | 2024-05-02 | 978-1-68303-329-5 | Mapping VC-3 Coding Units into the MXF Generic Container – Amendment 1 | `SMPTE.ST2019-4.2009`, `SMPTE.ST2019-4.2014`, `SMPTE.ST2019-4.2016`, `SMPTE.ST2019-4.2016Am1.2024` |
-| new-edition | `SMPTE.ST2021-4.2023` | Standard | Active |  | ST 2021-4:2023 | 2024-02-14 | 978-1-68303-321-9 | Broadcast Exchange Format (BXF) Schema Documentation | `SMPTE.ST2021-4.2018`, `SMPTE.ST2021-4.2020`, `SMPTE.ST2021-4.2022`, `SMPTE.ST2021-4.2023-09` |
-| new-edition | `SMPTE.ST2022-7.2019` | Standard | Active |  | ST 2022-7:2019 | 2019-05-13 | 978-1-68303-176-5 | Seamless Protection Switching of RTP Datagrams | `SMPTE.ST2022-7.2013`, `SMPTE.ST2022-7.2018` |
-| new-edition | `SMPTE.ST2029.2023` | Standard | Active |  | ST 2029:2023 | 2023-04-15 | 978-1-68303-296-0 | Uniform Resource Names for SMPTE Resources | `SMPTE.ST2029.2009`, `SMPTE.ST2029.2022`, `SMPTE.ST2029.2023-10` |
-| new-edition | `SMPTE.ST2038.2021` | Standard | Active |  | ST 2038:2021 | 2021-01-28 | 978-1-68303-240-3 | Carriage of Ancillary Data Packets in an MPEG-2 Transport Stream | `SMPTE.ST2038.2008`, `SMPTE.ST2038.2020` |
-| new-edition | `SMPTE.ST2048-1.2024` | Standard | Active |  | ST 2048-1:2024 | 2024-12-09 | 978-1-68303-336-3 | 2048 × 1080 and 4096 × 2160 Digital Cinematography Production Image Formats FS/7 | `SMPTE.ST2048-1.2011`, `SMPTE.ST2048-1.2011Am1.2016`, `SMPTE.ST2048-1.2024-08` |
-| new-edition | `SMPTE.ST2048-2.2024` | Standard | Active |  | ST 2048-2:2024 | 2024-12-12 | 978-1-68303-337-0 | 2048 × 1080 Digital Cinematography Production Image FS/709 Formatting for Serial | `SMPTE.ST2048-2.2011`, `SMPTE.ST2048-2.2024-08` |
-| new-edition | `SMPTE.ST2048-3.2024` | Standard | Active |  | ST 2048-3:2024 | 2024-12-12 | 978-1-68303-338-7 | 4096 × 2160 Digital Cinematography Production Image Formats FS/709 — Mapping int | `SMPTE.ST2048-3.2012`, `SMPTE.ST2048-3.2024-08` |
-| new-edition | `SMPTE.ST2059-2.2021` | Standard | Active |  | ST 2059-2:2021 | 2021-06-04 | 978-1-68303-246-5 | SMPTE Profile for Use of IEEE-1588 Precision Time Protocol in Professional Broad | `SMPTE.ST2059-2.2015`, `SMPTE.ST2059-2.2020` |
-| new-edition | `SMPTE.ST2065-4.2023` | Standard | Active |  | ST 2065-4:2023 | 2023-02-20 | 978-1-68303-286-1 | ACES Image Container File Layout | `SMPTE.ST2065-4.2013`, `SMPTE.ST2065-4.2022`, `SMPTE.ST2065-4.2023-02` |
-| new-edition | `SMPTE.ST2065-5.2023` | Standard | Active |  | ST 2065-5:2023 | 2023-07-06 | 978-1-68303-299-1 | Material Exchange Format — Mapping ACES Image Sequences into the MXF Generic Con | `SMPTE.ST2065-5.2016`, `SMPTE.ST2065-5.2023-02` |
-| new-edition | `SMPTE.ST2067-202.2023` | Standard | Active |  | ST 2067-202:2023 | 2023-07-06 | 978-1-68303-298-4 | Interoperable Master Format – Isochronous Stream of XML Documents (ISXD) Plug-in | `SMPTE.ST2067-202.2022` |
-| new-edition | `SMPTE.ST2067-203.2023` | Standard | Active |  | ST 2067-203:2023 | 2023-11-22 | 978-1-68303-309-7 | Interoperable Master Format — Audio with Frame-based S-ADM Metadata Plug-in | `SMPTE.ST2067-203.2023-09` |
-| new-edition | `SMPTE.ST2067-21.2023` | Standard | Active |  | ST 2067-21:2023 | 2023-02-20 | 978-1-68303-287-8 | Interoperable Master Format — Application #2E | `SMPTE.ST2067-21.2014`, `SMPTE.ST2067-21.2016`, `SMPTE.ST2067-21.2020`, `SMPTE.ST2067-21.2020Am1.2020`, `SMPTE.ST2067-21.2022`, `SMPTE.ST2067-21.2023-02` |
-| new-edition | `SMPTE.ST2067-60.2023` | Standard | Active |  | ST 2067-60:2023 | 2023-02-20 | 978-1-68303-288-5 | Interoperable Master Format — Application #6 UHDTV Program Workflow (AVC) | `SMPTE.ST2067-60.2022` |
-| new-edition | `SMPTE.ST2067-70.2024` | Standard | Active |  | ST 2067-70:2024 | 2024-09-03 | 978-1-68303-333-2 | Interoperable Master Format — Application SMPTE ST 2019-1 (VC-3) | `SMPTE.ST2067-70.2024-08` |
-| new-edition | `SMPTE.ST2067-71.2024` | Standard | Active |  | ST 2067-71:2024 | 2024-12-05 | 978-1-68303-339-4 | Interoperable Master Format — Application SMPTE ST 2117-1 (VC-6) | `SMPTE.ST2067-71.2024-07` |
-| new-edition | `SMPTE.ST2081-1.2023` | Standard | Active |  | ST 2081-1:2023 | 2024-07-22 | 978-1-68303-331-8 | 6 Gb/s Signal/Data Serial Interface — Electrical | `SMPTE.ST2081-1.2015`, `SMPTE.ST2081-1.2015Am1.2016`, `SMPTE.ST2081-1.2023-10` |
-| new-edition | `SMPTE.ST2082-1.2023` | Standard | Active |  | ST 2082-1:2023 | 2024-07-23 | 978-1-68303-332-5 | 12 Gb/s Signal/Data Serial Interface — Electrical | `SMPTE.ST2082-1.2015`, `SMPTE.ST2082-1.2015Am1.2016`, `SMPTE.ST2082-1.2023-11` |
-| new-edition | `SMPTE.ST2094-2.2023` | Standard | Active |  | ST 2094-2:2023 | 2023-07-06 | 978-1-68303-301-1 | Dynamic Metadata for Color Volume Transform — KLV Encoding and MXF Mapping | `SMPTE.ST2094-2.2017`, `SMPTE.ST2094-2.2023-04` |
-| new-edition | `SMPTE.ST2094-60.2025` | Standard | Active |  | ST 2094-60:2025 | 2025-12-16 | 978-1-68303-350-9 | Dynamic Range Conversion Characterization Metadata — Application #6 | `SMPTE.ST2094-60.2025-12` |
-| new-edition | `SMPTE.ST2095-1.2023` | Standard | Active |  | ST 2095-1:2023 | 2024-02-14 | 978-1-68303-313-4 | Calibration Reference Wideband Digital Pink Noise Signal | `SMPTE.ST2095-1.2015`, `SMPTE.ST2095-1.2023-09` |
-| new-edition | `SMPTE.ST2110-30.2025` | Standard | Active |  | ST 2110-30:2025 | 2025-10-14 | 978-1-68303-349-3 | Professional Media over Managed IP Networks — PCM Digital Audio | `SMPTE.ST2110-30.2017`, `SMPTE.ST2110-30.2025-10` |
-| new-edition | `SMPTE.ST2110-40.2023` | Standard | Active |  | ST 2110-40:2023 | 2023-02-23 | 978-1-68303-290-8 | Professional Media over Managed IP Networks: SMPTE ST 291-1 Ancillary Data | `SMPTE.ST2110-40.2018`, `SMPTE.ST2110-40.2023-12` |
-| new-edition | `SMPTE.ST2110-41.2024` | Standard | Active | N/A | ST 2110-41:2024 | 2024-05-01 | 978-1-68303-327-1 | Professional Media over Managed IP Networks: Fast Metadata Framework | `SMPTE.ST2110-41.2024-03` |
-| new-edition | `SMPTE.ST2117-1.2023` | Standard | Active |  | ST 2117-1:2023 | 2023-11-22 | 978-1-68303-307-3 | VC-6 Multiplanar Picture Format – Part 1: Elementary Bitstream | `SMPTE.ST2117-1.2020`, `SMPTE.ST2117-1.2022` |
-| new-edition | `SMPTE.ST2117-10.2024` | Standard | Active |  | ST 2117-10:2024 | 2024-11-21 | 978-1-68303-340-0 | VC-6 Video Compression — Mapping VC-6 into the MXF Generic Container | `SMPTE.ST2117-10.2024-07` |
-| new-edition | `SMPTE.ST2123.2021-08` | Standard | Superseded | Superseded | ST 2123:2021-08 | 2021-10-18 | 978-1-68303-255-7 | SMPTE Metadata Registers | `SMPTE.ST2123.2020`, `SMPTE.ST2123.2021`, `SMPTE.ST2123.2021-01`, `SMPTE.ST2123.2022`, `SMPTE.ST2123.2023-04`, `SMPTE.ST2123.2024-03`, `SMPTE.ST2123.2025-03` |
-| new-edition | `SMPTE.ST2123.2024-05` | Standard | Active | Superseded | ST 2123:2024-05 | 2024-05-09 | 978-1-68303-330-1 | SMPTE Metadata Registers | `SMPTE.ST2123.2020`, `SMPTE.ST2123.2021`, `SMPTE.ST2123.2021-01`, `SMPTE.ST2123.2022`, `SMPTE.ST2123.2023-04`, `SMPTE.ST2123.2024-03`, `SMPTE.ST2123.2025-03` |
-| new-edition | `SMPTE.ST2126.2025` | Standard | Active |  | ST 2126:2025 | 2025-09-15 | 978-1-68303-348-6 | Microservice Status Reporting and Logging | `SMPTE.ST2126.2025-08` |
-| new-edition | `SMPTE.ST2127-2-2024` | Standard | Active | N/A | ST 2127-2-2024 | 2024-05-01 | 978-1-68303-326-4 | Mapping MGA Audio Metadata to ST 2110-41 | `SMPTE.ST2127-2.2024-03` |
-| new-edition | `SMPTE.ST2134.2025` | Standard | Active |  | ST 2134:2025 | 2025-05-28 | 978-1-68303-344-8 | MXF Descriptive Metadata Scheme for Compatible Time Labels (DMS-TLC) | `SMPTE.ST2134.2025-01` |
-| new-edition | `SMPTE.ST2136-1.2026` | Standard | Active |  | ST 2136-1:2026 | 2026-03-20 | 978-1-68303-352-3 | Common LUT Format — Core Specification | `SMPTE.ST2136-1.2026-02` |
-| new-edition | `SMPTE.ST2139.2025` | Standard | Active |  | ST 2139:2025 | 2025-12-18 | 978-1-68303-351-6 | Signal Sync Alternate Mode | `SMPTE.ST2139.2025-12` |
-| new-edition | `SMPTE.ST268-2.2018Amd1.2022` | Standard | Superseded | Superseded | ST 268-2:2018 Amd 1:2022 | 2022-05-04 | 978-1-68303-259-5 | Digital Moving-Picture Exchange (DPX) – Format Extensions for High Dynamic Range | `SMPTE.ST268-2.2018`, `SMPTE.ST268-2.2018Am1.2022`, `SMPTE.ST268-2.2023-06` |
-| new-edition | `SMPTE.ST268-2.2023` | Standard | Active |  | ST 268-2:2023 | 2023-08-08 | 978-1-68303-305-9 | Digital Moving Picture Exchange (DPX) – Format Extensions for High Dynamic Range | `SMPTE.ST268-2.2018`, `SMPTE.ST268-2.2018Am1.2022`, `SMPTE.ST268-2.2023-06` |
-| new-edition | `SMPTE.ST331.2011Amd1.2023` | Standard | Active |  | ST 331:2011 Amd 1:2023 | 2024-02-06 | 978-1-68303-312-7 | Elements and Metadata Definitions for the SDTI-CP – Amendment 1 | `SMPTE.ST331.2004`, `SMPTE.ST331.2011`, `SMPTE.ST331.2011Am1.2023` |
-| new-edition | `SMPTE.ST377-41.2023` | Standard | Active |  | ST 377-41:2023 | 2023-08-08 | 978-1-68303-304-2 | MXF Multichannel Audio Controlled Vocabulary: Content Property Values | `SMPTE.ST377-41.2021`, `SMPTE.ST377-41.2023-04` |
-| new-edition | `SMPTE.ST381-3.2025` | Standard | Active |  | ST 381-3:2025 | 2025-03-20 | 978-1-68303-342-4 | Material Exchange Format — Mapping AVC Streams into the MXF Generic Container | `SMPTE.ST381-3.2013`, `SMPTE.ST381-3.2017`, `SMPTE.ST381-3.2025-01` |
-| new-edition | `SMPTE.ST381-5.2023` | Standard | Active |  | ST 381-5:2023 | 2023-07-17 | 978-1-68303-303-5 | Material Exchange Format — Mapping HEVC Streams into the MXF Generic Container | `SMPTE.ST381-5.2020`, `SMPTE.ST381-5.2023-02` |
-| new-edition | `SMPTE.ST382.2023` | Standard | Active |  | ST 382:2023 | 2023-04-15 | 978-1-68303-294-6 | Material Exchange Format — Mapping AES3 and Broadcast Wave Audio into the MXF Ge | `SMPTE.ST382.2007`, `SMPTE.ST382.2007Am1.2012`, `SMPTE.ST382.2007Am2.2013`, `SMPTE.ST382.2022` |
-| new-edition | `SMPTE.ST385.2012Amd1.2023` | Standard | Active |  | ST 385:2012 Amd 1:2023 | 2023-02-23 | 978-1-68303-289-2 | Material Exchange Format (MXF) — Mapping SDTI-CP Essence and Metadata into the M | `SMPTE.ST385.2004`, `SMPTE.ST385.2012`, `SMPTE.ST385.2012Am1.2022` |
-| new-edition | `SMPTE.ST428-24.2024` | Standard | Active |  | ST 428-24:2024 | 2025-01-10 | 978-1-68303-341-7 | D-Cinema Distribution Master — Packed Image | `SMPTE.ST428-24.2024-11` |
-| new-edition | `SMPTE.ST429-10.2023` | Standard | Active |  | ST 429-10:2023 | 2024-02-14 | 978-1-68303-319-6 | D-Cinema Packaging —Stereoscopic Picture Track File | `SMPTE.ST429-10.2008`, `SMPTE.ST429-10.2023-09` |
-| new-edition | `SMPTE.ST429-14.2023` | Standard | Active |  | ST 429-14:2023 | 2024-02-14 | 978-1-68303-320-2 | D-Cinema Packaging — Aux Data Track File | `SMPTE.ST429-14.2014`, `SMPTE.ST429-14.2023-09` |
-| new-edition | `SMPTE.ST429-16.2023` | Standard | Active |  | ST 429-16:2023 | 2024-03-21 | 978-1-68303-335-6 | D-Cinema Packaging — Additional Composition Metadata and Guidelines | `SMPTE.ST429-16.2014`, `SMPTE.ST429-16.2023-09` |
-| new-edition | `SMPTE.ST429-18.2023` | Standard | Active |  | ST 429-18:2023 | 2024-04-03 | 978-1-68303-322-6 | D-Cinema Packaging —Immersive Audio Track File | `SMPTE.ST429-18.2019`, `SMPTE.ST429-18.2023-09` |
-| new-edition | `SMPTE.ST429-19.2023` | Standard | Active |  | ST 429-19:2023 | 2024-03-29 | 978-1-68303-334-9 | D-Cinema Packaging — DCP Operational Constraints for Immersive Audio | `SMPTE.ST429-19.2019`, `SMPTE.ST429-19.2023-09` |
-| new-edition | `SMPTE.ST429-2.2023` | Standard | Active |  | ST 429-2:2023 | 2024-02-14 | 978-1-68303-314-1 | D-Cinema Packaging — DCP Operational Constraints | `SMPTE.ST429-2.2009`, `SMPTE.ST429-2.2011`, `SMPTE.ST429-2.2011Am1.2013`, `SMPTE.ST429-2.2013`, `SMPTE.ST429-2.2013Am1.2018`, `SMPTE.ST429-2.2019`, `SMPTE.ST429-2.2019Am1.2019`, `SMPTE.ST429-2.2020`, `SMPTE.ST429-2.2023-09` |
-| new-edition | `SMPTE.ST429-20.2023` | Standard | Active |  | ST 429-20:2023 | 2023-07-06 | 978-1-68303-300-4 | D-Cinema Packaging – MXF Constraints | `SMPTE.ST429-20.2022` |
-| new-edition | `SMPTE.ST429-3.2023` | Standard | Active |  | ST 429-3:2023 | 2024-02-14 | 978-1-68303-315-8 | D-Cinema Packaging — Sound and Picture Track File | `SMPTE.ST429-3.2006`, `SMPTE.ST429-3.2007`, `SMPTE.ST429-3.2023-09` |
-| new-edition | `SMPTE.ST429-4.2023` | Standard | Active |  | ST 429-4:2023 | 2024-02-14 | 978-1-68303-316-5 | D-Cinema Packaging — MXF JPEG 2000 Application | `SMPTE.ST429-4.2006`, `SMPTE.ST429-4.2020`, `SMPTE.ST429-4.2023-05` |
-| new-edition | `SMPTE.ST429-5.2023` | Standard | Active |  | ST 429-5:2023 | 2024-02-14 | 978-1-68303-317-2 | D-Cinema Packaging — TimedText Track File | `SMPTE.ST429-5.2009`, `SMPTE.ST429-5.2017`, `SMPTE.ST429-5.2023-09` |
-| new-edition | `SMPTE.ST429-6.2006Am1.2018` | Standard | Superseded | Superseded | ST 429-6:2006 Am1:2018 | 2018-02-16 | 978-1-68303-126-0 | D-Cinema Packaging – MXF Track File Essence Encryption | `SMPTE.ST429-6.2006`, `SMPTE.ST429-6.2006Am1.2017`, `SMPTE.ST429-6.2023-05` |
-| new-edition | `SMPTE.ST429-6.2023` | Standard | Active |  | ST 429-6:2023 | 2024-02-14 | 978-1-68303-318-9 | D-Cinema Packaging — Track File Encryption | `SMPTE.ST429-6.2006`, `SMPTE.ST429-6.2006Am1.2017`, `SMPTE.ST429-6.2023-05` |
-| new-edition | `SMPTE.ST430-1.2023` | Standard | Active |  | ST 430-1:2023 | 2024-04-26 | 978-1-68303-328-8 | D-Cinema Operations — Key Delivery Message | `SMPTE.ST430-1.2006`, `SMPTE.ST430-1.2006Am1.2009`, `SMPTE.ST430-1.2017`, `SMPTE.ST430-1.2017Am1.2019`, `SMPTE.ST430-1.2023-09` |
-| new-edition | `SMPTE.ST430-12.2023` | Standard | Active |  | ST 430-12:2023 | 2024-04-18 | 978-1-68303-325-7 | D-Cinema Operations — FSK Synchronization Signal | `SMPTE.ST430-12.2014`, `SMPTE.ST430-12.2014Am1.2019`, `SMPTE.ST430-12.2023-09` |
-| new-edition | `SMPTE.ST430-14.2022` | Standard | Active |  | ST 430-14:2022 | 2022-05-04 | 978-1-68303-258-8 | D-Cinema Operations — Digital Sync Signal and Aux Data Transfer Protocol | `SMPTE.ST430-14.2015`, `SMPTE.ST430-14.2021` |
-| new-edition | `SMPTE.ST430-17.2022` | Standard | Active |  | ST 430-17:2022 | 2022-01-19 | 978-1-68303-257-1 | SMS-OMB Communications Protocol Specification | `SMPTE.ST430-17.2021` |
-| new-edition | `SMPTE.ST430-5.2023` | Standard | Active |  | ST 430-5:2023 | 2024-04-08 | 978-1-68303-323-3 | D-Cinema Operations — Security Log Event Class and Constraints | `SMPTE.ST430-5.2008`, `SMPTE.ST430-5.2011`, `SMPTE.ST430-5.2023-09` |
-| new-edition | `SMPTE.ST434.2014` | Standard | Active | Withdrawn | ST 434:2014 | 2015-06-21 | 978-1-61482-878-5 | Material Exchange Format — XML Encoding for Metadata and File Structure Informat | `SMPTE.ST434.2006`, `SMPTE.ST434.2015` |
-| new-edition | `SMPTE.ST435-2.2009` | Standard | Inactive | Superseded | ST 435-2:2009 | 2009-03-04 | 978-1-61482-597-5 | 10 Gb/s Serial Signal / Data Interface - Part 2: 10.692 Gb/s Stream - Basic Stre | `SMPTE.ST435-2.2008`, `SMPTE.ST435-2.2012` |
-| new-edition | `SMPTE.ST55.2011` | Standard | Active | Stable | ST 55:2011 | 2011-01-03 | 978-1-61482-671-2 | 35- and 16-mm Television Release Prints — Leaders and Cue Marks | `SMPTE.ST55.1992`, `SMPTE.ST55.2000`, `SMPTE.ST55.2010` |
-| brand-new | `SMPTE.RP2047-5Am1.2018` | Recommended Practice | Active |  | RP 2047-5 Am1:2018 | 2018-04-27 | 978-1-68303-138-3 | VC-2 Level 66 Compression of Ultra-High Definition Video Sources for Use With a  |  |
-| brand-new | `SMPTE.RP2052-10.2010-A1` | Standard | Inactive | Superseded | RP 2052-10:2010-A1 | 2012-01-18 | 978-1-61482-655-2 | Conversion from CEA-608 Data to SMPTE-TT — Amendment 1 |  |
-| brand-new | `SMPTE.RP210.10.2007` | Recommended Practice | Inactive | Superseded | RP 210.10:2007 | 2007-01-25 | 978-1-61482-221-9 | Metadata Dictionary Registry of Metadata Element Descriptions |  |
-| brand-new | `SMPTE.RP210v13.2012` | Recommended Practice | Inactive | Withdrawn | RP 210v13:2012 | 2012-07-08 | 978-1-61482-693-4 | Metadata Element Dictionary |  |
-| brand-new | `SMPTE.RP224v11.2011` | Recommended Practice | Superseded |  | RP 224v11:2011 | 2011-02-16 | 978-1-61482-235-6 | SMPTE Labels Register |  |
-| brand-new | `SMPTE.RP224v12.2012` | Recommended Practice | Inactive | Withdrawn | RP 224v12:2012 | 2012-04-18 | 978-1-61482-882-2 | SMPTE Labels Register |  |
-| brand-new | `SMPTE.RP38.1.1989` | Recommended Practice | Active | Stable | RP 38.1:1989 | 1989-02-27 | 978-1-61482-085-7 | Specifications for Deflection Linearity Test Pattern for Television |  |
-| brand-new | `SMPTE.ST2021M.2008` | Standard | Inactive | Superseded | ST 2021M:2008 | 2017-01-24 | 978-1-68303-067-6 | Broadcast Exchange Format (BXF) |  |
-| brand-new | `SMPTE.ST292-0.2011` | Overview Document | Active |  | ST 292-0:2011 | 2011-03-11 | 978-1-61482-428-2 | SMPTE Bit-Serial Interfacesat 1.5 Gb/s – Roadmap forthe 292 Document Suite |  |
-| brand-new | `SMPTE.ST379M.2004` | Standard | Inactive | Superseded | ST 379M:2004 | 2004-09-22 | 978-1-61482-806-8 | Material Exchange Format (MXF) — MXF Generic Container |  |
-| brand-new | `SMPTE.ST421-A1.2006` | Standard | Inactive | Superseded | ST 421-A1:2006 | 2007-11-29 | 978-1-61482-556-2 | Television - Amendment 1-2007 to SMPTE 421M-2006   |  |
-| brand-new | `SMPTE.ST421-A2.2011` | Standard | Inactive | Superseded | ST 421-A2:2011 | 2011-03-30 | 978-1-61482-557-9 | VC-1 Compressed Video Bitstream Format and Decoding Process — Amendment 2 |  |
+| Delta | Count |
+|---|---|
+| -7 yr | 1 |
+| -1 yr | 2 |
+| 0 yr | 7 |
+| +1 yr | 27 |
+| +2 yr | 1 |
+| +5 yr | 1 |
+
+### 0-yr sub-patterns
+
+| Sub-pattern | Count |
+|---|---|
+| reverse-precision (Zoho yr-MM, registry yr-only) | 2 |
+| Am vs Amd | 4 |
+| different month, same year | 1 |
+| other | 0 |
+
+### new-edition -7 yr (1)
+
+| Zoho docId | Closest sibling | docType | Status | Modifier | Doc # | ISBN | Title |
+|---|---|---|---|---|---|---|---|
+| `SMPTE.EG2032-4.2007` | `SMPTE.EG2032-4.2014` | Engineering Guideline | Active | Stable | EG 2032-4:2007 | 978-1-61482-043-7 | Media Dispatch Protocol (MDP) - Engineering Guideline (Informative)   |
+
+### new-edition -1 yr (2)
+
+| Zoho docId | Closest sibling | docType | Status | Modifier | Doc # | ISBN | Title |
+|---|---|---|---|---|---|---|---|
+| `SMPTE.OV2052-0.2013` | `SMPTE.OV2052-0.2014` | Overview Document | Active |  | OV 2052-0:2013 | 978-1-61482-891-4 | SMPTE-TT and Format Translation – Roadmap for the 2052 Document Suite |
+| `SMPTE.ST434.2014` | `SMPTE.ST434.2015` | Standard | Active | Withdrawn | ST 434:2014 | 978-1-61482-878-5 | Material Exchange Format — XML Encoding for Metadata and File Structure Informat |
+
+### new-edition 0 yr (7)
+
+**reverse-precision (Zoho yr-MM, registry yr-only) (2):**
+
+| Zoho docId | Closest sibling | docType | Status | Modifier | Doc # | ISBN | Title |
+|---|---|---|---|---|---|---|---|
+| `SMPTE.OV425-0.2012-06` | `SMPTE.OV425-0.2012` | Overview Document | Inactive | Superseded | OV 425-0:2012-06 | 978-1-61482-893-8 | SMPTE Bit-Serial Interfaces at 3 Gb/s — Roadmap for the 425 Document Suite |
+| `SMPTE.ST2123.2021-08` | `SMPTE.ST2123.2021` | Standard | Superseded | Superseded | ST 2123:2021-08 | 978-1-68303-255-7 | SMPTE Metadata Registers |
+
+**Am vs Amd (4):**
+
+| Zoho docId | Closest sibling | docType | Status | Modifier | Doc # | ISBN | Title |
+|---|---|---|---|---|---|---|---|
+| `SMPTE.RDD48.2018Amd1.2022` | `SMPTE.RDD48.2018Am1.2022` | Standard | Active |  | RDD 48:2018 Amd 1:2022 | 978-1-68303-260-1 | MXF Archive and Preservation Format Application Specification – Amendment 1 |
+| `SMPTE.ST2019-4.2016Amd1.2024` | `SMPTE.ST2019-4.2016Am1.2024` | Standard | Active |  | ST 2019-4:2016 Amd1:2024 | 978-1-68303-329-5 | Mapping VC-3 Coding Units into the MXF Generic Container – Amendment 1 |
+| `SMPTE.ST268-2.2018Amd1.2022` | `SMPTE.ST268-2.2018Am1.2022` | Standard | Superseded | Superseded | ST 268-2:2018 Amd 1:2022 | 978-1-68303-259-5 | Digital Moving-Picture Exchange (DPX) – Format Extensions for High Dynamic Range |
+| `SMPTE.ST331.2011Amd1.2023` | `SMPTE.ST331.2011Am1.2023` | Standard | Active |  | ST 331:2011 Amd 1:2023 | 978-1-68303-312-7 | Elements and Metadata Definitions for the SDTI-CP – Amendment 1 |
+
+**different month, same year (1):**
+
+| Zoho docId | Closest sibling | docType | Status | Modifier | Doc # | ISBN | Title |
+|---|---|---|---|---|---|---|---|
+| `SMPTE.ST2123.2024-05` | `SMPTE.ST2123.2024-03` | Standard | Active | Superseded | ST 2123:2024-05 | 978-1-68303-330-1 | SMPTE Metadata Registers |
+
+### new-edition +1 yr (27)
+
+| Zoho docId | Closest sibling | docType | Status | Modifier | Doc # | ISBN | Title |
+|---|---|---|---|---|---|---|---|
+| `SMPTE.EG2059-10.2023` | `SMPTE.EG2059-10.2022` | Engineering Guideline | Active |  | EG 2059-10:2023 | 978-1-68303-306-6 | Introduction to the New Synchronization System (SMPTE ST 2059) |
+| `SMPTE.EG2111-1.2021` | `SMPTE.EG2111-1.2020` | Engineering Guideline | Active |  | EG 2111-1:2021 | 978-1-68303-242-7 | SD-SDI and HD-SDI Standards Roadmap |
+| `SMPTE.EG2111-2.2019` | `SMPTE.EG2111-2.2018` | Engineering Guideline | Active |  | EG 2111-2:2019 | 978-1-68303-184-0 | 3/6/12 & 24 Gbit/s SDI Standards Roadmap |
+| `SMPTE.EG2111-3.2021` | `SMPTE.EG2111-3.2020` | Engineering Guideline | Active |  | EG 2111-3:2021 | 978-1-68303-243-4 | 10G-SDI Standards Roadmap |
+| `SMPTE.RDD29.2019` | `SMPTE.RDD29.2018` | Standard | Active |  | RDD 29:2019 | 978-1-68303-168-0 | Dolby Atmos® Bitstream Specification |
+| `SMPTE.RP103.1995` | `SMPTE.RP103.1994` | Recommended Practice | Active | Stable | RP 103:1995 | 978-1-61482-130-4 | Care, Storage, Operation, Handling and Shipping of Magnetic Tape for Television |
+| `SMPTE.RP2047-1.2023` | `SMPTE.RP2047-1.2022` | Recommended Practice | Active |  | RP 2047-1:2023 | 978-1-68303-292-2 | VC-2 Mezzanine Level Compression of 1080P High Definition Video Sources |
+| `SMPTE.RP2047-3.2023` | `SMPTE.RP2047-3.2022` | Recommended Practice | Active |  | RP 2047-3:2023 | 978-1-68303-293-9 | VC-2 Level 65 Compression of High Definition Video Sources for Use with a Standa |
+| `SMPTE.RP2059-15.2023` | `SMPTE.RP2059-15.2022` | Recommended Practice | Active |  | RP 2059-15:2023 | 978-1-68303-310-3 | YANG Data Model for ST 2059-2 PTP Device Monitoring in Professional Broadcast Ap |
+| `SMPTE.RP2110-24.2023` | `SMPTE.RP2110-24.2022` | Recommended Practice | Active |  | RP 2110-24:2023 | 978-1-68303-285-4 | Special Considerations for Standard Definition Video Using SMPTE ST 2110-20 |
+| `SMPTE.RP34.1998` | `SMPTE.RP34.1997` | Recommended Practice | Active | Stable | RP 34:1998 | 978-1-61482-083-3 | Dimensions for 16-mm Motion-Picture Projector Reel Spindles |
+| `SMPTE.RP86.1991` | `SMPTE.RP86.1990` | Recommended Practice | Active | Stable | RP 86:1991 | 978-1-61482-119-9 | Video Record Parameters for 1-in Type C Helical-Scan Television Tape Recording   |
+| `SMPTE.ST2019-1.2016Amd1.2023` | `SMPTE.ST2019-1.2016Am1.2022` | Standard | Active |  | ST 2019-1:2016 Amd 1:2023 | 978-1-68303-295-3 | VC-3 Picture Compression and Data Stream Format – Amendment 1 |
+| `SMPTE.ST2022-7.2019` | `SMPTE.ST2022-7.2018` | Standard | Active |  | ST 2022-7:2019 | 978-1-68303-176-5 | Seamless Protection Switching of RTP Datagrams |
+| `SMPTE.ST2038.2021` | `SMPTE.ST2038.2020` | Standard | Active |  | ST 2038:2021 | 978-1-68303-240-3 | Carriage of Ancillary Data Packets in an MPEG-2 Transport Stream |
+| `SMPTE.ST2059-2.2021` | `SMPTE.ST2059-2.2020` | Standard | Active |  | ST 2059-2:2021 | 978-1-68303-246-5 | SMPTE Profile for Use of IEEE-1588 Precision Time Protocol in Professional Broad |
+| `SMPTE.ST2067-202.2023` | `SMPTE.ST2067-202.2022` | Standard | Active |  | ST 2067-202:2023 | 978-1-68303-298-4 | Interoperable Master Format – Isochronous Stream of XML Documents (ISXD) Plug-in |
+| `SMPTE.ST2067-60.2023` | `SMPTE.ST2067-60.2022` | Standard | Active |  | ST 2067-60:2023 | 978-1-68303-288-5 | Interoperable Master Format — Application #6 UHDTV Program Workflow (AVC) |
+| `SMPTE.ST2117-1.2023` | `SMPTE.ST2117-1.2022` | Standard | Active |  | ST 2117-1:2023 | 978-1-68303-307-3 | VC-6 Multiplanar Picture Format – Part 1: Elementary Bitstream |
+| `SMPTE.ST382.2023` | `SMPTE.ST382.2022` | Standard | Active |  | ST 382:2023 | 978-1-68303-294-6 | Material Exchange Format — Mapping AES3 and Broadcast Wave Audio into the MXF Ge |
+| `SMPTE.ST385.2012Amd1.2023` | `SMPTE.ST385.2012Am1.2022` | Standard | Active |  | ST 385:2012 Amd 1:2023 | 978-1-68303-289-2 | Material Exchange Format (MXF) — Mapping SDTI-CP Essence and Metadata into the M |
+| `SMPTE.ST429-20.2023` | `SMPTE.ST429-20.2022` | Standard | Active |  | ST 429-20:2023 | 978-1-68303-300-4 | D-Cinema Packaging – MXF Constraints |
+| `SMPTE.ST429-6.2006Am1.2018` | `SMPTE.ST429-6.2006Am1.2017` | Standard | Superseded | Superseded | ST 429-6:2006 Am1:2018 | 978-1-68303-126-0 | D-Cinema Packaging – MXF Track File Essence Encryption |
+| `SMPTE.ST430-14.2022` | `SMPTE.ST430-14.2021` | Standard | Active |  | ST 430-14:2022 | 978-1-68303-258-8 | D-Cinema Operations — Digital Sync Signal and Aux Data Transfer Protocol |
+| `SMPTE.ST430-17.2022` | `SMPTE.ST430-17.2021` | Standard | Active |  | ST 430-17:2022 | 978-1-68303-257-1 | SMS-OMB Communications Protocol Specification |
+| `SMPTE.ST435-2.2009` | `SMPTE.ST435-2.2008` | Standard | Inactive | Superseded | ST 435-2:2009 | 978-1-61482-597-5 | 10 Gb/s Serial Signal / Data Interface - Part 2: 10.692 Gb/s Stream - Basic Stre |
+| `SMPTE.ST55.2011` | `SMPTE.ST55.2010` | Standard | Active | Stable | ST 55:2011 | 978-1-61482-671-2 | 35- and 16-mm Television Release Prints — Leaders and Cue Marks |
+
+### new-edition +2 yr (1)
+
+| Zoho docId | Closest sibling | docType | Status | Modifier | Doc # | ISBN | Title |
+|---|---|---|---|---|---|---|---|
+| `SMPTE.RP107.1995` | `SMPTE.RP107.1993` | Recommended Practice | Active | Stable | RP 107:1995 | 978-1-61482-134-2 | Video and Audio Reference Tape for 1-in Type B Helical-Scan Format |
+
+### new-edition +5 yr (1)
+
+| Zoho docId | Closest sibling | docType | Status | Modifier | Doc # | ISBN | Title |
+|---|---|---|---|---|---|---|---|
+| `SMPTE.ST165.1999` | `SMPTE.ST165.1994` | Standard | Active | Stable | ST 165:1999 | 978-1-61482-331-5 | Motion-Picture Film (35-mm) - Perforated 8-mm Type S, 5R (1-3-5-7-0) |
+
+## doi-match — already in registry under different docId form (75)
+
+| Zoho docId | Registry docId | Zoho DOI |
+|---|---|---|
+| `SMPTE.OV2067-0-2021` | `SMPTE.OV2067-0.2021` | `10.5594/SMPTE.OV2067-0-2021` |
+| `SMPTE.OV2073-0.2023` | `SMPTE.OV2073-0.2023-02` | `10.5594/SMPTE.OV2073-0.2023` |
+| `SMPTE.RDD60.2025` | `SMPTE.RDD60.2025-05` | `10.5594/SMPTE.RDD60.2025` |
+| `SMPTE.RDD61.2025` | `SMPTE.RDD61.2025-05` | `10.5594/SMPTE.RDD61.2025` |
+| `SMPTE.RP163-1992` | `SMPTE.RP163.1992` | `10.5594/SMPTE.RP163-1992` |
+| `SMPTE.RP170-1993` | `SMPTE.RP170.1993` | `10.5594/SMPTE.RP170-1993` |
+| `SMPTE.RP171-1993` | `SMPTE.RP171.1993` | `10.5594/SMPTE.RP171-1993` |
+| `SMPTE.RP172-1993` | `SMPTE.RP172.1993` | `10.5594/SMPTE.RP172-1993` |
+| `SMPTE.RP191-1996` | `SMPTE.RP191.1996` | `10.5594/SMPTE.RP191-1996` |
+| `SMPTE.RP2047-5Am1.2018` | `SMPTE.RP2047-5.2017Am1.2018` | `10.5594/SMPTE.RP2047-5Am1.2018` |
+| `SMPTE.RP2052-10.2010-A1` | `SMPTE.RP2052-10.2010Am1.2012` | `10.5594/SMPTE.RP2052-10.2010-A1` |
+| `SMPTE.RP210.10.2007` | `SMPTE.RP210.2007` | `10.5594/SMPTE.RP210.10.2007` |
+| `SMPTE.RP210v13.2012` | `SMPTE.RP210.2012` | `10.5594/SMPTE.RP210v13.2012` |
+| `SMPTE.RP2110-25.2023` | `SMPTE.RP2110-25.2023-04` | `10.5594/SMPTE.RP2110-25.2023` |
+| `SMPTE.RP2129.2023` | `SMPTE.RP2129.2023-08` | `10.5594/SMPTE.RP2129.2023` |
+| `SMPTE.RP224v11.2011` | `SMPTE.RP224.2011` | `10.5594/SMPTE.RP224v11.2011` |
+| `SMPTE.RP224v12.2012` | `SMPTE.RP224.2012` | `10.5594/SMPTE.RP224v12.2012` |
+| `SMPTE.RP268-3.2023` | `SMPTE.RP268-3.2023-08` | `10.5594/SMPTE.RP268-3.2023` |
+| `SMPTE.RP27.1.1989` | `SMPTE.RP27-1.1989` | `10.5594/SMPTE.RP27.1.1989` |
+| `SMPTE.RP27.2.1989` | `SMPTE.RP27-2.1989` | `10.5594/SMPTE.RP27.2.1989` |
+| `SMPTE.RP27.5.1989` | `SMPTE.RP27-5.1989` | `10.5594/SMPTE.RP27.5.1989` |
+| `SMPTE.RP38.1.1989` | `SMPTE.RP38.1989` | `10.5594/SMPTE.RP38.1.1989` |
+| `SMPTE.RP428-22.2025` | `SMPTE.RP428-22.2025-06` | `10.5594/SMPTE.RP428-22.2025` |
+| `SMPTE.SMPTERDD56.2021` | `SMPTE.RDD56.2021` | `10.5594/SMPTE.SMPTERDD56.2021` |
+| `SMPTE.SMPTERDD58.2021` | `SMPTE.RDD58.2021` | `10.5594/SMPTE.SMPTERDD58.2021` |
+| `SMPTE.SMPTEST2110-43.2021` | `SMPTE.ST2110-43.2021` | `10.5594/SMPTE.SMPTEST2110-43.2021` |
+| `SMPTE.SMPTEST377-42.2021` | `SMPTE.ST377-42.2021` | `10.5594/SMPTE.SMPTEST377-42.2021` |
+| `SMPTE.ST11-1995` | `SMPTE.ST11.1995` | `10.5594/SMPTE.ST11-1995` |
+| `SMPTE.ST2021-4.2023` | `SMPTE.ST2021-4.2023-09` | `10.5594/SMPTE.ST2021-4.2023` |
+| `SMPTE.ST2021M.2008` | `SMPTE.ST2021.2008` | `10.5594/SMPTE.ST2021M.2008` |
+| `SMPTE.ST2029.2023` | `SMPTE.ST2029.2023-10` | `10.5594/SMPTE.ST2029.2023` |
+| `SMPTE.ST2048-1.2024` | `SMPTE.ST2048-1.2024-08` | `10.5594/SMPTE.ST2048-1.2024` |
+| `SMPTE.ST2048-2.2024` | `SMPTE.ST2048-2.2024-08` | `10.5594/SMPTE.ST2048-2.2024` |
+| `SMPTE.ST2048-3.2024` | `SMPTE.ST2048-3.2024-08` | `10.5594/SMPTE.ST2048-3.2024` |
+| `SMPTE.ST2065-4.2023` | `SMPTE.ST2065-4.2023-02` | `10.5594/SMPTE.ST2065-4.2023` |
+| `SMPTE.ST2065-5.2023` | `SMPTE.ST2065-5.2023-02` | `10.5594/SMPTE.ST2065-5.2023` |
+| `SMPTE.ST2067-203.2023` | `SMPTE.ST2067-203.2023-09` | `10.5594/SMPTE.ST2067-203.2023` |
+| `SMPTE.ST2067-21.2023` | `SMPTE.ST2067-21.2023-02` | `10.5594/SMPTE.ST2067-21.2023` |
+| `SMPTE.ST2067-70.2024` | `SMPTE.ST2067-70.2024-08` | `10.5594/SMPTE.ST2067-70.2024` |
+| `SMPTE.ST2067-71.2024` | `SMPTE.ST2067-71.2024-07` | `10.5594/SMPTE.ST2067-71.2024` |
+| `SMPTE.ST2081-1.2023` | `SMPTE.ST2081-1.2023-10` | `10.5594/SMPTE.ST2081-1.2023` |
+| `SMPTE.ST2082-1.2023` | `SMPTE.ST2082-1.2023-11` | `10.5594/SMPTE.ST2082-1.2023` |
+| `SMPTE.ST2094-2.2023` | `SMPTE.ST2094-2.2023-04` | `10.5594/SMPTE.ST2094-2.2023` |
+| `SMPTE.ST2094-60.2025` | `SMPTE.ST2094-60.2025-12` | `10.5594/SMPTE.ST2094-60.2025` |
+| `SMPTE.ST2095-1.2023` | `SMPTE.ST2095-1.2023-09` | `10.5594/SMPTE.ST2095-1.2023` |
+| `SMPTE.ST2110-30.2025` | `SMPTE.ST2110-30.2025-10` | `10.5594/SMPTE.ST2110-30.2025` |
+| `SMPTE.ST2110-40.2023` | `SMPTE.ST2110-40.2023-12` | `10.5594/SMPTE.ST2110-40.2023` |
+| `SMPTE.ST2110-41.2024` | `SMPTE.ST2110-41.2024-03` | `10.5594/SMPTE.ST2110-41.2024` |
+| `SMPTE.ST2117-10.2024` | `SMPTE.ST2117-10.2024-07` | `10.5594/SMPTE.ST2117-10.2024` |
+| `SMPTE.ST2126.2025` | `SMPTE.ST2126.2025-08` | `10.5594/SMPTE.ST2126.2025` |
+| `SMPTE.ST2127-2-2024` | `SMPTE.ST2127-2.2024-03` | `10.5594/SMPTE.ST2127-2-2024` |
+| `SMPTE.ST2134.2025` | `SMPTE.ST2134.2025-01` | `10.5594/SMPTE.ST2134.2025` |
+| `SMPTE.ST2136-1.2026` | `SMPTE.ST2136-1.2026-02` | `10.5594/SMPTE.ST2136-1.2026` |
+| `SMPTE.ST2139.2025` | `SMPTE.ST2139.2025-12` | `10.5594/SMPTE.ST2139.2025` |
+| `SMPTE.ST268-2.2023` | `SMPTE.ST268-2.2023-06` | `10.5594/SMPTE.ST268-2.2023` |
+| `SMPTE.ST377-41.2023` | `SMPTE.ST377-41.2023-04` | `10.5594/SMPTE.ST377-41.2023` |
+| `SMPTE.ST379M.2004` | `SMPTE.ST379.2004` | `10.5594/SMPTE.ST379M.2004` |
+| `SMPTE.ST381-3.2025` | `SMPTE.ST381-3.2025-01` | `10.5594/SMPTE.ST381-3.2025` |
+| `SMPTE.ST381-5.2023` | `SMPTE.ST381-5.2023-02` | `10.5594/SMPTE.ST381-5.2023` |
+| `SMPTE.ST421-A1.2006` | `SMPTE.ST421.2006Am1.2007` | `10.5594/SMPTE.ST421-A1.2006` |
+| `SMPTE.ST421-A2.2011` | `SMPTE.ST421.2006Am2.2011` | `10.5594/SMPTE.ST421-A2.2011` |
+| `SMPTE.ST428-24.2024` | `SMPTE.ST428-24.2024-11` | `10.5594/SMPTE.ST428-24.2024` |
+| `SMPTE.ST429-10.2023` | `SMPTE.ST429-10.2023-09` | `10.5594/SMPTE.ST429-10.2023` |
+| `SMPTE.ST429-14.2023` | `SMPTE.ST429-14.2023-09` | `10.5594/SMPTE.ST429-14.2023` |
+| `SMPTE.ST429-16.2023` | `SMPTE.ST429-16.2023-09` | `10.5594/SMPTE.ST429-16.2023` |
+| `SMPTE.ST429-18.2023` | `SMPTE.ST429-18.2023-09` | `10.5594/SMPTE.ST429-18.2023` |
+| `SMPTE.ST429-19.2023` | `SMPTE.ST429-19.2023-09` | `10.5594/SMPTE.ST429-19.2023` |
+| `SMPTE.ST429-2.2023` | `SMPTE.ST429-2.2023-09` | `10.5594/SMPTE.ST429-2.2023` |
+| `SMPTE.ST429-3.2023` | `SMPTE.ST429-3.2023-09` | `10.5594/SMPTE.ST429-3.2023` |
+| `SMPTE.ST429-4.2023` | `SMPTE.ST429-4.2023-05` | `10.5594/SMPTE.ST429-4.2023` |
+| `SMPTE.ST429-5.2023` | `SMPTE.ST429-5.2023-09` | `10.5594/SMPTE.ST429-5.2023` |
+| `SMPTE.ST429-6.2023` | `SMPTE.ST429-6.2023-05` | `10.5594/SMPTE.ST429-6.2023` |
+| `SMPTE.ST430-1.2023` | `SMPTE.ST430-1.2023-09` | `10.5594/SMPTE.ST430-1.2023` |
+| `SMPTE.ST430-12.2023` | `SMPTE.ST430-12.2023-09` | `10.5594/SMPTE.ST430-12.2023` |
+| `SMPTE.ST430-5.2023` | `SMPTE.ST430-5.2023-09` | `10.5594/SMPTE.ST430-5.2023` |
+

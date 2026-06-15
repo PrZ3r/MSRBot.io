@@ -135,13 +135,55 @@ const FIXES = {
   'SMPTE.ST377-41.2023-04': '10.5594/SMPTE.ST377-41.2023',
   'SMPTE.ST381-3.2025-01': '10.5594/SMPTE.ST381-3.2025',
   'SMPTE.ST381-5.2023-02': '10.5594/SMPTE.ST381-5.2023',
+  // Pattern 5 — library release-tag errors. The DOI itself is correct at the
+  // registrar; SMPTE's library applied the wrong release tag to the docId.
+  // doi/href flip to the actually-registered (correct) form; the note for
+  // these entries explains the release-tag side rather than the registrar.
+  'SMPTE.EG2032-4.2014': '10.5594/SMPTE.EG2032-4.2007',
+  'SMPTE.OV2052-0.2014': '10.5594/SMPTE.OV2052-0.2013',
+  'SMPTE.ST434.2015':    '10.5594/SMPTE.ST434.2014',
 };
 
-function lockedMeta(originalValue, fieldDesc) {
+// Per-docId custom note overrides. Use when the default "registrar issued
+// malformed DOI" narrative doesn't match the actual cause (e.g. library
+// release-tag errors, where the DOI is correct but the registry's docId tag
+// is wrong). The default note from lockedMeta() applies when no entry here.
+const CUSTOM_NOTES = {
+  'SMPTE.EG2032-4.2014': `The actually-registered DOI 10.5594/SMPTE.EG2032-4.2007 resolves to the real 2007 publication of EG2032-4. The registry's docId carries a "2014" release tag — that's a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2014 to 2007 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what actually resolves.`,
+  'SMPTE.OV2052-0.2014': `The actually-registered DOI 10.5594/SMPTE.OV2052-0.2013 (per Zoho) is the correct one — it resolves to OV 2052-0:2013. The registry's docId carries a "2014" release tag, which is a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2014 to 2013 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment.`,
+  'SMPTE.ST434.2015': `The actually-registered DOI 10.5594/SMPTE.ST434.2014 (per Zoho) is the correct one — it resolves to ST 434:2014. The registry's docId carries a "2015" release tag, which is a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2015 to 2014 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment.`,
+};
+
+// Per-docId extra-field corrections cascading from a library mistag. The doi
+// fix alone isn't enough — fields driven off the wrong release tag (dates,
+// copyright year) are also wrong and need overwriting from the canonical
+// Zoho record. Each entry: { fieldPath: { value, note } }. Field path uses
+// dotted notation; nested objects (status, copyright) are created as needed.
+const FIELD_OVERRIDES = {
+  'SMPTE.EG2032-4.2014': {
+    publicationDate: {
+      value: '2007-01-01',
+      note: `Library mistag: this doc is the 2007 publication of EG2032-4 (per the actually-registered DOI 10.5594/SMPTE.EG2032-4.2007). The prior 2014-12-14 stored here is actually the approval date — moved to approvalDate. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side to correct the release tag.`,
+    },
+    approvalDate: {
+      value: '2014-12-14',
+      note: `Library mistag: per Zoho's record at the correct DOI, this date is the approval of EG2032-4 (a 2007 publication). It was previously stored under publicationDate by mistake. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side.`,
+    },
+    'copyright.year': {
+      value: '2007',
+      note: `Library mistag: copyright year is 2007, matching the actual publication year per the registered DOI. The registry's "2014" release tag in the docId is a library error. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side.`,
+    },
+  },
+};
+
+function lockedMeta(originalValue, fieldDesc, docId) {
+  const customNote = docId ? CUSTOM_NOTES[docId] : null;
+  const note = customNote
+    || `Corrected to the actually-registered (malformed) DOI form from Zoho standards export (${SOURCE}). The DOI registrar received this DOI with a duplicated SMPTE. prefix and that's the only form that resolves at doi.org — the SMPTE-canonical form (matching this doc's docId) does NOT resolve. UPSTREAM ACTION NEEDED: SMPTE should re-register this DOI in the canonical form to match the docId; once that lands, this field can be flipped back and the excludeChanges lock removed. Field locked via excludeChanges so future cross-fills can't "fix" it back to the unresolvable canonical form before the upstream re-registration happens.`;
   return {
     source: 'manual',
     confidence: 'high',
-    note: `Corrected to the actually-registered (malformed) DOI form from Zoho standards export (${SOURCE}). The DOI registrar received this DOI with a duplicated SMPTE. prefix and that's the only form that resolves at doi.org — the SMPTE-canonical form (matching this doc's docId) does NOT resolve. UPSTREAM ACTION NEEDED: SMPTE should re-register this DOI in the canonical form to match the docId; once that lands, this field can be flipped back and the excludeChanges lock removed. Field locked via excludeChanges so future cross-fills can't "fix" it back to the unresolvable canonical form before the upstream re-registration happens.`,
+    note,
     originalValue,
     overridden: true,
     excludeChanges: true,
@@ -157,6 +199,41 @@ function sortKeysDeep(v) {
     return out;
   }
   return v;
+}
+
+// Dotted-path get/set with sibling-$meta handling.
+function getDeep(obj, parts) {
+  let cur = obj;
+  for (const p of parts) { if (cur == null || typeof cur !== 'object') return undefined; cur = cur[p]; }
+  return cur;
+}
+function getDeepMeta(obj, parts) {
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i += 1) {
+    if (cur == null || typeof cur !== 'object') return undefined;
+    cur = cur[parts[i]];
+  }
+  if (cur == null || typeof cur !== 'object') return undefined;
+  return cur[`${parts[parts.length - 1]}$meta`];
+}
+function setDeepWithMeta(obj, parts, value, meta) {
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i += 1) {
+    const p = parts[i];
+    if (cur[p] == null || typeof cur[p] !== 'object') cur[p] = {};
+    cur = cur[p];
+  }
+  const last = parts[parts.length - 1];
+  cur[last] = value;
+  cur[`${last}$meta`] = meta;
+}
+
+function buildOverrideMeta(originalValue, note) {
+  return {
+    source: 'manual', confidence: 'high', note,
+    originalValue: originalValue == null ? null : originalValue,
+    overridden: true, excludeChanges: true, updated: NOW,
+  };
 }
 
 const docs = loadAllDocs();
@@ -191,20 +268,51 @@ for (const [docId, actualDoi] of Object.entries(FIXES)) {
   actions.push({ docId, doc, actualDoi, actualHref, priorDoi, priorHref });
 }
 
+// Walk FIELD_OVERRIDES for additional per-doc field corrections (multi-field
+// library-mistag fixes). Idempotent: skip any field already at target value
+// AND locked. Surfaced in the dry-run summary as "extra-field writes".
+const overrideActions = [];
+let overridesAlreadyCorrect = 0;
+for (const [docId, fields] of Object.entries(FIELD_OVERRIDES)) {
+  const doc = byId.get(docId);
+  if (!doc) { console.log(`  ❌ ${docId} (override): not in registry — skip`); continue; }
+  for (const [fieldPath, spec] of Object.entries(fields)) {
+    const parts = fieldPath.split('.');
+    const priorVal = getDeep(doc, parts);
+    const priorMeta = getDeepMeta(doc, parts);
+    const alreadyLocked = priorVal === spec.value && priorMeta && priorMeta.excludeChanges === true;
+    if (alreadyLocked) { overridesAlreadyCorrect += 1; continue; }
+    console.log(`  ${docId} [override]`);
+    console.log(`    ${fieldPath}: ${JSON.stringify(priorVal)}  →  ${JSON.stringify(spec.value)}`);
+    overrideActions.push({ docId, doc, fieldPath, parts, value: spec.value, note: spec.note, priorVal });
+  }
+}
+
 console.log('');
-console.log(`Planned writes: ${actions.length}  (already correct + locked: ${alreadyCorrect})`);
+console.log(`Planned writes: ${actions.length} doi/href + ${overrideActions.length} extra-field`
+  + `  (already correct + locked: ${alreadyCorrect} doi/href + ${overridesAlreadyCorrect} extra-field)`);
 
 if (!APPLY) {
   console.log('\nDry run — pass --apply to write.');
   process.exit(0);
 }
 
-let written = 0;
-for (const { doc, actualDoi, actualHref, priorDoi, priorHref } of actions) {
+// Mutate in-memory docs in one pass (covers both doi/href fixes and
+// FIELD_OVERRIDES), then write each unique doc once.
+const mutatedDocs = new Set();
+for (const { docId, doc, actualDoi, actualHref, priorDoi, priorHref } of actions) {
   doc.doi = actualDoi;
-  doc.doi$meta = lockedMeta(priorDoi, 'doi');
+  doc.doi$meta = lockedMeta(priorDoi, 'doi', docId);
   doc.href = actualHref;
-  doc.href$meta = lockedMeta(priorHref, 'href');
+  doc.href$meta = lockedMeta(priorHref, 'href', docId);
+  mutatedDocs.add(doc);
+}
+for (const { doc, parts, value, note, priorVal } of overrideActions) {
+  setDeepWithMeta(doc, parts, value, buildOverrideMeta(priorVal, note));
+  mutatedDocs.add(doc);
+}
+let written = 0;
+for (const doc of mutatedDocs) {
   const sorted = sortKeysDeep(doc);
   const target = docAbsPath(sorted);
   fs.mkdirSync(path.dirname(target), { recursive: true });
