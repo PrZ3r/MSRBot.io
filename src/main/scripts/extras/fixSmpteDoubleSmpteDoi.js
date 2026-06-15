@@ -27,18 +27,25 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// ONE-TIME fix for 14 SMPTE docs whose registered DOI was malformed at the
-// registrar — two patterns, same effect:
+// ONE-TIME fix for SMPTE docs whose registered DOI was malformed at the
+// registrar. Several patterns, same effect:
 //
-//   1. Duplicated "SMPTE." prefix (4 docs):
+//   1. Duplicated "SMPTE." prefix:
 //      docId       : SMPTE.RDD58.2021
 //      actual DOI  : 10.5594/SMPTE.SMPTERDD58.2021
 //
-//   2. Wrong separator (dash vs dot) between parts/year (10 docs):
+//   2. Wrong separator (dash vs dot) between parts/year:
 //      docId       : SMPTE.RP163.1992
 //      actual DOI  : 10.5594/SMPTE.RP163-1992
 //
-// In both cases the registry currently stores a "clean" DOI form that doesn't
+//   3. Manual registrar errors (assorted shape mismatches):
+//      docId       : SMPTE.ST2021.2008
+//      actual DOI  : 10.5594/SMPTE.ST2021M.2008
+//      docId       : SMPTE.ST421.2006Am1.2007
+//      actual DOI  : 10.5594/SMPTE.ST421-A1.2006
+//      …etc
+//
+// In every case the registry currently stores a "clean" DOI form that doesn't
 // resolve at doi.org. This script flips the registry's doi + href onto the
 // actually-registered form and locks both fields with $meta.excludeChanges:
 // true so future cross-fills can't undo the fix. The docId itself is left
@@ -76,6 +83,17 @@ const FIXES = {
   'SMPTE.RP27-2.1989': '10.5594/SMPTE.RP27.2.1989',
   'SMPTE.RP27-5.1989': '10.5594/SMPTE.RP27.5.1989',
   'SMPTE.ST11.1995': '10.5594/SMPTE.ST11-1995',
+  // Pattern 3 — manual registrar errors. Mapping from canonical registry docId
+  // to whatever shape the registrar actually issued.
+  'SMPTE.RP2047-5.2017Am1.2018': '10.5594/SMPTE.RP2047-5Am1.2018',
+  'SMPTE.RP2052-10.2010Am1.2012': '10.5594/SMPTE.RP2052-10.2010-A1',
+  'SMPTE.RP210.2007': '10.5594/SMPTE.RP210.10.2007',
+  'SMPTE.RP224.2011': '10.5594/SMPTE.RP224v11.2011',
+  'SMPTE.RP38.1989': '10.5594/SMPTE.RP38.1.1989',
+  'SMPTE.ST2021.2008': '10.5594/SMPTE.ST2021M.2008',
+  'SMPTE.ST379.2004': '10.5594/SMPTE.ST379M.2004',
+  'SMPTE.ST421.2006Am1.2007': '10.5594/SMPTE.ST421-A1.2006',
+  'SMPTE.ST421.2006Am2.2011': '10.5594/SMPTE.ST421-A2.2011',
 };
 
 function lockedMeta(originalValue, fieldDesc) {
