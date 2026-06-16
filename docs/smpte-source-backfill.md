@@ -37,6 +37,7 @@ Scripts (one-time runners + the audit tool, all built for this project):
 - [ ] `src/main/scripts/extras/dedupIcsCodes.js` — collapse duplicate `icsCodes` entries from APTARA artifacts
 - [ ] `src/main/scripts/extras/importSmpteFromZoho.js` — wholesale-import individual Zoho records (`--docs <id1,id2,…>`)
 - [ ] `src/main/scripts/extras/fixSmpteDoubleSmpteDoi.js` — bad-DOI registration fixes (6 patterns: double-SMPTE, separator drift, manual registrar errors, month-strip, library release-tag, year-mismatch) + extra-field cascades
+- [ ] `src/main/scripts/extras/fixMissingNestedMeta.js` — backfill missing top-level `$meta` for nested non-container objects (copyright, issn, publisherLocation) where sub-fields exist but parent `$meta` was missed
 
 Reports / ad-hoc outputs:
 

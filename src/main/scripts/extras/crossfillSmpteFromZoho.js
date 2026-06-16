@@ -251,9 +251,13 @@ function getDeepMeta(obj, parts) {
 }
 
 // Set nested path; create intermediate objects when missing. Also writes
-// `<lastKey>$meta` next to the field. For container objects (status, copyright)
-// the container itself doesn't get a top-level $meta — only its sub-fields do,
-// matching the existing per-doc convention.
+// `<lastKey>$meta` next to the field AND a top-level `<parentField>$meta` for
+// non-container parents — documents.validate.js exempts only `status`,
+// `references`, `workInfo` from requiring a top-level $meta on container
+// objects; every other nested parent (copyright, issn, publisherLocation, …)
+// needs one. Without this, docs end up with copyright.year + copyright.year$meta
+// but no copyright$meta and validate emits [WARN] entries.
+const CONTAINER_FIELDS = new Set(['status', 'references', 'workInfo']);
 function setDeepWithMeta(obj, parts, value, meta) {
   let cur = obj;
   for (let i = 0; i < parts.length - 1; i += 1) {
@@ -264,6 +268,9 @@ function setDeepWithMeta(obj, parts, value, meta) {
   const last = parts[parts.length - 1];
   cur[last] = value;
   cur[`${last}$meta`] = meta;
+  if (parts.length > 1 && !CONTAINER_FIELDS.has(parts[0])) {
+    obj[`${parts[0]}$meta`] = meta;
+  }
 }
 
 function sortKeysDeep(v) {
