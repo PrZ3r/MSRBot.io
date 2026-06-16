@@ -1,10 +1,37 @@
 {
   "$schema": "/api/schemas/documents.schema.json",
   "apiVersion": "1.0.0",
-  "generatedAt": "2026-06-15T21:55:53.111Z",
+  "generatedAt": "2026-06-15T23:58:14.788Z",
   "sourcePath": "src/main/data/docs",
   "docId": "SMPTE.ST165.1994",
   "document": {
+    "approvalDate": "1994-01-31",
+    "approvalDate$meta": {
+      "confidence": "high",
+      "excludeChanges": true,
+      "note": "Per Zoho's record at the (typo) DOI 10.5594/SMPTE.ST165.1999, Approval_Date is 1994-01-31 — confirming the 1994 version year. Adding to fill the previously-empty field.",
+      "originalValue": null,
+      "overridden": true,
+      "source": "manual",
+      "updated": "2026-06-15T23:39:39.218Z"
+    },
+    "copyright": {
+      "year": "1994",
+      "year$meta": {
+        "confidence": "high",
+        "excludeChanges": true,
+        "note": "Per Zoho's record, copyright year is 1994 — confirming the 1994 version year despite the registrar's 1999-typo DOI. Adding to fill the previously-empty field.",
+        "originalValue": null,
+        "overridden": true,
+        "source": "manual",
+        "updated": "2026-06-15T23:39:39.218Z"
+      }
+    },
+    "copyright$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2026-06-15T23:56:37.104Z"
+    },
     "docId": "SMPTE.ST165.1994",
     "docId$meta": {
       "confidence": "high",
@@ -60,23 +87,25 @@
       "sourceUrl": "https://pub.smpte.org/doc/st165/19940131-pub/",
       "updated": "2025-10-12T05:19:48.498Z"
     },
-    "doi": "10.5594/SMPTE.ST165.1994",
+    "doi": "10.5594/SMPTE.ST165.1999",
     "doi$meta": {
-      "confidence": "medium",
-      "note": "Constructed from parsed/inferred type/date",
-      "originalValue": null,
-      "source": "resolved",
-      "sourceUrl": "https://pub.smpte.org/doc/st165/19940131-pub/",
-      "updated": "2025-10-12T05:19:48.498Z"
+      "confidence": "high",
+      "excludeChanges": true,
+      "note": "Registrar typo: the DOI 10.5594/SMPTE.ST165.1999 (per Zoho) is what's actually registered and resolves at doi.org, but the correct version is 1994 — Zoho's Publication_Date and Copyright_Year on that record confirm 1994 is the real year. The 1999 in both the published label and DOI is a typo on SMPTE's side. UPSTREAM ACTION NEEDED: SMPTE should correct the DOI registration from 1999 to 1994 to match the docId. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what currently resolves.",
+      "originalValue": "10.5594/SMPTE.ST165.1994",
+      "overridden": true,
+      "source": "manual",
+      "updated": "2026-06-15T23:39:39.218Z"
     },
-    "href": "https://doi.org/10.5594/SMPTE.ST165.1994",
+    "href": "https://doi.org/10.5594/SMPTE.ST165.1999",
     "href$meta": {
       "confidence": "high",
-      "note": "URL generated and verified via redirect resolution",
-      "originalValue": null,
-      "source": "resolved",
-      "sourceUrl": "https://pub.smpte.org/doc/st165/19940131-pub/",
-      "updated": "2025-10-12T05:19:48.498Z"
+      "excludeChanges": true,
+      "note": "Registrar typo: the DOI 10.5594/SMPTE.ST165.1999 (per Zoho) is what's actually registered and resolves at doi.org, but the correct version is 1994 — Zoho's Publication_Date and Copyright_Year on that record confirm 1994 is the real year. The 1999 in both the published label and DOI is a typo on SMPTE's side. UPSTREAM ACTION NEEDED: SMPTE should correct the DOI registration from 1999 to 1994 to match the docId. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what currently resolves.",
+      "originalValue": "https://doi.org/10.5594/SMPTE.ST165.1994",
+      "overridden": true,
+      "source": "manual",
+      "updated": "2026-06-15T23:39:39.218Z"
     },
     "publicationDate": "1994-01-31",
     "publicationDate$meta": {

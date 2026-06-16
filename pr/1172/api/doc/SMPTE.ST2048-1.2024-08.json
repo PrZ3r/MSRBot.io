@@ -1,7 +1,7 @@
 {
   "$schema": "/api/schemas/documents.schema.json",
   "apiVersion": "1.0.0",
-  "generatedAt": "2026-06-15T21:55:53.111Z",
+  "generatedAt": "2026-06-15T23:58:14.788Z",
   "sourcePath": "src/main/data/docs",
   "docId": "SMPTE.ST2048-1.2024-08",
   "document": {
@@ -69,23 +69,25 @@
       "sourceUrl": "https://pub.smpte.org/doc/st2048-1/20240828-pub/",
       "updated": "2025-10-26T17:02:08.987Z"
     },
-    "doi": "10.5594/SMPTE.ST2048-1.2024-08",
+    "doi": "10.5594/SMPTE.ST2048-1.2024",
     "doi$meta": {
-      "confidence": "medium",
-      "note": "Constructed from parsed/inferred type/date",
-      "originalValue": null,
-      "source": "resolved",
-      "sourceUrl": "https://pub.smpte.org/doc/st2048-1/20240828-pub/",
-      "updated": "2025-10-26T17:02:08.987Z"
+      "confidence": "high",
+      "excludeChanges": true,
+      "note": "Corrected to the actually-registered (malformed) DOI form from Zoho standards export (_source/SMPTE/Zoho/SMPTE Standards Document Zoho Export 2026-05-21.json). The DOI registrar received this DOI with a duplicated SMPTE. prefix and that's the only form that resolves at doi.org — the SMPTE-canonical form (matching this doc's docId) does NOT resolve. UPSTREAM ACTION NEEDED: SMPTE should re-register this DOI in the canonical form to match the docId; once that lands, this field can be flipped back and the excludeChanges lock removed. Field locked via excludeChanges so future cross-fills can't \"fix\" it back to the unresolvable canonical form before the upstream re-registration happens.",
+      "originalValue": "10.5594/SMPTE.ST2048-1.2024-08",
+      "overridden": true,
+      "source": "manual",
+      "updated": "2026-06-15T22:07:58.089Z"
     },
-    "href": "https://doi.org/10.5594/SMPTE.ST2048-1.2024-08",
+    "href": "https://doi.org/10.5594/SMPTE.ST2048-1.2024",
     "href$meta": {
       "confidence": "high",
-      "note": "URL generated and verified via redirect resolution",
-      "originalValue": null,
-      "source": "resolved",
-      "sourceUrl": "https://pub.smpte.org/doc/st2048-1/20240828-pub/",
-      "updated": "2025-10-26T17:02:08.987Z"
+      "excludeChanges": true,
+      "note": "Corrected to the actually-registered (malformed) DOI form from Zoho standards export (_source/SMPTE/Zoho/SMPTE Standards Document Zoho Export 2026-05-21.json). The DOI registrar received this DOI with a duplicated SMPTE. prefix and that's the only form that resolves at doi.org — the SMPTE-canonical form (matching this doc's docId) does NOT resolve. UPSTREAM ACTION NEEDED: SMPTE should re-register this DOI in the canonical form to match the docId; once that lands, this field can be flipped back and the excludeChanges lock removed. Field locked via excludeChanges so future cross-fills can't \"fix\" it back to the unresolvable canonical form before the upstream re-registration happens.",
+      "originalValue": "https://doi.org/10.5594/SMPTE.ST2048-1.2024-08",
+      "overridden": true,
+      "source": "manual",
+      "updated": "2026-06-15T22:07:58.089Z"
     },
     "publicationDate": "2024-08-28",
     "publicationDate$meta": {

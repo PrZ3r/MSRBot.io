@@ -1,10 +1,37 @@
 {
   "$schema": "/api/schemas/documents.schema.json",
   "apiVersion": "1.0.0",
-  "generatedAt": "2026-06-15T21:55:53.111Z",
+  "generatedAt": "2026-06-15T23:58:14.788Z",
   "sourcePath": "src/main/data/docs",
   "docId": "SMPTE.EG2032-4.2014",
   "document": {
+    "approvalDate": "2014-12-14",
+    "approvalDate$meta": {
+      "confidence": "high",
+      "excludeChanges": true,
+      "note": "Library mistag: per Zoho's record at the correct DOI, this date is the approval of EG2032-4 (a 2007 publication). It was previously stored under publicationDate by mistake. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side.",
+      "originalValue": null,
+      "overridden": true,
+      "source": "manual",
+      "updated": "2026-06-15T23:17:34.722Z"
+    },
+    "copyright": {
+      "year": "2007",
+      "year$meta": {
+        "confidence": "high",
+        "excludeChanges": true,
+        "note": "Library mistag: copyright year is 2007, matching the actual publication year per the registered DOI. The registry's \"2014\" release tag in the docId is a library error. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side.",
+        "originalValue": null,
+        "overridden": true,
+        "source": "manual",
+        "updated": "2026-06-15T23:17:34.722Z"
+      }
+    },
+    "copyright$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2026-06-15T23:56:37.104Z"
+    },
     "docId": "SMPTE.EG2032-4.2014",
     "docId$meta": {
       "confidence": "high",
@@ -69,32 +96,35 @@
       "sourceUrl": "https://pub.smpte.org/doc/eg2032-4/20141214-pub/",
       "updated": "2025-10-26T17:01:50.566Z"
     },
-    "doi": "10.5594/SMPTE.EG2032-4.2014",
+    "doi": "10.5594/SMPTE.EG2032-4.2007",
     "doi$meta": {
-      "confidence": "medium",
-      "note": "Constructed from parsed/inferred type/date",
-      "originalValue": null,
-      "source": "resolved",
-      "sourceUrl": "https://pub.smpte.org/doc/eg2032-4/20141214-pub/",
-      "updated": "2025-10-26T17:01:50.566Z"
+      "confidence": "high",
+      "excludeChanges": true,
+      "note": "The actually-registered DOI 10.5594/SMPTE.EG2032-4.2007 resolves to the real 2007 publication of EG2032-4. The registry's docId carries a \"2014\" release tag — that's a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2014 to 2007 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what actually resolves.",
+      "originalValue": "10.5594/SMPTE.EG2032-4.2014",
+      "overridden": true,
+      "source": "manual",
+      "updated": "2026-06-15T23:14:08.468Z"
     },
-    "href": "https://doi.org/10.5594/SMPTE.EG2032-4.2014",
+    "href": "https://doi.org/10.5594/SMPTE.EG2032-4.2007",
     "href$meta": {
       "confidence": "high",
-      "note": "URL generated and verified via redirect resolution",
-      "originalValue": null,
-      "source": "resolved",
-      "sourceUrl": "https://pub.smpte.org/doc/eg2032-4/20141214-pub/",
-      "updated": "2025-10-26T17:01:50.566Z"
+      "excludeChanges": true,
+      "note": "The actually-registered DOI 10.5594/SMPTE.EG2032-4.2007 resolves to the real 2007 publication of EG2032-4. The registry's docId carries a \"2014\" release tag — that's a SMPTE library mistake on the release-tag side, not a registrar issue. The DOI is correct; the docId/release-tag is wrong. UPSTREAM ACTION NEEDED: SMPTE library should correct the release tag from 2014 to 2007 so the docId matches the DOI. Field locked via excludeChanges so future cross-fills can't undo the alignment between the registry's stored DOI and what actually resolves.",
+      "originalValue": "https://doi.org/10.5594/SMPTE.EG2032-4.2014",
+      "overridden": true,
+      "source": "manual",
+      "updated": "2026-06-15T23:14:08.468Z"
     },
-    "publicationDate": "2014-12-14",
+    "publicationDate": "2007-01-01",
     "publicationDate$meta": {
       "confidence": "high",
-      "note": "Parsed from HTML pubDateTime meta tag",
-      "originalValue": null,
-      "source": "parsed",
-      "sourceUrl": "https://pub.smpte.org/doc/eg2032-4/20141214-pub/",
-      "updated": "2025-10-26T17:01:50.566Z"
+      "excludeChanges": true,
+      "note": "Library mistag: this doc is the 2007 publication of EG2032-4 (per the actually-registered DOI 10.5594/SMPTE.EG2032-4.2007). The prior 2014-12-14 stored here is actually the approval date — moved to approvalDate. Field locked; UPSTREAM ACTION NEEDED on SMPTE's library side to correct the release tag.",
+      "originalValue": "2014-12-14",
+      "overridden": true,
+      "source": "manual",
+      "updated": "2026-06-15T23:17:34.722Z"
     },
     "publisher": "SMPTE",
     "publisher$meta": {
