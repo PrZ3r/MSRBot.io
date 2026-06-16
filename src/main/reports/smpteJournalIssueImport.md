@@ -1,4 +1,4 @@
-# SMPTE Journal-Issue XML Import — 2026-06-16T00:32:03.060Z
+# SMPTE Journal-Issue XML Import — 2026-06-16T16:11:59.617Z
 
 Mode: **APPLY** · scope: crossfill-only
 Sources: `_source/SMPTE/APTARA`, `_source/SMPTE/ALLEN PRESS`
@@ -13,58 +13,58 @@ Versions: Journal Article (`smpte-journal-issue-xml@v1`), Conference Paper (`smp
 - uniqueArticles: 22538
 - coverageTargets: 2
 - crossfillCandidates: 22536
-- batchProcessed: 5000
+- batchProcessed: 10944
 - created: 0
-- crossfilled: 4271
-- crossfillNoChange: 729
+- crossfilled: 5000
+- crossfillNoChange: 5944
 - schemaInvalid: 0
 - errors: 0
-- remainingAfterBatch: 17536
+- remainingAfterBatch: 11592
 
 ## Cross-fill — fields added
-- journalAcronym: 4271
-- publisherLocation.country: 4261
-- abstract: 269
-- abbrevTitle: 82
-- authors: 73
-- pages: 10
-- volume: 10
-- number: 10
-- articleType: 10
-- issn: 10
-- copyright: 10
-- publisherLocation: 10
+- journalAcronym: 5000
+- publisherLocation.country: 4966
+- abstract: 406
+- authors: 126
+- pages: 34
+- volume: 34
+- number: 34
+- articleType: 34
+- issn: 34
+- copyright: 34
+- publisherLocation: 34
+- abbrevTitle: 32
 
 ## Created (0)
 
-## Cross-filled (4271 — first 30)
-- `10.5594-J00021` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00022` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00023` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00024` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00025` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00026` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00027` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00028` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00029` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00030` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00031` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00032` +[abstract, journalAcronym, publisherLocation.country]
-- `10.5594-J00033` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00034` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00035` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00036` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00037` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00038` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00039` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00040` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00041` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00042` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00043` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00044` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00045` +[abstract, journalAcronym, publisherLocation.country]
-- `10.5594-J00046` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00047` +[abstract, journalAcronym, publisherLocation.country]
-- `10.5594-J00048` +[abstract, journalAcronym, publisherLocation.country]
-- `10.5594-J00049` +[journalAcronym, publisherLocation.country]
-- `10.5594-J00050` +[authors, journalAcronym, publisherLocation.country]
+## Cross-filled (5000 — first 30)
+- `10.5594-J04374` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04375` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04376` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04377` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04378` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04379` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04380` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04381` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04382` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04383` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04384` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04385` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04386` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04387` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04388` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04389` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04390` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04391` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04392` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04393` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04394` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04395` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04396` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04397` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04398` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04399` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04400` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04401` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04402` +[journalAcronym, publisherLocation.country]
+- `10.5594-J04403` +[journalAcronym, publisherLocation.country]

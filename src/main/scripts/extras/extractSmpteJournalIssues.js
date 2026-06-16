@@ -414,12 +414,15 @@ function main() {
   }
   console.log(`  classification: ${coverageTargets.length} coverage (new), ${crossfillTargets.length} potential cross-fill`);
 
-  // Build the combined work list per CLI flags, sliced by --limit.
+  // Build the combined work list per CLI flags.
   const workList = [];
   if (!CROSSFILL_ONLY) for (const t of coverageTargets) workList.push({ kind: 'coverage', t });
   if (!COVERAGE_ONLY) for (const t of crossfillTargets) workList.push({ kind: 'crossfill', t });
-  // Coverage first then cross-fill within --limit (new docs are the heavier value).
-  const slice = workList.slice(0, LIMIT === Infinity ? workList.length : LIMIT);
+  // In APPLY mode, --limit caps actual writes (creates + cross-fills) rather
+  // than total processing. No-change cross-fill candidates zip past without
+  // consuming the budget, so re-runs naturally advance through the workList
+  // even when many earlier items have already been filled. In dry-run, slice
+  // is the whole workList so the report shows full counts.
 
   const ajv = new Ajv({ allErrors: true, strict: false });
   const validateDoc = ajv.compile(loadJson(SCHEMA).items);
@@ -436,7 +439,12 @@ function main() {
   let sampleDoc = null;
   let sampleCrossfill = null;
 
-  for (const { kind, t } of slice) {
+  const writeLimit = APPLY && LIMIT !== Infinity ? LIMIT : Infinity;
+  let writes = 0;
+  let processed = 0;
+  for (const { kind, t } of workList) {
+    if (writes >= writeLimit) break;
+    processed += 1;
     const [docId, art] = t;
     const corpus = corpusForDocId(docId);
     if (!corpus) { errors.push({ docId, reason: `docId ${docId} has no recognised J/M prefix` }); continue; }
@@ -465,6 +473,7 @@ function main() {
         const res = saveDoc(doc);
         target = path.relative(REPO_ROOT, res.path);
         existing.set(docId, doc); // dedup follow-up runs
+        writes += 1;
       }
       created.push({ docId, docType: doc.docType, docTitle: doc.docTitle, publicationDate: doc.publicationDate || null, path: target });
     } else {
@@ -494,14 +503,15 @@ function main() {
       if (APPLY) {
         const res = saveDoc(sortKeysDeep(live));
         target = path.relative(REPO_ROOT, res.path);
+        writes += 1;
       }
       if (!sampleCrossfill) sampleCrossfill = { docId, addedFields, addedSubFields, path: target };
       crossfilled.push({ docId, addedFields, addedSubFields, path: target });
     }
   }
 
-  const totalProcessed = slice.length;
-  const remainingAfter = Math.max(0, workList.length - slice.length);
+  const totalProcessed = processed;
+  const remainingAfter = Math.max(0, workList.length - processed);
 
   // --- console summary ---
   console.log('\n=== SMPTE journal-issue XML extraction ===\n');
