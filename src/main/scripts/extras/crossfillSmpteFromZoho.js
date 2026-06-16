@@ -296,6 +296,11 @@ console.log(`  ${zohoRecords.length} Zoho records`);
 console.log(`Loading registry…`);
 const docs = loadAllDocs();
 const byId = new Map(docs.map((d) => [d.docId, d]));
+// Fallback lookup: registry's `doi` field → doc. Catches the case where Zoho's
+// DOI form is locked in the registry as the canonical resolves-at-doi.org
+// value but the registry's docId still uses a different (older) version year.
+const byDoi = new Map();
+for (const d of docs) if (d.doi) byDoi.set(String(d.doi).trim(), d);
 console.log(`  ${docs.length} registry docs`);
 
 const meta = {
@@ -316,10 +321,17 @@ const locked = []; // docs with $meta.excludeChanges = true on this field
 
 for (const r of zohoRecords) {
   if (!r.DOI_IEEE) continue;
-  const docId = doiToDocId(r.DOI_IEEE);
-  if (!docId) continue;
-  const doc = byId.get(docId);
-  if (!doc) { noMatch.push(docId); continue; }
+  const lookupDocId = doiToDocId(r.DOI_IEEE);
+  if (!lookupDocId) continue;
+  // Try direct docId lookup first; fall back to matching the Zoho DOI against
+  // the registry's `doi` field — catches docs where we've locked the registry
+  // doi to Zoho's form via fixSmpteDoubleSmpteDoi.js but the docId still uses
+  // a different (older / canonical) version year.
+  const doc = byId.get(lookupDocId) || byDoi.get(String(r.DOI_IEEE).trim());
+  if (!doc) { noMatch.push(lookupDocId); continue; }
+  // Use the registry's actual docId from here on — Zoho's derived form may
+  // differ (DOI-only match path). Downstream apply loop needs the real id.
+  const docId = doc.docId;
   const regVal = getDeep(doc, def.path);
   const regMeta = getDeepMeta(doc, def.path);
   const zohoRaw = def.zohoKey ? r[def.zohoKey] : null;

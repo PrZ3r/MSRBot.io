@@ -32,6 +32,11 @@ Scripts (one-time runners + the audit tool, all built for this project):
 - [ ] `src/main/scripts/extras/resolveSmpteSourceRefs.js` — unresolved-refs resolver pass
 - [ ] `src/main/scripts/extras/fixUndatedSourceRefs.js` — fixup, dates undated org-lineage refIds
 - [ ] `src/main/scripts/extras/inventorySource.smpte.js` — SMPTE source-vs-registry audit tool
+- [ ] `src/main/scripts/extras/fixLowercaseSmpteDocIds.js` — APTARA lowercase-j docId cleanup (rename + collider delete)
+- [ ] `src/main/scripts/extras/crossfillSmpteFromZoho.js` — per-field Zoho cross-fill runner (`--field <name>`)
+- [ ] `src/main/scripts/extras/dedupIcsCodes.js` — collapse duplicate `icsCodes` entries from APTARA artifacts
+- [ ] `src/main/scripts/extras/importSmpteFromZoho.js` — wholesale-import individual Zoho records (`--docs <id1,id2,…>`)
+- [ ] `src/main/scripts/extras/fixSmpteDoubleSmpteDoi.js` — bad-DOI registration fixes (6 patterns: double-SMPTE, separator drift, manual registrar errors, month-strip, library release-tag, year-mismatch) + extra-field cascades
 
 Reports / ad-hoc outputs:
 
@@ -44,6 +49,9 @@ Reports / ad-hoc outputs:
 - [ ] `src/main/reports/smpteJournalImport.md` — journal-backfill runner output
 - [ ] `src/main/reports/smpteJournalIssueImport.json` — journal-issue (APTARA) runner output
 - [ ] `src/main/reports/smpteJournalIssueImport.md` — journal-issue (APTARA) runner output
+- [ ] `src/main/reports/zohoCrossfill.{field}.md` — per-field Zoho cross-fill conflict reports (one per `--field` run: isbn, copyright_year, productNumber, numberOfPages, status_reaffirmDate, status_stabilizedDate, approvalDate, icsCodes, status_superseded, status_withdrawn, docTitle)
+- [ ] `src/main/reports/zohoCoverage.newDocs.md` — Zoho coverage categorisation (junk / punct-only / doi-match / new-edition / brand-new buckets)
+- [ ] `src/main/reports/zohoCoverage.newEditions.md` — Zoho new-editions breakdown with year-delta + sibling DOIs
 
 This tracking doc itself:
 
