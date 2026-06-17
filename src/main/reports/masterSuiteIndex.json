@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-15T23:04:03.484Z",
+  "generatedAt": "2026-06-17T17:36:00.485Z",
   "sourcePath": "src/main/data/docs",
-  "sourceHash": "sha256:ded32d4bc5cc478340f2de631f715ae180422c447093b0ac3e21d8c8403f21ae",
+  "sourceHash": "sha256:76f56886c18030d5191635a6c27ea3661793e58ce514794bc019fe36f30e4f73",
   "publisherCounts": {
-    "total": 26287,
+    "total": 26288,
     "counts": {
-      "SMPTE": 25472,
+      "SMPTE": 25473,
       "IETF": 138,
       "ISO": 108,
       "ISO/IEC": 98,
@@ -99,7 +99,7 @@
     }
   },
   "skippedDocs": {
-    "totalSkipped": 24181,
+    "totalSkipped": 24182,
     "byPublisher": {
       "NOKIA BELL LABS": {
         "count": 2,
@@ -357,7 +357,7 @@
         ]
       },
       "SMPTE": {
-        "count": 24064,
+        "count": 24065,
         "docIds": [
           "10.5594-J00021",
           "10.5594-J00021C1",
@@ -22628,6 +22628,7 @@
           "10.5594-J1850111A",
           "10.5594-J18501C1",
           "10.5594-J18502",
+          "10.5594-J18503",
           "10.5594-J18504",
           "10.5594-J18505",
           "10.5594-J18506a",
@@ -180309,6 +180310,13 @@
             "category": "docType"
           },
           {
+            "docId": "10.5594-J18503",
+            "reason": "FILTERED",
+            "rule": "FILTERED",
+            "ruleDetail": "docType=Journal Article",
+            "category": "docType"
+          },
+          {
             "docId": "10.5594-J18504",
             "reason": "FILTERED",
             "rule": "FILTERED",
@@ -193957,16 +193965,16 @@
       }
     },
     "summaryByReason": {
-      "FILTERED": 24181,
+      "FILTERED": 24182,
       "UNKEYED": 0,
       "UNKNOWN": 0
     }
   },
   "flagSummary": {
-    "totalFlags": 328,
+    "totalFlags": 331,
     "byType": {
       "DOCID_PUBDATE_MISMATCH": {
-        "count": 40,
+        "count": 43,
         "examples": [
           {
             "lineage": "AES||3|",
@@ -194109,12 +194117,24 @@
             "flag": "DOCID_PUBDATE_MISMATCH:SMPTE.AG06-01.2020:docIdYear=2020,pubYear=2021"
           },
           {
+            "lineage": "SMPTE|EG|2032|4",
+            "flag": "DOCID_PUBDATE_MISMATCH:SMPTE.EG2032-4.2014:docIdYear=2014,pubYear=2007"
+          },
+          {
+            "lineage": "SMPTE|RP|107|",
+            "flag": "DOCID_PUBDATE_MISMATCH:SMPTE.RP107.1993:docIdYear=1993,pubYear=1995"
+          },
+          {
             "lineage": "SMPTE|ST|145|",
             "flag": "DOCID_PUBDATE_MISMATCH:SMPTE.ST145.1999:docIdYear=1999,pubYear=2004"
           },
           {
             "lineage": "SMPTE|ST|223|",
             "flag": "DOCID_PUBDATE_MISMATCH:SMPTE.ST223.1996:docIdYear=1996,pubYear=2001"
+          },
+          {
+            "lineage": "SMPTE|ST|331|",
+            "flag": "DOCID_PUBDATE_MISMATCH:SMPTE.ST331.2011Am1.2023:docIdYear=2023,pubYear=2024"
           },
           {
             "lineage": "W3C|ttml.imsc1|0.1|",
@@ -218415,7 +218435,7 @@
       "docs": [
         {
           "docId": "SMPTE.EG2032-4.2014",
-          "publicationDate": "2014-12-14",
+          "publicationDate": "2007-01-01",
           "releaseTag": "20141214-pub",
           "statusActive": true,
           "statusSuperseded": false,
@@ -218436,7 +218456,9 @@
       "latestActiveBaseId": "SMPTE.EG2032-4.2014",
       "latestSupersededBaseId": null,
       "prevBaseId": null,
-      "flagInconsistencies": [],
+      "flagInconsistencies": [
+        "DOCID_PUBDATE_MISMATCH:SMPTE.EG2032-4.2014:docIdYear=2014,pubYear=2007"
+      ],
       "counts": {
         "bases": 1,
         "amendments": 0,
@@ -221893,7 +221915,7 @@
         },
         {
           "docId": "SMPTE.RDD48.2018Am1.2022",
-          "publicationDate": "2022-02-22",
+          "publicationDate": "2022-05-24",
           "releaseTag": "20220222-am1-pub",
           "statusActive": true,
           "statusSuperseded": false,
@@ -221905,7 +221927,7 @@
       ],
       "latestBaseId": "SMPTE.RDD48.2018",
       "latestAnyId": "SMPTE.RDD48.2018Am1.2022",
-      "latestDateKey": "20220222",
+      "latestDateKey": "20220524",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
       "hasActiveBase": true,
@@ -225384,7 +225406,7 @@
       "docs": [
         {
           "docId": "SMPTE.RP107.1993",
-          "publicationDate": "1993-03-05",
+          "publicationDate": "1995-01-01",
           "releaseTag": "19930305-pub",
           "statusActive": true,
           "statusSuperseded": false,
@@ -225396,7 +225418,7 @@
       ],
       "latestBaseId": "SMPTE.RP107.1993",
       "latestAnyId": "SMPTE.RP107.1993",
-      "latestDateKey": "19930305",
+      "latestDateKey": "19950101",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
       "hasActiveBase": true,
@@ -225405,7 +225427,9 @@
       "latestActiveBaseId": "SMPTE.RP107.1993",
       "latestSupersededBaseId": null,
       "prevBaseId": null,
-      "flagInconsistencies": [],
+      "flagInconsistencies": [
+        "DOCID_PUBDATE_MISMATCH:SMPTE.RP107.1993:docIdYear=1993,pubYear=1995"
+      ],
       "counts": {
         "bases": 1,
         "amendments": 0,
@@ -239187,7 +239211,7 @@
         },
         {
           "docId": "SMPTE.ST268-2.2018Am1.2022",
-          "publicationDate": "2022-02-24",
+          "publicationDate": "2022-05-04",
           "releaseTag": "20220224-am1-pub",
           "statusActive": false,
           "statusSuperseded": true,
@@ -241727,7 +241751,7 @@
         },
         {
           "docId": "SMPTE.ST331.2011Am1.2023",
-          "publicationDate": "2023-10-10",
+          "publicationDate": "2024-02-06",
           "releaseTag": "20231010-am1-pub",
           "statusActive": true,
           "statusSuperseded": false,
@@ -241739,7 +241763,7 @@
       ],
       "latestBaseId": "SMPTE.ST331.2011",
       "latestAnyId": "SMPTE.ST331.2011Am1.2023",
-      "latestDateKey": "20231010",
+      "latestDateKey": "20240206",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
       "hasActiveBase": true,
@@ -241750,7 +241774,8 @@
       "prevBaseId": "SMPTE.ST331.2004",
       "flagInconsistencies": [
         "MULTIPLE_LATEST_FLAGS",
-        "LATEST_FLAG_BEFORE_DATE"
+        "LATEST_FLAG_BEFORE_DATE",
+        "DOCID_PUBDATE_MISMATCH:SMPTE.ST331.2011Am1.2023:docIdYear=2023,pubYear=2024"
       ],
       "counts": {
         "bases": 2,
@@ -249553,7 +249578,7 @@
         },
         {
           "docId": "SMPTE.ST2019-4.2016Am1.2024",
-          "publicationDate": "2024-03-08",
+          "publicationDate": "2024-05-02",
           "releaseTag": "20240308-am1-pub",
           "statusActive": true,
           "statusSuperseded": false,
@@ -249565,7 +249590,7 @@
       ],
       "latestBaseId": "SMPTE.ST2019-4.2016",
       "latestAnyId": "SMPTE.ST2019-4.2016Am1.2024",
-      "latestDateKey": "20240308",
+      "latestDateKey": "20240502",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
       "hasActiveBase": true,
@@ -256692,7 +256717,7 @@
         },
         {
           "docId": "SMPTE.ST2123.2021",
-          "publicationDate": "2021-07-01",
+          "publicationDate": "2021-10-18",
           "releaseTag": "20210701-pub",
           "statusActive": false,
           "statusSuperseded": true,
@@ -256725,7 +256750,7 @@
         },
         {
           "docId": "SMPTE.ST2123.2024-03",
-          "publicationDate": "2024-03-28",
+          "publicationDate": "2024-05-09",
           "releaseTag": "20240328-pub",
           "statusActive": false,
           "statusSuperseded": true,
@@ -264483,7 +264508,7 @@
       "suiteTitle": "VC-3 Video Compression",
       "latestAnyId": "SMPTE.ST2019-4.2016Am1.2024",
       "latestAnyLineageKey": "SMPTE|ST|2019|4",
-      "latestDateKey": "20240308",
+      "latestDateKey": "20240502",
       "hasActiveBase": true,
       "hasWithdrawn": false,
       "hasStabilized": false,
@@ -264512,7 +264537,7 @@
         "4": {
           "docId": "SMPTE.ST2019-4.2016Am1.2024",
           "lineageKey": "SMPTE|ST|2019|4",
-          "dateKey": "20240308",
+          "dateKey": "20240502",
           "withdrawn": false
         }
       },
