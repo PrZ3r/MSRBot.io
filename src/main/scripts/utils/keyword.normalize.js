@@ -27,6 +27,10 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+// Each value's lowercase form is the lookup key; the value is the canonical
+// casing the normalizer returns. `"and"` is intentional — it keeps the lowercase
+// conjunction inside controlled-vocab multi-word terms like
+// "Networking and Broadcast Technologies" (537+ docs depend on this).
 const ACRONYM_MAP = new Map([
   "and",
   "3GPP",
@@ -34,7 +38,6 @@ const ACRONYM_MAP = new Map([
   "ACES",
   "AEAD",
   "AES",
-  "AgreementMethod",
   "AKA",
   "AKA'",
   "API",
@@ -48,14 +51,12 @@ const ACRONYM_MAP = new Map([
   "CoAP",
   "CPL",
   "DCDM",
-  "DigestMethod",
   "DNS",
   "DOI",
   "DV",
   "EAP",
   "EAP-AKA'",
   "EOTF",
-  "EncryptionMethod",
   "FS",
   "HDR",
   "HDTV",
@@ -75,8 +76,6 @@ const ACRONYM_MAP = new Map([
   "JPEG",
   "JSON",
   "KDM",
-  "KeyDerivationMethod",
-  "KeyInfo",
   "MIME",
   "MPEG",
   "MXF",
@@ -90,7 +89,6 @@ const ACRONYM_MAP = new Map([
   "RESTCONF",
   "RFC",
   "SDI",
-  "SigntureMethod",
   "SMTP",
   "UHDTV",
   "UMID",
@@ -110,7 +108,7 @@ const ACRONYM_MAP = new Map([
   "YANG"
 ].map((value) => [value.toLowerCase(), value]));
 
-function normalizeKeyword(input) {
+function normalizeKeyword(input, extraAcronyms = null) {
   const s = String(input || "").trim().replace(/\s+/g, " ");
   if (!s) return "";
 
@@ -118,6 +116,7 @@ function normalizeKeyword(input) {
     .split(" ")
     .map((word) => {
       const lower = word.toLowerCase();
+      if (extraAcronyms && extraAcronyms.has(lower)) return extraAcronyms.get(lower);
       if (ACRONYM_MAP.has(lower)) return ACRONYM_MAP.get(lower);
       if (/^b-?chain$/i.test(word)) return "B-Chain";
       if (/^d-?cinema$/i.test(word)) return "DCinema";
@@ -134,11 +133,11 @@ function normalizeKeyword(input) {
     .join(" ");
 }
 
-function splitAndNormalizeKeywords(values = []) {
+function splitAndNormalizeKeywords(values = [], extraAcronyms = null) {
   return Array.from(new Set(
     values
       .flatMap((entry) => String(entry || "").split(/[;,]/))
-      .map((entry) => normalizeKeyword(entry))
+      .map((entry) => normalizeKeyword(entry, extraAcronyms))
       .filter(Boolean)
   ));
 }

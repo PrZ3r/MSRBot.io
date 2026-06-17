@@ -47,8 +47,14 @@ const {
 const { parseRefId } = require('../../lib/referencing');
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
+// registry.js resolves DOCS_ROOT relative to cwd — pin cwd so loadAllDocs works
+// regardless of where this script is invoked from.
+process.chdir(REPO_ROOT);
+const { loadAllDocs } = require('../../lib/registry');
+
 const SOURCE_ROOT = path.join(REPO_ROOT, '_source', 'SMPTE');
-const DOCS_JSON = path.join(REPO_ROOT, 'src', 'main', 'data', 'documents.json');
+// Per-doc registry (issue #1108): source of truth is src/main/data/docs/**.
+const DOCS_ROOT = path.join(REPO_ROOT, 'src', 'main', 'data', 'docs');
 const REPORT_JSON = path.join(REPO_ROOT, 'src', 'main', 'reports', 'sourceInventory.smpte.json');
 const REPORT_MD = path.join(REPO_ROOT, 'src', 'main', 'reports', 'sourceInventory.smpte.md');
 const FAILED_EXTRACTIONS = path.join(SOURCE_ROOT, 'failed_extractions.txt');
@@ -821,8 +827,8 @@ function reconcileAndEnrich(report, committeeIdx) {
 }
 
 function loadRegistry() {
-  const raw = fs.readFileSync(DOCS_JSON, 'utf8');
-  const arr = JSON.parse(raw);
+  // Per-doc registry (#1108): glob src/main/data/docs/** via loadAllDocs().
+  const arr = loadAllDocs();
   const byId = new Map();
   for (const doc of arr) {
     if (doc && doc.docId) byId.set(doc.docId, doc);
@@ -1227,7 +1233,7 @@ function renderMarkdown(totals, buckets, generatedAt, registryDocCount, reconcil
   const L = [];
   L.push(`# _source/SMPTE Inventory — ${generatedAt}`);
   L.push('');
-  L.push(`Registry snapshot: [src/main/data/documents.json](../data/documents.json) (${registryDocCount} docs at scan time)`);
+  L.push(`Registry snapshot: per-doc registry [src/main/data/docs/](../data/docs/) (${registryDocCount} docs at scan time)`);
   L.push('');
   L.push('## Totals');
   L.push(`- Directories walked: ${totals.dirsScanned}`);
@@ -1373,8 +1379,8 @@ function main() {
     console.error(`Source tree not found: ${SOURCE_ROOT}`);
     process.exit(1);
   }
-  if (!fs.existsSync(DOCS_JSON)) {
-    console.error(`Registry not found: ${DOCS_JSON}`);
+  if (!fs.existsSync(DOCS_ROOT)) {
+    console.error(`Registry not found: ${DOCS_ROOT}`);
     process.exit(1);
   }
 
@@ -1383,7 +1389,7 @@ function main() {
   const report = new Report();
   walk(SOURCE_ROOT, report, { pdfDoiMap: null, insideContainer: false, insideStandard: false }, failedExtractionBasenames);
 
-  console.log(`Loading registry ${DOCS_JSON}…`);
+  console.log(`Loading per-doc registry ${DOCS_ROOT}…`);
   const registry = loadRegistry();
 
   console.log('Building committee-slug reverse index…');
@@ -1408,7 +1414,7 @@ function main() {
 
   const json = {
     generatedAt,
-    registrySnapshot: { path: path.relative(REPO_ROOT, DOCS_JSON), docCount: registry.all.length },
+    registrySnapshot: { path: path.relative(REPO_ROOT, DOCS_ROOT), docCount: registry.all.length },
     totals,
     found: buckets.found.sort((a, b) => a.docId.localeCompare(b.docId)).map(({ agreeFields, ...rest }) => rest),
     update: buckets.update.sort((a, b) => a.docId.localeCompare(b.docId)).map(({ agreeFields, ...rest }) => rest),

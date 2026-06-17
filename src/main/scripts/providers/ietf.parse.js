@@ -31,6 +31,21 @@ const fs = require('fs');
 const path = require('path');
 const { splitAndNormalizeKeywords } = require('../utils/keyword.normalize');
 
+// XMLDSig/XMLENC element names that show up as keywords in the RFC index XML.
+// Kept here (not in the global ACRONYM_MAP) because they're IETF-corpus jargon —
+// not real subject keywords. `signturemethod` is the legacy typo in the RFC
+// source itself; mapping it to the corrected `SignatureMethod` form fixes it on
+// import while letting the registry's `originalValue` $meta preserve the source.
+const IETF_ACRONYMS = new Map([
+  ['agreementmethod', 'AgreementMethod'],
+  ['digestmethod', 'DigestMethod'],
+  ['encryptionmethod', 'EncryptionMethod'],
+  ['keyderivationmethod', 'KeyDerivationMethod'],
+  ['keyinfo', 'KeyInfo'],
+  ['signaturemethod', 'SignatureMethod'],
+  ['signturemethod', 'SignatureMethod'],
+]);
+
 function createIetfParser(deps) {
   const {
     axios,
@@ -160,7 +175,7 @@ function createIetfParser(deps) {
   }
 
   function splitKeywordValues(values = []) {
-    return splitAndNormalizeKeywords(values);
+    return splitAndNormalizeKeywords(values, IETF_ACRONYMS);
   }
 
   function buildReferences(normative = [], bibliographic = []) {

@@ -83,9 +83,24 @@ function buildStats() {
     return acc;
   }, {});
 
+  // Journal Article breakdown by articleType (sorted descending by count)
+  const journalArticles = documents.filter(
+    d => typeof d.docType === 'string' && d.docType.trim() === 'Journal Article'
+  );
+  const jaByArticleTypeRaw = journalArticles.reduce((acc, d) => {
+    const key = (typeof d.articleType === 'string' && d.articleType.trim().length)
+      ? d.articleType.trim()
+      : 'unspecified';
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+  const jaByArticleType = Object.fromEntries(
+    Object.entries(jaByArticleTypeRaw).sort((a, b) => b[1] - a[1])
+  );
+
   // Compose stats object
   const stats = {
-    apiVersion: '1.0.0',
+    apiVersion: '1.1.0',
     generatedAt: new Date().toISOString(),
 
     // New structured top-level bucket to allow future siblings (e.g., "namespaces", "references", etc.)
@@ -96,7 +111,14 @@ function buildStats() {
       active: activeDocs,
       //superseded: supersededDocs,
       docTypes: Object.keys(docsByType).length,
-      docsByType
+      docsByType,
+
+      // Journal Article subtype breakdown by articleType
+      journalArticles: {
+        total: journalArticles.length,
+        articleTypes: Object.keys(jaByArticleType).length,
+        byArticleType: jaByArticleType
+      }
     },
 
     // Suite-level stats
