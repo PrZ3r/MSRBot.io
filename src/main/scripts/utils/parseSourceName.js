@@ -55,11 +55,12 @@ function doiToDocId(doi) {
     return suffix.replace(/^SMPTE\./i, 'SMPTE.');
   }
   if (prefix === '10.5594') {
-    // SMPTE convention: the suffix's leading article-id letter (J, M, S, …) is
-    // canonical uppercase. APTARA delivers lowercase for some ranges, but DOI
-    // resolution is case-insensitive so unsuffixed lowercase aliases resolve
-    // back to the same article as their uppercase form. Normalise here.
-    return `${prefix}-${suffix.replace(/^[a-z]/, (c) => c.toUpperCase())}`;
+    // Preserve case verbatim — SMPTE registers `10.5594/J#####` (uppercase) and
+    // `10.5594/j#####` (lowercase) as DISTINCT DOIs pointing to different
+    // articles. Uppercase J covers the 1916–~1955 Transactions era; lowercase j
+    // covers the 2010+ Motion Imaging Journal series. The earlier "lowercase is
+    // drift" assumption deleted 308 real 2011-2015 articles as colliders.
+    return `${prefix}-${suffix}`;
   }
   return `${prefix}-${suffix}`;
 }

@@ -154,11 +154,13 @@ function loadAllDocs() {
       throw new Error(`Failed to parse registry file ${file}: ${err.message}`);
     }
   });
-  // Sort by docId, case-insensitive — matches the sort-order invariant
-  // asserted in documents.validate.js (registry[i-1].docId.toUpperCase()).
+  // Sort by docId case-sensitive — SMPTE registers `10.5594/J*` and
+  // `10.5594/j*` as distinct DOIs pointing to different articles, so the
+  // registry intentionally keeps both forms at separate positions. Matches
+  // the case-sensitive sort-order invariant in documents.validate.js.
   docs.sort((a, b) => {
-    const A = String(a.docId).toUpperCase();
-    const B = String(b.docId).toUpperCase();
+    const A = String(a.docId);
+    const B = String(b.docId);
     return A < B ? -1 : A > B ? 1 : 0;
   });
   return docs;
