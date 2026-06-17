@@ -405,13 +405,21 @@ function main() {
 
   const existing = new Map(loadAllDocs().map((d) => [d.docId, d]));
 
+  // Hard skip-list — APTARA-side placeholder DOIs that SMPTE never registered.
+  // `10.5594-J18193XY` has the literal "XY" suffix sitting where the real
+  // article number should be; treat as junk so it doesn't keep surfacing.
+  const SKIP_DOCIDS = new Set(['10.5594-J18193XY']);
+
   // Classify each unique article: coverage (new) vs cross-fill (overlap).
   const coverageTargets = [];
   const crossfillTargets = [];
+  let skippedJunk = 0;
   for (const [docId, art] of [...byDocId.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+    if (SKIP_DOCIDS.has(docId)) { skippedJunk += 1; continue; }
     if (existing.has(docId)) crossfillTargets.push([docId, art]);
     else coverageTargets.push([docId, art]);
   }
+  if (skippedJunk) console.log(`  skipped ${skippedJunk} known-junk docId(s) (SKIP_DOCIDS)`);
   console.log(`  classification: ${coverageTargets.length} coverage (new), ${crossfillTargets.length} potential cross-fill`);
 
   // Build the combined work list per CLI flags.
