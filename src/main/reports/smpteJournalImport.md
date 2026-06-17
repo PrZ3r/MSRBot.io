@@ -1,6 +1,6 @@
-# SMPTE NLM Article Import — 2026-05-22T23:38:05.315Z
+# SMPTE NLM Article Import — 2026-06-17T18:59:30.217Z
 
-Mode: **DRY-RUN** · source `_source/SMPTE/HIGHWIRE`
+Mode: **APPLY** · source `_source/SMPTE/HIGHWIRE`
 Corpora: Journal Article (`smpte-journal-article-nlm@v1`), Conference Paper (`smpte-conference-paper-nlm@v1`)
 
 ## Totals

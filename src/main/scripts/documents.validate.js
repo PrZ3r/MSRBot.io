@@ -62,9 +62,12 @@ module.exports = (registry, name) => {
     keys.push(registry[i].docId);
   }
 
-  /* Ensure registry is sorted */
+  /* Ensure registry is sorted (case-sensitive — SMPTE registers
+     `10.5594/J*` and `10.5594/j*` as distinct DOIs pointing to different
+     articles, so the registry intentionally keeps both forms in separate
+     order positions). */
   for (let i = 1; i < registry.length; i++) {
-    if ((registry[i - 1].docId).toUpperCase() >= (registry[i].docId).toUpperCase()) {
+    if (registry[i - 1].docId >= registry[i].docId) {
       throw name + " sort order " + registry[i - 1].docId + " is " +
         ((registry[i - 1].docId === registry[i].docId) ? "duplicated" : "not sorted");
     }

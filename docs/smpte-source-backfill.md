@@ -32,7 +32,7 @@ Scripts (one-time runners + the audit tool, all built for this project):
 - [ ] `src/main/scripts/extras/resolveSmpteSourceRefs.js` — unresolved-refs resolver pass
 - [ ] `src/main/scripts/extras/fixUndatedSourceRefs.js` — fixup, dates undated org-lineage refIds
 - [ ] `src/main/scripts/extras/inventorySource.smpte.js` — SMPTE source-vs-registry audit tool
-- [ ] `src/main/scripts/extras/fixLowercaseSmpteDocIds.js` — APTARA lowercase-j docId cleanup (rename + collider delete)
+<!-- removed: fixLowercaseSmpteDocIds.js was deleted — it conflated SMPTE's intentional lowercase-j (2010+ MIJ era) with drift and unlinked 308 real articles as "colliders" against the uppercase-J (pre-1955 Transactions era). The fix-up branch restored the deleted docs and removed the script. -->
 - [ ] `src/main/scripts/extras/crossfillSmpteFromZoho.js` — per-field Zoho cross-fill runner (`--field <name>`)
 - [ ] `src/main/scripts/extras/dedupIcsCodes.js` — collapse duplicate `icsCodes` entries from APTARA artifacts
 - [ ] `src/main/scripts/extras/importSmpteFromZoho.js` — wholesale-import individual Zoho records (`--docs <id1,id2,…>`)
