@@ -395,7 +395,15 @@
         </div>
         <div class="card-body small">
           <h6 class="fw-semibold mt-3 mb-1">Added</h6>
+<ul class="mb-1">
+<li><strong><code>articleType</code> page gate</strong> — <code>site.json#noPageArticleTypes</code> lists <code>articleType</code> values that don't get rendered site pages. Initial set: <code>obituary</code>, <code>other</code>, <code>news</code>, <code>calendar</code>, <code>announcement</code>, <code>correction</code>, <code>addendum</code>, <code>reprint</code>. Gated docs are skipped at the per-doc page, reference-tree, and sitemap emit loops, and dropped from <code>search-index.json</code>/<code>facets.json</code> so they don't appear in the browse list either. Stale pages from earlier builds are removed on rebuild. Gated docs remain fully present in the API and registry — the gate only suppresses generated pages, not data. New <code>src/main/lib/pageGate.js</code> drives the decision; matching is case-insensitive but exact-value.</li>
+<li><strong><code>articleType</code> shown on doc pages</strong> — surfaced in <code>docId.hbs</code> directly below Doc Type when present.</li>
+<li><strong>Journal Article breakdown in <code>/api/stats.json</code></strong> — new <code>documents.journalArticles</code> block: <code>{ total, articleTypes, byArticleType }</code> (sorted descending by count). Stats <code>apiVersion</code> bumps <code>1.0.0 → 1.1.0</code>.</li>
+</ul>
 <h6 class="fw-semibold mt-3 mb-1">Changed</h6>
+<ul class="mb-1">
+<li><strong><code>/api/documents.json</code> is now a lightweight index</strong> (<code>apiVersion</code> bumps <code>1.0.0 → 2.0.0</code>) — the full-bundle shape grew past GitHub's 100 MB per-file limit on the <code>gh-pages</code> branch as the SMPTE journal-article backfill landed. The endpoint now emits one row per doc — <code>{ docId, publisher, docType, docLabel, docTitle, articleType?, path }</code> — each linking to <code>/api/doc/{docId}.json</code> for the full record with <code>$meta</code> provenance. Drops the file from ~120 MB to ~7 MB and stays small as the corpus grows. Per-doc shards are unchanged and remain the canonical full-data endpoint. Closes <a href="https://github.com/PrZ3r/MSRBot.io/issues/1173" target="_blank" rel="noopener">#1173</a>.</li>
+</ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
         </div>
       </div>
@@ -922,8 +930,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>9515483928a0fbc371d5eebedcb15eaf43c8a51c</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-15T17:10:00.005Z</code>
+              <span class="fw-semibold">Site version:</span> <code>bdf4fc9cc70d49c66cabe960793208efe4721f8f</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-17T23:52:34.067Z</code>
             </p>
           </small>
         </div>
