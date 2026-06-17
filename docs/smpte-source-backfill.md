@@ -38,6 +38,7 @@ Scripts (one-time runners + the audit tool, all built for this project):
 - [ ] `src/main/scripts/extras/importSmpteFromZoho.js` — wholesale-import individual Zoho records (`--docs <id1,id2,…>`)
 - [ ] `src/main/scripts/extras/fixSmpteDoubleSmpteDoi.js` — bad-DOI registration fixes (6 patterns: double-SMPTE, separator drift, manual registrar errors, month-strip, library release-tag, year-mismatch) + extra-field cascades
 - [ ] `src/main/scripts/extras/fixMissingNestedMeta.js` — backfill missing top-level `$meta` for nested non-container objects (copyright, issn, publisherLocation) where sub-fields exist but parent `$meta` was missed
+- [ ] `src/main/scripts/extras/scrubKeywordVocab.js` — audit registry `keywords[]` against `site.json` `controlledKeywords`; reports auto-fix / drop / promote / synonym buckets (read-only)
 
 Reports / ad-hoc outputs:
 
@@ -53,6 +54,7 @@ Reports / ad-hoc outputs:
 - [ ] `src/main/reports/zohoCrossfill.{field}.md` — per-field Zoho cross-fill conflict reports (one per `--field` run: isbn, copyright_year, productNumber, numberOfPages, status_reaffirmDate, status_stabilizedDate, approvalDate, icsCodes, status_superseded, status_withdrawn, docTitle)
 - [ ] `src/main/reports/zohoCoverage.newDocs.md` — Zoho coverage categorisation (junk / punct-only / doi-match / new-edition / brand-new buckets)
 - [ ] `src/main/reports/zohoCoverage.newEditions.md` — Zoho new-editions breakdown with year-delta + sibling DOIs
+- [ ] `src/main/reports/keywordVocabScrub.md` — registry keyword audit vs `controlledKeywords` (auto-fix / drop / promote / synonym buckets + ready-to-paste vocab additions)
 
 This tracking doc itself:
 

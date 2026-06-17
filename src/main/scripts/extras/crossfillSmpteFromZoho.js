@@ -64,6 +64,7 @@ process.chdir(REPO_ROOT);
 
 const { loadAllDocs, docAbsPath } = require('../../lib/registry');
 const { doiToDocId } = require('../utils/parseSourceName');
+const { normalizeKeyword } = require('../utils/keyword.normalize');
 
 const ZOHO_PATH = path.join(REPO_ROOT, '_source', 'SMPTE', 'Zoho',
   'SMPTE Standards Document Zoho Export 2026-05-21.json');
@@ -180,6 +181,57 @@ const FIELDS = {
     path: ['docTitle'],
     normalize: lower,
     transform: (raw) => trim(raw),
+  },
+  // keywords union — flattens Zoho's two delimited columns (Keywords, Topics)
+  // into a single deduped list. All canonicalization (D-Cinema→DCinema,
+  // Subtitle→Subtitles, acronym casing) goes through the shared
+  // `normalizeKeyword` helper so this pass stays in lockstep with the IETF/
+  // APTARA extractors. Run with `--merge-conflicts` so any non-empty Zoho set
+  // unions onto the registry's existing keywords array (mirrors icsCodes).
+  keywords: {
+    zohoKey: null,
+    path: ['keywords'],
+    normalize: (v) => {
+      if (!Array.isArray(v) || !v.length) return '';
+      return [...new Set(v.map((k) => normalizeKeyword(k).toLowerCase()).filter(Boolean))]
+        .sort()
+        .join('|');
+    },
+    transform: (_, r) => {
+      const out = [];
+      const seenLower = new Set();
+      for (const col of ['Keywords', 'Topics']) {
+        const raw = trim(r[col]);
+        if (!raw) continue;
+        for (const piece of raw.split(/[,;]/)) {
+          const t = normalizeKeyword(piece);
+          if (!t) continue;
+          const key = t.toLowerCase();
+          if (seenLower.has(key)) continue;
+          seenLower.add(key);
+          out.push(t);
+        }
+      }
+      return out.length ? out : null;
+    },
+    // Union registry + Zoho keywords. Pre-existing registry drift (e.g.
+    // "D-Cinema", "Subtitle") collapses to the canonical form via the shared
+    // normalizer; registry casing wins on case-folded matches afterward.
+    conflictMerge: (regVal, zohoVal) => {
+      const out = [];
+      const seenLower = new Set();
+      for (const arr of [regVal, zohoVal].filter(Array.isArray)) {
+        for (const k of arr) {
+          const t = normalizeKeyword(k);
+          if (!t) continue;
+          const key = t.toLowerCase();
+          if (seenLower.has(key)) continue;
+          seenLower.add(key);
+          out.push(t);
+        }
+      }
+      return out;
+    },
   },
   icsCodes: {
     zohoKey: null,
@@ -419,10 +471,19 @@ for (const c of conflicts) {
 fs.writeFileSync(reportPath, md.join('\n') + '\n');
 console.log(`\nWrote ${path.relative(REPO_ROOT, reportPath)}`);
 
+// Effective merge count after the no-op short-circuit (only for the dry-run
+// summary; apply applies the same filter inline below).
+const effectiveMergeCount = (MERGE_CONFLICTS && def.conflictMerge)
+  ? conflicts.filter((c) => def.normalize(def.conflictMerge(c.registry, c.zoho)) !== def.normalize(c.registry)).length
+  : conflicts.length;
+
 if (!APPLY) {
   let suffix = '. Conflicts are never overwritten in default mode.';
   if (ZOHO_WINS) suffix = ` + ${conflicts.length} conflict overwrite(s).`;
-  if (MERGE_CONFLICTS && def.conflictMerge) suffix = ` + ${conflicts.length} conflict merge(s).`;
+  if (MERGE_CONFLICTS && def.conflictMerge) {
+    const noop = conflicts.length - effectiveMergeCount;
+    suffix = ` + ${effectiveMergeCount} conflict merge(s)${noop ? ` (${noop} no-op merges skipped — Zoho is a subset of the registry's existing set)` : ''}.`;
+  }
   console.log(`\nDry run — pass --apply to write ${adds.length} adds${suffix}`);
   if (MERGE_CONFLICTS && def.conflictMerge && conflicts.length) {
     console.log(`\n-- Sample merged values (first 3) --`);
@@ -448,6 +509,11 @@ if (ZOHO_WINS) {
 } else if (MERGE_CONFLICTS && def.conflictMerge) {
   for (const c of conflicts) {
     const merged = def.conflictMerge(c.registry, c.zoho);
+    // Skip merges that produce the same set the registry already has (Zoho
+    // was a subset / case-folded duplicate). Without this, normalize() flags
+    // the case mismatch as a conflict, conflictMerge re-emits the registry
+    // verbatim, and we'd write a no-op + stamp $meta for nothing.
+    if (def.normalize(merged) === def.normalize(c.registry)) continue;
     toWrite.push({ docId: c.docId, value: merged, kind: 'merge', originalValue: c.registry });
   }
 }
