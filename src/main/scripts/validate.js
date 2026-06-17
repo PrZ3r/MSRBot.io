@@ -29,10 +29,26 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const fs = require("fs");
 const path = require("path");
+const { execSync } = require("child_process");
 const Ajv = require("ajv");
 const jsonSourceMap = require("json-source-map");
 const { listRegistries } = require("./utils/registryList");
 const { loadAllDocs, walkJsonFiles, docPath, DOCS_ROOT } = require("../lib/registry");
+
+// Build a Set of paths git tracks (the canonical case-sensitive view). On
+// macOS the FS layer is case-insensitive — a file tracked by git as
+// `J18503.json` will be reported by `fs.readdirSync` as `j18503.json` once
+// any tool writes to the lowercase form, while git's index keeps uppercase.
+// Linux CI sees the git-tracked case and fails on path-consistency; this
+// helper lets the local validator catch the same drift.
+function gitTrackedPaths() {
+  try {
+    const out = execSync("git ls-files src/main/data/docs", { encoding: "utf8" });
+    return new Set(out.split("\n").filter(Boolean));
+  } catch (e) {
+    return null; // not a git repo or git missing — skip the check
+  }
+}
 
 /**
  * Validate a directory-backed registry (issue #1108): every per-doc file is
@@ -42,7 +58,9 @@ const { loadAllDocs, walkJsonFiles, docPath, DOCS_ROOT } = require("../lib/regis
  */
 function validateDirectoryRegistry(reg, validateFn) {
   const files = walkJsonFiles(reg.dataDir).sort();
+  const tracked = gitTrackedPaths();
   const pathErrors = [];
+  const caseErrors = [];
 
   for (const file of files) {
     let doc;
@@ -67,12 +85,44 @@ function validateDirectoryRegistry(reg, validateFn) {
         `  ${path.relative(DOCS_ROOT, file)}\n    -> expected ${path.relative(DOCS_ROOT, expected)}`
       );
     }
+
+    // Case-sensitive cross-check against git's tracked filename. On macOS
+    // case-insensitive FS, `fs.readdirSync` can quietly normalise a file's
+    // case after a same-path-different-case write, while git's index keeps
+    // the original case. CI on Linux (case-sensitive) sees the git case and
+    // fails — this catches it locally before push.
+    if (tracked) {
+      const relFromRepo = path.relative(process.cwd(), file);
+      const gitView = [...tracked].find((p) => p.toLowerCase() === relFromRepo.toLowerCase());
+      if (gitView && gitView !== relFromRepo) {
+        caseErrors.push(
+          `  git tracks: ${gitView}\n    fs reports: ${relFromRepo}`
+        );
+      }
+      // Also flag when git's tracked basename case mismatches the doc's docId.
+      if (gitView) {
+        const gitBase = path.basename(gitView, ".json");
+        if (gitBase !== doc.docId) {
+          caseErrors.push(
+            `  git tracks: ${gitView}\n    docId in file: ${doc.docId}\n    (case-sensitive mismatch — CI will fail)`
+          );
+        }
+      }
+    }
   }
 
   if (pathErrors.length) {
     throw new Error(
       `${pathErrors.length} file(s) not at their derived shard path ` +
       `(run \`npm run canonicalize\` to re-home):\n${pathErrors.join("\n")}`
+    );
+  }
+
+  if (caseErrors.length) {
+    throw new Error(
+      `${caseErrors.length} file(s) have a case-only mismatch between git index and ` +
+      `filesystem (will fail on Linux CI even if local validate passes — run a ` +
+      `two-step \`git mv\` to align):\n${caseErrors.join("\n")}`
     );
   }
 
