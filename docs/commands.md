@@ -157,7 +157,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Action: Lists review flags across all docs/providers for both reference types:
     - `references.normative$meta.reviewRequired === true`
     - `references.bibliographic$meta.reviewRequired === true`
-  - Includes per-entry ref count, `badRefs.latest` count, and summary gap reporting for docs with bad refs but no review flag.
+  - Includes per-entry ref count, count of MRI orphan slugs cited from the doc (`refs[]` entries with `isOrphan: true` and `resolvedDocId: null` — the modern replacement for the deprecated `badRefs.latest` sidecar), and summary gap reporting for docs with unresolved refs but no review flag.
 
 - `npm run review-refs -- resolve <docId...>`
   - Runs: `node src/main/scripts/utils/review.refs.js resolve <docId...>`

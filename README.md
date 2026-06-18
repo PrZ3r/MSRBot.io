@@ -43,7 +43,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 - Schema for data: [`src/main/schemas`](src/main/schemas/)
 - Main document Dataset: [`src/main/data/docs/`](src/main/data/docs/) — one JSON file per document, sharded by `{publisher}/{docType}/` (title-identified docTypes such as journal articles add a `{year}/` level). The `documents.json` monolith, registry slices, and per-docId API are build artifacts assembled from these files.
 - Document lineages: [Master Suite Index (MSI)](src/main/reports/masterSuiteIndex.json)
-- Document reference maps: [Master Reference Index (MRI)](src/main/reports/masterReferenceIndex.json)
+- Document reference maps: [Master Reference Index (MRI)](src/main/reports/masterReferenceIndex.json) — schema `2.0.0`, slug-keyed: every cited reference has a first-class entry, with `resolvedDocId` / `needsResolve` / `contentHash` fields. Refs that aren't registry docs but live in MRI render inline on doc pages and the reference tree as `<cite>` blocks with an `EXTERNAL` badge (data sidecar at [`build/api/mri-cite-map.json`](https://msrbot.io/api/mri-cite-map.json)).
 - API Explorer: [msrbot.io/api/](https://msrbot.io/api/)
 - Live API Stats: [api/stats.json](https://msrbot.io/api/stats.json)
 - JSON Schema: [api/schemas/documents.schema.json](https://msrbot.io/api/schemas/documents.schema.json)

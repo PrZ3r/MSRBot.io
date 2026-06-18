@@ -8,8 +8,19 @@ and Master Reference Index (MRI). Before this, SMPTE `references` were almost
 all hand-curated `source: "manual"` and SMPTE refs had never reached the MRI.
 
 It follows the IETF model: rich raw `<ref>` data lives in the MRI as sightings;
-the registry's `references[]` holds **resolved short refIds only**. Unresolved
-refs go to a report + MRI orphans — never into the registry.
+the registry's `references[]` holds **short refId strings only**.
+
+Originally, resolved refs landed in `references[]` (as canonical refIds like
+`ASME.B1.1.1989`) while unresolved refs went to a separate report + a flat
+`MRI.orphans.unmapped[]` list — never cited from `references[]`. As of the
+MRI v2 slug schema (see the `MRI v2 — slug-keyed citation system` entry in
+[CHANGELOG.md](../CHANGELOG.md)),
+unresolved refs are also cited from `references[]` — as source-anchored
+slugs of the form `orphan/<sourceDoc>/<refXmlId>` — and rendered inline as
+`<cite>` blocks with an `EXTERNAL` badge. The MRI entry carries the citation
+text + raw XML; when the slug later resolves to a registry doc, MRI's
+`resolvedDocId` pointer flips and the renderer transparently follows it
+without touching the doc file.
 
 ## Outcome
 
