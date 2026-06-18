@@ -259,11 +259,19 @@ jobs:
             src/main/data/docs
             src/main/reports/url_validate_normalize.json
 
-      - name: Upsert URL issues 
+      - name: Upsert URL issues
+        # Uses the workflow's GITHUB_TOKEN (which already has issues:write per
+        # the top-level `permissions:` block) rather than the App token. The
+        # App token mint above is kept for steps that need bot-identity
+        # commits, but issue management against `actions/github-script` only
+        # needs `issues: write` — GITHUB_TOKEN's scope is sufficient and
+        # avoids the 401 path when the App's installation permissions drift
+        # (which is what caused run #27727667119 to fail with "Bad credentials"
+        # on issues.listForRepo).
         if: (success() || failure()) && steps.guard.outputs.skip != 'true'
         uses: actions/github-script@v9
         with:
-          github-token: ${{ steps.app-token.outputs.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const path = require('path');
