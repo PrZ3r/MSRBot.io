@@ -44,6 +44,31 @@ const _writeFile = (filePath, data, encoding = 'utf8') =>
   });
 
 const hb = require('handlebars');
+
+// Cached set of refIds (and slug keys) known to MRI. Used to suppress
+// `No lineage key derivable` / `getStatus: NOT IN REGISTRY` warnings for refs
+// that the registry doesn't carry as docs but MRI knows about — either as
+// canonical-form entries (e.g. ASME.B1.1.1989, RFC1642) or as source-anchored
+// orphan slugs (e.g. orphan/SMPTE.ST76.1996/ref-bib-7). The build still emits
+// warnings for refs that are unknown to both registry AND MRI; that population
+// is meant to be vanishingly small once the extractors converge on the slug
+// schema. Cache is lazy + memoised across the whole build.
+let __mriKnownRefsCache = null;
+function _mriKnownRefs() {
+  if (__mriKnownRefsCache) return __mriKnownRefsCache;
+  try {
+    const p = path.join(__dirname, '..', 'reports', 'masterReferenceIndex.json');
+    const raw = fsRaw.readFileSync(p, 'utf8');
+    const mri = JSON.parse(raw);
+    __mriKnownRefsCache = new Set(Object.keys(mri.refs || {}));
+  } catch {
+    __mriKnownRefsCache = new Set();
+  }
+  return __mriKnownRefsCache;
+}
+function refKnownToMri(ref) {
+  return ref && _mriKnownRefs().has(String(ref));
+}
 const { readFile } = fs; // promises readFile
 const { json2csvAsync } = require('json-2-csv');
 
@@ -1765,7 +1790,10 @@ function _titleOf(doc){
               const warnKey = `${docId}::${r}`;
               if (!__noKeyWarned.has(warnKey)) {
                 __noKeyWarned.add(warnKey);
-                if (__emitRefWarnings) {
+                // Suppress when MRI has the citation info — the ref is fully
+                // renderable inline even though no lineage key derives. Only
+                // truly unknown refs (not in registry, not in MRI) warn.
+                if (__emitRefWarnings && !refKnownToMri(r)) {
                   console.warn(`[WARN] No lineage key derivable: ref="${r}" (docId=${docId}, kind=${kind || 'unknown'})`);
                 }
               }
@@ -1908,6 +1936,11 @@ function _titleOf(doc){
 
   hb.registerHelper("getStatus", function(docId) {
     if (!docStatuses.hasOwnProperty(docId)) {
+      // If MRI knows about the ref (canonical or orphan slug), don't warn —
+      // the renderer can pull citation info from MRI and show inline.
+      // "MRI-KNOWN" is the status the template uses to switch into
+      // citation-rendering mode instead of doc-link mode.
+      if (refKnownToMri(docId)) return "MRI-KNOWN";
       console.warn(`[WARN:getStatus] docId "${docId}" not found in registry`);
       return "NOT IN REGISTRY";
     } else {

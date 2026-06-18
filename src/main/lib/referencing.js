@@ -67,35 +67,37 @@ function mriPruneToSightings(index, opts = {}) {
   // Recompute stats
   mri.stats.uniqueRefIds = Object.keys(mri.refs || {}).length;
 
-  // Orphan pruning: drop orphans that are now resolvable or belong to removed docs
+  // Orphan pruning — operate on both legacy unmapped[] entries AND new
+  // slug-keyed refs[] entries (isOrphan===true). Drops orphans whose source
+  // doc is gone, OR whose citation can now be resolved to a canonical refId
+  // present as a sighting elsewhere.
   let removedOrphans = 0;
-  if (mri.orphans && Array.isArray(mri.orphans.unmapped)) {
-    // Build a quick set of docIds present in current truth for fast lookups
-    const presentDocIds = new Set();
-    for (const key of index) {
-      const parts = String(key).split('||');
-      // key format: `${refId}||${docId}||${type}`
-      if (parts.length >= 3 && parts[1]) presentDocIds.add(parts[1]);
-    }
 
+  // Build a quick set of docIds present in current truth for fast lookups
+  const presentDocIds = new Set();
+  for (const key of index) {
+    const parts = String(key).split('||');
+    if (parts.length >= 3 && parts[1]) presentDocIds.add(parts[1]);
+  }
+
+  function tryResolveOrphan(docId, cite, href, type) {
+    if (!docId || !presentDocIds.has(docId)) return { docGone: true, nowResolved: false };
+    let nowResolved = false;
+    try {
+      const rid = parseRefId(cite || '', href || '');
+      if (rid) {
+        const key = `${rid}||${docId}||${type || ''}`;
+        if (index.has(key)) nowResolved = true;
+      }
+    } catch {}
+    return { docGone: false, nowResolved };
+  }
+
+  // 1. Legacy unmapped[] (should mostly be empty post-migration, but keep for safety)
+  if (mri.orphans && Array.isArray(mri.orphans.unmapped)) {
     const keptOrphans = [];
     for (const o of mri.orphans.unmapped) {
-      const docId = o && o.docId ? String(o.docId) : '';
-      const type = o && o.type ? String(o.type) : '';
-
-      // If the document no longer exists in current truth, drop the orphan
-      const docGone = docId && !presentDocIds.has(docId);
-
-      // If we can now resolve this orphan to a refId and that sighting exists, drop it
-      let nowResolved = false;
-      try {
-        const rid = parseRefId(o && o.cite ? o.cite : '', o && o.href ? o.href : '');
-        if (rid) {
-          const key = `${rid}||${docId}||${type}`;
-          if (index.has(key)) nowResolved = true;
-        }
-      } catch {}
-
+      const { docGone, nowResolved } = tryResolveOrphan(o && o.docId, o && o.cite, o && o.href, o && o.type);
       if (docGone || nowResolved) {
         removedOrphans++;
         _dirty = true;
@@ -103,9 +105,19 @@ function mriPruneToSightings(index, opts = {}) {
         keptOrphans.push(o);
       }
     }
-
     if (keptOrphans.length !== mri.orphans.unmapped.length) {
       mri.orphans.unmapped = keptOrphans;
+    }
+  }
+
+  // 2. New slug-keyed orphans in refs[]
+  for (const [slug, entry] of Object.entries(mri.refs || {})) {
+    if (!entry || !entry.isOrphan) continue;
+    const { docGone, nowResolved } = tryResolveOrphan(entry.sourceDoc, entry.citationText, entry.href, (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].type) || null);
+    if (docGone || nowResolved) {
+      delete mri.refs[slug];
+      removedOrphans++;
+      _dirty = true;
     }
   }
 
@@ -249,13 +261,37 @@ let _dirty = false;
 
 function _initEmptyMRI() {
   return {
-    version: '1.0.0',
+    version: '2.0.0',
     generatedAt: new Date().toISOString(),
-    stats: { uniqueRefIds: 0 },
+    stats: { uniqueRefIds: 0, resolvedCount: 0, knownPublisherNoDocCount: 0, unknownPublisherOrphanCount: 0 },
     refs: {},
     reverse: {},
+    // Kept for backwards-compat with consumers that still read this shape;
+    // new orphans are written as `refs[orphan/<sourceDoc>/<refXmlId>]` slug
+    // entries, not pushed into this list.
     orphans: { unmapped: [] }
   };
+}
+
+// Stable short hash of a normalised raw <ref> XML — used to group orphans that
+// represent the same citation across multiple source docs. Drops per-sighting
+// `<ref id="X">` attribute + whitespace + case so equivalent citations collide.
+function _contentHash(rawRef) {
+  const crypto = require('crypto');
+  const norm = String(rawRef || '')
+    .replace(/<ref\s+id="[^"]+"/g, '<ref')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+  if (!norm) return null;
+  return crypto.createHash('sha256').update(norm).digest('hex').slice(0, 16);
+}
+
+// Extract the `<ref id="X">` value from a raw ref block — used as the per-doc
+// component of source-anchored orphan slugs.
+function _refXmlIdOf(rawRef) {
+  const m = String(rawRef || '').match(/<ref\s+id="([^"]+)"/);
+  return m ? m[1] : null;
 }
 
 function _stableSort(arr, keyFn) {
@@ -295,6 +331,9 @@ function _ensureRef(refId) {
     mri.refs[refId] = {
       refId,
       normalized: null,
+      resolvedDocId: null,
+      needsResolve: 'known-publisher-no-doc',
+      contentHash: null,
       resolution: null,
       provenance: { firstSeen: null, mapSource: [], mapDetails: [] },
       rawVariants: []
@@ -437,13 +476,51 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
     // Final safety: collapse any accidental dupes
     entry.rawVariants = _dedupeVariants(entry.rawVariants);
   } else {
-    // orphan
-    mri.orphans = mri.orphans || { unmapped: [] };
-    const orphan = { docId, type, cite, href, rawRef, title };
-    const key = JSON.stringify(orphan);
-    const exists = (mri.orphans.unmapped || []).some(x => JSON.stringify(x) === key);
-    if (!exists) {
-      (mri.orphans.unmapped ||= []).push(orphan);
+    // orphan — parser couldn't form a canonical refId. Mint a source-anchored
+    // slug (`orphan/<sourceDoc>/<refXmlId>`) and write as a first-class refs[]
+    // entry so it's citable from doc.references[] and queryable like any other
+    // ref. contentHash lets resolveOrphans.js group sightings of the same raw
+    // citation across multiple source docs.
+    const refXmlId = _refXmlIdOf(rawRef);
+    if (docId && refXmlId) {
+      const slug = `orphan/${docId}/${refXmlId}`;
+      if (!mri.refs[slug]) {
+        mri.refs[slug] = {
+          refId: slug,
+          isOrphan: true,
+          sourceDoc: docId,
+          sourceRefId: refXmlId,
+          citationText: cite || null,
+          href: href || null,
+          title: title || null,
+          rawRef: rawRef || null,
+          contentHash: _contentHash(rawRef),
+          resolvedDocId: null,
+          needsResolve: 'unknown-publisher',
+          rawVariants: [{ docId, type, cite, href, rawRef, title }],
+          provenance: {
+            firstSeen: new Date().toISOString(),
+            mapSource: mapSource ? [String(mapSource)] : ['orphan-mint'],
+            mapDetails: mapDetail ? [String(mapDetail)] : [],
+          },
+        };
+      } else {
+        // Same slug seen again — should be rare (same doc, same refXmlId). Merge variants idempotently.
+        const ent = mri.refs[slug];
+        ent.rawVariants = ent.rawVariants || [];
+        const exists = ent.rawVariants.some((v) => v && v.docId === docId && v.type === type);
+        if (!exists) ent.rawVariants.push({ docId, type, cite, href, rawRef, title });
+      }
+    } else {
+      // Can't mint a deterministic slug (missing docId or <ref id="...">) — fall
+      // back to the legacy unmapped[] path so we don't drop the citation entirely.
+      // resolveOrphans.js / a future cleanup can lift these once they have enough
+      // anchor data to slug-ify.
+      mri.orphans = mri.orphans || { unmapped: [] };
+      const orphan = { docId, type, cite, href, rawRef, title };
+      const key = JSON.stringify(orphan);
+      const exists = (mri.orphans.unmapped || []).some(x => JSON.stringify(x) === key);
+      if (!exists) (mri.orphans.unmapped ||= []).push(orphan);
     }
   }
 
@@ -485,7 +562,7 @@ function mriFlush(opts = {}) {
         const sortedMapDetails = (e.provenance?.mapDetails || []).slice(); // keep order
 
         // Final authority: check documents.json (docId and docBase) now that it should be finalized
-        const matchDocId = _findSourceDocIdForRefId(e.refId);
+        const matchDocId = e.isOrphan ? null : _findSourceDocIdForRefId(e.refId);
         const present = !!matchDocId;
         e.resolution = e.resolution || {};
         const prevPresent = !!e.resolution.sourcePresent;
@@ -498,10 +575,32 @@ function mriFlush(opts = {}) {
           }
           _dirty = true;
         }
+        // Keep slug-schema fields in sync with resolution truth.
+        if (present) {
+          if (e.resolvedDocId !== matchDocId) { e.resolvedDocId = matchDocId; _dirty = true; }
+          if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
+        } else if (e.resolvedDocId !== null || (e.needsResolve == null && !e.isOrphan)) {
+          // Canonical-form refs with no source doc → known-publisher-no-doc.
+          // Orphan slugs stay as unknown-publisher (their needsResolve is set on mint).
+          if (!e.isOrphan) {
+            if (e.resolvedDocId !== null) { e.resolvedDocId = null; _dirty = true; }
+            if (e.needsResolve !== 'known-publisher-no-doc') { e.needsResolve = 'known-publisher-no-doc'; _dirty = true; }
+          }
+        }
 
         refsOut[k] = {
           refId: e.refId,
           normalized: e.normalized || null,
+          resolvedDocId: e.resolvedDocId || null,
+          needsResolve: e.needsResolve || null,
+          contentHash: e.contentHash || null,
+          isOrphan: e.isOrphan || undefined,
+          sourceDoc: e.sourceDoc || undefined,
+          sourceRefId: e.sourceRefId || undefined,
+          citationText: e.citationText || undefined,
+          href: e.href || undefined,
+          title: e.title || undefined,
+          rawRef: e.rawRef || undefined,
           resolution: e.resolution || null,
           provenance: {
             firstSeen: e.provenance?.firstSeen || null,
@@ -511,10 +610,18 @@ function mriFlush(opts = {}) {
           rawVariants: sortedVariants.length ? sortedVariants : undefined
         };
       }
+      const resolvedCount = Object.values(refsOut).filter((r) => !!r.resolvedDocId).length;
+      const knownPubBacklog = Object.values(refsOut).filter((r) => r.needsResolve === 'known-publisher-no-doc').length;
+      const unknownPubOrphans = Object.values(refsOut).filter((r) => r.needsResolve === 'unknown-publisher').length;
       const baseOut = {
-        version: mri.version || '1.0.0',
+        version: mri.version || '2.0.0',
         // omit generatedAt for comparison
-        stats: { uniqueRefIds: Object.keys(refsOut).length },
+        stats: {
+          uniqueRefIds: Object.keys(refsOut).length,
+          resolvedCount,
+          knownPublisherNoDocCount: knownPubBacklog,
+          unknownPublisherOrphanCount: unknownPubOrphans,
+        },
         refs: refsOut,
         reverse: mri.reverse || {},
         orphans: {
@@ -550,7 +657,7 @@ function mriFlush(opts = {}) {
     const sortedMapDetails = (e.provenance?.mapDetails || []).slice(); // keep order
 
     // Final authority: check documents.json (docId and docBase) now that it should be finalized
-    const matchDocId = _findSourceDocIdForRefId(e.refId);
+    const matchDocId = e.isOrphan ? null : _findSourceDocIdForRefId(e.refId);
     const present = !!matchDocId;
     e.resolution = e.resolution || {};
     const prevPresent = !!e.resolution.sourcePresent;
@@ -563,10 +670,28 @@ function mriFlush(opts = {}) {
       }
       _dirty = true;
     }
+    // Sync slug-schema fields with resolution truth.
+    if (present) {
+      if (e.resolvedDocId !== matchDocId) { e.resolvedDocId = matchDocId; _dirty = true; }
+      if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
+    } else if (!e.isOrphan) {
+      if (e.resolvedDocId !== null) { e.resolvedDocId = null; _dirty = true; }
+      if (e.needsResolve !== 'known-publisher-no-doc') { e.needsResolve = 'known-publisher-no-doc'; _dirty = true; }
+    }
 
     refsOut[k] = {
       refId: e.refId,
       normalized: e.normalized || null,
+      resolvedDocId: e.resolvedDocId || null,
+      needsResolve: e.needsResolve || null,
+      contentHash: e.contentHash || null,
+      isOrphan: e.isOrphan || undefined,
+      sourceDoc: e.sourceDoc || undefined,
+      sourceRefId: e.sourceRefId || undefined,
+      citationText: e.citationText || undefined,
+      href: e.href || undefined,
+      title: e.title || undefined,
+      rawRef: e.rawRef || undefined,
       resolution: e.resolution || null,
       provenance: {
         firstSeen: e.provenance?.firstSeen || null,
@@ -576,10 +701,18 @@ function mriFlush(opts = {}) {
       rawVariants: sortedVariants.length ? sortedVariants : undefined
     };
   }
+  const resolvedCount = Object.values(refsOut).filter((r) => !!r.resolvedDocId).length;
+  const knownPubBacklog = Object.values(refsOut).filter((r) => r.needsResolve === 'known-publisher-no-doc').length;
+  const unknownPubOrphans = Object.values(refsOut).filter((r) => r.needsResolve === 'unknown-publisher').length;
   const out = {
-    version: mri.version || '1.0.0',
+    version: mri.version || '2.0.0',
     generatedAt: mri.generatedAt || new Date().toISOString(),
-    stats: { uniqueRefIds: Object.keys(refsOut).length },
+    stats: {
+      uniqueRefIds: Object.keys(refsOut).length,
+      resolvedCount,
+      knownPublisherNoDocCount: knownPubBacklog,
+      unknownPublisherOrphanCount: unknownPubOrphans,
+    },
     refs: refsOut,
     reverse: mri.reverse || {},
     orphans: {
