@@ -2,7 +2,12 @@ name: Validate Document URLs
 
 on:
   schedule:
-    - cron: "15 04 * * 6"   # 21:15 PT, Sat (cron in UTC)
+    - cron: "15 04 1,15 * *"   # 21:15 PT prev-day, 1st + 15th of each month (cron in UTC).
+                               # Cadence dropped from weekly to biweekly when the
+                               # corpus passed ~26k docs — each sweep takes hours,
+                               # publishers throttle the request rate, and standards
+                               # URLs rarely drift inside a 14-day window. See
+                               # CHANGELOG.md.
   workflow_run:
     workflows: ["Build MasterReference Index"]
     types: [completed]
@@ -52,10 +57,15 @@ jobs:
               return;
             }
 
-            // Daily throttle: for workflow_run-triggered executions, skip if a successful
-            // Validate URL run already completed within the last 24 hours.
+            // Biweekly throttle: for workflow_run-triggered executions, skip if a
+            // successful Validate URL run already completed within the last 14 days.
+            // Cron fires on the 1st + 15th; this throttle prevents the upstream
+            // `Build MasterReference Index` workflow_run trigger from firing extra
+            // sweeps in between — full URL revalidation against the now-26k-doc
+            // corpus is too expensive (and too rate-limit-friendly with upstream
+            // publishers) to repeat more than ~biweekly.
             const now = Date.now();
-            const oneDayMs = 24 * 60 * 60 * 1000;
+            const throttleWindowMs = 14 * 24 * 60 * 60 * 1000;
             const recentRuns = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
               owner,
               repo,
@@ -68,7 +78,7 @@ jobs:
               r.id !== context.runId &&
               r.name === context.workflow &&
               r.conclusion === 'success' &&
-              (now - new Date(r.created_at).getTime()) < oneDayMs
+              (now - new Date(r.created_at).getTime()) < throttleWindowMs
               )
               .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
@@ -96,10 +106,10 @@ jobs:
             }
 
             if (recentSuccess) {
-              core.info(`Daily throttle hit. Recent successful URL-validate run: ${recentSuccess.html_url}`);
+              core.info(`Biweekly throttle hit. Recent successful URL-validate run: ${recentSuccess.html_url}`);
               core.setOutput('skip', 'true');
               core.setOutput('pr', '');
-              core.setOutput('skip_reason', 'daily-throttle');
+              core.setOutput('skip_reason', 'biweekly-throttle');
               core.setOutput('last_run_url', recentSuccess.html_url || '');
               return;
             }
@@ -120,8 +130,8 @@ jobs:
       - name: Skipping Validate URLs (upstream PR open)
         if: steps.guard.outputs.skip == 'true'
         run: |
-          if [ "${{ steps.guard.outputs.skip_reason }}" = "daily-throttle" ]; then
-            echo "⏭️  Skipping URL validate due to daily throttle (already succeeded within last 24h)."
+          if [ "${{ steps.guard.outputs.skip_reason }}" = "biweekly-throttle" ]; then
+            echo "⏭️  Skipping URL validate due to biweekly throttle (already succeeded within last 14 days)."
             echo "Last successful run: ${{ steps.guard.outputs.last_run_url }}"
           else
             echo "⏭️  Skipping URL validate because upstream workflow opened PR #${{ steps.guard.outputs.pr }}."
