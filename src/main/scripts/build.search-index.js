@@ -45,8 +45,10 @@ const { noPageArticleTypeSet, isPageGated } = require('../lib/pageGate');
 /** Page gate config — gated articleTypes are excluded from the browse/search
  *  index (and facets), matching the per-doc page gate in build.js. */
 let __gateSet;
+let __siteConfig = {};
 try {
-  __gateSet = noPageArticleTypeSet(require('../config/site.json'));
+  __siteConfig = require('../config/site.json');
+  __gateSet = noPageArticleTypeSet(__siteConfig);
 } catch (e) {
   __gateSet = new Set();
 }
@@ -140,6 +142,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
   /** Build the flat, minimal index strictly from canonical doc fields */
   const idx = [];
   let gatedCount = 0;
+  const icsCodeLabels = {};
   for (const d of Array.isArray(docs) ? docs : []) {
     if (!d || !d.docId) continue;
     // Page gate: gated articleTypes stay in the API but not the browse index.
@@ -241,10 +244,22 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
           .filter(Boolean)
       : [];
 
-    // ICS classification codes — facet by code; descriptions stay in API only.
-    const icsCodesList = Array.isArray(d.icsCodes)
-      ? d.icsCodes.map(c => (c && typeof c === 'object' && c.code) ? String(c.code).trim() : null).filter(Boolean)
-      : [];
+    // ICS classification codes — facet by code; descriptions collected for
+    // the icsCodeLabels map emitted into facets.json (first non-empty wins —
+    // the ISO code → description mapping is canonical, so any per-doc copy
+    // is fine).
+    const icsCodesList = [];
+    if (Array.isArray(d.icsCodes)) {
+      for (const c of d.icsCodes) {
+        if (!c || typeof c !== 'object' || !c.code) continue;
+        const code = String(c.code).trim();
+        if (!code) continue;
+        icsCodesList.push(code);
+        if (!icsCodeLabels[code] && c.description) {
+          icsCodeLabels[code] = String(c.description).trim();
+        }
+      }
+    }
 
     // doiAliases — search index only, so ISBN-form / legacy DOIs resolve to canonical
     const doiAliasesList = Array.isArray(d.doiAliases)
@@ -330,7 +345,9 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
     affiliations: {},
     hasDoi: { true: 0, false: 0 },
     hasReleaseTag: { true: 0, false: 0 },
-    groupLabels: Object.fromEntries(Array.from(groupNameById.entries()))
+    groupLabels: Object.fromEntries(Array.from(groupNameById.entries())),
+    articleTypeLabels: (__siteConfig && __siteConfig.articleTypeLabels) || {},
+    icsCodeLabels
   };
 
   for (const r of idx) {

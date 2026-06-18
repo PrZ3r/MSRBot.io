@@ -58,7 +58,7 @@
               </dd>
             {{/if}}
             {{#if docType}}<dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType={{docType}}">{{docType}}{{#if docTypeAbr}} ({{docTypeAbr}}){{/if}}</a></dd>{{/if}}
-            {{#if articleType}}<dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType={{articleType}}">{{articleType}}</a></dd>{{/if}}
+            {{#if articleType}}<dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType={{articleType}}">{{articleTypeLabel articleType}}</a></dd>{{/if}}
             {{#if abbrevTitle}}<dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>{{abbrevTitle}}</em></dd>{{/if}}
             {{#if volume}}<dt class="col-sm-4">Volume</dt><dd class="col-sm-8">{{volume}}{{#if number}}, No. {{number}}{{/if}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if number}}<dt class="col-sm-4">Issue</dt><dd class="col-sm-8">No. {{number}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if pages}}<dt class="col-sm-4">Pages</dt><dd class="col-sm-8">{{pages}}</dd>{{/if}}{{/if}}{{/if}}
             {{#if chapter}}<dt class="col-sm-4">Chapter</dt><dd class="col-sm-8">{{chapter}}</dd>{{/if}}
@@ -87,7 +87,7 @@
               <br><span class="small">{{#ifnoteq projectStatus "Complete"}}<span class="fst-italic">Under Development - </span>{{/ifnoteq}}Project: <a href="../../projects/{{../../htmlLink}}#{{projectId}}">{{projectId}}</a> {{#if newDoc}}: New Doc: <a class="{{../../idType}}-link " href="../{{newDoc}}">{{getLabel newDoc}}</a> [{{getStatus newDoc}}] {{{getstatusButton newDoc "10"}}} {{#with (docProjLookup @root.docProjs newDoc)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}{{/if}}</span>
             </dd>{{/if}}{{/with}}
             {{#if keywords}}<dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8">{{#keywords}}<a class="" href="../?f.keywords={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/keywords}}</dd>{{/if}}
-            {{#if icsCodes}}<dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8">{{#icsCodes}}<a class="badge text-bg-light border me-1" href="../?f.icsCodes={{code}}"{{#if description}} title="{{description}}"{{/if}}>{{code}}</a>{{/icsCodes}}</dd>{{/if}}
+            {{#if icsCodes}}<dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8">{{#icsCodes}}<div class="mb-1"><a class="badge text-bg-light border" href="../?f.icsCodes={{code}}">{{code}}</a>{{#if description}} <span class="small text-muted">{{description}}</span>{{/if}}</div>{{/icsCodes}}</dd>{{/if}}
             {{#if revisionOf}}<dt class="col-sm-4">Revision of</dt><dd class="col-sm-8">{{#revisionOf}}<a class="" href="../{{this}}/">{{this}}</a>{{#unless @last}}; {{/unless}}{{/revisionOf}}</dd>{{/if}}
             
             {{#if details}}<dt class="col-sm-4">Details</dt><dd class="col-sm-8"><em>{{details}}</em></dd>{{/if}}

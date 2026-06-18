@@ -133,6 +133,16 @@ hb.registerHelper('raw', function(options) {
   return new hb.SafeString(options.fn(this));
 });
 
+// articleTypeLabel(value) — look up the NLM raw article-type value
+// (e.g. "research-article") in site.json's articleTypeLabels map and return
+// the friendly display label ("Research Article"). Falls through to the raw
+// value if no map entry exists.
+hb.registerHelper('articleTypeLabel', function (value) {
+  if (!value) return '';
+  const map = (siteConfig && siteConfig.articleTypeLabels) || {};
+  return map[String(value)] || String(value);
+});
+
 hb.registerHelper('suiteLink', function (doc) {
   try {
     const d = doc || this || {};

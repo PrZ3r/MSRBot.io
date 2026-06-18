@@ -967,6 +967,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       hasDoi: 'No DOI', hasReleaseTag: 'No Release Tag'
     })[k];
     if (k === 'status' && facets.statusLabels && facets.statusLabels[v]) return facets.statusLabels[v];
+    if (k === 'articleType' && facets.articleTypeLabels && facets.articleTypeLabels[v]) return facets.articleTypeLabels[v];
+    if (k === 'icsCodes' && facets.icsCodeLabels && facets.icsCodeLabels[v]) {
+      return `${v} — ${facets.icsCodeLabels[v]}`;
+    }
     return String(v);
   };
 
@@ -1305,10 +1309,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       ['publisher', facets.publisher, null],
       ['group', facets.group, facets.groupLabels],
       ['docType', facets.docType, null],
-      ['articleType', facets.articleType, null],
+      ['articleType', facets.articleType, facets.articleTypeLabels],
       ['status', facets.status, facets.statusLabels],
       ['keywords', facets.keywords, null],
-      ['icsCodes', facets.icsCodes, null],
+      ['icsCodes', facets.icsCodes, facets.icsCodeLabels],
       ['affiliations', facets.affiliations, null],
       ['currentWork', facets.currentWork, null],
       ['hasDoi', facets.hasDoi, null],
