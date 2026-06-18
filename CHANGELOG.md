@@ -10,6 +10,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Removed
+
+## [v2.1.0] - 2026-06-18
+
+### Added
+
 - **MRI v2 — slug-keyed citation system: every cited reference is now addressable, renderable, and auditable.** A foundational shift in how unresolved references are modelled, surfaced, and progressively resolved over time. Before: refs the parser couldn't shape into a canonical refId fell off into `badRefs.latest.json` (a stale-by-day-2 sidecar) or `MRI.orphans.unmapped[]` (a flat list with no slug identity, unable to be cited from `doc.references[]`). After: every ref the build sees lands in `MRI.refs[]` as a first-class entry — either as a **canonical-form slug** (`ASME.B1.1.1989`, `RFC1642`) when the parser recognised a publisher family, or as a **source-anchored slug** (`orphan/<sourceDoc>/<refXmlId>` for raw-XML refs, `orphan/<sourceDoc>/h:<contentHash>` for cite-only refs) when it didn't. Doc files cite slugs as strings in `references[]`; future resolution work touches only MRI's `resolvedDocId` pointer, not the doc files (re-extracts may converge a slug to its canonical refId, but the MRI entry retains the per-sighting audit trail). **Authoritative architecture reference: [docs/mri-citation-system.md](docs/mri-citation-system.md)** — covers how a `doc.references[]` string actually resolves, the slug ↔ docId relationship, the resolution lifecycle, and worked lookup recipes. Concretely:
   - Every `MRI.refs[]` entry now carries `resolvedDocId` (the registry doc this ref points at, or `null`), `needsResolve` (`null` / `"known-publisher-no-doc"` / `"unknown-publisher"`), and `contentHash` — a 16-hex SHA-256 of the normalised raw `<ref>` XML that groups sightings of the same citation across multiple source docs, so one resolution decision propagates to every sighting that shares the hash.
   - **New `synthesizeCiteFromRawRef` helper** parses authors/article-title/pub-title/standardnum/volume/pages/year out of raw `<ref>` XML (both APTARA `<ref_authorgrp>/<ref_author>/<init>/<ref_surname>` and NLM `<name>/<surname>/<given-names>` shapes) and composes a human-readable citation string. Wired into the mint path so new orphans auto-populate `citationText` when extractors pass `rawRef` but no explicit cite. Backfilled **1,283 existing MRI entries** that had raw XML but no `citationText` — including books like Ousterhout's _Tcl and the Tk Toolkit_ (2nd ed., Addison-Wesley, 2009) that previously rendered as the bare slug.
