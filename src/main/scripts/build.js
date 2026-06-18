@@ -45,30 +45,72 @@ const _writeFile = (filePath, data, encoding = 'utf8') =>
 
 const hb = require('handlebars');
 
-// Cached set of refIds (and slug keys) known to MRI. Used to suppress
-// `No lineage key derivable` / `getStatus: NOT IN REGISTRY` warnings for refs
-// that the registry doesn't carry as docs but MRI knows about — either as
-// canonical-form entries (e.g. ASME.B1.1.1989, RFC1642) or as source-anchored
-// orphan slugs (e.g. orphan/SMPTE.ST76.1996/ref-bib-7). The build still emits
-// warnings for refs that are unknown to both registry AND MRI; that population
-// is meant to be vanishingly small once the extractors converge on the slug
-// schema. Cache is lazy + memoised across the whole build.
+// Cached MRI used to suppress `No lineage key derivable` / `getStatus: NOT IN
+// REGISTRY` warnings and to render inline citations for refs the registry
+// doesn't carry as docs but MRI knows about — either as canonical-form entries
+// (e.g. ASME.B1.1.1989, RFC1642) or source-anchored orphan slugs (e.g.
+// orphan/SMPTE.ST76.1996/ref-bib-7). Lazy + memoised across the build.
+let __mriCache = null;
 let __mriKnownRefsCache = null;
-function _mriKnownRefs() {
-  if (__mriKnownRefsCache) return __mriKnownRefsCache;
+function _mri() {
+  if (__mriCache) return __mriCache;
   try {
     const p = path.join(__dirname, '..', 'reports', 'masterReferenceIndex.json');
-    const raw = fsRaw.readFileSync(p, 'utf8');
-    const mri = JSON.parse(raw);
-    __mriKnownRefsCache = new Set(Object.keys(mri.refs || {}));
+    __mriCache = JSON.parse(fsRaw.readFileSync(p, 'utf8'));
   } catch {
-    __mriKnownRefsCache = new Set();
+    __mriCache = { refs: {} };
   }
+  return __mriCache;
+}
+function _mriKnownRefs() {
+  if (__mriKnownRefsCache) return __mriKnownRefsCache;
+  __mriKnownRefsCache = new Set(Object.keys(_mri().refs || {}));
   return __mriKnownRefsCache;
 }
 function refKnownToMri(ref) {
   return ref && _mriKnownRefs().has(String(ref));
 }
+
+// Escape minimal HTML so we can splat MRI strings into a SafeString without
+// re-escaping markup that lives inside MRI rawRef XML (handlebars is escaping
+// the wrapping HTML itself; we just neutralise the small set that breaks attrs/elements).
+function _esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// `mriCite refId` — render an inline citation for a ref that lives in MRI but
+// has no registry doc to link to. Uses `<cite>` as the first-preference
+// semantic element, optionally wrapping a link when MRI carries an `href`.
+//
+//   - Orphan-slug entry → `<cite>citationText</cite>` (the slug itself is
+//     opaque, so we don't surface it)
+//   - Canonical-form entry (e.g. ASME.B1.1.1989) → `<cite>refId — first
+//     rawVariant.cite</cite>` so the human-readable refId + citation both show.
+hb.registerHelper('mriCite', function (refId) {
+  const entry = _mri().refs?.[refId];
+  if (!entry) return new hb.SafeString(`<cite>${_esc(refId)}</cite>`);
+  const isOrphan = entry.isOrphan === true;
+  const text = entry.citationText
+    || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].cite)
+    || null;
+  const href = entry.href || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].href) || '';
+  let inner;
+  if (isOrphan) {
+    inner = text ? _esc(text) : _esc(refId);
+  } else if (text && text.trim()) {
+    inner = `${_esc(refId)} — ${_esc(text)}`;
+  } else {
+    inner = _esc(refId);
+  }
+  const body = href && /^https?:\/\//i.test(href)
+    ? `<a href="${_esc(href)}" rel="noopener">${inner}</a>`
+    : inner;
+  return new hb.SafeString(`<cite>${body}</cite>`);
+});
 const { readFile } = fs; // promises readFile
 const { json2csvAsync } = require('json-2-csv');
 
@@ -587,6 +629,39 @@ async function emitDocumentsApiOnce() {
       '[api] Failed to write build/api/documents.json:',
       e && e.message ? e.message : e
     );
+  }
+
+  // Lightweight MRI-cite map for client-side renderers (refTree.js etc.) so
+  // they can show inline <cite> for MRI-KNOWN refs without bundling the full
+  // 5+ MB MRI. Schema: { refId: { cite, href, isOrphan } }
+  try {
+    const mri = _mri();
+    const citeMap = {};
+    for (const [refId, entry] of Object.entries(mri.refs || {})) {
+      // Only include refs without a registry doc target — they're the ones the
+      // renderer would otherwise display as "NOT IN REGISTRY".
+      if (entry.resolvedDocId) continue;
+      const cite = entry.citationText
+        || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].cite)
+        || null;
+      const href = entry.href
+        || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].href)
+        || null;
+      if (!cite && !href) continue;
+      citeMap[refId] = {
+        cite: cite || null,
+        href: href || null,
+        isOrphan: entry.isOrphan === true,
+      };
+    }
+    await _writeFile(
+      path.join(apiRoot, 'mri-cite-map.json'),
+      JSON.stringify(citeMap, null, 2),
+      'utf8'
+    );
+    console.log(`[api] Wrote build/api/mri-cite-map.json (${Object.keys(citeMap).length} MRI-only refs)`);
+  } catch (e) {
+    console.warn('[api] Failed to write mri-cite-map.json:', e && e.message ? e.message : e);
   }
 
   let ok = 0;
