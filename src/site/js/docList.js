@@ -1240,6 +1240,9 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       group: 'Group',
       currentWork: 'Current Work',
       keywords: 'Keywords',
+      articleType: 'Article Type',
+      icsCodes: 'ICS Codes',
+      affiliations: 'Author Affiliation',
       hasDoi: 'DOI',
       hasReleaseTag: 'Release Tag'
     };
@@ -1302,8 +1305,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       ['publisher', facets.publisher, null],
       ['group', facets.group, facets.groupLabels],
       ['docType', facets.docType, null],
+      ['articleType', facets.articleType, null],
       ['status', facets.status, facets.statusLabels],
       ['keywords', facets.keywords, null],
+      ['icsCodes', facets.icsCodes, null],
+      ['affiliations', facets.affiliations, null],
       ['currentWork', facets.currentWork, null],
       ['hasDoi', facets.hasDoi, null],
       ['hasReleaseTag', facets.hasReleaseTag, null]
