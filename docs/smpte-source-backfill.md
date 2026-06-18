@@ -13,14 +13,16 @@ the registry's `references[]` holds **short refId strings only**.
 Originally, resolved refs landed in `references[]` (as canonical refIds like
 `ASME.B1.1.1989`) while unresolved refs went to a separate report + a flat
 `MRI.orphans.unmapped[]` list — never cited from `references[]`. As of the
-MRI v2 slug schema (see the `MRI v2 — slug-keyed citation system` entry in
-[CHANGELOG.md](../CHANGELOG.md)),
-unresolved refs are also cited from `references[]` — as source-anchored
-slugs of the form `orphan/<sourceDoc>/<refXmlId>` — and rendered inline as
-`<cite>` blocks with an `EXTERNAL` badge. The MRI entry carries the citation
-text + raw XML; when the slug later resolves to a registry doc, MRI's
-`resolvedDocId` pointer flips and the renderer transparently follows it
-without touching the doc file.
+MRI v2 slug schema, unresolved refs are also cited from `references[]` —
+as source-anchored slugs of the form `orphan/<sourceDoc>/<refXmlId>` — and
+rendered inline as `<cite>` blocks with an `EXTERNAL` badge. The MRI entry
+carries the citation text + raw XML; when the slug later resolves to a
+registry doc, MRI's `resolvedDocId` pointer flips and the renderer
+transparently follows it without touching the doc file.
+
+See [docs/mri-citation-system.md](mri-citation-system.md) for the full
+slug architecture, the resolution lifecycle, and lookup recipes — that's
+the live spec for how every cited reference in MSRBot.io is modelled.
 
 ## Outcome
 

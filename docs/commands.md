@@ -157,7 +157,17 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Action: Lists review flags across all docs/providers for both reference types:
     - `references.normative$meta.reviewRequired === true`
     - `references.bibliographic$meta.reviewRequired === true`
-  - Includes per-entry ref count, count of MRI orphan slugs cited from the doc (`refs[]` entries with `isOrphan: true` and `resolvedDocId: null` — the modern replacement for the deprecated `badRefs.latest` sidecar), and summary gap reporting for docs with unresolved refs but no review flag.
+  - Includes per-entry ref count, count of MRI orphan slugs cited from the doc (`refs[]` entries with `isOrphan: true` and `resolvedDocId: null` — the modern replacement for the deprecated `badRefs.latest` sidecar), and summary gap reporting for docs with unresolved refs but no review flag. See [docs/mri-citation-system.md](mri-citation-system.md) for the full slug-citation architecture.
+
+- `npm run resolve-orphans`
+  - Runs: `node src/main/scripts/extras/resolveOrphans.js`
+  - Action: Idempotent retry pass — walks every `MRI.refs[]` entry where `resolvedDocId` is `null` and tries to graduate it via:
+    - direct match of `refId` against a registry `docId` (canonical-form refs whose target doc has since been ingested);
+    - `parseRefId` on the entry's `citationText` / `href` (a new parser family may now produce a refId that's in the registry);
+    - `mapRefByCite` (a new `refMap.json` entry may now resolve).
+  - One resolution propagates across every sibling sharing a `contentHash` in the same pass.
+  - Doc files are never touched — only `MRI.refs[…].resolvedDocId` flips, and the renderer chain (`registry[ref] || MRI.refs[ref].resolvedDocId`) automatically follows the pointer on the next build. Safe to run as often as you want.
+  - Dry-run by default; pass `--apply` to write MRI.
 
 - `npm run review-refs -- resolve <docId...>`
   - Runs: `node src/main/scripts/utils/review.refs.js resolve <docId...>`
