@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.2.0",
+  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.3.0",
   "$comment": "Copyright (c) 2025-26 PrZ3 LLC (d/b/a [PrZ3](https://github.com/PrZ3r))",
   "docTitle": "Schema for MSRBot.io - Documents",
   "items": {
@@ -26,6 +26,16 @@
                 {
                   "type": "string",
                   "minLength": 1
+                },
+                {
+                  "type": "object",
+                  "required": ["name"],
+                  "properties": {
+                    "name":        { "type": "string", "minLength": 1 },
+                    "bio":         { "type": "string" },
+                    "affiliation": { "type": "string" }
+                  },
+                  "additionalProperties": false
                 }
               ]
             }
