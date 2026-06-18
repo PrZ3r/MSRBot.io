@@ -275,16 +275,18 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           `;
         } else {
           const inRegistry = isDocInRegistry(id);
+          // When the ref isn't a registry doc but MRI carries its citation
+          // text, show docId + cite + EXTERNAL badge (matches the docId page
+          // render). docId stays as the navigation link target so clicking
+          // re-centers the tree on that id — landing on its own root view
+          // where the same docId + cite + EXTERNAL render again.
           const mriEntry = !inRegistry && MRI_CITES ? MRI_CITES[id] : null;
           if (mriEntry) {
-            // MRI knows the ref but registry has no doc — render inline citation
-            // via <cite> with EXTERNAL badge instead of "NOT IN REGISTRY".
-            const citeText = mriEntry.cite || id;
-            const inner = mriEntry.href && /^https?:\/\//i.test(mriEntry.href)
-              ? `<a href="${escapeHtml(mriEntry.href)}" rel="noopener">${escapeHtml(citeText)}</a>`
-              : escapeHtml(citeText);
+            const citeText = mriEntry.cite || '';
             li.innerHTML = `
-              <cite class="ref-node">${inner}</cite>
+              <a href="../${encodeURIComponent(id)}/" class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic" data-doc-id="${escapeHtml(id)}">
+                <span>${escapeHtml(label)}</span></a>
+              ${citeText ? '<cite class="ms-1">' + escapeHtml(citeText) + '</cite>' : ''}
               <span class="badge text-bg-info ms-1">EXTERNAL</span>
             `;
           } else {
@@ -339,30 +341,24 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
       const isSuite = isSuiteNode(id);
       const inRegistry = isSuite ? true : isDocInRegistry(id);
+      // When the ref isn't a registry doc but MRI has it, render docId + cite
+      // text + EXTERNAL badge (mirrors the levels view + docId page).
       const mriEntry = (!isSuite && !inRegistry && MRI_CITES) ? MRI_CITES[id] : null;
-
-      const nodeBody = isSuite
-        ? `<span class="ref-node d-inline-flex align-items-center gap-1" data-suite-node="1"><span>${escapeHtml(label)}</span></span>`
-        : mriEntry
-          ? (() => {
-              const citeText = mriEntry.cite || id;
-              const inner = mriEntry.href && /^https?:\/\//i.test(mriEntry.href)
-                ? `<a href="${escapeHtml(mriEntry.href)}" rel="noopener">${escapeHtml(citeText)}</a>`
-                : escapeHtml(citeText);
-              return `<cite class="ref-node">${inner}</cite>`;
-            })()
-          : `<a href="../${encodeURIComponent(id)}/"
-                 class="ref-node d-inline-flex align-items-center gap-1 ${inRegistry ? '' : 'text-muted fst-italic'}"
-                 data-doc-id="${escapeHtml(id)}">
-               <span>${escapeHtml(label)}</span>
-             </a>`;
+      const mriCiteText = mriEntry && mriEntry.cite ? mriEntry.cite : '';
 
       chip.innerHTML = `
         ${hasChildren
           ? '<button type="button" class="btn btn-link btn-sm p-0 rt-node-toggle" aria-label="Toggle children" title="Toggle children">▾</button>'
           : '<span class="rt-node-toggle-spacer"></span>'}
-        ${nodeBody}
-        ${(mriEntry) ? '<span class="badge text-bg-info ms-1">EXTERNAL</span>' : ''}
+        ${isSuite
+          ? `<span class="ref-node d-inline-flex align-items-center gap-1" data-suite-node="1"><span>${escapeHtml(label)}</span></span>`
+          : `<a href="../${encodeURIComponent(id)}/"
+                 class="ref-node d-inline-flex align-items-center gap-1 ${inRegistry ? '' : 'text-muted fst-italic'}"
+                 data-doc-id="${escapeHtml(id)}">
+               <span>${escapeHtml(label)}</span>
+             </a>`}
+        ${mriEntry && mriCiteText ? '<cite class="ms-1">' + escapeHtml(mriCiteText) + '</cite>' : ''}
+        ${mriEntry ? '<span class="badge text-bg-info ms-1">EXTERNAL</span>' : ''}
         ${(!mriEntry && statusStr) ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
         ${(!isSuite && !inRegistry && !mriEntry) ? '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>' : ''}
         ${(!isSuite && !mriEntry && statusIcon) ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
@@ -498,10 +494,29 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
            ${projIcon ? '<span class="ms-1">' + projIcon + '</span>' : ''}
          </div>`
       : '';
-    const rootMissingBadge = inRegistry ? '' : '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>';
+    // MRI-only root: the doc isn't in the registry but MRI has citation data.
+    // Show docId + cite + EXTERNAL badge (consistent with how this id renders
+    // as a child node elsewhere in the tree) and disable "Set as new root"
+    // since there's no doc to drill into.
+    const mriRootEntry = !inRegistry && MRI_CITES ? MRI_CITES[id] : null;
+    const rootMissingBadge = inRegistry
+      ? ''
+      : mriRootEntry
+        ? '<span class="badge text-bg-info ms-1">EXTERNAL</span>'
+        : '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>';
     const rootTitleEl = inRegistry
       ? `<a class="" href="../../docs/${id}/">${escapeHtml(titleText)}</a>`
-      : `<span class="text-muted fst-italic">${escapeHtml(titleText)}</span>`;
+      : mriRootEntry && mriRootEntry.cite
+        ? `<cite class="text-muted fst-italic">${escapeHtml(mriRootEntry.cite)}</cite>`
+        : `<span class="text-muted fst-italic">${escapeHtml(titleText)}</span>`;
+    const setAsNewRootBtn = mriRootEntry
+      ? `<button type="button" class="btn btn-outline-secondary btn-sm" disabled title="External ref (MRI-only) — no doc to root on">
+           Set as new root
+         </button>`
+      : `<a href="../${encodeURIComponent(id)}/"
+            class="btn btn-outline-secondary btn-sm">
+           Set as new root
+         </a>`;
     el.innerHTML = `
         <div class="mb-2">
           <div class="mb-1 d-flex flex-wrap align-items-center gap-1">
@@ -516,10 +531,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             Click a document ID below to re-center the tree on that document and explore deeper.
           </span>
           <span class="text-nowrap">
-            <a href="../${encodeURIComponent(id)}/"
-               class="btn btn-outline-secondary btn-sm">
-              Set as new root
-            </a>
+            ${setAsNewRootBtn}
             <button type="button"
                     class="btn btn-outline-secondary btn-sm rt-recenter ms-1"
                     data-doc-id="${escapeHtml(ROOT_ID)}">

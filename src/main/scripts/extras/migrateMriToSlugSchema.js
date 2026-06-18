@@ -174,9 +174,10 @@ console.log(`  known-publisher-no-doc backlog:      ${mri.stats.knownPublisherNo
 console.log(`  unknown-publisher orphan backlog:    ${mri.stats.unknownPublisherOrphanCount}`);
 
 if (APPLY) {
+  mri.version = '2.0.0';                    // bump explicitly — the schema is no longer 1.0.0
   mri.generatedAt = new Date().toISOString();
   fs.writeFileSync(MRI_PATH, JSON.stringify(mri, null, 2) + '\n');
-  console.log(`\nWrote ${path.relative(REPO_ROOT, MRI_PATH)}.`);
+  console.log(`\nWrote ${path.relative(REPO_ROOT, MRI_PATH)} (version → 2.0.0).`);
 } else {
   console.log('\nDry-run — pass --apply to write.');
 }

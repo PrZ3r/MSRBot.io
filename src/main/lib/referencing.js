@@ -614,7 +614,11 @@ function mriFlush(opts = {}) {
       const knownPubBacklog = Object.values(refsOut).filter((r) => r.needsResolve === 'known-publisher-no-doc').length;
       const unknownPubOrphans = Object.values(refsOut).filter((r) => r.needsResolve === 'unknown-publisher').length;
       const baseOut = {
-        version: mri.version || '2.0.0',
+        // Hard-bump to v2 — the on-disk schema (resolvedDocId, needsResolve,
+        // contentHash, slug-keyed orphan refs[]) is no longer v1.0.0, and we
+        // don't want stale `version: "1.0.0"` strings lingering in the file
+        // after migration. If we ever cut v3 this becomes a version()-aware step.
+        version: '2.0.0',
         // omit generatedAt for comparison
         stats: {
           uniqueRefIds: Object.keys(refsOut).length,
@@ -705,7 +709,7 @@ function mriFlush(opts = {}) {
   const knownPubBacklog = Object.values(refsOut).filter((r) => r.needsResolve === 'known-publisher-no-doc').length;
   const unknownPubOrphans = Object.values(refsOut).filter((r) => r.needsResolve === 'unknown-publisher').length;
   const out = {
-    version: mri.version || '2.0.0',
+    version: '2.0.0',
     generatedAt: mri.generatedAt || new Date().toISOString(),
     stats: {
       uniqueRefIds: Object.keys(refsOut).length,
