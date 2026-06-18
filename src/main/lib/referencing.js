@@ -294,6 +294,104 @@ function _refXmlIdOf(rawRef) {
   return m ? m[1] : null;
 }
 
+// Minimal HTML entity decode for the handful of entities APTARA / NLM XML
+// commonly carries (em-dash, ampersand, smart quotes). Avoids a full XML
+// dependency just to synthesise a citation string.
+function _decodeXmlEntities(s) {
+  return String(s == null ? '' : s)
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => {
+      try { return String.fromCodePoint(parseInt(h, 16)); } catch { return ''; }
+    })
+    .replace(/&#(\d+);/g, (_, n) => {
+      try { return String.fromCodePoint(parseInt(n, 10)); } catch { return ''; }
+    });
+}
+
+// Synthesise a human-readable citation string from raw `<ref>` XML when the
+// extractor didn't carry an explicit cite text. Handles both APTARA
+// (`<ref_authorgrp><ref_author><init>/<ref_surname>`, `<ref_articletitle>`,
+// `<ref_pubtitle>`, `<standardnum>`, `<repno>`, `<edition>`, `<publishername>`,
+// `<volume>`, `<startpage>/<endpage>`, `<date><month>/<year>`) and NLM
+// (`<element-citation>`/`<name><surname><given-names>`, `<article-title>`,
+// `<source>`, `<publisher-name>`, `<volume>`, `<fpage>/<lpage>`, `<year>`)
+// shapes — both surface during SMPTE source-ref + NLM journal-article
+// extraction. Returns null when there's nothing structured to compose.
+function synthesizeCiteFromRawRef(rawRef) {
+  if (!rawRef || typeof rawRef !== 'string') return null;
+  const s = rawRef.replace(/\s+/g, ' ');
+
+  const get = (tag) => {
+    const m = s.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`, 'i'));
+    if (!m) return '';
+    return _decodeXmlEntities(m[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
+  };
+
+  // Authors — try APTARA `<ref_author>` first, then NLM `<name>` / `<string-name>`.
+  const authors = [];
+  const aptaraBlocks = s.match(/<ref_author>[\s\S]*?<\/ref_author>/g) || [];
+  for (const block of aptaraBlocks) {
+    const init = (block.match(/<init>([^<]+)<\/init>/) || [])[1] || '';
+    const surname = (block.match(/<ref_surname>([^<]+)<\/ref_surname>/) || [])[1] || '';
+    if (surname.trim()) {
+      authors.push(_decodeXmlEntities(`${init.trim()} ${surname.trim()}`.trim()));
+    }
+  }
+  if (authors.length === 0) {
+    const nlmBlocks = s.match(/<(?:name|string-name)[^>]*>[\s\S]*?<\/(?:name|string-name)>/g) || [];
+    for (const block of nlmBlocks) {
+      const surname = (block.match(/<surname>([^<]+)<\/surname>/) || [])[1] || '';
+      const given = (block.match(/<given-names>([^<]+)<\/given-names>/) || [])[1] || '';
+      if (surname.trim()) {
+        authors.push(_decodeXmlEntities(`${given.trim()} ${surname.trim()}`.trim()));
+      }
+    }
+  }
+
+  const parts = [];
+
+  // Standards refs lead with their identifier number.
+  const standardNum = get('standardnum');
+  if (standardNum) parts.push(standardNum);
+
+  if (authors.length) parts.push(authors.join(', '));
+
+  const articleTitle = get('ref_articletitle') || get('article-title');
+  if (articleTitle) parts.push(`"${articleTitle}"`);
+
+  const pubTitle = get('ref_pubtitle') || get('source');
+  if (pubTitle) parts.push(pubTitle);
+
+  const repNo = get('repno');
+  if (repNo) parts.push(repNo);
+
+  const edition = get('edition');
+  if (edition) parts.push(edition);
+
+  const publisher = get('publishername') || get('publisher-name');
+  if (publisher) parts.push(publisher);
+
+  const volume = get('volume');
+  if (volume) parts.push(`vol. ${volume}`);
+
+  const startPage = get('startpage') || get('fpage');
+  const endPage = get('endpage') || get('lpage');
+  if (startPage) {
+    if (endPage && endPage !== startPage) parts.push(`pp. ${startPage}–${endPage}`);
+    else parts.push(`p. ${startPage}`);
+  }
+
+  const month = get('month');
+  const year = get('year');
+  if (year) parts.push(month ? `${month} ${year}` : year);
+
+  return parts.length ? parts.join(', ').trim() : null;
+}
+
 function _stableSort(arr, keyFn) {
   return arr
     .map((v, i) => ({ v, i }))
@@ -485,12 +583,16 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
     if (docId && refXmlId) {
       const slug = `orphan/${docId}/${refXmlId}`;
       if (!mri.refs[slug]) {
+        // If the extractor passed no cite text but raw XML carries enough
+        // structure to synthesise one, do it now — orphan slug renderers
+        // (refTree, docId page) read citationText, not rawRef.
+        const synthCite = cite || synthesizeCiteFromRawRef(rawRef);
         mri.refs[slug] = {
           refId: slug,
           isOrphan: true,
           sourceDoc: docId,
           sourceRefId: refXmlId,
-          citationText: cite || null,
+          citationText: synthCite || null,
           href: href || null,
           title: title || null,
           rawRef: rawRef || null,
@@ -2674,5 +2776,6 @@ module.exports = {
   mriRecordSighting,
   mriFlush,
   mriEnsureFile,
-  mriPruneToSightings
+  mriPruneToSightings,
+  synthesizeCiteFromRawRef
 };

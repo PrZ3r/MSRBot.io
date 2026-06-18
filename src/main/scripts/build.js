@@ -636,17 +636,28 @@ async function emitDocumentsApiOnce() {
   // 5+ MB MRI. Schema: { refId: { cite, href, isOrphan } }
   try {
     const mri = _mri();
+    const { synthesizeCiteFromRawRef } = require('../lib/referencing');
     const citeMap = {};
     for (const [refId, entry] of Object.entries(mri.refs || {})) {
       // Only include refs without a registry doc target — they're the ones the
       // renderer would otherwise display as "NOT IN REGISTRY".
       if (entry.resolvedDocId) continue;
-      const cite = entry.citationText
+      let cite = entry.citationText
         || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].cite)
         || null;
       const href = entry.href
         || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].href)
         || null;
+      // Fallback: derive a citation from rawRef when the extractor didn't
+      // populate citationText/cite (covers `<other reftype="book">` and other
+      // shapes where the source XML carries authors/publisher/year but no
+      // explicit cite text element). Keeps the renderer from dropping the ref.
+      if (!cite) {
+        const raw = entry.rawRef
+          || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].rawRef)
+          || null;
+        if (raw) cite = synthesizeCiteFromRawRef(raw);
+      }
       if (!cite && !href) continue;
       citeMap[refId] = {
         cite: cite || null,
@@ -1863,12 +1874,14 @@ function _titleOf(doc){
               } 
             } else if (wasUndated) {
               const warnKey = `${docId}::${r}`;
-              if (!__noKeyWarned.has(warnKey)) {
+              // Suppress when MRI has the citation info — the ref is fully
+              // renderable inline even though no lineage key derives. Only
+              // truly unknown refs (not in registry, not in MRI) enter the
+              // de-dup set so the `[Refs] ... missing-lineage refs (unique)`
+              // summary line counts genuine misses, not MRI-known refs.
+              if (!__noKeyWarned.has(warnKey) && !refKnownToMri(r)) {
                 __noKeyWarned.add(warnKey);
-                // Suppress when MRI has the citation info — the ref is fully
-                // renderable inline even though no lineage key derives. Only
-                // truly unknown refs (not in registry, not in MRI) warn.
-                if (__emitRefWarnings && !refKnownToMri(r)) {
+                if (__emitRefWarnings) {
                   console.warn(`[WARN] No lineage key derivable: ref="${r}" (docId=${docId}, kind=${kind || 'unknown'})`);
                 }
               }
@@ -2011,12 +2024,17 @@ function _titleOf(doc){
 
   hb.registerHelper("getStatus", function(docId) {
     if (!docStatuses.hasOwnProperty(docId)) {
-      // If MRI knows about the ref (canonical or orphan slug), don't warn —
-      // the renderer can pull citation info from MRI and show inline.
-      // "MRI-KNOWN" is the status the template uses to switch into
-      // citation-rendering mode instead of doc-link mode.
+      // If MRI knows about the ref (canonical or orphan slug), the renderer
+      // pulls citation info from MRI and shows inline. "MRI-KNOWN" is the
+      // status the template branches on to switch into citation-rendering
+      // mode instead of doc-link mode.
       if (refKnownToMri(docId)) return "MRI-KNOWN";
-      console.warn(`[WARN:getStatus] docId "${docId}" not found in registry`);
+      // Truly unknown refs (not in registry, not in MRI) used to warn here.
+      // The signal is fully redundant with what the MRI presence audit + the
+      // build-master-reference-index workflow's auto-issue tracker already
+      // capture per refId (e.g. issue #937 "MISSING REF: RFC1642"), so the
+      // build no longer prints to console — it just returns the status and
+      // the template renders the NOT IN REGISTRY badge.
       return "NOT IN REGISTRY";
     } else {
       return docStatuses[docId];
