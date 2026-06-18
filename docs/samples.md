@@ -5,8 +5,8 @@ Each stage runs on a scheduled cron and triggers follow-ups automatically after 
 
 ---
 
-### Weekly Schedule Overview
-All core workflows execute on a weekly schedule, with triggered rebuilds after PR merges or manual dispatch.
+### Schedule Overview
+Most core workflows execute on a weekly cron, with triggered rebuilds after PR merges or manual dispatch. **`Validate Document URLs` runs biweekly** (1st + 15th of each month) — the corpus passed ~26k docs and each sweep takes 90+ minutes.
 
 ---
 
@@ -85,7 +85,7 @@ _Builds the front-end site from data and publishes to GitHub Pages._
 ### 5. Validate Document URLs
 _Validates and normalizes URLs in the dataset. Creates PRs and manages issues as needed._
 
-**Workflow:** [Validate URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate:url.yml)  
+**Workflow:** [Validate URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-urls.yml)  
 **Sample Run:** [Run #18388310278](https://github.com/PrZ3r/MSRBot.io/actions/runs/18388310278)
 
 **Reports:**  

@@ -78,7 +78,7 @@ Each field must include correct `$meta` provenance tracking where applicable:
 
 ## CI Behavior
 All automation workflows (Extract, MSI, MRI, MSR, URL Validate) run on:
-- Weekly cron schedules
+- Cron schedules (weekly for Extract; biweekly — 1st + 15th of each month — for URL Validate)
 - Push to `main`
 - Manual dispatch
 

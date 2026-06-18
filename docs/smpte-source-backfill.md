@@ -56,7 +56,7 @@ Scripts (one-time runners + the audit tool, all built for this project):
 Reports / ad-hoc outputs:
 
 - [ ] `src/main/reports/smpteSourceRefs.standards.txt` — dump used while scanning for refMap/parser additions
-- [ ] `src/main/reports/smpteSourceRefs.unresolved.json` — record of the ~961 unresolved refs (feeds #1108)
+- [ ] `src/main/reports/smpteSourceRefs.unresolved.json` — record of the ~961 unresolved refs (feeds the SMPTE-self-cite vol+pages resolution pass — Standards → Journals; the journal corpus is now ingested as of v2.1.0, so this is the next planned ref-resolution sweep)
 - [ ] `src/main/reports/sourceInventory.smpte.json` — audit-tool output (stale post-backfill)
 - [ ] `src/main/reports/sourceInventory.smpte.md` — audit-tool output (stale post-backfill)
 - [ ] `src/main/reports/sourceInventory.smpte.schemaMap.md` — audit-tool output (stale post-backfill)
@@ -74,9 +74,13 @@ This tracking doc itself:
 - [ ] `docs/smpte-source-backfill.md` — delete last, once everything above is gone
 
 > Hold the report files until their follow-ups land: `smpteSourceRefs.unresolved.json`
-> feeds the #1108 Gap-journal backfill, and the `sourceInventory.smpte.*` reports
-> feed the ~221 delta-docs reconciliation (regenerate them via `inventorySource.smpte.js`
-> first — they're stale, generated before 557 docs were filled).
+> feeds the SMPTE-self-cite vol+pages resolution pass (the journal corpus is now
+> ingested, so the resolution sweep can run), and the `sourceInventory.smpte.*`
+> reports feed the ~221 delta-docs reconciliation (regenerate them via
+> `inventorySource.smpte.js` first — they're stale, generated before 557 docs were
+> filled). Closes-after also: full re-extract pass for inline NLM `<ref-list>` in
+> journal-article + conference-paper sources (~hundreds of thousands of ref nodes
+> per the corpus audit, dedupes via MRI content-hash to a much smaller universe).
 
 ## Permanent — NOT temp, do not delete
 
@@ -98,8 +102,25 @@ These are the actual product of the backfill, not scaffolding:
 
 - The ~221 "delta" docs with existing hand-curated `references` — reconcile
   source vs. registry in a later pass (uses `inventorySource.smpte.js`).
-- Journal-paper resolution: SMPTE journal bibliographic refs (`J. SMPE` +
-  volume + pages) → `10.5594-J*` docIds via a volume/page index. High-value
-  once the ~20k Gap journal articles are backfilled (#1108).
+- **Standards → Journals resolution** (formerly the "vol+pages index" idea):
+  SMPTE journal bibliographic refs (`J. SMPE` + volume + pages) → `10.5594-J*`
+  docIds. Unblocked as of v2.1.0 now that ~19,587 NLM journal articles are
+  in the registry; this is the next planned ref-resolution sweep on a new
+  branch.
+- **Standards → Standards parser families**: external publishers cited by
+  Standards docs but with no parser family yet (ITU-R, ITU-T, IEC, ISO,
+  ANSI, ATSC, EBU, IEEE — top counts in [refsReaudit.md](../src/main/reports/refsReaudit.md)).
+  Tracked in [#1195](https://github.com/PrZ3r/MSRBot.io/issues/1195).
+- **NLM journal/conference inline `<ref-list>` extraction**: greenfield —
+  journal-article docs have no `references[]` populated yet. Audit
+  ([refsReaudit.unmappedFields.md](../src/main/reports/refsReaudit.unmappedFields.md))
+  confirms ~360k `component/reflist/ref` element sightings across the
+  APTARA + Allen Press corpus and ~41k NLM-shape `article/back/ref-list/ref`
+  in HIGHWIRE. Most dedupe through MRI's content-hash collapse.
+- **Authors object form migration** ([#1196](https://github.com/PrZ3r/MSRBot.io/issues/1196)):
+  schema 2.3.0 added `{ name, bio?, affiliation? }`; the existing string-form
+  `authors[]` corpus needs the migration sweep + extractor updates (IETF, NLM,
+  APTARA, Allen Press, Zoho) to populate bio + affiliation from sources we
+  currently discard.
 - The legacy-SMPTE registry-aware resolver could move into
   `lib/referencing.js` / `refMap.json` so all extraction shares it.

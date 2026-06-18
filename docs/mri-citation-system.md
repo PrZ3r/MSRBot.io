@@ -466,6 +466,18 @@ itself.
 
 ---
 
+## Build-time invariant
+
+Every string in `doc.references.{normative,bibliographic,supersededBy,amendedBy}[]` MUST exist as a key in `MRI.refs[]`. The renderer chain (registry → MRI → `<cite>` fallback) only produces sensible output when this holds; a render-time "NOT IN MRI" would mean the slug-mint pipeline leaked.
+
+Enforced at build time by `npm run validate-mri-coverage` (`src/main/scripts/extras/validateMriCoverage.js`). Walks every doc's `references[]` and diffs against the MRI keyset; exits `0` clean, `1` with a structured per-leak report (`docId`, ref category, ref string, leak-kind classification) on failure, `2` on script error. Persists `src/main/reports/mriCoverageGaps.{json,md}` even on success.
+
+If this check fails, the fix is to patch the slug-mint path (`mriRecordSighting` flow in `extractDocs.js`), **never** to silence the validator or add a render-time fallback. A leak is a bug in the contract, not a citation to render best-effort.
+
+Today's corpus: 8,995 ref-entries across 1,066 docs, all present in MRI's 2,816 entries (3.2× dedup via content-hash collapse). CI wiring (drop into `build-master-reference-index.yml` after the MRI flush) is the next pass.
+
+---
+
 ## Files to know
 
 - `src/main/lib/referencing.js` — MRI access (`_loadMRI`, `_ensureRef`,
@@ -474,6 +486,8 @@ itself.
 - `src/main/scripts/buildMasterReferenceIndex.js` — emits
   `masterReferenceIndex.json` and `mri_presence_audit.json`.
 - `src/main/scripts/extras/resolveOrphans.js` — idempotent retry pass.
+- `src/main/scripts/extras/validateMriCoverage.js` — build-time
+  invariant check (above).
 - `src/main/scripts/extras/migrateMriToSlugSchema.js` — one-time v2
   schema migration (already applied; idempotent if re-run).
 - `src/main/scripts/extractDocs.js` — `onBadRefs` callback wires
