@@ -439,6 +439,7 @@
 <li><strong><code>keyword.normalize.js</code> cleanups</strong> — <code>normalizeKeyword</code> / <code>splitAndNormalizeKeywords</code> accept an optional <code>extraAcronyms</code> Map for per-corpus overrides. IETF XMLDSig spec-element names (<code>AgreementMethod</code>, <code>DigestMethod</code>, etc.) moved out of the global <code>ACRONYM<em>MAP</code> into an IETF-only map in <code>providers/ietf.parse.js</code>. The <code>signturemethod</code> typo is corrected on import while <code>$meta.originalValue</code> preserves the RFC source. <code>crossfillSmpteFromZoho.js</code> switched to the central normalizer (drops its duplicated local <code>KEYWORD</em>SYNONYMS</code>).</li>
 <li><strong><code>controlledKeywords</code> once-over</strong> — pluralised singular drift (<code>Subtitle → Subtitles</code>, <code>Interface → Interfaces</code>, <code>Network → Networks</code>, <code>Type → Types</code>), collapsed acronym/long-form pairs (<code>Look-up Table → LUT</code>, <code>Common LUT Format → CLF</code>, <code>Microservice → Microservices</code>, <code>Internet of Things → IoT</code>, <code>USB Type-C → USB-C</code>), promoted ~31 in-use external terms (AFD, DPX, MIB, LUT, CLF, RTP, TTML, IMSC, TIFF, etc.) into the vocab, removed the <code>SigntureMethod</code> typo + <code>Eneryption</code> duplicate, fixed Title-cased <code>Of</code> / <code>In</code> conjunctions in multi-word terms, and dropped redundant noise (<code>SMPTE</code>, <code>Society of Motion Picture and Television Engineers</code>, <code>Languages</code>, <code>Status</code>, <code>SNMP</code>).</li>
 <li><strong>Zoho standards cross-fill expanded</strong> — <code>crossfillSmpteFromZoho.js</code> adds <code>keywords</code> (Keywords + Topics columns, deduped through the central normalizer) and a no-op short-circuit so identical-set merges don't churn <code>$meta</code> timestamps.</li>
+<li><strong><code>validate-urls.yml</code> cadence dropped from weekly to biweekly</strong> — cron now fires on the 1st and 15th of each month (was every Saturday). The duplicate-run throttle on <code>workflow_run</code>-triggered executions widens from 24 hours to 14 days, matching the cron cadence, so the upstream <code>Build MasterReference Index</code> trigger can no longer fire a redundant full URL sweep between scheduled runs. Driven by the corpus passing ~26k docs (each sweep now takes hours, publishers throttle the request rate, and standards URLs rarely drift inside a 14-day window). Throttle label renamed <code>daily-throttle</code> → <code>biweekly-throttle</code> in the skip-reason output for clarity.</li>
 </ul>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
 <ul class="mb-1">
@@ -973,8 +974,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>4f9bdf372d0f5a6c8cf1c3e54575b536921ce7b2</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-18T16:53:35.038Z</code>
+              <span class="fw-semibold">Site version:</span> <code>39dfa443df93dc8e475ffd7e0fb98c529d3962e5</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-18T17:09:28.875Z</code>
             </p>
           </small>
         </div>
