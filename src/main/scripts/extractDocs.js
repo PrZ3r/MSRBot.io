@@ -72,11 +72,14 @@ const SCRIPT_VERSION = (() => {
 // Generate timestamp string in format YYYYMMDD-HHmmss
 const timestamp = dayjs().format('YYYYMMDD-HHmmss');
 const fullDetailsPath = `src/main/logs/extract-runs/pr-log-full-${timestamp}.log`;
-const badRefsLatestPath = `src/main/reports/badRefs.latest.json`;
+// `src/main/reports/badRefs.latest.json` was removed when the MRI v2 slug
+// citation system landed — every unparseable ref is now a first-class entry
+// in MRI (`orphan/<docId>/<suffix>`) and cited from the source doc's
+// `references[]`. See CHANGELOG.md for the architecture writeup.
 // Raw URL (kept for logging/diagnostics)
 const detailsFileRawUrl = `https://raw.githubusercontent.com/PrZ3r/MSRBot.io/main/${fullDetailsPath}`;
 
-const { parseRefId, extractRefs, mapRefByCite, mriFlush, mriEnsureFile, mriPruneToSightings } = require('../lib/referencing');
+const { parseRefId, extractRefs, mapRefByCite, mriFlush, mriEnsureFile, mriPruneToSightings, mriRecordSighting } = require('../lib/referencing');
 
 // Guard to avoid double logging/flushing MRI on multiple exit signals
 let _mriFlushedOnce = false;
@@ -170,7 +173,47 @@ const providerKey = providerArg.toLowerCase().trim();
     parseRefId,
     withNoCache,
     NO_CACHE_HEADERS,
-    onBadRefs: (refs) => { if (Array.isArray(refs) && refs.length) badRefs.push(...refs); }
+    onBadRefs: (refs) => {
+      if (!Array.isArray(refs) || !refs.length) return;
+      // Three-step routing:
+      //   1. Console summary buffer (`badRefs`) — used at end of run to print
+      //      "🚫 Unparseable References Found:" so devs see what failed.
+      //   2. MRI — each ref lands as a source-anchored orphan slug via
+      //      `mriRecordSighting` (mint path picks a stable content-hash
+      //      suffix when no `<ref id>` is available), so the citation info is
+      //      addressable from `doc.references[]` going forward and replaces
+      //      the deprecated `badRefs.latest.json` sidecar persistence.
+      //   3. Queue the minted slug + sourceDoc for a deferred apply pass that
+      //      runs after `existingDocs` is populated — pushes the slug into
+      //      the source doc's `references[]` so the doc actually cites its
+      //      orphan. Without this, the post-extract MRI prune would drop the
+      //      orphan because the source doc has no references[] entry pointing
+      //      at it.
+      for (const r of refs) {
+        badRefs.push(r);
+        const docId = String((r && r.docId) || '').trim();
+        const cite = String((r && r.refText) || (r && r.cite) || '').trim();
+        const href = String((r && r.href) || '').trim();
+        const type = String((r && r.type) || 'bibliographic').trim();
+        if (!docId || (!cite && !href)) continue;
+        try {
+          const result = mriRecordSighting({
+            docId,
+            type,
+            // refId omitted → triggers orphan-mint path in referencing.js
+            cite,
+            href,
+            rawRef: (r && r.rawRef) || null,
+            mapSource: `extractDocs:${providerKey}`,
+            mapDetail: 'onBadRefs',
+          });
+          const slug = result && result.mintedSlug;
+          if (slug) orphanSlugApplyQueue.push({ docId, slug, type });
+        } catch (e) {
+          console.warn(`[mri] failed to record bad-ref sighting for ${docId}: ${e && e.message ? e.message : e}`);
+        }
+      }
+    }
   });
 if (!activeProvider) {
   console.error(`❌ Unknown provider "${providerKey}". Supported: ${listProviders().join(', ')}`);
@@ -220,6 +263,12 @@ const baseMetaConfig = {
 const metaConfig = mergeMetaConfig(baseMetaConfig, activeProvider.metaConfig || {});
 
 const badRefs = [];
+// Queue of orphan-slug citation pushes deferred until after `existingDocs` is
+// populated. Each entry: { docId, slug, type }. Drained inside the main
+// extract function right before saveDoc loops so every doc cites its newly-
+// minted orphan(s) and the post-extract MRI prune doesn't see them as
+// "source doc has no references[] entry → drop".
+const orphanSlugApplyQueue = [];
 
 function buildMriSightingIndexFromDocs(docs = []) {
   const idx = new Set();
@@ -924,11 +973,35 @@ for (const doc of results) {
   // Keep the in-memory array sorted for the MRI consumers below.
   existingDocs.sort((a, b) => a.docId.localeCompare(b.docId));
 
+  // Drain the orphan-slug queue: push each minted slug into its source doc's
+  // references[<type>] array, and mark the doc as touched so it gets saved.
+  // This makes sure docs cite their freshly-minted MRI orphans before the
+  // post-extract prune runs (otherwise the prune would drop the orphans
+  // because the source doc has no references[] entry pointing at them).
+  let orphanCitationsAdded = 0;
+  const orphanForceTouched = new Set();
+  for (const { docId, slug, type } of orphanSlugApplyQueue) {
+    const doc = existingDocs.find((d) => d && d.docId === docId);
+    if (!doc) continue;
+    doc.references = doc.references || {};
+    const bucket = type === 'normative' ? 'normative' : 'bibliographic';
+    doc.references[bucket] = doc.references[bucket] || [];
+    if (!doc.references[bucket].includes(slug)) {
+      doc.references[bucket].push(slug);
+      orphanCitationsAdded += 1;
+      orphanForceTouched.add(docId);
+    }
+  }
+  if (orphanCitationsAdded > 0) {
+    console.log(`🔗 Cited ${orphanCitationsAdded} new MRI orphan slug(s) from ${orphanForceTouched.size} source doc(s).`);
+  }
+
   // Persist only the docs this run touched, each to its own shard file.
   // saveDoc() re-homes a doc whose publisher/docType/docId changed.
   const touchedIds = new Set([
     ...newDocs.map(d => d.docId),
-    ...updatedDocs.map(u => u.docId)
+    ...updatedDocs.map(u => u.docId),
+    ...orphanForceTouched,
   ]);
   let savedCount = 0;
   for (const d of existingDocs) {
@@ -998,69 +1071,19 @@ for (const doc of results) {
   const filteredBadRefItems = badRefs.map(toBadRefItem).filter(shouldKeepBadRefItem);
 
   if (filteredBadRefItems.length > 0) {
-    console.log('🚫 Unparseable References Found:');
+    console.log('🚫 Unparseable References Found (also written to MRI as orphan slugs):');
     filteredBadRefItems.forEach((ref) => {
       console.log(`- From ${ref.docId} (${ref.type}):`);
       console.log(`  - cite: ${ref.cite}`);
       if (ref.href) console.log(`  - href: ${ref.href}`);
     });
   }
-
-  // Persist badRefs so unresolved citations can be backfilled later without
-  // relying only on PR body/log excerpts.
-  try {
-    const nowIso = new Date().toISOString();
-    const badRefItems = filteredBadRefItems;
-
-    let existingItems = [];
-    try {
-      if (fs.existsSync(badRefsLatestPath)) {
-        const existingPayload = JSON.parse(fs.readFileSync(badRefsLatestPath, 'utf-8'));
-        const existingList = Array.isArray(existingPayload?.badRefs) ? existingPayload.badRefs : [];
-        existingItems = existingList.map((item) => ({
-          provider: String(item?.provider || '').trim().toLowerCase(),
-          docId: String(item?.docId || '').trim(),
-          type: String(item?.type || '').trim(),
-          cite: String(item?.cite || '').trim(),
-          href: String(item?.href || '').trim()
-        })).filter((item) => item.provider && item.docId && item.type && item.cite);
-      }
-    } catch (readErr) {
-      console.warn(`⚠️ Failed to read existing bad refs snapshot for merge: ${readErr.message}`);
-    }
-
-    const preservedOtherProviders = existingItems.filter((item) => item.provider !== providerKey);
-    const merged = [...preservedOtherProviders, ...badRefItems];
-    const normalizeBadRefCiteForKey = (cite) => String(cite || '')
-      // Collapse local citation keys like "Huelsing13a " when followed by author text.
-      // Keep base labels like "Huelsing13".
-      .replace(/^[A-Za-z][A-Za-z0-9_.:-]{0,23}\d{2,4}[a-z]\s+(?=[A-Z][A-Za-z'`-]{1,63},\s)/u, '')
-      .trim();
-    const dedupe = new Map();
-    for (const item of merged) {
-      const citeKey = normalizeBadRefCiteForKey(item.cite).toLowerCase();
-      const key = [
-        item.provider,
-        item.docId,
-        item.type.toLowerCase(),
-        citeKey,
-        item.href.toLowerCase()
-      ].join('||');
-      if (!dedupe.has(key)) dedupe.set(key, item);
-    }
-    const mergedItems = [...dedupe.values()];
-    const payload = {
-      generatedAt: nowIso,
-      sourcePath: 'src/main/data/docs',
-      total: mergedItems.length,
-      badRefs: mergedItems
-    };
-    fs.mkdirSync('src/main/reports', { recursive: true });
-    fs.writeFileSync(badRefsLatestPath, JSON.stringify(payload, null, 2) + '\n');
-    console.log(`📄 Bad refs latest snapshot saved: ${badRefsLatestPath}`);
-  } catch (e) {
-    console.warn(`⚠️ Failed to write bad refs reports: ${e.message}`);
-  }
+  // The legacy `src/main/reports/badRefs.latest.json` persistence is gone.
+  // Unparseable refs are now first-class entries in MRI keyed by source-
+  // anchored slugs (`orphan/<docId>/<suffix>`), populated via the
+  // `mriRecordSighting` call inside the `onBadRefs` callback above. The MRI
+  // is the live source of truth — no merge-with-existing dance, no per-
+  // provider sidecar, no stale-by-day-2 report.
 
   if (newDocs.length === 0 && updatedDocs.length === 0) {
   // Consider MRI-only updates: flush first

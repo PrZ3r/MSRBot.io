@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="{{assetPrefix}}api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="{{assetPrefix}}api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="{{assetPrefix}}api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="{{assetPrefix}}api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="{{assetPrefix}}api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="{{assetPrefix}}docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="{{assetPrefix}}groups/_data/groups.json" target="_blank" rel="noopener">

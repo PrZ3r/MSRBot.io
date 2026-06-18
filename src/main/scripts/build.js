@@ -44,12 +44,103 @@ const _writeFile = (filePath, data, encoding = 'utf8') =>
   });
 
 const hb = require('handlebars');
+
+// Cached MRI used to suppress `No lineage key derivable` / `getStatus: NOT IN
+// REGISTRY` warnings and to render inline citations for refs the registry
+// doesn't carry as docs but MRI knows about — either as canonical-form entries
+// (e.g. ASME.B1.1.1989, RFC1642) or source-anchored orphan slugs (e.g.
+// orphan/SMPTE.ST76.1996/ref-bib-7). Lazy + memoised across the build.
+let __mriCache = null;
+let __mriKnownRefsCache = null;
+function _mri() {
+  if (__mriCache) return __mriCache;
+  try {
+    const p = path.join(__dirname, '..', 'reports', 'masterReferenceIndex.json');
+    __mriCache = JSON.parse(fsRaw.readFileSync(p, 'utf8'));
+  } catch {
+    __mriCache = { refs: {} };
+  }
+  return __mriCache;
+}
+function _mriKnownRefs() {
+  if (__mriKnownRefsCache) return __mriKnownRefsCache;
+  __mriKnownRefsCache = new Set(Object.keys(_mri().refs || {}));
+  return __mriKnownRefsCache;
+}
+function refKnownToMri(ref) {
+  return ref && _mriKnownRefs().has(String(ref));
+}
+
+// If an MRI entry resolves to a real registry docId via `resolvedDocId`,
+// return that docId; otherwise return the original ref string unchanged.
+// Used by getStatus/refHref so a ref that's been graduated by
+// `resolveOrphans.js` (or arrived already-resolved via mriFlush's source-
+// presence sync) renders as a doc link instead of as an inline `<cite>`.
+// One level only — guards against an MRI entry whose `resolvedDocId` itself
+// points at another MRI orphan (shouldn't happen, but won't infinite-loop).
+function followMriResolution(ref) {
+  if (!ref) return ref;
+  const entry = _mri().refs?.[String(ref)];
+  if (entry && entry.resolvedDocId) return entry.resolvedDocId;
+  return ref;
+}
+
+// Escape minimal HTML so we can splat MRI strings into a SafeString without
+// re-escaping markup that lives inside MRI rawRef XML (handlebars is escaping
+// the wrapping HTML itself; we just neutralise the small set that breaks attrs/elements).
+function _esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// `mriCite refId` — render an inline citation for a ref that lives in MRI but
+// has no registry doc to link to. Uses `<cite>` as the first-preference
+// semantic element, optionally wrapping a link when MRI carries an `href`.
+//
+//   - Orphan-slug entry → `<cite>citationText</cite>` (the slug itself is
+//     opaque, so we don't surface it)
+//   - Canonical-form entry (e.g. ASME.B1.1.1989) → `<cite>refId — first
+//     rawVariant.cite</cite>` so the human-readable refId + citation both show.
+hb.registerHelper('mriCite', function (refId) {
+  const entry = _mri().refs?.[refId];
+  if (!entry) return new hb.SafeString(`<cite>${_esc(refId)}</cite>`);
+  const isOrphan = entry.isOrphan === true;
+  const text = entry.citationText
+    || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].cite)
+    || null;
+  const href = entry.href || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].href) || '';
+  let inner;
+  if (isOrphan) {
+    inner = text ? _esc(text) : _esc(refId);
+  } else if (text && text.trim()) {
+    inner = `${_esc(refId)} — ${_esc(text)}`;
+  } else {
+    inner = _esc(refId);
+  }
+  const body = href && /^https?:\/\//i.test(href)
+    ? `<a href="${_esc(href)}" rel="noopener">${inner}</a>`
+    : inner;
+  return new hb.SafeString(`<cite>${body}</cite>`);
+});
 const { readFile } = fs; // promises readFile
 const { json2csvAsync } = require('json-2-csv');
 
 // Server-side helper to pass through raw blocks used to embed client-side templates
 hb.registerHelper('raw', function(options) {
   return new hb.SafeString(options.fn(this));
+});
+
+// articleTypeLabel(value) — look up the NLM raw article-type value
+// (e.g. "research-article") in site.json's articleTypeLabels map and return
+// the friendly display label ("Research Article"). Falls through to the raw
+// value if no map entry exists.
+hb.registerHelper('articleTypeLabel', function (value) {
+  if (!value) return '';
+  const map = (siteConfig && siteConfig.articleTypeLabels) || {};
+  return map[String(value)] || String(value);
 });
 
 hb.registerHelper('suiteLink', function (doc) {
@@ -83,7 +174,10 @@ hb.registerHelper('suiteLink', function (doc) {
 });
 
 hb.registerHelper('refHref', function (refId) {
-  const id = String(refId || '').trim();
+  // Follow MRI's resolvedDocId pointer first — refs that have been graduated
+  // via resolveOrphans.js (or that mriFlush sourcePresence-synced) link to
+  // the resolved doc instead of resolving against the original slug.
+  const id = String(followMriResolution(refId) || '').trim();
   if (!id) return '#';
 
   // ALLPARTS -> suite/collection page
@@ -562,6 +656,55 @@ async function emitDocumentsApiOnce() {
       '[api] Failed to write build/api/documents.json:',
       e && e.message ? e.message : e
     );
+  }
+
+  // Lightweight MRI-cite map for client-side renderers (refTree.js etc.) so
+  // they can show inline <cite> for MRI-KNOWN refs without bundling the full
+  // 5+ MB MRI. Schema: { refId: { cite, href, isOrphan } }
+  try {
+    const mri = _mri();
+    const { synthesizeCiteFromRawRef } = require('../lib/referencing');
+    const citeMap = {};
+    for (const [refId, entry] of Object.entries(mri.refs || {})) {
+      // Two reasons to include a ref:
+      //   (a) `resolvedDocId` is set — the slug graduated to a real registry
+      //       doc (via resolveOrphans.js or mriFlush sourcePresence-sync).
+      //       Client renders as a link to the resolved doc, not inline.
+      //   (b) `resolvedDocId` is null — render inline `<cite>` instead of
+      //       a broken "NOT IN REGISTRY" pill.
+      const hasResolution = !!entry.resolvedDocId;
+      let cite = entry.citationText
+        || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].cite)
+        || null;
+      const href = entry.href
+        || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].href)
+        || null;
+      // Fallback: derive a citation from rawRef when the extractor didn't
+      // populate citationText/cite (covers `<other reftype="book">` and other
+      // shapes where the source XML carries authors/publisher/year but no
+      // explicit cite text element). Keeps the renderer from dropping the ref.
+      if (!cite) {
+        const raw = entry.rawRef
+          || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].rawRef)
+          || null;
+        if (raw) cite = synthesizeCiteFromRawRef(raw);
+      }
+      if (!hasResolution && !cite && !href) continue;
+      citeMap[refId] = {
+        cite: cite || null,
+        href: href || null,
+        isOrphan: entry.isOrphan === true,
+        resolvedDocId: entry.resolvedDocId || null,
+      };
+    }
+    await _writeFile(
+      path.join(apiRoot, 'mri-cite-map.json'),
+      JSON.stringify(citeMap, null, 2),
+      'utf8'
+    );
+    console.log(`[api] Wrote build/api/mri-cite-map.json (${Object.keys(citeMap).length} MRI-only refs)`);
+  } catch (e) {
+    console.warn('[api] Failed to write mri-cite-map.json:', e && e.message ? e.message : e);
   }
 
   let ok = 0;
@@ -1763,7 +1906,12 @@ function _titleOf(doc){
               } 
             } else if (wasUndated) {
               const warnKey = `${docId}::${r}`;
-              if (!__noKeyWarned.has(warnKey)) {
+              // Suppress when MRI has the citation info — the ref is fully
+              // renderable inline even though no lineage key derives. Only
+              // truly unknown refs (not in registry, not in MRI) enter the
+              // de-dup set so the `[Refs] ... missing-lineage refs (unique)`
+              // summary line counts genuine misses, not MRI-known refs.
+              if (!__noKeyWarned.has(warnKey) && !refKnownToMri(r)) {
                 __noKeyWarned.add(warnKey);
                 if (__emitRefWarnings) {
                   console.warn(`[WARN] No lineage key derivable: ref="${r}" (docId=${docId}, kind=${kind || 'unknown'})`);
@@ -1907,8 +2055,26 @@ function _titleOf(doc){
   registryDocument.forEach(item => { docStatuses[item.docId] = item.currentStatus} );
 
   hb.registerHelper("getStatus", function(docId) {
+    // If MRI has graduated this ref to a real registry doc (resolvedDocId
+    // set, either via mriFlush sourcePresence-sync or resolveOrphans.js),
+    // return THAT doc's status — the renderer should treat it as a normal
+    // doc link, not an inline cite.
+    const resolved = followMriResolution(docId);
+    if (resolved !== docId && docStatuses.hasOwnProperty(resolved)) {
+      return docStatuses[resolved];
+    }
     if (!docStatuses.hasOwnProperty(docId)) {
-      console.warn(`[WARN:getStatus] docId "${docId}" not found in registry`);
+      // If MRI knows about the ref (canonical or orphan slug) but it has
+      // NOT been graduated, the renderer pulls citation info from MRI and
+      // shows inline. "MRI-KNOWN" is the status the template branches on
+      // to switch into citation-rendering mode instead of doc-link mode.
+      if (refKnownToMri(docId)) return "MRI-KNOWN";
+      // Truly unknown refs (not in registry, not in MRI) used to warn here.
+      // The signal is fully redundant with what the MRI presence audit + the
+      // build-master-reference-index workflow's auto-issue tracker already
+      // capture per refId (e.g. issue #937 "MISSING REF: RFC1642"), so the
+      // build no longer prints to console — it just returns the status and
+      // the template renders the NOT IN REGISTRY badge.
       return "NOT IN REGISTRY";
     } else {
       return docStatuses[docId];
@@ -1926,7 +2092,14 @@ function _titleOf(doc){
     if (!ref || typeof ref !== 'object') return false;
     if (ref.allParts) return true; // suite refs are routable via suiteLink/refHref logic
     if (!ref.id) return false;
-    return Object.prototype.hasOwnProperty.call(docStatuses, ref.id);
+    if (Object.prototype.hasOwnProperty.call(docStatuses, ref.id)) return true;
+    // Follow MRI's resolvedDocId pointer: a slug graduated by
+    // resolveOrphans.js (or sourcePresence-synced in mriFlush) is linkable
+    // through its resolved doc target. Without this, the template renders
+    // a graduated slug like `IETF.draft-…-rfc8446bis-03` as "NOT IN
+    // REGISTRY" even though MRI knows it points at RFC8446.
+    const resolved = followMriResolution(ref.id);
+    return resolved !== ref.id && Object.prototype.hasOwnProperty.call(docStatuses, resolved);
   });
 
   hb.registerHelper("getRefLabel", function(ref) {
@@ -1934,7 +2107,10 @@ function _titleOf(doc){
       return ref.suiteTitle;
     }
     if (ref && ref.id) {
-      return docLabels[ref.id] || ref.id;
+      // Follow MRI's resolvedDocId pointer so a graduated slug shows the
+      // resolved doc's label (e.g. RFC8446) instead of the bare slug.
+      const resolved = followMriResolution(ref.id);
+      return docLabels[resolved] || docLabels[ref.id] || ref.id;
     }
     return '';
   });
@@ -1944,7 +2120,9 @@ function _titleOf(doc){
       return `../../suites/${ref.suiteSlug}/`;
     }
     if (ref && ref.id) {
-      return refHref(ref.id);
+      // Follow MRI's resolvedDocId pointer; fall back to the original id.
+      const resolved = followMriResolution(ref.id);
+      return `../${encodeURIComponent(resolved)}/`;
     }
     return '#';
   });
@@ -1988,6 +2166,13 @@ function _titleOf(doc){
   });
 
   hb.registerHelper("getLabel", function(docId) {
+    // Follow MRI's resolvedDocId pointer: a slug like
+    // `IETF.draft-ietf-tls-rfc8446bis-03` graduated to RFC8446 should show
+    // RFC8446's label, not the bare draft string.
+    const resolved = followMriResolution(docId);
+    if (resolved !== docId && docLabels.hasOwnProperty(resolved)) {
+      return docLabels[resolved];
+    }
     if (!docLabels.hasOwnProperty(docId)) {
       return docId;
     } else {
@@ -2004,7 +2189,11 @@ function _titleOf(doc){
 
 // Render a label without trailing date (e.g., "SMPTE ST 429-2:2023-09" -> "SMPTE ST 429-2")
 hb.registerHelper("getUndatedLabel", function(docId) {
-  const label = docLabels.hasOwnProperty(docId) ? docLabels[docId] : docId;
+  // Follow MRI's resolvedDocId pointer so a graduated slug shows the
+  // resolved doc's undated label (matches getLabel's pointer-follow).
+  const resolved = followMriResolution(docId);
+  const lookupId = (docLabels.hasOwnProperty(resolved) ? resolved : docId);
+  const label = docLabels.hasOwnProperty(lookupId) ? docLabels[lookupId] : lookupId;
   // Strip ":YYYY", ":YYYY-MM" or ":YYYYMMDD" and anything after
   return String(label).replace(/:\s?\d{4}(?:-\d{2}){0,2}.*$/, '');
 });
@@ -2963,6 +3152,13 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         const perDocDesc = d.docTitle || siteConfig.siteDescription;
 
         const safeDoc = prepareDocForRender(d);
+        // Per-doc copyright (object { holder, year }) is exposed under a
+        // separate key in the template context so it doesn't collide with
+        // the site-wide `copyright` string (BSD license) that header/footer
+        // partials reference for meta tags.
+        const docCopyright = (safeDoc.copyright && typeof safeDoc.copyright === 'object')
+          ? safeDoc.copyright
+          : null;
         const docHtml = docTpl({
           // data for this document (flat access in template)
           ...safeDoc,
@@ -2971,6 +3167,8 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           dataGroups: registryGroup,
           dataProjects: registryProject,
           docProjs: docProjs,
+          // per-doc fields exposed under non-colliding names
+          docCopyright,
           // site/meta
           site_version: site_version,
           siteName: siteConfig.siteName,

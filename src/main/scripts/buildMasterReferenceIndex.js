@@ -288,9 +288,27 @@ function main() {
           sp = true;
         }
 
-        const item = { refId, sourceDocId: srcDoc, sightingCount: sightings.length, sightings };
+        // MRI v2 slug-schema fields — let consumers (e.g. the auto-issue
+        // workflow) filter on resolution class without re-reading MRI.
+        // `needsResolve` is carried verbatim when MRI sets it; otherwise
+        // derived from `isOrphan` (orphan slugs that pre-date the field).
+        const isOrphan = !!(entry && entry.isOrphan);
+        const needsResolve = (entry && entry.needsResolve)
+          ? entry.needsResolve
+          : (sp ? null : (isOrphan ? 'unknown-publisher' : 'known-publisher-no-doc'));
+
+        const item = {
+          refId,
+          sourceDocId: srcDoc,
+          sightingCount: sightings.length,
+          sightings,
+          isOrphan,
+          needsResolve,
+        };
         (sp ? present : missing).push(item);
       }
+      const orphanCount = missing.filter((m) => m.isOrphan).length;
+      const knownPubNoDocCount = missing.filter((m) => m.needsResolve === 'known-publisher-no-doc').length;
       const audit = {
         generatedAt: new Date().toISOString(),
         sourcePath: IN,
@@ -300,6 +318,10 @@ function main() {
         seenSightings,
         presentCount: present.length,
         missingCount: missing.length,
+        // Sub-bucket counts so the workflow + dashboards can read intent
+        // without re-scanning every missing[] entry.
+        knownPubNoDocCount,
+        orphanCount,
         missing // no cap; caller can post-filter if needed
       };
       ensureDir(AUDIT_OUT);

@@ -43,7 +43,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 - Schema for data: [`src/main/schemas`](src/main/schemas/)
 - Main document Dataset: [`src/main/data/docs/`](src/main/data/docs/) — one JSON file per document, sharded by `{publisher}/{docType}/` (title-identified docTypes such as journal articles add a `{year}/` level). The `documents.json` monolith, registry slices, and per-docId API are build artifacts assembled from these files.
 - Document lineages: [Master Suite Index (MSI)](src/main/reports/masterSuiteIndex.json)
-- Document reference maps: [Master Reference Index (MRI)](src/main/reports/masterReferenceIndex.json)
+- Document reference maps: [Master Reference Index (MRI)](src/main/reports/masterReferenceIndex.json) — schema `2.0.0`, slug-keyed. Every cited reference has a first-class entry with `resolvedDocId` / `needsResolve` / `contentHash` fields; refs that aren't registry docs but live in MRI render inline on doc pages and the reference tree as `<cite>` blocks (data sidecar at [`build/api/mri-cite-map.json`](https://msrbot.io/api/mri-cite-map.json)). See [docs/mri-citation-system.md](docs/mri-citation-system.md) for the full architecture: how `doc.references[]` strings resolve, the slug ↔ docId relationship, the resolution lifecycle, and lookup recipes.
 - API Explorer: [msrbot.io/api/](https://msrbot.io/api/)
 - Live API Stats: [api/stats.json](https://msrbot.io/api/stats.json)
 - JSON Schema: [api/schemas/documents.schema.json](https://msrbot.io/api/schemas/documents.schema.json)
@@ -107,16 +107,18 @@ graph LR
 ```
 _Dotted lines indicate PR-triggered preview builds. Extract, MSI, MRI, and site/template PRs all generate a preview._
 
-### Weekly Schedule (UTC)
-| Day | Time (UTC) | Pacific (PST) | Workflow |
+### Scheduled Workflows (UTC)
+| When | Time (UTC) | Pacific (PST) | Workflow |
 |:--|:--|:--|:--|
 | Monday | 04:15 | Sunday 20:15 | `Extract Documents - SMPTE` |
 | Tuesday | 04:45 | Monday 20:45 | `Extract Documents - IETF` |
-| Saturday | 04:15 | Friday 20:15 | `Validate Document URLs` |
+| 1st + 15th of month | 04:15 | prev-day 20:15 | `Validate Document URLs` (biweekly) |
 | Sunday | 09:00 | Sunday 01:00 | `PR Preview Sweeper` |
 | Sunday | 09:30 | Sunday 01:30 | `Branch Sweeper` |
 
 _PST shown above (UTC-8). During daylight saving (PDT, UTC-7), add 1 hour._
+
+`Validate Document URLs` runs biweekly rather than weekly — each sweep takes 90+ minutes against the 26k-doc corpus, publishers throttle the request rate, and standards URLs rarely drift inside a 14-day window. See [CHANGELOG.md](CHANGELOG.md) for context.
 
 Event-driven workflows run on upstream completion or repository events:
 - `Build MSRBot.io Site and Test` (`push` to `main`)
@@ -126,7 +128,8 @@ Event-driven workflows run on upstream completion or repository events:
 - `PR Build Preview (MSRBot.io site)` (`pull_request` and extract/MSI/MRI/URL Validate workflow runs)
 
 URL validation throttle behavior:
-- Daily throttle only considers prior runs where `Run URL validation` executed successfully.
+- Biweekly throttle (14-day window): if a successful `Validate Document URLs` run completed within the last 14 days, the next `workflow_run`-triggered execution is skipped (matches the cron cadence so the upstream `Build MasterReference Index` trigger can't force a redundant sweep between scheduled runs).
+- Only prior runs where `Run URL validation` executed successfully count toward the throttle.
 - Skip-only successful runs (for example, upstream open-PR marker skips) do not trigger throttle.
 
 ### Development

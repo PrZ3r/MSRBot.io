@@ -31,6 +31,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   const ROOT_ID = window.MSR_REF_ROOT;
   const GRAPH_URL = (window.assetPrefix || '') + 'docs/_data/documents.json';
   const SUITES_URL = (window.assetPrefix || '') + 'suites/_data/suites.json';
+  // MRI cite map — refs that aren't docs in the registry but live in MRI.
+  // Lets us render an inline <cite> citation for them instead of an unhelpful
+  // "NOT IN REGISTRY" badge with nothing else.
+  const MRI_CITE_URL = (window.assetPrefix || '') + 'api/mri-cite-map.json';
+  let MRI_CITES = null;
   const SUITE_PREFIX = 'SUITE:';
 
   function isSuiteNode(id) {
@@ -270,15 +275,42 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           `;
         } else {
           const inRegistry = isDocInRegistry(id);
-          li.innerHTML = `
-            <a href="../${encodeURIComponent(id)}/" class="ref-node d-inline-flex align-items-center gap-1 ${inRegistry ? '' : 'text-muted fst-italic'}" data-doc-id="${escapeHtml(id)}">
-              <span>${escapeHtml(label)}</span></a>
-              ${statusStr ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
-              ${inRegistry ? '' : '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>'}
-              ${statusIcon ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
-              ${projIcon ? '<span class="ms-1">' + projIcon + '</span>' : ''}
-          
-          `;
+          // Follow MRI's resolvedDocId pointer first. A slug graduated via
+          // resolveOrphans.js (or already resolved via the canonical-form
+          // sourcePresence sync) renders as a link to the resolved doc —
+          // not as an EXTERNAL inline cite.
+          const mriEntry = !inRegistry && MRI_CITES ? MRI_CITES[id] : null;
+          const resolvedId = mriEntry && mriEntry.resolvedDocId ? mriEntry.resolvedDocId : null;
+          if (resolvedId) {
+            // Use the resolved doc's label/status; the original slug just
+            // sends the navigation to the right place.
+            const rLabel = getLabelFor(resolvedId);
+            const rStatus = getStatusFor(resolvedId);
+            const rStatusIcon = buildStatusIcon(rStatus, 10);
+            li.innerHTML = `
+              <a href="../${encodeURIComponent(resolvedId)}/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="${escapeHtml(resolvedId)}">
+                <span>${escapeHtml(rLabel)}</span></a>
+                ${rStatus ? '<span class="ms-1">[' + escapeHtml(rStatus) + ']</span>' : ''}
+                ${rStatusIcon ? '<span class="ms-1">' + rStatusIcon + '</span>' : ''}
+            `;
+          } else if (mriEntry) {
+            const citeText = mriEntry.cite || '';
+            li.innerHTML = `
+              <a href="../${encodeURIComponent(id)}/" class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic" data-doc-id="${escapeHtml(id)}">
+                <span>${escapeHtml(label)}</span></a>
+              ${citeText ? '<cite class="ms-1">' + escapeHtml(citeText) + '</cite>' : ''}
+              <span class="badge text-bg-info ms-1">EXTERNAL</span>
+            `;
+          } else {
+            li.innerHTML = `
+              <a href="../${encodeURIComponent(id)}/" class="ref-node d-inline-flex align-items-center gap-1 ${inRegistry ? '' : 'text-muted fst-italic'}" data-doc-id="${escapeHtml(id)}">
+                <span>${escapeHtml(label)}</span></a>
+                ${statusStr ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
+                ${inRegistry ? '' : '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>'}
+                ${statusIcon ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
+                ${projIcon ? '<span class="ms-1">' + projIcon + '</span>' : ''}
+            `;
+          }
         }
         ul.appendChild(li);
       });
@@ -321,22 +353,38 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
       const isSuite = isSuiteNode(id);
       const inRegistry = isSuite ? true : isDocInRegistry(id);
+      // Follow MRI's resolvedDocId pointer first. A slug graduated via
+      // resolveOrphans.js renders as the resolved doc — not as inline cite.
+      const mriEntry = (!isSuite && !inRegistry && MRI_CITES) ? MRI_CITES[id] : null;
+      const resolvedId = mriEntry && mriEntry.resolvedDocId ? mriEntry.resolvedDocId : null;
+      // When the ref isn't a registry doc but MRI has it (un-resolved), render
+      // docId + cite text + EXTERNAL badge (mirrors the levels view + docId
+      // page). When resolved, label/status/link target come from the resolved
+      // doc.
+      const effectiveId = resolvedId || id;
+      const effectiveLabel = resolvedId ? getLabelFor(resolvedId) : label;
+      const effectiveStatusStr = resolvedId ? getStatusFor(resolvedId) : statusStr;
+      const effectiveStatusIcon = resolvedId ? buildStatusIcon(effectiveStatusStr, 10) : statusIcon;
+      const showInlineCite = !!mriEntry && !resolvedId;
+      const mriCiteText = showInlineCite && mriEntry.cite ? mriEntry.cite : '';
 
       chip.innerHTML = `
         ${hasChildren
           ? '<button type="button" class="btn btn-link btn-sm p-0 rt-node-toggle" aria-label="Toggle children" title="Toggle children">▾</button>'
           : '<span class="rt-node-toggle-spacer"></span>'}
         ${isSuite
-          ? `<span class="ref-node d-inline-flex align-items-center gap-1" data-suite-node="1"><span>${escapeHtml(label)}</span></span>`
-          : `<a href="../${encodeURIComponent(id)}/"
-                 class="ref-node d-inline-flex align-items-center gap-1 ${inRegistry ? '' : 'text-muted fst-italic'}"
-                 data-doc-id="${escapeHtml(id)}">
-               <span>${escapeHtml(label)}</span>
+          ? `<span class="ref-node d-inline-flex align-items-center gap-1" data-suite-node="1"><span>${escapeHtml(effectiveLabel)}</span></span>`
+          : `<a href="../${encodeURIComponent(effectiveId)}/"
+                 class="ref-node d-inline-flex align-items-center gap-1 ${(inRegistry || resolvedId) ? '' : 'text-muted fst-italic'}"
+                 data-doc-id="${escapeHtml(effectiveId)}">
+               <span>${escapeHtml(effectiveLabel)}</span>
              </a>`}
-        ${statusStr ? '<span class="ms-1">[' + escapeHtml(statusStr) + ']</span>' : ''}
-        ${(!isSuite && !inRegistry) ? '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>' : ''}
-        ${(!isSuite && statusIcon) ? '<span class="ms-1">' + statusIcon + '</span>' : ''}
-        ${(!isSuite && projIcon) ? '<span class="ms-1">' + projIcon + '</span>' : ''}
+        ${showInlineCite && mriCiteText ? '<cite class="ms-1">' + escapeHtml(mriCiteText) + '</cite>' : ''}
+        ${showInlineCite ? '<span class="badge text-bg-info ms-1">EXTERNAL</span>' : ''}
+        ${(!showInlineCite && effectiveStatusStr) ? '<span class="ms-1">[' + escapeHtml(effectiveStatusStr) + ']</span>' : ''}
+        ${(!isSuite && !inRegistry && !mriEntry) ? '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>' : ''}
+        ${(!isSuite && !showInlineCite && effectiveStatusIcon) ? '<span class="ms-1">' + effectiveStatusIcon + '</span>' : ''}
+        ${(!isSuite && !mriEntry && projIcon) ? '<span class="ms-1">' + projIcon + '</span>' : ''}
         ${node.dedup ? '<span class="rt-dedup text-muted ms-1" title="Subtree already expanded above">⤴</span>' : ''}
       `;
       li.appendChild(chip);
@@ -468,10 +516,29 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
            ${projIcon ? '<span class="ms-1">' + projIcon + '</span>' : ''}
          </div>`
       : '';
-    const rootMissingBadge = inRegistry ? '' : '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>';
+    // MRI-only root: the doc isn't in the registry but MRI has citation data.
+    // Show docId + cite + EXTERNAL badge (consistent with how this id renders
+    // as a child node elsewhere in the tree) and disable "Set as new root"
+    // since there's no doc to drill into.
+    const mriRootEntry = !inRegistry && MRI_CITES ? MRI_CITES[id] : null;
+    const rootMissingBadge = inRegistry
+      ? ''
+      : mriRootEntry
+        ? '<span class="badge text-bg-info ms-1">EXTERNAL</span>'
+        : '<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>';
     const rootTitleEl = inRegistry
       ? `<a class="" href="../../docs/${id}/">${escapeHtml(titleText)}</a>`
-      : `<span class="text-muted fst-italic">${escapeHtml(titleText)}</span>`;
+      : mriRootEntry && mriRootEntry.cite
+        ? `<cite class="text-muted fst-italic">${escapeHtml(mriRootEntry.cite)}</cite>`
+        : `<span class="text-muted fst-italic">${escapeHtml(titleText)}</span>`;
+    const setAsNewRootBtn = mriRootEntry
+      ? `<button type="button" class="btn btn-outline-secondary btn-sm" disabled title="External ref (MRI-only) — no doc to root on">
+           Set as new root
+         </button>`
+      : `<a href="../${encodeURIComponent(id)}/"
+            class="btn btn-outline-secondary btn-sm">
+           Set as new root
+         </a>`;
     el.innerHTML = `
         <div class="mb-2">
           <div class="mb-1 d-flex flex-wrap align-items-center gap-1">
@@ -486,10 +553,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             Click a document ID below to re-center the tree on that document and explore deeper.
           </span>
           <span class="text-nowrap">
-            <a href="../${encodeURIComponent(id)}/"
-               class="btn btn-outline-secondary btn-sm">
-              Set as new root
-            </a>
+            ${setAsNewRootBtn}
             <button type="button"
                     class="btn btn-outline-secondary btn-sm rt-recenter ms-1"
                     data-doc-id="${escapeHtml(ROOT_ID)}">
@@ -522,13 +586,21 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   }
 
   async function init() {
-    // Load effective docs and suites/collections metadata
-    const [resDocs, resSuites] = await Promise.all([
+    // Load effective docs, suites/collections metadata, and MRI cite map
+    const [resDocs, resSuites, resMri] = await Promise.all([
       fetch(GRAPH_URL),
-      fetch(SUITES_URL).catch(() => null)
+      fetch(SUITES_URL).catch(() => null),
+      fetch(MRI_CITE_URL).catch(() => null),
     ]);
 
     const docs = await resDocs.json();
+
+    try {
+      if (resMri && resMri.ok) MRI_CITES = await resMri.json();
+    } catch (e) {
+      MRI_CITES = null;
+    }
+    if (!MRI_CITES || typeof MRI_CITES !== 'object') MRI_CITES = {};
 
     let suitesPayload = null;
     try {

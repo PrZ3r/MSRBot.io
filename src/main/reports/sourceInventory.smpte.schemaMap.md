@@ -1,7 +1,9 @@
 # _source/SMPTE → documents.schema mapping & gap analysis
 
 Generated as a companion to [sourceInventory.smpte.md](sourceInventory.smpte.md).
-Schema reference: [src/main/schemas/documents.schema.json](../schemas/documents.schema.json) (v2.1.1).
+Schema reference: [src/main/schemas/documents.schema.json](../schemas/documents.schema.json) (v2.3.0).
+
+> **2.3.0 update** — `authors[]` items now accept an object form `{ name, bio?, affiliation? }` in addition to the legacy string form. Surfaced by `reauditUnmappedFields.js`: 1,939 sightings of `journal_article/contributors/author/bios` and 1,774 of `.../organization` in the NLM journal corpus made these worth promoting to first-class. See [refsReaudit.unmappedFields.md](refsReaudit.unmappedFields.md) for the full audit.
 
 ## Scope
 This analysis covers what can be extracted from the four XML source formats sitting alongside the PDFs in `_source/SMPTE/`:

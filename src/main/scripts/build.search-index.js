@@ -45,8 +45,10 @@ const { noPageArticleTypeSet, isPageGated } = require('../lib/pageGate');
 /** Page gate config — gated articleTypes are excluded from the browse/search
  *  index (and facets), matching the per-doc page gate in build.js. */
 let __gateSet;
+let __siteConfig = {};
 try {
-  __gateSet = noPageArticleTypeSet(require('../config/site.json'));
+  __siteConfig = require('../config/site.json');
+  __gateSet = noPageArticleTypeSet(__siteConfig);
 } catch (e) {
   __gateSet = new Set();
 }
@@ -140,6 +142,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
   /** Build the flat, minimal index strictly from canonical doc fields */
   const idx = [];
   let gatedCount = 0;
+  const icsCodeLabels = {};
   for (const d of Array.isArray(docs) ? docs : []) {
     if (!d || !d.docId) continue;
     // Page gate: gated articleTypes stay in the API but not the browse index.
@@ -209,7 +212,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
     // - searchKeywords: assembled terms for free-text search
     const facetKeywords = Array.isArray(d.keywords) ? d.keywords.map(squash).filter(Boolean) : [];
 
-    // Normalize authors to strings for search — supports ["Last, First"] or [{ givenName, familyName, name }]
+    // Normalize authors to strings for search — supports ["Last, First"] or [{ name, bio?, affiliation? }]
     const authorsList = Array.isArray(d.authors)
       ? d.authors
           .map(a => {
@@ -226,6 +229,43 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
           .map(squash)
       : [];
 
+    // Affiliations: emit as a facet AND index for search. Object-form authors only.
+    const affiliationsList = Array.isArray(d.authors)
+      ? d.authors
+          .map(a => (a && typeof a === 'object' && a.affiliation) ? String(a.affiliation).trim() : null)
+          .filter(Boolean)
+      : [];
+    const affiliationsFacet = Array.from(new Set(affiliationsList));
+
+    // Author bios — full-text searchable (not faceted; too long).
+    const biosList = Array.isArray(d.authors)
+      ? d.authors
+          .map(a => (a && typeof a === 'object' && a.bio) ? squash(String(a.bio)) : null)
+          .filter(Boolean)
+      : [];
+
+    // ICS classification codes — facet by code; descriptions collected for
+    // the icsCodeLabels map emitted into facets.json (first non-empty wins —
+    // the ISO code → description mapping is canonical, so any per-doc copy
+    // is fine).
+    const icsCodesList = [];
+    if (Array.isArray(d.icsCodes)) {
+      for (const c of d.icsCodes) {
+        if (!c || typeof c !== 'object' || !c.code) continue;
+        const code = String(c.code).trim();
+        if (!code) continue;
+        icsCodesList.push(code);
+        if (!icsCodeLabels[code] && c.description) {
+          icsCodeLabels[code] = String(c.description).trim();
+        }
+      }
+    }
+
+    // doiAliases — search index only, so ISBN-form / legacy DOIs resolve to canonical
+    const doiAliasesList = Array.isArray(d.doiAliases)
+      ? d.doiAliases.map(s => String(s).trim()).filter(Boolean)
+      : [];
+
     const searchKeywords = Array.from(
       new Set(
         [
@@ -233,7 +273,11 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
           title,
           //d.docTitle,
           d.docLabel,
-          ...authorsList,            
+          d.abbrevTitle,
+          ...authorsList,
+          ...affiliationsList.map(squash),
+          ...biosList,
+          ...doiAliasesList.map(squash),
           ...(Array.isArray(currentWork) ? currentWork : [])
         ]
           .filter(Boolean)
@@ -266,6 +310,9 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
       hasCurrentWork,
       keywords: facetKeywords,        // facet values (from documents.json)
       keywordsSearch: searchKeywords, // assembled search tokens
+      icsCodes: icsCodesList,         // facet values (codes only; descriptions stay in API)
+      affiliations: affiliationsFacet,// facet values from authors[].affiliation
+      abbrevTitle: d.abbrevTitle || null,
       href: d.href || null,
       docBase: d.docBase || null,
       docBaseLabel: d.docBaseLabel || null
@@ -293,9 +340,14 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
     year: {},
     currentWork: {},
     keywords: {},
+    articleType: {},
+    icsCodes: {},
+    affiliations: {},
     hasDoi: { true: 0, false: 0 },
     hasReleaseTag: { true: 0, false: 0 },
-    groupLabels: Object.fromEntries(Array.from(groupNameById.entries()))
+    groupLabels: Object.fromEntries(Array.from(groupNameById.entries())),
+    articleTypeLabels: (__siteConfig && __siteConfig.articleTypeLabels) || {},
+    icsCodeLabels
   };
 
   for (const r of idx) {
@@ -328,6 +380,24 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
         const key = String(k).trim();
         if (!key) continue;
         facets.keywords[key] = (facets.keywords[key] || 0) + 1;
+      }
+    }
+    if (r.articleType) {
+      const at = String(r.articleType).trim();
+      if (at) facets.articleType[at] = (facets.articleType[at] || 0) + 1;
+    }
+    if (Array.isArray(r.icsCodes)) {
+      for (const c of r.icsCodes) {
+        const key = String(c).trim();
+        if (!key) continue;
+        facets.icsCodes[key] = (facets.icsCodes[key] || 0) + 1;
+      }
+    }
+    if (Array.isArray(r.affiliations)) {
+      for (const a of r.affiliations) {
+        const key = String(a).trim();
+        if (!key) continue;
+        facets.affiliations[key] = (facets.affiliations[key] || 0) + 1;
       }
     }
     facets.hasDoi[String(r.hasDoi)]++;
