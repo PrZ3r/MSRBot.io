@@ -120,6 +120,7 @@
     <div class="meta mb-1 small text-muted d-flex flex-wrap align-items-center gap-1">
       {{#if publisher}}<span class="badge-reg"><a href="?f.publisher={{publisher}}">{{publisher}}</a></span>{{/if}}
       {{#if docType}}<span class="badge-reg"><a href="?f.docType={{docType}}">{{docType}}</a></span>{{/if}}
+      {{#if articleType}}<span class="badge-reg"><a href="?f.articleType={{articleType}}">{{articleTypeLabel articleType}}</a></span>{{/if}}
       {{#if year}}<span class="badge-reg"><a href="?f.year={{year}}">{{year}}</a></span>{{/if}}
       {{#if hasReleaseTag}}<span class="badge-reg">releaseTag: <a href="?q={{releaseTag}}">{{releaseTag}}</a></span>{{/if}}
       {{#if (hasAny groupNames)}}
@@ -130,6 +131,10 @@
         <span class="badge-reg">DOI: {{{doiLink doi}}}</span>
       {{/if}}
     </div>
+
+    {{#if (hasAny affiliations)}}
+      <div class="small text-muted mt-1">Affiliation: <span class="fst-italic">{{#affiliations}}<a class="" href="?f.affiliations={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/affiliations}}</span></div>
+    {{/if}}
 
     <div class="small text-muted mt-2 d-flex flex-wrap align-items-center gap-2">
       {{#if pubDate}}
@@ -146,8 +151,11 @@
     {{#if docBase}}
       <div class="small text-muted mt-0">Doc Base: <span class="fst-italic">{{docBaseLabel}}</span></div>
     {{/if}}
+    {{#if (hasAny icsCodes)}}
+      <div class="small text-muted mt-0">ICS: <span class="fst-italic">{{#icsCodes}}<a class="" href="?f.icsCodes={{this}}" title="{{icsCodeLabel this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/icsCodes}}</span></div>
+    {{/if}}
     {{#if (hasAny keywords)}}
-      <div class="small text-muted mt-0">Keywords: <span class="fst-italic">{{#keywords}}<a class="" href="?f.keywords={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/keywords}} 
+      <div class="small text-muted mt-0">Keywords: <span class="fst-italic">{{#keywords}}<a class="" href="?f.keywords={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/keywords}}
       </span></div>
     {{/if}}
   </article>

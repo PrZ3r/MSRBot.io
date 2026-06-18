@@ -3152,6 +3152,13 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         const perDocDesc = d.docTitle || siteConfig.siteDescription;
 
         const safeDoc = prepareDocForRender(d);
+        // Per-doc copyright (object { holder, year }) is exposed under a
+        // separate key in the template context so it doesn't collide with
+        // the site-wide `copyright` string (BSD license) that header/footer
+        // partials reference for meta tags.
+        const docCopyright = (safeDoc.copyright && typeof safeDoc.copyright === 'object')
+          ? safeDoc.copyright
+          : null;
         const docHtml = docTpl({
           // data for this document (flat access in template)
           ...safeDoc,
@@ -3160,6 +3167,8 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           dataGroups: registryGroup,
           dataProjects: registryProject,
           docProjs: docProjs,
+          // per-doc fields exposed under non-colliding names
+          docCopyright,
           // site/meta
           site_version: site_version,
           siteName: siteConfig.siteName,
