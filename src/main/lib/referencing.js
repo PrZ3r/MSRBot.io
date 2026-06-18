@@ -575,13 +575,27 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
     entry.rawVariants = _dedupeVariants(entry.rawVariants);
   } else {
     // orphan — parser couldn't form a canonical refId. Mint a source-anchored
-    // slug (`orphan/<sourceDoc>/<refXmlId>`) and write as a first-class refs[]
+    // slug (`orphan/<sourceDoc>/<suffix>`) and write as a first-class refs[]
     // entry so it's citable from doc.references[] and queryable like any other
     // ref. contentHash lets resolveOrphans.js group sightings of the same raw
     // citation across multiple source docs.
-    const refXmlId = _refXmlIdOf(rawRef);
-    if (docId && refXmlId) {
-      const slug = `orphan/${docId}/${refXmlId}`;
+    //
+    // Suffix preference, in order:
+    //   1. `<ref id="X">` attribute when raw XML carries one (PR #1111-style
+    //      SMPTE source-ref extraction).
+    //   2. `h:<contentHash[:8]>` derived from cite text when there's no raw
+    //      XML but we have a citation string (extractDocs badRefs from HTML/
+    //      free-text providers like IETF/W3C). Stable across re-runs because
+    //      the hash is content-deterministic, not random.
+    const refXmlIdValue = _refXmlIdOf(rawRef);
+    let suffix = refXmlIdValue || null;
+    if (!suffix && (cite || href)) {
+      const seed = String(cite || '') + '|' + String(href || '');
+      suffix = `h:${_contentHash(seed).slice(0, 8)}`;
+    }
+    if (docId && suffix) {
+      const slug = `orphan/${docId}/${suffix}`;
+      const refXmlId = refXmlIdValue || suffix; // keep sourceRefId meaningful for either path
       if (!mri.refs[slug]) {
         // If the extractor passed no cite text but raw XML carries enough
         // structure to synthesise one, do it now — orphan slug renderers
@@ -596,7 +610,13 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
           href: href || null,
           title: title || null,
           rawRef: rawRef || null,
-          contentHash: _contentHash(rawRef),
+          // Hash from rawRef when present (canonical for XML-source orphans);
+          // fall back to cite+href seed so cite-only orphans (extractDocs
+          // badRefs etc.) still get a stable contentHash for cross-sighting
+          // dedup at resolve-time.
+          contentHash: rawRef
+            ? _contentHash(rawRef)
+            : _contentHash(String(cite || '') + '|' + String(href || '')),
           resolvedDocId: null,
           needsResolve: 'unknown-publisher',
           rawVariants: [{ docId, type, cite, href, rawRef, title }],
