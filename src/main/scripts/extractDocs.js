@@ -175,24 +175,31 @@ const providerKey = providerArg.toLowerCase().trim();
     NO_CACHE_HEADERS,
     onBadRefs: (refs) => {
       if (!Array.isArray(refs) || !refs.length) return;
-      // Two-step routing:
+      // Three-step routing:
       //   1. Console summary buffer (`badRefs`) — used at end of run to print
       //      "🚫 Unparseable References Found:" so devs see what failed.
-      //   2. MRI — each ref also lands as a source-anchored orphan slug via
+      //   2. MRI — each ref lands as a source-anchored orphan slug via
       //      `mriRecordSighting` (mint path picks a stable content-hash
       //      suffix when no `<ref id>` is available), so the citation info is
       //      addressable from `doc.references[]` going forward and replaces
       //      the deprecated `badRefs.latest.json` sidecar persistence.
+      //   3. Queue the minted slug + sourceDoc for a deferred apply pass that
+      //      runs after `existingDocs` is populated — pushes the slug into
+      //      the source doc's `references[]` so the doc actually cites its
+      //      orphan. Without this, the post-extract MRI prune would drop the
+      //      orphan because the source doc has no references[] entry pointing
+      //      at it.
       for (const r of refs) {
         badRefs.push(r);
         const docId = String((r && r.docId) || '').trim();
         const cite = String((r && r.refText) || (r && r.cite) || '').trim();
         const href = String((r && r.href) || '').trim();
+        const type = String((r && r.type) || 'bibliographic').trim();
         if (!docId || (!cite && !href)) continue;
         try {
-          mriRecordSighting({
+          const result = mriRecordSighting({
             docId,
-            type: String((r && r.type) || 'bibliographic').trim(),
+            type,
             // refId omitted → triggers orphan-mint path in referencing.js
             cite,
             href,
@@ -200,6 +207,8 @@ const providerKey = providerArg.toLowerCase().trim();
             mapSource: `extractDocs:${providerKey}`,
             mapDetail: 'onBadRefs',
           });
+          const slug = result && result.mintedSlug;
+          if (slug) orphanSlugApplyQueue.push({ docId, slug, type });
         } catch (e) {
           console.warn(`[mri] failed to record bad-ref sighting for ${docId}: ${e && e.message ? e.message : e}`);
         }
@@ -254,6 +263,12 @@ const baseMetaConfig = {
 const metaConfig = mergeMetaConfig(baseMetaConfig, activeProvider.metaConfig || {});
 
 const badRefs = [];
+// Queue of orphan-slug citation pushes deferred until after `existingDocs` is
+// populated. Each entry: { docId, slug, type }. Drained inside the main
+// extract function right before saveDoc loops so every doc cites its newly-
+// minted orphan(s) and the post-extract MRI prune doesn't see them as
+// "source doc has no references[] entry → drop".
+const orphanSlugApplyQueue = [];
 
 function buildMriSightingIndexFromDocs(docs = []) {
   const idx = new Set();
@@ -958,11 +973,35 @@ for (const doc of results) {
   // Keep the in-memory array sorted for the MRI consumers below.
   existingDocs.sort((a, b) => a.docId.localeCompare(b.docId));
 
+  // Drain the orphan-slug queue: push each minted slug into its source doc's
+  // references[<type>] array, and mark the doc as touched so it gets saved.
+  // This makes sure docs cite their freshly-minted MRI orphans before the
+  // post-extract prune runs (otherwise the prune would drop the orphans
+  // because the source doc has no references[] entry pointing at them).
+  let orphanCitationsAdded = 0;
+  const orphanForceTouched = new Set();
+  for (const { docId, slug, type } of orphanSlugApplyQueue) {
+    const doc = existingDocs.find((d) => d && d.docId === docId);
+    if (!doc) continue;
+    doc.references = doc.references || {};
+    const bucket = type === 'normative' ? 'normative' : 'bibliographic';
+    doc.references[bucket] = doc.references[bucket] || [];
+    if (!doc.references[bucket].includes(slug)) {
+      doc.references[bucket].push(slug);
+      orphanCitationsAdded += 1;
+      orphanForceTouched.add(docId);
+    }
+  }
+  if (orphanCitationsAdded > 0) {
+    console.log(`🔗 Cited ${orphanCitationsAdded} new MRI orphan slug(s) from ${orphanForceTouched.size} source doc(s).`);
+  }
+
   // Persist only the docs this run touched, each to its own shard file.
   // saveDoc() re-homes a doc whose publisher/docType/docId changed.
   const touchedIds = new Set([
     ...newDocs.map(d => d.docId),
-    ...updatedDocs.map(u => u.docId)
+    ...updatedDocs.map(u => u.docId),
+    ...orphanForceTouched,
   ]);
   let savedCount = 0;
   for (const d of existingDocs) {

@@ -633,6 +633,9 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
         const exists = ent.rawVariants.some((v) => v && v.docId === docId && v.type === type);
         if (!exists) ent.rawVariants.push({ docId, type, cite, href, rawRef, title });
       }
+      // stats + return the slug so callers can cite it from doc.references[]
+      mri.stats.uniqueRefIds = Object.keys(mri.refs).length;
+      return { mintedSlug: slug, kind: 'orphan-slug' };
     } else {
       // Can't mint a deterministic slug (missing docId or <ref id="...">) — fall
       // back to the legacy unmapped[] path so we don't drop the citation entirely.
@@ -649,6 +652,7 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
   // stats
   const keys = Object.keys(mri.refs);
   mri.stats.uniqueRefIds = keys.length;
+  return { mintedSlug: null, kind: refId ? 'canonical' : 'legacy-unmapped' };
 }
 
 mriFlush
