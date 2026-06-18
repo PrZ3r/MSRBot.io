@@ -181,15 +181,34 @@ jobs:
           echo "redirect_undefined=$RU" >> $GITHUB_OUTPUT
           echo "redirectUndefinedCount=$RU"
 
+      # The App token minted at job start (steps.app-token) is hard-capped at
+      # a 1-hour TTL by GitHub. The Run URL validation step routinely takes
+      # 90+ minutes against a 26k-doc corpus, so by the time the auto-commit
+      # below runs the original token is dead — `git push` falls through to
+      # a credential prompt and the job exits 128 ("could not read Username
+      # for https://github.com"). Re-mint a fresh token here, then steps
+      # downstream of this point reference `steps.app-token-refresh.outputs.token`.
+      - name: Refresh App token (validate-url runs past 1h expiry)
+        id: app-token-refresh
+        if: (success() || failure()) && steps.guard.outputs.skip != 'true'
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Auto-commit audit back to main (if changed)
         if: (success() || failure()) && steps.guard.outputs.skip != 'true'
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token-refresh.outputs.token }}
         run: |
           set -e
           BR="${{ github.event.repository.default_branch }}"
           git config user.name "PrZ3 Unit"
           git config user.email "prz3-unit[bot]@users.noreply.github.com"
+          # The token stored in .git/config by actions/checkout is the
+          # original (now-expired) App token. Inject the fresh token into
+          # the remote URL so `git push` actually authenticates with it.
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
           git add src/main/reports/url_validate_audit.json || true
           if git diff --cached --quiet; then
             echo "No audit changes to commit.";
@@ -202,7 +221,7 @@ jobs:
       - name: Sync to latest base after audit push
         if: steps.guard.outputs.skip != 'true'
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token-refresh.outputs.token }}
         run: |
           git fetch origin
           git checkout ${{ github.event.repository.default_branch }}
@@ -252,7 +271,7 @@ jobs:
         if: steps.guard.outputs.skip != 'true' && steps.norm.outputs.applied != '0' && github.ref != 'refs/heads/chore/url-normalize'
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ steps.app-token-refresh.outputs.token }}
           commit-message: 'fix: backfill resolved* from URL validation (missing resolved)'
           title: "URL Backfill resolved* for ${{ steps.audit.outputs.redirect_undefined }} entries"
           body: |
