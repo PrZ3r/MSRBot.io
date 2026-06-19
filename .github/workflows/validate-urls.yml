@@ -144,6 +144,15 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
+          # Don't persist the checkout token as an http.extraheader. The job
+          # routinely runs 1-2h (URL validation against the ~26k-doc corpus),
+          # so by the time the auto-commit pushes, the original token is long
+          # expired. We re-mint a fresh token below and inject it via
+          # `git remote set-url`, but a persisted extraheader carrying the
+          # stale token overrides the URL credential and the push fails with
+          # "Invalid username or token". Disabling persistence leaves the
+          # fresh-token remote URL as the sole credential. See run 27840389788.
+          persist-credentials: false
 
       - name: Set up Node.js
         if: steps.guard.outputs.skip != 'true'
