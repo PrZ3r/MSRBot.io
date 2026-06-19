@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **`mriFlush` no longer clobbers extractor-set `resolvedDocId` pointers on every build.** The "resolution truth" branch in [referencing.js](src/main/lib/referencing.js) used to treat `_findSourceDocIdForRefId(e.refId)` (refId-as-its-own-docId lookup) as the sole authority — when an extractor mapped a non-docId refId to a real registry doc (the N-to-1 slug→docId case the slug architecture was designed for), flush demoted the entry back to `resolvedDocId: null, needsResolve: "known-publisher-no-doc"` every time. Surfaced in PR #1201's auto-generated MRI data diff: `IETF.draft-ietf-tls-rfc8446bis-03 → RFC8446` (mapped by the IETF `ietf-rfc-html-fallback` / `rfc-text` resolution) reverted to unresolved, and the resolved/known-pub-no-doc stats moved 1814→1813 / 932→933 — same shape would have hit every parser-family resolution Phase 1b lands. Fix: the `else` branch now preserves an existing `resolvedDocId` that still points at a registered doc (via `_hasDocIdOrBase`), and only demotes when the existing pointer has gone stale or was never set. Sibling logic in the secondary flush path patched the same way. New regression test ([referencing.flush.test.js](src/main/scripts/test/referencing.flush.test.js)) pins both branches; `npm test` runs it after the existing registry smoke tests.
+
 ### Removed
 
 ## [v2.1.0] - 2026-06-18

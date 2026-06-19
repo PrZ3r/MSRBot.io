@@ -705,10 +705,18 @@ function mriFlush(opts = {}) {
         if (present) {
           if (e.resolvedDocId !== matchDocId) { e.resolvedDocId = matchDocId; _dirty = true; }
           if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
-        } else if (e.resolvedDocId !== null || (e.needsResolve == null && !e.isOrphan)) {
-          // Canonical-form refs with no source doc → known-publisher-no-doc.
-          // Orphan slugs stay as unknown-publisher (their needsResolve is set on mint).
-          if (!e.isOrphan) {
+        } else if (!e.isOrphan) {
+          // Canonical-form refs with no docId-as-itself match.
+          // N-to-1 slug→docId pointer survives if extractor wrote a
+          // resolvedDocId that's still in the registry (e.g. IETF draft
+          // refId like `IETF.draft-ietf-tls-rfc8446bis-03` resolved to
+          // the published `RFC8446`; parser-family resolutions ditto).
+          // mriFlush is NOT the sole authority on resolvedDocId — it only
+          // fills the null case and (here) demotes pointers that have
+          // gone stale.
+          if (e.resolvedDocId && _hasDocIdOrBase(e.resolvedDocId)) {
+            if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
+          } else {
             if (e.resolvedDocId !== null) { e.resolvedDocId = null; _dirty = true; }
             if (e.needsResolve !== 'known-publisher-no-doc') { e.needsResolve = 'known-publisher-no-doc'; _dirty = true; }
           }
@@ -800,13 +808,19 @@ function mriFlush(opts = {}) {
       }
       _dirty = true;
     }
-    // Sync slug-schema fields with resolution truth.
+    // Sync slug-schema fields with resolution truth. Same N-to-1 pointer
+    // guard as the primary mriFlush branch above — an extractor-set
+    // resolvedDocId that still points at a registered doc survives.
     if (present) {
       if (e.resolvedDocId !== matchDocId) { e.resolvedDocId = matchDocId; _dirty = true; }
       if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
     } else if (!e.isOrphan) {
-      if (e.resolvedDocId !== null) { e.resolvedDocId = null; _dirty = true; }
-      if (e.needsResolve !== 'known-publisher-no-doc') { e.needsResolve = 'known-publisher-no-doc'; _dirty = true; }
+      if (e.resolvedDocId && _hasDocIdOrBase(e.resolvedDocId)) {
+        if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
+      } else {
+        if (e.resolvedDocId !== null) { e.resolvedDocId = null; _dirty = true; }
+        if (e.needsResolve !== 'known-publisher-no-doc') { e.needsResolve = 'known-publisher-no-doc'; _dirty = true; }
+      }
     }
 
     refsOut[k] = {
