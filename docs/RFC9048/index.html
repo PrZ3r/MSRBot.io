@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -405,6 +417,9 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">40</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">The 3GPP mobile network Authentication and Key Agreement (AKA) is an authentication mechanism for devices wishing to access mobile networks. RFC 4187 (EAP-AKA) made the use of this mechanism possible within the Extensible Authentication Protocol (EAP) framework. RFC 5448 (EAP-AKA&#x27;) was an improved version of EAP-AKA. This document is the most recent specification of EAP-AKA&#x27;, including, for instance, details about and references related to operating EAP-AKA&#x27; in 5G networks. EAP-AKA&#x27; differs from EAP-AKA by providing a key derivation function that binds the keys derived within the method to the name of the access network. The key derivation function has been defined in the 3rd Generation Partnership Project (3GPP). EAP-AKA&#x27; allows its use in EAP in an interoperable manner. EAP-AKA&#x27; also updates the algorithm used in hash functions, as it employs SHA-256 / HMAC-SHA-256 instead of SHA-1 / HMAC-SHA-1, which is used in EAP-AKA. This version of the EAP-AKA&#x27; specification defines the protocol behavior for both 4G and 5G deployments, whereas the previous version defined protocol behavior for 4G deployments only. While EAP-AKA&#x27; as defined in RFC 5448 is not obsolete, this document defines the most recent and fully backwards-compatible specification of EAP-AKA&#x27;. This document updates both RFCs 4187 and 5448.</dd>
             
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2021-10-01</dd>
@@ -413,15 +428,19 @@
             
             
             
+            
             <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Proposed Standard</em></dd>
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC9048" target="_blank" rel="noopener"><code>10.17487/RFC9048</code></a></dd>
             
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC9048" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.17487/RFC9048</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">Jari Arkko, Vesa Lehtovirta, Vesa Torvinen, Pasi Eronen</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">Jari Arkko</div><div class="mb-1 pt-2 border-top">Vesa Lehtovirta</div><div class="mb-1 pt-2 border-top">Vesa Torvinen</div><div class="mb-1 pt-2 border-top">Pasi Eronen</div></dd>
             
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=EAP">EAP</a>, <a class="" href="../?f.keywords=AKA">AKA</a>, <a class="" href="../?f.keywords=AKA&#x27;">AKA&#x27;</a>, <a class="" href="../?f.keywords=3GPP">3GPP</a></dd>
+            
+            
             
             
             
@@ -473,7 +492,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <span class="small"><a class="-link " href="../RFC9678/">IETF RFC 9678</a> [Active*]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
-            </li> 
+            </li>
           </ul>
         </div>
       </div>
@@ -488,32 +507,25 @@
               <h2 class="h6">Normative Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">3GPP.TS-23.003.202106</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>3GPP.TS-23.003.202106 — TS-3GPP.23.003</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">3GPP.TS-23.501.202106</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>3GPP.TS-23.501.202106 — TS-3GPP.23.501</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">3GPP.TS-24.302.202007</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>3GPP.TS-24.302.202007 — TS-3GPP.24.302</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">3GPP.TS-24.501.202106</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>3GPP.TS-24.501.202106 — TS-3GPP.24.501</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">3GPP.TS-33.102.202007</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>3GPP.TS-33.102.202007 — TS-3GPP.33.102</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">3GPP.TS-33.402.202007</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>3GPP.TS-33.402.202007 — TS-3GPP.33.402</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">3GPP.TS-33.501.202107</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>3GPP.TS-33.501.202107 — TS-3GPP.33.501</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../NIST.FIPS.180-4/" title="NIST FIPS 180-4">
@@ -540,8 +552,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3748</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc3748" rel="noopener">RFC3748 — RFC3748</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC4187/" title="IETF RFC 4187">
@@ -552,16 +563,13 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC7542</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc7542" rel="noopener">RFC7542 — RFC7542</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC8126</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/bcp/bcp26" rel="noopener">RFC8126 — RFC8126</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC8174</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC8174 — RFC8174</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -570,52 +578,40 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1007-978-3-642-33704-8_6</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://doi.org/10.1007/978-3-642-33704-8_6" rel="noopener">10.1007-978-3-642-33704-8_6 — MT2012</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1109-TWC.2004.842941</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://doi.org/10.1109/TWC.2004.842941" rel="noopener">10.1109-TWC.2004.842941 — ZF2005</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1145-2382196.2382221</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://doi.org/10.1145/2382196.2382221" rel="noopener">10.1145-2382196.2382221 — Arapinis2012</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1145-3243734.3243846</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://doi.org/10.1145/3243734.3243846" rel="noopener">10.1145-3243734.3243846 — Basin2018</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.14722-ndss.2016.23236</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>10.14722-ndss.2016.23236 — Shaik2016</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.14722-ndss.2019.23442</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>10.14722-ndss.2019.23442 — Hussain2019</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.2478-popets-2019-0039</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>10.2478-popets-2019-0039 — Borgaonkar2018</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.5555-2534748.2534755</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>10.5555-2534748.2534755 — BT2013</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">3GPP.TS-35.208.202007</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>3GPP.TS-35.208.202007 — TS-3GPP.35.208</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IETF.draft-ietf-emu-aka-pfs-05</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://datatracker.ietf.org/doc/html/draft-ietf-emu-aka-pfs-05" rel="noopener">IETF.draft-ietf-emu-aka-pfs-05 — I-D.ietf-emu-aka-pfs</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">INTERCEPT.great-sim-heist.2015-02</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://firstlook.org/theintercept/2015/02/19/great-sim-heist/" rel="noopener">INTERCEPT.great-sim-heist.2015-02 — Heist2015</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISOC.NDSS.GSM.201202</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISOC.NDSS.GSM.201202 — Kune2012</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../NIST.FIPS.180-1/" title="NIST FIPS 180-1">
@@ -634,40 +630,31 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3310</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc3310" rel="noopener">RFC3310 — RFC3310</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4086</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc4086" rel="noopener">RFC4086 — RFC4086</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4169</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc4169" rel="noopener">RFC4169 — RFC4169</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4186</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc4186" rel="noopener">RFC4186 — RFC4186</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4284</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc4284" rel="noopener">RFC4284 — RFC4284</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4306</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc4306" rel="noopener">RFC4306 — RFC4306</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC5113</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc5113" rel="noopener">RFC5113 — RFC5113</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC5247</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc5247" rel="noopener">RFC5247 — RFC5247</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC5281</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc5281" rel="noopener">RFC5281 — RFC5281</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC5448/" title="IETF RFC 5448">
@@ -678,24 +665,19 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6194</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc6194" rel="noopener">RFC6194 — RFC6194</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6973</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc6973" rel="noopener">RFC6973 — RFC6973</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC7170</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc7170" rel="noopener">RFC7170 — RFC7170</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC7258</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc7258" rel="noopener">RFC7258 — RFC7258</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC7296</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC7296 — RFC7296</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -939,8 +921,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:39 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:58 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

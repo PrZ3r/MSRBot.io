@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -406,8 +418,12 @@
             
             
             
+            
+            
+            
             <dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q=19930501-pub">19930501-pub</a></dd>
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">1993-05-01</dd>
+            <dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">1993-05-01</dd>
             
             
             <dt class="col-sm-4">Stabilized Date</dt><dd class="col-sm-8">2004-10-08</dd>
@@ -416,15 +432,18 @@
             
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.EG28.1993" target="_blank" rel="noopener"><code>10.5594/SMPTE.EG28.1993</code></a></dd>
             <dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>978-1-61482-022-2</code></dd>
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.EG28.1993" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/SMPTE.EG28.1993</a></dd>
             
             
             
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Glossary">Glossary</a>, <a class="" href="../?f.keywords=Television">Television</a></dd>
+            <dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8"><div class="mb-1"><a href="../?f.icsCodes=33.160.01"><code>33.160.01</code></a> <span class="small text-muted">Audio, video and audiovisual systems in general</span></div><div class="mb-1"><a href="../?f.icsCodes=33.170"><code>33.170</code></a> <span class="small text-muted">Television and radio broadcasting</span></div></dd>
             
             
             
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 1993</span></dd>
           </dl>
         </div>
       </div>
@@ -477,56 +496,58 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ANSI.S4.28.1984</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ANSI.S4.28.1984 — ANSI S4.28-1984 (R1992), Preferred Sampling Frequencies for Professional Digital Audio Applications Employing Pulse Code Modulation</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ANSI.S4.40.1992</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ANSI.S4.40.1992 — ANSI S4.40-1992, Digital Audio Engineering — Serial Transmission Format for Two-Channel Linearly Represented Digital Audio Data (AES-3)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">CIE.S001.1986</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>CIE.S001.1986 — CIE S001 (1986), Colorimetric Illuminants</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">CIE.S002.1986</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>CIE.S002.1986 — CIE S002 (1986), Colorimetric Observers</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEEE.STD100.1988</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEEE.STD100.1988 — ANSI/IEEE 100-1988, Dictionary of Electrical and Electronics Terms, fourth edition</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IES.RP16.1986</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IES.RP16.1986 — ANSI/IES RP16-1986, Nomenclature and Definitions for Illuminating Engineering. Clause 13 includes tables of units, conversions, and luminance efficiency.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.10918-1</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISO.10918-1 — JPEG</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.10918-2</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISO.10918-2 — [JPEG-2] ISO/IEC CD 10918-2 (10 Dec 91), Digital Compression and Coding of Continuous-Tone Still Images, Part 2, Compliance Testing</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.11172</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../ISO.11172-3.1993/" title="ISO/IEC 11172-3:1993">
+                        ISO/IEC 11172-3
+                    </a>
+                      <span class="ms-1">[Active, Reaffirmed]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.4246</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../ISO.11664-5.2024/" title="ISO/CIE 11664-5:2024">
+                        ISO/CIE 11664-5
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.4246.1984</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISO.4246.1984 — ISO 4246:1984, Cinematography — Vocabulary</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.8613.1989</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISO.8613.1989 — ISO 8613:1989, Information Processing — Text and Office Systems — Office Document Architecture (ODA) and Interchange Format:</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.9642</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../ISO.11664-5.2024/" title="ISO/CIE 11664-5:2024">
+                        ISO/CIE 11664-5
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.EG1.1990/" title="SMPTE EG 1:1990">
@@ -737,8 +758,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">TIA.250.1989</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>TIA.250.1989 — ANSI/EIA/TIA 250-C-1989, Electrical Performance Standard for Television Transmission Systems</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -993,8 +1013,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:41 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:59 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

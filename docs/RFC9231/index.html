@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -405,6 +417,9 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">47</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This document updates and corrects the IANA &quot;XML Security URIs&quot; registry that lists URIs intended for use with XML digital signatures, encryption, canonicalization, and key management. These URIs identify algorithms and types of information. This document also obsoletes and corrects three errata against RFC 6931.</dd>
             
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2022-07-01</dd>
@@ -413,15 +428,19 @@
             
             
             
+            
             <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Proposed Standard</em></dd>
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC9231" target="_blank" rel="noopener"><code>10.17487/RFC9231</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8"><code>2070-1721</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC9231" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.17487/RFC9231</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">Donald E. Eastlake 3rd</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">Donald E. Eastlake 3rd</div></dd>
             
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=XMLSEC">XMLSEC</a>, <a class="" href="../?f.keywords=XMLDSIG">XMLDSIG</a>, <a class="" href="../?f.keywords=XMLENC">XMLENC</a>, <a class="" href="../?f.keywords=DigestMethod">DigestMethod</a>, <a class="" href="../?f.keywords=SignatureMethod">SignatureMethod</a>, <a class="" href="../?f.keywords=EncryptionMethod">EncryptionMethod</a>, <a class="" href="../?f.keywords=AgreementMethod">AgreementMethod</a>, <a class="" href="../?f.keywords=KeyDerivationMethod">KeyDerivationMethod</a>, <a class="" href="../?f.keywords=KeyInfo">KeyInfo</a></dd>
+            
+            
             
             
             
@@ -476,28 +495,22 @@
               <h2 class="h6">Normative Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1007-978-3-642-34931-7_28</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://doi.org/10.1007/978-3-642-34931-7_28" rel="noopener">10.1007-978-3-642-34931-7_28 — SipHash1</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ANSI.X9.52.1998</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ANSI.X9.52.1998 — X9.62</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEEE.STD1363A.2004</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEEE.STD1363A.2004 — IEEEP1363a</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISBN.9780471117094</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISBN.9780471117094 — RC4</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.10118-3.2004</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISO.10118-3.2004 — ISO-10118-3</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.18033-2.2010</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISO.18033-2.2010 — ISO-18033-2</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../NIST.FIPS.180-4/" title="NIST FIPS 180-4">
@@ -516,12 +529,10 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">NIST.FIPS.202</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>NIST.FIPS.202 — FIPS202</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">NIST.SP.800-208</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-208.pdf" rel="noopener">NIST.SP.800-208 — NIST800-208</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC1321/" title="IETF RFC 1321">
@@ -548,8 +559,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC2315</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc2315" rel="noopener">RFC2315 — RFC2315</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC3275/" title="IETF RFC 3275">
@@ -560,12 +570,10 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3394</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc3394" rel="noopener">RFC3394 — RFC3394</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3713</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc3713" rel="noopener">RFC3713 — RFC3713</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC3986/" title="IETF RFC 3986">
@@ -576,8 +584,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4050</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc4050" rel="noopener">RFC4050 — RFC4050</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC4055/" title="IETF RFC 4055">
@@ -588,16 +595,13 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4269</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc4269" rel="noopener">RFC4269 — RFC4269</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4648</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4648.xml" rel="noopener">RFC4648 — RFC4648</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC5869</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc5869" rel="noopener">RFC5869 — RFC5869</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC6234/" title="IETF RFC 6234">
@@ -608,8 +612,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC7748</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc7748" rel="noopener">RFC7748 — RFC7748</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC8017/" title="IETF RFC 8017">
@@ -620,16 +623,13 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC8032</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc8032" rel="noopener">RFC8032 — RFC8032</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC8126</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/bcp/bcp26" rel="noopener">RFC8126 — RFC8126</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC8174</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC8174 — RFC8174</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC8391/" title="IETF RFC 8391">
@@ -648,16 +648,13 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xmlenc-core.20021210</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/2002/REC-xmlenc-core-20021210/" rel="noopener">W3C.xmlenc-core.20021210 — XMLENC10</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xmlenc-core1</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/xmlenc-core1/" rel="noopener">W3C.xmlenc-core1 — XMLENC11</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xptr-framework.20030325</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/2003/REC-xptr-framework-20030325/" rel="noopener">W3C.xptr-framework.20030325 — XPointer</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -666,48 +663,37 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1007-11502760_3</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://cr.yp.to/mac/poly1305-20050329.pdf" rel="noopener">10.1007-11502760_3 — Poly1305</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IANA.XMSS</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.iana.org/assignments/xmss-extended-hash-based-signatures" rel="noopener">IANA.XMSS — XMSS</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISBN.0201756056</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISBN.0201756056 — XMLSEC</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISLNTT.SAC2000.2000-08</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISLNTT.SAC2000.2000-08 — CAMELLIA</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">KECCAK.2-1.201006</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://keccak.team/obsolete/Keccak-main-2.1.pdf" rel="noopener">KECCAK.2-1.201006 — KECCAK</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3075</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc3075" rel="noopener">RFC3075 — RFC3075</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3076</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc3076" rel="noopener">RFC3076 — RFC3076</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3092</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc3092" rel="noopener">RFC3092 — RFC3092</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3741</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc3741" rel="noopener">RFC3741 — RFC3741</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4010</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc4010" rel="noopener">RFC4010 — RFC4010</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6090</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc6090" rel="noopener">RFC6090 — RFC6090</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC6151/" title="IETF RFC 6151">
@@ -718,8 +704,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6194</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc6194" rel="noopener">RFC6194 — RFC6194</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC6931/" title="IETF RFC 6931">
@@ -730,40 +715,31 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC7465</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc7465" rel="noopener">RFC7465 — RFC7465</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC7696</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.rfc-editor.org/info/rfc7696" rel="noopener">RFC7696 — RFC7696</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">T-REC-X.660.2011</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.itu.int/rec/T-REC-X.660" rel="noopener">T-REC-X.660.2011 — ITU-T-X.660</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">T-REC-X.680.2021</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.itu.int/rec/T-REC-X.680" rel="noopener">T-REC-X.680.2021 — ITU-T-X.680</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">UIC.chacha.20080128</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://cr.yp.to/chacha/chacha-20080128.pdf" rel="noopener">UIC.chacha.20080128 — ChaCha</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.ORG</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/2001/REC-xml-c14n-20010315" rel="noopener">W3C.ORG — CANON10</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xml-c14n.20010315</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/2001/REC-xml-c14n-20010315" rel="noopener">W3C.xml-c14n.20010315 — CANON10</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xml-c14n11.20080502</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/2008/REC-xml-c14n11-20080502/" rel="noopener">W3C.xml-c14n11.20080502 — CANON11</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xml-exc-c14n.20020718</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/2002/REC-xml-exc-c14n-20020718/" rel="noopener">W3C.xml-exc-c14n.20020718 — XCANON</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../W3C.xmldsig-core.20080610/" title="W3C XML DSig Core">
@@ -782,16 +758,13 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xmldsig-filter2.20021108</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>W3C.xmldsig-filter2.20021108 — XPATH</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xmldsig-properties</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/xmldsig-properties/" rel="noopener">W3C.xmldsig-properties — XMLDSIG-PROP</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xmlenc-decrypt.20021210</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/2002/REC-xmlenc-decrypt-20021210" rel="noopener">W3C.xmlenc-decrypt.20021210 — DECRYPT</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../W3C.xmlschema-1.20041028/" title="W3C XML Schema P1">
@@ -802,16 +775,13 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xmlsec-algorithms</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/xmlsec-algorithms/" rel="noopener">W3C.xmlsec-algorithms — XMLSECXREF</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xmlsec-generic-hybrid</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/xmlsec-generic-hybrid/" rel="noopener">W3C.xmlsec-generic-hybrid — GENERIC</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">W3C.xslt20</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.w3.org/TR/xslt20/" rel="noopener">W3C.xslt20 — XSLT</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -1055,8 +1025,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:39 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:58 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

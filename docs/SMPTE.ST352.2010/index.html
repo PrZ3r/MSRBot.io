@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -419,8 +431,15 @@
             
             
             
+            
+            
+            
+            
+            
             <dt class="col-sm-4">Group</dt><dd class="col-sm-8"><a href="../../groups/#smpte-32nf-tc">SMPTE 32NF Network/Facilities Infrastructure</a></dd>
 
+            
+            
             
             
             
@@ -555,7 +574,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <span class="small"><a class="-link " href="../SMPTE.ST352.2011/">SMPTE ST 352:2011</a> [Superseded]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
-            </li> 
+            </li>
           </ul>
         </div>
         <div class="col col-md-6">
@@ -824,8 +843,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:56 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:02:13 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -405,6 +417,9 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Informational">Informational</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">46</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This document defines the ChaCha20 stream cipher as well as the use of the Poly1305 authenticator, both as stand-alone algorithms and as a &quot;combined mode&quot;, or Authenticated Encryption with Associated Data (AEAD) algorithm. RFC 7539, the predecessor of this document, was meant to serve as a stable reference and an implementation guide. It was a product of the Crypto Forum Research Group (CFRG). This document merges the errata filed against RFC 7539 and adds a little text to the Security Considerations section.</dd>
             
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2018-06-01</dd>
@@ -413,15 +428,19 @@
             
             
             
+            
             <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Informational</em></dd>
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC8439" target="_blank" rel="noopener"><code>10.17487/RFC8439</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8"><code>2070-1721</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC8439" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.17487/RFC8439</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">Yoav Nir, Adam Langley</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">Yoav Nir</div><div class="mb-1 pt-2 border-top">Adam Langley</div></dd>
             
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=ChaCha">ChaCha</a>, <a class="" href="../?f.keywords=ChaCha20">ChaCha20</a>, <a class="" href="../?f.keywords=POLY1305">POLY1305</a>, <a class="" href="../?f.keywords=AEAD">AEAD</a></dd>
+            
+            
             
             
             
@@ -476,8 +495,7 @@
               <h2 class="h6">Normative Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1007-11502760_3</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://cr.yp.to/mac/poly1305-20050329.pdf" rel="noopener">10.1007-11502760_3 — Poly1305</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC2119/" title="IETF RFC 2119">
@@ -488,12 +506,10 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC8174</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC8174 — RFC8174</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">UIC.chacha.20080128</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://cr.yp.to/chacha/chacha-20080128.pdf" rel="noopener">UIC.chacha.20080128 — ChaCha</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -502,36 +518,28 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1007-11894063_1</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://research.microsoft.com/pubs/64024/aes-timing.pdf" rel="noopener">10.1007-11894063_1 — Cache-Collisions</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1007-978-3-540-71039-4_30</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://cr.yp.to/rumba20/newfeatures-20071218.pdf" rel="noopener">10.1007-978-3-540-71039-4_30 — LatinDances</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1007-978-3-642-25243-3_21</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://eprint.iacr.org/2012/065.pdf" rel="noopener">10.1007-978-3-642-25243-3_21 — LatinDances2</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1007-978-3-642-37682-5_24</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>10.1007-978-3-642-37682-5_24 — Zhenqing, S., Bin, Z., Dengguo, F., and W. Wenling, &quot;Improved Key Recovery Attacks on Reduced-Round Salsa20 and ChaCha*&quot;, 2012.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1007-s00145-008-9026-x</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://dl.acm.org/citation.cfm?id=1410269" rel="noopener">10.1007-s00145-008-9026-x — AE</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">CACE.NaCl.201207</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://nacl.cr.yp.to" rel="noopener">CACE.NaCl.201207 — NaCl</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">GITHUB.floodyberry.poly1305-donna.e6ad6e0.201603</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://github.com/floodyberry/poly1305-donna" rel="noopener">GITHUB.floodyberry.poly1305-donna.e6ad6e0.201603 — Poly1305_Donna</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IETF.draft-mcgrew-standby-cipher-00</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IETF.draft-mcgrew-standby-cipher-00 — Standby-Cipher</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../NIST.FIPS.197/" title="NIST FIPS 197">
@@ -542,24 +550,19 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">NIST.SP.800-67r2</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://csrc.nist.gov/publications/detail/sp/800-67/rev-2/final" rel="noopener">NIST.SP.800-67r2 — SP800-67</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC5116</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC5116 — RFC5116</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC7296</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC7296 — RFC7296</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC7539</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC7539 — RFC7539</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">SSCID.12944277</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://eprint.iacr.org/2014/613.pdf" rel="noopener">SSCID.12944277 — Procter</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -803,8 +806,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:39 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:58 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

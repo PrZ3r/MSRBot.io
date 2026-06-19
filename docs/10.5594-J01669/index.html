@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,9 +413,12 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
-            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8">research-article</dd>
+            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType=research-article">Research Article</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>SMPTE J</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">100, No. 6, pp. 404–415</dd>
+            
             
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">Photo Chemical Laboratory (PCL) was established in 1951, in Tokyo, as a specialized developer of 16mm motion-picture film. In 1964 it was appointed the designated Fuji film-processing laboratory. In 1970 PCL entered into an affiliation with Sony Corp. The company became known as Sony PCL. Long experience in film processing, film transfers, and video production and post-production made Sony PCL eminently suitable to set up the world&#x27;s first facility specializing in an integrated film and HDTV production and post-production service. Almost immediately Sony PCL was involved in transfer activities servicing the pioneering HDTV program production getting under way in Japan, Europe, and the U.S. The volume of business soon grew to a level that made it necessary to establish a totally new facility, embodying a more complete HDVS system. (HDVS — High-Definition Video System — is a Sony name and logo that refers specifically to the product line developed at Sony.) The new facility was opened in Shinagawa, Tokyo, in 1988. This article describes some of the more interesting technical aspects of this all-component video HDVS installation.</dd>
             
@@ -414,17 +429,21 @@
             
             
             
+            
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J01669" target="_blank" rel="noopener"><code>10.5594/J01669</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>0036-1682</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J01669" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/J01669</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">Hiroshi Tanaka, Laurence J. Thorpe</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">Hiroshi Tanaka</div><div class="mb-1 pt-2 border-top">Laurence J. Thorpe</div></dd>
             
 
             
             
             
             
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 1991 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -653,8 +672,8 @@ Hiroshi Tanaka and Laurence J. Thorpe; &lt;cite id=&quot;bib-10-5594-j01669&quot
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:08:51 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:11 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

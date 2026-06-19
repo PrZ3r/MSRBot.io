@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,7 +413,7 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
               <dt class="col-sm-4">Suite/Collection</dt>
               <dd class="col-sm-8">
                     <a href="../../suites/smpte-2071/">Media Device Control Framework (MDCF)</a>
@@ -409,9 +421,13 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard (ST)</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">1–37</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This document describes the Zero Configuration (ZeroConf) and service discovery mechanisms defined for the Media Device Control (MDC) [SMPTE ST 2071] suite of standards. Defining how MDC compliant devices utilize existing network services, or in the absence of such services, use existing Zero Configuration (ZeroConf) techniques and standards to automatically construct a fully functional system.</dd>
             <dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q=20140513-pub">20140513-pub</a></dd>
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2014-05-13</dd>
+            <dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">2014-05-13</dd>
             
             
             
@@ -420,15 +436,18 @@
             
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST2071-3.2014" target="_blank" rel="noopener"><code>10.5594/SMPTE.ST2071-3.2014</code></a></dd>
             <dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>978-1-61482-813-6</code></dd>
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST2071-3.2014" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/SMPTE.ST2071-3.2014</a></dd>
             
             
             <dt class="col-sm-4">Group</dt><dd class="col-sm-8"><a href="../../groups/#smpte-34cs-tc">SMPTE 34CS Media Systems, Control and Services</a></dd>
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Communication">Communication</a>, <a class="" href="../?f.keywords=Networking and Broadcast Technologies">Networking and Broadcast Technologies</a>, <a class="" href="../?f.keywords=Television">Television</a>, <a class="" href="../?f.keywords=Control">Control</a></dd>
+            <dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8"><div class="mb-1"><a href="../?f.icsCodes=33.160.01"><code>33.160.01</code></a> <span class="small text-muted">Audio, video and audiovisual systems in general</span></div><div class="mb-1"><a href="../?f.icsCodes=33.170"><code>33.170</code></a> <span class="small text-muted">Television and radio broadcasting</span></div><div class="mb-1"><a href="../?f.icsCodes=33.200"><code>33.200</code></a> <span class="small text-muted">Telecontrol. Telemetering</span></div></dd>
             
             
             
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2014 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -480,8 +499,7 @@
               <h2 class="h6">Normative Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1034</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1034 — RFC1034</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC1035/" title="IETF RFC 1035">
@@ -492,56 +510,43 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1464</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1464 — IETF RFC 1464, Using the Domain Name System to Store Arbitrary String Attributes</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC2131</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC2131 — IETF RFC 2131, Dynamic Host Configuration Protocol (DHCP)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC2136</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC2136 — IETF RFC 2136, Dynamic Updates in the Domain Name System (DNS UPDATE)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC2181</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC2181 — IETF RFC 2181, Clarifications to the DNS Specification</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC2782</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC2782 — IETF RFC 2782, A DNS RR for specifying the location of services (DNS SRV)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3007</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC3007 — IETF RFC 3007, Secure Domain Name System (DNS) Dynamic Updates</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3315</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC3315 — IETF RFC 3315, Dynamic Host Configuration Protocol for IPv6 (DHCPv6)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3927</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC3927 — IETF RFC 3927, Dynamic Configuration of IPv4 Link-Local Addresses (IPv4LL)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4034</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC4034 — IETF RFC 4034, Resource Records for the DNS Security Extensions</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4862</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC4862 — IETF RFC 4862, IPv6 Stateless Address Autoconfiguration</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6106</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC6106 — IETF RFC 6106, IPv6 Router Advertisement Options for DNS Configuration</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6762</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC6762 — IETF RFC 6762, Multicast DNS (mDNS).</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6763</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC6763 — IETF RFC 6763, DNS-Based Service Discovery (DNS-SD)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.ST2071-1.2014/" title="SMPTE ST 2071-1:2014">
@@ -566,20 +571,16 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1033</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1033 — RFC-1033</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1912</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1912 — [RFC 1912], Internet Engineering Task Force (IETF) (1996, February).IETF RFC 1912 — Common DNS Operational and Configuration Errors</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC2317</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC2317 — [RFC 2317], Internet Engineering Task Force (IETF) (1998, March).IETF RFC 2317 — Classless IN-ADDR.ARPA delegation</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3596</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC3596 — [RFC 3596], Internet Engineering Task Force (IETF) (2003, October). IETF RFC 3596 — DNS Extensions to Support IP version 6.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -834,8 +835,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:51 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:02:09 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

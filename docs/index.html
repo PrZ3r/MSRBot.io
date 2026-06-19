@@ -205,31 +205,43 @@
         </li>
         <li>
           <a href="../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -482,6 +494,7 @@
     <div class="meta mb-1 small text-muted d-flex flex-wrap align-items-center gap-1">
       {{#if publisher}}<span class="badge-reg"><a href="?f.publisher={{publisher}}">{{publisher}}</a></span>{{/if}}
       {{#if docType}}<span class="badge-reg"><a href="?f.docType={{docType}}">{{docType}}</a></span>{{/if}}
+      {{#if articleType}}<span class="badge-reg"><a href="?f.articleType={{articleType}}">{{articleTypeLabel articleType}}</a></span>{{/if}}
       {{#if year}}<span class="badge-reg"><a href="?f.year={{year}}">{{year}}</a></span>{{/if}}
       {{#if hasReleaseTag}}<span class="badge-reg">releaseTag: <a href="?q={{releaseTag}}">{{releaseTag}}</a></span>{{/if}}
       {{#if (hasAny groupNames)}}
@@ -492,6 +505,10 @@
         <span class="badge-reg">DOI: {{{doiLink doi}}}</span>
       {{/if}}
     </div>
+
+    {{#if (hasAny affiliations)}}
+      <div class="small text-muted mt-1">Affiliation: <span class="fst-italic">{{#affiliations}}<a class="" href="?f.affiliations={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/affiliations}}</span></div>
+    {{/if}}
 
     <div class="small text-muted mt-2 d-flex flex-wrap align-items-center gap-2">
       {{#if pubDate}}
@@ -508,8 +525,11 @@
     {{#if docBase}}
       <div class="small text-muted mt-0">Doc Base: <span class="fst-italic">{{docBaseLabel}}</span></div>
     {{/if}}
+    {{#if (hasAny icsCodes)}}
+      <div class="small text-muted mt-0">ICS: <span class="fst-italic">{{#icsCodes}}<a class="" href="?f.icsCodes={{this}}" title="{{icsCodeLabel this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/icsCodes}}</span></div>
+    {{/if}}
     {{#if (hasAny keywords)}}
-      <div class="small text-muted mt-0">Keywords: <span class="fst-italic">{{#keywords}}<a class="" href="?f.keywords={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/keywords}} 
+      <div class="small text-muted mt-0">Keywords: <span class="fst-italic">{{#keywords}}<a class="" href="?f.keywords={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/keywords}}
       </span></div>
     {{/if}}
   </article>
@@ -558,8 +578,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-18T17:10:08.954Z</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-19T00:02:25.837Z</code>
             </p>
           </small>
         </div>

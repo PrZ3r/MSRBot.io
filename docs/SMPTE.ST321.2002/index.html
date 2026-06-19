@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,7 +413,7 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
               <dt class="col-sm-4">Suite/Collection</dt>
               <dd class="col-sm-8">
                     <a href="../../suites/smpte-television/">Television</a>
@@ -409,9 +421,13 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard (ST)</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">1–24</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">(1.1) This standard defines the format of the data steam for the synchronous exchange of DV-based audio, data, and compressed video (whose data structure is defined in SMPTE 314M and SMPTE 370M) over the interface defined in SMPTE 305M. It covers the transmission of audio, subcode data, and compressed video packets associated with DV-based 25- and 50-Mb/s data structures including faster-than-real-time transmission, and 100-Mb/s data structures for 525/60 SDTI and 625/50 SDTI systems. (1.2) This standard does not include the data stream of a DV-compressed structure as defined in SMPTE 322M. (1.3) Space within SMPTE 305M not used by a data stream conforming to this standard may be used for the transmission of data other than those representing DV-based audio, data, and compressed video. (1.4) In this standard, the 60-Hz system refers to the field frequency 59.94-Hz system and the 50-Hz system refers to the field frequency 50.0-Hz system.</dd>
             <dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q=20020328-pub">20020328-pub</a></dd>
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2002-03-28</dd>
+            <dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">2002-03-28</dd>
             
             
             <dt class="col-sm-4">Stabilized Date</dt><dd class="col-sm-8">2007-10-31</dd>
@@ -420,15 +436,18 @@
             
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST321.2002" target="_blank" rel="noopener"><code>10.5594/SMPTE.ST321.2002</code></a></dd>
             <dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>978-1-61482-460-2</code></dd>
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST321.2002" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/SMPTE.ST321.2002</a></dd>
             
             
             <dt class="col-sm-4">Group</dt><dd class="col-sm-8"><a href="../../groups/#smpte-32nf-tc">SMPTE 32NF Network/Facilities Infrastructure</a></dd>
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Communication">Communication</a>, <a class="" href="../?f.keywords=Networking and Broadcast Technologies">Networking and Broadcast Technologies</a>, <a class="" href="../?f.keywords=Interfaces">Interfaces</a>, <a class="" href="../?f.keywords=Television">Television</a>, <a class="" href="../?f.keywords=Compression">Compression</a>, <a class="" href="../?f.keywords=DV">DV</a></dd>
+            <dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8"><div class="mb-1"><a href="../?f.icsCodes=33.160.01"><code>33.160.01</code></a> <span class="small text-muted">Audio, video and audiovisual systems in general</span></div><div class="mb-1"><a href="../?f.icsCodes=33.170"><code>33.170</code></a> <span class="small text-muted">Television and radio broadcasting</span></div></dd>
             
             
             
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2002 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -496,8 +515,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">SMPTE.ST305-2.2000</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>SMPTE.ST305-2.2000 — SMPTE 305.2M-2000, Television — Serial Data Transport Interface (SDTI)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.ST314.2005/" title="SMPTE ST 314:2005">
@@ -522,12 +540,10 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.61834-1</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.61834-1 — IEC 61834-1 (1997), Recording — Helical-Scan Digital Video Cassette Recording System Using 6,35 mm Magnetic Tape for Consumer Use (525-60, 625-50, 1125-60 and 1250-50 Systems) — Part 1: General Specifications</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.61834-2</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.61834-2 — IEC 61834-2 (1998–08), Recording — Helical-Scan Digital Video Cassette Recording System using 6,35 mm Magnetic Tape for Consumer Use (525–60, 625–50, 1125–60 and 1250–50 Systems) — Part 2: SD Format for 525–60 and 625–50 Systems</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.ST125.1995/" title="SMPTE ST 125:1995">
@@ -876,8 +892,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:55 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:02:12 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -405,6 +417,9 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard</a></dd>
             
             
+            
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">JSON Schema (application/schema+json) has several purposes, one of which is JSON instance validation. This document specifies a vocabulary for JSON Schema to describe the meaning of JSON documents, provide hints for user interfaces working with JSON data, and to make assertions about what a valid document must look like.</dd>
             
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2022-06-10</dd>
@@ -413,15 +428,19 @@
             
             
             
+            
             <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Internet-Draft</em></dd>
+            
             
             
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-01/" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-01/</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">Austin Wright, Henry Andrews, Ben Hutton</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">Austin Wright</div><div class="mb-1 pt-2 border-top">Henry Andrews</div><div class="mb-1 pt-2 border-top">Ben Hutton</div></dd>
             
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=JSON">JSON</a>, <a class="" href="../?f.keywords=Schema">Schema</a>, <a class="" href="../?f.keywords=Validation">Validation</a></dd>
+            
+            
             
             
             
@@ -442,8 +461,7 @@
               <h2 class="h6">Normative Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ECMA.262.202006</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="https://www.ecma-international.org/ecma-262/11.0/index.html" rel="noopener">ECMA.262.202006 — ECMA-262, 11th edition specification</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../IETF.draft-bhutton-json-schema-01/" title="IETF draft-bhutton-json-schema-01">
@@ -454,8 +472,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IETF.draft-handrews-relative-json-pointer-01</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IETF.draft-handrews-relative-json-pointer-01 — Relative JSON Pointers</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC1123/" title="IETF RFC 1123">
@@ -490,8 +507,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC2673</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2673.xml" rel="noopener">RFC2673 — RFC2673</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC3339/" title="IETF RFC 3339">
@@ -510,8 +526,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC3987</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.3987.xml" rel="noopener">RFC3987 — RFC3987</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC4122/" title="IETF RFC 4122">
@@ -522,36 +537,28 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4291</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4291.xml" rel="noopener">RFC4291 — RFC4291</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4648</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4648.xml" rel="noopener">RFC4648 — RFC4648</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC5321</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5321.xml" rel="noopener">RFC5321 — RFC5321</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC5890</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5890.xml" rel="noopener">RFC5890 — RFC5890</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC5891</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5891.xml" rel="noopener">RFC5891 — RFC5891</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6531</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.6531.xml" rel="noopener">RFC6531 — RFC6531</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6570</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml" rel="noopener">RFC6570 — RFC6570</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC6901</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.6901.xml" rel="noopener">RFC6901 — RFC6901</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC8259/" title="IETF RFC 8259">
@@ -568,8 +575,7 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC4329</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4329.xml" rel="noopener">RFC4329 — RFC4329</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -813,8 +819,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:34 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:53 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,9 +413,12 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
-            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8">research-article</dd>
+            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType=research-article">Research Article</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>J SMPE</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">19, No. 2, pp. 184–190</dd>
+            
             
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">The report of the Projection Practice Committee for the Spring, 1932, Convention is devoted to: (1) A description of a method of testing the output level of several projectors during the performance for the purpose of maintaining them in an equalized condition. A description of a method of checking the continuity of the speech circuits of individual loud speaker units during the performance. Such an arrangement can also be used for equalizing the sound volume before each performance. A study of theater problems of the release print dealing with processing of film, buckling of film, density of positive prints, cutting film for change-overs, uniformity of volume level, and use of the present standard release print. A paper dealing with these matters, presented during the session on the release print, at the Washington, D. C., Convention, on May 12, 1931, will appear in a succeeding issue of the JOURNAL. The Committee&#x27;s comments on the problems of projection and on the importance of maintaining competent supervision of projection, as regards the maintenance of high quality of performance and as effecting the economies of operation. (1) As regards the first topic, no method has heretofore been available that would permit testing the output level of an idle projector while the performance was being conducted on a second projector. Whenever a difference of output level between projectors developed, it was necessary to wait until the end of the day&#x27;s run in order to check and correct trouble of this nature. Meanwhile, the projectionist was obliged to compensate for inequality of sound level between projectors each time a change-over was made. As a result of this procedure, faulty control of sound volume occurrcd in a great many cases.</dd>
             
@@ -414,8 +429,10 @@
             
             
             
+            
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J05490" target="_blank" rel="noopener"><code>10.5594/J05490</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>0097-5834</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J05490" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/J05490</a></dd>
             
             
@@ -425,6 +442,8 @@
             
             
             
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 1932 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -653,8 +672,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:08:58 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:17 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

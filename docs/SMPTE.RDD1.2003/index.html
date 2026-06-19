@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -409,8 +421,12 @@
             
             
             
+            
+            
+            
             <dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q=20030728-pub">20030728-pub</a></dd>
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2003-07-28</dd>
+            <dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">2003-07-28</dd>
             
             
             
@@ -419,15 +435,18 @@
             
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.RDD1.2003" target="_blank" rel="noopener"><code>10.5594/SMPTE.RDD1.2003</code></a></dd>
             <dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>978-1-61482-046-8</code></dd>
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.RDD1.2003" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/SMPTE.RDD1.2003</a></dd>
             
             
             
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Control">Control</a>, <a class="" href="../?f.keywords=Interfaces">Interfaces</a>, <a class="" href="../?f.keywords=Recording">Recording</a>, <a class="" href="../?f.keywords=MIB">MIB</a></dd>
+            <dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8"><div class="mb-1"><a href="../?f.icsCodes=33.160.99"><code>33.160.99</code></a> <span class="small text-muted">Other audio, video and audiovisual equipment</span></div><div class="mb-1"><a href="../?f.icsCodes=33.170"><code>33.170</code></a> <span class="small text-muted">Television and radio broadcasting</span></div></dd>
             
             
             
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2003</span></dd>
           </dl>
         </div>
       </div>
@@ -479,36 +498,28 @@
               <h2 class="h6">Normative Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1155</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1155 — RFC 1155, M. Rose, K. McCloghrie, “Structure and Identification of Management Information for TCP/IP-based Internets”, May 1990</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1157</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1157 — RFC 1157, J. Case, M. Fedor, M. Schoffstall, J. Davin, “A Simple Network Management Protocol”, May 1990</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1212</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1212 — RFC 1212, M. Rose, K. McCloghrie, “Concise MIB Definitions”, March 1991</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1902</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1902 — RFC 1902, M. Rose, K. McCloghrie, “Structure of Management Information for Version 2 of the Simple Network Management Protocol (SNMPv2)”, January 1996</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1903</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1903 — RFC 1903, M. Rose, J. Case, S. Waldbusser, K. McCloghrie, “Textual Conventions for Version 2 of the Simple Network Management Protocol”, January 1996</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1904</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1904 — RFC 1904, M. Rose, K. McCloghrie, “Conformance Statements for Version 2 of the Simple Network Management Protocol”, January 1996</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1905</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1905 — RFC 1905, M. Rose, J. Case, S. Waldbusser, K. McCloghrie, “Protocol Operations for Version 2 of the Simple Network Management Protocol”, January 1996</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1907</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1907 — RFC 1907, K. McCloghrie, M. Rose, “Management Information Base for Version 2 of the Simple Network Management Protocol (SNMPv2)”, January 1996</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -517,12 +528,15 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">AES3.1992</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../AES3.2009/" title="AES3:2009 (r2019)">
+                        AES3
+                    </a>
+                      <span class="ms-1">[Active, Reaffirmed]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">EIA.422-B</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>EIA.422-B — ANSI/TIA/EIA-422-B, Electrical Characteristics of Balanced Voltage Digital Interface Circuits (ANSI/TIA/EIA-422-B-94) (R2000)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../ISO.13818-2.2000/" title="ISO 13818-2:2000">
@@ -533,16 +547,13 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.8802-3.2000</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISO.8802-3.2000 — ISO/IEC 8802-3:2000 (E), Information Technology - LAN/MAN - Part 3: Carrier Sense Multiple Access with Collision Detection (CSMA/CD) Access Method and Physical Layer Specifications</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1902</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1902 — RFC 1902, M. Rose, K. McCloghrie, “Structure of Management Information for Version 2 of the Simple Network Management Protocol (SNMPv2)”, January 1996</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1907</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1907 — RFC 1907, K. McCloghrie, M. Rose, “Management Information Base for Version 2 of the Simple Network Management Protocol (SNMPv2)”, January 1996</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.ST12.1999/" title="SMPTE ST 12(m):1999">
@@ -601,12 +612,15 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">SMPTE.ST299.1997</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../SMPTE.ST299-2.2010/" title="SMPTE ST 299-2:2010">
+                        SMPTE ST 299-2
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">SMPTE.ST305-2.2000</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>SMPTE.ST305-2.2000 — SMPTE 305.2M-2000, Television — Serial Data Transport Interface (SDTI)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.ST314.2005/" title="SMPTE ST 314:2005">
@@ -893,8 +907,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:42 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:02:00 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

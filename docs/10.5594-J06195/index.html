@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,9 +413,12 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
-            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8">research-article</dd>
+            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType=research-article">Research Article</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>J SMPTE</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">71, No. 2, pp. 86–89</dd>
+            
             
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">The Leningrad Institute of Cinematographic Engineers has for several years conducted theoretical and experimental studies of image dissection systems for high-speed photography. As reported at the Fourth International Congress on High-Speed Photography, the Institute developed in 1958 a lenticular plate image dissection camera having a photographing frequency up to 100 million frames/sec, and a reasonable optical resolution. This camera was intended for photographing self-luminous processes such as flashtubes. The synchronization was determined by sending an initiating impulse from the camera to the object to be photographed. The duration of photographing was limited by the time of emission of the tube. Certain events cannot be controlled by transmitting an initiating impulse from the camera (e.g. the photography of the formation of an arc when high electrical power is switched off). The photography of processes of this kind requires cameras which can photograph at any time — cameras with continuous access. A most rational system for an image dissection camera with continuous access comprises a uniformly rotating lenticular plate in the form of a disc with the lenslets located along Archimedean spirals. Lenticular plates of this kind are not manufactured at the present time. The authors have proposed a design for an image dissection camera with continuous access, where standard lenticular plates with lenslets located along parallel axes can be employed. In 1959 this Institute developed the image dissection camera with continuous access, Type RKS-2 (PKC-2). The sequence is recorded on one or other of two photographic plates 130 mm by 180 mm. In front of each of these plates there is a lenticular plate which is given a reciprocating motion by means of a special cam. While one lenticular plate moves at a steady speed in front of the corresponding photographic plate, the second plate slows down, comes to a stop, and then starts to move in the opposite direction. The light flux is directed by means of a mirror shutter to that dissection plate which, at the given moment, is moving at a steady speed. The time of photographing of self-luminous objects is limited by an electromagnetic shutter which receives an electrical impulse to start it from the object to be photographed. In the case of objects which are not self-luminous the exposure time is limited by the duration of brightness of the illuminating tube. The operation of the shutter or impulse tube is synchronized with the object to be photographed from the control unit of the camera. The technical characteristics of the camera Type RKS-2 are: The framing rate can be varied from 1000 to 100,000 sec−1 by control of the speed of the mechanism for moving the dissection plates. The dissection plates have a hexagonal lenslet array. The pitch spacing is 0.7 mm. These plates are prepared by the All-Union Scientific Research Institute of Cinematography, Moscow. The optical capacity* of the camera is at least 250 photographs. The record is unscrambled on the camera itself. The camera is provided with an electrical tachometer for measuring the framing rate.</dd>
             
@@ -414,17 +429,21 @@
             
             
             
+            
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J06195" target="_blank" rel="noopener"><code>10.5594/J06195</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>0361-4573</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J06195" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/J06195</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">S. M. Provornov, O. F. Grebennikov, V. P. Gusev, S. M. Pertsev</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">S. M. Provornov</div><div class="mb-1 pt-2 border-top">O. F. Grebennikov</div><div class="mb-1 pt-2 border-top">V. P. Gusev</div><div class="mb-1 pt-2 border-top">S. M. Pertsev</div></dd>
             
 
             
             
             
             
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 1962 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -653,8 +672,8 @@ S. M. Provornov, O. F. Grebennikov, V. P. Gusev, and S. M. Pertsev; &lt;cite id=
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:00 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:19 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

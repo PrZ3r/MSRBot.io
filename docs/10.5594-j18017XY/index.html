@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,9 +413,12 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
-            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8">orig-research</dd>
+            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType=orig-research">Original Research</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>SMPTE Mot. Imag. J</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">120, No. 2, pp. 30–36</dd>
+            
             
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">In recent years, there have been significant changes to the way audiences store and consume video content and how broadcasters successfully monetize that content. There have been successes and failures, but ultimately with each new advance in technology there has been a struggle between the content providers and the content consumers. Content providers, desperate to retain their ability to monetize expensive rights-based assets, are suspicious of new open platform technologies. Consumers are wary of closed technologies, having been hurt in the past by countless format wars and technology races. Looking to the music industry, we can see just how badly things can go wrong when the business model does not keep pace with advances in technology. This paper examines recent developments in disruptive cloud computing platform, including the foundation technologies that have made this possible, such as hypervisors, virtualization, hardware abstraction, and data center automation. From these foundation technologies, platforms such as Amazon&#x27;s Elastic Computing Cloud (EC2), and Microsoft Azure have evolved; current status and likely future developments are examined. Building from this analysis, how current broadcast products that are already utilizing these cloud platforms in isolation is discussed. The way in which next-generation system integration, at the software level, can bring these products together into a coherent solution for broadcasters with the capability to reduce costs and improve time-to-market for new channels and services is also examined. The paper concludes with an assessment of the market opportunity for this new technology and an identification of current gap technologies and services in this new sector.</dd>
             
@@ -414,17 +429,21 @@
             
             
             
+            
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/j18017XY" target="_blank" rel="noopener"><code>10.5594/j18017XY</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>1545-0279</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/j18017XY" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/j18017XY</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">A. S. Davies</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">A. S. Davies</div></dd>
             
 
             
             
             
             
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2011 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -653,8 +672,8 @@ A. S. Davies; &lt;cite id=&quot;bib-10-5594-j18017xy&quot;&gt;The Silver Lining�
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:28 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:47 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

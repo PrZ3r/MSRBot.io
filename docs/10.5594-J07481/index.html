@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,9 +413,12 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
-            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8">research-article</dd>
+            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType=research-article">Research Article</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>J SMPE</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">21, No. 1, pp. 21–53</dd>
+            
             
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">It is well known that the properties of developers change during use as a result of depletion of the developing agents and accumulation of reaction products. This change is greatest for low-energy developers such as those of the borax type, and results in (1) a reduced development rate, and (2) a lowering of effective emulsion speed. These two effects may be offset to some extent by increasing the development time and by adding booster solutions to revive the developer. Another method of securing a more uniform degree of development throughout the life of a developer consists in using two developer baths in succession. Three types of two-bath developers have been investigated, as follows: (1) bath A contained all the developing agents plus sodium sulfite; bath B, all the alkali plus the balance of the sulfite. (2) Both baths contained developing agents. (3) Both baths were of identical composition, the first bath being replaced by the second as it became exhausted. The results of the investigation showed that Type I is the most satisfactory developer combination and with this method it is possible to obtain an almost constant gamma with only a slight loss of emulsion speed over a fairly wide range of time of development. A formula is also suggested for the development of variable density sound negatives. The application of two-bath developers to machine, and rack and tank systems is described.</dd>
             
@@ -414,17 +429,21 @@
             
             
             
+            
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J07481" target="_blank" rel="noopener"><code>10.5594/J07481</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>0097-5834</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J07481" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/J07481</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">J. I. Crabtree, H. Parker, H. D. Russell</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">J. I. Crabtree</div><div class="mb-1 pt-2 border-top">H. Parker</div><div class="mb-1 pt-2 border-top">H. D. Russell</div></dd>
             
 
             
             
             
             
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 1933 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -653,8 +672,8 @@ J. I. Crabtree, H. Parker, and H. D. Russell; &lt;cite id=&quot;bib-10-5594-j074
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:04 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:23 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

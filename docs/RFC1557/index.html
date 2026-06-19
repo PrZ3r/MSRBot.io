@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -405,6 +417,9 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Informational">Informational</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">5</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This document describes the encoding method being used to represent Korean characters in both header and body part of the Internet mail messages [RFC822]. This encoding method was specified in 1991, and has since then been used. It has now widely being used in Korean IP networks. This memo provides information for the Internet community. This memo does not specify an Internet standard of any kind.</dd>
             
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">1993-12-01</dd>
@@ -413,15 +428,19 @@
             
             
             
+            
             <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Informational</em></dd>
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC1557" target="_blank" rel="noopener"><code>10.17487/RFC1557</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8"><code>2070-1721</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC1557" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.17487/RFC1557</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">Uhhyung Choi, Dr. Kilnam Chon, Hyun Je Park</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">Uhhyung Choi</div><div class="mb-1 pt-2 border-top">Dr. Kilnam Chon</div><div class="mb-1 pt-2 border-top">Hyun Je Park</div></dd>
             
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Character Set">Character Set</a></dd>
+            
+            
             
             
             
@@ -477,8 +496,12 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">INCITS.X3.4.1968</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../INCITS.X3.4.1986/" title="ANSI/INCITS X3.4:1986 (R1997)">
+                        ANSI/INCITS X3.4
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
                     <a href="../ISO.2022.1994/" title="ISO/IEC 2022:1994">
@@ -489,12 +512,10 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">KS.C.5601.1987</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>KS.C.5601.1987 — KSC5601</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">KS.C.5861.1992</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>KS.C.5861.1992 — EUC-KR</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../RFC1521/" title="IETF RFC 1521">
@@ -505,12 +526,10 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1522</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1522 — RFC-1522</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC822</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC822 — SMTP:2</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -754,8 +773,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:39 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:57 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

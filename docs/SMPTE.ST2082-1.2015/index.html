@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,7 +413,7 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
               <dt class="col-sm-4">Suite/Collection</dt>
               <dd class="col-sm-8">
                     <a href="../../suites/smpte-2082/">12G-SDI</a>
@@ -409,9 +421,13 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard (ST)</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">1–14</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This standard describes the electrical and physical characteristics of a 12G-SDI coaxial cable interface suitable for applications where the signal loss does not exceed an amount specified by the receiver manufacturer. Typical loss amounts would be in the range of up to 40 dB at one-half the clock frequency.</dd>
             <dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q=20150204-pub">20150204-pub</a></dd>
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2015-02-04</dd>
+            <dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">2015-02-04</dd>
             
             
             
@@ -420,15 +436,18 @@
             
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST2082-1.2015" target="_blank" rel="noopener"><code>10.5594/SMPTE.ST2082-1.2015</code></a></dd>
             <dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>978-1-61482-859-4</code></dd>
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST2082-1.2015" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/SMPTE.ST2082-1.2015</a></dd>
             
             
             <dt class="col-sm-4">Group</dt><dd class="col-sm-8"><a href="../../groups/#smpte-32nf-tc">SMPTE 32NF Network/Facilities Infrastructure</a></dd>
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Communication">Communication</a>, <a class="" href="../?f.keywords=Networking and Broadcast Technologies">Networking and Broadcast Technologies</a>, <a class="" href="../?f.keywords=Interfaces">Interfaces</a>, <a class="" href="../?f.keywords=Television">Television</a>, <a class="" href="../?f.keywords=UHDTV">UHDTV</a>, <a class="" href="../?f.keywords=SDI">SDI</a></dd>
+            <dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8"><div class="mb-1"><a href="../?f.icsCodes=33.160.01"><code>33.160.01</code></a> <span class="small text-muted">Audio, video and audiovisual systems in general</span></div><div class="mb-1"><a href="../?f.icsCodes=33.170"><code>33.170</code></a> <span class="small text-muted">Television and radio broadcasting</span></div></dd>
             
             
             
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2015 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -517,7 +536,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <span class="small"><a class="-link " href="../SMPTE.ST2082-1.2023-11/">SMPTE ST 2082-1:2023-11</a> [Active]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
-            </li> 
+            </li>
           </ul>
         </div>
         <div class="col col-md-6">
@@ -525,7 +544,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <span class="small"><a class="-link " href="../SMPTE.ST2082-1.2015Am1.2016/">SMPTE ST 2082-1:2015 Am1:2016</a> [Superseded]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
-            </li> 
+            </li>
           </ul>
         </div>
       </div>
@@ -540,12 +559,10 @@
               <h2 class="h6">Normative Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.61169-29</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.61169-29 — IEC 61169-29 (2005-6), Radio-Frequency Connectors — Part 29: Sectional Specification — Miniature Radio Frequency Coaxial Connectors Model Screw, Snap-on, Push-pull or Quick-lock, Slide-in (Rack and Panel Applications) — Characteristic Impedance 50 Ω (type 1,0/2,3) — 50 Ω and 75 Ω Applications2, 6 2005</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.61169-8</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.61169-8 — IEC 61169-8 ed1.0 (2007-02)7, Radio-Frequency Connectors—Part 8: Sectional Specification—R.F. Coaxial Connectors with Inner Diameter of Outer Conductor 6,5mm (0,256 in) with Bayonet Lock—Characteristics Impedance 50 Ohms (Type BNC)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.RP184.2004/" title="SMPTE RP 184:2004">
@@ -594,8 +611,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">SMPTE.ST2082-0.2015</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>SMPTE.ST2082-0.2015 — SMPTE 2082-0:2015, 12G-SDI Bit-Serial Interfaces — Roadmap for the SMPTE 2082 Document Suite</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.ST292-1.2012/" title="SMPTE ST 292-1:2012">
@@ -883,8 +899,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:52 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:02:09 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

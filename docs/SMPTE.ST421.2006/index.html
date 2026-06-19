@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,13 +413,17 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard (ST)</a></dd>
+            
+            
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">i–473</dd>
             
             
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This document defines the bitstream syntax and semantics for compressed video data in VC-1 format, and specifies constraints that are required for conformant bitstreams. It also describes the complete process required to decode the bitstream. The compression algorithm is not specified in this standard. The video formats supported by VC-1 include progressive and interlaced video sampled in the form of Y luma samples and Cb, Cr color-difference in 8-bit per component sample values resulting from a 4:2:0 sampling grid. The decoding process outputs 8-bit per component video samples corresponding to the original 4:2:0 sampling grid. The display rendering process by which decoded Y, Cb, Cr samples are converted to a visible image or to a video output signal in a complete decoding system or device are not specified in VC-1. A VC-1 bitstream may convey additional metadata and user data which shall be accounted for in the buffer model. Metadata included in VC-1 streams is not used by the decoding process, but is passed to the display rendering process for the identification and reconstruction of the sampled video format, sample aspect ratio, color space, etc.</dd>
             <dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q=20060224-pub">20060224-pub</a></dd>
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2006-02-24</dd>
+            <dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">2006-02-24</dd>
             
             
             
@@ -416,15 +432,18 @@
             
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST421.2006" target="_blank" rel="noopener"><code>10.5594/SMPTE.ST421.2006</code></a></dd>
             <dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>978-1-61482-555-5</code></dd>
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST421.2006" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/SMPTE.ST421.2006</a></dd>
             
             
             <dt class="col-sm-4">Group</dt><dd class="col-sm-8"><a href="../../groups/#smpte-10e-tc">SMPTE 10E Essence</a></dd>
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Communication">Communication</a>, <a class="" href="../?f.keywords=Networking and Broadcast Technologies">Networking and Broadcast Technologies</a>, <a class="" href="../?f.keywords=Television">Television</a>, <a class="" href="../?f.keywords=Compression">Compression</a></dd>
+            <dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8"><div class="mb-1"><a href="../?f.icsCodes=33.160.01"><code>33.160.01</code></a> <span class="small text-muted">Audio, video and audiovisual systems in general</span></div><div class="mb-1"><a href="../?f.icsCodes=33.170"><code>33.170</code></a> <span class="small text-muted">Television and radio broadcasting</span></div></dd>
             
             
             
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2006 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -534,7 +553,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <span class="small"><a class="-link " href="../SMPTE.ST421.2013/">SMPTE ST 421:2013</a> [Active, Stabilized]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
-            </li> 
+            </li>
           </ul>
         </div>
         <div class="col col-md-6">
@@ -542,10 +561,10 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <span class="small"><a class="-link " href="../SMPTE.ST421.2006Am1.2007/">SMPTE ST 421:2006 Am1:2007</a> [Superseded]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><a class="-link " href="../SMPTE.ST421.2006Am2.2011/">SMPTE ST 421:2006 Am2:2011</a> [Superseded]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
-            </li> 
+            </li>
           </ul>
         </div>
       </div>
@@ -568,12 +587,15 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">R-REC-BT.1361</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../R-REC-BT.2020-2.201510/" title="ITU-R BT.2020-2:2015-10">
+                        ITU-R BT.2020-2
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">R-REC-BT.17001</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>R-REC-BT.17001 — Recommendation ITU-R BT.17001, “Characteristics of video signals for conventional analogue television systems”, 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../R-REC-BT.601-7.201103/" title="ITU-R BT.601.7:2011-03">
@@ -638,8 +660,12 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">R-REC-BT.1358</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../R-REC-BT.2020-2.201510/" title="ITU-R BT.2020-2:2015-10">
+                        ITU-R BT.2020-2
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.RP186.2008/" title="SMPTE RP 186:2008">
@@ -666,12 +692,10 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">T-REC-H.263</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>T-REC-H.263 — Recommendation ITU-T H.263, “Video Coding for Low Bit Rate Communication”, Annex B “Hypothetical Reference Decoder,” Jan 1998.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">T-REC-H.320</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>T-REC-H.320 — Recommendation ITU-T H.320, “Narrow-band visual telephone systems and terminal equipment”, March 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -960,8 +984,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:57 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:02:14 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

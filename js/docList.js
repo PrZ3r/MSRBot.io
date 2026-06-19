@@ -437,6 +437,22 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     window.Handlebars.registerHelper('exists', function(v){
       return (v !== undefined && v !== null && String(v).trim() !== '');
     });
+    // articleTypeLabel helper: map raw NLM article-type value -> friendly label
+    // via facets.articleTypeLabels (which mirrors site.json's map). Falls
+    // through to the raw value when no entry exists.
+    window.Handlebars.registerHelper('articleTypeLabel', function(value) {
+      if (!value) return '';
+      const map = (facets && facets.articleTypeLabels) || {};
+      return map[String(value)] || String(value);
+    });
+    // icsCodeLabel helper: code -> "{code} — {description}" when description known,
+    // else just the code. Driven by facets.icsCodeLabels.
+    window.Handlebars.registerHelper('icsCodeLabel', function(code) {
+      if (!code) return '';
+      const map = (facets && facets.icsCodeLabels) || {};
+      const desc = map[String(code)];
+      return desc ? `${code} — ${desc}` : String(code);
+    });
     // doiLink helper: clickable DOI via doi.org
     window.Handlebars.registerHelper('doiLink', function(doi) {
       if (!doi) return '';
@@ -967,6 +983,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       hasDoi: 'No DOI', hasReleaseTag: 'No Release Tag'
     })[k];
     if (k === 'status' && facets.statusLabels && facets.statusLabels[v]) return facets.statusLabels[v];
+    if (k === 'articleType' && facets.articleTypeLabels && facets.articleTypeLabels[v]) return facets.articleTypeLabels[v];
+    if (k === 'icsCodes' && facets.icsCodeLabels && facets.icsCodeLabels[v]) {
+      return `${v} — ${facets.icsCodeLabels[v]}`;
+    }
     return String(v);
   };
 
@@ -1240,6 +1260,9 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       group: 'Group',
       currentWork: 'Current Work',
       keywords: 'Keywords',
+      articleType: 'Article Type',
+      icsCodes: 'ICS Codes',
+      affiliations: 'Author Affiliation',
       hasDoi: 'DOI',
       hasReleaseTag: 'Release Tag'
     };
@@ -1270,12 +1293,20 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       }
       const items = keys.map(k => {
         const id = `${name}_${String(k).replace(/[^\w-]+/g,'_')}`;
-        const label = (labels && labels[k]) ? labels[k] : k;
+        const desc = (labels && labels[k]) ? labels[k] : '';
+        // icsCodes shows both the raw code AND the ISO description in the picker;
+        // every other facet just shows the label (or raw key when no label exists).
+        let labelHtml;
+        if (name === 'icsCodes' && desc) {
+          labelHtml = `<span><code>${k}</code> <span class="text-muted small">${desc}</span></span>`;
+        } else {
+          labelHtml = `<span>${desc || k}</span>`;
+        }
         return `
           <div class="form-check mb-1">
             <input class="form-check-input" id="${id}" type="checkbox" name="${name}" value="${k}">
             <label class="form-check-label d-flex justify-content-between" for="${id}">
-              <span>${label}</span>
+              ${labelHtml}
               <span class="text-muted small ms-2">${map[k]}</span>
             </label>
           </div>`;
@@ -1302,8 +1333,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       ['publisher', facets.publisher, null],
       ['group', facets.group, facets.groupLabels],
       ['docType', facets.docType, null],
+      ['articleType', facets.articleType, facets.articleTypeLabels],
       ['status', facets.status, facets.statusLabels],
       ['keywords', facets.keywords, null],
+      ['icsCodes', facets.icsCodes, facets.icsCodeLabels],
+      ['affiliations', facets.affiliations, null],
       ['currentWork', facets.currentWork, null],
       ['hasDoi', facets.hasDoi, null],
       ['hasReleaseTag', facets.hasReleaseTag, null]

@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,9 +413,12 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
-            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8">research-article</dd>
+            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType=research-article">Research Article</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>J SMPTE</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">71, No. 6, pp. 436–439</dd>
+            
             
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">Various technical factors affect the feasibility of broadcasting to the general public from satellites, the most satisfactory orbit for such satellites, and the order of satellite primary power that would be required for Band 7-MM (HF), Band 8-FM (VHF), Band 8-TV (VHF), Band 9-TV (UHF) and Band 10-TV (SHF) transmissions. These factors are discussed on the assumptions that no major changes will be made in present transmission standards, frequency allocations, or home receiving equipment; that equatorial synchronous orbit is considered the most satisfactory for broadcasting because it will permit uninterrupted transmission throughout the entire day and does not require complex tracking antennas for receiving, since a satellite in such an orbit remains stationary with respect to a given point on earth. Chief among the many formidable technical problems still to be solved before high-quality broadcasting from space satellites can be considered feasible are the development of precise orientation and stabilization systems for accurately “aiming” the satellite&#x27;s transmitting antenna, and the development of high-capacity power supplies and other system components of such size, weight and reliability that will permit continuous operation of a broadcasting station in a precise stationary orbit, without maintenance, for a period of time that will justify its operation economically.</dd>
             
@@ -414,17 +429,21 @@
             
             
             
+            
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J12121" target="_blank" rel="noopener"><code>10.5594/J12121</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>0361-4573</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/J12121" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/J12121</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">Edgar T. Martin, George Jacobs</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">Edgar T. Martin</div><div class="mb-1 pt-2 border-top">George Jacobs</div></dd>
             
 
             
             
             
             
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 1962 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -653,8 +672,8 @@ Edgar T. Martin and George Jacobs; &lt;cite id=&quot;bib-10-5594-j12121&quot;&gt
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:16 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:35 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

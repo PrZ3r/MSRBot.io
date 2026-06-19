@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,9 +413,12 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
-            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8">orig-research</dd>
+            <dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType=orig-research">Original Research</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>SMPTE Mot. Imag J.</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">124, No. 5, pp. 56–61</dd>
+            
             
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">Display technology has been improving rapidly, in some areas faster than others. Televisions (TVs), tablets, and smartphones bring images to life through a combination of a brighter maximum luminance, a deeper black level, and/or a wider color gamut. Preference studies in this area confirm that viewers are looking for these increased capabilities in their displays. One such study performed on a TV-sized display at Dolby Laboratories found that to satisfy 90% of viewers, a luminance dynamic range of 0.005 to 20,000 cd/m&lt;sup&gt;2&lt;/sup&gt; would be required. Translating results from small displays to the larger screens of the cinema is not always straightforward because of the conjecture that large screens will influence a viewer’s preferences differently. For example, it is assumed that in comparison to a smaller display (i.e., TV), the brightness preference for the cinema is dimmer. This generalized assumption, however, includes multiple aspects such as contrast, increased flickering with higher luminance, and different fields of view. To investigate those aspects, we have conducted a study on viewer preferences for the cinema environment isolating the maximum diffuse luminance, the minimum luminance, and the highlight luminance from these other factors. We used a 6 kW cinema projector and 13 ft, 2.8-gain screen to produce a luminance dynamic range of 0.002 to 2100 cd/m&lt;sup&gt;2&lt;/sup&gt;, and concluded that the most demanding viewers prefer 22 f-stops of cinema dynamic range—double the number of f-stops of the existing dynamic range of the cinema.</dd>
             
@@ -414,17 +429,21 @@
             
             
             
+            
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/j18577" target="_blank" rel="noopener"><code>10.5594/j18577</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>1545-0279</code> <span class="text-muted">|</span> Electronic: <code>2160-2492</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/j18577" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/j18577</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">Suzanne Farrell, Timo Kunkel, Scott Daly</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">Suzanne Farrell</div><div class="mb-1 pt-2 border-top">Timo Kunkel</div><div class="mb-1 pt-2 border-top">Scott Daly</div></dd>
             
 
             
             
             
             
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2015 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -653,8 +672,8 @@ Suzanne Farrell, Timo Kunkel, and Scott Daly; &lt;cite id=&quot;bib-10-5594-j185
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:31 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:50 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

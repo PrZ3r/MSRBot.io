@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,7 +413,7 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
               <dt class="col-sm-4">Suite/Collection</dt>
               <dd class="col-sm-8">
                     <a href="../../suites/smpte-television/">Television</a>
@@ -409,9 +421,13 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard (ST)</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">1–22</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This standard specifies the mapping of uncompressed pictures into the MXF generic container. This MXF body is suitable for the mapping of all sampling grids and sampling formats including but not limited to those defined by ITU-R BT.601, ITU-R BT 656, ITU-R BT 709, SMPTE 125M, SMPTE 267M, SMPTE 274M, and SMPTE 296M. Provision is made for mapping of the active picture area alone or of larger sampling grids, including some or all of the horizontal and vertical ancillary data areas. Provision is made for alignment of the stored sampling grid to memory block size boundaries. This standard defines SMPTE universal labels that uniquely identify specific uncompressed implementations. — This standard defines uncompressed picture essence elements that may be used as elements in content packages within an MXF generic container. — In order to achieve interoperability within any given operational pattern, restrictions may be placed on the way in which this essence container can be implemented. The reader is advised to carefully study the appropriate operational pattern document before implementation.</dd>
             <dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q=20050902-pub">20050902-pub</a></dd>
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2005-09-02</dd>
+            <dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">2005-09-02</dd>
             
             <dt class="col-sm-4">Reaffirm Date</dt><dd class="col-sm-8">2018-12-05</dd>
             <dt class="col-sm-4">Stabilized Date</dt><dd class="col-sm-8">2018-12-05</dd>
@@ -420,15 +436,18 @@
             
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST384.2005" target="_blank" rel="noopener"><code>10.5594/SMPTE.ST384.2005</code></a></dd>
             <dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>978-1-61482-526-5</code></dd>
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST384.2005" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/SMPTE.ST384.2005</a></dd>
             
             
             <dt class="col-sm-4">Group</dt><dd class="col-sm-8"><a href="../../groups/#smpte-31fs-tc">SMPTE 31FS File Formats and Systems</a></dd>
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Communication">Communication</a>, <a class="" href="../?f.keywords=Networking and Broadcast Technologies">Networking and Broadcast Technologies</a>, <a class="" href="../?f.keywords=Image Formats">Image Formats</a>, <a class="" href="../?f.keywords=Television">Television</a>, <a class="" href="../?f.keywords=File Formats">File Formats</a>, <a class="" href="../?f.keywords=MXF">MXF</a></dd>
+            <dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8"><div class="mb-1"><a href="../?f.icsCodes=33.160.01"><code>33.160.01</code></a> <span class="small text-muted">Audio, video and audiovisual systems in general</span></div><div class="mb-1"><a href="../?f.icsCodes=33.170"><code>33.170</code></a> <span class="small text-muted">Television and radio broadcasting</span></div></dd>
             
             
             
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2005 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -542,16 +561,23 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">R-REC-BT.1358</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../R-REC-BT.2020-2.201510/" title="ITU-R BT.2020-2:2015-10">
+                        ITU-R BT.2020-2
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">R-REC-BT.1361</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../R-REC-BT.2020-2.201510/" title="ITU-R BT.2020-2:2015-10">
+                        ITU-R BT.2020-2
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">R-REC-BT.470-7</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>R-REC-BT.470-7 — ITU-R BT.470-7 (02/05), Conventional Analogue Television Systems.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../R-REC-BT.601-7.201103/" title="ITU-R BT.601.7:2011-03">
@@ -562,8 +588,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">R-REC-BT.656-4</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>R-REC-BT.656-4 — ITU-R BT 656-4:1998, Interfaces for Digital Component Video Signals in 525-Line and 625-Line Television Systems Operating at the 4:2:2 Level of Recommendation ITU-R BT.601 (Part A).</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../R-REC-BT.709-6.201506/" title="ITU-R BT.709.6:2015-06">
@@ -908,8 +933,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:57 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:02:14 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

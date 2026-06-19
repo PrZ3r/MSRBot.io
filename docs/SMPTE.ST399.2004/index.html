@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,7 +413,7 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
               <dt class="col-sm-4">Suite/Collection</dt>
               <dd class="col-sm-8">
                     <a href="../../suites/smpte-digital-television-recording/">Digital Television Recording</a>
@@ -409,9 +421,13 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard (ST)</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">1–74</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This standard specifies the content, format, and recording method of the data blocks containing compressed video data, AES3 audio data, and associated data which form the helical records on 12.65-mm (0.5-in) tape. In addition, this standard specifies the content, format, and recording method of the longitudinal record containing tracking information for the scanning head associated with the helical records, and also the longitudinal cue audio, and time and control code. — One video channel of high definition compressed video data and eight independent AES3 audio data channels are recorded in the digital format. Each of these channels is designed to be capable of independent editing. — The HD video compressed data are derived from the following HD video signals: – 1080 line / 59.94 Hz field frequency interlace system (1080/59.94i) –720 line / 59.94 Hz frame frequency progressive system (720/59.94p) – 1080 line / 50 Hz field frequency interlace system (1080/50i) – 1080 line / 25 Hz frame frequency progressive system (1080/25p) – 1080 line / 24 Hz frame frequency progressive system (1080/24p) – 1080 line / 23.98 Hz frame frequency progressive system (1080/23.98p) — Through out the text of this standard, the expression “AES3 audio data” may be abbreviated to “audio data” and represents digitized audio and data in AES-3 format. The tape format also supports a recording of AES-3 data payload streams with some limitation (see 6.3.3 d).</dd>
             <dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q=20040203-pub">20040203-pub</a></dd>
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2004-02-03</dd>
+            <dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">2004-02-03</dd>
             
             
             <dt class="col-sm-4">Stabilized Date</dt><dd class="col-sm-8">2010-02-09</dd>
@@ -420,15 +436,18 @@
             
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST399.2004" target="_blank" rel="noopener"><code>10.5594/SMPTE.ST399.2004</code></a></dd>
             <dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>978-1-61482-541-8</code></dd>
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST399.2004" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/SMPTE.ST399.2004</a></dd>
             
             
             <dt class="col-sm-4">Group</dt><dd class="col-sm-8"><a href="../../groups/#smpte-24tb-tc">SMPTE 24TB Television and Broadband Media</a></dd>
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Communication">Communication</a>, <a class="" href="../?f.keywords=Networking and Broadcast Technologies">Networking and Broadcast Technologies</a>, <a class="" href="../?f.keywords=Recording">Recording</a>, <a class="" href="../?f.keywords=Television">Television</a>, <a class="" href="../?f.keywords=Compression">Compression</a>, <a class="" href="../?f.keywords=Tape">Tape</a></dd>
+            <dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8"><div class="mb-1"><a href="../?f.icsCodes=33.160.01"><code>33.160.01</code></a> <span class="small text-muted">Audio, video and audiovisual systems in general</span></div><div class="mb-1"><a href="../?f.icsCodes=33.170"><code>33.170</code></a> <span class="small text-muted">Television and radio broadcasting</span></div></dd>
             
             
             
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2004 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -480,8 +499,12 @@
               <h2 class="h6">Normative Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">AES3.1992</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../AES3.2009/" title="AES3:2009 (r2019)">
+                        AES3
+                    </a>
+                      <span class="ms-1">[Active, Reaffirmed]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.RP155.2014/" title="SMPTE RP 155:2014">
@@ -500,8 +523,12 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">SMPTE.ST299.1997</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <a href="../SMPTE.ST299-2.2010/" title="SMPTE ST 299-2:2010">
+                        SMPTE ST 299-2
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.ST342.2004/" title="SMPTE ST 342:2004">
@@ -518,12 +545,10 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60735</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60735 — IEC 60735 (1991-11), Measuring Methods for Video Tape Properties</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISO.2110.1989</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISO.2110.1989 — ISO 2110:1989, Information Technology — Data Communication — 25-Pole DTE/DCE Interface Connector and Contact Number Assignments</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.ST263.2004/" title="SMPTE ST 263:2004">
@@ -558,8 +583,7 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">T-REC-J.17</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>T-REC-J.17 — CCITT Vol III, Fascicle III.4, Transmission of Sound - Programme and Television Signals, Recommendation J.17, Pre-emphasis</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -824,8 +848,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:57 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:02:14 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

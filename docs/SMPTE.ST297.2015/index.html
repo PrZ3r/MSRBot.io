@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -401,13 +413,17 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a></dd>
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard (ST)</a></dd>
+            
+            
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">1–26</dd>
             
             
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This standard defines an optical fiber system for transmitting bit-serial digital signals. It is intended for transmitting SMPTE ST 259 signals (143 through 360 Mb/s), SMPTE ST 344 signals (540Mb/s), SMPTE ST 292-1/2 signals (1.485 Gb/s and 1.485/1.001 Gb/s), SMPTE ST 424 signals (2.970 Gb/s and 2.970/1.001 Gb/s), SMPTE ST 2081-1 signals (5.940 Gb/s and 5.940/1.001 Gb/s) and SMPTE ST 2082-1 signals (11.88 Gb/s and 11.88/1.001 Gb/s).</dd>
             <dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q=20150204-pub">20150204-pub</a></dd>
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2015-02-04</dd>
+            <dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">2015-02-04</dd>
             
             
             
@@ -416,15 +432,18 @@
             
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST297.2015" target="_blank" rel="noopener"><code>10.5594/SMPTE.ST297.2015</code></a></dd>
             <dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>978-1-61482-853-2</code></dd>
+            
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/SMPTE.ST297.2015" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/SMPTE.ST297.2015</a></dd>
             
             
             <dt class="col-sm-4">Group</dt><dd class="col-sm-8"><a href="../../groups/#smpte-32nf-tc">SMPTE 32NF Network/Facilities Infrastructure</a></dd>
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Communication">Communication</a>, <a class="" href="../?f.keywords=Networking and Broadcast Technologies">Networking and Broadcast Technologies</a>, <a class="" href="../?f.keywords=Interfaces">Interfaces</a>, <a class="" href="../?f.keywords=Television">Television</a>, <a class="" href="../?f.keywords=Fiber">Fiber</a>, <a class="" href="../?f.keywords=SDI">SDI</a></dd>
+            <dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8"><div class="mb-1"><a href="../?f.icsCodes=33.160.01"><code>33.160.01</code></a> <span class="small text-muted">Audio, video and audiovisual systems in general</span></div><div class="mb-1"><a href="../?f.icsCodes=33.180.01"><code>33.180.01</code></a> <span class="small text-muted">Fibre optic systems in general</span></div><div class="mb-1"><a href="../?f.icsCodes=33.170"><code>33.170</code></a> <span class="small text-muted">Television and radio broadcasting</span></div></dd>
             
             
             
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2015 Society of Motion Picture and Television Engineers, Inc.</span></dd>
           </dl>
         </div>
       </div>
@@ -497,24 +516,19 @@
               <h2 class="h6">Normative Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60793-1-1</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60793-1-1 — IEC 60793-1-1 (2008), Measurement Methods and Test Procedures — General and Guidance</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60793-1-40</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60793-1-40 — IEC 60793-1-40 (2001-07), Measurement Methods and Test Procedures — Attenuation</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60793-2</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60793-2 — IEC 60793-2 (2003-10), Optical Fibres — Part 2: Product Specifications — General.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60825-1</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60825-1 — IEC 60825-1 (2001-08), including Amendment 1, Safety of Laser Products, Equipment Classification Requirements, and User's Guide.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.61754-20</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.61754-20 — IEC 61754-20 (2002-08), Fibre Optic Connector Interfaces — Part 20: Type LC Connector Family.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.EG34.2004/" title="SMPTE EG 34:2004">
@@ -573,12 +587,10 @@
                       
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">T-REC-G.652</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>T-REC-G.652 — Recommendation ITU-T Rec. G.652 (2006), Characteristics of a single-mode Optical Fibre Cable.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">TIA.492.2002</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>TIA.492.2002 — ANSI/EIA/TIA-492AAAA-A (2002), Detail Specification for 62.5 μm Core Diameter/125 μm Cladding Diameter Class Ia, Graded-Index Multimode Optical Fibers.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -587,40 +599,31 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ANSI.Z136.1.2014</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ANSI.Z136.1.2014 — ANSI Z136.1-2014, Safe Use of Lasers</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ANSI.Z136.2.2014</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ANSI.Z136.2.2014 — ANSI Z136.2-2014, Safe Use of Optical Fiber Communication Systems Utilizing Laser Diode and LED Sources</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60874-10-1</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60874-10-1 — IEC 60874-10-1 Ed.1.0, Connectors for optical fibres and cables - Part 10-1: Detail specification for fibre optic connector type BFOC/2,5 terminated to multimode fibre type A1 1997-06</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60874-10-2</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60874-10-2 — IEC 60874-10-2 Ed.1.0, Connectors for optical fibres and cables - Part 10-2: Detail specification for fibre optic connector type BFOC/2,5 terminated to single-mode fibre type B1 1997-06</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60874-10-3</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60874-10-3 — IEC 60874-10-3 Ed.1.0, Connectors for optical fibres and cables - Part 10-3: Detail specification for fibre optic adaptor type BFOC/2,5 for single and multimode fibre 1997-06</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60874-14-10</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60874-14-10 — IEC 60874-14-10 (1999-9), Connectors for Optical Fibres and Cables — Part 14-9: Fibre Optic Pigtail or Patch Cord Connector — Type SC/APC turned 8° terminated on single mode fibre type B1 — Detail specification</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.60874-14-9</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.60874-14-9 — IEC 60874-14-9 (1999-9), Connectors for Optical Fibres and Cables — Part 14-9: Fibre Optic Connector — Type SC/APC turned 8° terminated on single mode fibre type B1 — Detail specification</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.61754-15</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.61754-15 — IEC 61754-15 (1999), Fibre Optic Connector Interfaces — Part 15: Type LSH Connector Family</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">IEC.61754-4</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>IEC.61754-4 — IEC 61754-4 (2002), Fibre Optic Connector Interfaces — Part 4: Type SC Connector Family</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
                     <a href="../SMPTE.EG2069.2012/" title="SMPTE EG 2069:2012">
@@ -920,8 +923,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:55 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:02:12 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>

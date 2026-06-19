@@ -207,31 +207,43 @@
         </li>
         <li>
           <a href="../../api/documents.json" target="_blank" rel="noopener">
-            documents.json
+            api/documents.json
           </a>
-          &mdash; full registry with provenance
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
         </li>
         <li>
           <a href="../../api/stats.json" target="_blank" rel="noopener">
-            stats.json
+            api/stats.json
           </a>
           &mdash; registry statistics &amp; metadata
         </li>
         <li>
           <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
-            documents.schema.json
+            api/schemas/documents.schema.json
           </a>
           &mdash; JSON Schema for documents
         </li>
       </ul>
 
-      <strong>Registry JSON</strong>
+      <strong>Build-data JSON</strong>
       <ul class="mb-2">
         <li>
           <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
-            documents.json
+            docs/_data/documents.json
           </a>
-          &mdash; normalized document registry
+          &mdash; assembled monolith used by site templates
         </li>
         <li>
           <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
@@ -405,6 +417,9 @@
             <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Standard">Standard</a></dd>
             
             
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">55</dd>
+            
+            
             <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This RFC is the revised specification of the protocol and format used in the implementation of the Domain Name System. It obsoletes RFC-883. This memo documents the details of the domain name client - server communication.</dd>
             
             <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">1987-11-01</dd>
@@ -413,18 +428,22 @@
             
             
             
+            
             <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Internet Standard</em></dd>
             <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC1035" target="_blank" rel="noopener"><code>10.17487/RFC1035</code></a></dd>
             
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8"><code>2070-1721</code></dd>
             <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC1035" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.17487/RFC1035</a></dd>
             
-            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">P. Mockapetris</dd>
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-1">P. Mockapetris</div></dd>
             
 
             <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Domain">Domain</a>, <a class="" href="../?f.keywords=DNS">DNS</a></dd>
             
             
+            
             <dt class="col-sm-4">Details</dt><dd class="col-sm-8"><em>need to add amendedBy docs</em></dd>
+            
           </dl>
         </div>
       </div>
@@ -472,92 +491,92 @@
         <br><span class="font-weight-bold small"> Amended by:</span>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <span class="small"><span class="text-muted fst-italic">RFC1101</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+                <span class="small"><a class="-link " href="../RFC1101/">IETF RFC 1101</a> [Active*]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC1183</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC1348</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC1876</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC1982</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC1995</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC1996</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC2065</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
-                <span class="small"><span class="text-muted fst-italic">RFC2136</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+                <span class="small"><cite>RFC2136 — IETF RFC 2136, Dynamic Updates in the Domain Name System (DNS UPDATE)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span></span>
+            </li>
             <li class="list-group-item">
-                <span class="small"><span class="text-muted fst-italic">RFC2181</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+                <span class="small"><cite>RFC2181 — IETF RFC 2181, Clarifications to the DNS Specification</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span></span>
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC2137</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC2308</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC2535</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
-                <span class="small"><span class="text-muted fst-italic">RFC2673</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+                <span class="small"><cite><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2673.xml" rel="noopener">RFC2673 — RFC2673</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span></span>
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC2845</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC3425</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC3658</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC4033</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
-                <span class="small"><span class="text-muted fst-italic">RFC4034</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+                <span class="small"><cite>RFC4034 — IETF RFC 4034, Resource Records for the DNS Security Extensions</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span></span>
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC4035</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC4343</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC5936</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC5966</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC6604</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC7766</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC8482</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC8490</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC8767</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
             <li class="list-group-item">
                 <span class="small"><span class="text-muted fst-italic">RFC9619</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-            </li> 
+            </li>
           </ul>
         </div>
       </div>
@@ -573,116 +592,88 @@
               <h2 class="h6">Bibliographic Reference(s)</h2>
               <ul class="list-group list-group-flush small">
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1145-1024840.1035268</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>10.1145-1024840.1035268 — Solomon 82</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">10.1145-6617.6618</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>10.1145-6617.6618 — Quarterman 86</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">ISI.IEN116</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>ISI.IEN116 — IEN-116</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">MIT.PATP.sE23.1987</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>MIT.PATP.sE23.1987 — Dyer 87</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1001</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1001 — RFC-1001</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1002</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1002 — RFC-1002</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1010</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1010 — RFC-1010</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1031</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1031 — RFC-1031</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1032</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1032 — RFC-1032</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC1033</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC1033 — RFC-1033</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC742</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC742 — RFC-742</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC768</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC768 — RFC-768</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC793</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC793 — RFC-793</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC799</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC799 — RFC-799</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC805</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC805 — RFC-805</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC810</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC810 — RFC-810</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC811</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC811 — RFC-811</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC812</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC812 — RFC-812</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC819</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC819 — RFC-819</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC821</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC821 — RFC-821</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC830</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC830 — RFC-830</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC882</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC882 — RFC-882</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC883</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC883 — RFC-883</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC920</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC920 — RFC-920</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC952</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC952 — RFC-952</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC953</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC953 — RFC-953</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC973</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC973 — RFC-973</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
                 <li class="list-group-item">
-                      <span class="text-muted fst-italic">RFC974</span>
-                      <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
+                    <cite>RFC974 — RFC-974</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
                 </li>
               </ul>
             </div>
@@ -871,6 +862,9 @@
           <h2 class="h6">Referenced By</h2>
           <ul class="list-group list-group-flush small">
             <li class="list-group-item">
+              <a href="../RFC1101/">IETF RFC 1101</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
               <a href="../RFC1123/">IETF RFC 1123</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
             </li>
             <li class="list-group-item">
@@ -932,8 +926,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>8f05443a014864ff7a13dd41a57e29e3d84c1179</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>Thu Jun 18 2026 17:09:39 GMT+0000 (Coordinated Universal Time)</code>
+              <span class="fw-semibold">Site version:</span> <code>e8c29c67bdca88b2520c00ccc1772896cdfc7c44</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>Fri Jun 19 2026 00:01:57 GMT+0000 (Coordinated Universal Time)</code>
             </p>
           </small>
         </div>
