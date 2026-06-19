@@ -409,6 +409,9 @@
           <h6 class="fw-semibold mt-3 mb-1">Added</h6>
 <h6 class="fw-semibold mt-3 mb-1">Changed</h6>
 <h6 class="fw-semibold mt-3 mb-1">Fixed</h6>
+<ul class="mb-1">
+<li><strong><code>mriFlush</code> no longer clobbers extractor-set <code>resolvedDocId</code> pointers on every build.</strong> The "resolution truth" branch in <a href="src/main/lib/referencing.js" target="_blank" rel="noopener">referencing.js</a> used to treat <code><em>findSourceDocIdForRefId(e.refId)</code> (refId-as-its-own-docId lookup) as the sole authority — when an extractor mapped a non-docId refId to a real registry doc (the N-to-1 slug→docId case the slug architecture was designed for), flush demoted the entry back to <code>resolvedDocId: null, needsResolve: "known-publisher-no-doc"</code> every time. Surfaced in PR #1201's auto-generated MRI data diff: <code>IETF.draft-ietf-tls-rfc8446bis-03 → RFC8446</code> (mapped by the IETF <code>ietf-rfc-html-fallback</code> / <code>rfc-text</code> resolution) reverted to unresolved, and the resolved/known-pub-no-doc stats moved 1814→1813 / 932→933 — same shape would have hit every parser-family resolution Phase 1b lands. Fix: the <code>else</code> branch now preserves an existing <code>resolvedDocId</code> that still points at a registered doc (via <code></em>hasDocIdOrBase</code>), and only demotes when the existing pointer has gone stale or was never set. Sibling logic in the secondary flush path patched the same way. New regression test (<a href="src/main/scripts/test/referencing.flush.test.js" target="_blank" rel="noopener">referencing.flush.test.js</a>) pins both branches; <code>npm test</code> runs it after the existing registry smoke tests.</li>
+</ul>
 <h6 class="fw-semibold mt-3 mb-1">Removed</h6>
         </div>
       </div>
@@ -994,8 +997,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>463f648dac33f04293589f62a1c8d2529f7dda4a</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-19T16:10:29.366Z</code>
+              <span class="fw-semibold">Site version:</span> <code>7a65fa6918849ddc145487bcf05b01b5fcebd4ee</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-19T16:52:57.484Z</code>
             </p>
           </small>
         </div>
