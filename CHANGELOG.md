@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **Phase 1a resolver (`npm run phase-1a-resolve`)** — new [resolveSmpteSourceRefs.v2.js](src/main/scripts/extras/resolveSmpteSourceRefs.v2.js) replays PR #1111's leftover unresolved-refs bucket against today's corpus + MRI v2 slug system. Filters to **602 entries from Standards-family source docs** (Standard / EG / RP / RDD / Specification / Technical Specification / Administrative Guideline); the remaining 359 entries from Journal Article + Conference Paper sources stay in the report for Phase 3a/3b. Resolution chain: vol+pages SMPTE-self-cite (against the ~18k ingested journal corpus) → `parseRefId(<standardnum>, <online-cite>)` → `parseRefId(cite, online-cite)` → `mapRefByCite` → conservative 1:1 title-match against the registry → MRI v2 slug-mint fall-through. Dry-run summary: **26 canonical resolutions** (17 direct registry hits + 9 `mri-known-no-doc`) and **576 slug-mints** for refs PR #1111 silently dropped. Under MRI v2, slug-minted refs are NOT silent — they land in the source doc's `references[]`, the MRI entry carries the raw `<ref>` XML + citation text, and the doc page renders them inline as `<cite>citation text</cite>` with an `EXTERNAL` badge instead of dropping them. Slugs can graduate to canonical refIds later via `resolveOrphans` once a new parser family or refMap entry covers them. Tooling commit lands the script + dry-run reports (`src/main/reports/smpteSourceRefs.v2.{json,md}`); the registry-mutating `--apply` is handed to the user per the bulk-apply convention.
+
 ### Changed
 
 ### Fixed
