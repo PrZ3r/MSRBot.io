@@ -1,7 +1,7 @@
 # Phase 1a — Standards source-refs resolution
 
-> Generated at: 2026-06-22T22:55:59.838Z
-> Mode: **dry-run**
+> Generated at: 2026-06-22T23:05:50.315Z
+> Mode: **APPLY**
 
 ## Scope
 - Standards-family source-doc unresolved refs (filtered from PR #1111's 961 leftover): **602**
