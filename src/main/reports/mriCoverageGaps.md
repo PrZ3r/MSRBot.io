@@ -1,6 +1,6 @@
 # MRI Coverage Validation
 
-> Generated at: 2026-06-18
+> Generated at: 2026-06-22
 > MRI version: 2.0.0
 
 ## Invariant
@@ -12,9 +12,9 @@ See [docs/mri-citation-system.md](../../../docs/mri-citation-system.md) for the 
 ## Totals
 
 - Registry docs: **26445**
-- Docs with non-empty `references[]`: **1066**
-- Total ref-entries audited: **8995**
-- MRI `refs[]` entries: **2816**
+- Docs with non-empty `references[]`: **1071**
+- Total ref-entries audited: **9547**
+- MRI `refs[]` entries: **3358**
 - **Leak count: 0**
 
 ## Result: PASS
