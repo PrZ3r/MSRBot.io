@@ -31,6 +31,8 @@ the live spec for how every cited reference in MSRBot.io is modelled.
 - MRI gained SMPTE sightings with full raw `<ref>` XML in `rawVariants`.
 - ~961 still unresolved — mostly free-text journal/book titles.
 
+**Phase 1a follow-up (PR #1210)** consumed **602 of the 961** unresolved entries from `smpteSourceRefs.unresolved.json` (the Standards-family-doc subset — Standard / EG / RP / RDD / Specification / Technical Specification / Administrative Guideline). Under MRI v2 those silent drops are now slug-cited from their source docs' `references[]`. **359 entries remain** in the report — all from Journal Article + Conference Paper sources — and feed Phase 3a/3b. Per-resolution-path tally lives in [src/main/reports/smpteSourceRefs.v2.md](../src/main/reports/smpteSourceRefs.v2.md).
+
 ## Cleanup checklist — delete when the project fully wraps
 
 Everything below is one-time scaffolding for this project. `_source/SMPTE/` is a
@@ -56,7 +58,7 @@ Scripts (one-time runners + the audit tool, all built for this project):
 Reports / ad-hoc outputs:
 
 - [ ] `src/main/reports/smpteSourceRefs.standards.txt` — dump used while scanning for refMap/parser additions
-- [ ] `src/main/reports/smpteSourceRefs.unresolved.json` — record of the ~961 unresolved refs (feeds the SMPTE-self-cite vol+pages resolution pass — Standards → Journals; the journal corpus is now ingested as of v2.1.0, so this is the next planned ref-resolution sweep)
+- [ ] `src/main/reports/smpteSourceRefs.unresolved.json` — was ~961 entries; PR #1210 consumed 602 (Standards-family sources) via the Phase 1a v2 resolver. **359 remain** (all from Journal Article + Conference Paper sources), feeding Phase 3a/3b.
 - [ ] `src/main/reports/sourceInventory.smpte.json` — audit-tool output (stale post-backfill)
 - [ ] `src/main/reports/sourceInventory.smpte.md` — audit-tool output (stale post-backfill)
 - [ ] `src/main/reports/sourceInventory.smpte.schemaMap.md` — audit-tool output (stale post-backfill)

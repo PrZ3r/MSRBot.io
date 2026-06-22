@@ -1,33 +1,33 @@
 # Refs Re-Audit
 
-> Generated at: 2026-06-18
+> Generated at: 2026-06-22
 > MRI version: 2.0.0
 
 ## Scope
 
 - Registry docs: **26445**
-- Docs with non-empty `references[]`: **1066**
-- Total ref-entries audited: **8995**
-- Currently resolved (direct + via-MRI): **82.71%**
+- Docs with non-empty `references[]`: **1071**
+- Total ref-entries audited: **9547**
+- Currently resolved (direct + via-MRI): **78.16%**
 
 ## Classification breakdown
 
 | Kind | Count | % |
 |---|---:|---:|
-| `resolved-direct` | 5991 | 66.60% |
-| `resolved-via-mri` | 1449 | 16.11% |
-| `mri-known-no-doc` | 1485 | 16.51% |
-| `orphan-slug` | 70 | 0.78% |
+| `resolved-direct` | 6007 | 62.92% |
+| `resolved-via-mri` | 1455 | 15.24% |
+| `mri-known-no-doc` | 1487 | 15.58% |
+| `orphan-slug` | 598 | 6.26% |
 | `unparseable` | 0 | 0.00% |
 
 ## By source doc type
 
 | docType | resolved-direct | resolved-via-mri | mri-known-no-doc | orphan-slug | unparseable |
 |---|---:|---:|---:|---:|---:|
-| Standard | 4263 | 966 | 1093 | 9 | 0 |
-| Recommended Practice | 772 | 211 | 89 | 38 | 0 |
-| Registered Disclosure Document | 320 | 60 | 58 | 12 | 0 |
-| Engineering Guideline | 200 | 104 | 83 | 0 | 0 |
+| Standard | 4267 | 969 | 1095 | 349 | 0 |
+| Recommended Practice | 774 | 211 | 89 | 79 | 0 |
+| Engineering Guideline | 208 | 105 | 83 | 121 | 0 |
+| Registered Disclosure Document | 322 | 62 | 58 | 38 | 0 |
 | Specification | 92 | 75 | 52 | 1 | 0 |
 | Journal Article | 162 | 3 | 5 | 10 | 0 |
 | Administrative Guideline | 104 | 22 | 1 | 0 | 0 |
@@ -44,14 +44,14 @@
 
 | category | resolved-direct | resolved-via-mri | mri-known-no-doc | orphan-slug | unparseable |
 |---|---:|---:|---:|---:|---:|
-| normative | 3380 | 725 | 530 | 20 | 0 |
-| bibliographic | 2611 | 724 | 955 | 50 | 0 |
+| normative | 3381 | 726 | 530 | 153 | 0 |
+| bibliographic | 2626 | 729 | 957 | 445 | 0 |
 
 ## Top 15 publishers by total ref-count (as source doc)
 
 | publisher | refs |
 |---|---:|
-| SMPTE | 7873 |
+| SMPTE | 8425 |
 | IETF | 783 |
 | ISO | 143 |
 | DCI | 111 |
@@ -75,9 +75,9 @@
 | DOI:10.5594 | 39 |
 | SMPTE | 32 |
 | IETF | 26 |
-| ISBN | 24 |
+| ISBN | 25 |
 | TIA | 23 |
-| EBU | 22 |
+| EBU | 23 |
 | DOI:10.1007 | 18 |
 | EIA | 17 |
 | IEEE | 15 |

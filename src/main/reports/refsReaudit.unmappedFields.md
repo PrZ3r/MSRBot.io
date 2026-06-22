@@ -1,8 +1,8 @@
 # Refs Re-Audit — Unmapped Source-XML Fields
 
-> Generated at: 2026-06-18
-> Schema fields modeled in 2.2.0: **107**
-> Decisions captured in sourceInventory.smpte.schemaMap.md: **104**
+> Generated at: 2026-06-22
+> Schema fields modeled in 2.2.0: **110**
+> Decisions captured in sourceInventory.smpte.schemaMap.md: **105**
 
 ## Top 50 'new-unseen' XML element paths across all samples
 
@@ -33,7 +33,6 @@
 | `journal_article/contributors/author/person_name` | 4085 | APTARA journal: 3984 · ALLEN PRESS journal: 101 |
 | `journal_article/contributors/author/person_name/given_name` | 4085 | APTARA journal: 3984 · ALLEN PRESS journal: 101 |
 | `journal_article/contributors/author/person_name/surname` | 4085 | APTARA journal: 3984 · ALLEN PRESS journal: 101 |
-| `article/back/ref-list/ref/citation/person-group/name` | 3409 | HIGHWIRE Source Bak: 3409 |
 | `article/back/ref-list/ref/citation/person-group/name/surname` | 3409 | HIGHWIRE Source Bak: 3409 |
 | `article/back/ref-list/ref/citation/person-group/name/given-names` | 3362 | HIGHWIRE Source Bak: 3362 |
 | `article/front/journal-meta/journal-id` | 3000 | HIGHWIRE Source Bak: 3000 |
@@ -51,7 +50,6 @@
 | `component/reflist/ref/book/ref_authorgrp/ref_author` | 1945 | APTARA journal: 1563 · ALLEN PRESS journal: 382 |
 | `component/reflist/ref/book/ref_authorgrp/ref_author/init` | 1945 | APTARA journal: 1563 · ALLEN PRESS journal: 382 |
 | `component/reflist/ref/book/ref_authorgrp/ref_author/ref_surname` | 1945 | APTARA journal: 1563 · ALLEN PRESS journal: 382 |
-| `journal_article/contributors/author/bios` | 1939 | APTARA journal: 1863 · ALLEN PRESS journal: 76 |
 | `journal_article/contributors/author/organization` | 1774 | APTARA journal: 1774 |
 | `component/reflist/ref/book` | 1756 | APTARA journal: 1476 · ALLEN PRESS journal: 280 |
 | `component/reflist/ref/book/ref_city` | 1756 | APTARA journal: 1476 · ALLEN PRESS journal: 280 |
@@ -60,15 +58,17 @@
 | `article/back/ref-list/ref/citation/article-title` | 1659 | HIGHWIRE Source Bak: 1659 |
 | `component/reflist/ref/periodical/issuenum` | 1639 | APTARA journal: 1480 · ALLEN PRESS journal: 159 |
 | `component/reflist/ref/book/date` | 1634 | APTARA journal: 1355 · ALLEN PRESS journal: 279 |
+| `article` | 1500 | HIGHWIRE Source Bak: 1500 |
+| `article/front` | 1500 | HIGHWIRE Source Bak: 1500 |
 
 ## HIGHWIRE standards (originals) — 8 files sampled
 
 | status | distinct paths |
 |---|---:|
-| modeled | 8 |
+| modeled | 9 |
 | deferred | 0 |
 | mapped-meta | 0 |
-| new-unseen | 63 |
+| new-unseen | 62 |
 
 Top 25 new-unseen paths in this source:
 
@@ -104,16 +104,15 @@ Top 25 new-unseen paths in this source:
 
 | status | distinct paths |
 |---|---:|
-| modeled | 11 |
+| modeled | 16 |
 | deferred | 0 |
 | mapped-meta | 0 |
-| new-unseen | 106 |
+| new-unseen | 101 |
 
 Top 25 new-unseen paths in this source:
 
 | path | count |
 |---|---:|
-| `article/back/ref-list/ref/citation/person-group/name` | 3409 |
 | `article/back/ref-list/ref/citation/person-group/name/surname` | 3409 |
 | `article/back/ref-list/ref/citation/person-group/name/given-names` | 3362 |
 | `article/front/journal-meta/journal-id` | 3000 |
@@ -138,15 +137,16 @@ Top 25 new-unseen paths in this source:
 | `article/front/article-meta/title-group` | 1500 |
 | `article/front/article-meta/title-group/article-title` | 1500 |
 | `article/front/article-meta/pub-date` | 1500 |
+| `article/front/article-meta/pub-date/month` | 1500 |
 
 ## APTARA journal — 1500 files sampled
 
 | status | distinct paths |
 |---|---:|
-| modeled | 59 |
+| modeled | 61 |
 | deferred | 5 |
 | mapped-meta | 2 |
-| new-unseen | 351 |
+| new-unseen | 349 |
 
 Top 25 new-unseen paths in this source:
 
@@ -182,10 +182,10 @@ Top 25 new-unseen paths in this source:
 
 | status | distinct paths |
 |---|---:|
-| modeled | 39 |
+| modeled | 41 |
 | deferred | 6 |
 | mapped-meta | 5 |
-| new-unseen | 185 |
+| new-unseen | 183 |
 
 Top 25 new-unseen paths in this source:
 
