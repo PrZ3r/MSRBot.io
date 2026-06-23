@@ -1,7 +1,7 @@
 # Authors Migration (#1196) — string-form → object form
 
-> Generated at: 2026-06-23T00:02:32.819Z
-> Mode: **dry-run**
+> Generated at: 2026-06-23T00:04:25.562Z
+> Mode: **APPLY**
 
 ## HIGHWIRE backfill index
 - XML files parsed: 21389
