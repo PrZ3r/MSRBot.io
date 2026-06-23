@@ -826,7 +826,25 @@ function createIetfParser(deps) {
   function pickFirstArrayWithSource(pairs = []) {
     for (const [arr, sourceNote] of pairs) {
       if (!Array.isArray(arr)) continue;
-      const normalized = unique(arr.map(v => String(v || '').trim()).filter(Boolean));
+      // Polymorphic: preserve objects with a `name` field (schema 2.3.0
+      // authors); coerce everything else to trimmed strings. Dedupe by
+      // canonical key (object.name for objects, string itself for strings).
+      const seen = new Set();
+      const normalized = [];
+      for (const v of arr) {
+        if (!v) continue;
+        if (typeof v === 'object' && typeof v.name === 'string') {
+          const key = v.name.trim();
+          if (!key || seen.has(key)) continue;
+          seen.add(key);
+          normalized.push(v);
+        } else {
+          const s = String(v).trim();
+          if (!s || seen.has(s)) continue;
+          seen.add(s);
+          normalized.push(s);
+        }
+      }
       if (normalized.length) return { value: normalized, sourceNote: String(sourceNote || '').trim() };
     }
     return { value: [], sourceNote: '' };
@@ -998,7 +1016,13 @@ function createIetfParser(deps) {
         [cTracker.authors, 'Parsed from Datatracker HTML author metadata'],
         [cInfo.authors, 'Parsed from RFC info page author metadata']
       ]);
-      const authors = authorsPick.value;
+      // Schema 2.3.0 object form (#1196). Shape only — every extraction path
+      // currently returns strings; wrap as { name } here. Affiliation
+      // extraction from the various sources (RFC XML <organization>,
+      // Datatracker JSON, HTML meta) tracked separately.
+      const authors = (authorsPick.value || [])
+        .map((a) => (typeof a === 'string' ? { name: a.trim() } : a))
+        .filter((o) => o && o.name);
       if (authorsPick.sourceNote) metaNotes.authors = authorsPick.sourceNote;
 
       const doiPick = pickFirstWithSource([
@@ -1308,7 +1332,11 @@ function createIetfParser(deps) {
       [cSeed.authors, 'Parsed from seed HTML author metadata'],
       [normalizeAuthorNames(trackerJson?.authors), 'Parsed from seed JSON authors']
     ]);
-    const authors = authorsPick.value;
+    // Schema 2.3.0 object form (#1196). Shape only — affiliation extraction
+    // from RFC XML <organization> + Datatracker JSON tracked separately.
+    const authors = (authorsPick.value || [])
+      .map((a) => (typeof a === 'string' ? { name: a.trim() } : a))
+      .filter((o) => o && o.name);
     if (authorsPick.sourceNote) metaNotes.authors = authorsPick.sourceNote;
 
     const doiPick = pickFirstWithSource([
