@@ -23,7 +23,18 @@
 | shape-only (`"X"` → `{name: "X"}`) | 945 |
 | count-mismatch fallback (HIGHWIRE author count ≠ registry — shape-only for safety) | 1 |
 
-**Data added:** 11331 affiliations, 1602 bios.
+**Data added:** 11,331 affiliations, 1,602 bios.
+
+## Corpus snapshot (post-apply)
+
+| metric | value |
+|---|---:|
+| Docs with `authors[]` populated | 10,751 |
+| Total author entries (sum) | **17,240** |
+| Distinct author names | 9,415 |
+| Distinct affiliations | 6,936 |
+
+Average ~1.6 authors per author-bearing doc; ~73% of total authors carry an affiliation.
 
 ## By publisher (to-migrate)
 | publisher | count |
