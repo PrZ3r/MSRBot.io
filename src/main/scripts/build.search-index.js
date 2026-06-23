@@ -342,7 +342,13 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
     keywords: {},
     articleType: {},
     icsCodes: {},
-    affiliations: {},
+    // affiliations: {} — facet bucket disabled, see follow-up issue for
+    // fuzzy/canonical-name normalization. The per-doc affiliations array is
+    // still emitted on each idx row so:
+    //   - full-text search keeps matching affiliation strings
+    //   - URL filters like ?f.affiliations=<exact string> still work
+    // Just no picker UI until the ~7k raw strings collapse to ~1-2k canonical
+    // institutions.
     hasDoi: { true: 0, false: 0 },
     hasReleaseTag: { true: 0, false: 0 },
     groupLabels: Object.fromEntries(Array.from(groupNameById.entries())),
@@ -393,13 +399,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
         facets.icsCodes[key] = (facets.icsCodes[key] || 0) + 1;
       }
     }
-    if (Array.isArray(r.affiliations)) {
-      for (const a of r.affiliations) {
-        const key = String(a).trim();
-        if (!key) continue;
-        facets.affiliations[key] = (facets.affiliations[key] || 0) + 1;
-      }
-    }
+    // affiliations facet bucket disabled — see facets dict initializer above.
     facets.hasDoi[String(r.hasDoi)]++;
     facets.hasReleaseTag[String(r.hasReleaseTag)]++;
   }
