@@ -1262,7 +1262,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       keywords: 'Keywords',
       articleType: 'Article Type',
       icsCodes: 'ICS Codes',
-      affiliations: 'Author Affiliation',
+      // affiliations: 'Author Affiliation' — picker disabled, see #1196
+      // follow-up. ~7k raw affiliation strings are too granular until
+      // fuzzy/canonical-name normalization collapses near-duplicates.
+      // Underlying data still in row.affiliations + search index;
+      // ?f.affiliations=<exact> URL filter still works.
       hasDoi: 'DOI',
       hasReleaseTag: 'Release Tag'
     };
@@ -1337,7 +1341,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       ['status', facets.status, facets.statusLabels],
       ['keywords', facets.keywords, null],
       ['icsCodes', facets.icsCodes, facets.icsCodeLabels],
-      ['affiliations', facets.affiliations, null],
+      // ['affiliations', facets.affiliations, null] — disabled, see #1196 follow-up
       ['currentWork', facets.currentWork, null],
       ['hasDoi', facets.hasDoi, null],
       ['hasReleaseTag', facets.hasReleaseTag, null]
