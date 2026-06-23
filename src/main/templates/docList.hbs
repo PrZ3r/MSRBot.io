@@ -133,7 +133,7 @@
     </div>
 
     {{#if (hasAny affiliations)}}
-      <div class="small text-muted mt-1">Affiliation: <span class="fst-italic">{{#affiliations}}<a class="" href="?f.affiliations={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/affiliations}}</span></div>
+      <div class="small text-muted mt-1">Affiliation: <span class="fst-italic">{{#affiliations}}<a class="" href="?f.affiliations={{urlEncode this}}">{{this}}</a>{{#unless @last}} <span class="text-muted">&bull;</span> {{/unless}}{{/affiliations}}</span></div>
     {{/if}}
 
     <div class="small text-muted mt-2 d-flex flex-wrap align-items-center gap-2">

@@ -143,6 +143,16 @@ hb.registerHelper('articleTypeLabel', function (value) {
   return map[String(value)] || String(value);
 });
 
+// urlEncode(value) — percent-encode a value for use inside a URL query
+// param. Required for fields that may contain commas / spaces / punctuation
+// (e.g. affiliation strings like "CBS Technology Center, Stamford, Conn."),
+// where the raw value otherwise breaks `href="?f.X={{value}}"` markup or
+// the query parser. Uses encodeURIComponent semantics.
+hb.registerHelper('urlEncode', function (value) {
+  if (value == null) return '';
+  return encodeURIComponent(String(value));
+});
+
 hb.registerHelper('suiteLink', function (doc) {
   try {
     const d = doc || this || {};

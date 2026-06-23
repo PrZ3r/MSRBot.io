@@ -453,6 +453,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       const desc = map[String(code)];
       return desc ? `${code} — ${desc}` : String(code);
     });
+    // urlEncode helper: percent-encode a value for a URL query param. Required
+    // for fields whose raw value may contain commas / spaces / punctuation
+    // (e.g. affiliation strings); otherwise href="?f.X={{value}}" markup or
+    // the query parser break on the embedded characters.
+    window.Handlebars.registerHelper('urlEncode', function(value) {
+      if (value == null) return '';
+      return encodeURIComponent(String(value));
+    });
     // doiLink helper: clickable DOI via doi.org
     window.Handlebars.registerHelper('doiLink', function(doi) {
       if (!doi) return '';
