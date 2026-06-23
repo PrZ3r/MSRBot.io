@@ -507,7 +507,7 @@
     </div>
 
     {{#if (hasAny affiliations)}}
-      <div class="small text-muted mt-1">Affiliation: <span class="fst-italic">{{#affiliations}}<a class="" href="?f.affiliations={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/affiliations}}</span></div>
+      <div class="small text-muted mt-1">Affiliation: <span class="fst-italic">{{#affiliations}}<a class="" href="?f.affiliations={{urlEncode this}}">{{this}}</a>{{#unless @last}} <span class="text-muted">&bull;</span> {{/unless}}{{/affiliations}}</span></div>
     {{/if}}
 
     <div class="small text-muted mt-2 d-flex flex-wrap align-items-center gap-2">
@@ -578,8 +578,8 @@
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
             <p class="mb-0">
-              <span class="fw-semibold">Site version:</span> <code>99b999934cb06e456a4aadd00e9b4c4616924358</code>
-              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-23T00:19:57.114Z</code>
+              <span class="fw-semibold">Site version:</span> <code>91f0722a3bd2d95c0d8396ebcc1da9f6ec963b69</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-06-23T00:29:16.807Z</code>
             </p>
           </small>
         </div>
