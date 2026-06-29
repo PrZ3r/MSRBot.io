@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function applyThemeToPublisherLogos(effectiveMode) {
     var mode = effectiveMode || getEffectiveThemeFromDom();
     var isDark = (mode === 'dark');
-    var imgs = document.querySelectorAll('img.publisher-logo');
+    var imgs = document.querySelectorAll('img.publisher-logo, img[data-logo-light]');
 
     imgs.forEach(function (img) {
       if (!img) return;

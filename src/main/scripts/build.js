@@ -3794,7 +3794,7 @@ void (async () => {
               <br>Try the <a href="{{assetPrefix}}documents/{{htmlLink}}">main documents index</a>.
             </p>
             <p>
-              <img src="{{assetPrefix}}static/MSRBot-PrZ3-blue.svg" alt="MSR" width="250" height="250" class="m-2">
+              <img src="{{assetPrefix}}static/MSRBot-PrZ3-blue.svg" data-logo-light="{{assetPrefix}}static/MSRBot-PrZ3-blue.svg" data-logo-dark="{{assetPrefix}}static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="250" height="250" class="m-2">
             </p>
             <small class="text-muted">
               <p>
