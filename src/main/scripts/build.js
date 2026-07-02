@@ -125,9 +125,6 @@ hb.registerHelper('mriCite', function (refId) {
     : inner;
   return new hb.SafeString(`<cite>${body}</cite>`);
 });
-const { readFile } = fs; // promises readFile
-const { json2csvAsync } = require('json-2-csv');
-
 // Server-side helper to pass through raw blocks used to embed client-side templates
 hb.registerHelper('raw', function(options) {
   return new hb.SafeString(options.fn(this));
@@ -1123,14 +1120,9 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
   const ogImageAlt = siteConfig.ogImageAlt;
   // Asset prefix for relative local assets in header/footer
   const assetPrefix = '../';
-  // Emit CSV into the shared /_data/ folder so all pages can link to a single canonical export.
-  // Example outputs:
-  //   build/_data/documents.csv
-  //   build/_data/groups.csv
-  //   build/_data/projects.csv
-  var CSV_SITE_PATH = "_data/" + templateType + ".csv";
-  const inputFileName = DATA_PATH;
-  const outputFileName = BUILD_PATH + "/" + CSV_SITE_PATH;
+  // Legacy CSV path retained as a stub that points consumers at the JSON API.
+  const CSV_SITE_PATH = "_data/" + templateType + ".csv";
+  const csvStubPath = BUILD_PATH + "/" + CSV_SITE_PATH;
 
   /* load header and footer for templates */
   hb.registerPartial('header', await fs.readFile("src/main/templates/partials/header.hbs", 'utf8'));
@@ -3041,7 +3033,6 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       "docProjs": docProjs,
       "htmlLink": htmlLink,
       "date" :  new Date(),
-      "csv_path": CSV_SITE_PATH,
       "site_version": site_version,
       "listType": listType,
       "idType": idType,
@@ -3353,35 +3344,21 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     pptr_options.executablePath = process.env.CHROMEPATH;
   }
 
-  async function parseJSONFile (fileName) {
-    try {
-      const file = await readFile(fileName);
-      return JSON.parse(file);
-    } catch (err) {
-      console.log(err);
-      process.exit(1);
-    }
-  }
-
-  async function writeCSV (fileName, data) {
-    await writeFileSafe(fileName, data, 'utf8');
-  }
-
+  // Legacy CSV export was removed once /api/*.json covered the same surface.
+  // Emit a tiny CSV-shaped stub at the old path so bookmarks land on a
+  // machine-readable pointer to the JSON replacement instead of a raw 404.
   (async () => {
-    // The documents registry is a directory of per-doc files (issue #1108);
-    // use the already-loaded in-memory array instead of reading a monolith.
-    const data = (listType === 'documents')
-      ? registryDocument
-      : await parseJSONFile(inputFileName);
-    // Remove all fields where the key contains "$meta" before exporting to CSV
-    const stripped = JSON.parse(
-      JSON.stringify(
-        data,
-        (key, val) => (typeof key === 'string' && key.includes('$meta') ? undefined : val)
-      )
-    );
-    const csv = await json2csvAsync(stripped);
-    await writeCSV(outputFileName, csv);
+    const jsonPointer = templateType === 'documents'
+      ? '/api/documents.json'
+      : templateType === 'groups'
+        ? '/groups/_data/groups.json'
+        : templateType === 'projects'
+          ? '/projects/_data/projects.json'
+          : `/_data/${templateType}.json`;
+    const stub =
+      'notice,new_location\n' +
+      `"This CSV export has been removed. Use the JSON endpoint instead.","${jsonPointer}"\n`;
+    await writeFileSafe(csvStubPath, stub, 'utf8');
   })();
 
   console.log(`Build of ${templateName} completed`)
@@ -3430,7 +3407,6 @@ void (async () => {
     listTitle: 'Docs',
     htmlLink: '', // same relative handling as other pages
     listType: 'documents',
-    csv_path: 'documents.csv',
     site_version: (await execFile('git', ['rev-parse','HEAD'])).stdout.trim(),
     date: new Date().toISOString(),
     // meta
