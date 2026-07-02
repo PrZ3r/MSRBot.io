@@ -194,7 +194,23 @@ jobs:
             const fs = require('fs');
             const path = 'src/main/reports/mri_presence_audit.json';
             const audit = JSON.parse(fs.readFileSync(path, 'utf8'));
-            const missing = Array.isArray(audit.missing) ? audit.missing : [];
+            // Filter to refs that need a registry doc — i.e. canonical-form
+            // refIds (`ASME.B1.1.1989`, `RFC1642`) where the publisher is
+            // known and the only fix is to ingest the target. Orphan slugs
+            // (`orphan/<sourceDoc>/<suffix>`) skip the issue tracker — their
+            // citation data already lives on `doc.references[]` via the MRI
+            // slug, so there's no "missing ref" to file. Backwards-compat:
+            // entries without `needsResolve` fall back to the legacy
+            // `!isOrphan` check.
+            const rawMissing = Array.isArray(audit.missing) ? audit.missing : [];
+            const missing = rawMissing.filter((m) => {
+              if (m && m.needsResolve) return m.needsResolve === 'known-publisher-no-doc';
+              return !(m && m.isOrphan);
+            });
+            const skippedOrphans = rawMissing.length - missing.length;
+            if (skippedOrphans > 0) {
+              core.info(`Skipped ${skippedOrphans} orphan-slug entries (no canonical refId; no issue to open).`);
+            }
 
             const owner = context.repo.owner;
             const repo = context.repo.repo;

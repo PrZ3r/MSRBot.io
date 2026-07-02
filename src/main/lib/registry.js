@@ -217,7 +217,13 @@ function saveDoc(doc) {
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, JSON.stringify(doc, null, 2) + '\n');
 
-  invalidateIndex();
+  // Incrementally update the index rather than invalidating it. getIndex()
+  // above already materialized _index, so we patch the single affected entry
+  // (docId -> new path) in place. Blowing the whole index away here forced the
+  // *next* saveDoc() to re-walk and re-parse the entire ~26k-file corpus, which
+  // turned any save loop (e.g. url.normalize --apply) into O(docs × corpus) and
+  // wedged CI for hours. Patching one key keeps a save loop O(docs).
+  _index.set(String(doc.docId), target);
   return { path: target, created, rehomed };
 }
 

@@ -2,7 +2,12 @@ name: Validate Document URLs
 
 on:
   schedule:
-    - cron: "15 04 * * 6"   # 21:15 PT, Sat (cron in UTC)
+    - cron: "15 04 1,15 * *"   # 21:15 PT prev-day, 1st + 15th of each month (cron in UTC).
+                               # Cadence dropped from weekly to biweekly when the
+                               # corpus passed ~26k docs — each sweep takes hours,
+                               # publishers throttle the request rate, and standards
+                               # URLs rarely drift inside a 14-day window. See
+                               # CHANGELOG.md.
   workflow_run:
     workflows: ["Build MasterReference Index"]
     types: [completed]
@@ -52,10 +57,15 @@ jobs:
               return;
             }
 
-            // Daily throttle: for workflow_run-triggered executions, skip if a successful
-            // Validate URL run already completed within the last 24 hours.
+            // Biweekly throttle: for workflow_run-triggered executions, skip if a
+            // successful Validate URL run already completed within the last 14 days.
+            // Cron fires on the 1st + 15th; this throttle prevents the upstream
+            // `Build MasterReference Index` workflow_run trigger from firing extra
+            // sweeps in between — full URL revalidation against the now-26k-doc
+            // corpus is too expensive (and too rate-limit-friendly with upstream
+            // publishers) to repeat more than ~biweekly.
             const now = Date.now();
-            const oneDayMs = 24 * 60 * 60 * 1000;
+            const throttleWindowMs = 14 * 24 * 60 * 60 * 1000;
             const recentRuns = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
               owner,
               repo,
@@ -68,7 +78,7 @@ jobs:
               r.id !== context.runId &&
               r.name === context.workflow &&
               r.conclusion === 'success' &&
-              (now - new Date(r.created_at).getTime()) < oneDayMs
+              (now - new Date(r.created_at).getTime()) < throttleWindowMs
               )
               .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
@@ -96,10 +106,10 @@ jobs:
             }
 
             if (recentSuccess) {
-              core.info(`Daily throttle hit. Recent successful URL-validate run: ${recentSuccess.html_url}`);
+              core.info(`Biweekly throttle hit. Recent successful URL-validate run: ${recentSuccess.html_url}`);
               core.setOutput('skip', 'true');
               core.setOutput('pr', '');
-              core.setOutput('skip_reason', 'daily-throttle');
+              core.setOutput('skip_reason', 'biweekly-throttle');
               core.setOutput('last_run_url', recentSuccess.html_url || '');
               return;
             }
@@ -120,8 +130,8 @@ jobs:
       - name: Skipping Validate URLs (upstream PR open)
         if: steps.guard.outputs.skip == 'true'
         run: |
-          if [ "${{ steps.guard.outputs.skip_reason }}" = "daily-throttle" ]; then
-            echo "⏭️  Skipping URL validate due to daily throttle (already succeeded within last 24h)."
+          if [ "${{ steps.guard.outputs.skip_reason }}" = "biweekly-throttle" ]; then
+            echo "⏭️  Skipping URL validate due to biweekly throttle (already succeeded within last 14 days)."
             echo "Last successful run: ${{ steps.guard.outputs.last_run_url }}"
           else
             echo "⏭️  Skipping URL validate because upstream workflow opened PR #${{ steps.guard.outputs.pr }}."
@@ -134,6 +144,15 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
+          # Don't persist the checkout token as an http.extraheader. The job
+          # routinely runs 1-2h (URL validation against the ~26k-doc corpus),
+          # so by the time the auto-commit pushes, the original token is long
+          # expired. We re-mint a fresh token below and inject it via
+          # `git remote set-url`, but a persisted extraheader carrying the
+          # stale token overrides the URL credential and the push fails with
+          # "Invalid username or token". Disabling persistence leaves the
+          # fresh-token remote URL as the sole credential. See run 27840389788.
+          persist-credentials: false
 
       - name: Set up Node.js
         if: steps.guard.outputs.skip != 'true'
@@ -171,15 +190,34 @@ jobs:
           echo "redirect_undefined=$RU" >> $GITHUB_OUTPUT
           echo "redirectUndefinedCount=$RU"
 
+      # The App token minted at job start (steps.app-token) is hard-capped at
+      # a 1-hour TTL by GitHub. The Run URL validation step routinely takes
+      # 90+ minutes against a 26k-doc corpus, so by the time the auto-commit
+      # below runs the original token is dead — `git push` falls through to
+      # a credential prompt and the job exits 128 ("could not read Username
+      # for https://github.com"). Re-mint a fresh token here, then steps
+      # downstream of this point reference `steps.app-token-refresh.outputs.token`.
+      - name: Refresh App token (validate-url runs past 1h expiry)
+        id: app-token-refresh
+        if: (success() || failure()) && steps.guard.outputs.skip != 'true'
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Auto-commit audit back to main (if changed)
         if: (success() || failure()) && steps.guard.outputs.skip != 'true'
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token-refresh.outputs.token }}
         run: |
           set -e
           BR="${{ github.event.repository.default_branch }}"
           git config user.name "PrZ3 Unit"
           git config user.email "prz3-unit[bot]@users.noreply.github.com"
+          # The token stored in .git/config by actions/checkout is the
+          # original (now-expired) App token. Inject the fresh token into
+          # the remote URL so `git push` actually authenticates with it.
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
           git add src/main/reports/url_validate_audit.json || true
           if git diff --cached --quiet; then
             echo "No audit changes to commit.";
@@ -192,7 +230,7 @@ jobs:
       - name: Sync to latest base after audit push
         if: steps.guard.outputs.skip != 'true'
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token-refresh.outputs.token }}
         run: |
           git fetch origin
           git checkout ${{ github.event.repository.default_branch }}
@@ -242,7 +280,7 @@ jobs:
         if: steps.guard.outputs.skip != 'true' && steps.norm.outputs.applied != '0' && github.ref != 'refs/heads/chore/url-normalize'
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ steps.app-token-refresh.outputs.token }}
           commit-message: 'fix: backfill resolved* from URL validation (missing resolved)'
           title: "URL Backfill resolved* for ${{ steps.audit.outputs.redirect_undefined }} entries"
           body: |

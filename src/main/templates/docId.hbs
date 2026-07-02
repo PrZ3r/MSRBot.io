@@ -44,7 +44,7 @@
         </div>
         <div class="card-body">
           <dl class="row small mb-0">
-            {{#if publisher}}<dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher={{publisher}}">{{publisher}}</a></dd>{{/if}}
+            {{#if publisher}}<dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher={{publisher}}">{{publisher}}</a>{{#if publisherLocation}} <span class="text-muted">— {{#if publisherLocation.city}}{{publisherLocation.city}}{{#if publisherLocation.country}}, {{/if}}{{/if}}{{#if publisherLocation.country}}{{publisherLocation.country}}{{/if}}</span>{{/if}}</dd>{{/if}}
             {{#if docSuiteTitle}}
               <dt class="col-sm-4">Suite/Collection</dt>
               <dd class="col-sm-8">
@@ -58,11 +58,15 @@
               </dd>
             {{/if}}
             {{#if docType}}<dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType={{docType}}">{{docType}}{{#if docTypeAbr}} ({{docTypeAbr}}){{/if}}</a></dd>{{/if}}
-            {{#if articleType}}<dt class="col-sm-4">Article Type</dt><dd class="col-sm-8">{{articleType}}</dd>{{/if}}
+            {{#if articleType}}<dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType={{articleType}}">{{articleTypeLabel articleType}}</a></dd>{{/if}}
+            {{#if abbrevTitle}}<dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>{{abbrevTitle}}</em></dd>{{/if}}
+            {{#if volume}}<dt class="col-sm-4">Volume</dt><dd class="col-sm-8">{{volume}}{{#if number}}, No. {{number}}{{/if}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if number}}<dt class="col-sm-4">Issue</dt><dd class="col-sm-8">No. {{number}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if pages}}<dt class="col-sm-4">Pages</dt><dd class="col-sm-8">{{pages}}</dd>{{/if}}{{/if}}{{/if}}
+            {{#if chapter}}<dt class="col-sm-4">Chapter</dt><dd class="col-sm-8">{{chapter}}</dd>{{/if}}
             {{#if contentType}}<dt class="col-sm-4">Content Type</dt><dd class="col-sm-8">{{contentType}}</dd>{{/if}}
             {{#if abstract}}<dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">{{{nl2br abstract}}}</dd>{{/if}}
             {{#if releaseTag}}<dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q={{releaseTag}}">{{releaseTag}}</a></dd>{{/if}}
             {{#if publicationDate}}<dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">{{publicationDate}}</dd>{{/if}}
+            {{#if approvalDate}}<dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">{{approvalDate}}</dd>{{/if}}
             {{#if status.amendedDate}}<dt class="col-sm-4">Amended Date</dt><dd class="col-sm-8">{{status.amendedDate}}</dd>{{/if}}
             {{#if status.reaffirmDate}}<dt class="col-sm-4">Reaffirm Date</dt><dd class="col-sm-8">{{status.reaffirmDate}}</dd>{{/if}}
             {{#if status.stabilizedDate}}<dt class="col-sm-4">Stabilized Date</dt><dd class="col-sm-8">{{status.stabilizedDate}}</dd>{{/if}}
@@ -71,9 +75,10 @@
             {{#if status.statusNote}}<dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>{{status.statusNote}}</em></dd>{{/if}}
             {{#if doi}}<dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/{{doi}}" target="_blank" rel="noopener"><code>{{doi}}</code></a></dd>{{/if}}
             {{#if isbn}}<dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>{{isbn}}</code></dd>{{/if}}
+            {{#if issn}}<dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">{{#if issn.print}}Print: <code>{{issn.print}}</code>{{#if issn.electronic}} <span class="text-muted">|</span> {{/if}}{{/if}}{{#if issn.electronic}}Electronic: <code>{{issn.electronic}}</code>{{/if}}{{#unless issn.print}}{{#unless issn.electronic}}<code>{{issn}}</code>{{/unless}}{{/unless}}</dd>{{/if}}
             {{#if href}}<dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="{{href}}" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">{{href}}</a></dd>{{/if}}
             {{#if repo}}<dt class="col-sm-4">Repo</dt><dd class="col-sm-8"><a href="{{repo}}" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">{{repo}}</a></dd>{{/if}}
-            {{#if authors}}<dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">{{#authors}}{{this}}{{#unless @last}}, {{/unless}}{{/authors}}</dd>{{/if}}
+            {{#if authors}}<dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">{{#authors}}{{#if name}}<div class="mb-2{{#unless @first}} pt-2 border-top{{/unless}}"><div class="d-flex justify-content-between align-items-center gap-2"><span>{{name}}</span>{{#if affiliation}}<span class="small text-muted" title="{{affiliation}}">{{affiliation}}</span>{{/if}}</div>{{#if bio}}<details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">{{bio}}</div></details>{{/if}}</div>{{else}}<div class="mb-1{{#unless @first}} pt-2 border-top{{/unless}}">{{this}}</div>{{/if}}{{/authors}}</dd>{{/if}}
             {{#if group}}<dt class="col-sm-4">Group</dt><dd class="col-sm-8">{{#with (groupIdLookup dataGroups group)}}{{#if groupId}}<a href="../../groups/{{../../htmlLink}}#{{groupId}}">{{/if}}{{groupOrg}} {{groupName}} {{groupDesc}}{{#if groupId}}</a>{{/if}}{{/with}}</dd>{{/if}}
             {{#with (docProjLookup @root.docProjs docId)}}
             {{#if projectId}}<dt class="col-sm-4">Current Work</dt>
@@ -82,9 +87,11 @@
               <br><span class="small">{{#ifnoteq projectStatus "Complete"}}<span class="fst-italic">Under Development - </span>{{/ifnoteq}}Project: <a href="../../projects/{{../../htmlLink}}#{{projectId}}">{{projectId}}</a> {{#if newDoc}}: New Doc: <a class="{{../../idType}}-link " href="../{{newDoc}}">{{getLabel newDoc}}</a> [{{getStatus newDoc}}] {{{getstatusButton newDoc "10"}}} {{#with (docProjLookup @root.docProjs newDoc)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}{{/if}}</span>
             </dd>{{/if}}{{/with}}
             {{#if keywords}}<dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8">{{#keywords}}<a class="" href="../?f.keywords={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/keywords}}</dd>{{/if}}
+            {{#if icsCodes}}<dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8">{{#icsCodes}}<div class="mb-1"><a href="../?f.icsCodes={{code}}"><code>{{code}}</code></a>{{#if description}} <span class="small text-muted">{{description}}</span>{{/if}}</div>{{/icsCodes}}</dd>{{/if}}
             {{#if revisionOf}}<dt class="col-sm-4">Revision of</dt><dd class="col-sm-8">{{#revisionOf}}<a class="" href="../{{this}}/">{{this}}</a>{{#unless @last}}; {{/unless}}{{/revisionOf}}</dd>{{/if}}
             
             {{#if details}}<dt class="col-sm-4">Details</dt><dd class="col-sm-8"><em>{{details}}</em></dd>{{/if}}
+            {{#if docCopyright}}<dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© {{docCopyright.year}}{{#if docCopyright.holder}} {{docCopyright.holder}}{{/if}}</span></dd>{{/if}}
           </dl>
         </div>
       </div>
@@ -144,12 +151,16 @@
           <ul class="list-group list-group-flush">
           {{#each (asArray status.supersededBy)}}
             <li class="list-group-item">
+              {{#ifeq (getStatus this) "MRI-KNOWN"}}
+                <span class="small">{{{mriCite this}}} <span class="badge text-bg-info ms-1">EXTERNAL</span></span>
+              {{else}}
               {{#ifnoteq (getStatus this) "NOT IN REGISTRY"}}
                 <span class="small"><a class="{{../../idType}}-link " href="{{refHref this}}">{{getLabel this}}</a> [{{getStatus this}}]</span> {{{getstatusButton this "10"}}} {{#with (docProjLookup @root.docProjs this)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
               {{else}}
                 <span class="small"><span class="text-muted fst-italic">{{getLabel this}}</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
               {{/ifnoteq}}
-            </li> 
+              {{/ifeq}}
+            </li>
           {{/each}}
           </ul>
         {{/if}}
@@ -160,12 +171,16 @@
           <ul class="list-group list-group-flush">
             {{#each (asArray status.amendedBy)}}
             <li class="list-group-item">
+              {{#ifeq (getStatus this) "MRI-KNOWN"}}
+                <span class="small">{{{mriCite this}}} <span class="badge text-bg-info ms-1">EXTERNAL</span></span>
+              {{else}}
               {{#ifnoteq (getStatus this) "NOT IN REGISTRY"}}
                 <span class="small"><a class="{{../../idType}}-link " href="{{refHref this}}">{{getLabel this}}</a> [{{getStatus this}}]</span> {{{getstatusButton this "10"}}} {{#with (docProjLookup @root.docProjs this)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
               {{else}}
                 <span class="small"><span class="text-muted fst-italic">{{getLabel this}}</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
               {{/ifnoteq}}
-            </li> 
+              {{/ifeq}}
+            </li>
             {{/each}}
           </ul>
         {{/if}}
@@ -214,6 +229,9 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.normative)}}
                 <li class="list-group-item">
+                  {{#ifeq (getStatus id) "MRI-KNOWN"}}
+                    {{{mriCite id}}} <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                  {{else}}
                   {{#if (isRefLinkable this)}}
                     <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
                       {{#if allParts}}
@@ -240,6 +258,7 @@
                       <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
                     {{/if}}
                   {{/if}}
+                  {{/ifeq}}
                 </li>
               {{/each}}
               </ul>
@@ -252,6 +271,9 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.bibliographic)}}
                 <li class="list-group-item">
+                  {{#ifeq (getStatus id) "MRI-KNOWN"}}
+                    {{{mriCite id}}} <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                  {{else}}
                   {{#if (isRefLinkable this)}}
                     <a href="{{refHref id}}" title="{{#if allParts}}{{suiteTitle}}{{else}}{{getLabel id}}{{/if}}">
                       {{#if allParts}}
@@ -278,6 +300,7 @@
                       <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
                     {{/if}}
                   {{/if}}
+                  {{/ifeq}}
                 </li>
               {{/each}}
               </ul>
