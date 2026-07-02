@@ -140,7 +140,7 @@ jobs:
 
       - name: Checkout repo
         if: steps.guard.outputs.skip != 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
