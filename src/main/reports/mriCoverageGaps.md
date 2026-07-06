@@ -13,8 +13,8 @@ See [docs/mri-citation-system.md](../../../docs/mri-citation-system.md) for the 
 
 - Registry docs: **26445**
 - Docs with non-empty `references[]`: **4766**
-- Total ref-entries audited: **47500**
-- MRI `refs[]` entries: **38504**
+- Total ref-entries audited: **46992**
+- MRI `refs[]` entries: **37996**
 - **Leak count: 0**
 
 ## Result: PASS
