@@ -151,6 +151,41 @@ const FIELDS = {
     normalize: dateNorm,
     transform: (raw) => dateNorm(raw),
   },
+  'status.withdrawnDate': {
+    zohoKey: 'Withdrawn_Date',
+    path: ['status', 'withdrawnDate'],
+    normalize: dateNorm,
+    transform: (raw) => dateNorm(raw),
+  },
+  'status.statusNote': {
+    zohoKey: 'Notes',
+    // Drop any line mentioning "supersede" — supersession is already derived
+    // from status.supersedes / status.supersededBy / status.supersededDate,
+    // so importing supersession blurb as a note is redundant noise.
+    path: ['status', 'statusNote'],
+    normalize: (v) => trim(v).replace(/\s+/g, ' '),
+    transform: (raw) => {
+      const kept = trim(raw)
+        .split(/\r?\n/)
+        .filter((line) => !/supersede/i.test(line))
+        .join(' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      return kept || null;
+    },
+    // For --merge-conflicts: keep the registry's curated note and append the
+    // Zoho note if it isn't already a substring. Registry text comes first so
+    // hand-authored editorial content stays lead.
+    conflictMerge: (regVal, zohoVal) => {
+      const reg = trim(regVal).replace(/\s+/g, ' ');
+      const zoho = trim(zohoVal).replace(/\s+/g, ' ');
+      if (!reg) return zoho;
+      if (!zoho) return reg;
+      if (reg.toLowerCase().includes(zoho.toLowerCase())) return reg;
+      const sep = /[.!?]$/.test(reg) ? ' ' : '. ';
+      return reg + sep + zoho;
+    },
+  },
   approvalDate: {
     zohoKey: 'Approval_Date',
     path: ['approvalDate'],
