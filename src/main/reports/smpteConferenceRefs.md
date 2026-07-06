@@ -1,7 +1,7 @@
 # Phase 3b — Conference Paper inline `<ref-list>` extraction
 
-> Generated at: 2026-07-06T19:55:11.818Z
-> Mode: **dry-run**
+> Generated at: 2026-07-06T20:02:43.384Z
+> Mode: **APPLY**
 > Scope: Conference Paper
 
 ## Totals
@@ -18,14 +18,14 @@
 | canonical refId → registry doc (direct link) | 188 |
 | canonical refId → `mri-known-no-doc` (MRI carries slug) | 42 |
 | slug-minted (fresh, orphan) | 6350 |
-| **slug-mint reused via #1229 pre-check** (cited existing MRI refId instead of new slug) | 16 |
+| **slug-mint reused via #1229 pre-check** (cited existing MRI refId instead of new slug) | 1000 |
 | ambiguous vol+pages → slug-minted | 28 |
 
 ## #1229 pre-check breakdown
 | trigger | count |
 |---|---:|
-| contentHash matched existing MRI entry (would-be-straggler prevented) | 16 |
-| normalized-cite matched existing slug on same source doc (twin-pair prevented) | 0 |
+| contentHash matched existing MRI entry (would-be-straggler prevented) | 997 |
+| normalized-cite matched existing slug on same source doc (twin-pair prevented) | 3 |
 
 ## By resolution path
 | path | count |
