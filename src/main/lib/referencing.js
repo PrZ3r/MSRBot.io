@@ -2815,5 +2815,10 @@ module.exports = {
   mriFlush,
   mriEnsureFile,
   mriPruneToSightings,
-  synthesizeCiteFromRawRef
+  synthesizeCiteFromRawRef,
+  // Content-hash utility for extractors that need to check whether a raw
+  // <ref> XML collides with an existing MRI entry BEFORE minting a new slug.
+  // Prevents the leaked-slug + twin-pair classes surfaced by Phase 3a
+  // (see #1229 + the Phase 3a dedup cleanup on PR #1228).
+  _contentHash
 };
