@@ -1,14 +1,14 @@
 # SMPTE canonical-library import — summary
 
-> Generated: 2026-07-07T22:39:26.841Z
+> Generated: 2026-07-07T23:57:42.349Z
 > Library entry: `/Users/llambs/LLux Operon Dropbox/Steve LLamb/Documents/DCin/Repos/SMPTE/smpte-journal-library/src/library/js/importLibrary.mjs`
 
 ## Per-corpus results
 
 | corpus | articles | errors/warnings | seconds | output |
 |---|---:|---:|---:|---|
-| journal | 24173 | 11 | 25.2 | `src/main/reports/canonicalLibrary.journal.json` |
-| conference | 1999 | 1 | 2.4 | `src/main/reports/canonicalLibrary.conference.json` |
+| journal | 24173 | 11 | 25.3 | `src/main/reports/smpte-canonical-audit/canonicalLibrary.journal.json` |
+| conference | 1999 | 1 | 2.5 | `src/main/reports/smpte-canonical-audit/canonicalLibrary.conference.json` |
 
 ## First 20 errors/warnings
 

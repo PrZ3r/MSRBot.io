@@ -82,7 +82,9 @@ function serializeAuthor(a) {
 }
 function serializePubDate(d) {
   if (!d) return null;
-  return { year: d.year ?? null, month: d.month ?? null, day: d.day ?? null };
+  // NOTE: read _month directly — smpte-journal-library's PubDate has a bug
+  // where `get month()` returns this._year (copy-paste). Push-back filed.
+  return { year: d.year ?? null, month: d._month ?? null, day: d.day ?? null };
 }
 function serializeArticle(a) {
   return {
