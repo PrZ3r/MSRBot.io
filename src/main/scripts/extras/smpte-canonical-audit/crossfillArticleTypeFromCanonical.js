@@ -18,11 +18,15 @@
  *    'info-society' (163 docs), 'toc' that canonical calls
  *    'orig-research' (15 docs).
  *
- * Never overwrites a non-'other' articleType. Honors $meta.excludeChanges.
+ * Never overwrites a non-'other' articleType — except for the drift pairs
+ * the user explicitly approved on 2026-07-07 (APPROVED_DRIFT_FIXES below),
+ * which are written only under --apply-drift. Honors $meta.excludeChanges.
  *
  * Usage:
- *   node src/main/scripts/extras/smpte-canonical-audit/crossfillArticleTypeFromCanonical.js          # dry-run
- *   node src/main/scripts/extras/smpte-canonical-audit/crossfillArticleTypeFromCanonical.js --apply
+ *   node .../crossfillArticleTypeFromCanonical.js                # dry-run everything
+ *   node .../crossfillArticleTypeFromCanonical.js --apply        # write the 'other'/empty backfills
+ *   node .../crossfillArticleTypeFromCanonical.js --apply-drift  # write the approved drift fixes
+ *   (flags combine)
  *
  * Reports:
  *   src/main/reports/smpte-canonical-audit/articleTypeBackfill.md
@@ -39,8 +43,23 @@ const { loadAllDocs, docAbsPath } = require('../../../lib/registry');
 
 const REPORTS = 'src/main/reports/smpte-canonical-audit';
 const APPLY = process.argv.includes('--apply');
+const APPLY_DRIFT = process.argv.includes('--apply-drift');
 const NOW = new Date().toISOString();
 const VERSION = 'smpte-canonical-repo@v1';
+
+// Drift pairs the user approved for update on 2026-07-07 — for docs in
+// these (registry articleType → canonical contentType) cells, canonical
+// wins and the registry articleType is rewritten. All other drift cells
+// are registry-wins: canonical is wrong there, and those go into the
+// push-back register for SMPTE instead.
+const APPROVED_DRIFT_FIXES = new Set([
+  'research-article||info-society',   // 163
+  'abstract||info-society',           // 140
+  'letter||orig-research',            //   9
+  'news||orig-research',              //   6
+  'review-article||orig-research',    //   3
+  'introduction||orig-research',      //   1
+]);
 
 // ---- canonical doi → {contentType, title, year} -------------------------
 const canon = new Map();
@@ -61,6 +80,7 @@ console.log(`[articleType] registry docs: ${docs.length}`);
 
 // ---- walk ---------------------------------------------------------------
 const backfills = [];   // { doc, newType }
+const driftFixes = [];  // { doc, newType, pair } — user-approved cells only
 const locked = [];
 const matrix = new Map();     // articleType -> Map<contentType, [docs]>
 let matchedCount = 0;
@@ -86,6 +106,10 @@ for (const doc of docs) {
     const inner = matrix.get(at);
     if (!inner.has(hit.contentType)) inner.set(hit.contentType, []);
     inner.get(hit.contentType).push({ docId: doc.docId, title: doc.docTitle, year: hit.year, canonicalTitle: hit.title });
+    const pair = `${at}||${hit.contentType}`;
+    if (APPROVED_DRIFT_FIXES.has(pair) && at !== hit.contentType) {
+      driftFixes.push({ doc, newType: hit.contentType, pair });
+    }
   }
 }
 
@@ -185,20 +209,24 @@ function sortKeysDeep(v) {
   return v;
 }
 
-if (!APPLY) {
-  console.log(`\nDry run — pass --apply to write ${backfills.length} articleType backfills.`);
+// Drift-fix tally for the console
+const driftFixByPair = {};
+for (const f of driftFixes) driftFixByPair[f.pair] = (driftFixByPair[f.pair] || 0) + 1;
+console.log(`[articleType] approved drift fixes pending: ${driftFixes.length} ${JSON.stringify(driftFixByPair)}`);
+
+if (!APPLY && !APPLY_DRIFT) {
+  console.log(`\nDry run — pass --apply to write ${backfills.length} placeholder backfills,`);
+  console.log(`          --apply-drift to write ${driftFixes.length} approved drift fixes (flags combine).`);
   process.exit(0);
 }
 
-let written = 0;
-for (const { doc, newType } of backfills) {
-  const original = doc.articleType == null ? null : doc.articleType;
+function writeDoc(doc, newType, note, originalValue) {
   doc.articleType = newType;
   doc['articleType$meta'] = {
     source: 'parsed',
     confidence: 'high',
-    note: 'Cross-filled from SMPTE canonical repository import (smpte-canonical-audit/canonicalLibrary.*.json); previous value was a placeholder',
-    originalValue: original,
+    note,
+    originalValue,
     updated: NOW,
     version: VERSION,
   };
@@ -206,7 +234,26 @@ for (const { doc, newType } of backfills) {
   const target = docAbsPath(sorted);
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, JSON.stringify(sorted, null, 2) + '\n');
-  written++;
 }
-console.log(`\nApplied ${written} articleType backfills.`);
+
+let written = 0;
+if (APPLY) {
+  for (const { doc, newType } of backfills) {
+    writeDoc(doc, newType,
+      'Cross-filled from SMPTE canonical repository import (smpte-canonical-audit/canonicalLibrary.*.json); previous value was a placeholder',
+      doc.articleType == null ? null : doc.articleType);
+    written++;
+  }
+  console.log(`\nApplied ${written} placeholder backfills.`);
+}
+let driftWritten = 0;
+if (APPLY_DRIFT) {
+  for (const { doc, newType } of driftFixes) {
+    writeDoc(doc, newType,
+      'Drift fix approved 2026-07-07: canonical repository contentType wins over registry articleType for this pair (smpte-canonical-audit/articleTypeDrift.md)',
+      doc.articleType == null ? null : doc.articleType);
+    driftWritten++;
+  }
+  console.log(`Applied ${driftWritten} approved drift fixes.`);
+}
 console.log('Reminder: npm run canonicalize && npm run validate, then commit.');
