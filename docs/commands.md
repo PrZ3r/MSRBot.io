@@ -175,16 +175,6 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Persists `src/main/reports/mriCoverageGaps.{json,md}` with the totals and (on failure) a per-leak report including `docId`, ref category, ref string, and a leak-kind classification.
   - Exit codes: `0` clean, `1` one or more leaks, `2` script-level error (couldn't load registry or MRI).
 
-- `npm run reaudit-refs`
-  - Runs: `node src/main/scripts/extras/reauditRefs.js`
-  - Action: Full-corpus reference audit. Walks every doc in the per-doc registry and classifies each `references[]` entry against MRI state: `resolved-direct` (docId already in registry), `resolved-via-mri` (MRI's `resolvedDocId` pointer hits a registry doc), `mri-known-no-doc` (canonical refId known to MRI but target not yet ingested — Phase 1b / #1195 territory), `orphan-slug` (source-anchored slug), or `unparseable` (parser-family gap; should be 0 under the slug system).
-  - Reports: `src/main/reports/refsReaudit.{json,md}` — per-doc breakdown + top publisher families for the `mri-known-no-doc` and `unparseable` buckets so the next ref-resolution / ingest passes can be sized without guessing.
-
-- `npm run reaudit-unmapped-fields`
-  - Runs: `node src/main/scripts/extras/reauditUnmappedFields.js`
-  - Action: Samples `_source/SMPTE/*` XML deliveries (HIGHWIRE, APTARA, Allen Press), tallies every element path, and cross-references against schema 2.3.0 + the decisions captured in [`sourceInventory.smpte.schemaMap.md`](../src/main/reports/sourceInventory.smpte.schemaMap.md). Surfaces `new-unseen` paths that may warrant a future schema field promotion.
-  - Reports: `src/main/reports/refsReaudit.unmappedFields.{json,md}`.
-
 - `npm run review-refs -- resolve <docId...>`
   - Runs: `node src/main/scripts/utils/review.refs.js resolve <docId...>`
   - Action: Clears `reviewRequired`, removes `flag`, and appends a manual-review note on both:
