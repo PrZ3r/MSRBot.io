@@ -1,6 +1,6 @@
 # articleType drift — registry vs SMPTE canonical (minority cells)
 
-> Generated: 2026-07-07T23:37:54.461Z
+> Generated: 2026-07-07T23:51:29.028Z
 > For each registry articleType, the majority canonical contentType is treated as expected;
 > docs below sit in minority cells and need human review. **No writes are ever made from this report.**
 
