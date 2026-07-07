@@ -488,8 +488,6 @@ Today's corpus: 8,995 ref-entries across 1,066 docs, all present in MRI's 2,816 
 - `src/main/scripts/extras/resolveOrphans.js` — idempotent retry pass.
 - `src/main/scripts/extras/validateMriCoverage.js` — build-time
   invariant check (above).
-- `src/main/scripts/extras/migrateMriToSlugSchema.js` — one-time v2
-  schema migration (already applied; idempotent if re-run).
 - `src/main/scripts/extractDocs.js` — `onBadRefs` callback wires
   unparseable refs into MRI; queues minted slugs into the source doc's
   `references[]` before save.
