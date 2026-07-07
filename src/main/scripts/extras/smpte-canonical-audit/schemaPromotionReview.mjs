@@ -53,7 +53,7 @@ const RULES = [
     verdict: 'SKIP-attr', reason: 'type-marker attribute (secondary metadata)' },
   { match: p => /\/(articleshowflag|articlenodoiflag|articlepeerreviewflag|articleplagiarizedflag|articlecoverimageflag|articlereferenceflag|doi_permission|reference_flag|articlequality|holdstatus)$/.test(p.path),
     verdict: 'SKIP', reason: 'SMPTE-internal editorial workflow flag' },
-  { match: p => /(deposit|processing|delivery|batch)/.test(p.path.toLowerCase()) && !/publication|article|conference|issue|volume/i.test(p.path.split('/').pop()),
+  { match: p => /(deposit|processing|delivery)/.test(p.path.toLowerCase().replace(/^content_batch/, '')) && !/publication|article|conference|issue|volume/i.test(p.path.split('/').pop()),
     verdict: 'SKIP', reason: 'delivery/batch process metadata' },
 
   // ==== MAP: shape variants of existing schema fields ====
@@ -102,35 +102,33 @@ const RULES = [
   { match: p => /\/authorgroup\/author\/authororder$/.test(p.path),
     verdict: 'SKIP', reason: 'author order is implicit in array position' },
 
-  // ==== PROMOTE: new schema fields worth having ====
+  // ==== PROMOTE: new schema fields — user-approved 2026-07-07 ====
   { match: p => /\/authorgroup\/author\/email$/.test(p.path) || /\/contrib\/email$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'authors[].email', reason: 'author email (not currently in schema)' },
+    verdict: 'PROMOTE', mapsTo: 'authors[].email', reason: 'author email (approved)' },
   { match: p => /\/authorgroup\/author\/orcid$/.test(p.path) || /\/contrib-id.*orcid/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'authors[].orcid', reason: 'author ORCID (not currently in schema)' },
-  { match: p => /\/articlelicense$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'license (enum: SMPTE|IEEE|open-access)', reason: 'article-level license type' },
-  { match: p => /\/article_license_uri$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'license.uri', reason: 'license URL (pairs with license type)' },
-  { match: p => /\/permissions\/license\/license-p$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'license.note', reason: 'NLM license note text' },
+    verdict: 'PROMOTE', mapsTo: 'authors[].orcid', reason: 'author ORCID (approved)' },
   { match: p => /\/confgroup\/conflocation$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'conferenceLocation', reason: 'geographic location of conference' },
+    verdict: 'PROMOTE', mapsTo: 'conferenceLocation', reason: 'geographic location of conference (approved)' },
   { match: p => /\/confgroup\/confdate$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'conferenceDate (start/end)', reason: 'conference date range' },
+    verdict: 'PROMOTE', mapsTo: 'conferenceDate (start/end)', reason: 'conference date range (approved)' },
   { match: p => /\/conference_metadata\/meeting_location$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'conferenceLocation', reason: 'content_batch variant' },
-  { match: p => /\/keywordset\/@keywordtype$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'keywordSource (IEEEFree/AuthorFree)', reason: 'distinguishes automated vs author-supplied keywords' },
-  { match: p => /\/authorgroup\/author\/@role$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'authors[].role', reason: 'primary-corresponding / coauthor — currently loose in schema' },
-  { match: p => /\/issue_complete_date$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'issue.completionDate', reason: 'issue-level publication complete date' },
+    verdict: 'PROMOTE', mapsTo: 'conferenceLocation', reason: 'content_batch variant (approved)' },
   { match: p => /\/(issn|isbn)\/@mediatype$/.test(p.path) || /\/(issn|isbn)\/@publication-format$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'issn/isbn.medium (Paper|Electronic)', reason: 'per-medium ISSN/ISBN distinction' },
+    verdict: 'PROMOTE', mapsTo: 'issn/isbn.medium (Paper|Electronic)', reason: 'per-medium ISSN/ISBN distinction (approved)' },
+
+  // ==== VETOED promotes — user decision 2026-07-07, keep as SKIP ====
+  { match: p => /\/articlelicense$/.test(p.path) || /\/article_license_uri$/.test(p.path) || /\/permissions\/license\/license-p$/.test(p.path),
+    verdict: 'SKIP', reason: 'license fields — vetoed 2026-07-07' },
   { match: p => /\/publicationinfo\/pubsourceid$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'sourceIds.publicationSource', reason: 'external system ID for the parent publication' },
+    verdict: 'SKIP', reason: 'external pub-source ID — vetoed 2026-07-07' },
   { match: p => /\/articlemancentralid$/.test(p.path),
-    verdict: 'PROMOTE', mapsTo: 'sourceIds.manuscriptCentral', reason: 'Manuscript Central editorial ID' },
+    verdict: 'SKIP', reason: 'Manuscript Central ID — vetoed 2026-07-07' },
+  { match: p => /\/keywordset\/@keywordtype$/.test(p.path),
+    verdict: 'SKIP', reason: 'keyword-source tag — not promoted (attr-level detail)' },
+  { match: p => /\/authorgroup\/author\/@role$/.test(p.path),
+    verdict: 'SKIP', reason: 'author role attr — not promoted' },
+  { match: p => /\/issue_complete_date$/.test(p.path),
+    verdict: 'SKIP', reason: 'issue completion date — not promoted' },
 ];
 
 // ---- classify all paths ------------------------------------------------
