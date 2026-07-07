@@ -23,10 +23,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
+const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..');
 process.chdir(REPO_ROOT);
 
-const REPORTS = 'src/main/reports';
+const REPORTS = 'src/main/reports/smpte-canonical-audit';
 const REPOS = [
   { key: 'journal', dir: '_source/SMPTE/Journal Article Repository' },
   { key: 'conference', dir: '_source/SMPTE/Conference Repository' },

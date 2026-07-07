@@ -17,9 +17,9 @@
  *     so Node resolves those deps in-place.
  *
  * Output:
- *   src/main/reports/canonicalLibrary.journal.json
- *   src/main/reports/canonicalLibrary.conference.json
- *   src/main/reports/canonicalLibrary.summary.md
+ *   src/main/reports/smpte-canonical-audit/canonicalLibrary.journal.json
+ *   src/main/reports/smpte-canonical-audit/canonicalLibrary.conference.json
+ *   src/main/reports/smpte-canonical-audit/canonicalLibrary.summary.md
  *
  * Usage:
  *   node src/main/scripts/extras/runSmpteCanonicalImport.mjs
@@ -31,7 +31,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
+const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..');
 process.chdir(REPO_ROOT);
 
 // Locate smpte-journal-library. Default is a sibling of PrZ3r/ under
@@ -156,7 +156,7 @@ for (const { key, dir } of SOURCES) {
   if (!library) { console.error(`  load returned null for ${key}`); continue; }
   const dump = key === 'conference' ? serializeConferences(library.conferences) : serializePeriodicals(library.periodicals);
   const count = key === 'conference' ? countConferenceArticles(dump) : countPeriodicalArticles(dump);
-  const outPath = `src/main/reports/canonicalLibrary.${key}.json`;
+  const outPath = `src/main/reports/smpte-canonical-audit/canonicalLibrary.${key}.json`;
   await fs.writeFile(outPath, JSON.stringify(dump, null, 2) + '\n');
   const dt = ((Date.now() - t0) / 1000).toFixed(1);
   console.log(`[canonical-import] ${key}: ${count} articles serialized in ${dt}s → ${outPath}`);
@@ -193,5 +193,5 @@ md.push('');
 md.push('- The `<article>` NLM-shape files (2024+ post-IEEE dupes) are deliberately skipped by the importer.');
 md.push('- Article-level fields captured: number, title, doi, abstract, contentType, pubDate, authors[], keywords[], mainPath, isOpenAccess.');
 md.push('- Structural fields (Periodical→Volume→Issue→Article for journal; Conference→Article for conference) preserved in the dump.');
-await fs.writeFile('src/main/reports/canonicalLibrary.summary.md', md.join('\n') + '\n');
-console.log(`\n[canonical-import] wrote src/main/reports/canonicalLibrary.summary.md`);
+await fs.writeFile('src/main/reports/smpte-canonical-audit/canonicalLibrary.summary.md', md.join('\n') + '\n');
+console.log(`\n[canonical-import] wrote src/main/reports/smpte-canonical-audit/canonicalLibrary.summary.md`);
