@@ -165,9 +165,14 @@ const FIELDS = {
     path: ['status', 'statusNote'],
     normalize: (v) => trim(v).replace(/\s+/g, ' '),
     transform: (raw) => {
+      // Drop lines that are (a) supersession blurb (already captured by
+      // status.supersedes*), or (b) Zoho-internal editorial markers
+      // ("THIS IS A DUPLICATE RECORD - NO NEED TO USE!", etc.) that
+      // shouldn't surface publicly.
       const kept = trim(raw)
         .split(/\r?\n/)
         .filter((line) => !/supersede/i.test(line))
+        .filter((line) => !/duplicate record|no need to use|do not use|internal use only/i.test(line))
         .join(' ')
         .replace(/\s+/g, ' ')
         .trim();
