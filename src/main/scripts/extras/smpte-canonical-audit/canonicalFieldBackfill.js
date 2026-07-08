@@ -1,0 +1,302 @@
+/*
+ * canonicalFieldBackfill.js — field-diff follow-up passes 1-3.
+ *
+ * Backfills (write with --apply, dry-run default):
+ *
+ *   1. pubMonth   registry publicationDate has the Jan-1 placeholder
+ *                 pattern (yyyy-01-01) while canonical carries a real,
+ *                 different month → rewrite to yyyy-<mm>-<dd|01>.
+ *                 Only placeholder dates are ever touched.
+ *   2. journalTitle  new schema 2.4.0 field — era-accurate journal name
+ *                 (Transactions → JSMPE → SMPTE Journal → MIJ …) from the
+ *                 canonical periodical parent. Journal-kind only; the
+ *                 conference-side equivalent runs with the conference
+ *                 metadata pass later.
+ *   3. abstract   registry empty, canonical has one (cleaned of embedded
+ *                 <!--xref--> comments / entities).
+ *   4. keywords   registry empty, canonical has a set.
+ *
+ * Review reports (never written from):
+ *   authorsDrift.md   89 docs where loose-name author sets differ
+ *   abstractDrift.md  126 docs where both sides have abstracts that differ
+ *
+ * Usage:
+ *   node .../canonicalFieldBackfill.js            # dry-run
+ *   node .../canonicalFieldBackfill.js --apply
+ *
+ * Reports:
+ *   src/main/reports/smpte-canonical-audit/canonicalFieldBackfill.md
+ *   src/main/reports/smpte-canonical-audit/authorsDrift.md
+ *   src/main/reports/smpte-canonical-audit/abstractDrift.md
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..');
+process.chdir(REPO_ROOT);
+
+const { loadAllDocs, docAbsPath } = require('../../../lib/registry');
+
+const REPORTS = 'src/main/reports/smpte-canonical-audit';
+const APPLY = process.argv.includes('--apply');
+const NOW = new Date().toISOString();
+const VERSION = 'smpte-canonical-repo@v1';
+
+// ---- text cleaning -------------------------------------------------------
+function decodeEntities(s) {
+  return String(s)
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&apos;/g, "'");
+}
+function cleanText(s) {
+  if (s == null) return null;
+  const out = decodeEntities(String(s).replace(/<!--[\s\S]*?-->/g, ' '))
+    .replace(/\s+/g, ' ')
+    .trim();
+  return out || null;
+}
+function normText(s) {
+  if (s == null) return '';
+  return cleanText(s)
+    .toLowerCase()
+    .normalize('NFKD').replace(/[̀-ͯ]/g, '')
+    .replace(/[‘’‚′']/g, "'").replace(/[“”„″"]/g, '"').replace(/[‐-―−-]/g, '-')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+function looseName(s) {
+  const tokens = normText(s).split(' ').filter(Boolean);
+  if (!tokens.length) return '';
+  const longest = [...tokens].sort((a, b) => b.length - a.length)[0];
+  return `${longest}:${tokens[0][0] || ''}`;
+}
+function regAuthorName(a) {
+  if (typeof a === 'string') return a;
+  if (a && typeof a === 'object') return a.name || '';
+  return '';
+}
+
+// ---- canonical flatten ---------------------------------------------------
+const canon = new Map();
+{
+  const j = JSON.parse(fs.readFileSync(path.join(REPORTS, 'canonicalLibrary.journal.json'), 'utf8'));
+  const c = JSON.parse(fs.readFileSync(path.join(REPORTS, 'canonicalLibrary.conference.json'), 'utf8'));
+  for (const p of j.periodicals) for (const v of p.volumes) for (const i of v.issues) for (const a of i.articles) {
+    if (!a.doi) continue;
+    canon.set(a.doi.toLowerCase().trim(), {
+      title: a.title, abstract: a.abstract,
+      year: a.pubDate?.year ?? null, month: a.pubDate?.month ?? null, day: a.pubDate?.day ?? null,
+      authors: (a.authors || []).map(x => x.name).filter(Boolean),
+      keywords: a.keywords || [],
+      journalTitle: p.title, kind: 'journal',
+    });
+  }
+  for (const cf of c.conferences) for (const a of cf.articles) {
+    if (!a.doi) continue;
+    canon.set(a.doi.toLowerCase().trim(), {
+      title: a.title, abstract: a.abstract,
+      year: a.pubDate?.year ?? null, month: a.pubDate?.month ?? null, day: a.pubDate?.day ?? null,
+      authors: (a.authors || []).map(x => x.name).filter(Boolean),
+      keywords: a.keywords || [],
+      journalTitle: cf.title, kind: 'conference',
+    });
+  }
+}
+console.log(`[backfill] canonical DOIs: ${canon.size}`);
+
+const docs = loadAllDocs();
+
+// ---- walk -----------------------------------------------------------------
+const changes = []; // { doc, field, path: [..], newValue, note, originalValue }
+const authorsDrift = [];
+const abstractDrift = [];
+const tally = { pubMonth: 0, journalTitle: 0, abstract: 0, keywords: 0 };
+const skipped = { pubMonthConflict: 0, lockedField: 0 };
+
+function isLocked(doc, key) {
+  const m = doc[`${key}$meta`];
+  return m && m.excludeChanges === true;
+}
+
+for (const doc of docs) {
+  if (!doc.doi) continue;
+  const hit = canon.get(String(doc.doi).toLowerCase().trim());
+  if (!hit) continue;
+
+  // 1. pubMonth — only the yyyy-01-01 placeholder pattern
+  const pd = String(doc.publicationDate || '');
+  const m = pd.match(/^(\d{4})-01-01$/);
+  if (m && hit.month != null && Number(hit.month) >= 1 && Number(hit.month) <= 12 && Number(hit.month) !== 1
+      && String(hit.year) === m[1]) {
+    if (isLocked(doc, 'publicationDate')) { skipped.lockedField++; }
+    else {
+      const mm = String(hit.month).padStart(2, '0');
+      const dd = hit.day != null ? String(hit.day).padStart(2, '0') : '01';
+      changes.push({
+        doc, field: 'pubMonth', key: 'publicationDate',
+        newValue: `${m[1]}-${mm}-${dd}`,
+        originalValue: pd,
+        note: 'Month corrected from SMPTE canonical repository (registry had Jan-1 placeholder)',
+      });
+      tally.pubMonth++;
+    }
+  }
+
+  // 2. journalTitle — journal-kind only, registry empty (new field, always empty today)
+  if (hit.kind === 'journal' && hit.journalTitle && !doc.journalTitle) {
+    changes.push({
+      doc, field: 'journalTitle', key: 'journalTitle',
+      newValue: cleanText(hit.journalTitle),
+      originalValue: null,
+      note: 'Era-accurate journal title from SMPTE canonical repository (periodical parent at time of publication)',
+    });
+    tally.journalTitle++;
+  }
+
+  // 3. abstract — registry empty, canonical present
+  const regAbsEmpty = doc.abstract == null || String(doc.abstract).trim() === '';
+  const canAbs = cleanText(hit.abstract);
+  if (regAbsEmpty && canAbs) {
+    if (isLocked(doc, 'abstract')) { skipped.lockedField++; }
+    else {
+      changes.push({
+        doc, field: 'abstract', key: 'abstract',
+        newValue: canAbs,
+        originalValue: null,
+        note: 'Backfilled from SMPTE canonical repository',
+      });
+      tally.abstract++;
+    }
+  } else if (!regAbsEmpty && canAbs) {
+    // drift report — both present, normalized-prefix differs
+    const rp = normText(doc.abstract).slice(0, 120);
+    const cp = normText(canAbs).slice(0, 120);
+    if (rp !== cp) abstractDrift.push({ docId: doc.docId, registry: String(doc.abstract).slice(0, 160), canonical: canAbs.slice(0, 160) });
+  }
+
+  // 4. keywords — registry empty, canonical present
+  const regKwEmpty = !Array.isArray(doc.keywords) || doc.keywords.length === 0;
+  const canKw = (hit.keywords || []).map(cleanText).filter(Boolean);
+  if (regKwEmpty && canKw.length) {
+    if (isLocked(doc, 'keywords')) { skipped.lockedField++; }
+    else {
+      changes.push({
+        doc, field: 'keywords', key: 'keywords',
+        newValue: canKw,
+        originalValue: null,
+        note: 'Backfilled from SMPTE canonical repository',
+      });
+      tally.keywords++;
+    }
+  }
+
+  // authors drift report — both present, loose-name sets differ
+  const regAuthors = (doc.authors || []).map(regAuthorName).filter(Boolean);
+  if (regAuthors.length && hit.authors.length) {
+    const regSet = new Set(regAuthors.map(looseName));
+    const canSet = new Set(hit.authors.map(looseName));
+    const equal = regSet.size === canSet.size && [...regSet].every(x => canSet.has(x));
+    if (!equal) authorsDrift.push({ docId: doc.docId, registry: regAuthors, canonical: hit.authors });
+  }
+}
+
+console.log(`[backfill] pending changes: ${JSON.stringify(tally)}`);
+console.log(`[backfill] skipped: ${JSON.stringify(skipped)}`);
+console.log(`[backfill] authors drift: ${authorsDrift.length} | abstract drift: ${abstractDrift.length}`);
+
+// ---- reports --------------------------------------------------------------
+const md = [];
+md.push('# Canonical field backfill — passes 1-3');
+md.push('');
+md.push(`> Generated: ${NOW}`);
+md.push(`> Mode: **${APPLY ? 'APPLY' : 'DRY-RUN'}**`);
+md.push('');
+md.push('| pass | field | changes |');
+md.push('|---|---|---:|');
+md.push(`| 1 | publicationDate month (Jan-1 placeholder → canonical month) | ${tally.pubMonth} |`);
+md.push(`| 2 | journalTitle (era-accurate, journal-kind) | ${tally.journalTitle} |`);
+md.push(`| 3a | abstract (canonical-only fill) | ${tally.abstract} |`);
+md.push(`| 3b | keywords (canonical-only fill) | ${tally.keywords} |`);
+md.push('');
+md.push('## Samples (first 25 per pass)');
+for (const f of ['pubMonth', 'journalTitle', 'abstract', 'keywords']) {
+  const rows = changes.filter(c => c.field === f).slice(0, 25);
+  if (!rows.length) continue;
+  md.push('');
+  md.push(`### ${f}`);
+  md.push('');
+  md.push('| docId | old | new |');
+  md.push('|---|---|---|');
+  for (const c of rows) {
+    const oldV = JSON.stringify(c.originalValue ?? '').slice(0, 60).replace(/\|/g, '\\|');
+    const newV = JSON.stringify(c.newValue ?? '').slice(0, 80).replace(/\|/g, '\\|');
+    md.push(`| \`${c.doc.docId}\` | ${oldV} | ${newV} |`);
+  }
+}
+fs.writeFileSync(path.join(REPORTS, 'canonicalFieldBackfill.md'), md.join('\n') + '\n');
+
+function driftReport(name, rows, file) {
+  const r = [];
+  r.push(`# ${name} — registry vs canonical (both present, different)`);
+  r.push('');
+  r.push(`> Generated: ${NOW} · ${rows.length} docs · review list, never auto-written`);
+  r.push('');
+  r.push('| docId | registry | canonical |');
+  r.push('|---|---|---|');
+  for (const d of rows) {
+    const reg = JSON.stringify(d.registry).slice(0, 120).replace(/\|/g, '\\|');
+    const can = JSON.stringify(d.canonical).slice(0, 120).replace(/\|/g, '\\|');
+    r.push(`| \`${d.docId}\` | ${reg} | ${can} |`);
+  }
+  fs.writeFileSync(path.join(REPORTS, file), r.join('\n') + '\n');
+}
+driftReport('Authors drift', authorsDrift, 'authorsDrift.md');
+driftReport('Abstract drift', abstractDrift, 'abstractDrift.md');
+console.log(`[backfill] wrote canonicalFieldBackfill.md + authorsDrift.md + abstractDrift.md`);
+
+// ---- apply ----------------------------------------------------------------
+function sortKeysDeep(v) {
+  if (Array.isArray(v)) return v.map(sortKeysDeep);
+  if (v && typeof v === 'object') {
+    const out = {};
+    for (const k of Object.keys(v).sort()) out[k] = sortKeysDeep(v[k]);
+    return out;
+  }
+  return v;
+}
+
+if (!APPLY) {
+  console.log(`\nDry run — pass --apply to write ${changes.length} field changes.`);
+  process.exit(0);
+}
+
+// Group by doc so multi-field docs are written once
+const byDoc = new Map();
+for (const c of changes) {
+  if (!byDoc.has(c.doc.docId)) byDoc.set(c.doc.docId, { doc: c.doc, fields: [] });
+  byDoc.get(c.doc.docId).fields.push(c);
+}
+let written = 0;
+for (const { doc, fields } of byDoc.values()) {
+  for (const c of fields) {
+    doc[c.key] = c.newValue;
+    doc[`${c.key}$meta`] = {
+      source: 'parsed',
+      confidence: 'high',
+      note: c.note + ' (smpte-canonical-audit/canonicalLibrary.*.json)',
+      originalValue: c.originalValue,
+      updated: NOW,
+      version: VERSION,
+    };
+  }
+  const sorted = sortKeysDeep(doc);
+  const target = docAbsPath(sorted);
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  fs.writeFileSync(target, JSON.stringify(sorted, null, 2) + '\n');
+  written++;
+}
+console.log(`\nApplied ${changes.length} field changes across ${written} docs.`);
+console.log('Reminder: npm run canonicalize && npm run validate, then commit.');
