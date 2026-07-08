@@ -1,16 +1,28 @@
 # Canonical field backfill — passes 1-3
 
-> Generated: 2026-07-08T00:14:05.235Z
+> Generated: 2026-07-08T00:29:48.349Z
 > Mode: **DRY-RUN**
 
 | pass | field | changes |
 |---|---|---:|
+| 0 | publicationDate year (5 approved digit-error fixes) | 5 |
 | 1 | publicationDate month (Jan-1 placeholder → canonical month) | 2378 |
 | 2 | journalTitle (era-accurate, journal-kind) | 21905 |
 | 3a | abstract (canonical-only fill) | 462 |
 | 3b | keywords (canonical-only fill) | 305 |
+| 4 | authors (same-count name fixes; written under --apply-authors) | 45 |
 
 ## Samples (first 25 per pass)
+
+### pubYear
+
+| docId | old | new |
+|---|---|---|
+| `10.5594-J05436` | "1932-11-01" | "1935-01-01" |
+| `10.5594-J15292` | "1992-05-01" | "1995-05-01" |
+| `10.5594-J17253` | "1992-05-01" | "1995-06-01" |
+| `10.5594-J18005` | "1930-02-01" | "1918-04-01" |
+| `10.5594-M00395` | "2015-10-19" | "2005-11-01" |
 
 ### pubMonth
 
@@ -131,3 +143,33 @@
 | `10.5594-M001074` | "" | ["Digital cinema","wide gamut capture","color cameras","color reproduction"] |
 | `10.5594-M001075` | "" | ["VDSLR","Post Production","Optimum Image Codec","Digital Enhancement Techniques |
 | `10.5594-M001077` | "" | ["22.2 multichannel sound","HRIR","binaural processing","individual variation"," |
+
+### authors
+
+| docId | old | new |
+|---|---|---|
+| `10.5594-J00465` | [{"affiliation":"22210 Victory Boulevard, Woodland Hills, CA | [{"affiliation":"22210 Victory Boulevard, Woodland Hills, CA 91367.","name":"Wil |
+| `10.5594-J00536142142A` | [{"name":"G.R."}] | [{"name":"Gury Rosenberger"}] |
+| `10.5594-J00666` | [{"name":"By Richard G. Streeter"}] | [{"name":"Richard G. Streeter"}] |
+| `10.5594-J00867` | [{"name":"W. A. Cook"},{"name":"L. A. Jones"}] | [{"name":"Willard B. Cook"},{"name":"L. A. Jones"}] |
+| `10.5594-J01128` | [{"name":"Harry R. Glason"}] | [{"name":"Harry R. Clason"}] |
+| `10.5594-J03550` | [{"affiliation":"N. V. Philips, Eindhoven, Netherlands","nam | [{"affiliation":"N. V. Philips, Eindhoven, Netherlands","name":"J. van den Berg" |
+| `10.5594-J05045` | [{"name":"A. C. Dowries"}] | [{"name":"A. C. Downes"}] |
+| `10.5594-J05731` | [{"affiliation":"DeLuxe General Inc., 1546 N. Argyle Ave., H | [{"affiliation":"DeLuxe General Inc., 1546 N. Argyle Ave., Hollywood, CA 90028." |
+| `10.5594-J05746` | [{"affiliation":"Hughes Aircraft Co., El Segundo, Calif.","n | [{"affiliation":"Hughes Aircraft Co., El Segundo, Calif.","name":"C. Caswick"},{ |
+| `10.5594-J05852` | [{"affiliation":"Dept. of Mechanics, Illinois Institute of T | [{"affiliation":"Dept. of Mechanics, Illinois Institute of Technology, 3300 S. F |
+| `10.5594-J05889` | [{"affiliation":"Research Laboratories, N. V. Philips' Gloei | [{"affiliation":"Research Laboratories, N. V. Philips' Gloeilampenfabrieken, Ein |
+| `10.5594-J06198` | [{"affiliation":"Chairman, Subcommittee for Image Assessment | [{"affiliation":"Chairman, Subcommittee for Image Assessment Problems, I.C.O. c/ |
+| `10.5594-J06610` | [{"name":"U. L. Mistry"}] | [{"name":"D. L. Mistry"}] |
+| `10.5594-J07182` | [{"affiliation":"Walt Disney Productions, 2400 West Alameda  | [{"affiliation":"Walt Disney Productions, 2400 West Alameda Ave., Burbank, Calif |
+| `10.5594-J07583` | [{"affiliation":"Eastman Kodak Co., Photographic Technology  | [{"affiliation":"Eastman Kodak Co., Photographic Technology Div., Bldg. 69, Koda |
+| `10.5594-J08310` | [{"affiliation":"Du Art Film Laboratories. Inc., 245 W. 55 S | [{"affiliation":"Du Art Film Laboratories. Inc., 245 W. 55 St., New York, N.Y. 1 |
+| `10.5594-J08599` | [{"affiliation":"Neuilly, Paris, France","name":"Louis Lumiè | [{"affiliation":"Neuilly, Paris, France","name":"Louis Lumiere"}] |
+| `10.5594-J08654` | [{"affiliation":"Dye Research Laboratories, Los Angeles, Cal | [{"affiliation":"Dye Research Laboratories, Los Angeles, Calif.","name":"T. R. B |
+| `10.5594-J09018` | [{"affiliation":"CBS Television Network, 51 West 52 St., New | [{"affiliation":"CBS Television Network, 51 West 52 St., New York, NY 10019.","n |
+| `10.5594-J10202` | [{"name":"E. S. Burnap"}] | [{"name":"R. S. Burnap"}] |
+| `10.5594-J11426` | [{"affiliation":"BBC Research, U.K.","name":"J. Chandaria"}, | [{"affiliation":"BBC Research, U.K.","name":"J. Chandaria"},{"affiliation":"BBC  |
+| `10.5594-J11462` | [{"affiliation":"Television Broadcast Technology","name":"Mi | [{"affiliation":"Television Broadcast Technology","name":"Michael Dolan"}] |
+| `10.5594-J11956` | [{"name":"J. R. Aburger"}] | [{"name":"J. R. Alburger"}] |
+| `10.5594-J11990` | [{"name":"Frayne, J.G."},{"name":"Scoville, R.R."}] | [{"name":"J. G. Frayne"},{"name":"R. R. Scoville"}] |
+| `10.5594-J12007` | [{"name":"H. Nbumann"}] | [{"name":"H. Neumann"}] |

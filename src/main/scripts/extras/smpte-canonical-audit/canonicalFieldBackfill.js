@@ -40,6 +40,7 @@ const { loadAllDocs, docAbsPath } = require('../../../lib/registry');
 
 const REPORTS = 'src/main/reports/smpte-canonical-audit';
 const APPLY = process.argv.includes('--apply');
+const APPLY_AUTHORS = process.argv.includes('--apply-authors');
 const NOW = new Date().toISOString();
 const VERSION = 'smpte-canonical-repo@v1';
 
@@ -113,7 +114,7 @@ const docs = loadAllDocs();
 const changes = []; // { doc, field, path: [..], newValue, note, originalValue }
 const authorsDrift = [];
 const abstractDrift = [];
-const tally = { pubMonth: 0, journalTitle: 0, abstract: 0, keywords: 0 };
+const tally = { pubYear: 0, pubMonth: 0, journalTitle: 0, abstract: 0, keywords: 0 };
 const skipped = { pubMonthConflict: 0, lockedField: 0 };
 
 function isLocked(doc, key) {
@@ -121,10 +122,38 @@ function isLocked(doc, key) {
   return m && m.excludeChanges === true;
 }
 
+// pubYear drift — user reviewed all 5 surviving rows on 2026-07-08 and
+// confirmed canonical is correct in each (2↔5 keying errors and similar).
+// Full-date rewrite from canonical year+month (day 01 when canonical has none).
+const APPROVED_PUBYEAR_FIXES = new Set([
+  '10.5594-J05436',
+  '10.5594-J15292',
+  '10.5594-J17253',
+  '10.5594-J18005',
+  '10.5594-M00395',
+]);
+
 for (const doc of docs) {
   if (!doc.doi) continue;
   const hit = canon.get(String(doc.doi).trim());
   if (!hit) continue;
+
+  // 0. pubYear — the 5 user-approved digit-error fixes (canonical wins)
+  if (APPROVED_PUBYEAR_FIXES.has(doc.docId) && hit.year) {
+    const mm = hit.month != null && Number(hit.month) >= 1 && Number(hit.month) <= 12
+      ? String(hit.month).padStart(2, '0') : '01';
+    const dd = hit.day != null ? String(hit.day).padStart(2, '0') : '01';
+    const newDate = `${hit.year}-${mm}-${dd}`;
+    if (String(doc.publicationDate || '') !== newDate && !isLocked(doc, 'publicationDate')) {
+      changes.push({
+        doc, field: 'pubYear', key: 'publicationDate',
+        newValue: newDate,
+        originalValue: doc.publicationDate || null,
+        note: 'Year corrected from SMPTE canonical repository (registry had digit-level keying error; approved 2026-07-08)',
+      });
+      tally.pubYear = (tally.pubYear || 0) + 1;
+    }
+  }
 
   // 1. pubMonth — only the yyyy-01-01 placeholder pattern
   const pd = String(doc.publicationDate || '');
@@ -193,13 +222,35 @@ for (const doc of docs) {
     }
   }
 
-  // authors drift report — both present, loose-name sets differ
+  // authors — both present, loose-name sets differ.
+  // Same-count drift = canonical name wins (approved 2026-07-08): prefix
+  // junk ('Mr.', 'By'), initial expansion, and OCR spelling fixes. Names
+  // are replaced POSITIONALLY on the existing author objects so bio /
+  // affiliation enrichment survives. Count-mismatch rows stay review-only
+  // (authorsCountDiff — mixed bag incl. possible cross-matched articles).
   const regAuthors = (doc.authors || []).map(regAuthorName).filter(Boolean);
   if (regAuthors.length && hit.authors.length) {
     const regSet = new Set(regAuthors.map(looseName));
     const canSet = new Set(hit.authors.map(looseName));
     const equal = regSet.size === canSet.size && [...regSet].every(x => canSet.has(x));
-    if (!equal) authorsDrift.push({ docId: doc.docId, registry: regAuthors, canonical: hit.authors });
+    if (!equal) {
+      if (regAuthors.length === hit.authors.length && !isLocked(doc, 'authors')) {
+        const newAuthors = (doc.authors || []).map((a, i) => {
+          const cleanName = cleanText(hit.authors[i]);
+          if (typeof a === 'string') return cleanName;
+          return { ...a, name: cleanName };
+        });
+        changes.push({
+          doc, field: 'authors', key: 'authors',
+          newValue: newAuthors,
+          originalValue: doc.authors,
+          note: 'Author names corrected from SMPTE canonical repository (prefix junk / initials / OCR spelling; positional replace preserving bio+affiliation; approved 2026-07-08)',
+        });
+        tally.authors = (tally.authors || 0) + 1;
+      } else {
+        authorsDrift.push({ docId: doc.docId, registry: regAuthors, canonical: hit.authors });
+      }
+    }
   }
 }
 
@@ -216,13 +267,15 @@ md.push(`> Mode: **${APPLY ? 'APPLY' : 'DRY-RUN'}**`);
 md.push('');
 md.push('| pass | field | changes |');
 md.push('|---|---|---:|');
+md.push(`| 0 | publicationDate year (5 approved digit-error fixes) | ${tally.pubYear || 0} |`);
 md.push(`| 1 | publicationDate month (Jan-1 placeholder → canonical month) | ${tally.pubMonth} |`);
 md.push(`| 2 | journalTitle (era-accurate, journal-kind) | ${tally.journalTitle} |`);
 md.push(`| 3a | abstract (canonical-only fill) | ${tally.abstract} |`);
 md.push(`| 3b | keywords (canonical-only fill) | ${tally.keywords} |`);
+md.push(`| 4 | authors (same-count name fixes; written under --apply-authors) | ${tally.authors || 0} |`);
 md.push('');
 md.push('## Samples (first 25 per pass)');
-for (const f of ['pubMonth', 'journalTitle', 'abstract', 'keywords']) {
+for (const f of ['pubYear', 'pubMonth', 'journalTitle', 'abstract', 'keywords', 'authors']) {
   const rows = changes.filter(c => c.field === f).slice(0, 25);
   if (!rows.length) continue;
   md.push('');
@@ -253,9 +306,9 @@ function driftReport(name, rows, file) {
   }
   fs.writeFileSync(path.join(REPORTS, file), r.join('\n') + '\n');
 }
-driftReport('Authors drift', authorsDrift, 'authorsDrift.md');
+driftReport('Authors count-mismatch drift', authorsDrift, 'authorsCountDiff.md');
 driftReport('Abstract drift', abstractDrift, 'abstractDrift.md');
-console.log(`[backfill] wrote canonicalFieldBackfill.md + authorsDrift.md + abstractDrift.md`);
+console.log(`[backfill] wrote canonicalFieldBackfill.md + authorsCountDiff.md + abstractDrift.md`);
 
 // ---- apply ----------------------------------------------------------------
 function sortKeysDeep(v) {
@@ -268,14 +321,23 @@ function sortKeysDeep(v) {
   return v;
 }
 
-if (!APPLY) {
-  console.log(`\nDry run — pass --apply to write ${changes.length} field changes.`);
+// Partition: authors changes write only under --apply-authors; the rest
+// only under --apply. Flags combine.
+const authorChanges = changes.filter(c => c.field === 'authors');
+const fieldChanges = changes.filter(c => c.field !== 'authors');
+const toWrite = [
+  ...(APPLY ? fieldChanges : []),
+  ...(APPLY_AUTHORS ? authorChanges : []),
+];
+if (!toWrite.length) {
+  console.log(`\nDry run — pass --apply to write ${fieldChanges.length} field changes,`);
+  console.log(`          --apply-authors to write ${authorChanges.length} author-name fixes (flags combine).`);
   process.exit(0);
 }
 
 // Group by doc so multi-field docs are written once
 const byDoc = new Map();
-for (const c of changes) {
+for (const c of toWrite) {
   if (!byDoc.has(c.doc.docId)) byDoc.set(c.doc.docId, { doc: c.doc, fields: [] });
   byDoc.get(c.doc.docId).fields.push(c);
 }
@@ -298,5 +360,5 @@ for (const { doc, fields } of byDoc.values()) {
   fs.writeFileSync(target, JSON.stringify(sorted, null, 2) + '\n');
   written++;
 }
-console.log(`\nApplied ${changes.length} field changes across ${written} docs.`);
+console.log(`\nApplied ${toWrite.length} field changes across ${written} docs.`);
 console.log('Reminder: npm run canonicalize && npm run validate, then commit.');
