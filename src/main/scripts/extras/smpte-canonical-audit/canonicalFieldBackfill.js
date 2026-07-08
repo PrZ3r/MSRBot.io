@@ -133,6 +133,18 @@ const APPROVED_PUBYEAR_FIXES = new Set([
   '10.5594-M00395',
 ]);
 
+// Author count-mismatch drift — user reviewed all 15 rows on 2026-07-08:
+// canonical is correct in every case (junk initials, missing coauthors,
+// and outright wrong author lists on the registry side). Author arrays
+// are REBUILT from canonical names; bio/affiliation carried over where a
+// registry author loosely matches by name, else plain {name}.
+const APPROVED_AUTHOR_COUNT_FIXES = new Set([
+  '10.5594-J01003', '10.5594-J05083', '10.5594-J05722', '10.5594-J07544',
+  '10.5594-J10421', '10.5594-J10863', '10.5594-J11525', '10.5594-J11679',
+  '10.5594-J11743', '10.5594-J13515', '10.5594-J14913', '10.5594-J15588',
+  '10.5594-J17816', '10.5594-M00524', '10.5594-j18591',
+]);
+
 for (const doc of docs) {
   if (!doc.doi) continue;
   const hit = canon.get(String(doc.doi).trim());
@@ -245,6 +257,27 @@ for (const doc of docs) {
           newValue: newAuthors,
           originalValue: doc.authors,
           note: 'Author names corrected from SMPTE canonical repository (prefix junk / initials / OCR spelling; positional replace preserving bio+affiliation; approved 2026-07-08)',
+        });
+        tally.authors = (tally.authors || 0) + 1;
+      } else if (APPROVED_AUTHOR_COUNT_FIXES.has(doc.docId) && !isLocked(doc, 'authors')) {
+        // Rebuild from canonical; carry bio/affiliation over on loose-name match.
+        const regObjs = (doc.authors || []).filter(a => a && typeof a === 'object');
+        const newAuthors = hit.authors.map(name => {
+          const cleanName = cleanText(name);
+          const match = regObjs.find(a => looseName(a.name) === looseName(cleanName));
+          if (match && (match.bio || match.affiliation)) {
+            const out = { name: cleanName };
+            if (match.bio) out.bio = match.bio;
+            if (match.affiliation) out.affiliation = match.affiliation;
+            return out;
+          }
+          return { name: cleanName };
+        });
+        changes.push({
+          doc, field: 'authors', key: 'authors',
+          newValue: newAuthors,
+          originalValue: doc.authors,
+          note: 'Author list rebuilt from SMPTE canonical repository (count-mismatch review: canonical correct in all 15 cases; approved 2026-07-08)',
         });
         tally.authors = (tally.authors || 0) + 1;
       } else {
