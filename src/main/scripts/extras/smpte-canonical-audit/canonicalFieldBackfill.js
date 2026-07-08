@@ -218,20 +218,15 @@ for (const doc of docs) {
     if (rp !== cp) abstractDrift.push({ docId: doc.docId, registry: String(doc.abstract).slice(0, 160), canonical: canAbs.slice(0, 160) });
   }
 
-  // 4. keywords — registry empty, canonical present
+  // 4. keywords — DISABLED 2026-07-08. The canonical index_terms are IEEE
+  // free vocabulary (HEVC, Zynq, XEL-1, …): ~1,620 terms outside site.json
+  // controlledKeywords, and keyword validation runs in error mode. Counted
+  // here for the report; writing is blocked until the vocab decision
+  // (curate additions into controlledKeywords vs. skip).
   const regKwEmpty = !Array.isArray(doc.keywords) || doc.keywords.length === 0;
   const canKw = (hit.keywords || []).map(cleanText).filter(Boolean);
   if (regKwEmpty && canKw.length) {
-    if (isLocked(doc, 'keywords')) { skipped.lockedField++; }
-    else {
-      changes.push({
-        doc, field: 'keywords', key: 'keywords',
-        newValue: canKw,
-        originalValue: null,
-        note: 'Backfilled from SMPTE canonical repository',
-      });
-      tally.keywords++;
-    }
+    tally.keywords++; // pending vocab decision — no write
   }
 
   // authors — both present, loose-name sets differ.
@@ -304,7 +299,7 @@ md.push(`| 0 | publicationDate year (5 approved digit-error fixes) | ${tally.pub
 md.push(`| 1 | publicationDate month (Jan-1 placeholder → canonical month) | ${tally.pubMonth} |`);
 md.push(`| 2 | journalTitle (era-accurate, journal-kind) | ${tally.journalTitle} |`);
 md.push(`| 3a | abstract (canonical-only fill) | ${tally.abstract} |`);
-md.push(`| 3b | keywords (canonical-only fill) | ${tally.keywords} |`);
+md.push(`| 3b | keywords (canonical-only — REPORT ONLY, pending vocab decision) | ${tally.keywords} |`);
 md.push(`| 4 | authors (same-count name fixes; written under --apply-authors) | ${tally.authors || 0} |`);
 md.push('');
 md.push('## Samples (first 25 per pass)');
