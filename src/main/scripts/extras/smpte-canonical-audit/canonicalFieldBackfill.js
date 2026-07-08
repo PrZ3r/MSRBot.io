@@ -41,6 +41,7 @@ const { loadAllDocs, docAbsPath } = require('../../../lib/registry');
 const REPORTS = 'src/main/reports/smpte-canonical-audit';
 const APPLY = process.argv.includes('--apply');
 const APPLY_AUTHORS = process.argv.includes('--apply-authors');
+const APPLY_KW_MERGE = process.argv.includes('--apply-keywords-merge');
 const NOW = new Date().toISOString();
 const VERSION = 'smpte-canonical-repo@v1';
 
@@ -259,6 +260,34 @@ for (const doc of docs) {
         tally.keywords++;
       }
     }
+  } else if (!regKwEmpty && canKw.length) {
+    // 4b. keywords MERGE — doc already has keywords; union in any canonical
+    // terms that map to vocab and aren't present yet. Existing list order
+    // and casing preserved; new terms appended. Written only under
+    // --apply-keywords-merge.
+    if (!isLocked(doc, 'keywords')) {
+      const have = new Set(doc.keywords.map(k => String(k).toLowerCase()));
+      const additions = [];
+      for (const k of canKw) {
+        const lo = k.toLowerCase();
+        let target = vocabByLower.get(lo) || null;
+        if (!target && kwFolds[lo]) target = kwFolds[lo];
+        if (!target) continue;
+        const key = target.toLowerCase();
+        if (have.has(key)) continue;
+        have.add(key);
+        additions.push(target);
+      }
+      if (additions.length) {
+        changes.push({
+          doc, field: 'keywordsMerge', key: 'keywords',
+          newValue: [...doc.keywords, ...additions],
+          originalValue: doc.keywords,
+          note: 'Union-merged canonical repository index_terms into existing keywords (vocab-mapped; existing entries preserved verbatim)',
+        });
+        tally.keywordsMerge = (tally.keywordsMerge || 0) + 1;
+      }
+    }
   }
 
   // authors — both present, loose-name sets differ.
@@ -331,8 +360,9 @@ md.push(`| 0 | publicationDate year (5 approved digit-error fixes) | ${tally.pub
 md.push(`| 1 | publicationDate month (Jan-1 placeholder → canonical month) | ${tally.pubMonth} |`);
 md.push(`| 2 | journalTitle (era-accurate, journal-kind) | ${tally.journalTitle} |`);
 md.push(`| 3a | abstract (canonical-only fill) | ${tally.abstract} |`);
-md.push(`| 3b | keywords (canonical-only — REPORT ONLY, pending vocab decision) | ${tally.keywords} |`);
-md.push(`| 4 | authors (same-count name fixes; written under --apply-authors) | ${tally.authors || 0} |`);
+md.push(`| 3b | keywords (empty-doc fill, vocab-mapped) | ${tally.keywords} |`);
+md.push(`| 4b | keywords merge (union into existing; --apply-keywords-merge) | ${tally.keywordsMerge || 0} |`);
+md.push(`| 5 | authors (name fixes; written under --apply-authors) | ${tally.authors || 0} |`);
 md.push('');
 md.push('## Samples (first 25 per pass)');
 for (const f of ['pubYear', 'pubMonth', 'journalTitle', 'abstract', 'keywords', 'authors']) {
@@ -381,17 +411,21 @@ function sortKeysDeep(v) {
   return v;
 }
 
-// Partition: authors changes write only under --apply-authors; the rest
-// only under --apply. Flags combine.
+// Partition: authors changes write only under --apply-authors; keyword
+// merges only under --apply-keywords-merge; the rest under --apply.
+// Flags combine.
 const authorChanges = changes.filter(c => c.field === 'authors');
-const fieldChanges = changes.filter(c => c.field !== 'authors');
+const kwMergeChanges = changes.filter(c => c.field === 'keywordsMerge');
+const fieldChanges = changes.filter(c => c.field !== 'authors' && c.field !== 'keywordsMerge');
 const toWrite = [
   ...(APPLY ? fieldChanges : []),
   ...(APPLY_AUTHORS ? authorChanges : []),
+  ...(APPLY_KW_MERGE ? kwMergeChanges : []),
 ];
 if (!toWrite.length) {
   console.log(`\nDry run — pass --apply to write ${fieldChanges.length} field changes,`);
-  console.log(`          --apply-authors to write ${authorChanges.length} author-name fixes (flags combine).`);
+  console.log(`          --apply-authors to write ${authorChanges.length} author-name fixes,`);
+  console.log(`          --apply-keywords-merge to write ${kwMergeChanges.length} keyword unions (flags combine).`);
   process.exit(0);
 }
 

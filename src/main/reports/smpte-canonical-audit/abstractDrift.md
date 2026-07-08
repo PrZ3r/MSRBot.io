@@ -1,6 +1,6 @@
 # Abstract drift — registry vs canonical (both present, different)
 
-> Generated: 2026-07-08T23:52:57.741Z · 109 docs · review list, never auto-written
+> Generated: 2026-07-08T23:56:29.541Z · 109 docs · review list, never auto-written
 
 | docId | registry | canonical |
 |---|---|---|
