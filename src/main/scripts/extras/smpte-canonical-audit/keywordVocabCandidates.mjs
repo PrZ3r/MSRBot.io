@@ -36,13 +36,13 @@ const S = new Map(Object.entries({
   'stereoscopic 3d':           { v: 'FOLD', to: 'Stereoscopic' },
   'stereoscopy':               { v: 'FOLD', to: 'Stereoscopic' },
   '3dtv':                      { v: 'FOLD', to: 'Stereoscopic' },
-  'disparity':                 { v: 'FOLD', to: 'Stereoscopic', note: 'stereo-vision term' },
-  'visual fatigue':            { v: 'FOLD', to: 'Stereoscopic', note: 'stereo-viewing research' },
+  'disparity':                  { v: 'ADD', as: 'Disparity' },
+  'visual fatigue':             { v: 'ADD', as: 'Visual Fatigue' },
   '4k':                        { v: 'ADD', as: '4K' },
   '8k':                        { v: 'ADD', as: '8K' },
   '2k':                        { v: 'ADD', as: '2K' },
   'uhd':                       { v: 'FOLD', to: 'UHDTV' },
-  'super hi-vision':           { v: 'FOLD', to: '8K', note: 'NHK 8K brand name' },
+  'super hi-vision':            { v: 'ADD', as: 'Super Hi-Vision' },
   'hd':                        { v: 'FOLD', to: 'HDTV' },
   'hfr':                       { v: 'ADD', as: 'HFR' },
   'high frame rate':           { v: 'FOLD', to: 'HFR' },
@@ -50,34 +50,34 @@ const S = new Map(Object.entries({
   // codecs / compression
   'hevc':                      { v: 'ADD', as: 'HEVC' },
   'high efficiency video coding': { v: 'FOLD', to: 'HEVC' },
-  'h.265':                     { v: 'FOLD', to: 'HEVC' },
-  'h.264':                     { v: 'FOLD', to: 'AVC', note: 'vocab has AVC (= H.264)' },
-  'video compression':         { v: 'FOLD', to: 'Compression' },
+  'h.265':                      { v: 'ADD', as: 'H.265', note: 'kept distinct from HEVC per review' },
+  'h.264':                      { v: 'ADD', as: 'H.264', note: 'kept distinct from AVC per review' },
+  'video compression':          { v: 'ADD', as: 'Video Compression' },
   'data compression':          { v: 'FOLD', to: 'Compression' },
-  'encoding':                  { v: 'FOLD', to: 'Compression' },
+  'encoding':                   { v: 'ADD', as: 'Encoding' },
   'motion estimation':         { v: 'FOLD', to: 'Compression', note: 'codec internals' },
   'transcoding':               { v: 'ADD', as: 'Transcoding' },
   'jpeg 2000':                 { v: 'FOLD', to: 'JPEG2000', note: 'vocab has JPEG2000 (one word)' },
-  'mpeg-2':                    { v: 'FOLD', to: 'MPEG' },
+  'mpeg-2':                     { v: 'ADD', as: 'MPEG-2' },
   // color
   'high dynamic range':        { v: 'FOLD', to: 'HDR' },
   'rec. 2020':                 { v: 'FOLD', to: 'BT.2020', note: 'pick one form — suggest BT.2020 (ITU name), also candidate below' },
   'bt.2020':                   { v: 'ADD', as: 'BT.2020' },
   'wcg':                       { v: 'FOLD', to: 'Color Gamut' },
   'color gamut':               { v: 'ADD', as: 'Color Gamut' },
-  'gamut mapping':             { v: 'FOLD', to: 'Color Gamut' },
+  'gamut mapping':              { v: 'ADD', as: 'Gamut Mapping' },
   'colorimetry':               { v: 'ADD', as: 'Colorimetry' },
   'color management':          { v: 'ADD', as: 'Color Management' },
   // infrastructure / IT
   'cloud':                     { v: 'ADD', as: 'Cloud' },
-  'saas':                      { v: 'FOLD', to: 'Cloud' },
-  'virtualization':            { v: 'FOLD', to: 'Cloud', note: 'or keep distinct — your call' },
+  'saas':                       { v: 'ADD', as: 'SaaS' },
+  'virtualization':             { v: 'ADD', as: 'Virtualization' },
   'soa':                       { v: 'DROP', note: 'dated architecture jargon; Microservices already in vocab' },
   'it':                        { v: 'DROP', note: 'too generic' },
   'gpu':                       { v: 'ADD', as: 'GPU' },
   'fpga':                      { v: 'ADD', as: 'FPGA' },
   'storage':                   { v: 'ADD', as: 'Storage' },
-  'flash memory':              { v: 'FOLD', to: 'Storage' },
+  'flash memory':               { v: 'ADD', as: 'Flash Memory' },
   'lto':                       { v: 'ADD', as: 'LTO' },
   'ltfs':                      { v: 'ADD', as: 'LTFS' },
   'ethernet':                  { v: 'ADD', as: 'Ethernet' },
@@ -103,9 +103,9 @@ const S = new Map(Object.entries({
   // workflow / ops
   'workflow':                  { v: 'ADD', as: 'Workflow' },
   'workflows':                 { v: 'FOLD', to: 'Workflow' },
-  'file-based workflows':      { v: 'FOLD', to: 'Workflow' },
-  'file-based workflow':       { v: 'FOLD', to: 'Workflow' },
-  'file-based':                { v: 'FOLD', to: 'Workflow' },
+  'file-based workflows':      { v: 'FOLD', to: 'File-Based Workflow' },
+  'file-based workflow':        { v: 'ADD', as: 'File-Based Workflow' },
+  'file-based':                { v: 'FOLD', to: 'File-Based Workflow' },
   'post production':           { v: 'ADD', as: 'Post Production' },
   'editing':                   { v: 'FOLD', to: 'Edit', note: 'vocab has Edit' },
   'monitoring':                { v: 'ADD', as: 'Monitoring' },
@@ -124,17 +124,17 @@ const S = new Map(Object.entries({
   'contribution services':     { v: 'FOLD', to: 'Contribution' },
   // perception / research
   'perception':                { v: 'ADD', as: 'Perception' },
-  'human visual system':       { v: 'FOLD', to: 'Perception' },
+  'human visual system':        { v: 'ADD', as: 'Human Visual System' },
   'subjective study':          { v: 'DROP', note: 'methodology, not topic' },
   // audio
-  'spatial audio':             { v: 'FOLD', to: 'Immersive Audio' },
-  'surround':                  { v: 'FOLD', to: 'Immersive Audio', note: 'or ADD Surround — your call' },
+  'spatial audio':              { v: 'ADD', as: 'Spatial Audio' },
+  'surround':                   { v: 'ADD', as: 'Surround' },
   // cinema
   'digital cinema':            { v: 'FOLD', to: 'DCinema' },
   'cinema':                    { v: 'DROP', note: 'Film / Theater / DCinema cover it' },
   // misc
-  'image processing':          { v: 'FOLD', to: 'Processing' },
-  'video signal processing':   { v: 'FOLD', to: 'Processing' },
+  'image processing':           { v: 'ADD', as: 'Image Processing' },
+  'video signal processing':    { v: 'ADD', as: 'Video Signal Processing' },
   'smpte standards':           { v: 'FOLD', to: 'Standards' },
   'ieee':                      { v: 'DROP', note: 'publisher, not topic' },
   'olympics':                  { v: 'DROP', note: 'event, not technology topic — or keep if event coverage matters' },
@@ -233,5 +233,16 @@ md.push('- Terms in <3 docs (1,394 singletons + ~185 doubles) are excluded — t
 md.push('- 99 canonical terms already match controlledKeywords case-insensitively and will flow through the fill regardless.');
 md.push('- FOLD mappings apply only at fill time; they do not rename anything already in the registry.');
 fs.writeFileSync(path.join(REPORTS, 'keywordVocabCandidates.md'), md.join('\n') + '\n');
-console.log(`wrote ${path.join(REPORTS, 'keywordVocabCandidates.md')}`);
+
+// Machine-readable decisions for the fill pass (canonicalFieldBackfill.js).
+// folds: lowercase source term -> vocab target. adds are expected to already
+// be present in site.json controlledKeywords when the fill runs.
+const decisions = {
+  generatedAt: new Date().toISOString(),
+  adds: adds.map(a => a.s.as).sort(),
+  folds: Object.fromEntries(folds.map(f => [f.lo, f.s.to])),
+  drops: drops.map(d => d.lo).sort(),
+};
+fs.writeFileSync(path.join(REPORTS, 'keywordVocabDecisions.json'), JSON.stringify(decisions, null, 2) + '\n');
+console.log(`wrote ${path.join(REPORTS, 'keywordVocabCandidates.md')} + keywordVocabDecisions.json`);
 console.log(`ADD: ${adds.length} · FOLD: ${folds.length} · DROP: ${drops.length} · UNREVIEWED: ${unreviewed.length}`);

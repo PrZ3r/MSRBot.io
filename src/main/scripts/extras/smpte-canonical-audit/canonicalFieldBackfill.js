@@ -108,6 +108,14 @@ const canon = new Map();
 }
 console.log(`[backfill] canonical DOIs: ${canon.size}`);
 
+// keyword vocab: lower -> canonical vocab casing, plus curated synonym folds
+const site = JSON.parse(fs.readFileSync('src/main/config/site.json', 'utf8'));
+const vocabByLower = new Map((site.controlledKeywords || []).map(k => [k.toLowerCase(), k]));
+let kwFolds = {};
+try {
+  kwFolds = JSON.parse(fs.readFileSync(path.join(REPORTS, 'keywordVocabDecisions.json'), 'utf8')).folds || {};
+} catch { console.warn('[backfill] keywordVocabDecisions.json not found — keywords fill will use vocab matches only'); }
+
 const docs = loadAllDocs();
 
 // ---- walk -----------------------------------------------------------------
@@ -218,15 +226,39 @@ for (const doc of docs) {
     if (rp !== cp) abstractDrift.push({ docId: doc.docId, registry: String(doc.abstract).slice(0, 160), canonical: canAbs.slice(0, 160) });
   }
 
-  // 4. keywords — DISABLED 2026-07-08. The canonical index_terms are IEEE
-  // free vocabulary (HEVC, Zynq, XEL-1, …): ~1,620 terms outside site.json
-  // controlledKeywords, and keyword validation runs in error mode. Counted
-  // here for the report; writing is blocked until the vocab decision
-  // (curate additions into controlledKeywords vs. skip).
+  // 4. keywords — RE-ENABLED 2026-07-09 after the vocab curation round.
+  // Each canonical index_term maps through: (a) case-insensitive match
+  // against site.json controlledKeywords (350 entries incl. the 56 adds
+  // from keywordVocabCandidates review) → vocab casing; (b) the FOLD
+  // synonym table from keywordVocabDecisions.json; (c) otherwise dropped.
+  // Only docs that end up with ≥1 mapped term are written.
   const regKwEmpty = !Array.isArray(doc.keywords) || doc.keywords.length === 0;
   const canKw = (hit.keywords || []).map(cleanText).filter(Boolean);
   if (regKwEmpty && canKw.length) {
-    tally.keywords++; // pending vocab decision — no write
+    if (isLocked(doc, 'keywords')) { skipped.lockedField++; }
+    else {
+      const mapped = [];
+      const seen = new Set();
+      for (const k of canKw) {
+        const lo = k.toLowerCase();
+        let target = vocabByLower.get(lo) || null;
+        if (!target && kwFolds[lo]) target = kwFolds[lo];
+        if (!target) continue;
+        const key = target.toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        mapped.push(target);
+      }
+      if (mapped.length) {
+        changes.push({
+          doc, field: 'keywords', key: 'keywords',
+          newValue: mapped,
+          originalValue: null,
+          note: 'Backfilled from SMPTE canonical repository index_terms, mapped through controlledKeywords + curated synonym folds (keywordVocabDecisions.json)',
+        });
+        tally.keywords++;
+      }
+    }
   }
 
   // authors — both present, loose-name sets differ.
