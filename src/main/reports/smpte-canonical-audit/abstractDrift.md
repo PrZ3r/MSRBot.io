@@ -1,6 +1,6 @@
 # Abstract drift — registry vs canonical (both present, different)
 
-> Generated: 2026-07-08T00:05:27.319Z · 126 docs · review list, never auto-written
+> Generated: 2026-07-08T00:14:05.235Z · 109 docs · review list, never auto-written
 
 | docId | registry | canonical |
 |---|---|---|
@@ -113,20 +113,3 @@
 | `10.5594-M00290` | "The Disney Channel has been playing to air from video servers since November 1st, 1996. Twenty-four hours a day, seven  | "The Disney Channel has been playing to air from video servers since November 1<sup>st</sup>, 1996. Twenty-four hours a  |
 | `10.5594-M00390` | "We present a holographic system and experimental results that demonstrate data densities of 100 Gbit/in2 with a write u | "We present a holographic system and experimental results that demonstrate data densities of 100 Gbit/in<sup>2</sup> wit |
 | `10.5594-M00544` | "A previous paper1 discussed the advantages of multi-level compositing when compared with “one layer at a time” techniqu | "A previous paper<sup>1</sup> discussed the advantages of multi-level compositing when compared with “one layer at a tim |
-| `10.5594-j18003` | "The mass digitization of analog archive holdings and the transition to tapeless production for new content mean that au | "When we turn back to the early pages of motion picture history, we come to the time when our pioneer producers began to |
-| `10.5594-j18005` | "Soon, it will no longer be sufficient for only archivists to annotate audiovisual material. Not only is the number of a | "Those of you who ventured into the new and untried, in the days when the motion picture was an undeveloped possibility, |
-| `10.5594-j18006` | "The digital revolution has changed how audiences use and interact with audiovisual media. The National Film Board of Ca | "In approaching the problem of applying suitable standards to appliances in common use in the motion picture industry, i |
-| `10.5594-j18007` | "Recently, the digital cinema distribution chain has added an additional path for showing old, damaged films using prope | "In the development of an incandescent lamp for motion picture service, it is essential to concentrate the light source  |
-| `10.5594-j18013` | "At its January 2011 meeting, the SMPTE Board of Governors spent a day strategizing about how the organization can help  | "Our industry is changing at a dramatic pace. SD video is giving way to HD and data; linear videotape is fast being repl |
-| `10.5594-j18015` | "The meeting on 9 December took the form of a holiday party at the Thunder Grill Washington's Union (railroad) Station,  | "This paper addresses the processing of packetized audio elementary streams (ES) during the splicing of ISO/IEC 13818 (M |
-| `10.5594-j18016` | "Cloud computing has the potential to change the landscape of the media facility. This paper includes a review of fundam | "With the Audio Engineering Society's annual conference for 2000 entitled “Surrounded by Sound,” and the SATIS conferenc |
-| `10.5594-j18039` | "With so much innovation being introduced, the 2011 NAB Show was a pivotal one, drawing an estimated 92,000 attendees to | "The following have been adopted as standards by the Society of Motion Picture Engineers, and are promulgated to encoura |
-| `10.5594-j18054` | "The SMPTE 2nd Annual International Conference on Stereoscopic 3D for Media and Entertainment held on 21-22 June 2011 of | "My reference to Cine-machinery is intended to broadly cover all machinery used for the manufacture, assembling and proj |
-| `10.5594-j18347` | "In this column, we provide interesting historical briefs from the Journal articles of days past. The purpose of this co | "In this paper, three objective image quality metrics are introduced. These metrics are designed to quantify the severit |
-| `10.5594-j18362` | "In this column, we provide interesting historical briefs from the Journal articles of days past. The purpose of this co | "A new system for lip synchronizing has been designed by the Signal Corps Pictorial Center, using a magnetic stripe on t |
-| `10.5594-j18367` | "With the advent of multiple screens for viewing media, transcoding is becoming a key component of content delivery ecos | "A new tracking telescope type of optical recording instrument has been developed for missile programs at white Sands Pr |
-| `10.5594-j18391` | "The SMPTE Motion Imaging Journal publishes papers on technical, engineering, and scientific developments in motion pict | "The Material Laboratory is in the process of developing a method for measuring the magnetic strength existing on 16mm m |
-| `10.5594-j18392` | "Twenty members and guests gathered at ENCO Systems headquarters and manufacturing facility in Southfield, MI, on 25 Feb | "The splicing of motion-picture film with pressure sensitive tape is described. A tape made from thin “Mylar” polyester  |
-| `10.5594-j18393` | "Applications for the SMPTE 2014 Student Paper Award and the Lou Wolf Scholarship are now being accepted." | "The critical requirements of NTSC color signal transmission make it necessary to analyze the characteristics of the coa |
-| `10.5594-j18394` | "SMPTE has issued a call for papers for the prestigious SMPTE 2014 Annual Technical Conference & Exhibition, 21-23 Octob | "The evolution of the motion-picture processing laboratory is traced from the early days of reel-and-trough processing b |
-| `10.5594-j18395` | "Once again, our ability to capture and display images has leap-frogged our ability to transport, control, and monitor t | "A single-pulse, simple timing system, to be used in motion-picture cameras in the range of 200 to 2000 frames/sec, is d |

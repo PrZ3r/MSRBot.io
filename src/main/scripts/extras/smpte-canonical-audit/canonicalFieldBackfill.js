@@ -86,7 +86,7 @@ const canon = new Map();
   const c = JSON.parse(fs.readFileSync(path.join(REPORTS, 'canonicalLibrary.conference.json'), 'utf8'));
   for (const p of j.periodicals) for (const v of p.volumes) for (const i of v.issues) for (const a of i.articles) {
     if (!a.doi) continue;
-    canon.set(a.doi.toLowerCase().trim(), {
+    canon.set(a.doi.trim(), {
       title: a.title, abstract: a.abstract,
       year: a.pubDate?.year ?? null, month: a.pubDate?.month ?? null, day: a.pubDate?.day ?? null,
       authors: (a.authors || []).map(x => x.name).filter(Boolean),
@@ -96,7 +96,7 @@ const canon = new Map();
   }
   for (const cf of c.conferences) for (const a of cf.articles) {
     if (!a.doi) continue;
-    canon.set(a.doi.toLowerCase().trim(), {
+    canon.set(a.doi.trim(), {
       title: a.title, abstract: a.abstract,
       year: a.pubDate?.year ?? null, month: a.pubDate?.month ?? null, day: a.pubDate?.day ?? null,
       authors: (a.authors || []).map(x => x.name).filter(Boolean),
@@ -123,7 +123,7 @@ function isLocked(doc, key) {
 
 for (const doc of docs) {
   if (!doc.doi) continue;
-  const hit = canon.get(String(doc.doi).toLowerCase().trim());
+  const hit = canon.get(String(doc.doi).trim());
   if (!hit) continue;
 
   // 1. pubMonth — only the yyyy-01-01 placeholder pattern

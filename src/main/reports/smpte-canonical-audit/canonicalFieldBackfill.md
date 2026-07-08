@@ -1,13 +1,13 @@
 # Canonical field backfill — passes 1-3
 
-> Generated: 2026-07-08T00:05:27.319Z
+> Generated: 2026-07-08T00:14:05.235Z
 > Mode: **DRY-RUN**
 
 | pass | field | changes |
 |---|---|---:|
 | 1 | publicationDate month (Jan-1 placeholder → canonical month) | 2378 |
-| 2 | journalTitle (era-accurate, journal-kind) | 22014 |
-| 3a | abstract (canonical-only fill) | 477 |
+| 2 | journalTitle (era-accurate, journal-kind) | 21905 |
+| 3a | abstract (canonical-only fill) | 462 |
 | 3b | keywords (canonical-only fill) | 305 |
 
 ## Samples (first 25 per pass)
@@ -90,7 +90,6 @@
 | `10.5594-J09697` | "" | "The NASA Johnson Space Center in Houston, Texas, is the lead NASA center for ma |
 | `10.5594-J18002` | "" | "In the motion picture industry, as in every other modern industry, the trend in |
 | `10.5594-J18008` | "" | "The fact that there are today in operation approximately one thousand motion pi |
-| `10.5594-J18028` | "" | "In recent years, the ability to perform massive parallel computations has becom |
 | `10.5594-J18035` | "" | "Membership in the Society of Motion Picture Engineers stands for unselfish serv |
 | `10.5594-J18053` | "" | "We, in this body, will undoubtedly spend much time and thought on standards, an |
 | `10.5594-J18054` | "" | "My reference to Cine-machinery is intended to broadly cover all machinery used  |
@@ -101,6 +100,7 @@
 | `10.5594-M001001` | "" | "Today we will cover various aspects of Up Conversion for HDTV digital Broadcast |
 | `10.5594-M001020` | "" | "Content creators are looking forward to spreading their offer of services, by r |
 | `10.5594-M001021` | "" | "The 2009 Analog Shutdown is quickly approaching and television broadcasters hav |
+| `10.5594-M001025` | "" | "The cathode ray tube has been a key enabling technology for television since Vl |
 
 ### keywords
 

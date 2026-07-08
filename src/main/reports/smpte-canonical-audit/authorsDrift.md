@@ -1,6 +1,6 @@
 # Authors drift — registry vs canonical (both present, different)
 
-> Generated: 2026-07-08T00:05:27.319Z · 89 docs · review list, never auto-written
+> Generated: 2026-07-08T00:14:05.235Z · 60 docs · review list, never auto-written
 
 | docId | registry | canonical |
 |---|---|---|
@@ -60,36 +60,7 @@
 | `10.5594-J17187` | ["Louis Lumière Cinematograph"] | ["Louis Lumiere"] |
 | `10.5594-J17211` | ["H. Uchida","H. Isakay","T. Yoshida","J. Safar"] | ["H. Uchida","H. Isaka","T. Yoshida","J. Safar"] |
 | `10.5594-J17816` | ["John L. Forrest"] | ["John L. Forrest","Ralph M. Evans","Lloyd Thompson"] |
-| `10.5594-J18212` | ["Jürgen Heitmann"] | ["Brian Markwalter"] |
-| `10.5594-J18216` | ["Jermaine Hall"] | ["Al Kovalick"] |
 | `10.5594-M001028` | ["A. Nowak","S. Fößel"] | ["A. Nowak","S. Fobel"] |
 | `10.5594-M001283` | ["Jørgen Weber"] | ["Jorgen Weber"] |
 | `10.5594-M00524` | ["K. Isesaka","Y. Fujimaki","T. Nakamura","S. Takahashi","K. Kobyashi"] | ["K. Isesaka","Y. Fujimaki","T. Nakamura","S. Takahashi","K. Kobyashi","S. Leader"] |
-| `10.5594-j18003` | ["M. Addis","R. Wright","R. Weerakkody"] | ["Max Mayer"] |
-| `10.5594-j18004` | ["Sean McKee","Victor Panov"] | ["C. Francis Jenkins"] |
-| `10.5594-j18005` | ["Robbie De Sutter","Karel Braeckman"] | ["Alexander F. Victor"] |
-| `10.5594-j18006` | ["Julie Dutrisac","Luisa Frate"] | ["F. H. Richardson"] |
-| `10.5594-j18007` | ["Chulhyun Kim","Vivek Maik","Sangjin Kim","Jaehwan Jeon","Joonki Paik"] | ["A. R. Dennington"] |
-| `10.5594-j18013` | ["Barbara H. Lange"] | ["Peter Swinson"] |
-| `10.5594-j18016` | ["Al Kovalick"] | ["David Griesinger"] |
-| `10.5594-j18017` | ["A. S. Davies"] | ["Michael Dolan"] |
-| `10.5594-j18043` | ["Carlos Vazquez","Wa James Tam"] | ["C. Francis Jenkins"] |
-| `10.5594-j18044` | ["Daniel Howard","Michael Green","Ramanathan Palaniappan","Nikil Jayant"] | ["Carl Louis Gregory"] |
-| `10.5594-j18045` | ["Noriaki Wada","Tatsushi Bannai"] | ["Harvey M. Wible","Max Mayer","W. C. Kunzmann","H. A. Campe"] |
-| `10.5594-j18054` | ["Dianne Purrier"] | ["Donald J. Bell"] |
-| `10.5594-j18056` | ["Patrick Waddell"] | ["Harold E. Edgerton","David A. Cahlander"] |
-| `10.5594-j18057` | ["Florian Camerer"] | ["E. J. G. Beeson"] |
-| `10.5594-j18060` | ["Mihailo Stojancic","Daniel Eakins"] | ["Philip Nolan"] |
-| `10.5594-j18063` | ["Michael Dolan"] | ["Harold E. Edgerton","John Tredwell","Kenneth W. Cooper"] |
-| `10.5594-j18191` | ["Barbara H. Lange"] | ["H. Oertel"] |
-| `10.5594-j18344` | ["Ron Quartararo","Jay Yogeshwar","Mark Brown","Brian Campanotti"] | ["Thomas M. Jordan"] |
-| `10.5594-j18347` | ["Michael Dolan"] | ["S. H. Oguz","A. Faibish","S. Faibish","G. Cotter"] |
-| `10.5594-j18350` | ["Barbara H. Lange"] | ["Michael Dolan"] |
-| `10.5594-j18353` | ["Carolyn Giardina"] | ["Wayne C. McLachlan"] |
-| `10.5594-j18362` | ["Michael Dolan"] | ["George Lewin"] |
-| `10.5594-j18363` | ["Barbara H. Lange"] | ["Max G. Kosarin"] |
-| `10.5594-j18365` | ["Alan Lambshead"] | ["E. W. D'Arcy"] |
-| `10.5594-j18367` | ["Dinkar Bhat"] | ["Sidney M. Lipton"] |
-| `10.5594-j18395` | ["John Hudson","Edward Frlan"] | ["Webster Blake"] |
-| `10.5594-j18401` | ["Michael Dolan"] | ["Thomas T. Hill","George L. George","John T. Rule"] |
 | `10.5594-j18591` | ["Jeffrey Riedmiller","Sripal Mehta","Nicolas Tsingos","Prinyar Boon","Robert Bleidt","Arne Borsum","Harald Fuchs","S. M | ["Mark Clowes"] |

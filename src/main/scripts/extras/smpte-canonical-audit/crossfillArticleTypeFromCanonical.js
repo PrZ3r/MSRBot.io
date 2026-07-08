@@ -67,10 +67,10 @@ const canon = new Map();
   const j = JSON.parse(fs.readFileSync(path.join(REPORTS, 'canonicalLibrary.journal.json'), 'utf8'));
   const c = JSON.parse(fs.readFileSync(path.join(REPORTS, 'canonicalLibrary.conference.json'), 'utf8'));
   for (const p of j.periodicals) for (const v of p.volumes) for (const i of v.issues) for (const a of i.articles) {
-    if (a.doi) canon.set(a.doi.toLowerCase().trim(), { contentType: a.contentType, title: a.title, year: a.pubDate ? a.pubDate.year : null });
+    if (a.doi) canon.set(a.doi.trim(), { contentType: a.contentType, title: a.title, year: a.pubDate ? a.pubDate.year : null });
   }
   for (const cf of c.conferences) for (const a of cf.articles) {
-    if (a.doi) canon.set(a.doi.toLowerCase().trim(), { contentType: a.contentType, title: a.title, year: a.pubDate ? a.pubDate.year : null });
+    if (a.doi) canon.set(a.doi.trim(), { contentType: a.contentType, title: a.title, year: a.pubDate ? a.pubDate.year : null });
   }
 }
 console.log(`[articleType] canonical DOIs: ${canon.size}`);
@@ -87,7 +87,7 @@ let matchedCount = 0;
 
 for (const doc of docs) {
   if (!doc.doi) continue;
-  const hit = canon.get(String(doc.doi).toLowerCase().trim());
+  const hit = canon.get(String(doc.doi).trim());
   if (!hit || !hit.contentType) continue;
   matchedCount++;
   const at = (doc.articleType || '').trim();
