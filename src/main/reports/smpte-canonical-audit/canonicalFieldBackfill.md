@@ -1,7 +1,7 @@
 # Canonical field backfill — passes 1-3
 
-> Generated: 2026-07-08T00:35:04.968Z
-> Mode: **DRY-RUN**
+> Generated: 2026-07-08T00:35:38.133Z
+> Mode: **APPLY**
 
 | pass | field | changes |
 |---|---|---:|
