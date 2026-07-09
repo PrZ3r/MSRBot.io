@@ -1,6 +1,6 @@
 # XY twin merge — plain-DOI duplicates retired into XY docs
 
-> Generated: 2026-07-09T23:11:33.861Z · Mode: **DRY-RUN** · 147 pairs
+> Generated: 2026-07-09T23:20:43.752Z · Mode: **APPLY** · 147 pairs
 
 The **retired docId / source trail** column is the "what to remove from the source archives" list.
 
