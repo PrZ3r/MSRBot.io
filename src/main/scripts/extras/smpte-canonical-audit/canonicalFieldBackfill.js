@@ -42,6 +42,7 @@ const REPORTS = 'src/main/reports/smpte-canonical-audit';
 const APPLY = process.argv.includes('--apply');
 const APPLY_AUTHORS = process.argv.includes('--apply-authors');
 const APPLY_KW_MERGE = process.argv.includes('--apply-keywords-merge');
+const APPLY_TITLES = process.argv.includes('--apply-titles');
 const NOW = new Date().toISOString();
 const VERSION = 'smpte-canonical-repo@v1';
 
@@ -69,6 +70,30 @@ function normText(s) {
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
 }
+// ---- title markup → Unicode ----------------------------------------------
+// Canonical titles occasionally carry IEEE inline markup (<tex>, <sup>, <inf>).
+// Convert the known patterns; if any markup survives, the caller must treat
+// the title as unconvertible and skip it.
+const SUP_DIGITS = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+const SUB_DIGITS = { '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉' };
+const VULGAR = { '1/2': '½', '1/3': '⅓', '2/3': '⅔', '1/4': '¼', '3/4': '¾', '1/8': '⅛', '3/8': '⅜', '5/8': '⅝', '7/8': '⅞' };
+function texToUnicode(s) {
+  let out = String(s);
+  // <tex>$...$</tex> fraction forms: {a\over b} and \frac{a}{b}
+  out = out.replace(/<tex>\s*\$\s*\{?\s*(\d+)\s*\\over\s*(\d+)\s*\}?\s*\$\s*<\/tex>/gi,
+    (_, a, b) => VULGAR[`${a}/${b}`] || `${a}/${b}`);
+  out = out.replace(/<tex>\s*\$\s*\\frac\s*\{(\d+)\}\s*\{(\d+)\}\s*\$\s*<\/tex>/gi,
+    (_, a, b) => VULGAR[`${a}/${b}`] || `${a}/${b}`);
+  // <sup>digits</sup> → superscript chars; <sup>text</sup> → plain text
+  out = out.replace(/<sup>(\d+)<\/sup>/gi, (_, dd) => dd.split('').map(c => SUP_DIGITS[c] || c).join(''));
+  out = out.replace(/<sup>([^<]*)<\/sup>/gi, '$1');
+  // <inf>digits</inf> → subscript chars; <inf>text</inf> → plain text
+  out = out.replace(/<inf>(\d+)<\/inf>/gi, (_, dd) => dd.split('').map(c => SUB_DIGITS[c] || c).join(''));
+  out = out.replace(/<inf>([^<]*)<\/inf>/gi, '$1');
+  return out;
+}
+function hasMarkup(s) { return /<[a-zA-Z][^>]*>/.test(String(s)); }
+
 function looseName(s) {
   const tokens = normText(s).split(' ').filter(Boolean);
   if (!tokens.length) return '';
@@ -79,6 +104,25 @@ function regAuthorName(a) {
   if (typeof a === 'string') return a;
   if (a && typeof a === 'object') return a.name || '';
   return '';
+}
+
+// ---- title-drift bucket logic (mirrors titleDriftReport.mjs; user review
+// 2026-07-09: canonical wins in every bucket EXCEPT reg-extends and
+// far-reg-specific, where the registry carries detail canonical lost).
+const GENERIC_TITLE = /^(book review(s)?|books reviewed|american national standards?|approved american national standards?|smpte recommended practices?|proposed smpte recommended practices?|international standards?|new products( and developments)?|obituar(y|ies)|letters? to the editor|standards and recommended practices|proposed american national standards?|current literature|new members|meetings? of the board of governors|technical literature|society announcements|employment service|book received|abstracts of current literature)$/;
+function isGenericTitle(s) { const n = normText(s); return GENERIC_TITLE.test(n) || n.split(' ').filter(Boolean).length <= 2; }
+function titleCanonicalWins(regTitle, canTitle) {
+  const rn = normText(regTitle), cn = normText(canTitle);
+  if (cn.startsWith(rn)) return true;             // canon-extends
+  if (rn.startsWith(cn)) return false;            // reg-extends — registry richer
+  if (cn.includes(rn)) return true;               // canon-contains
+  if (rn.includes(cn)) return true;               // reg-contains — reviewed: canonical
+  const rSet = new Set(rn.split(' ')), cSet = new Set(cn.split(' '));
+  const inter = [...rSet].filter(x => cSet.has(x)).length;
+  const jac = inter / (rSet.size + cSet.size - inter);
+  if (jac >= 0.5) return true;                    // near-different
+  if (!isGenericTitle(regTitle) && isGenericTitle(canTitle)) return false; // far-reg-specific
+  return true;                                    // far-canon-specific / both-generic / both-specific
 }
 
 // ---- canonical flatten ---------------------------------------------------
@@ -123,6 +167,9 @@ const docs = loadAllDocs();
 const changes = []; // { doc, field, path: [..], newValue, note, originalValue }
 const authorsDrift = [];
 const abstractDrift = [];
+const titleKeepOurs = [];         // registry-richer rows → push-back register
+const titleSkippedMarkup = [];    // unconvertible markup — never written raw
+const titleMarkupConversions = []; // before/after for the 16 markup rows
 const tally = { pubYear: 0, pubMonth: 0, journalTitle: 0, abstract: 0, keywords: 0 };
 const skipped = { pubMonthConflict: 0, lockedField: 0 };
 
@@ -192,6 +239,34 @@ for (const doc of docs) {
         note: 'Month corrected from SMPTE canonical repository (registry had Jan-1 placeholder)',
       });
       tally.pubMonth++;
+    }
+  }
+
+  // 1b. docTitle — canonical wins per the 2026-07-09 title-drift review,
+  // except the two registry-richer buckets (kept + push-back). Canonical
+  // markup (<tex>/<sup>/<inf>) converts to Unicode; titles with surviving
+  // markup are skipped and flagged, never written raw.
+  const canTitleConverted = hit.title ? texToUnicode(cleanText(hit.title)) : null;
+  if (doc.docTitle && canTitleConverted && normText(doc.docTitle) !== normText(canTitleConverted)) {
+    if (isLocked(doc, 'docTitle')) { skipped.lockedField++; }
+    else if (titleCanonicalWins(doc.docTitle, canTitleConverted)) {
+      const converted = canTitleConverted;
+      if (hasMarkup(converted)) {
+        titleSkippedMarkup.push({ docId: doc.docId, canonical: hit.title });
+      } else {
+        changes.push({
+          doc, field: 'title', key: 'docTitle',
+          newValue: converted,
+          originalValue: doc.docTitle,
+          note: 'Title updated from SMPTE canonical repository (2026-07-09 drift review: canonical richer/cleaner; TeX/sup/inf converted to Unicode)',
+        });
+        tally.title = (tally.title || 0) + 1;
+        if (/<(tex|sup|inf)/i.test(String(hit.title))) {
+          titleMarkupConversions.push({ docId: doc.docId, from: doc.docTitle, to: converted });
+        }
+      }
+    } else {
+      titleKeepOurs.push({ docId: doc.docId, registry: doc.docTitle, canonical: canTitleConverted });
     }
   }
 
@@ -363,6 +438,19 @@ md.push(`| 3a | abstract (canonical-only fill) | ${tally.abstract} |`);
 md.push(`| 3b | keywords (empty-doc fill, vocab-mapped) | ${tally.keywords} |`);
 md.push(`| 4b | keywords merge (union into existing; --apply-keywords-merge) | ${tally.keywordsMerge || 0} |`);
 md.push(`| 5 | authors (name fixes; written under --apply-authors) | ${tally.authors || 0} |`);
+md.push(`| 6 | docTitle (canonical wins per drift review; --apply-titles) | ${tally.title || 0} |`);
+md.push('');
+md.push(`Title pass extras: ${titleKeepOurs.length} registry-richer rows kept (push-back), ${titleSkippedMarkup.length} skipped for unconvertible markup, ${titleMarkupConversions.length} TeX/sup/inf→Unicode conversions.`);
+if (titleMarkupConversions.length) {
+  md.push('');
+  md.push('### Markup→Unicode conversions (verify each)');
+  md.push('');
+  md.push('| docId | registry (old) | canonical converted (new) |');
+  md.push('|---|---|---|');
+  for (const t of titleMarkupConversions) {
+    md.push(`| \`${t.docId}\` | ${String(t.from).slice(0, 80).replace(/\|/g, '\\|')} | ${String(t.to).slice(0, 80).replace(/\|/g, '\\|')} |`);
+  }
+}
 md.push('');
 md.push('## Samples (first 25 per pass)');
 for (const f of ['pubYear', 'pubMonth', 'journalTitle', 'abstract', 'keywords', 'authors']) {
@@ -398,7 +486,9 @@ function driftReport(name, rows, file) {
 }
 driftReport('Authors count-mismatch drift', authorsDrift, 'authorsCountDiff.md');
 driftReport('Abstract drift', abstractDrift, 'abstractDrift.md');
-console.log(`[backfill] wrote canonicalFieldBackfill.md + authorsCountDiff.md + abstractDrift.md`);
+driftReport('Titles kept (registry richer — push-back to SMPTE)', titleKeepOurs, 'titleKeepOurs.md');
+console.log(`[backfill] wrote canonicalFieldBackfill.md + authorsCountDiff.md + abstractDrift.md + titleKeepOurs.md`);
+console.log(`[backfill] titles: ${tally.title || 0} updates pending | ${titleKeepOurs.length} keep-ours | ${titleSkippedMarkup.length} markup-skipped | ${titleMarkupConversions.length} conversions`);
 
 // ---- apply ----------------------------------------------------------------
 function sortKeysDeep(v) {
@@ -416,16 +506,19 @@ function sortKeysDeep(v) {
 // Flags combine.
 const authorChanges = changes.filter(c => c.field === 'authors');
 const kwMergeChanges = changes.filter(c => c.field === 'keywordsMerge');
-const fieldChanges = changes.filter(c => c.field !== 'authors' && c.field !== 'keywordsMerge');
+const titleChanges = changes.filter(c => c.field === 'title');
+const fieldChanges = changes.filter(c => !['authors', 'keywordsMerge', 'title'].includes(c.field));
 const toWrite = [
   ...(APPLY ? fieldChanges : []),
   ...(APPLY_AUTHORS ? authorChanges : []),
   ...(APPLY_KW_MERGE ? kwMergeChanges : []),
+  ...(APPLY_TITLES ? titleChanges : []),
 ];
 if (!toWrite.length) {
   console.log(`\nDry run — pass --apply to write ${fieldChanges.length} field changes,`);
   console.log(`          --apply-authors to write ${authorChanges.length} author-name fixes,`);
-  console.log(`          --apply-keywords-merge to write ${kwMergeChanges.length} keyword unions (flags combine).`);
+  console.log(`          --apply-keywords-merge to write ${kwMergeChanges.length} keyword unions,`);
+  console.log(`          --apply-titles to write ${titleChanges.length} title updates (flags combine).`);
   process.exit(0);
 }
 

@@ -1,6 +1,6 @@
 # Authors count-mismatch drift — registry vs canonical (both present, different)
 
-> Generated: 2026-07-08T23:56:29.541Z · 0 docs · review list, never auto-written
+> Generated: 2026-07-09T01:17:38.009Z · 0 docs · review list, never auto-written
 
 | docId | registry | canonical |
 |---|---|---|
