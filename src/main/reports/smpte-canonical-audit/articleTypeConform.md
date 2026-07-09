@@ -1,7 +1,7 @@
 # articleType vocabulary conformance — SMPTE ContentTypeEnum superset
 
-> Generated: 2026-07-09T17:52:19.354Z
-> Mode: **DRY-RUN**
+> Generated: 2026-07-09T17:56:30.992Z
+> Mode: **APPLY**
 
 Registry vocabulary = SMPTE ContentTypeEnum + 9 retained MSRBot values
 (meeting-report, news, other, editorial, discussion, review-article, introduction, oration, article-commentary).
