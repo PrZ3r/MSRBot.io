@@ -24,6 +24,12 @@
  * per pair: survivor, retired docId+doi, the donor's source-file trails
  * from $meta, and which fields were merged.
  *
+ * KNOWN GAP (repaired by fixMergedOrphanSlugs.js): this merge did NOT
+ * re-anchor source-anchored orphan slugs (orphan/<donorId>/…) carried in
+ * the unioned references — they must be renamed to the survivor and the
+ * MRI entries re-keyed, or the build loses their lineage. Run the fix
+ * script after any future use of this merge.
+ *
  * Usage:
  *   node .../mergeXyTwins.js            # dry-run + report
  *   node .../mergeXyTwins.js --apply
