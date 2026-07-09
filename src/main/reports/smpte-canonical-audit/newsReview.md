@@ -1,6 +1,7 @@
 # news review — paper-ish singletons with reclass proposals
 
-> Generated: 2026-07-09T20:39:33.404Z · 67 rows · REVIEW ONLY
+> Generated: 2026-07-09T20:44:03.761Z · 67 rows · REVIEW ONLY
+> **RESOLVED 2026-07-09: user reviewed — all 67 are proper news items; no reclassification. List retained for the record.**
 
 ## → future-events (20)
 
