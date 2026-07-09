@@ -40,15 +40,15 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 const fs = require('fs').promises;
 const path = require('path');
 const { loadAllDocs } = require('../lib/registry');
-const { noPageArticleTypeSet, isPageGated } = require('../lib/pageGate');
+const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
 
-/** Page gate config — gated articleTypes are excluded from the browse/search
+/** Page gate config — gated contentTypes are excluded from the browse/search
  *  index (and facets), matching the per-doc page gate in build.js. */
 let __gateSet;
 let __siteConfig = {};
 try {
   __siteConfig = require('../config/site.json');
-  __gateSet = noPageArticleTypeSet(__siteConfig);
+  __gateSet = noPageContentTypeSet(__siteConfig);
 } catch (e) {
   __gateSet = new Set();
 }
@@ -145,7 +145,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
   const icsCodeLabels = {};
   for (const d of Array.isArray(docs) ? docs : []) {
     if (!d || !d.docId) continue;
-    // Page gate: gated articleTypes stay in the API but not the browse index.
+    // Page gate: gated contentTypes stay in the API but not the browse index.
     if (isPageGated(d, __gateSet)) { gatedCount++; continue; }
 
     const label = d.docLabel;
@@ -293,7 +293,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
       publisher: d.publisher || 'Unknown',
       docType: d.docType,                  // required field
       docTypeAbr: d.docTypeAbr || null,    // optional abbreviation (e.g., ST, RP)
-      articleType: d.articleType || null,  // journal-article subtype (filter via ?f.articleType=)
+      contentType: d.contentType || null,  // journal-article subtype (filter via ?f.contentType=)
       status,                // array of all true flags (no primary)
       statusFlags,           // canonical booleans
       pubDate,               // full canonical date
@@ -340,7 +340,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
     year: {},
     currentWork: {},
     keywords: {},
-    articleType: {},
+    contentType: {},
     icsCodes: {},
     // affiliations: {} — facet bucket disabled, see follow-up issue for
     // fuzzy/canonical-name normalization. The per-doc affiliations array is
@@ -352,7 +352,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
     hasDoi: { true: 0, false: 0 },
     hasReleaseTag: { true: 0, false: 0 },
     groupLabels: Object.fromEntries(Array.from(groupNameById.entries())),
-    articleTypeLabels: (__siteConfig && __siteConfig.articleTypeLabels) || {},
+    contentTypeLabels: (__siteConfig && __siteConfig.contentTypeLabels) || {},
     icsCodeLabels
   };
 
@@ -388,9 +388,9 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
         facets.keywords[key] = (facets.keywords[key] || 0) + 1;
       }
     }
-    if (r.articleType) {
-      const at = String(r.articleType).trim();
-      if (at) facets.articleType[at] = (facets.articleType[at] || 0) + 1;
+    if (r.contentType) {
+      const at = String(r.contentType).trim();
+      if (at) facets.contentType[at] = (facets.contentType[at] || 0) + 1;
     }
     if (Array.isArray(r.icsCodes)) {
       for (const c of r.icsCodes) {
@@ -467,7 +467,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
   /** Write outputs */
   await fs.writeFile(IDX, JSON.stringify(idx, null, 2), 'utf8');
   await fs.writeFile(FAC, JSON.stringify(facets, null, 2), 'utf8');
-  console.log(`[docList] Wrote ${IDX} (${idx.length} docs, ${gatedCount} gated by articleType), ${FAC}`);
+  console.log(`[docList] Wrote ${IDX} (${idx.length} docs, ${gatedCount} gated by contentType), ${FAC}`);
 })().catch(err => {
   console.error('[docList] Index build failed:', err && err.stack ? err.stack : err);
   process.exitCode = 1;

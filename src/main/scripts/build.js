@@ -130,13 +130,13 @@ hb.registerHelper('raw', function(options) {
   return new hb.SafeString(options.fn(this));
 });
 
-// articleTypeLabel(value) — look up the NLM raw article-type value
-// (e.g. "research-article") in site.json's articleTypeLabels map and return
+// contentTypeLabel(value) — look up the NLM raw article-type value
+// (e.g. "research-article") in site.json's contentTypeLabels map and return
 // the friendly display label ("Research Article"). Falls through to the raw
 // value if no map entry exists.
-hb.registerHelper('articleTypeLabel', function (value) {
+hb.registerHelper('contentTypeLabel', function (value) {
   if (!value) return '';
-  const map = (siteConfig && siteConfig.articleTypeLabels) || {};
+  const map = (siteConfig && siteConfig.contentTypeLabels) || {};
   return map[String(value)] || String(value);
 });
 
@@ -250,7 +250,7 @@ hb.registerHelper('refHref', function (refId) {
 // Minimal shared keying import for MSI lineage lookups
 const keying = require('../lib/keying');
 const { loadAllDocs } = require('../lib/registry');
-const { noPageArticleTypeSet, isPageGated } = require('../lib/pageGate');
+const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
 const { assembleSlices } = require('./build.assemble-registry');
 const buildStats = require('./utils/buildStats');
 const { lineageKeyFromDoc, lineageKeyFromDocId } = keying;
@@ -326,11 +326,11 @@ async function loadSiteConfig() {
   if (process.env.SITE_DESCRIPTION) siteConfig.siteDescription = process.env.SITE_DESCRIPTION;
 }
 
-// Page gate: skip rendered pages for docs whose articleType is listed in
-// siteConfig.noPageArticleTypes (set built lazily, once siteConfig is loaded).
+// Page gate: skip rendered pages for docs whose contentType is listed in
+// siteConfig.noPageContentTypes (set built lazily, once siteConfig is loaded).
 let __pageGateSet = null;
 function pageGated(doc) {
-  if (__pageGateSet === null) __pageGateSet = noPageArticleTypeSet(siteConfig);
+  if (__pageGateSet === null) __pageGateSet = noPageContentTypeSet(siteConfig);
   return isPageGated(doc, __pageGateSet);
 }
 
@@ -625,8 +625,8 @@ async function emitDocumentsApiOnce() {
         docTitle: typeof d.docTitle === 'string' ? d.docTitle : null,
         path: `/api/doc/${encodeURIComponent(id)}.json`,
       };
-      if (typeof d.articleType === 'string' && d.articleType.trim()) {
-        row.articleType = d.articleType.trim();
+      if (typeof d.contentType === 'string' && d.contentType.trim()) {
+        row.contentType = d.contentType.trim();
       }
       return row;
     });
@@ -3123,7 +3123,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       if (!d || !d.docId) continue;
       const id = String(d.docId);
       const docDir = path.join(docsOutRoot, id);
-      // Page gate: gated articleTypes (e.g. obituary, other) get no detail
+      // Page gate: gated contentTypes (e.g. obituary, other) get no detail
       // page. Remove any stale page left by an earlier (pre-gate) build.
       if (pageGated(d)) {
         __gated++;
@@ -3204,7 +3204,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     if (__fail) {
       console.warn(`[build] Per-doc pages emitted with warnings: ok=${__ok}, failed=${__fail}, gated=${__gated}`);
     } else {
-      console.log(`[build] Per-doc pages emitted: ${__ok} (gated by articleType: ${__gated})`);
+      console.log(`[build] Per-doc pages emitted: ${__ok} (gated by contentType: ${__gated})`);
     }
   } catch (e) {
     console.warn('[build] Could not emit per-doc pages:', e && e.message ? e.message : e);

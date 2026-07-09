@@ -437,12 +437,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     window.Handlebars.registerHelper('exists', function(v){
       return (v !== undefined && v !== null && String(v).trim() !== '');
     });
-    // articleTypeLabel helper: map raw NLM article-type value -> friendly label
-    // via facets.articleTypeLabels (which mirrors site.json's map). Falls
+    // contentTypeLabel helper: map raw NLM article-type value -> friendly label
+    // via facets.contentTypeLabels (which mirrors site.json's map). Falls
     // through to the raw value when no entry exists.
-    window.Handlebars.registerHelper('articleTypeLabel', function(value) {
+    window.Handlebars.registerHelper('contentTypeLabel', function(value) {
       if (!value) return '';
-      const map = (facets && facets.articleTypeLabels) || {};
+      const map = (facets && facets.contentTypeLabels) || {};
       return map[String(value)] || String(value);
     });
     // icsCodeLabel helper: code -> "{code} — {description}" when description known,
@@ -859,7 +859,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         if (!key.startsWith('f.')) return;
         const facet = key.slice(2);
         const arr = String(val).split(',').map(s => s.trim()).filter(Boolean);
-        const normFacet = (facet === 'hasCurrentWork') ? 'currentWork' : facet;
+        // back-compat: articleType renamed to contentType (2026-07); keep old bookmarks working
+        const normFacet = (facet === 'hasCurrentWork') ? 'currentWork'
+          : (facet === 'articleType') ? 'contentType'
+          : facet;
         if (arr.length) newF[normFacet] = arr;
       });
       state.f = newF;
@@ -983,7 +986,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       hasDoi: 'No DOI', hasReleaseTag: 'No Release Tag'
     })[k];
     if (k === 'status' && facets.statusLabels && facets.statusLabels[v]) return facets.statusLabels[v];
-    if (k === 'articleType' && facets.articleTypeLabels && facets.articleTypeLabels[v]) return facets.articleTypeLabels[v];
+    if (k === 'contentType' && facets.contentTypeLabels && facets.contentTypeLabels[v]) return facets.contentTypeLabels[v];
     if (k === 'icsCodes' && facets.icsCodeLabels && facets.icsCodeLabels[v]) {
       return `${v} — ${facets.icsCodeLabels[v]}`;
     }
@@ -1260,7 +1263,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       group: 'Group',
       currentWork: 'Current Work',
       keywords: 'Keywords',
-      articleType: 'Article Type',
+      contentType: 'Content Type',
       icsCodes: 'ICS Codes',
       // affiliations: 'Author Affiliation' — picker disabled, see #1196
       // follow-up. ~7k raw affiliation strings are too granular until
@@ -1337,7 +1340,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       ['publisher', facets.publisher, null],
       ['group', facets.group, facets.groupLabels],
       ['docType', facets.docType, null],
-      ['articleType', facets.articleType, facets.articleTypeLabels],
+      ['contentType', facets.contentType, facets.contentTypeLabels],
       ['status', facets.status, facets.statusLabels],
       ['keywords', facets.keywords, null],
       ['icsCodes', facets.icsCodes, facets.icsCodeLabels],

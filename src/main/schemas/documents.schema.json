@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.3.0",
+  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.4.0",
   "$comment": "Copyright (c) 2025-26 PrZ3 LLC (d/b/a [PrZ3](https://github.com/PrZ3r))",
   "docTitle": "Schema for MSRBot.io - Documents",
   "items": {
@@ -33,7 +33,9 @@
                   "properties": {
                     "name":        { "type": "string", "minLength": 1 },
                     "bio":         { "type": "string" },
-                    "affiliation": { "type": "string" }
+                    "affiliation": { "type": "string" },
+                    "email":       { "type": "string", "format": "email" },
+                    "orcid":       { "type": "string", "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]$" }
                   },
                   "additionalProperties": false
                 }
@@ -44,9 +46,6 @@
             "type": "string"
           },
           "abstract": {
-            "type": "string"
-          },
-          "contentType": {
             "type": "string"
           },
           "docElement": {
@@ -137,7 +136,36 @@
             "type": "string"
           },
           "isbn": {
-            "type": "string"
+            "oneOf": [
+              { "type": "string" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "print":      { "type": "string" },
+                  "electronic": { "type": "string" }
+                },
+                "patternProperties": {
+                  "^[a-zA-Z0-9]+\\$meta$": {
+                    "type": "object",
+                    "properties": {
+                      "source":         { "type": "string", "enum": ["parsed","inferred","manual","resolved","unknown"] },
+                      "confidence":     { "type": "string", "enum": ["low","medium","high","unknown"] },
+                      "note":           { "type": "string" },
+                      "updated":        { "type": "string", "format": "date-time" },
+                      "originalValue":  {},
+                      "sourceUrl":      { "type": "string", "format": "uri" },
+                      "overridden":     { "type": "boolean" },
+                      "excludeChanges": { "type": "boolean" },
+                      "reviewRequired": { "type": "boolean" },
+                      "flag":           { "type": "string" },
+                      "version":        { "type": "string" }
+                    },
+                    "additionalProperties": false
+                  }
+                }
+              }
+            ]
           },
           "issn": {
             "oneOf": [
@@ -191,11 +219,44 @@
           "abbrevTitle": {
             "type": "string"
           },
+          "journalTitle": {
+            "type": "string"
+          },
           "journalAcronym": {
             "type": "string"
           },
-          "articleType": {
+          "contentType": {
             "type": "string"
+          },
+          "conferenceLocation": {
+            "type": "string"
+          },
+          "conferenceDate": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "start": { "type": "string", "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$" },
+              "end":   { "type": "string", "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$" }
+            },
+            "patternProperties": {
+              "^[a-zA-Z0-9]+\\$meta$": {
+                "type": "object",
+                "properties": {
+                  "source":         { "type": "string", "enum": ["parsed","inferred","manual","resolved","unknown"] },
+                  "confidence":     { "type": "string", "enum": ["low","medium","high","unknown"] },
+                  "note":           { "type": "string" },
+                  "updated":        { "type": "string", "format": "date-time" },
+                  "originalValue":  {},
+                  "sourceUrl":      { "type": "string", "format": "uri" },
+                  "overridden":     { "type": "boolean" },
+                  "excludeChanges": { "type": "boolean" },
+                  "reviewRequired": { "type": "boolean" },
+                  "flag":           { "type": "string" },
+                  "version":        { "type": "string" }
+                },
+                "additionalProperties": false
+              }
+            }
           },
           "copyright": {
             "type": "object",
