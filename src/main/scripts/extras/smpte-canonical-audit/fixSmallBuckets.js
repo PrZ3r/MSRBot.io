@@ -63,6 +63,27 @@ const EXPLICIT = new Map(Object.entries({
   '10.5594-J17569': 'info-society',    // 142nd Tech Conference: Welcome Letter
   // obit-tier review 2026-07-09: standards text misfiled under obituaries
   '10.5594-J03238': 'content-announce', // Cinematography — A-Chain Frequency Response (standard)
+  // toc-tier strays (29 pre-rebucket HIGHWIRE 'toc' labels), classified 2026-07-09:
+  // covers
+  '10.5594-J00802C1': 'front-cover', '10.5594-J08010C1': 'front-cover',
+  '10.5594-J09469C1': 'front-cover', '10.5594-J09686C1': 'front-cover',
+  '10.5594-J18041C1': 'front-cover', '10.5594-J18047C1': 'front-cover',
+  '10.5594-j18363C1': 'front-cover', '10.5594-j18438C1': 'front-cover',
+  // journal editorial columns
+  '10.5594-J008023': 'editorial', '10.5594-J09686208': 'editorial', '10.5594-j184382': 'editorial',
+  // membership / sustaining-member pages
+  '10.5594-j18364': 'info-society', '10.5594-j18439': 'info-society',
+  '10.5594-j18373': 'info-society', '10.5594-j18374': 'info-society',
+  '10.5594-j18457': 'info-society', '10.5594-j18458': 'info-society',
+  // 2014 MIJ progress-report issue: industry committee reports + section meetings
+  '10.5594-j18366': 'meeting-report', '10.5594-j18441': 'meeting-report',
+  '10.5594-j18365': 'meeting-report', '10.5594-j18443': 'meeting-report',
+  '10.5594-j18444': 'meeting-report', '10.5594-j18445': 'meeting-report',
+  '10.5594-j18447': 'meeting-report', '10.5594-j18448': 'meeting-report',
+  '10.5594-j18453': 'meeting-report', '10.5594-j18454': 'meeting-report',
+  // singles
+  '10.5594-j18440': 'orig-research',  // Making Do with More: Next Generation Workflow
+  '10.5594-j18455': 'obit',           // Obituary
 }));
 
 const docs = loadAllDocs();
