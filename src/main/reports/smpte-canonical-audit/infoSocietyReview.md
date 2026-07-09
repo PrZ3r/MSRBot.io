@@ -1,11 +1,11 @@
 # info-society review — paper-ish singletons with reclass proposals
 
-> Generated: 2026-07-09T19:27:23.616Z · 726 rows · REVIEW ONLY, nothing auto-written
+> Generated: 2026-07-09T19:36:12.881Z · 710 rows · REVIEW ONLY, nothing auto-written
 > Edit the proposal column (or strike rows to keep info-society), then decisions get encoded.
 
 | proposal | rows |
 |---|---:|
-| orig-research | 561 |
+| orig-research | 545 |
 | content-announce | 134 |
 | meeting-report | 26 |
 | opinion | 5 |
@@ -190,12 +190,11 @@
 | `10.5594-J04243` | 1982 | Point of View: Freedom, Democracy, and Communications — An Overview |
 | `10.5594-J11231` | 1957 | Letter to the Editor: 16mm Projector Possibilities |
 
-## → orig-research (561)
+## → orig-research (545)
 
 | docId | year | title |
 |---|---|---|
 | `10.5594-J00258` | 1982 | Working Group on Digital Video Standards: The Current Position on the Studio Digital Video Interface |
-| `10.5594-J00417` | 1981 | Who's Who on the Board of Editors |
 | `10.5594-J00482` | 1980 | Shooting Film Style with a Single Video Camera on 1-in Tape |
 | `10.5594-J00483` | 1980 | New Projection Lenses for 35-mm Cinema Projectors |
 | `10.5594-J00523` | 1980 | A High-Quality Optical Sound Recording System Using a Scanned Laser Beam |
@@ -342,7 +341,6 @@
 | `10.5594-J08310` | 1965 | A Tutorial Paper: Motion-Picture Film — Its Size and Dimensional Characteristics |
 | `10.5594-J08318` | 1965 | Proposed American Standard Specifications for Leaders and Cue Marks for 35mm and 16mm Sound Motion-Picture Rel |
 | `10.5594-J08369` | 1999 | Approaches to Planning and Deploying MRC's Innovative Dual (Analog and Digital) Carrier Microwave System |
-| `10.5594-J08386` | 1998 | Message from the Executive Director—June 1998 |
 | `10.5594-J08390` | 1998 | The Restoration Business Part Two: Conservation Counts |
 | `10.5594-J08406` | 1944 | Film in Television: Television Production as Viewed by a Motion Picture Producer |
 | `10.5594-J08407` | 1944 | Television Production as Viewed by a Radio Broadcaster |
@@ -435,9 +433,7 @@
 | `10.5594-J11274` | 1957 | Burning Characteristics of Safety vs. Nitrate Film |
 | `10.5594-J11277` | 1957 | Proposed American Standard: 100 Mil Magnetic Coating on 16mm Film, Perforated One Edge |
 | `10.5594-J11375` | 2010 | In Stereo: Digital Cinema Summit Sets 3D Agenda |
-| `10.5594-J11389` | 2010 | Message from the Executive Director: 3D in Focus |
 | `10.5594-J11394` | 2010 | Introduction: A Decade of Successes Completed, a Decade of Challenges Ahead |
-| `10.5594-J11405` | 2010 | 2010 will Be an Exciting Year [Message from the Executive Director] |
 | `10.5594-J11412` | 2010 | Introduction: Mobile DTV—New Services for Consumers and New Opportunities for Broadcasters |
 | `10.5594-J11427` | 2007 | Advances in Technology—Redefining Large Shared Storage Systems |
 | `10.5594-J11429` | 2007 | Photographing a War: World War II |
@@ -446,7 +442,6 @@
 | `10.5594-J11466` | 2007 | Standards Conversion for International HDTV Content Exchange |
 | `10.5594-J11475` | 2006 | Third Digital Cinematography Forum 2005 Venice, Italy |
 | `10.5594-J11479` | 2006 | Technology Report — A Proposed 10 Gbit/sec Interface |
-| `10.5594-J11525` | 2005 | “Price is What you Pay, Value is What you Get.” [Message from the Executive Director] |
 | `10.5594-J11536` | 2005 | The Image Revolution: Zooming in on Cinematography |
 | `10.5594-J11585` | 2001 | How ATM Networks Meet Professional Broadcast Demands |
 | `10.5594-J11778` | 1948 | Influence of West Coast Designers on the Modern Theater |
@@ -465,7 +460,6 @@
 | `10.5594-J12086` | 1963 | Worldwide Training in Film and Television Production |
 | `10.5594-J12090` | 1963 | A Pattern for University Film Production |
 | `10.5594-J12109` | 1963 | From a Film: The Three R's of Aerospace Photography |
-| `10.5594-J12180` | 2010 | Update: Governance Documents Review [Message from the Executive Director] |
 | `10.5594-J12197` | 2010 | A Review of the Year in Technology for Stereoscopic Cinema and Television |
 | `10.5594-J12199` | 2010 | An Update from the Consumer Electronic Association |
 | `10.5594-J12227` | 2006 | NAB Digital Cinema Summit—April 23 & 24 at NAB |
@@ -548,9 +542,7 @@
 | `10.5594-J14631` | 1940 | Safeguarding Theater Sound Equipment with Modern Test Instruments |
 | `10.5594-J14706` | 1938 | A Simplified Device for Cueing Motion Picture Films |
 | `10.5594-J14850` | 1968 | The Motion Picture & Television Research Center |
-| `10.5594-J15023` | 2008 | Let's See How Far We've Come [Message from the Executive Director] |
 | `10.5594-J15063` | 2008 | The Digital Evolution of Stereoscopic (3-D) |
-| `10.5594-J15075` | 2008 | Starting off on the Right Foot Walk a Mile in Their Shoes… [Message from the Executive Director] |
 | `10.5594-J15079` | 2008 | 20th Plenary of ISO TC 36 Meet in Seoul, Korea |
 | `10.5594-J15082` | 2008 | A User's Perspective on MXF and Media |
 | `10.5594-J15098` | 2008 | The Many Ways to Create a 3-D Image |
@@ -665,7 +657,6 @@
 | `10.5594-J17236` | 1995 | ST 13.16 Report on Task Force on Packetized Formats |
 | `10.5594-J17237` | 1995 | Converging Technologies and Newton's Third Law of Motion |
 | `10.5594-J17253` | 1995 | Stability of Cellulose Ester Base Photographic Film: Part IV—Behavior of Nitrate Base Film |
-| `10.5594-J17304` | 2010 | Message from the Executive Director: Quorum is Achieved! |
 | `10.5594-J17316` | 2010 | The Effective Gain of a Projection Screen in an Auditorium |
 | `10.5594-J17328` | 2001 | Media Management for Audiovisual Digital Archiving |
 | `10.5594-J17378` | 1937 | Improved Noise-Reduction System for High-Fidelity Recording |
@@ -747,12 +738,5 @@
 | `10.5594-J18189XY` | 1962 | Paper N–6: Photomicrographic Study of Atomization of Liquid Fuels within a Combustion Chamber |
 | `10.5594-J18214XY` | 1998 | The dSam Depth of Field Test Chart |
 | `10.5594-J18349` | 2002 | Multipoint Multicast: Satellite-Internet Hybrid Enables Content on Demand |
-| `10.5594-j18141` | 2012 | Making Investments that Pay off [Message from the Executive Director] |
-| `10.5594-j18478` | 2014 | Another Fantastic Annual Technical Conference [Message from the Executive Director] |
-| `10.5594-j18524` | 2015 | Message from the Executive Director: Standardization is Vital to Progress |
-| `10.5594-j18526` | 2015 | HPA 2015 Tech Retreat: A Brief Recap |
-| `10.5594-j18540` | 2015 | Message from the Executive Director: What Happens in Vegas......... |
-| `10.5594-j18564` | 2015 | Message from the Executive Director: Getting Ready for 2016 |
-| `10.5594-j18583` | 2015 | Message from the Executive Director: Standards and the Onset of Virtual Reality |
 | `10.5594-j18593` | 2015 | 2015 Activities of the Association of Radio Industries and Businesses in the Field of Broadcasting |
 

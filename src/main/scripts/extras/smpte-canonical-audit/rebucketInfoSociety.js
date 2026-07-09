@@ -14,9 +14,14 @@
  * content-announce, congress/symposium write-ups → meeting-report,
  * remainder → orig-research. Nothing from Pass B is ever auto-written.
  *
+ * Pass B was user-reviewed 2026-07-09 ("mostly ok") with three keep-as-
+ * info-society exclusions (REVIEW_EXCLUSIONS below); approved proposals
+ * write under --apply-review.
+ *
  * Usage:
- *   node .../rebucketInfoSociety.js            # dry-run + review file
- *   node .../rebucketInfoSociety.js --apply    # write Pass A
+ *   node .../rebucketInfoSociety.js                  # dry-run + review file
+ *   node .../rebucketInfoSociety.js --apply          # write Pass A (mechanical)
+ *   node .../rebucketInfoSociety.js --apply-review   # write Pass B (approved proposals)
  */
 
 const fs = require('fs');
@@ -29,8 +34,18 @@ const { loadAllDocs, docAbsPath } = require('../../../lib/registry');
 
 const REPORTS = 'src/main/reports/smpte-canonical-audit';
 const APPLY = process.argv.includes('--apply');
+const APPLY_REVIEW = process.argv.includes('--apply-review');
 const NOW = new Date().toISOString();
 const VERSION = 'contenttype-fixes@v1';
+
+// User review 2026-07-09: these stay info-society (struck from Pass B).
+function isReviewExcluded(doc) {
+  if (doc.docId === '10.5594-J00417') return true;            // Who's Who on the Board of Editors
+  const t = String(doc.docTitle || '');
+  if (/message from the executive director/i.test(t)) return true;
+  if (/HPA\s+\d{4}\s+Tech Retreat/i.test(t)) return true;
+  return false;
+}
 
 const REBUCKET_PATTERNS = [
   [/— ?Table of Contents$|^Table of Contents$/i, 'toc'],
@@ -74,14 +89,17 @@ console.log(`[rebucket] Pass A (mechanical): ${rebuckets.length} ${JSON.stringif
 const freq = {};
 for (const d of infoSoc) { const t = String(d.docTitle || '').trim(); freq[t] = (freq[t] || 0) + 1; }
 const review = [];
+let excluded = 0;
 for (const d of infoSoc) {
   const t = String(d.docTitle || '').trim();
   if (freq[t] !== 1) continue;
   if (t.split(/\s+/).length < 6) continue;
   if (SOC_PAT.test(t)) continue;
   if (REBUCKET_PATTERNS.some(([re]) => re.test(t))) continue;
-  review.push({ docId: d.docId, year: String(d.publicationDate || '').slice(0, 4), title: t, proposal: proposeFor(t) });
+  if (isReviewExcluded(d)) { excluded++; continue; }
+  review.push({ doc: d, docId: d.docId, year: String(d.publicationDate || '').slice(0, 4), title: t, proposal: proposeFor(t) });
 }
+console.log(`[rebucket] review exclusions (stay info-society): ${excluded}`);
 const tallyB = {};
 for (const r of review) tallyB[r.proposal] = (tallyB[r.proposal] || 0) + 1;
 console.log(`[rebucket] Pass B (review list): ${review.length} ${JSON.stringify(tallyB)}`);
@@ -119,26 +137,41 @@ function sortKeysDeep(v) {
   return v;
 }
 
-if (!APPLY) {
-  console.log(`\nDry run — pass --apply to write the ${rebuckets.length} Pass-A re-buckets.`);
+if (!APPLY && !APPLY_REVIEW) {
+  console.log(`\nDry run — pass --apply to write the ${rebuckets.length} Pass-A re-buckets,`);
+  console.log(`          --apply-review to write the ${review.length} approved Pass-B proposals (flags combine).`);
   process.exit(0);
 }
 
-let written = 0;
-for (const { doc, to } of rebuckets) {
+function writeChange(doc, to, note) {
   const from = doc.contentType;
   doc.contentType = to;
   doc['contentType$meta'] = {
     source: 'resolved',
     confidence: 'high',
-    note: `Re-bucketed from the info-society catch-all by department-title pattern ('${to}')`,
+    note,
     originalValue: from,
     updated: NOW,
     version: VERSION,
   };
   const sorted = sortKeysDeep(doc);
   fs.writeFileSync(docAbsPath(sorted), JSON.stringify(sorted, null, 2) + '\n');
-  written++;
 }
-console.log(`\nApplied ${written} re-buckets.`);
+
+let written = 0;
+if (APPLY) {
+  for (const { doc, to } of rebuckets) {
+    writeChange(doc, to, `Re-bucketed from the info-society catch-all by department-title pattern ('${to}')`);
+    written++;
+  }
+  console.log(`\nApplied ${written} Pass-A re-buckets.`);
+}
+let reviewWritten = 0;
+if (APPLY_REVIEW) {
+  for (const r of review) {
+    writeChange(r.doc, r.proposal, `Reclassified from info-society by title review (2026-07-09, infoSocietyReview.md): '${r.proposal}'`);
+    reviewWritten++;
+  }
+  console.log(`Applied ${reviewWritten} Pass-B review reclassifications.`);
+}
 console.log('Reminder: npm run canonicalize && npm run validate, then commit.');
