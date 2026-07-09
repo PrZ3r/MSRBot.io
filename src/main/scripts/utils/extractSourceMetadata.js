@@ -389,7 +389,7 @@ function readIssueMetadataXml(absPath) {
     if (!file || !doi) continue;
     const title = firstTagText(block, 'title');
     const articleStatus = firstTagText(block, 'article_status');
-    const articleType = firstAttr(block, 'pubitype', 'type');
+    const contentType = firstAttr(block, 'pubitype', 'type');
     const pagesBlock = firstTag(block, 'pages');
     let pages = null;
     if (pagesBlock) {
@@ -419,7 +419,7 @@ function readIssueMetadataXml(absPath) {
       pages,
       authors: authors.length ? authors : null,
       keywords: keywords.length ? keywords : null,
-      articleType,
+      contentType,
       articleStatus,
       abstract: firstTagText(block, 'abstract'),
     });
@@ -551,7 +551,7 @@ function readNlmArticleXml(absPath) {
 
   // article-meta
   const docTitle = normText(stripInlineMarkup(firstTag(ameta, 'article-title')));
-  const articleType = firstAttr(text, 'article', 'article-type');
+  const contentType = firstAttr(text, 'article', 'article-type');
 
   // authors — <contrib contrib-type="author"> only (skip editors/translators)
   const authors = [];
@@ -613,7 +613,7 @@ function readNlmArticleXml(absPath) {
         ...(copyrightYear ? { year: copyrightYear } : {}),
       }
       : null,
-    articleType: articleType || null,
+    contentType: contentType || null,
   };
 }
 

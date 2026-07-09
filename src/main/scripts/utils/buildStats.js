@@ -83,19 +83,19 @@ function buildStats() {
     return acc;
   }, {});
 
-  // Journal Article breakdown by articleType (sorted descending by count)
+  // Journal Article breakdown by contentType (sorted descending by count)
   const journalArticles = documents.filter(
     d => typeof d.docType === 'string' && d.docType.trim() === 'Journal Article'
   );
-  const jaByArticleTypeRaw = journalArticles.reduce((acc, d) => {
-    const key = (typeof d.articleType === 'string' && d.articleType.trim().length)
-      ? d.articleType.trim()
+  const jaByContentTypeRaw = journalArticles.reduce((acc, d) => {
+    const key = (typeof d.contentType === 'string' && d.contentType.trim().length)
+      ? d.contentType.trim()
       : 'unspecified';
     acc[key] = (acc[key] || 0) + 1;
     return acc;
   }, {});
-  const jaByArticleType = Object.fromEntries(
-    Object.entries(jaByArticleTypeRaw).sort((a, b) => b[1] - a[1])
+  const jaByContentType = Object.fromEntries(
+    Object.entries(jaByContentTypeRaw).sort((a, b) => b[1] - a[1])
   );
 
   // Compose stats object
@@ -113,11 +113,11 @@ function buildStats() {
       docTypes: Object.keys(docsByType).length,
       docsByType,
 
-      // Journal Article subtype breakdown by articleType
+      // Journal Article subtype breakdown by contentType
       journalArticles: {
         total: journalArticles.length,
-        articleTypes: Object.keys(jaByArticleType).length,
-        byArticleType: jaByArticleType
+        contentTypes: Object.keys(jaByContentType).length,
+        byContentType: jaByContentType
       }
     },
 

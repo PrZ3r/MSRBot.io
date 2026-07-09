@@ -58,7 +58,7 @@
               </dd>
             {{/if}}
             {{#if docType}}<dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType={{docType}}">{{docType}}{{#if docTypeAbr}} ({{docTypeAbr}}){{/if}}</a></dd>{{/if}}
-            {{#if articleType}}<dt class="col-sm-4">Article Type</dt><dd class="col-sm-8"><a class="" href="../?f.articleType={{articleType}}">{{articleTypeLabel articleType}}</a></dd>{{/if}}
+            {{#if contentType}}<dt class="col-sm-4">Content Type</dt><dd class="col-sm-8"><a class="" href="../?f.contentType={{contentType}}">{{contentTypeLabel contentType}}</a></dd>{{/if}}
             {{#if abbrevTitle}}<dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>{{abbrevTitle}}</em></dd>{{/if}}
             {{#if volume}}<dt class="col-sm-4">Volume</dt><dd class="col-sm-8">{{volume}}{{#if number}}, No. {{number}}{{/if}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if number}}<dt class="col-sm-4">Issue</dt><dd class="col-sm-8">No. {{number}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if pages}}<dt class="col-sm-4">Pages</dt><dd class="col-sm-8">{{pages}}</dd>{{/if}}{{/if}}{{/if}}
             {{#if chapter}}<dt class="col-sm-4">Chapter</dt><dd class="col-sm-8">{{chapter}}</dd>{{/if}}
