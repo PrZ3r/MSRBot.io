@@ -34,6 +34,26 @@ const OVERRIDES = new Map([
   ['10.5594-M001489', { to: 'orig-research', note: 'User override 2026-07-09: technical paper; canonical info-society label is wrong (push-back item)' }],
 ]);
 
+// Title-review exceptions (2026-07-09): summary-abstract docs whose titles
+// show they are NOT research papers. Everything else in the summary-abstract
+// set flips to orig-research.
+const TITLE_EXCEPTIONS = new Map([
+  // Panel discussions + transcripts → discussion
+  ...['10.5594-M00194', '10.5594-M00417', '10.5594-M00427', '10.5594-M00453',
+      '10.5594-M00562', '10.5594-M00585', '10.5594-M00642', '10.5594-M00666',
+      '10.5594-M00691', '10.5594-M00707', '10.5594-M00822', '10.5594-M00933',
+      '10.5594-M001286'].map(id => [id, 'discussion']),
+  // Keynotes / addresses / remarks → oration
+  ...['10.5594-M001229', '10.5594-M001230', '10.5594-M00667', '10.5594-M00520']
+      .map(id => [id, 'oration']),
+  // Tutorials → tutorial
+  ...['10.5594-M001483', '10.5594-M001568', '10.5594-M00242', '10.5594-M00715']
+      .map(id => [id, 'tutorial']),
+  // Forewords / prefaces / introductions → introduction
+  ...['10.5594-M00093', '10.5594-M00176', '10.5594-M00195', '10.5594-M001118',
+      '10.5594-M001276', '10.5594-M00196', '10.5594-M001277'].map(id => [id, 'introduction']),
+]);
+
 function sortKeysDeep(v) {
   if (Array.isArray(v)) return v.map(sortKeysDeep);
   if (v && typeof v === 'object') {
@@ -53,7 +73,12 @@ for (const doc of docs) {
   const meta = doc[`${field}$meta`];
   if (meta && meta.excludeChanges === true) continue;
   if (cur === 'summary-abstract') {
-    changes.push({ doc, field, from: cur, to: 'orig-research', note: 'Canonical-confirmed full paper (all 1,504 summary-abstract docs are orig-research in the SMPTE canonical repos); HIGHWIRE-era abstract label was a delivery artifact' });
+    const exc = TITLE_EXCEPTIONS.get(doc.docId);
+    if (exc) {
+      changes.push({ doc, field, from: cur, to: exc, note: `Title review 2026-07-09: not a research paper — reclassified '${exc}'` });
+    } else {
+      changes.push({ doc, field, from: cur, to: 'orig-research', note: 'Canonical-confirmed full paper (summary-abstract set is orig-research in the SMPTE canonical repos); HIGHWIRE-era abstract label was a delivery artifact' });
+    }
   } else if (OVERRIDES.has(doc.docId)) {
     const o = OVERRIDES.get(doc.docId);
     if (cur !== o.to) changes.push({ doc, field, from: cur, to: o.to, note: o.note });
