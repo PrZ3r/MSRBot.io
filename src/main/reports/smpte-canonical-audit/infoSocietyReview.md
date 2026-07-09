@@ -1,6 +1,6 @@
 # info-society review — paper-ish singletons with reclass proposals
 
-> Generated: 2026-07-09T19:36:12.881Z · 710 rows · REVIEW ONLY, nothing auto-written
+> Generated: 2026-07-09T19:37:05.512Z · 710 rows · REVIEW ONLY, nothing auto-written
 > Edit the proposal column (or strike rows to keep info-society), then decisions get encoded.
 
 | proposal | rows |
