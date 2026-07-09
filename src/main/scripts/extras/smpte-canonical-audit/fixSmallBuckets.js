@@ -33,6 +33,15 @@ const VERSION = 'contenttype-fixes@v1';
 
 const MESSAGE_RULE = /\bmessage from the\b|an appeal from the .*vice[- ]president/i;
 
+// meeting-report tier review 2026-07-09: listings → future-events; Almanac
+// consolidates with the 57 already in info-society. Progress-Committee
+// reports and Technical-Conference entries stay meeting-report per review.
+const TITLE_RULES = [
+  [/^forthcoming professional meetings/i, 'future-events'],
+  [/^meetings of other societies/i, 'future-events'],
+  [/^smpte almanac/i, 'info-society'],
+];
+
 const EXPLICIT = new Map(Object.entries({
   // 'other' bucket (empties it)
   '10.5594-J18230': 'list-staff',      // Officers 1922–1923
@@ -52,6 +61,8 @@ const EXPLICIT = new Map(Object.entries({
   // opinion-tier review 2026-07-09: Welcome Letter = officer letter.
   // (Other flagged opinions + errata questions reviewed and LEFT as-is.)
   '10.5594-J17569': 'info-society',    // 142nd Tech Conference: Welcome Letter
+  // obit-tier review 2026-07-09: standards text misfiled under obituaries
+  '10.5594-J03238': 'content-announce', // Cinematography — A-Chain Frequency Response (standard)
 }));
 
 const docs = loadAllDocs();
@@ -68,6 +79,10 @@ for (const doc of docs) {
   } else if (MESSAGE_RULE.test(String(doc.docTitle))) {
     to = 'info-society';
     why = "Officer-message rule 2026-07-09: all 'Message from the …' titles are society information";
+  } else {
+    for (const [re, target] of TITLE_RULES) {
+      if (re.test(String(doc.docTitle).trim())) { to = target; why = `Title-rule 2026-07-09 (meeting-report tier review): → ${target}`; break; }
+    }
   }
   if (!to || doc.contentType === to) continue;
   changes.push({ doc, from: doc.contentType, to, why });
