@@ -49,6 +49,9 @@ const EXPLICIT = new Map(Object.entries({
   '10.5594-J05342': 'orig-research',   // "5 Studio Object Model" — not an oration
   '10.5594-J09874': 'meeting-report',  // Fifty-Second Semi-Annual Meeting
   '10.5594-J17139': 'orig-research',   // The Task Force Final Report
+  // opinion-tier review 2026-07-09: Welcome Letter = officer letter.
+  // (Other flagged opinions + errata questions reviewed and LEFT as-is.)
+  '10.5594-J17569': 'info-society',    // 142nd Tech Conference: Welcome Letter
 }));
 
 const docs = loadAllDocs();
