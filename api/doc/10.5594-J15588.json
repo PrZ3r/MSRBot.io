@@ -1,7 +1,7 @@
 {
   "$schema": "/api/schemas/documents.schema.json",
   "apiVersion": "1.0.0",
-  "generatedAt": "2026-07-07T03:46:59.517Z",
+  "generatedAt": "2026-07-09T21:16:49.031Z",
   "sourcePath": "src/main/data/docs",
   "docId": "10.5594-J15588",
   "document": {
@@ -21,14 +21,6 @@
       "updated": "2026-05-22T21:44:19.125Z",
       "version": "smpte-journal-article-nlm@v1"
     },
-    "articleType": "research-article",
-    "articleType$meta": {
-      "confidence": "high",
-      "note": "Parsed from NLM article XML (_source/SMPTE/HIGHWIRE/Source Bak/smptej/10.5594_J15588.xml)",
-      "source": "parsed",
-      "updated": "2026-05-22T21:44:19.125Z",
-      "version": "smpte-journal-article-nlm@v1"
-    },
     "authors": [
       {
         "affiliation": "Norman Macbeth, Macbeth Corp., P.O. Box 950, Newburgh, N.Y.",
@@ -37,14 +29,36 @@
       {
         "affiliation": "Norman Macbeth, Macbeth Corp., P.O. Box 950, Newburgh, N.Y.",
         "name": "W. Jaedicke"
+      },
+      {
+        "name": "Norman Macbeth"
       }
     ],
     "authors$meta": {
       "confidence": "high",
-      "note": "Object form (schema 2.3.0) migrated from string form via migrateAuthorsToObjectForm.js; bio/affiliation backfilled from _source/SMPTE/HIGHWIRE/ NLM <contrib-group>+<aff>+<bio>",
+      "note": "Author list rebuilt from SMPTE canonical repository (count-mismatch review: canonical correct in all 15 cases; approved 2026-07-08) (smpte-canonical-audit/canonicalLibrary.*.json)",
+      "originalValue": [
+        {
+          "affiliation": "Norman Macbeth, Macbeth Corp., P.O. Box 950, Newburgh, N.Y.",
+          "name": "B. Seeger"
+        },
+        {
+          "affiliation": "Norman Macbeth, Macbeth Corp., P.O. Box 950, Newburgh, N.Y.",
+          "name": "W. Jaedicke"
+        }
+      ],
       "source": "parsed",
-      "updated": "2026-06-23T00:04:25.562Z",
-      "version": "authors-migrate-object-form@v1"
+      "updated": "2026-07-08T00:35:38.133Z",
+      "version": "smpte-canonical-repo@v1"
+    },
+    "contentType": "orig-research",
+    "contentType$meta": {
+      "confidence": "high",
+      "note": "Vocabulary conformance to SMPTE ContentTypeEnum (2026-07-09): 'research-article' renamed to 'orig-research'. Registry vocab = SMPTE enum + 9 retained MSRBot values.",
+      "originalValue": "research-article",
+      "source": "resolved",
+      "updated": "2026-07-09T17:56:30.992Z",
+      "version": "articletype-conform@v1"
     },
     "copyright": {
       "holder": "Society of Motion Picture and Television Engineers, Inc.",
@@ -87,13 +101,14 @@
       "updated": "2026-05-22T21:44:19.125Z",
       "version": "smpte-journal-article-nlm@v1"
     },
-    "docTitle": "The Xenon Short-Arc Lamp in Motion-Picture Projection",
+    "docTitle": "The Xenon Short-Arc Lamp in Motion-Picture Projection: Translation",
     "docTitle$meta": {
       "confidence": "high",
-      "note": "Parsed from NLM article XML (_source/SMPTE/HIGHWIRE/Source Bak/smptej/10.5594_J15588.xml)",
+      "note": "Title updated from SMPTE canonical repository (2026-07-09 drift review: canonical richer/cleaner; TeX/sup/inf converted to Unicode) (smpte-canonical-audit/canonicalLibrary.*.json)",
+      "originalValue": "The Xenon Short-Arc Lamp in Motion-Picture Projection",
       "source": "parsed",
-      "updated": "2026-05-22T21:44:19.125Z",
-      "version": "smpte-journal-article-nlm@v1"
+      "updated": "2026-07-09T15:05:12.415Z",
+      "version": "smpte-canonical-repo@v1"
     },
     "docType": "Journal Article",
     "docType$meta": {
@@ -143,6 +158,15 @@
       "source": "parsed",
       "updated": "2026-06-17T00:17:09.425Z",
       "version": "smpte-journal-issue-xml@v1"
+    },
+    "journalTitle": "Journal of the SMPTE",
+    "journalTitle$meta": {
+      "confidence": "high",
+      "note": "Era-accurate journal title from SMPTE canonical repository (periodical parent at time of publication) (smpte-canonical-audit/canonicalLibrary.*.json)",
+      "originalValue": null,
+      "source": "parsed",
+      "updated": "2026-07-08T00:35:38.133Z",
+      "version": "smpte-canonical-repo@v1"
     },
     "number": "7",
     "number$meta": {

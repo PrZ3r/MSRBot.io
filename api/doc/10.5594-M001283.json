@@ -1,7 +1,7 @@
 {
   "$schema": "/api/schemas/documents.schema.json",
   "apiVersion": "1.0.0",
-  "generatedAt": "2026-07-07T03:46:59.517Z",
+  "generatedAt": "2026-07-09T21:16:49.031Z",
   "sourcePath": "src/main/data/docs",
   "docId": "10.5594-M001283",
   "document": {
@@ -13,26 +13,33 @@
       "updated": "2026-05-22T21:44:19.125Z",
       "version": "smpte-conference-paper-nlm@v1"
     },
-    "articleType": "abstract",
-    "articleType$meta": {
-      "confidence": "high",
-      "note": "Parsed from NLM article XML (_source/SMPTE/HIGHWIRE/ORIGINAL SAMPLES/Conferences/smptem_1994_1/smptem_1994_1.xml/10.5594_M001283.xml)",
-      "source": "parsed",
-      "updated": "2026-05-22T21:44:19.125Z",
-      "version": "smpte-conference-paper-nlm@v1"
-    },
     "authors": [
       {
         "affiliation": "Telecom Denmark",
-        "name": "Jørgen Weber"
+        "name": "Jorgen Weber"
       }
     ],
     "authors$meta": {
       "confidence": "high",
-      "note": "Object form (schema 2.3.0) migrated from string form via migrateAuthorsToObjectForm.js; bio/affiliation backfilled from _source/SMPTE/HIGHWIRE/ NLM <contrib-group>+<aff>+<bio>",
+      "note": "Author names corrected from SMPTE canonical repository (prefix junk / initials / OCR spelling; positional replace preserving bio+affiliation; approved 2026-07-08) (smpte-canonical-audit/canonicalLibrary.*.json)",
+      "originalValue": [
+        {
+          "affiliation": "Telecom Denmark",
+          "name": "Jørgen Weber"
+        }
+      ],
       "source": "parsed",
-      "updated": "2026-06-23T00:04:25.562Z",
-      "version": "authors-migrate-object-form@v1"
+      "updated": "2026-07-08T00:35:38.133Z",
+      "version": "smpte-canonical-repo@v1"
+    },
+    "contentType": "orig-research",
+    "contentType$meta": {
+      "confidence": "high",
+      "note": "Canonical-confirmed full paper (summary-abstract set is orig-research in the SMPTE canonical repos); HIGHWIRE-era abstract label was a delivery artifact",
+      "originalValue": "summary-abstract",
+      "source": "resolved",
+      "updated": "2026-07-09T19:12:47.628Z",
+      "version": "contenttype-fixes@v1"
     },
     "copyright": {
       "holder": "Society of Motion Picture and Television Engineers, Inc.",

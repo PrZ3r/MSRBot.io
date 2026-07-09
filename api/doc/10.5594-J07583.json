@@ -1,7 +1,7 @@
 {
   "$schema": "/api/schemas/documents.schema.json",
   "apiVersion": "1.0.0",
-  "generatedAt": "2026-07-07T03:46:59.517Z",
+  "generatedAt": "2026-07-09T21:16:49.031Z",
   "sourcePath": "src/main/data/docs",
   "docId": "10.5594-J07583",
   "document": {
@@ -21,26 +21,32 @@
       "updated": "2026-06-16T16:11:59.617Z",
       "version": "smpte-journal-issue-xml@v1"
     },
-    "articleType": "orig-research",
-    "articleType$meta": {
+    "authors": [
+      {
+        "affiliation": "Eastman Kodak Co., Photographic Technology Div., Bldg. 69, Kodak Park, Rochester, NY 14650.",
+        "name": "Ronald E. Uhlig"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Author names corrected from SMPTE canonical repository (prefix junk / initials / OCR spelling; positional replace preserving bio+affiliation; approved 2026-07-08) (smpte-canonical-audit/canonicalLibrary.*.json)",
+      "originalValue": [
+        {
+          "affiliation": "Eastman Kodak Co., Photographic Technology Div., Bldg. 69, Kodak Park, Rochester, NY 14650.",
+          "name": "Uhlig, Ronald E. "
+        }
+      ],
+      "source": "parsed",
+      "updated": "2026-07-08T00:35:38.133Z",
+      "version": "smpte-canonical-repo@v1"
+    },
+    "contentType": "orig-research",
+    "contentType$meta": {
       "confidence": "high",
       "note": "Parsed from journal_metadata XML (_source/SMPTE/APTARA/DL Project Files/08182015 BACKFILE JOURNAL FRESH/smptej_85_8/MIJR15Vol85No8.xml)",
       "source": "parsed",
       "updated": "2026-06-16T16:11:59.617Z",
       "version": "smpte-journal-issue-xml@v1"
-    },
-    "authors": [
-      {
-        "affiliation": "Eastman Kodak Co., Photographic Technology Div., Bldg. 69, Kodak Park, Rochester, NY 14650.",
-        "name": "Uhlig, Ronald E. "
-      }
-    ],
-    "authors$meta": {
-      "confidence": "high",
-      "note": "Object form (schema 2.3.0) migrated from string form via migrateAuthorsToObjectForm.js; bio/affiliation backfilled from _source/SMPTE/HIGHWIRE/ NLM <contrib-group>+<aff>+<bio>",
-      "source": "manual",
-      "updated": "2026-06-23T00:04:25.562Z",
-      "version": "authors-migrate-object-form@v1"
     },
     "copyright": {
       "holder": "Society of Motion Picture and Television Engineers, Inc.",
@@ -133,6 +139,15 @@
       "source": "parsed",
       "updated": "2026-06-16T16:11:59.617Z",
       "version": "smpte-journal-issue-xml@v1"
+    },
+    "journalTitle": "SMPTE Journal",
+    "journalTitle$meta": {
+      "confidence": "high",
+      "note": "Era-accurate journal title from SMPTE canonical repository (periodical parent at time of publication) (smpte-canonical-audit/canonicalLibrary.*.json)",
+      "originalValue": null,
+      "source": "parsed",
+      "updated": "2026-07-08T00:35:38.133Z",
+      "version": "smpte-canonical-repo@v1"
     },
     "number": "8",
     "number$meta": {
