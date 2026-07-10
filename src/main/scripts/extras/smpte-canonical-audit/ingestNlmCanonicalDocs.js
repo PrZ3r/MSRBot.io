@@ -220,12 +220,33 @@ function docLabel(rec, docType) {
 const META_HI = { source: 'parsed', confidence: 'high', updated: NOW, note: 'Ingested from SMPTE canonical content_batch via ingestNlmCanonicalDocs.js' };
 const META_MED = { ...META_HI, confidence: 'medium' };
 
+function metaFor(key) {
+  return /doi|docId|docType|contentType|pages|volume|number/.test(key) ? { ...META_HI } : { ...META_MED };
+}
+
+// Stamp a $meta sibling on every non-$meta sub-key of a nested object, matching
+// the registry convention (issn.print$meta, copyright.holder$meta, …). Without
+// this, canonicalize's ensureMeta() recurses in and back-fills those sub-fields
+// with a default `source: "manual"` $meta.
+function stampNested(obj) {
+  const out = {};
+  for (const [k, v] of Object.entries(obj)) {
+    if (k.endsWith('$meta')) continue;
+    out[k] = v;
+    out[`${k}$meta`] = metaFor(k);
+  }
+  return out;
+}
+
 function withMeta(doc) {
   const out = {};
   for (const [k, v] of Object.entries(doc)) {
     if (v === null || v === undefined) continue;
-    out[k] = v;
-    if (k !== 'status') out[`${k}$meta`] = /doi|docId|docType|contentType|pages|volume|number/.test(k) ? { ...META_HI } : { ...META_MED };
+    if (k === 'status') { out[k] = v; continue; }
+    // Nested objects (issn / isbn / copyright / publisherLocation): stamp each
+    // sub-field AND keep a top-level $meta — both, as fully-canonicalized docs carry.
+    out[k] = (v && typeof v === 'object' && !Array.isArray(v)) ? stampNested(v) : v;
+    out[`${k}$meta`] = metaFor(k);
   }
   return out;
 }
@@ -270,8 +291,15 @@ function buildDoc(rec, docType, issueToken) {
 // ---- run -----------------------------------------------------------------
 
 console.log('[ingest] loading registry…');
-const existing = new Set(loadAllDocs().filter((d) => d.doi).map((d) => String(d.doi).trim()));
-const existingIds = new Set(loadAllDocs().map((d) => d.docId));
+// "Pre-existing" excludes docs THIS ingester previously wrote (identified by the
+// ingest note), so a corrective re-apply re-stages and overwrites our own docs
+// rather than skipping them as already-present — while still skipping genuinely
+// pre-existing registry docs.
+const OUR_NOTE = 'ingestNlmCanonicalDocs.js';
+const isOurs = (d) => String((d['docId$meta'] || {}).note || '').includes(OUR_NOTE);
+const _allDocs = loadAllDocs();
+const existing = new Set(_allDocs.filter((d) => d.doi && !isOurs(d)).map((d) => String(d.doi).trim()));
+const existingIds = new Set(_allDocs.filter((d) => !isOurs(d)).map((d) => d.docId));
 
 // Pre-scan: DOIs the canonical source assigned to MORE THAN ONE distinct paper.
 // (A genuine SMPTE upstream error — see the collision report / upstream register.)

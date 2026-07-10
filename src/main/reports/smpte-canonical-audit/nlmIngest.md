@@ -1,6 +1,6 @@
 # NLM canonical new-doc ingestion — todo #2
 
-> Generated: 2026-07-10T19:04:43.129Z
+> Generated: 2026-07-10T19:59:18.355Z
 > Mode: **DRY-RUN**
 
 ## Totals
