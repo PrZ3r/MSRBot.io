@@ -3118,18 +3118,64 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     const docsOutRoot = path.join(BUILD_PATH, 'docs');
     await fs.mkdir(docsOutRoot, { recursive: true });
 
+    // --- Case-collision awareness --------------------------------------
+    // SMPTE docIds are case-sensitive (10.5594-J18049 [1916] and
+    // 10.5594-j18049 [2011] are different documents). On a case-
+    // insensitive filesystem (macOS local dev) their output dirs are the
+    // SAME directory, so a gated doc's cleanup rm could delete its
+    // ungated case-sibling's freshly written page, and when both siblings
+    // are ungated one page overwrites the other. Production builds run on
+    // Linux and deploy to gh-pages (both case-sensitive) — unaffected.
+    //
+    // Mitigations: (1) gate removals run as a FIRST pass, so page writes
+    // always land after any rm — an ungated doc can never lose its page
+    // to a gated sibling regardless of registry order; (2) on a case-
+    // insensitive FS a gated doc only rm's a page that actually belongs
+    // to its exact-case docId; (3) collision groups are logged so local
+    // preview gaps are explainable.
+    const __caseGroups = new Map(); // lower(docId) -> [docIds]
+    for (const d of registryDocument) {
+      if (!d || !d.docId) continue;
+      const lo = String(d.docId).toLowerCase();
+      if (!__caseGroups.has(lo)) __caseGroups.set(lo, []);
+      __caseGroups.get(lo).push(String(d.docId));
+    }
+    const __collisions = [...__caseGroups.values()].filter(g => g.length > 1);
+    let __fsCaseInsensitive = false;
+    try {
+      const probe = path.join(docsOutRoot, '.CaseProbe.tmp');
+      await fs.writeFile(probe, 'x');
+      __fsCaseInsensitive = await fs.access(path.join(docsOutRoot, '.caseprobe.tmp')).then(() => true, () => false);
+      await fs.rm(probe, { force: true });
+    } catch { /* probe is best-effort */ }
+    if (__collisions.length && __fsCaseInsensitive) {
+      console.warn(`[build] WARNING: ${__collisions.length} case-colliding docId group(s) on a case-insensitive filesystem — local preview holds only ONE page per group (production gh-pages is case-sensitive, unaffected). e.g. ${__collisions.slice(0, 3).map(g => g.join(' / ')).join(' · ')}`);
+    }
+
     let __ok = 0, __fail = 0, __gated = 0;
+    // Pass 1: gate removals (must precede all page writes — see note above)
+    for (const d of registryDocument) {
+      if (!d || !d.docId) continue;
+      if (!pageGated(d)) continue;
+      __gated++;
+      const id = String(d.docId);
+      const docDir = path.join(docsOutRoot, id);
+      if (__fsCaseInsensitive && __caseGroups.get(id.toLowerCase()).length > 1) {
+        // Only rm a page that belongs to this exact-case docId — never a
+        // case-sibling's page left from an earlier build.
+        try {
+          const html = await fs.readFile(path.join(docDir, 'index.html'), 'utf8');
+          if (!html.includes(`/docs/${encodeURIComponent(id)}/`)) continue;
+        } catch { /* nothing readable there — rm is a no-op or stale dir */ }
+      }
+      await fs.rm(docDir, { recursive: true, force: true });
+    }
+    // Pass 2: page writes
     for (const d of registryDocument) {
       if (!d || !d.docId) continue;
       const id = String(d.docId);
       const docDir = path.join(docsOutRoot, id);
-      // Page gate: gated contentTypes (e.g. obituary, other) get no detail
-      // page. Remove any stale page left by an earlier (pre-gate) build.
-      if (pageGated(d)) {
-        __gated++;
-        await fs.rm(docDir, { recursive: true, force: true });
-        continue;
-      }
+      if (pageGated(d)) continue;
       await fs.mkdir(docDir, { recursive: true });
       try {
         // Per‑doc canonical + social meta

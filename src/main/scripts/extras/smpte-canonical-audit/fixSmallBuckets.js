@@ -54,6 +54,18 @@ const EXPLICIT = new Map(Object.entries({
   '10.5594-J18027': 'orig-research',   // Motion Picture Standards (1917)
   '10.5594-J18028': 'orig-research',   // Motion Picture Nomenclature (1917)
   '10.5594-J18049': 'orig-research',   // Standardization (1916)
+  // …and their XY-DOI siblings (distinct docs, same era/type; missed in the
+  // first batch — user flagged 2026-07-09 when the gate hid J18049XY's page)
+  '10.5594-J18027XY': 'orig-research', // Motion Picture Standards: Adopted in Committee…
+  '10.5594-J18028XY': 'orig-research', // Motion Picture Nomenclature: Adopted in Committee…
+  '10.5594-J18049XY': 'orig-research', // Standardization: Address by Henry D. Hubbard
+  // XY/plain contentType alignment sweep 2026-07-09: all 5 remaining
+  // divergent pairs align to the human-reviewed plain sibling.
+  '10.5594-J18012XY': 'meeting-report', // 36th Annual AMI Conference
+  '10.5594-J18212XY': 'meeting-report', // User Requirements… Fall Conference
+  '10.5594-J18215XY': 'meeting-report', // Thousands Gather… DTV Conference
+  '10.5594-J18216XY': 'meeting-report', // The Second Annual Film Conference
+  '10.5594-j18365XY': 'meeting-report', // Report from the Standards Vice President
   // singleton misfits
   '10.5594-J05342': 'orig-research',   // "5 Studio Object Model" — not an oration
   '10.5594-J09874': 'meeting-report',  // Fifty-Second Semi-Annual Meeting

@@ -11,7 +11,7 @@ See [docs/mri-citation-system.md](../../../docs/mri-citation-system.md) for the 
 
 ## Totals
 
-- Registry docs: **26445**
+- Registry docs: **26298**
 - Docs with non-empty `references[]`: **5477**
 - Total ref-entries audited: **52607**
 - MRI `refs[]` entries: **43405**
