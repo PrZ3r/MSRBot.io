@@ -28,7 +28,7 @@ keyword containing it as a whole token, so `AI` covers `Generative AI` / `AI Eth
 | Recording | 116 | count |
 | SDI | 109 | count |
 | Identification | 107 | count |
-| DCP | 71 | hand |
+| DCP | 71 | portal |
 | Time & Sync | 71 | count |
 | Projection | 70 | count |
 | Ancillary Data | 66 | count |
@@ -60,7 +60,7 @@ keyword containing it as a whole token, so `AI` covers `Generative AI` / `AI Eth
 | Workflow | 29 | hand |
 | AES | 28 | hand |
 | 70mm | 27 | hand |
-| KDM | 27 | hand |
+| KDM | 27 | portal |
 | XML | 27 | hand |
 | Immersive Audio | 26 | portal |
 | DCDM | 25 | portal |

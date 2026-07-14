@@ -53,11 +53,13 @@ const HAND_ADD = [
   // Established facets that fall between 10 and 30 docs. Restored deliberately:
   // raising MIN_DOCS to 30 stranded them with NO chip matching their docs at all
   // (unlike e.g. "Video Compression" or "MXF Core", which a broader chip still
-  // token-matches). "Workflow" also recovers "File-Based Workflow"; "DCP"
-  // recovers plain-DCP docs that DCP Core / DCP Application don't reach; and the
-  // 70mm/65mm gauges keep the film-gauge family whole alongside 35mm/16mm/8mm.
-  'AES', 'KDM', 'XML', 'Fiber', 'HDTV', 'HEVC', '4K', 'Workflow', 'Archive',
-  'SHA-1', 'VC-5', 'VC-2', 'DV', 'ST 2110', 'DCP', 'Edit', 'HFR', 'AVC',
+  // token-matches). "Workflow" also recovers "File-Based Workflow"; the 70mm/65mm
+  // gauges keep the film-gauge family whole alongside 35mm/16mm/8mm.
+  // NB: KDM and DCP are NOT listed here — they are now flagged by the dcinema
+  // portal (pass 2), which is where they belong. Their absence from that portal
+  // was a genuine gap this pass surfaced.
+  'AES', 'XML', 'Fiber', 'HDTV', 'HEVC', '4K', 'Workflow', 'Archive',
+  'SHA-1', 'VC-5', 'VC-2', 'DV', 'ST 2110', 'Edit', 'HFR', 'AVC',
   'Automation', 'Frame Rate', '70mm', '65mm',
 ];
 const HAND_REMOVE = [
