@@ -1,6 +1,6 @@
 # Facet keyword chips — doc-list filter rail
 
-> APPLIED · chips: **72** (indexed vocabulary: 987)
+> APPLIED · chips: **94** (indexed vocabulary: 987)
 > Passes: count (>= 30 docs) · portal-flagged · hand curation
 
 `controlledKeywords` stays the full indexed vocabulary — every term remains searchable.
@@ -28,6 +28,7 @@ keyword containing it as a whole token, so `AI` covers `Generative AI` / `AI Eth
 | Recording | 116 | count |
 | SDI | 109 | count |
 | Identification | 107 | count |
+| DCP | 71 | hand |
 | Time & Sync | 71 | count |
 | Projection | 70 | count |
 | Ancillary Data | 66 | count |
@@ -56,18 +57,39 @@ keyword containing it as a whole token, so `AI` covers `Generative AI` / `AI Eth
 | HDR | 34 | count |
 | Camera | 33 | count |
 | Magnetic | 31 | count |
+| Workflow | 29 | hand |
+| AES | 28 | hand |
+| 70mm | 27 | hand |
+| KDM | 27 | hand |
+| XML | 27 | hand |
 | Immersive Audio | 26 | portal |
 | DCDM | 25 | portal |
+| Fiber | 25 | hand |
+| HDTV | 21 | hand |
+| HEVC | 20 | hand |
+| 4K | 19 | hand |
 | Streaming | 19 | hand |
 | Cloud | 18 | hand |
 | Quality | 17 | hand |
+| Archive | 16 | hand |
+| SHA-1 | 16 | hand |
 | IMF Application | 14 | portal |
 | Latency | 14 | hand |
+| VC-5 | 14 | hand |
 | Accessibility | 13 | portal |
 | AI | 13 | hand |
+| DV | 13 | hand |
 | Timed Text | 13 | portal |
+| Automation | 12 | hand |
+| AVC | 12 | hand |
+| ST 2110 | 12 | hand |
+| Edit | 11 | hand |
+| HFR | 11 | hand |
 | Standards | 11 | hand |
+| VC-2 | 11 | hand |
+| 65mm | 10 | hand |
 | Display | 10 | hand |
+| Frame Rate | 10 | hand |
 | Machine Learning | 9 | hand |
 | Virtual Production | 8 | hand |
 | Encoding | 7 | hand |

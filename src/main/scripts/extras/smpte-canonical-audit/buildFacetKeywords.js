@@ -45,10 +45,20 @@ const MIN_DOCS = 30;
 // Pass 3 — hand curation. ADD: below the count bar but worth browsing (emerging
 // topics we want discoverable). REMOVE: over the bar but useless as a facet.
 const HAND_ADD = [
+  // emerging topics — below the count bar but worth surfacing
   'AI', 'Machine Learning', 'Virtual Production', 'Virtual Reality',
   'Augmented Reality', 'Metaverse', 'Sustainability', 'Streaming', 'Cloud',
   'Latency', 'Video Coding', 'Encoding', 'Rendering', 'Storage', 'Quality',
   'Standards', 'Display',
+  // Established facets that fall between 10 and 30 docs. Restored deliberately:
+  // raising MIN_DOCS to 30 stranded them with NO chip matching their docs at all
+  // (unlike e.g. "Video Compression" or "MXF Core", which a broader chip still
+  // token-matches). "Workflow" also recovers "File-Based Workflow"; "DCP"
+  // recovers plain-DCP docs that DCP Core / DCP Application don't reach; and the
+  // 70mm/65mm gauges keep the film-gauge family whole alongside 35mm/16mm/8mm.
+  'AES', 'KDM', 'XML', 'Fiber', 'HDTV', 'HEVC', '4K', 'Workflow', 'Archive',
+  'SHA-1', 'VC-5', 'VC-2', 'DV', 'ST 2110', 'DCP', 'Edit', 'HFR', 'AVC',
+  'Automation', 'Frame Rate', '70mm', '65mm',
 ];
 const HAND_REMOVE = [
   'Dimension',   // structural tag, not a topic anyone browses by
