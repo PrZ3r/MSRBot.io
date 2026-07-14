@@ -85,10 +85,11 @@ const CANON = new Map(Object.entries({
 function canon(k) {
   const lo = String(k).toLowerCase().trim();
   if (CANON.has(lo)) return CANON.get(lo);
-  // generic: uppercase a leading dimensional prefix (3d Foo → 3D Foo)
-  const m = String(k).match(/^([238])d\b(.*)$/i);
-  if (m) return `${m[1].toUpperCase()}D${m[2]}`;
-  return k;
+  // Uppercase a dimensional prefix ANYWHERE in the term, not just leading —
+  // "LED 3d Displays" is as wrong as "3d Rendering". The token must stand alone
+  // (bounded by non-alphanumerics) so "3GPP" and "S3D" are left untouched.
+  return String(k).replace(/(^|[^A-Za-z0-9])([238])d([^A-Za-z0-9]|$)/g,
+    (_m, before, digit, after) => `${before}${digit}D${after}`);
 }
 
 const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
