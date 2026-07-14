@@ -1,7 +1,7 @@
 # NLM canonical new-doc ingestion — todo #2
 
-> Generated: 2026-07-10T19:59:18.355Z
-> Mode: **DRY-RUN**
+> Generated: 2026-07-10T20:01:10.986Z
+> Mode: **APPLY**
 
 ## Totals
 - content_batch primaries staged as new docs: **491**
