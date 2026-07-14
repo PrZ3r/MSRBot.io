@@ -1197,11 +1197,13 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           const arr = Array.isArray(val) ? val.map(String) : (val ? [String(val)] : []);
           if (!vs.every(sel => arr.includes(String(sel)))) return false;
         } else if (k === 'keywords') {
-          // Keyword chips are curated broad facets (site.json facetKeywords) while
-          // doc.keywords holds the full indexed vocabulary. So a chip matches on
-          // whole-token containment, not equality: "AI" selects "Generative AI"
-          // and "AI Ethics" (but not "Chain"/"Domain"). Clicking a doc's own
-          // keyword still works — a term always token-matches itself.
+          // Keyword chips are curated broad facets (derived each build by
+          // build.search-index.js from the count bar + portal-declared keywords +
+          // site.json facetKeywordCuration) while doc.keywords holds the full
+          // indexed vocabulary. So a chip matches on whole-token containment, not
+          // equality: "AI" selects "Generative AI" and "AI Ethics" (but not
+          // "Chain"/"Domain"). Clicking a doc's own keyword still works — a term
+          // always token-matches itself.
           const arr = Array.isArray(val) ? val.map(String) : (val ? [String(val)] : []);
           if (!vs.some(sel => arr.some(x => tokenContains(x, sel)))) return false;
         } else if (Array.isArray(val)) {
