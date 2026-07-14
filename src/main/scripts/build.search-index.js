@@ -53,6 +53,33 @@ try {
   __gateSet = new Set();
 }
 
+/* Curated keyword chips for the doc-list facet rail. site.json controlledKeywords
+ * is the *indexed* vocabulary (every searchable term, ~1k); facetKeywords is the
+ * small browsable subset. Keep this in sync with the same-named helper in
+ * src/site/js/docList.js — the chip counts here and the client-side filter must
+ * agree on what a chip matches. */
+const FACET_KEYWORDS = Array.isArray(__siteConfig.facetKeywords) ? __siteConfig.facetKeywords : [];
+
+/* True when `needle` appears in `hay` on whole-token boundaries. Deliberately
+ * not a substring test: "AI" must match "Generative AI" and "AI-driven Media"
+ * but not "Chain", "Domain" or "Training". Hand-rolled rather than a \b regex so
+ * chips containing regex metacharacters ("Test & Measurement", "Media Exchange
+ * Layer (MXL)") need no escaping. */
+function tokenContains(hay, needle) {
+  const h = String(hay == null ? '' : hay).toLowerCase();
+  const n = String(needle == null ? '' : needle).toLowerCase();
+  if (!h || !n) return false;
+  const isWord = (c) => /[a-z0-9]/.test(c);
+  let i = 0;
+  while ((i = h.indexOf(n, i)) !== -1) {
+    const before = i === 0 ? '' : h[i - 1];
+    const after = (i + n.length >= h.length) ? '' : h[i + n.length];
+    if ((!before || !isWord(before)) && (!after || !isWord(after))) return true;
+    i += 1;
+  }
+  return false;
+}
+
 const GROUPS = path.join('src','main','data','groups.json');
 const PROJECTS = path.join('src','main','data','projects.json');
 const OUT = 'build/docs';
@@ -381,11 +408,17 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
         facets.currentWork[key] = (facets.currentWork[key] || 0) + 1;
       }
     }
-    if (Array.isArray(r.keywords)) {
-      for (const k of r.keywords) {
-        const key = String(k).trim();
-        if (!key) continue;
-        facets.keywords[key] = (facets.keywords[key] || 0) + 1;
+    // Keyword chips are the CURATED site.json facetKeywords list — not every
+    // distinct doc keyword. doc.keywords is the full indexed vocabulary (~1k
+    // terms, all searchable); rendering one chip per term would be unusable.
+    // A doc matches a chip when any of its keywords contains the chip as a
+    // whole token, so "AI" aggregates "Generative AI" / "AI Ethics" /
+    // "AI-driven Media" — but never "Chain" / "Domain" / "Training".
+    if (Array.isArray(r.keywords) && FACET_KEYWORDS.length) {
+      for (const chip of FACET_KEYWORDS) {
+        if (r.keywords.some((k) => tokenContains(k, chip))) {
+          facets.keywords[chip] = (facets.keywords[chip] || 0) + 1;
+        }
       }
     }
     if (r.contentType) {

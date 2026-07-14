@@ -192,6 +192,28 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   }
   const synonymsBi = buildBiSynonyms(synonymsMap);
 
+  // True when `needle` appears in `hay` on whole-token boundaries. Backs the
+  // curated keyword chips: "AI" must match "Generative AI" / "AI-driven Media"
+  // but never "Chain", "Domain" or "Training", so a plain substring test won't
+  // do. Hand-rolled rather than a \b regex so chips carrying regex
+  // metacharacters ("Test & Measurement", "Media Exchange Layer (MXL)") need no
+  // escaping. MUST stay in sync with the same-named helper in
+  // src/main/scripts/build.search-index.js, which computes the chip counts.
+  function tokenContains(hay, needle) {
+    const h = String(hay == null ? '' : hay).toLowerCase();
+    const n = String(needle == null ? '' : needle).toLowerCase();
+    if (!h || !n) return false;
+    const isWord = c => /[a-z0-9]/.test(c);
+    let i = 0;
+    while ((i = h.indexOf(n, i)) !== -1) {
+      const before = i === 0 ? '' : h[i - 1];
+      const after = (i + n.length >= h.length) ? '' : h[i + n.length];
+      if ((!before || !isWord(before)) && (!after || !isWord(after))) return true;
+      i += 1;
+    }
+    return false;
+  }
+
   // Global preferred order for displaying status badges (also used by facets)
   const STATUS_ORDER = [
     'active',
@@ -1174,6 +1196,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           // AND semantics: every selected status must be present on the doc
           const arr = Array.isArray(val) ? val.map(String) : (val ? [String(val)] : []);
           if (!vs.every(sel => arr.includes(String(sel)))) return false;
+        } else if (k === 'keywords') {
+          // Keyword chips are curated broad facets (site.json facetKeywords) while
+          // doc.keywords holds the full indexed vocabulary. So a chip matches on
+          // whole-token containment, not equality: "AI" selects "Generative AI"
+          // and "AI Ethics" (but not "Chain"/"Domain"). Clicking a doc's own
+          // keyword still works — a term always token-matches itself.
+          const arr = Array.isArray(val) ? val.map(String) : (val ? [String(val)] : []);
+          if (!vs.some(sel => arr.some(x => tokenContains(x, sel)))) return false;
         } else if (Array.isArray(val)) {
           // OR semantics (existing behavior)
           if (!val.some(x => vs.includes(String(x)))) return false;
