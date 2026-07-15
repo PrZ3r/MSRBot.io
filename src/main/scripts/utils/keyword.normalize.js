@@ -133,6 +133,9 @@ function normalizeKeyword(input, extraAcronyms = null) {
       if (/^subtitles?$/i.test(word)) return "Subtitles";
       if (/^sha-?1$/i.test(word)) return "SHA-1";
       if (/^dcp(?=$|[-/])/i.test(word)) return word.replace(/^dcp/i, "DCP");
+      // Dimensional prefixes: title-casing leaves the digit and lowercases the
+      // letter ("3d"), so normalize them explicitly.
+      if (/^([238])d$/i.test(word)) return word.toUpperCase();
       // Preserve MIME/media-type forms as lowercase per convention.
       if (/^[A-Za-z0-9.+-]+\/[A-Za-z0-9.+-]+$/.test(word)) return lower;
       // Preserve already-uppercase hyphenated acronym tokens (e.g., MIME-EXT, URI-GEN).
