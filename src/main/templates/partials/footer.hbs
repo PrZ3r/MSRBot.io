@@ -38,10 +38,19 @@
               <span class="fw-semibold">On-site tools:</span>
               <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
             </p>
+            {{!-- Per-item pages (docs, reftrees, suites, portals) get no build
+                  stamp so their HTML is byte-stable across builds and the
+                  gh-pages deploy only commits pages whose content changed. --}}
+            {{#if site_version}}
             <p class="mb-0">
               <span class="fw-semibold">Site version:</span> <code>{{site_version}}</code>
               <br><span class="fw-semibold">Generated on:</span> <code>{{date}}</code>
             </p>
+            {{else if recordUpdated}}
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="{{recordUpdated}}"><code>{{recordUpdated}}</code></time>
+            </p>
+            {{/if}}
           </small>
         </div>
       </div>
