@@ -560,9 +560,7 @@ async function emitPortalsOnce() {
         copyright: siteConfig.copyright || '',
         license: siteConfig.license || 'BSD-3-Clause',
         licenseUrl: siteConfig.licenseUrl || 'https://opensource.org/licenses/BSD-3-Clause',
-
-        site_version: siteConfig.site_version || '',
-        date: siteConfig.date || new Date()
+        // No site_version/date: per-item pages stay byte-stable across builds.
       });
 
       await _writeFile(path.join(outDir, 'index.html'), html, 'utf8');
@@ -573,6 +571,29 @@ async function emitPortalsOnce() {
   } catch (e) {
     console.warn('[build] Failed to emit portal pages:', e && e.message ? e.message : e);
   }
+}
+
+// Content-derived "last modified" for a doc, used instead of build time so
+// output stays byte-stable across builds. Latest `updated` timestamp found in
+// any `*$meta` object wins (full ISO datetime as stored); falls back to
+// publicationDate (YYYY / YYYY-MM / YYYY-MM-DD); '' when neither is usable.
+function docLastModified(d) {
+  let latest = '';
+  let latestMs = -Infinity;
+  (function walk(node) {
+    if (!node || typeof node !== 'object') return;
+    for (const [k, v] of Object.entries(node)) {
+      if (!v || typeof v !== 'object') continue;
+      if (k.endsWith('$meta') && typeof v.updated === 'string') {
+        const ms = Date.parse(v.updated);
+        if (ms > latestMs) { latestMs = ms; latest = v.updated; }
+      }
+      walk(v);
+    }
+  })(d);
+  if (latest) return latest;
+  const pub = typeof d?.publicationDate === 'string' ? d.publicationDate.trim() : '';
+  return /^\d{4}(-\d{2}(-\d{2})?)?$/.test(pub) ? pub : '';
 }
 
 // Emit full-fidelity documents API payloads under build/api/ using the
@@ -716,7 +737,9 @@ async function emitDocumentsApiOnce() {
     const docPayload = {
       $schema: '/api/schemas/documents.schema.json',
       apiVersion: '1.0.0',
-      generatedAt,
+      // Content date, not build time: keeps per-doc shards byte-stable so
+      // deploys only commit docs that changed. Build time lives on the index.
+      lastModified: docLastModified(d) || null,
       sourcePath: docsPath,
       docId: id,
       document: d,
@@ -1062,10 +1085,7 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
           copyright: siteConfig.copyright || '',
           license: siteConfig.license || 'BSD-3-Clause',
           licenseUrl: siteConfig.licenseUrl || 'https://opensource.org/licenses/BSD-3-Clause',
-
-          // these are used in footer.hbs if present in the normal page context
-          site_version: siteConfig.site_version || '',
-          date: siteConfig.date || new Date()
+          // No site_version/date: per-item pages stay byte-stable across builds.
         });
 
         await _writeFile(path.join(outDir, 'index.html'), html, 'utf8');
@@ -1953,16 +1973,19 @@ function _titleOf(doc){
     }
   }
 
-  /* load referenced by docs (one-pass, no bogus recursion) */
+  /* load referenced by docs (one-pass reverse index, no bogus recursion) */
+  const referrersById = new Map(); // referenced docId -> Set(referrer docIds)
+  for (const [k, arr] of Object.entries(docReferences)) {
+    if (!Array.isArray(arr)) continue;
+    for (const target of arr) {
+      if (!referrersById.has(target)) referrersById.set(target, new Set());
+      referrersById.get(target).add(k);
+    }
+  }
   for (let i in registryDocument) {
-    const docId = registryDocument[i].docId;
-    const referrers = Object.keys(docReferences).filter(k => {
-      const arr = docReferences[k];
-      return Array.isArray(arr) && arr.includes(docId);
-    });
-    if (referrers.length) {
-      referrers.sort();
-      registryDocument[i].referencedBy = referrers;
+    const referrers = referrersById.get(registryDocument[i].docId);
+    if (referrers) {
+      registryDocument[i].referencedBy = Array.from(referrers).sort();
     }
   }
 
@@ -1989,7 +2012,7 @@ function _titleOf(doc){
 
   for (let i in registryDocument) {
     let docId = registryDocument[i].docId
-    if (Object.keys(referenceTree).includes(docId) === true) {
+    if (Object.prototype.hasOwnProperty.call(referenceTree, docId)) {
       registryDocument[i].referenceTree = referenceTree[docId]
     }
   }
@@ -2659,8 +2682,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             dataGroups: registryGroup,
             dataProjects: registryProject,
             docProjs: docProjs,
-            // meta
-            site_version: site_version,
+            // meta (no site_version/date: per-item pages stay byte-stable across builds)
             siteName: siteConfig.siteName,
             author: siteConfig.author,
             authorUrl: siteConfig.authorUrl,
@@ -2681,7 +2703,6 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             ogImageAlt: siteConfig.ogImageAlt,
             assetPrefix: '../../',
             htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
-            date: new Date(),
             publisherUrls: siteConfig.publisherUrls,
             titleLabelDocTypes: Array.isArray(siteConfig?.titleLabelDocTypes) ? siteConfig.titleLabelDocTypes : [],
           });
@@ -2804,8 +2825,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
               ...(s || {}),
               // make meta available even if templates change context with {{#with suite}}
               listTitle: perSuiteListTitle,
-              site_version: site_version,
-              date: new Date(),
+              // no site_version/date: per-item pages stay byte-stable across builds
               siteName: siteConfig.siteName,
               author: siteConfig.author,
               authorUrl: siteConfig.authorUrl,
@@ -2831,8 +2851,6 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             const suiteHtml = suitesTpl({
               templateName: 'suites',
               listTitle: perSuiteListTitle,
-              site_version: site_version,
-              date: suiteCtx.date,
               // site/meta
               siteName: siteConfig.siteName,
               author: siteConfig.author,
@@ -3112,7 +3130,9 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     return out;
   }
   // --- Emit per-document static detail pages at /docs/{docId}/index.html
-  try {
+  // Documents pass only: the refTree/suites passes load the same docs and
+  // previously re-rendered every page (3× the writes for identical output).
+  if (listType === 'documents' && templateName === 'documents') try {
     const docTplSrc = await fs.readFile('src/main/templates/docId.hbs', 'utf8');
     const docTpl = hb.compile(docTplSrc);
     const docsOutRoot = path.join(BUILD_PATH, 'docs');
@@ -3206,8 +3226,9 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           docProjs: docProjs,
           // per-doc fields exposed under non-colliding names
           docCopyright,
+          // footer shows this content date instead of site_version/build date
+          recordUpdated: docLastModified(d),
           // site/meta
-          site_version: site_version,
           siteName: siteConfig.siteName,
           author: siteConfig.author,
           authorUrl: siteConfig.authorUrl,
@@ -3227,7 +3248,6 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           ogImageAlt: siteConfig.ogImageAlt,
           assetPrefix: '../../',
           htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
-          date: new Date(),
           publisherLogoHeight: 25,
           publisherUrls: siteConfig.publisherUrls,
           alternateJson: `api/doc/${encodeURIComponent(id)}.json`,
@@ -3295,7 +3315,21 @@ hb.registerHelper('docProjLookup', function(collection, id) {
 
       // --- Emit sitemap.xml including all /docs/{docId}/ detail pages
       try {
-        const nowIso = new Date().toISOString();
+        // lastmod is content-derived (docLastModified), never build time, so
+        // sitemap.xml only changes when the registry does. Core pages take
+        // the newest doc date.
+        const docLastmods = new Map();
+        let siteLastmod = '';
+        let siteLastmodMs = -Infinity;
+        if (Array.isArray(registryDocument)) {
+          for (const d of registryDocument) {
+            if (!d || !d.docId || pageGated(d)) continue;
+            const lm = docLastModified(d);
+            docLastmods.set(String(d.docId), lm);
+            const ms = Date.parse(lm);
+            if (ms > siteLastmodMs) { siteLastmodMs = ms; siteLastmod = lm; }
+          }
+        }
 
         function xmlEscape(str) {
           return String(str || '')
@@ -3308,12 +3342,12 @@ hb.registerHelper('docProjLookup', function(collection, id) {
 
         const entries = [];
 
-        function addUrl(pathname, changefreq, priority) {
+        function addUrl(pathname, changefreq, priority, lastmod = siteLastmod) {
           try {
             const loc = new URL(pathname, siteConfig.canonicalBase).href;
             entries.push({
               loc,
-              lastmod: nowIso,
+              lastmod,
               changefreq,
               priority
             });
@@ -3339,7 +3373,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             if (pageGated(d)) continue;
             const id = String(d.docId);
             // Encode docId for URL safety; keep canonicalBase handling via URL()
-            addUrl(`/docs/${encodeURIComponent(id)}/`, 'weekly', '0.6');
+            addUrl(`/docs/${encodeURIComponent(id)}/`, 'weekly', '0.6', docLastmods.get(id) || '');
           }
         }
 
@@ -3349,7 +3383,9 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         for (const e of entries) {
           sitemapLines.push('    <url>');
           sitemapLines.push(`      <loc>${xmlEscape(e.loc)}</loc>`);
-          sitemapLines.push(`      <lastmod>${xmlEscape(e.lastmod)}</lastmod>`);
+          if (e.lastmod) {
+            sitemapLines.push(`      <lastmod>${xmlEscape(e.lastmod)}</lastmod>`);
+          }
           if (e.changefreq) {
             sitemapLines.push(`      <changefreq>${xmlEscape(e.changefreq)}</changefreq>`);
           }
