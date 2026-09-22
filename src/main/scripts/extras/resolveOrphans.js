@@ -52,11 +52,12 @@ process.chdir(REPO_ROOT);
 const { loadAllDocs } = require('../../lib/registry');
 const { parseRefId, mapRefByCite } = require('../../lib/referencing');
 
-const MRI_PATH = path.join('src', 'main', 'reports', 'masterReferenceIndex.json');
+const { loadMri, writeMri } = require('../../lib/mriStore');
 const APPLY = process.argv.includes('--apply');
 const NOW = new Date().toISOString();
 
-const mri = JSON.parse(fs.readFileSync(MRI_PATH, 'utf8'));
+const mri = loadMri();
+if (!mri) throw new Error('MRI not found (src/main/reports/mri/)');
 const refs = mri.refs || {};
 
 // Build registry docId set (used to confirm a candidate refId is actually a
@@ -182,5 +183,5 @@ mri.stats.resolvedCount = Object.values(refs).filter((e) => !!e.resolvedDocId).l
 mri.stats.knownPublisherNoDocCount = Object.values(refs).filter((e) => e.needsResolve === 'known-publisher-no-doc').length;
 mri.stats.unknownPublisherOrphanCount = Object.values(refs).filter((e) => e.needsResolve === 'unknown-publisher').length;
 
-fs.writeFileSync(MRI_PATH, JSON.stringify(mri, null, 2) + '\n');
-console.log(`\nWrote ${MRI_PATH} — ${resolvedCount + propagatedCount} entries updated.`);
+const written = writeMri(mri);
+console.log(`\nWrote MRI (${written.written} shard(s) changed) — ${resolvedCount + propagatedCount} entries updated.`);

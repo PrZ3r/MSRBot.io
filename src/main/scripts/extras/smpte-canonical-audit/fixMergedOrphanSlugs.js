@@ -28,7 +28,7 @@ process.chdir(REPO_ROOT);
 
 const { loadAllDocs, docAbsPath } = require('../../../lib/registry');
 
-const MRI_PATH = 'src/main/reports/masterReferenceIndex.json';
+const { loadMri, writeMri } = require('../../../lib/mriStore');
 const APPLY = process.argv.includes('--apply');
 
 function sortKeysDeep(v) {
@@ -43,7 +43,8 @@ function sortKeysDeep(v) {
 
 const docs = loadAllDocs();
 const byId = new Map(docs.map(d => [d.docId, d]));
-const mri = JSON.parse(fs.readFileSync(MRI_PATH, 'utf8'));
+const mri = loadMri();
+if (!mri) throw new Error('MRI not found (src/main/reports/mri/)');
 const refs = mri.refs || {};
 
 // Fallback: a post-merge build-mri prune deleted the donor-anchored orphan
@@ -52,8 +53,20 @@ const refs = mri.refs || {};
 const { execSync } = require('child_process');
 let gitRefs = {};
 try {
-  execSync(`git show HEAD:${MRI_PATH} > /tmp/mri-HEAD.json`, { maxBuffer: 1024 * 1024 });
-  gitRefs = JSON.parse(fs.readFileSync('/tmp/mri-HEAD.json', 'utf8')).refs || {};
+  // Sharded store (src/main/reports/mri/) at HEAD; pre-#1266 commits fall
+  // back to the legacy monolithic masterReferenceIndex.json.
+  const os = require('os');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'mri-HEAD-'));
+  let headMri = null;
+  try {
+    execSync(`git archive HEAD src/main/reports/mri | tar -x -C "${tmp}"`, { stdio: 'ignore' });
+    headMri = loadMri(path.join(tmp, 'src/main/reports/mri'));
+  } catch { /* no sharded store at HEAD */ }
+  if (!headMri) {
+    execSync(`git show HEAD:src/main/reports/masterReferenceIndex.json > "${tmp}/mri-HEAD.json"`, { maxBuffer: 1024 * 1024 });
+    headMri = JSON.parse(fs.readFileSync(path.join(tmp, 'mri-HEAD.json'), 'utf8'));
+  }
+  gitRefs = headMri.refs || {};
   console.log(`[slug-fix] committed MRI loaded as recovery source (${Object.keys(gitRefs).length} refs)`);
 } catch (e) {
   console.warn('[slug-fix] could not load committed MRI:', e.message);
@@ -116,6 +129,6 @@ for (const doc of touchedDocs) {
   const sorted = sortKeysDeep(doc);
   fs.writeFileSync(docAbsPath(sorted), JSON.stringify(sorted, null, 2) + '\n');
 }
-fs.writeFileSync(MRI_PATH, JSON.stringify(mri, null, 2) + '\n');
+writeMri(mri);
 console.log(`\nApplied: ${touchedDocs.length} docs rewritten, MRI updated.`);
 console.log('Reminder: npm run canonicalize && npm run validate && node src/main/scripts/extras/validateMriCoverage.js, then rebuild.');

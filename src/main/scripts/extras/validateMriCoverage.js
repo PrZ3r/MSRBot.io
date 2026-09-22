@@ -31,17 +31,18 @@ const path = require('path');
 const { loadAllDocs } = require('../../lib/registry');
 
 const ROOT = process.cwd();
-const MRI_PATH = path.resolve(ROOT, 'src/main/reports/masterReferenceIndex.json');
+const mriStore = require('../../lib/mriStore');
 const OUT_JSON = path.resolve(ROOT, 'src/main/reports/mriCoverageGaps.json');
 const OUT_MD = path.resolve(ROOT, 'src/main/reports/mriCoverageGaps.md');
 
 const REF_CATEGORIES = ['normative', 'bibliographic', 'supersededBy', 'amendedBy'];
 
 function loadMri() {
-  if (!fs.existsSync(MRI_PATH)) {
-    throw new Error(`MRI file not found at ${MRI_PATH}`);
+  const mri = mriStore.loadMri();
+  if (!mri) {
+    throw new Error(`MRI not found at ${mriStore.DEFAULT_ROOT}`);
   }
-  return JSON.parse(fs.readFileSync(MRI_PATH, 'utf8'));
+  return mri;
 }
 
 function flattenRefs(refsField) {

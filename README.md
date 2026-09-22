@@ -43,7 +43,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 - Schema for data: [`src/main/schemas`](src/main/schemas/)
 - Main document Dataset: [`src/main/data/docs/`](src/main/data/docs/) — one JSON file per document, sharded by `{publisher}/{docType}/` (title-identified docTypes such as journal articles add a `{year}/` level). The `documents.json` monolith, registry slices, and per-docId API are build artifacts assembled from these files.
 - Document lineages: [Master Suite Index (MSI)](src/main/reports/masterSuiteIndex.json)
-- Document reference maps: [Master Reference Index (MRI)](src/main/reports/masterReferenceIndex.json) — schema `2.0.0`, slug-keyed. Every cited reference has a first-class entry with `resolvedDocId` / `needsResolve` / `contentHash` fields; refs that aren't registry docs but live in MRI render inline on doc pages and the reference tree as `<cite>` blocks (data sidecar at [`build/api/mri-cite-map.json`](https://msrbot.io/api/mri-cite-map.json)). See [docs/mri-citation-system.md](docs/mri-citation-system.md) for the full architecture: how `doc.references[]` strings resolve, the slug ↔ docId relationship, the resolution lifecycle, and lookup recipes.
+- Document reference maps: [Master Reference Index (MRI)](src/main/reports/mri/) — schema `2.0.0`, slug-keyed, stored as one pretty-printed JSON file per ref (`mri/index.json` + `mri/refs/{prefix}/{refId}.json`, orphan slugs under `mri/refs/orphan/{sourceDoc}/`). Every cited reference has a first-class entry with `resolvedDocId` / `needsResolve` / `contentHash` fields; refs that aren't registry docs but live in MRI render inline on doc pages and the reference tree as `<cite>` blocks (data sidecar at [`build/api/mri-cite-map.json`](https://msrbot.io/api/mri-cite-map.json)). See [docs/mri-citation-system.md](docs/mri-citation-system.md) for the full architecture: how `doc.references[]` strings resolve, the slug ↔ docId relationship, the resolution lifecycle, and lookup recipes.
 - API Explorer: [msrbot.io/api/](https://msrbot.io/api/)
 - Live API Stats: [api/stats.json](https://msrbot.io/api/stats.json)
 - JSON Schema: [api/schemas/documents.schema.json](https://msrbot.io/api/schemas/documents.schema.json)
@@ -86,7 +86,7 @@ MSRBot.io updates itself through a chain of automated GitHub Actions. When appro
 |:------|:---------|:---------|:------------|
 | Extract | Pulls and parses provider metadata (SMPTE/IETF) | Scheduled + Manual | `documents.json` |
 | MSI | Builds document lineages | PR merge to `main` / Manual | `masterSuiteIndex.json` |
-| MRI | Maps references across all docs | After MSI | `masterReferenceIndex.json` |
+| MRI | Maps references across all docs | After MSI | `src/main/reports/mri/` |
 | MSR | Builds and publishes the site | Push to `main` / Manual | <https://msrbot.io/> |
 | URL Validate | Checks and normalizes links | After MRI / Weekly (Sat) | `url_validate_audit.json` |
 | PR Build Preview| Builds MSR preview prior to publication | PR updates + upstream workflow runs | <https://msrbot.io/pr/###/> |

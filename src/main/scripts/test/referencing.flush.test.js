@@ -50,14 +50,17 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-// Sandbox: temp dir laid out like the real repo so referencing.js's
-// process.cwd()-resolved MRI_PATH and docs root hit our fixtures.
+// Sandbox: temp dir laid out like the real repo so the process.cwd()-resolved
+// MRI store (src/main/reports/mri/) and docs root hit our fixtures.
 const sandbox = fs.mkdtempSync(path.join(os.tmpdir(), 'mri-flush-test-'));
 const origCwd = process.cwd();
 const docsRoot = path.join(sandbox, 'src/main/data/docs');
-const mriPath = path.join(sandbox, 'src/main/reports/masterReferenceIndex.json');
 fs.mkdirSync(path.join(docsRoot, 'ietf/rfc'), { recursive: true });
-fs.mkdirSync(path.dirname(mriPath), { recursive: true });
+
+// chdir BEFORE requiring mriStore / referencing so their module-level roots
+// resolve against the sandbox rather than the real repo.
+process.chdir(sandbox);
+const mriStore = require(path.join(origCwd, 'src/main/lib/mriStore.js'));
 
 // Minimal registry doc — what _findSourceDocIdForRefId / _hasDocIdOrBase look up.
 fs.writeFileSync(
@@ -67,7 +70,7 @@ fs.writeFileSync(
 
 // Minimal MRI with an entry whose refId is NOT itself a registered docId
 // but whose resolvedDocId IS — the N-to-1 pointer mapping flush must respect.
-fs.writeFileSync(mriPath, JSON.stringify({
+mriStore.writeMri({
   version: '2.0.0',
   generatedAt: '2026-01-01T00:00:00.000Z',
   stats: { uniqueRefIds: 1, resolvedCount: 1, knownPublisherNoDocCount: 0, unknownPublisherOrphanCount: 0 },
@@ -89,12 +92,8 @@ fs.writeFileSync(mriPath, JSON.stringify({
   },
   reverse: {},
   orphans: { unmapped: [] }
-}, null, 2) + '\n');
+});
 
-process.chdir(sandbox);
-
-// Require referencing AFTER chdir so the module-level MRI_PATH resolves
-// against the sandbox rather than the real repo.
 const ref = require(path.join(origCwd, 'src/main/lib/referencing.js'));
 
 // Force a fresh documents index read against the sandbox layout.
@@ -105,7 +104,7 @@ ref.reloadDocumentsIndex();
 const result = ref.mriFlush({ force: true });
 assert.ok(result, 'mriFlush returned no result');
 
-const after = JSON.parse(fs.readFileSync(mriPath, 'utf8'));
+const after = mriStore.loadMri();
 const entry = after.refs && after.refs['IETF.draft-ietf-tls-rfc8446bis-03'];
 assert.ok(entry, 'entry missing from MRI after flush');
 
@@ -141,8 +140,9 @@ fs.writeFileSync(
   path.join(docsRoot, 'ietf/rfc/RFC8446.json'),
   JSON.stringify({ docId: 'RFC8446', docLabel: 'IETF RFC 8446', docTitle: 'TLS 1.3', docType: 'Standard', publisher: 'IETF', status: { active: true } }, null, 2) + '\\n'
 );
-const mriPath = path.join(sandbox, 'src/main/reports/masterReferenceIndex.json');
-fs.writeFileSync(mriPath, JSON.stringify({
+const mriStore = require(${JSON.stringify(path.join(origCwd, 'src/main/lib/mriStore.js'))});
+fs.rmSync(path.join(sandbox, 'src/main/reports/mri'), { recursive: true, force: true });
+mriStore.writeMri({
   version: '2.0.0',
   generatedAt: '2026-01-01T00:00:00.000Z',
   stats: {},
@@ -160,11 +160,11 @@ fs.writeFileSync(mriPath, JSON.stringify({
   },
   reverse: {},
   orphans: { unmapped: [] }
-}, null, 2) + '\\n');
+});
 const ref = require(${JSON.stringify(path.join(origCwd, 'src/main/lib/referencing.js'))});
 ref.reloadDocumentsIndex();
 ref.mriFlush({ force: true });
-const stale = JSON.parse(fs.readFileSync(mriPath, 'utf8')).refs['IETF.draft-bogus-00'];
+const stale = mriStore.loadMri().refs['IETF.draft-bogus-00'];
 if (!stale) { console.error('stale entry missing post-flush'); process.exit(2); }
 const ok = stale.resolvedDocId === null && stale.needsResolve === 'known-publisher-no-doc';
 console.log(JSON.stringify({ resolvedDocId: stale.resolvedDocId, needsResolve: stale.needsResolve }));

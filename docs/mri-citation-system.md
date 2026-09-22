@@ -1,7 +1,7 @@
 # MRI v2 — slug-keyed citation system
 
 How references work in MSRBot.io. This is the live architecture doc for the
-Master Reference Index (`src/main/reports/masterReferenceIndex.json`) and the
+Master Reference Index (`src/main/reports/mri/`, see *Storage layout* below) and the
 slug-based citation model that landed in the Unreleased
 [CHANGELOG.md](../CHANGELOG.md) entry. Read this when you want to understand
 *how a `doc.references[]` string actually resolves*, *where citation data
@@ -16,6 +16,34 @@ issues*.
 > orphan slug** (`orphan/<sourceDoc>/<suffix>`) the parser couldn't shape.
 > All three forms live in `MRI.refs[]`, all three render correctly, and all
 > three can graduate to a real `docId` later without touching the doc file.
+
+---
+
+## Storage layout
+
+The MRI is one logical object (`{ version, generatedAt, stats, refs,
+reverse, orphans }`) stored as a directory, one pretty-printed file per
+ref, so no file approaches GitHub's 100 MB limit and diffs show exactly
+which refs changed (#1266):
+
+```text
+src/main/reports/mri/
+  index.json                               # everything except refs
+  refs/rfc/RFC1642.json                    # canonical refs: refs/{prefix}/{refId}.json
+  refs/10.5594/10.5594-J06292.json
+  refs/orphan/smpte.rp2073-2.2014/ref-norm-6.json   # orphans grouped by citing doc
+```
+
+- Always go through `src/main/lib/mriStore.js`: `loadMri()` returns the
+  whole object (same shape as the old monolith, `refs` in sorted key order);
+  `writeMri(mri)` rewrites only shards whose content changed, deletes shards
+  for removed refs, and bumps `index.json`'s `generatedAt` only when
+  something changed — an unchanged MRI produces no diff.
+- Each shard holds the entry verbatim; its `refId` is the key. File names
+  are for humans: directory names are lower-cased, and a file gets a
+  `~<hash>` suffix when its refId has path-unsafe characters or would collide
+  case-insensitively with another refId (SMPTE `J`/`j` refs are distinct), so
+  checkouts on macOS stay correct.
 
 ---
 
@@ -377,8 +405,12 @@ uses this to propagate one decision across the group.
   This is the **ingestion backlog**.
 - `orphanCount` — source-anchored slugs (`orphan/...`). These are the
   resolver / parser-improvement backlog.
-- `missing[]` — per-entry detail, each with `refId`, `sourceDocId`,
-  `sightingCount`, `sightings[]`, `isOrphan`, `needsResolve`.
+- `missing[]` — per-entry detail for every **non-orphan** missing ref, each
+  with `refId`, `sourceDocId`, `sightingCount`, `sightings[]`, `isOrphan`,
+  `needsResolve`. Orphan slugs are counted in `orphanCount` but not listed
+  (`orphansListed: false`) — every orphan is missing by definition and
+  already has its own shard under `src/main/reports/mri/refs/orphan/`.
+  Listing all ~40k of them made the audit ~41 MB (#1266).
 
 The `.github/workflows/build-master-reference-index.yml` workflow's
 auto-issue creator (the thing that produces "MISSING REF: RFC1642"
@@ -386,8 +418,8 @@ GitHub issues — e.g. [#937](https://github.com/PrZ3r/MSRBot.io/issues/937))
 filters `missing[]` to `needsResolve === 'known-publisher-no-doc'`
 before iterating. Orphan slugs are **excluded from issue creation** —
 their citation data already lives in `MRI.refs[]`, so there's no
-"missing ref" to file. They stay queryable via the audit and via MRI
-itself.
+"missing ref" to file. They stay queryable via MRI itself (browse
+`src/main/reports/mri/refs/orphan/{sourceDoc}/`).
 
 `src/main/scripts/utils/seedBackfill.ietf.js` reads the same
 `audit.missing[]` to pick RFCs / IETF drafts to add to
@@ -483,8 +515,10 @@ Today's corpus: 8,995 ref-entries across 1,066 docs, all present in MRI's 2,816 
 - `src/main/lib/referencing.js` — MRI access (`_loadMRI`, `_ensureRef`,
   `mriRecordSighting`, `mriPruneToSightings`, `mriFlush`,
   `synthesizeCiteFromRawRef`).
-- `src/main/scripts/buildMasterReferenceIndex.js` — emits
-  `masterReferenceIndex.json` and `mri_presence_audit.json`.
+- `src/main/lib/mriStore.js` — on-disk store (`loadMri` / `writeMri`); every
+  reader and writer goes through it.
+- `src/main/scripts/buildMasterReferenceIndex.js` — emits the MRI store
+  (`src/main/reports/mri/`) and `mri_presence_audit.json`.
 - `src/main/scripts/extras/resolveOrphans.js` — idempotent retry pass.
 - `src/main/scripts/extras/validateMriCoverage.js` — build-time
   invariant check (above).

@@ -67,7 +67,7 @@ const LIMIT = (() => {
 })();
 
 const CATALOG = 'src/main/reports/smpte-canonical-audit/ftxmlRefCatalog.json';
-const MRI_PATH = 'src/main/reports/masterReferenceIndex.json';
+const { loadMri } = require('../../../lib/mriStore');
 const OUT_JSON = 'src/main/reports/smpte-canonical-audit/ftxmlRefApply.json';
 const OUT_MD = 'src/main/reports/smpte-canonical-audit/ftxmlRefApply.md';
 
@@ -110,7 +110,7 @@ console.log(`[ftxml-refs]   vol+pages index: ${volPages.size} keys`);
 // #1229 content-hash pre-check — hash -> already-known canonical refId
 const hashToRefId = new Map();
 try {
-  const mri = JSON.parse(fs.readFileSync(MRI_PATH, 'utf8'));
+  const mri = loadMri() || { refs: {} };
   for (const [refId, e] of Object.entries(mri.refs || {})) {
     if (e && e.contentHash && !e.isOrphan) hashToRefId.set(e.contentHash, refId);
   }
