@@ -1,0 +1,57 @@
+name: Sync MSI/MRI issues
+
+# Converges the auto-filed issues on the committed reports (issue #1266):
+#   - "UNKEYED: <docKey>"  from src/main/reports/masterSuiteIndex.json
+#   - "MISSING REF: <refId>" from src/main/reports/mri_presence_audit.json
+# Both syncs are idempotent. The reports themselves are rebuilt inside PRs by
+# build-reports-pr.yml, so this only needs the merged result — no PRs, no
+# chaining. The weekly run lets the missing-ref sync work through its
+# per-run mutation budget when no report changes land.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/main/reports/masterSuiteIndex.json'
+      - 'src/main/reports/mri_presence_audit.json'
+  schedule:
+    - cron: '30 05 * * 3'   # 22:30 PT Tue (cron in UTC), after the Mon/Tue extracts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: sync-report-issues
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync issues
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mint PrZ3 Unit token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v7
+
+      - name: Sync UNKEYED issues (MSI)
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const sync = require(`${process.env.GITHUB_WORKSPACE}/src/main/scripts/ci/syncUnkeyedIssues.js`);
+            await sync({ github, context, core });
+
+      - name: Sync MISSING REF issues (MRI)
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const sync = require(`${process.env.GITHUB_WORKSPACE}/src/main/scripts/ci/syncMissingRefIssues.js`);
+            await sync({ github, context, core });

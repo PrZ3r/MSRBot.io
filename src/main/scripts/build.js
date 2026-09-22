@@ -965,7 +965,7 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
     templateName === 'suites' && listType === 'documents'
   ) {
     // Special handling: emit suites index from masterSuiteIndex.json,
-    // always as an object: { generatedAt, sourcePath, sourceHash, suites, collections }
+    // always as an object: { sourcePath, suites, collections }
     const outDir = path.join(BUILD_PATH, 'suites', '_data');
     await fs.mkdir(outDir, { recursive: true });
     const outPath = path.join(outDir, 'suites.json');
@@ -999,9 +999,7 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
 
     // Compose output object
     const payload = {
-      generatedAt: (msi && typeof msi === 'object' && msi.generatedAt) ? msi.generatedAt : null,
       sourcePath: (msi && typeof msi === 'object' && msi.sourcePath) ? msi.sourcePath : null,
-      sourceHash: (msi && typeof msi === 'object' && msi.sourceHash) ? msi.sourceHash : null,
       suites: suitesOut,
       collections: collectionsOut
     };
@@ -2085,7 +2083,7 @@ function _titleOf(doc){
       if (refKnownToMri(docId)) return "MRI-KNOWN";
       // Truly unknown refs (not in registry, not in MRI) used to warn here.
       // The signal is fully redundant with what the MRI presence audit + the
-      // build-master-reference-index workflow's auto-issue tracker already
+      // sync-report-issues workflow's auto-issue tracker already
       // capture per refId (e.g. issue #937 "MISSING REF: RFC1642"), so the
       // build no longer prints to console — it just returns the status and
       // the template renders the NOT IN REGISTRY badge.

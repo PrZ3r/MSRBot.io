@@ -49,7 +49,6 @@ const root = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'mri-store-test-'))
 const variant = (docId) => ({ docId, type: 'bibliographic', cite: `cite ${docId}`, href: '', rawRef: '<ref/>', title: null });
 const mri = {
   version: '2.0.0',
-  generatedAt: '2026-01-01T00:00:00.000Z',
   stats: { uniqueRefIds: 6, resolvedCount: 1, knownPublisherNoDocCount: 1, unknownPublisherOrphanCount: 2 },
   refs: {
     // resolved canonical ref
@@ -108,21 +107,21 @@ assert.ok(/~[0-9a-f]{8}\.json$/.test(paths.get('orphan/RFC1101/h:e25f0fbf')), 'u
 assert.ok(/~[0-9a-f]{8}\.json$/.test(paths.get('10.5594-J06292')), 'J/j siblings should get hash suffixes');
 
 // Round trip: byte-identical to the monolithic serialisation.
-const first = writeMri(mri, { root, generatedAt: mri.generatedAt });
+const first = writeMri(mri, { root });
 assert.strictEqual(first.written, 6);
 const back = loadMri(root);
 assert.strictEqual(JSON.stringify(back, null, 2), JSON.stringify(mri, null, 2), 'round trip changed the MRI');
 
-// No-op write: nothing rewritten, generatedAt kept.
-const noop = writeMri(back, { root, generatedAt: '2030-01-01T00:00:00.000Z' });
+// No-op write: nothing rewritten (no timestamp either — the store never
+// persists generatedAt, so an unchanged MRI is byte-identical on disk).
+const noop = writeMri({ ...back, generatedAt: '2030-01-01T00:00:00.000Z' }, { root });
 assert.deepStrictEqual([noop.changed, noop.written, noop.deleted, noop.indexChanged], [false, 0, 0, false]);
-assert.strictEqual(loadMri(root).generatedAt, mri.generatedAt, 'no-op write must not bump generatedAt');
+assert.ok(!('generatedAt' in loadMri(root)), 'generatedAt must not be persisted');
 
-// Single edit: one shard, generatedAt bumped.
+// Single edit: one shard, index untouched.
 back.refs.RFC8446.provenance.firstSeen = '2026-09-21T00:00:00.000Z';
-const edit = writeMri(back, { root, generatedAt: '2026-09-21T00:00:00.000Z' });
-assert.deepStrictEqual([edit.changed, edit.written, edit.deleted], [true, 1, 0]);
-assert.strictEqual(loadMri(root).generatedAt, '2026-09-21T00:00:00.000Z');
+const edit = writeMri(back, { root });
+assert.deepStrictEqual([edit.changed, edit.written, edit.deleted, edit.indexChanged], [true, 1, 0, false]);
 
 // Delete: shard removed, empty dirs cleaned up.
 delete back.refs['orphan/RFC1101/h:e25f0fbf'];

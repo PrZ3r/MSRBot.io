@@ -30,27 +30,24 @@ _Crawls defined URL maps to parse and populate data (currently only SMPTE). Crea
 ---
 
 ### 2. Build MasterSuite Index (MSI)
-_Builds a master lineage of documents, mapping each family, suite, and amendment relationship. Creates PRs and manages issues as needed._
+_Builds a master lineage of documents, mapping each family, suite, and amendment relationship. Rebuilt inside every data PR (committed back to the PR branch); `UNKEYED` issues are synced after merge._
 
-**Workflow:** [Build MSI](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml)  
-**Sample Run:** [Run #18388247185](https://github.com/PrZ3r/MSRBot.io/actions/runs/18388247185)
+**Workflow:** [Build MSI + MRI (PR)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-reports-pr.yml) · issues: [Sync MSI/MRI issues](https://github.com/PrZ3r/MSRBot.io/actions/workflows/sync-report-issues.yml)  
 
 **Dataset:** [`src/main/data/docs/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/data/docs)  
 **Reports:**  
 - [`src/main/reports/masterSuiteIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterSuiteIndex.json)
 
-**Sample PR:** [Build MasterSuiteIndex (data change) (#483)](https://github.com/PrZ3r/MSRBot.io/pull/483)  
 **Sample Issue:** [UNKEYED: x509-sg.2000 (#469)](https://github.com/PrZ3r/MSRBot.io/issues/469)
 
-> **Trigger:** weekly schedule, PR merge, or manual dispatch
+> **Trigger:** PRs that touch data/input/config/lib or the MSI/MRI scripts (incl. extract PRs), or manual dispatch
 
 ---
 
 ### 3. Build MasterReference Index (MRI)
-_Builds a master reference map and determines whether referenced documents are present in the dataset. Creates PRs and manages issues as needed._
+_Builds a master reference map and determines whether referenced documents are present in the dataset. Rebuilt in the same PR-time job as MSI, right after it; `MISSING REF` issues are synced after merge._
 
-**Workflow:** [Build MRI](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml)  
-**Sample Run:** [Run #18388267876](https://github.com/PrZ3r/MSRBot.io/actions/runs/18388267876)
+**Workflow:** [Build MSI + MRI (PR)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-reports-pr.yml) · issues: [Sync MSI/MRI issues](https://github.com/PrZ3r/MSRBot.io/actions/workflows/sync-report-issues.yml)  
 
 **Dataset:** [`src/main/data/docs/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/data/docs)
 
@@ -58,10 +55,9 @@ _Builds a master reference map and determines whether referenced documents are p
 - [`src/main/reports/mri/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/reports/mri)  
 - [`src/main/reports/mri_presence_audit.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/mri_presence_audit.json) (generated to resolve issues)
 
-**Sample PR:** [Build MasterReferenceIndex (data change) (#481)](https://github.com/PrZ3r/MSRBot.io/pull/481)  
 **Sample Issue:** [MISSING REF: W3C.xml-names.20091208 (#467)](https://github.com/PrZ3r/MSRBot.io/issues/467)
 
-> > **Trigger:** completion of Build MSI
+> **Trigger:** same job as MSI (runs right after it)
 
 ---
 

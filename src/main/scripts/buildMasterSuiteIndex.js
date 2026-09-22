@@ -78,16 +78,6 @@ const SEPARATE_AUX = has('--separate-aux');
 const SITE_CONFIG = require('../config/site.json');
 const NON_LINEAGE_DOCTYPES = new Set(Array.isArray(SITE_CONFIG.nonLineageDocTypes) ? SITE_CONFIG.nonLineageDocTypes : []);
 
-function sha256File(p) {
-  const h = crypto.createHash('sha256');
-  h.update(fs.readFileSync(p));
-  return 'sha256:' + h.digest('hex');
-}
-
-function sha256String(s) {
-  return 'sha256:' + crypto.createHash('sha256').update(String(s)).digest('hex');
-}
-
 function ensureDir(p) {
   fs.mkdirSync(path.dirname(p), { recursive: true });
 }
@@ -1110,10 +1100,11 @@ function buildIndex(allDocs) {
   attachVersionlessSuccessors(lineages);
   //attachInlineVersionless(lineages);
   const flagSummary = computeFlagSummary(lineages);
+  // No generatedAt / sourceHash: the report is deterministic for a given
+  // registry, so an unchanged registry rebuilds to an identical file and
+  // concurrent data PRs don't all rewrite the same header lines (#1266).
   const outObj = {
-    generatedAt: new Date().toISOString(),
     sourcePath: SOURCE_LABEL,
-    sourceHash: IN ? sha256File(IN) : sha256String(JSON.stringify(docs)),
     publisherCounts: pubCountsSummary,
     skippedDocs: {
       totalSkipped: skippedDocs.length,
