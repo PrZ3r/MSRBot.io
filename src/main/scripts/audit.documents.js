@@ -28,9 +28,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*
- * Scans documents.json for fields where `$meta.overridden === true` and emits a flat report.
+ * Scans the document registry for fields where `$meta.overridden === true` and emits a flat report.
  * Defaults:
- *   --in  src/main/data/documents.json
+ *   --in  (unset) — reads the per-doc registry via src/main/lib/registry.js
+ *                   (src/main/data/docs/**); pass a documents.json-shaped file to override
  *   --out src/main/reports/documents_audit.json
  * Options:
  *   --publisher SMPTE     restrict to publisher (exact match); repeatable

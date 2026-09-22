@@ -179,6 +179,8 @@ This section documents the URL reliability layer: validation audits, normalizati
 
 This section describes the GitHub Actions “factory line”: chained MSI → MRI → site builds, concurrency controls, preview deployments, branch hygiene, and operational hardening. It also captures identity consolidation under the PrZ3 Unit GitHub App and the expanded URL-issue taxonomy.
 
+> **Superseded (2026-09-22, [#1266](https://github.com/PrZ3r/MSRBot.io/issues/1266)).** Sections 4.1–4.3 below are a historical record of the post-merge MSI → MRI chain, which no longer exists. `build-master-suite-index.yml` and `build-master-reference-index.yml` were removed, along with their report PRs and `skip-site-build` markers. Today: MSI + MRI are rebuilt **inside the data PR** by [`build-reports-pr.yml`](../.github/workflows/build-reports-pr.yml) and committed to the PR branch; [`refresh-data-prs.yml`](../.github/workflows/refresh-data-prs.yml) re-merges `main` into other open data PRs; [`sync-report-issues.yml`](../.github/workflows/sync-report-issues.yml) syncs the `UNKEYED` / `MISSING REF` issues after merge (scripts under `src/main/scripts/ci/`). MRI itself is sharded one file per ref under `src/main/reports/mri/` ([#1267](https://github.com/PrZ3r/MSRBot.io/issues/1267)), and gh-pages is published as a single commit ([#1265](https://github.com/PrZ3r/MSRBot.io/issues/1265)).
+
 ### 4.1 Chain Orchestration (MSI → MRI → MSR)
 - Workflows run in strict sequence using `workflow_run` triggers. Any upstream change triggers the full chain rebuild.
 - Concurrency protections:
