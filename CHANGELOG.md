@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## [v2.2.0] - 2026-09-22
+
+### Added
+
 - **SMPTE canonical-repository audit (phase 1)** — new backfill project against the two canonical corpora SMPTE delivered under `_source/SMPTE/` (`Journal Article Repository`, 24,389 XMLs 1916–2026; `Conference Repository`, 2,075 XMLs 1969–2025). Corpus mapped across three XML shapes (`<publication>` IEEE IDAMS pre-2024 ~97%, `<content_batch>` IEEE content-delivery 2024–26 wind-down, `<article>` NLM JATS post-IEEE; 2024 = the SMPTE-leaves-IEEE transition with dual delivery). SMPTE's own published importer (smpte-journal-library, BSD-3) adopted as the required-minimum floor — `runSmpteCanonicalImport.mjs` dumps 24,173 journal + 1,999 conference articles to canonical JSON. Cross-check: 23,408 registry docs matched by DOI, ~2,753 canonical-only docs to ingest, 654 registry-only docs missing upstream. All project tooling/reports under `src/main/{scripts/extras,reports}/smpte-canonical-audit/` for one-line cleanup. (PR #1238)
 - **Schema 2.4.0** — `authors[].email` + `authors[].orcid`, `isbn` media split (string | `{print, electronic}`, mirroring `issn`), `conferenceLocation`, `conferenceDate {start,end}`, `journalTitle` (era-accurate journal name at time of publication). Approved via a full-corpus source field census (`sourceFieldCensus.mjs`: 26,464 XMLs, 1,986 distinct element paths classified); license/sourceIds promotions reviewed and vetoed. (PR #1238)
 - **Canonical field backfills** — era-accurate `journalTitle` on 21,905 journal docs (Transactions → JSMPE → SMPTE Journal → MIJ, as published); 2,378 `publicationDate` month corrections (Jan-1 placeholders → canonical month); 462 abstracts; 240 vocab-mapped keyword fills (56 curated additions to `controlledKeywords`, 294 → 350, with a 35-entry synonym fold table); 2,217 title updates from the 2,294-row drift review (canonical richer: subtitles, full book-review titles; 68 registry-richer rows kept for push-back; IEEE inline `<tex>/<sup>/<inf>` markup converted to Unicode — restored fractions the original HIGHWIRE import lost, e.g. "4½-Inch Image-Orthicon"); 60 author fixes (45 OCR/prefix name corrections + 15 count-mismatch rebuilds, bio/affiliation preserved); 5 pubYear digit-error fixes with shard re-homing. All writes `$meta`-stamped `smpte-canonical-repo@v1` with `originalValue`. (PR #1238)
