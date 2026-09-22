@@ -506,7 +506,7 @@ Enforced at build time by `npm run validate-mri-coverage` (`src/main/scripts/ext
 
 If this check fails, the fix is to patch the slug-mint path (`mriRecordSighting` flow in `extractDocs.js`), **never** to silence the validator or add a render-time fallback. A leak is a bug in the contract, not a citation to render best-effort.
 
-Today's corpus: 8,995 ref-entries across 1,066 docs, all present in MRI's 2,816 entries (3.2× dedup via content-hash collapse). CI wiring (drop into `build-master-reference-index.yml` after the MRI flush) is the next pass.
+Today's corpus (2026-09-22): 55,581 ref sightings across 5,645 docs, collapsing to 46,349 MRI entries. CI wiring — running the validator after the MRI flush in [`build-reports-pr.yml`](../.github/workflows/build-reports-pr.yml), which rebuilds MSI + MRI inside each data PR — is still the next pass.
 
 ---
 
