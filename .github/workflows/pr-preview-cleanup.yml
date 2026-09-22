@@ -22,42 +22,17 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - name: Checkout gh-pages branch
-        uses: actions/checkout@v7
+      # Needs the publish script from the default branch, not gh-pages.
+      - uses: actions/checkout@v7
         with:
-          ref: gh-pages
-          token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ github.event.repository.default_branch }}
+          sparse-checkout: src/main/scripts/ci
 
-      - name: Remove pr/<PR#> directory
-        run: |
-          set -e
-          TARGET="pr/${{ github.event.number }}"
-          if [ -d "$TARGET" ]; then
-            git rm -r "$TARGET"
-          else
-            echo "No preview dir to remove: $TARGET"
-          fi
-
-      - name: Commit and push removal (if any)
-        run: |
-          set -e
-          git config user.name "PrZ3 Unit"
-          git config user.email "prz3-unit[bot]@users.noreply.github.com"
-          if git diff --cached --quiet; then
-            echo "Nothing to commit."
-            exit 0
-          fi
-          git commit -m "Cleanup preview for PR #${{ github.event.number }}"
-          for attempt in 1 2 3; do
-            if git push origin gh-pages; then
-              echo "✅ Cleanup pushed (attempt ${attempt})"
-              exit 0
-            fi
-            echo "⚠️ Push failed (attempt ${attempt}/3), rebasing on latest gh-pages…"
-            git pull --rebase origin gh-pages
-          done
-          echo "::error::Failed to push cleanup after 3 attempts"
-          exit 1
+      - name: Remove pr/<PR#> from gh-pages
+        env:
+          GH_PAGES_REPO_URL: https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
+          GH_PAGES_MESSAGE: 'Cleanup preview for PR #${{ github.event.number }}'
+        run: bash src/main/scripts/ci/publishGhPages.sh remove-previews "${{ github.event.number }}"
 
       - name: Update PR comment to mark preview removed
         uses: marocchino/sticky-pull-request-comment@v3

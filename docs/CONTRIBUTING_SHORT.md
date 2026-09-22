@@ -84,6 +84,8 @@ All automation workflows (Extract, MSI, MRI, MSR, URL Validate) run on:
 
 MSI and MRI are rebuilt **inside your PR**: when a PR touches data, input, config, `src/main/lib/`, or the MSI/MRI scripts, `Build MSI + MRI (PR)` commits the refreshed reports (`chore(reports): rebuild MSI/MRI`) back to the PR branch, first merging the latest `main` in (report-only conflicts are resolved automatically; data conflicts are left to you), and keeps an **MSI / MRI** summary section in the PR body up to date. **Pull before pushing again** (`git pull`). When another data PR merges, open data PRs are refreshed from `main` automatically. After merge, `Sync MSI/MRI issues` opens/closes the `UNKEYED` and `MISSING REF` issues from the merged reports.
 
+The site is published to `gh-pages` as a **single commit with no history** (`src/main/scripts/ci/publishGhPages.sh`). To roll back the live site, re-run **Build MSRBot.io Site and Test** on an earlier `main` commit, or revert the change on `main`.
+
 Only automation workflows should modify report files — human PRs should focus on logic, schema, or documentation changes.
 
 ## Need Help?
