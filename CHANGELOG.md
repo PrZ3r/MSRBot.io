@@ -44,6 +44,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
     - Resolved issues are closed before new ones are created.
     - Duplicate open issues (same title) are closed, keeping the oldest.
     - **Expect** the first runs to close about 70 resolved issues and 48 duplicates, then file about 680 new `MISSING REF` issues at up to 75 per run until the tracker matches the audit.
+  - **MRI build ~18× faster** (275 s → 15 s locally for the full 26.8k-doc replay). `mriRecordSighting` recounted every MRI ref (`Object.keys(mri.refs).length`, 46k keys) on each of the 55k sightings, which was about 90% of the run. `mriFlush` already computes the stats once. The output is identical.
   - **No more timestamps in the reports.** `generatedAt` is gone from `masterSuiteIndex.json`, `mri/index.json` and `mri_presence_audit.json`, and MSI's `sourceHash` (a hash of the whole registry) is gone too. Git history records when they changed. Rebuilding an unchanged registry is now byte-identical, so there's nothing to "ignore", and concurrent data PRs no longer all rewrite the same header lines. `suites.json` drops the two pass-through fields; nothing read them.
   - The completed one-shot `migrateMriToShards.js` has been removed now that its migration is applied.
   - **UNKEYED issues now actually sync after merges.** The old step was gated on `github.ref == main`, which a `pull_request: closed` trigger never satisfies, so it only ran on manual dispatch.
