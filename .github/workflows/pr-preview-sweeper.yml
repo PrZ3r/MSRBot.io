@@ -20,39 +20,25 @@ jobs:
 
       - uses: actions/checkout@v7
         with:
-          ref: gh-pages
-          token: ${{ steps.app-token.outputs.token }}
+          sparse-checkout: src/main/scripts/ci
 
       - name: Remove previews for closed PRs
         env:
           REPO: ${{ github.repository }}
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_PAGES_REPO_URL: https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
+          GH_PAGES_MESSAGE: 'Sweep: remove previews for closed PRs'
         run: |
-          set -e
-          # list pr directories
-          for d in pr/*/ ; do
-            [ -d "$d" ] || continue
-            num="${d%/}"; num="${num#pr/}"
+          set -euo pipefail
+          # pr/<n> directories on gh-pages, read from its tree (no checkout).
+          nums="$(gh api "repos/$REPO/contents/pr?ref=gh-pages" --jq '.[] | select(.type=="dir") | .name' 2>/dev/null || true)"
+          closed=()
+          for num in $nums; do
             state=$(gh pr view "$num" --repo "$REPO" --json state -q .state || echo "MISSING")
             if [ "$state" != "OPEN" ]; then
               echo "Removing preview for closed PR #$num"
-              git rm -r "$d"
+              closed+=("$num")
             fi
           done
-          git config user.name "PrZ3 Unit"
-          git config user.email "prz3-unit[bot]@users.noreply.github.com"
-          if git diff --cached --quiet; then
-            echo "Nothing to sweep."
-            exit 0
-          fi
-          git commit -m "Sweep: remove previews for closed PRs"
-          for attempt in 1 2 3; do
-            if git push origin gh-pages; then
-              echo "✅ Sweep pushed (attempt ${attempt})"
-              exit 0
-            fi
-            echo "⚠️ Push failed (attempt ${attempt}/3), rebasing on latest gh-pages…"
-            git pull --rebase origin gh-pages
-          done
-          echo "::error::Failed to push sweep after 3 attempts"
-          exit 1
+          if [ "${#closed[@]}" -eq 0 ]; then echo "Nothing to sweep."; exit 0; fi
+          bash src/main/scripts/ci/publishGhPages.sh remove-previews "${closed[@]}"
