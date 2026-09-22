@@ -72,7 +72,6 @@ fs.writeFileSync(
 // but whose resolvedDocId IS — the N-to-1 pointer mapping flush must respect.
 mriStore.writeMri({
   version: '2.0.0',
-  generatedAt: '2026-01-01T00:00:00.000Z',
   stats: { uniqueRefIds: 1, resolvedCount: 1, knownPublisherNoDocCount: 0, unknownPublisherOrphanCount: 0 },
   refs: {
     'IETF.draft-ietf-tls-rfc8446bis-03': {
@@ -144,7 +143,6 @@ const mriStore = require(${JSON.stringify(path.join(origCwd, 'src/main/lib/mriSt
 fs.rmSync(path.join(sandbox, 'src/main/reports/mri'), { recursive: true, force: true });
 mriStore.writeMri({
   version: '2.0.0',
-  generatedAt: '2026-01-01T00:00:00.000Z',
   stats: {},
   refs: {
     'IETF.draft-bogus-00': {

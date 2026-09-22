@@ -40,7 +40,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *  - --audit-out <path>: write a JSON audit of refs missing source docs
  *  - --limit <N>: process only the first N source documents (for quick tests)
  *  - --in <path>: path to documents.json (default: src/main/data/documents.json)
- *  - --force: force write even if only generatedAt would change
+ *  - --force: flush even when no entry is marked dirty (still only rewrites files whose content changed)
  *  - --quiet: minimal console output
  */
 
@@ -234,7 +234,7 @@ function main() {
     if (!QUIET) console.log(`🧹 Pruned MRI: -${pr.removedVariants} variants, -${pr.removedRefs} refs, -${pr.removedOrphans || 0} orphans`);
   }
 
-  // Flush MRI (will recompute sourcePresent/sourceDocId and suppress timestamp-only writes)
+  // Flush MRI (recomputes sourcePresent/sourceDocId; writes only files whose content changed)
   const res = mriFlush({ force: FORCE });
 
   if (!QUIET) {
@@ -315,7 +315,6 @@ function main() {
       // them. Listing all ~40k made this file ~41 MB (issue #1266).
       const listed = missing.filter((m) => !m.isOrphan);
       const audit = {
-        generatedAt: new Date().toISOString(),
         sourcePath: IN,
         processedDocs: countDocs,
         replayMode: PRESENCE_ONLY ? 'presence-only' : 'full-replay',

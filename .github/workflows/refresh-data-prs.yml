@@ -1,0 +1,70 @@
+name: Refresh open data PRs
+
+# After data or reports land on main, merge main into every other open data PR
+# (issue #1266). That push re-triggers build-reports-pr.yml on each PR, so its
+# MSI/MRI reports become "new main + that PR" — overlapping PRs (e.g. the SMPTE
+# and IETF extracts) never ship stale counts or conflict on report summary
+# lines. Nothing is rebuilt on main itself; this job only merges branches.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/main/data/**'
+      - 'src/main/reports/masterSuiteIndex.json'
+      - 'src/main/reports/mri_presence_audit.json'
+      - 'src/main/reports/mri/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: refresh-data-prs
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Merge main into open data PRs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mint PrZ3 Unit token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Merge main into open data PRs
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          git config user.name "PrZ3 Unit"
+          git config user.email "prz3-unit[bot]@users.noreply.github.com"
+          cp src/main/scripts/ci/mergeMainForReports.sh "$RUNNER_TEMP/merge.sh"
+          # Same-repo PRs whose files touch data or reports.
+          BRANCHES="$(gh pr list --state open --limit 100 --json headRefName,isCrossRepository,files \
+            --jq '.[] | select(.isCrossRepository | not)
+                      | select([.files[].path | test("^src/main/(data|reports)/")] | any)
+                      | .headRefName')"
+          if [ -z "$BRANCHES" ]; then echo "No open data PRs."; exit 0; fi
+          for b in $BRANCHES; do
+            echo "::group::$b"
+            git fetch --no-tags --depth=1 origin "+refs/heads/$b:refs/remotes/origin/$b"
+            git checkout -q -B "$b" "origin/$b"
+            if bash "$RUNNER_TEMP/merge.sh" "$b" && [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/$b")" ]; then
+              if git push origin "HEAD:refs/heads/$b"; then
+                echo "Merged main into $b; rebuild will run on its PR."
+              else
+                echo "::warning::Push to $b failed (branch moved?); its next rebuild merges main anyway."
+              fi
+            else
+              echo "No merge pushed for $b."
+            fi
+            echo "::endgroup::"
+          done

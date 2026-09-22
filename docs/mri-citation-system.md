@@ -36,9 +36,9 @@ src/main/reports/mri/
 
 - Always go through `src/main/lib/mriStore.js`: `loadMri()` returns the
   whole object (same shape as the old monolith, `refs` in sorted key order);
-  `writeMri(mri)` rewrites only shards whose content changed, deletes shards
-  for removed refs, and bumps `index.json`'s `generatedAt` only when
-  something changed — an unchanged MRI produces no diff.
+  `writeMri(mri)` rewrites only files whose content changed and deletes
+  shards for removed refs — an unchanged MRI produces no diff. There is no
+  `generatedAt`; git history records when the MRI changed.
 - Each shard holds the entry verbatim; its `refId` is the key. File names
   are for humans: directory names are lower-cased, and a file gets a
   `~<hash>` suffix when its refId has path-unsafe characters or would collide
@@ -412,7 +412,7 @@ uses this to propagate one decision across the group.
   already has its own shard under `src/main/reports/mri/refs/orphan/`.
   Listing all ~40k of them made the audit ~41 MB (#1266).
 
-The `.github/workflows/build-master-reference-index.yml` workflow's
+The `.github/workflows/sync-report-issues.yml` workflow's (script: `src/main/scripts/ci/syncMissingRefIssues.js`)
 auto-issue creator (the thing that produces "MISSING REF: RFC1642"
 GitHub issues — e.g. [#937](https://github.com/PrZ3r/MSRBot.io/issues/937))
 filters `missing[]` to `needsResolve === 'known-publisher-no-doc'`
@@ -529,5 +529,8 @@ Today's corpus: 8,995 ref-entries across 1,066 docs, all present in MRI's 2,816 
   `mriCite` Handlebars helpers + `followMriResolution` pointer chase.
 - `src/site/js/refTree.js` — client-side render of the reference tree;
   consumes `build/api/mri-cite-map.json`.
-- `.github/workflows/build-master-reference-index.yml` — auto-issue
-  workflow (filters `needsResolve === 'known-publisher-no-doc'`).
+- `.github/workflows/build-reports-pr.yml` — rebuilds MSI + MRI inside
+  data PRs and commits the reports back to the PR branch.
+- `.github/workflows/sync-report-issues.yml` +
+  `src/main/scripts/ci/syncMissingRefIssues.js` — auto-issue sync after
+  merge (filters `needsResolve === 'known-publisher-no-doc'`).

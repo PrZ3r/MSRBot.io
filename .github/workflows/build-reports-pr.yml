@@ -1,0 +1,202 @@
+name: Build MSI + MRI (PR)
+
+# Rebuilds the Master Suite Index and Master Reference Index inside the PR that
+# changes the data, and commits the refreshed reports back to the PR branch —
+# so one merge ships data + reports together and the site builds once, with
+# current suite/reference data (issue #1266). Replaces the post-merge
+# "Build MasterSuite Index" → "Build MasterReference Index" chain and its
+# follow-up report PRs. Issue sync runs after merge: sync-report-issues.yml.
+#
+# - Covers bot PRs too: extract PRs are opened with the PrZ3 Unit app token,
+#   which triggers pull_request workflows.
+# - Reports are always "latest main + this PR": the job merges main into the
+#   branch first (report-only conflicts resolve to main's copy, then get
+#   regenerated). After a data/report merge to main, refresh-data-prs.yml
+#   merges main into every other open data PR, which re-triggers this rebuild.
+# - Keeps an auto-updated MSI/MRI summary section in the PR body.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - 'src/main/data/**'
+      - 'src/main/input/**'
+      - 'src/main/config/**'
+      - 'src/main/lib/**'
+      - 'src/main/scripts/buildMasterSuiteIndex.js'
+      - 'src/main/scripts/buildMasterReferenceIndex.js'
+      - 'package.json'
+      - 'package-lock.json'
+  # Manual full rebuild: on a branch, commits to that branch; on main, opens a PR.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: build-reports-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  REPORT_PATHS: >-
+    src/main/reports/masterSuiteIndex.json
+    src/main/reports/mri
+    src/main/reports/mri_presence_audit.json
+  COMMIT_SUBJECT: 'chore(reports): rebuild MSI/MRI'
+
+jobs:
+  rebuild:
+    name: Rebuild MSI + MRI
+    # Same-repo PRs only (the job pushes to the PR branch), plus manual runs.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+
+    steps:
+      - name: Mint PrZ3 Unit token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.BRANCH }}
+          token: ${{ steps.app-token.outputs.token }}
+
+      # Our own report commit re-triggers `synchronize` (path filters see the
+      # whole PR diff); skip that run instead of rebuilding for nothing.
+      - name: Skip if head is our own report commit
+        id: self
+        run: |
+          if [ "$(git log -1 --format=%s)" = "$COMMIT_SUBJECT" ]; then
+            echo "Head commit is the report rebuild; nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure git identity
+        if: steps.self.outputs.skip != 'true'
+        run: |
+          git config user.name "PrZ3 Unit"
+          git config user.email "prz3-unit[bot]@users.noreply.github.com"
+
+      - name: Merge latest main (reports = main + this PR)
+        if: steps.self.outputs.skip != 'true' && env.BRANCH != 'main'
+        run: bash src/main/scripts/ci/mergeMainForReports.sh "$BRANCH"
+
+      - uses: actions/setup-node@v7
+        if: steps.self.outputs.skip != 'true'
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install deps
+        if: steps.self.outputs.skip != 'true'
+        run: npm ci
+
+      - name: Build MasterSuiteIndex
+        if: steps.self.outputs.skip != 'true'
+        run: npm run build-msi
+
+      - name: Sanity check invariant sourcePath
+        if: steps.self.outputs.skip != 'true'
+        run: |
+          jq -e '.sourcePath == "src/main/data/docs"' src/main/reports/masterSuiteIndex.json >/dev/null \
+            || (echo "sourcePath changed; failing run"; exit 1)
+
+      - name: Build MasterReferenceIndex (full replay + prune)
+        if: steps.self.outputs.skip != 'true'
+        run: |
+          node src/main/scripts/buildMasterReferenceIndex.js \
+            --audit-out src/main/reports/mri_presence_audit.json
+          test -f src/main/reports/mri/index.json || { echo "MRI not emitted"; exit 1; }
+
+      # The reports carry no timestamps, so any working-tree change is a real
+      # content change.
+      - name: Commit report changes
+        id: commit
+        if: steps.self.outputs.skip != 'true'
+        run: |
+          # shellcheck disable=SC2086
+          if [ -n "$(git status --porcelain -- $REPORT_PATHS)" ]; then
+            # shellcheck disable=SC2086
+            git add -A -- $REPORT_PATHS
+            git commit -q -m "$COMMIT_SUBJECT"
+            echo "committed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Reports unchanged."
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Summarize report changes
+        id: summary
+        if: steps.self.outputs.skip != 'true'
+        run: |
+          node src/main/scripts/ci/reportsPrSummary.js origin/main > "$RUNNER_TEMP/reports-summary.md"
+          cat "$RUNNER_TEMP/reports-summary.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Push to the branch
+        if: steps.self.outputs.skip != 'true' && env.BRANCH != 'main'
+        run: |
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/$BRANCH")" ]; then
+            git push origin "HEAD:refs/heads/$BRANCH"
+          else
+            echo "Nothing to push."
+          fi
+
+      - name: Update PR body summary
+        if: steps.self.outputs.skip != 'true' && env.BRANCH != 'main'
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const fs = require('fs');
+            const { owner, repo } = context.repo;
+            let number = context.payload.pull_request?.number;
+            if (!number) {
+              const prs = await github.rest.pulls.list({ owner, repo, state: 'open', head: `${owner}:${process.env.BRANCH}` });
+              number = prs.data[0]?.number;
+            }
+            if (!number) { core.info('No open PR for this branch; skipping PR body.'); return; }
+            const START = '<!-- msr-reports:start -->';
+            const END = '<!-- msr-reports:end -->';
+            const section = `${START}\n${fs.readFileSync(`${process.env.RUNNER_TEMP}/reports-summary.md`, 'utf8').trim()}\n${END}`;
+            // Re-read right before writing so edits made meanwhile (e.g. the
+            // extract workflow's diff-link rewrite) aren't lost.
+            const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number: number });
+            const body = pr.body || '';
+            const re = new RegExp(`${START}[\\s\\S]*?${END}`);
+            const next = re.test(body) ? body.replace(re, () => section) : `${body.trimEnd()}\n\n${section}\n`;
+            if (next !== body) {
+              await github.rest.pulls.update({ owner, repo, pull_number: number, body: next });
+              core.info(`Updated MSI/MRI summary on PR #${number}.`);
+            }
+
+      - name: Open PR (manual run on main)
+        if: steps.self.outputs.skip != 'true' && steps.commit.outputs.committed == 'true' && env.BRANCH == 'main'
+        run: |
+          git reset -q --soft HEAD~1   # hand the changes to create-pull-request uncommitted
+
+      - name: Create report PR (manual run on main)
+        if: steps.self.outputs.skip != 'true' && steps.commit.outputs.committed == 'true' && env.BRANCH == 'main'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          commit-message: ${{ env.COMMIT_SUBJECT }}
+          title: 'chore(reports): rebuild MSI/MRI'
+          body-path: ${{ runner.temp }}/reports-summary.md
+          branch: chore/rebuild-reports
+          add-paths: |
+            src/main/reports/masterSuiteIndex.json
+            src/main/reports/mri
+            src/main/reports/mri_presence_audit.json
+          labels: automated, reports, msi, mri
+          delete-branch: true

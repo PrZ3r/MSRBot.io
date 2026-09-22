@@ -92,7 +92,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Runs: `node src/main/scripts/buildMasterReferenceIndex.js`
   - Action: Rebuilds global reference index and source-presence audit.
   - Key outputs:
-    - `src/main/reports/mri/` — sharded MRI store: `index.json` + one file per ref under `refs/` (only changed shards are rewritten)
+    - `src/main/reports/mri/` — sharded MRI store: `index.json` + one file per ref under `refs/` (only changed files are rewritten; no timestamps, so an unchanged MRI produces no diff)
     - `src/main/reports/mri_presence_audit.json` — counts + every non-orphan missing ref (orphan slugs are counted, not listed)
   - Supported flags:
     - `--in <path>` (optional; defaults to the per-doc registry when omitted)

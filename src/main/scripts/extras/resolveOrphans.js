@@ -176,7 +176,6 @@ if (!APPLY) {
 }
 
 // Persist
-mri.generatedAt = NOW;
 // Stats
 mri.stats = mri.stats || {};
 mri.stats.resolvedCount = Object.values(refs).filter((e) => !!e.resolvedDocId).length;

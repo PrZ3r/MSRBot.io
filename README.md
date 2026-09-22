@@ -5,8 +5,8 @@ _built and maintained by [Steve LLamb](https://github.com/SteveLLamb)_
 [![Extract Documents - SMPTE](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs-smpte.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs-smpte.yml)
 [![Extract Documents - IETF](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs-ietf.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/extract-docs-ietf.yml)
 
-[![Build MasterReference Index](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-reference-index.yml)
-[![Build MasterSuite Index](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-master-suite-index.yml)
+[![Build MSI + MRI (PR)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-reports-pr.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-reports-pr.yml)
+[![Sync MSI/MRI issues](https://github.com/PrZ3r/MSRBot.io/actions/workflows/sync-report-issues.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/sync-report-issues.yml)
 [![Validate Document URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-urls.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-urls.yml)
 
 [![Build MSRBot.io Site and Test](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml)
@@ -85,10 +85,10 @@ MSRBot.io updates itself through a chain of automated GitHub Actions. When appro
 | Stage | Purpose | Trigger | Key Output |
 |:------|:---------|:---------|:------------|
 | Extract | Pulls and parses provider metadata (SMPTE/IETF) | Scheduled + Manual | `documents.json` |
-| MSI | Builds document lineages | PR merge to `main` / Manual | `masterSuiteIndex.json` |
-| MRI | Maps references across all docs | After MSI | `src/main/reports/mri/` |
+| MSI + MRI | Rebuilds document lineages + the reference map, committed back to the PR branch | Data PRs (incl. extract PRs) / Manual | `masterSuiteIndex.json`, `src/main/reports/mri/`, `mri_presence_audit.json` |
+| Issue sync | Opens/closes `UNKEYED` + `MISSING REF` issues from the committed reports | Push to `main` (report changes) / Weekly / Manual | GitHub issues |
 | MSR | Builds and publishes the site | Push to `main` / Manual | <https://msrbot.io/> |
-| URL Validate | Checks and normalizes links | After MRI / Weekly (Sat) | `url_validate_audit.json` |
+| URL Validate | Checks and normalizes links | Scheduled (throttled) / Manual | `url_validate_audit.json` |
 | PR Build Preview| Builds MSR preview prior to publication | PR updates + upstream workflow runs | <https://msrbot.io/pr/###/> |
 
 ```mermaid
@@ -96,16 +96,16 @@ MSRBot.io updates itself through a chain of automated GitHub Actions. When appro
 graph LR
   subgraph Pipeline
     direction LR
-    A[Extract] --> B[MSI] --> C[MRI] --> E[URL Validate]
+    A[Extract PR / data PR] --> B[MSI + MRI rebuilt in the PR] --> M[Merge to main]
   end
 
-  M[Push to main] --> D[MSR]
+  M --> D[MSR]
+  M --> I[Issue sync]
   A -.-> P[PR Build Preview]
   B -.-> P
-  C -.-> P
   S[Site/Template PR] -.-> P
 ```
-_Dotted lines indicate PR-triggered preview builds. Extract, MSI, MRI, and site/template PRs all generate a preview._
+_Dotted lines indicate PR-triggered preview builds. MSI/MRI are rebuilt inside the PR, so one merge ships data + reports together and the site builds once._
 
 ### Scheduled Workflows (UTC)
 | When | Time (UTC) | Pacific (PST) | Workflow |
@@ -113,6 +113,7 @@ _Dotted lines indicate PR-triggered preview builds. Extract, MSI, MRI, and site/
 | Monday | 04:15 | Sunday 20:15 | `Extract Documents - SMPTE` |
 | Tuesday | 04:45 | Monday 20:45 | `Extract Documents - IETF` |
 | 1st + 15th of month | 04:15 | prev-day 20:15 | `Validate Document URLs` (biweekly) |
+| Wednesday | 05:30 | Tuesday 21:30 | `Sync MSI/MRI issues` |
 | Sunday | 09:00 | Sunday 01:00 | `PR Preview Sweeper` |
 | Sunday | 09:30 | Sunday 01:30 | `Branch Sweeper` |
 
@@ -122,9 +123,9 @@ _PST shown above (UTC-8). During daylight saving (PDT, UTC-7), add 1 hour._
 
 Event-driven workflows run on upstream completion or repository events:
 - `Build MSRBot.io Site and Test` (`push` to `main`)
-- `Build MasterSuite Index` (PR merge to `main`)
-- `Build MasterReference Index` (after MSI)
-- `Validate Document URLs` (after MRI)
+- `Build MSI + MRI (PR)` (`pull_request` touching data/input/config/lib or the MSI/MRI scripts; commits refreshed reports back to the PR branch — pull before pushing again)
+- `Refresh open data PRs` (`push` to `main` that changes data or reports; merges `main` into other open data PRs so their MSI/MRI rebuild on top of it — nothing is rebuilt on `main`)
+- `Sync MSI/MRI issues` (`push` to `main` that changes `masterSuiteIndex.json` or `mri_presence_audit.json`, plus weekly Wednesday 05:30 UTC)
 - `PR Build Preview (MSRBot.io site)` (`pull_request` and extract/MSI/MRI/URL Validate workflow runs)
 
 URL validation throttle behavior:

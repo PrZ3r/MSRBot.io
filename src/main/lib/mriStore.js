@@ -35,9 +35,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * directory of one pretty-printed JSON file per ref entry:
  *
  *   src/main/reports/mri/index.json                 top-level fields (version,
- *                                                    generatedAt, stats, reverse,
- *                                                    orphans, …) — everything
- *                                                    except `refs`
+ *                                                    stats, reverse, orphans, …)
+ *                                                    — everything except `refs`
  *   src/main/reports/mri/refs/{prefix}/{refId}.json  canonical refs
  *                                                    (e.g. smpte/SMPTE.ST2067-21.2020.json,
  *                                                     rfc/RFC8446.json, 10.5594/10.5594-J06292.json)
@@ -52,9 +51,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * J/j docIds are distinct refs) — case-insensitive filesystems (macOS) stay safe.
  *
  * loadMri() returns the same in-memory shape the monolith had (`refs` keys in
- * sorted order). writeMri() only rewrites shards whose content changed, deletes
- * shards for removed keys, and bumps index.generatedAt only when something
- * actually changed — so an unchanged MRI produces no diff.
+ * sorted order). writeMri() only rewrites shards whose content changed and
+ * deletes shards for removed keys — so an unchanged MRI produces no diff.
+ * There is deliberately no generatedAt: git history records when the MRI
+ * changed, and a per-run timestamp would make concurrent data PRs conflict on
+ * the same line (#1266).
  */
 
 const fs = require('fs');
@@ -163,10 +164,10 @@ function mriExists(root = DEFAULT_ROOT) {
 }
 
 /**
- * loadMri(root) — assemble the full MRI object ({ version, generatedAt, stats,
- * refs, reverse, orphans, … }). Falls back to the legacy monolithic file when
- * no sharded store exists yet (pre-migration checkouts). Returns null when
- * neither exists.
+ * loadMri(root) — assemble the full MRI object ({ version, stats, refs,
+ * reverse, orphans, … }). A legacy `generatedAt` in index.json is dropped.
+ * Falls back to the legacy monolithic file when no sharded store exists yet
+ * (pre-migration checkouts). Returns null when neither exists.
  */
 function loadMri(root = DEFAULT_ROOT) {
   const indexPath = path.join(root, 'index.json');
@@ -199,10 +200,9 @@ function loadMri(root = DEFAULT_ROOT) {
     refs[e.refId] = e;
   }
   // Rebuild in the monolith's field order: refs sits after stats.
-  const { version, generatedAt, stats, ...rest } = index;
+  const { version, generatedAt: _legacy, stats, ...rest } = index;
   const out = {};
   if (version !== undefined) out.version = version;
-  if (generatedAt !== undefined) out.generatedAt = generatedAt;
   if (stats !== undefined) out.stats = stats;
   out.refs = refs;
   Object.assign(out, rest);
@@ -210,11 +210,10 @@ function loadMri(root = DEFAULT_ROOT) {
 }
 
 /**
- * writeMri(mri, { root, generatedAt }) — persist an MRI object as shards.
+ * writeMri(mri, { root }) — persist an MRI object as shards.
  * Only shards whose serialized content differs are rewritten; shards whose
- * key disappeared are deleted. index.json's generatedAt is set to
- * `generatedAt` (default: now) only when a shard or the rest of the index
- * changed; otherwise the existing timestamp is kept.
+ * key disappeared are deleted; index.json is rewritten only when it differs.
+ * Any `generatedAt` on the object is not persisted.
  * Returns { changed, written, deleted, indexChanged, root }.
  */
 function writeMri(mri, opts = {}) {
@@ -253,33 +252,22 @@ function writeMri(mri, opts = {}) {
   if (deleted) _removeEmptyDirs(refsRoot, true);
 
   // index.json = everything but refs, in the monolith's field order.
-  const { refs: _omit, generatedAt: _ga, ...restIn } = mri || {};
-  const indexPath = path.join(root, 'index.json');
-  let prevIndex = null;
-  try { prevIndex = JSON.parse(fs.readFileSync(indexPath, 'utf8')); } catch { /* none yet */ }
-  const { generatedAt: prevGeneratedAt, ...prevRest } = prevIndex || {};
-  const restChanged = !prevIndex || JSON.stringify(prevRest) !== JSON.stringify(restIn);
-  const changed = written > 0 || deleted > 0 || restChanged;
-
-  const generatedAt = changed
-    ? (opts.generatedAt || new Date().toISOString())
-    : (prevGeneratedAt || opts.generatedAt || new Date().toISOString());
-  const { version, stats, ...tail } = restIn;
+  const { refs: _omit, generatedAt: _ga, version, stats, ...tail } = mri || {};
   const index = {};
   if (version !== undefined) index.version = version;
-  index.generatedAt = generatedAt;
   if (stats !== undefined) index.stats = stats;
   Object.assign(index, tail);
+  const indexPath = path.join(root, 'index.json');
   const indexBody = _serialize(index);
-  let indexChanged = false;
   let prevIndexBody = null;
   try { prevIndexBody = fs.readFileSync(indexPath, 'utf8'); } catch { /* none yet */ }
-  if (prevIndexBody !== indexBody) {
+  const indexChanged = prevIndexBody !== indexBody;
+  if (indexChanged) {
     fs.mkdirSync(root, { recursive: true });
     fs.writeFileSync(indexPath, indexBody);
-    indexChanged = true;
   }
 
+  const changed = written > 0 || deleted > 0 || indexChanged;
   return { changed, written, deleted, indexChanged, root };
 }
 

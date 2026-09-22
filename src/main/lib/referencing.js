@@ -263,7 +263,6 @@ let _dirty = false;
 function _initEmptyMRI() {
   return {
     version: '2.0.0',
-    generatedAt: new Date().toISOString(),
     stats: { uniqueRefIds: 0, resolvedCount: 0, knownPublisherNoDocCount: 0, unknownPublisherOrphanCount: 0 },
     refs: {},
     reverse: {},
@@ -764,12 +763,12 @@ function mriFlush(opts = {}) {
     return { path: root, wrote: false, reason: 'unchanged', uniqueRefIds: out.stats.uniqueRefIds, orphanCount };
   }
 
-  // The store only rewrites shards whose content changed and keeps
-  // index.generatedAt when nothing did — a timestamp-only flush is a no-op.
+  // The store only rewrites files whose content changed — a flush with no
+  // content change is a no-op.
   const res = mriStore.writeMri(out);
   _dirty = false;
   if (!res.changed) {
-    return { path: root, wrote: false, reason: 'timestamp-only', uniqueRefIds: out.stats.uniqueRefIds, orphanCount };
+    return { path: root, wrote: false, reason: 'unchanged', uniqueRefIds: out.stats.uniqueRefIds, orphanCount };
   }
   return { path: root, wrote: true, uniqueRefIds: out.stats.uniqueRefIds, orphanCount, shardsWritten: res.written, shardsDeleted: res.deleted };
 }
