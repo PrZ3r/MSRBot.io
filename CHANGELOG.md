@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **gh-pages deploy no longer fails after a successful publish** — `publishGhPages.sh` hashes ~50k files into its throwaway clone, which trips git's auto-`gc`; the background repack raced the `trap … EXIT` cleanup, so `rm -rf` hit "Directory not empty" and its exit code failed an already-finished deploy (seen on the PR #2022 preview: gh-pages published, step still red). Housekeeping is now disabled in the temp clone (`gc.auto=0`, `gc.autoDetach=false`, `maintenance.auto=false`) and cleanup can no longer set the step's exit status.
+
 ## [v2.2.0] - 2026-09-22
 
 ### Added

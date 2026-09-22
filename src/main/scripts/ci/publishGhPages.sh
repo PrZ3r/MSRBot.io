@@ -68,11 +68,19 @@ case "$MODE" in
 esac
 
 WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
+# Cleanup must never decide this step's exit status: git may still be finishing
+# a background task in the throwaway clone, and a failed rm would fail an
+# already-successful deploy.
+trap 'rm -rf "$WORK" 2>/dev/null || true' EXIT
 git init -q "$WORK/repo"
 cd "$WORK/repo"
 git config user.name "${GIT_AUTHOR_NAME:-PrZ3 Unit}"
 git config user.email "${GIT_AUTHOR_EMAIL:-prz3-unit[bot]@users.noreply.github.com}"
+# No housekeeping in a clone we delete seconds later: hashing ~50k files trips
+# git's auto-gc, which repacks in the background and races the cleanup above.
+git config gc.auto 0
+git config gc.autoDetach false
+git config maintenance.auto false
 git remote add origin "$GH_PAGES_REPO_URL"
 
 # Hash a directory into a tree object (without touching the main index).
