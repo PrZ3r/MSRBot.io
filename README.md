@@ -7,6 +7,7 @@ _built and maintained by [Steve LLamb](https://github.com/SteveLLamb)_
 
 [![Build MSI + MRI (PR)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-reports-pr.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-reports-pr.yml)
 [![Sync MSI/MRI issues](https://github.com/PrZ3r/MSRBot.io/actions/workflows/sync-report-issues.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/sync-report-issues.yml)
+[![Refresh open data PRs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/refresh-data-prs.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/refresh-data-prs.yml)
 [![Validate Document URLs](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-urls.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/validate-urls.yml)
 
 [![Build MSRBot.io Site and Test](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml/badge.svg)](https://github.com/PrZ3r/MSRBot.io/actions/workflows/build-msr-site.yml)

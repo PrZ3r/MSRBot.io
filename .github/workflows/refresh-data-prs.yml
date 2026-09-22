@@ -6,6 +6,7 @@ name: Refresh open data PRs
 # and IETF extracts) never ship stale counts or conflict on report summary
 # lines. Nothing is rebuilt on main itself; this job only merges branches.
 
+# Merge-only: no MSI/MRI build happens here — the rebuild runs on each PR.
 on:
   push:
     branches: [main]
