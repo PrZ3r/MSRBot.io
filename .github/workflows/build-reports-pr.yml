@@ -35,9 +35,11 @@ permissions:
   contents: write
   pull-requests: write
 
+# A new push cancels an outdated rebuild — except our own report push, whose
+# (instantly skipped) run queues instead of cancelling the run that made it.
 concurrency:
   group: build-reports-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.triggering_actor != 'prz3-unit[bot]' }}
 
 env:
   REPORT_PATHS: >-

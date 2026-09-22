@@ -18,6 +18,7 @@ on:
       - "src/main/reports/**"
 
 permissions:
+  actions: read
   contents: write
   pull-requests: write
   issues: write
@@ -27,13 +28,67 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  # Build the preview only once the PR's MSI/MRI reports are current: wait for
+  # "Build MSI + MRI (PR)" on this same commit. If it pushed a report commit,
+  # stand down — the preview for that newer commit is the one that matters.
+  # PRs that don't trigger a rebuild (site/template-only) proceed right away.
+  reports-gate:
     if: >
       (
         github.event_name == 'pull_request'
         && github.event.pull_request.head.repo.full_name == github.repository
         && !startsWith(github.head_ref, 'gh-pages')
       )
+    runs-on: ubuntu-latest
+    outputs:
+      superseded: ${{ steps.wait.outputs.superseded }}
+    steps:
+      - name: Wait for MSI/MRI rebuild on this commit
+        id: wait
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const sha = context.payload.pull_request.head.sha;
+            const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+            const start = Date.now();
+            const APPEAR_MS = 90 * 1000;       // rebuild run should exist by now if it will run
+            const TIMEOUT_MS = 25 * 60 * 1000; // then give it up to ~25 min
+            core.setOutput('superseded', 'false');
+            for (;;) {
+              let run = null;
+              try {
+                const { data } = await github.rest.actions.listWorkflowRuns({
+                  owner, repo, workflow_id: 'build-reports-pr.yml', head_sha: sha, per_page: 5
+                });
+                run = data.workflow_runs[0] || null;
+              } catch (e) {
+                core.info(`Could not list MSI/MRI runs (${e.status || e.message}); building now.`);
+                return;
+              }
+              if (run && run.status === 'completed') {
+                core.info(`MSI/MRI rebuild finished (${run.conclusion}): ${run.html_url}`);
+                break;
+              }
+              if (!run && Date.now() - start > APPEAR_MS) {
+                core.info('No MSI/MRI rebuild for this commit; building now.');
+                return;
+              }
+              if (Date.now() - start > TIMEOUT_MS) {
+                core.warning('Timed out waiting for the MSI/MRI rebuild; building anyway.');
+                return;
+              }
+              await sleep(20 * 1000);
+            }
+            const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number: context.payload.pull_request.number });
+            if (pr.head.sha !== sha) {
+              core.info(`Branch moved to ${pr.head.sha.slice(0, 7)} (report commit); that commit's preview will build.`);
+              core.setOutput('superseded', 'true');
+            }
+
+  build:
+    needs: reports-gate
+    if: needs.reports-gate.outputs.superseded != 'true'
     runs-on: ubuntu-latest
     env:
       KEYWORD_VALIDATION_MODE: warn
