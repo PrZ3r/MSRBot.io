@@ -76,7 +76,7 @@ console.log(`[ftxml]   ${docs.length} registry docs, ${docByDoi.size} with a DOI
 console.log('[ftxml] loading MRI contentHash set…');
 const mriHashes = new Set();
 try {
-  const mri = JSON.parse(fs.readFileSync('src/main/reports/masterReferenceIndex.json', 'utf8'));
+  const mri = require('../../../lib/mriStore').loadMri() || { refs: {} };
   for (const r of Object.values(mri.refs || {})) if (r && r.contentHash) mriHashes.add(r.contentHash);
 } catch (e) {
   console.warn(`[ftxml]   MRI load skipped: ${e.message}`);

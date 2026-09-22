@@ -55,8 +55,7 @@ let __mriKnownRefsCache = null;
 function _mri() {
   if (__mriCache) return __mriCache;
   try {
-    const p = path.join(__dirname, '..', 'reports', 'masterReferenceIndex.json');
-    __mriCache = JSON.parse(fsRaw.readFileSync(p, 'utf8'));
+    __mriCache = require('../lib/mriStore').loadMri() || { refs: {} };
   } catch {
     __mriCache = { refs: {} };
   }

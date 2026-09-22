@@ -76,7 +76,7 @@ When contributing or editing document metadata:
 - For references:
   - Add deterministic parser rules in `src/main/lib/referencing.js` for stable URL/citation patterns.
   - Use `src/main/input/refMap.json` for curated/manual mappings and aliases.
-  - Validate outcomes in both `src/main/data/docs/` (`references`) and `src/main/reports/masterReferenceIndex.json` (variants, source presence).
+  - Validate outcomes in both `src/main/data/docs/` (`references`) and `src/main/reports/mri/refs/` (one file per ref: variants, source presence).
 
 ## Licensing
 All contributed code is licensed under the MIT License.

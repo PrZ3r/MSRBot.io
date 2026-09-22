@@ -255,7 +255,8 @@ function reloadDocumentsIndex() {
 // ---- refMap pattern loading / normalization ----
 
 // ---- Master Reference Index (MRI) helpers ----
-const MRI_PATH = path.resolve(process.cwd(), 'src/main/reports/masterReferenceIndex.json');
+// Stored as one shard per ref under src/main/reports/mri/ (see mriStore.js).
+const mriStore = require('./mriStore');
 let _mri = null;
 let _dirty = false;
 
@@ -408,15 +409,8 @@ function _stableSort(arr, keyFn) {
 function _loadMRI() {
   if (_mri) return _mri;
   try {
-    if (fs.existsSync(MRI_PATH)) {
-      const raw = fs.readFileSync(MRI_PATH, 'utf-8');
-      const parsed = JSON.parse(raw);
-      _mri = parsed && typeof parsed === 'object' ? parsed : _initEmptyMRI();
-    } else {
-      // ensure folder exists
-      fs.mkdirSync(path.dirname(MRI_PATH), { recursive: true });
-      _mri = _initEmptyMRI();
-    }
+    const loaded = mriStore.loadMri();
+    _mri = loaded && typeof loaded === 'object' ? loaded : _initEmptyMRI();
   } catch {
     _mri = _initEmptyMRI();
   }
@@ -655,140 +649,12 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
   return { mintedSlug: null, kind: refId ? 'canonical' : 'legacy-unmapped' };
 }
 
-mriFlush
-function mriFlush(opts = {}) {
-  const { force = false } = opts;
-  const mri = _loadMRI();
-  const fileExists = fs.existsSync(MRI_PATH);
-  const shouldWrite = force || _dirty || !fileExists;
-
-  // Ensure documents index reflects the final state of this run
-  try { reloadDocumentsIndex(); } catch {}
-
-  // Optionally, print debug info about which documents.json path was used
-  if (process.env.DEBUG || process.env.MSR_DEBUG) {
-    try { console.log(`🔎 Using documents.json at: ${_getDocsPath()}`); } catch {}
-  }
-
-  // --- Check if only generatedAt changed, so we can skip writing and log a distinct reason
-  if (!force && fileExists) {
-    // Prepare comparable objects for diff, ignoring generatedAt
-    let existing = null;
-    try {
-      existing = JSON.parse(fs.readFileSync(MRI_PATH, 'utf-8'));
-    } catch {}
-    if (existing) {
-      // Prepare baseOut and existingComparable (without generatedAt)
-      const sortedRefsKeys = Object.keys(mri.refs || {}).sort();
-      const refsOut = {};
-      for (const k of sortedRefsKeys) {
-        const e = mri.refs[k];
-        const sortedVariants = _stableSort(e.rawVariants || [], v => `${v.docId}||${v.type}||${(v.cite || '').toLowerCase()}`);
-        const sortedMapSource = (e.provenance?.mapSource || []).slice().sort();
-        const sortedMapDetails = (e.provenance?.mapDetails || []).slice(); // keep order
-
-        // Final authority: check documents.json (docId and docBase) now that it should be finalized
-        const matchDocId = e.isOrphan ? null : _findSourceDocIdForRefId(e.refId);
-        const present = !!matchDocId;
-        e.resolution = e.resolution || {};
-        const prevPresent = !!e.resolution.sourcePresent;
-        const prevDoc = e.resolution.sourceDocId || null;
-        if (present !== prevPresent || matchDocId !== prevDoc) {
-          e.resolution.sourcePresent = present;
-          e.resolution.sourceDocId = matchDocId || null;
-          if (present && !e.resolution.firstConfirmedSourceAt) {
-            e.resolution.firstConfirmedSourceAt = new Date().toISOString();
-          }
-          _dirty = true;
-        }
-        // Keep slug-schema fields in sync with resolution truth.
-        if (present) {
-          if (e.resolvedDocId !== matchDocId) { e.resolvedDocId = matchDocId; _dirty = true; }
-          if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
-        } else if (!e.isOrphan) {
-          // Canonical-form refs with no docId-as-itself match.
-          // N-to-1 slug→docId pointer survives if extractor wrote a
-          // resolvedDocId that's still in the registry (e.g. IETF draft
-          // refId like `IETF.draft-ietf-tls-rfc8446bis-03` resolved to
-          // the published `RFC8446`; parser-family resolutions ditto).
-          // mriFlush is NOT the sole authority on resolvedDocId — it only
-          // fills the null case and (here) demotes pointers that have
-          // gone stale.
-          if (e.resolvedDocId && _hasDocIdOrBase(e.resolvedDocId)) {
-            if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
-          } else {
-            if (e.resolvedDocId !== null) { e.resolvedDocId = null; _dirty = true; }
-            if (e.needsResolve !== 'known-publisher-no-doc') { e.needsResolve = 'known-publisher-no-doc'; _dirty = true; }
-          }
-        }
-
-        refsOut[k] = {
-          refId: e.refId,
-          normalized: e.normalized || null,
-          resolvedDocId: e.resolvedDocId || null,
-          needsResolve: e.needsResolve || null,
-          contentHash: e.contentHash || null,
-          isOrphan: e.isOrphan || undefined,
-          sourceDoc: e.sourceDoc || undefined,
-          sourceRefId: e.sourceRefId || undefined,
-          citationText: e.citationText || undefined,
-          href: e.href || undefined,
-          title: e.title || undefined,
-          rawRef: e.rawRef || undefined,
-          resolution: e.resolution || null,
-          provenance: {
-            firstSeen: e.provenance?.firstSeen || null,
-            mapSource: sortedMapSource.length ? sortedMapSource : undefined,
-            mapDetails: sortedMapDetails.length ? sortedMapDetails : undefined
-          },
-          rawVariants: sortedVariants.length ? sortedVariants : undefined
-        };
-      }
-      const resolvedCount = Object.values(refsOut).filter((r) => !!r.resolvedDocId).length;
-      const knownPubBacklog = Object.values(refsOut).filter((r) => r.needsResolve === 'known-publisher-no-doc').length;
-      const unknownPubOrphans = Object.values(refsOut).filter((r) => r.needsResolve === 'unknown-publisher').length;
-      const baseOut = {
-        // Hard-bump to v2 — the on-disk schema (resolvedDocId, needsResolve,
-        // contentHash, slug-keyed orphan refs[]) is no longer v1.0.0, and we
-        // don't want stale `version: "1.0.0"` strings lingering in the file
-        // after migration. If we ever cut v3 this becomes a version()-aware step.
-        version: '2.0.0',
-        // omit generatedAt for comparison
-        stats: {
-          uniqueRefIds: Object.keys(refsOut).length,
-          resolvedCount,
-          knownPublisherNoDocCount: knownPubBacklog,
-          unknownPublisherOrphanCount: unknownPubOrphans,
-        },
-        refs: refsOut,
-        reverse: mri.reverse || {},
-        orphans: {
-          unmapped: (mri.orphans?.unmapped || []).slice(0, 200)
-        }
-      };
-      // Build comparable version of existing (without generatedAt)
-      const { generatedAt, ...existingComparable } = existing;
-      if (JSON.stringify(existingComparable) === JSON.stringify(baseOut)) {
-        _dirty = false;
-        return {
-          path: MRI_PATH,
-          wrote: false,
-          reason: 'timestamp-only',
-          uniqueRefIds: baseOut.stats.uniqueRefIds,
-          orphanCount: baseOut.orphans.unmapped.length
-        };
-      }
-    }
-  }
-
-  if (!shouldWrite) {
-    return { path: MRI_PATH, wrote: false, reason: 'unchanged', uniqueRefIds: Object.keys(mri.refs || {}).length, orphanCount: (mri.orphans?.unmapped || []).length };
-  }
-
-  // Sort keys/arrays for stable diffs
-  const sortedRefsKeys = Object.keys(mri.refs || {}).sort();
+// Normalise every entry for output (stable key/array order) and re-check
+// source presence against the finalized documents index. Mutates entries'
+// resolution / resolvedDocId / needsResolve and flags _dirty on any change.
+function _buildRefsOut(mri) {
   const refsOut = {};
-  for (const k of sortedRefsKeys) {
+  for (const k of Object.keys(mri.refs || {}).sort()) {
     const e = mri.refs[k];
     const sortedVariants = _stableSort(e.rawVariants || [], v => `${v.docId}||${v.type}||${(v.cite || '').toLowerCase()}`);
     const sortedMapSource = (e.provenance?.mapSource || []).slice().sort();
@@ -808,13 +674,19 @@ function mriFlush(opts = {}) {
       }
       _dirty = true;
     }
-    // Sync slug-schema fields with resolution truth. Same N-to-1 pointer
-    // guard as the primary mriFlush branch above — an extractor-set
-    // resolvedDocId that still points at a registered doc survives.
+    // Keep slug-schema fields in sync with resolution truth.
     if (present) {
       if (e.resolvedDocId !== matchDocId) { e.resolvedDocId = matchDocId; _dirty = true; }
       if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
     } else if (!e.isOrphan) {
+      // Canonical-form refs with no docId-as-itself match.
+      // N-to-1 slug→docId pointer survives if extractor wrote a
+      // resolvedDocId that's still in the registry (e.g. IETF draft
+      // refId like `IETF.draft-ietf-tls-rfc8446bis-03` resolved to
+      // the published `RFC8446`; parser-family resolutions ditto).
+      // mriFlush is NOT the sole authority on resolvedDocId — it only
+      // fills the null case and (here) demotes pointers that have
+      // gone stale.
       if (e.resolvedDocId && _hasDocIdOrBase(e.resolvedDocId)) {
         if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
       } else {
@@ -845,17 +717,39 @@ function mriFlush(opts = {}) {
       rawVariants: sortedVariants.length ? sortedVariants : undefined
     };
   }
-  const resolvedCount = Object.values(refsOut).filter((r) => !!r.resolvedDocId).length;
-  const knownPubBacklog = Object.values(refsOut).filter((r) => r.needsResolve === 'known-publisher-no-doc').length;
-  const unknownPubOrphans = Object.values(refsOut).filter((r) => r.needsResolve === 'unknown-publisher').length;
+  // Drop undefined-valued fields now so shards match what JSON.stringify
+  // would have emitted into the monolith.
+  return JSON.parse(JSON.stringify(refsOut));
+}
+
+mriFlush
+function mriFlush(opts = {}) {
+  const { force = false } = opts;
+  const mri = _loadMRI();
+  const fileExists = mriStore.mriExists();
+  const shouldWrite = force || _dirty || !fileExists;
+
+  // Ensure documents index reflects the final state of this run
+  try { reloadDocumentsIndex(); } catch {}
+
+  // Optionally, print debug info about which documents.json path was used
+  if (process.env.DEBUG || process.env.MSR_DEBUG) {
+    try { console.log(`🔎 Using documents.json at: ${_getDocsPath()}`); } catch {}
+  }
+
+  const refsOut = _buildRefsOut(mri);
+  const refsList = Object.values(refsOut);
   const out = {
+    // Hard-bump to v2 — the on-disk schema (resolvedDocId, needsResolve,
+    // contentHash, slug-keyed orphan refs[]) is no longer v1.0.0, and we
+    // don't want stale `version: "1.0.0"` strings lingering in the store
+    // after migration. If we ever cut v3 this becomes a version()-aware step.
     version: '2.0.0',
-    generatedAt: mri.generatedAt || new Date().toISOString(),
     stats: {
-      uniqueRefIds: Object.keys(refsOut).length,
-      resolvedCount,
-      knownPublisherNoDocCount: knownPubBacklog,
-      unknownPublisherOrphanCount: unknownPubOrphans,
+      uniqueRefIds: refsList.length,
+      resolvedCount: refsList.filter((r) => !!r.resolvedDocId).length,
+      knownPublisherNoDocCount: refsList.filter((r) => r.needsResolve === 'known-publisher-no-doc').length,
+      unknownPublisherOrphanCount: refsList.filter((r) => r.needsResolve === 'unknown-publisher').length,
     },
     refs: refsOut,
     reverse: mri.reverse || {},
@@ -863,14 +757,21 @@ function mriFlush(opts = {}) {
       unmapped: (mri.orphans?.unmapped || []).slice(0, 200)
     }
   };
-  if (shouldWrite) {
-    out.generatedAt = new Date().toISOString();
-  }
-  fs.mkdirSync(path.dirname(MRI_PATH), { recursive: true });
-  fs.writeFileSync(MRI_PATH, JSON.stringify(out, null, 2) + '\n');
+  const orphanCount = out.orphans.unmapped.length;
+  const root = mriStore.DEFAULT_ROOT;
 
+  if (!shouldWrite) {
+    return { path: root, wrote: false, reason: 'unchanged', uniqueRefIds: out.stats.uniqueRefIds, orphanCount };
+  }
+
+  // The store only rewrites shards whose content changed and keeps
+  // index.generatedAt when nothing did — a timestamp-only flush is a no-op.
+  const res = mriStore.writeMri(out);
   _dirty = false;
-  return { path: MRI_PATH, wrote: true, uniqueRefIds: Object.keys(refsOut).length, orphanCount: out.orphans.unmapped.length };
+  if (!res.changed) {
+    return { path: root, wrote: false, reason: 'timestamp-only', uniqueRefIds: out.stats.uniqueRefIds, orphanCount };
+  }
+  return { path: root, wrote: true, uniqueRefIds: out.stats.uniqueRefIds, orphanCount, shardsWritten: res.written, shardsDeleted: res.deleted };
 }
 
 function mriEnsureFile() {

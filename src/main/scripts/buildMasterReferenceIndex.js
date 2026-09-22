@@ -59,6 +59,7 @@ const {
 
 const keying = require('../lib/keying');
 const { loadAllDocs } = require('../lib/registry');
+const { loadMri } = require('../lib/mriStore');
 const { keyFromDocId } = keying;
 
 const REGISTRIES_REPO_PATH = 'src/main';
@@ -255,8 +256,7 @@ function main() {
   // Optional audit: read the emitted MRI and list refs lacking source docs
   if (AUDIT_OUT) {
     try {
-      const MRI_PATH = path.resolve(process.cwd(), 'src/main/reports/masterReferenceIndex.json');
-      const mri = JSON.parse(fs.readFileSync(MRI_PATH, 'utf8'));
+      const mri = loadMri() || { refs: {} };
       const missing = [];
       const present = [];
       const refs = mri && mri.refs ? mri.refs : {};
@@ -309,6 +309,11 @@ function main() {
       }
       const orphanCount = missing.filter((m) => m.isOrphan).length;
       const knownPubNoDocCount = missing.filter((m) => m.needsResolve === 'known-publisher-no-doc').length;
+      // Orphan slugs are listed by count only: every one is by definition
+      // missing, each already has its own shard under
+      // src/main/reports/mri/refs/orphan/, and no consumer files issues for
+      // them. Listing all ~40k made this file ~41 MB (issue #1266).
+      const listed = missing.filter((m) => !m.isOrphan);
       const audit = {
         generatedAt: new Date().toISOString(),
         sourcePath: IN,
@@ -322,7 +327,8 @@ function main() {
         // without re-scanning every missing[] entry.
         knownPubNoDocCount,
         orphanCount,
-        missing // no cap; caller can post-filter if needed
+        orphansListed: false, // orphan slugs omitted from missing[]; see orphanCount
+        missing: listed // every non-orphan missing ref, no cap
       };
       ensureDir(AUDIT_OUT);
       fs.writeFileSync(AUDIT_OUT, JSON.stringify(audit, null, 2));

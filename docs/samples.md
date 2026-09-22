@@ -21,7 +21,7 @@ _Crawls defined URL maps to parse and populate data (currently only SMPTE). Crea
 - [`src/main/reports/masterSuiteIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterSuiteIndex.json)
 
 **Reports (as needed):**  
-- [`src/main/reports/masterReferenceIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterReferenceIndex.json)
+- [`src/main/reports/mri/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/reports/mri)
 
 **Sample PR:** - [Update documents.json (20251010-193337) (#520)](https://github.com/PrZ3r/MSRBot.io/pull/520)  
 
@@ -55,7 +55,7 @@ _Builds a master reference map and determines whether referenced documents are p
 **Dataset:** [`src/main/data/docs/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/data/docs)
 
 **Reports:**  
-- [`src/main/reports/masterReferenceIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterReferenceIndex.json)  
+- [`src/main/reports/mri/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/reports/mri)  
 - [`src/main/reports/mri_presence_audit.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/mri_presence_audit.json) (generated to resolve issues)
 
 **Sample PR:** [Build MasterReferenceIndex (data change) (#481)](https://github.com/PrZ3r/MSRBot.io/pull/481)  
@@ -74,7 +74,7 @@ _Builds the front-end site from data and publishes to GitHub Pages._
 **Dataset:**  
 - [`src/main/data/docs/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/data/docs)  
 - [`src/main/reports/masterSuiteIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterSuiteIndex.json)  
-- [`src/main/reports/masterReferenceIndex.json`](https://github.com/PrZ3r/MSRBot.io/blob/main/src/main/reports/masterReferenceIndex.json)
+- [`src/main/reports/mri/`](https://github.com/PrZ3r/MSRBot.io/tree/main/src/main/reports/mri)
 
 **Build Output:** [msrbot.io](https://msrbot.io/)
 

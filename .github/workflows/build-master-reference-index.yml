@@ -111,22 +111,17 @@ jobs:
 
       - name: Sanity check invariant sourcePath (if you add it)
         run: |
-          test -f src/main/reports/masterReferenceIndex.json || { echo "MRI not emitted"; exit 1; }
-
-      - name: Fetch baseline
-        run: |
-          git fetch --no-tags --depth=1 origin +refs/heads/${{ github.event.repository.default_branch }}:refs/remotes/origin/${{ github.event.repository.default_branch }}
-          git show origin/${{ github.event.repository.default_branch }}:src/main/reports/masterReferenceIndex.json > baseline.json || echo '{}' > baseline.json
+          test -f src/main/reports/mri/index.json || { echo "MRI not emitted"; exit 1; }
 
       - name: Normalize & classify changes
         run: |
-          jq 'del(.generatedAt)' src/main/reports/masterReferenceIndex.json > report.norm.json
-          jq 'del(.generatedAt)' baseline.json > baseline.norm.json
-          node -e "
+          # The sharded store (src/main/reports/mri/) only rewrites shards whose
+          # content changed and only bumps index.json's generatedAt when
+          # something did — so "no working-tree change" == timestamp-only.
+          if [ -z "$(git status --porcelain -- src/main/reports/mri)" ]; then ONLY_META=true; else ONLY_META=false; fi
+          ONLY_META="$ONLY_META" node -e "
             const fs=require('fs');
-            const a=JSON.parse(fs.readFileSync('baseline.norm.json','utf8')||'{}');
-            const b=JSON.parse(fs.readFileSync('report.norm.json','utf8')||'{}');
-            const onlyMeta = JSON.stringify(a)===JSON.stringify(b);
+            const onlyMeta = process.env.ONLY_META === 'true';
             // Presence audit
             const audit = JSON.parse(fs.readFileSync('src/main/reports/mri_presence_audit.json','utf8'));
             const missingCount = audit.missingCount||0;
@@ -164,7 +159,7 @@ jobs:
           body-path: mri_pr_body.txt
           branch: chore/build-masterreference
           add-paths: |
-            src/main/reports/masterReferenceIndex.json
+            src/main/reports/mri
             src/main/reports/mri_presence_audit.json
           labels: automated, reports, mri
           delete-branch: true
