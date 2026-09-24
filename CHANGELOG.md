@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+### Changed
+
+- **Issue + PR templates refreshed** for the post-#1266 workflows — PR validation checklist had the wrong script names (`build:msi` / `build:mri` → `build-msi` / `build-mri`), and now states that MSI/MRI are rebuilt by CI inside the PR (don't hand-edit `src/main/reports/`; `git pull` after the bot's `chore(reports)` commit), plus prompts for the data-change and refMap before/after callouts AGENTS.md asks for. Feature template gained **Acceptance** / **Related** sections and a pointer to the current surfaces; bug template gained a **Where** checklist with the live workflow names. Removed the duplicate `.github/PULL_REQUEST_TEMPLATE.md` (it differed from `pull_request_template.md` only in case, so the two couldn't coexist in a checkout on a case-insensitive filesystem). `docs/CONTRIBUTING_SHORT.md`: local-checks list de-duplicated and split into always-run vs depends-on-what-you-touched, CI-behaviour table replaced the stale "MSI/MRI run on push to main" list, and a **Branch or fork?** section explains that fork PRs get no secrets, so the preview deploy and MSI/MRI rebuild skip for them.
+
 ### Fixed
 
 - **gh-pages deploy no longer fails after a successful publish** — `publishGhPages.sh` hashes ~50k files into its throwaway clone, which trips git's auto-`gc`; the background repack raced the `trap … EXIT` cleanup, so `rm -rf` hit "Directory not empty" and its exit code failed an already-finished deploy (seen on the PR #2022 preview: gh-pages published, step still red). Housekeeping is now disabled in the temp clone (`gc.auto=0`, `gc.autoDetach=false`, `maintenance.auto=false`) and cleanup can no longer set the step's exit status.

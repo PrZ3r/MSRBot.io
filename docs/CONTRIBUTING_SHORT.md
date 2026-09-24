@@ -14,20 +14,25 @@ For the full contributor guide, see [CONTRIBUTING.md](../CONTRIBUTING.md).
 Run the following before opening a PR:
 
 ```bash
-npm test
-npm run validate
-npm run canonicalize
-npm run build
-npm run build-msi
-npm run build-mri
-npm run validate-url
-npm run build
-npm run local-server
+npm test                      # registry, mriStore, referencing.flush, syncIssues
+npm run validate              # all 4 registries against their schemas
+npm run canonicalize          # only needed if you changed data
+npm run build                 # full site build into build/
+npm run local-server          # serves build/ on :8080
 ```
 
 Using a browser, open http://127.0.0.1:8080/ after starting the http-server to inspect the local built pages.
 
-> These commands ensure your changes don’t break MSR’s automated workflows or data chain. The last commands build the site locally and initiates a local server to render the client side pages. 
+Depending on what you touched:
+
+```bash
+npm run validate-mri-coverage   # reference / MRI changes
+npm run validate-url            # URL or link changes
+npm run build-msi               # optional: see the MSI delta before pushing
+npm run build-mri               # optional: see the MRI delta before pushing
+```
+
+> These commands ensure your changes don’t break MSR’s automated workflows or data chain. `build-msi` / `build-mri` are optional locally — CI rebuilds both inside your PR (see **CI Behavior**). 
 
 ---
 
@@ -77,10 +82,21 @@ Each field must include correct `$meta` provenance tracking where applicable:
 - Use `npm run extract` for data auto refreshes instead of editing JSON manually, when appropriate.
 
 ## CI Behavior
-All automation workflows (Extract, MSI, MRI, MSR, URL Validate) run on:
-- Cron schedules (weekly for Extract; biweekly — 1st + 15th of each month — for URL Validate)
-- Push to `main`
-- Manual dispatch
+What runs when:
+
+| Workflow | Trigger |
+|:--|:--|
+| `Extract Documents - SMPTE` / `- IETF` | Weekly cron (Mon / Tue) + manual |
+| `Build MSI + MRI (PR)` | PRs touching data / input / config / `src/main/lib/` / the MSI-MRI scripts + manual |
+| `Refresh open data PRs` | Push to `main` that changes data or reports (merges `main` into other open data PRs; builds nothing) |
+| `Sync MSI/MRI issues` | Push to `main` that changes MSI or the presence audit, weekly (Wed), + manual |
+| `Build MSRBot.io Site and Test` | Push to `main` + manual |
+| `PR Build Preview (MSRBot.io site)` | PRs touching the site, templates, config, lib, data or reports |
+| `Validate Document URLs` | Cron (1st + 15th, throttled to a 14-day window) + manual |
+
+### Branch or fork?
+
+**Prefer a branch in this repo** when you can. GitHub gives fork PRs no secrets and a read-only token, so for a fork PR the preview deploy and the MSI/MRI rebuild can't run at all — those jobs skip rather than fail. A fork PR still gets reviewed and merged; the preview and reports are produced after merge. Data changes in particular should come from a branch, since MSI/MRI can't be committed back to a fork.
 
 MSI and MRI are rebuilt **inside your PR**: when a PR touches data, input, config, `src/main/lib/`, or the MSI/MRI scripts, `Build MSI + MRI (PR)` commits the refreshed reports (`chore(reports): rebuild MSI/MRI`) back to the PR branch, first merging the latest `main` in (report-only conflicts are resolved automatically; data conflicts are left to you), and keeps an **MSI / MRI** summary section in the PR body up to date. **Pull before pushing again** (`git pull`). When another data PR merges, open data PRs are refreshed from `main` automatically. After merge, `Sync MSI/MRI issues` opens/closes the `UNKEYED` and `MISSING REF` issues from the merged reports.
 
