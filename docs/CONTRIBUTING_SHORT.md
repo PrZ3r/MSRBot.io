@@ -96,7 +96,18 @@ What runs when:
 
 ### Branch or fork?
 
-**Prefer a branch in this repo** when you can. GitHub gives fork PRs no secrets and a read-only token, so for a fork PR the preview deploy and the MSI/MRI rebuild can't run at all — those jobs skip rather than fail. A fork PR still gets reviewed and merged; the preview and reports are produced after merge. Data changes in particular should come from a branch, since MSI/MRI can't be committed back to a fork.
+**Fork PRs run the full checks.** Checkout, `npm run canonicalize` (sanity), `npm run validate`, `npm test` and a complete site build need no secrets, so a fork PR gets the same pass/fail as a branch PR, and the MSI/MRI job rebuilds both reports and shows any drift in its job summary.
+
+**What a fork PR can't do** is anything that writes, because GitHub gives fork PRs a read-only token and no secrets — which "approve and run" does not change on a public repo:
+
+| | Branch in this repo | Fork PR |
+|:--|:--|:--|
+| Validate / tests / site build | ✅ | ✅ |
+| MSI + MRI rebuilt and drift reported | ✅ | ✅ (summary only) |
+| Reports committed to the PR branch | ✅ | ❌ — Actions can't push to a fork |
+| Preview deployed to `msrbot.io/pr/<N>/` | ✅ | ❌ — no secrets to publish with |
+
+So **data changes are best made from a branch**, since the rebuilt reports need to land in the PR. For a fork PR, a maintainer can push the same commits to a branch here to get a preview and the report commit, or the reports get rebuilt after merge.
 
 MSI and MRI are rebuilt **inside your PR**: when a PR touches data, input, config, `src/main/lib/`, or the MSI/MRI scripts, `Build MSI + MRI (PR)` commits the refreshed reports (`chore(reports): rebuild MSI/MRI`) back to the PR branch, first merging the latest `main` in (report-only conflicts are resolved automatically; data conflicts are left to you), and keeps an **MSI / MRI** summary section in the PR body up to date. **Pull before pushing again** (`git pull`). When another data PR merges, open data PRs are refreshed from `main` automatically. After merge, `Sync MSI/MRI issues` opens/closes the `UNKEYED` and `MISSING REF` issues from the merged reports.
 

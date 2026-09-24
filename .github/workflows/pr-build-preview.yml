@@ -1,5 +1,12 @@
 name: PR Build Preview (MSRBot.io site)
 
+# Runs the checks for EVERY PR, forks included: checkout, validate, tests and a
+# full site build need no secrets. Only the privileged steps — minting the app
+# token, publishing the preview to gh-pages, commenting the URL — are gated to
+# same-repo PRs, because GitHub gives fork PRs a read-only token and no secrets
+# (that is not something "approve and run" changes on a public repo).
+# A fork PR therefore gets pass/fail on the same checks, just no preview URL.
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -33,12 +40,8 @@ jobs:
   # stand down — the preview for that newer commit is the one that matters.
   # PRs that don't trigger a rebuild (site/template-only) proceed right away.
   reports-gate:
-    if: >
-      (
-        github.event_name == 'pull_request'
-        && github.event.pull_request.head.repo.full_name == github.repository
-        && !startsWith(github.head_ref, 'gh-pages')
-      )
+    if: "!startsWith(github.head_ref, 'gh-pages')"
+
     runs-on: ubuntu-latest
     outputs:
       superseded: ${{ steps.wait.outputs.superseded }}
@@ -87,24 +90,27 @@ jobs:
             }
 
   build:
+    name: ${{ github.event.pull_request.head.repo.full_name == github.repository && 'Build + deploy preview' || 'Checks (fork PR — no preview deploy)' }}
     needs: reports-gate
     if: needs.reports-gate.outputs.superseded != 'true'
     runs-on: ubuntu-latest
     env:
       KEYWORD_VALIDATION_MODE: warn
+      SAME_REPO: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     steps:
+      # Fork PRs get no secrets, so this is a no-op there and every later step
+      # falls back to the read-only github.token.
       - name: Mint PrZ3 Unit token
         id: app-token
-        if: github.actor != 'dependabot[bot]'
+        if: env.SAME_REPO == 'true' && github.actor != 'dependabot[bot]'
         uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
+      # No `ref:` — check out the PR's merge commit, which also means a fork's
+      # head (which isn't a branch in this repo) works unchanged.
       - uses: actions/checkout@v7
-        with:
-          ref: ${{ github.head_ref }}
-          token: ${{ steps.app-token.outputs.token || github.token }}
 
       - uses: actions/setup-node@v7
         with:
@@ -118,6 +124,9 @@ jobs:
 
       - name: Validate dataset
         run: npm run validate
+
+      - name: Unit tests
+        run: npm test
 
       - name: Build site preview
         run: npm run build   # produces ./build (includes build/api/stats.json)
@@ -134,12 +143,25 @@ jobs:
           fi
 
       - name: Deploy PR preview to gh-pages/pr/<PR#>
+        if: env.SAME_REPO == 'true'
         env:
           GH_PAGES_REPO_URL: https://x-access-token:${{ steps.app-token.outputs.token || github.token }}@github.com/${{ github.repository }}.git
           GH_PAGES_MESSAGE: 'deploy preview for PR #${{ github.event.pull_request.number }} (PrZ3 Unit)'
         run: bash src/main/scripts/ci/publishGhPages.sh preview "${{ github.event.pull_request.number }}" build
 
+      - name: Note that a fork PR gets no preview
+        if: env.SAME_REPO != 'true'
+        run: |
+          {
+            echo "### Checks ran; no preview deployed"
+            echo ""
+            echo "This PR is from a fork, so GitHub withholds secrets and gives the run a read-only token — the preview can't be published to \`gh-pages\`."
+            echo "Everything else (validate, tests, full site build) ran above, so the checks are meaningful."
+            echo "A maintainer can produce a preview by pushing the same commits to a branch in this repo."
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Comment preview URL on PR
+        if: env.SAME_REPO == 'true'
         uses: marocchino/sticky-pull-request-comment@v3
         with:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token || github.token }}

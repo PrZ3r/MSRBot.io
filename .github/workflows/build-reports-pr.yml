@@ -9,6 +9,11 @@ name: Build MSI + MRI (PR)
 #
 # - Covers bot PRs too: extract PRs are opened with the PrZ3 Unit app token,
 #   which triggers pull_request workflows.
+# - Fork PRs run a read-only version: the reports are rebuilt and any drift is
+#   reported in the job summary, but nothing is committed — GitHub gives fork
+#   PRs no secrets, and Actions cannot push to a fork's branch at all. Such a
+#   PR has to be re-based onto a branch in this repo (or rebuilt after merge)
+#   for the reports to land.
 # - Reports are always "latest main + this PR": the job merges main into the
 #   branch first (report-only conflicts resolve to main's copy, then get
 #   regenerated). After a data/report merge to main, refresh-data-prs.yml
@@ -50,27 +55,39 @@ env:
 
 jobs:
   rebuild:
-    name: Rebuild MSI + MRI
-    # Same-repo PRs only (the job pushes to the PR branch), plus manual runs.
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+    name: ${{ (github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository) && 'Rebuild MSI + MRI' || 'MSI + MRI drift check (fork PR — read-only)' }}
     runs-on: ubuntu-latest
     env:
       BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+      # Writing (commit/push to the PR branch, PR body) needs secrets and write
+      # access to the head repo; both are absent for fork PRs.
+      SAME_REPO: ${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository }}
 
     steps:
       - name: Mint PrZ3 Unit token
         id: app-token
+        if: env.SAME_REPO == 'true'
         uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - uses: actions/checkout@v7
+      - name: Checkout the branch (same-repo — the reports get committed to it)
+        if: env.SAME_REPO == 'true'
+        uses: actions/checkout@v7
         with:
           ref: ${{ env.BRANCH }}
           token: ${{ steps.app-token.outputs.token }}
+
+      # Fork PR: check out the merge commit (the fork's head is not a branch
+      # here) and fetch main so the drift summary has a baseline.
+      - name: Checkout the merge commit (fork PR)
+        if: env.SAME_REPO != 'true'
+        uses: actions/checkout@v7
+
+      - name: Fetch main for the drift baseline (fork PR)
+        if: env.SAME_REPO != 'true'
+        run: git fetch -q --depth=1 origin +refs/heads/main:refs/remotes/origin/main
 
       # Our own report commit re-triggers `synchronize` (path filters see the
       # whole PR diff); skip that run instead of rebuilding for nothing.
@@ -85,13 +102,13 @@ jobs:
           fi
 
       - name: Configure git identity
-        if: steps.self.outputs.skip != 'true'
+        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true'
         run: |
           git config user.name "PrZ3 Unit"
           git config user.email "prz3-unit[bot]@users.noreply.github.com"
 
       - name: Merge latest main (reports = main + this PR)
-        if: steps.self.outputs.skip != 'true' && env.BRANCH != 'main'
+        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true' && env.BRANCH != 'main'
         run: bash src/main/scripts/ci/mergeMainForReports.sh "$BRANCH"
 
       - uses: actions/setup-node@v7
@@ -125,7 +142,7 @@ jobs:
       # content change.
       - name: Commit report changes
         id: commit
-        if: steps.self.outputs.skip != 'true'
+        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true'
         run: |
           # shellcheck disable=SC2086
           if [ -n "$(git status --porcelain -- $REPORT_PATHS)" ]; then
@@ -144,9 +161,17 @@ jobs:
         run: |
           node src/main/scripts/ci/reportsPrSummary.js origin/main > "$RUNNER_TEMP/reports-summary.md"
           cat "$RUNNER_TEMP/reports-summary.md" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$SAME_REPO" != 'true' ]; then
+            # shellcheck disable=SC2086
+            {
+              echo ""
+              echo "_Fork PR: read-only. The reports above were rebuilt to show the drift, but nothing is committed — Actions can't push to a fork's branch. Re-push these commits to a branch in this repo, or the reports get rebuilt after merge._"
+            } >> "$GITHUB_STEP_SUMMARY"
+            git checkout -- $REPORT_PATHS 2>/dev/null || true
+          fi
 
       - name: Push to the branch
-        if: steps.self.outputs.skip != 'true' && env.BRANCH != 'main'
+        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true' && env.BRANCH != 'main'
         run: |
           if [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/$BRANCH")" ]; then
             git push origin "HEAD:refs/heads/$BRANCH"
@@ -155,7 +180,7 @@ jobs:
           fi
 
       - name: Update PR body summary
-        if: steps.self.outputs.skip != 'true' && env.BRANCH != 'main'
+        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true' && env.BRANCH != 'main'
         uses: actions/github-script@v9
         with:
           github-token: ${{ steps.app-token.outputs.token }}
