@@ -132,7 +132,11 @@ for attempt in $(seq 1 "$MAX_ATTEMPTS"); do
       ;;
   esac
 
-  NEW_TREE="$(git write-tree)"
+  # --missing-ok: this is a blob-less clone, so most blobs the carried-over tree
+  # references aren't local. Without it write-tree verifies them and triggers a
+  # lazy fetch from the promisor remote — a needless round trip per deploy (and
+  # it fails outright when the fetch is refused).
+  NEW_TREE="$(git write-tree --missing-ok)"
   unset GIT_INDEX_FILE
   # (Parent check reads the raw commit: a depth-1 clone grafts the tip as
   # parentless, so OLD^1 would always look empty.)
@@ -144,7 +148,8 @@ for attempt in $(seq 1 "$MAX_ATTEMPTS"); do
   NEW="$(git commit-tree "$NEW_TREE" -m "$MESSAGE")"
   if [ -n "${GH_PAGES_BEFORE_PUSH:-}" ]; then eval "$GH_PAGES_BEFORE_PUSH"; fi   # test hook
   if git push -q --force-with-lease="refs/heads/${BRANCH}:${OLD}" origin "${NEW}:refs/heads/${BRANCH}"; then
-    CHANGED="$(git diff --name-only "$OLD" "$NEW" | wc -l | tr -d ' ')"
+    # --no-renames for the same reason: rename detection reads blob contents.
+    CHANGED="$(git diff --no-renames --name-only "$OLD" "$NEW" | wc -l | tr -d ' ')"
     echo "✅ Published ${BRANCH} ${NEW:0:12} (${MODE}; ${CHANGED} path(s) changed vs previous tip; attempt ${attempt})"
     exit 0
   fi

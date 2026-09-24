@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **gh-pages publish no longer lazy-fetches from the remote** — `publishGhPages.sh` clones blob-less, so `git write-tree` couldn't find the blobs the carried-over tree references and fetched them from the promisor remote on every deploy; `git diff`'s rename detection did the same. Now `write-tree --missing-ok` and `diff --no-renames`, so a publish needs no extra round trip (and works where that fetch is refused — it failed outright when run outside Actions).
 - **gh-pages deploy no longer fails after a successful publish** — `publishGhPages.sh` hashes ~50k files into its throwaway clone, which trips git's auto-`gc`; the background repack raced the `trap … EXIT` cleanup, so `rm -rf` hit "Directory not empty" and its exit code failed an already-finished deploy (seen on the PR #2022 preview: gh-pages published, step still red). Housekeeping is now disabled in the temp clone (`gc.auto=0`, `gc.autoDetach=false`, `maintenance.auto=false`) and cleanup can no longer set the step's exit status.
 
 ## [v2.2.0] - 2026-09-22
