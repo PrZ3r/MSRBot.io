@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+### Fixed
+
+## [v2.3.0] - 2026-09-24
+
 ### Changed
 
 - **Contributor path documented** — `docs/CONTRIBUTING_SHORT.md` explains how a fork contributor graduates to a branch: what each stage gets from CI, that GitHub's approval step is asked once per new contributor (`first_time_contributors`) rather than per PR, and that the step guards runner time (`npm ci` runs the PR's own lifecycle scripts) rather than credentials, since fork runs get no secrets.
