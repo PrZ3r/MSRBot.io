@@ -1776,3 +1776,4 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     render();
   }
 })();
+// CI smoke test (temporary): verifies PR preview + MSI/MRI workflows after #2026.
