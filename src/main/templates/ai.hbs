@@ -31,9 +31,9 @@
   <section class="row g-3 mb-3">
     <div class="col-12 col-lg-6">
       <div class="card h-100">
-        <div class="card-header fw-semibold"><i class="bi bi-chat-square-text me-1"></i> Claude (claude.ai or the desktop app)</div>
+        <div class="card-header fw-semibold">Claude (claude.ai or the desktop app)</div>
         <div class="card-body small">
-          <a class="btn btn-primary btn-sm mb-3" href="{{skillZipUrl}}"><i class="bi bi-download me-1"></i> Download msrbot-research.zip</a>
+          <a class="btn btn-primary btn-sm mb-3" href="{{skillZipUrl}}">Download msrbot-research.zip</a>
           <ol class="mb-2">
             <li>Download the zip. <strong>Don't unzip it.</strong></li>
             <li>In Claude, open <a href="https://claude.ai/customize/skills" target="_blank" rel="noopener"><strong>Customize &rarr; Skills</strong></a> and upload it.</li>
@@ -45,7 +45,7 @@
     </div>
     <div class="col-12 col-lg-6">
       <div class="card h-100">
-        <div class="card-header fw-semibold"><i class="bi bi-building me-1"></i> Everyone in your Claude organization</div>
+        <div class="card-header fw-semibold">Everyone in your Claude organization</div>
         <div class="card-body small">
           <p class="mb-2">An organization Owner can install it for everyone:</p>
           <ol class="mb-2">
@@ -59,7 +59,7 @@
     </div>
     <div class="col-12 col-lg-6">
       <div class="card h-100">
-        <div class="card-header fw-semibold"><i class="bi bi-terminal me-1"></i> Claude Code</div>
+        <div class="card-header fw-semibold">Claude Code</div>
         <div class="card-body small">
           <pre class="border rounded p-2 bg-body-secondary mb-2"><code>/plugin marketplace add PrZ3r/MSRBot.io
 /plugin install msrbot-research@msrbot</code></pre>
@@ -69,7 +69,7 @@
     </div>
     <div class="col-12 col-lg-6">
       <div class="card h-100">
-        <div class="card-header fw-semibold"><i class="bi bi-stars me-1"></i> ChatGPT, Gemini, Copilot and others</div>
+        <div class="card-header fw-semibold">ChatGPT, Gemini, Copilot and others</div>
         <div class="card-body small">
           <p class="mb-2">Copy the <a href="#ai-prompt">prompt below</a> into the tool's standing instructions:</p>
           <ul class="mb-2">
@@ -87,8 +87,8 @@
   <section class="mb-3" id="ai-prompt">
     <div class="card">
       <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
-        <span><i class="bi bi-clipboard-check me-1"></i> Copy-paste prompt</span>
-        <button id="ai-prompt-copy" class="btn btn-sm btn-outline-secondary" type="button"><i class="bi bi-clipboard me-1"></i>Copy</button>
+        <span>Copy-paste prompt</span>
+        <button id="ai-prompt-copy" class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
       </div>
       <div class="card-body">
         <pre id="ai-prompt-text" class="border rounded p-2 bg-body-secondary small mb-0" style="max-height:28rem; overflow:auto; white-space:pre-wrap;">{{promptText}}</pre>
@@ -99,7 +99,7 @@
   <!-- Check it works -->
   <section class="mb-3">
     <div class="card">
-      <div class="card-header fw-semibold"><i class="bi bi-check2-square me-1"></i> Check that it works</div>
+      <div class="card-header fw-semibold">Check that it works</div>
       <div class="card-body small">
         <p class="mb-2">Ask each question in a <strong>new chat</strong>, without mentioning MSRBot:</p>
         <ol class="mb-2">
@@ -116,10 +116,10 @@
   <!-- Links -->
   <section class="mb-3">
     <div class="d-flex flex-wrap gap-2 small">
-      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/blob/main/research/README.md" target="_blank" rel="noopener"><i class="bi bi-book me-1"></i>Full setup &amp; test guide</a>
-      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/releases/latest" target="_blank" rel="noopener"><i class="bi bi-tag me-1"></i>Latest release</a>
-      <a class="btn btn-outline-secondary btn-sm" href="{{assetPrefix}}api/"><i class="bi bi-braces me-1"></i>API Explorer</a>
-      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/issues/new?template=bug_report.md" target="_blank" rel="noopener"><i class="bi bi-bug me-1"></i>Report a wrong answer</a>
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/blob/main/research/README.md" target="_blank" rel="noopener">Full setup &amp; test guide</a>
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/releases/latest" target="_blank" rel="noopener">Latest release</a>
+      <a class="btn btn-outline-secondary btn-sm" href="{{assetPrefix}}api/">API Explorer</a>
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/issues/new?template=bug_report.md" target="_blank" rel="noopener">Report a wrong answer</a>
     </div>
   </section>
 </main>
@@ -131,8 +131,8 @@
     if (!btn || !pre) return;
     btn.addEventListener('click', function () {
       var done = function () {
-        btn.innerHTML = '<i class="bi bi-check2 me-1"></i>Copied';
-        setTimeout(function () { btn.innerHTML = '<i class="bi bi-clipboard me-1"></i>Copy'; }, 2000);
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(pre.textContent).then(done).catch(function () {});
