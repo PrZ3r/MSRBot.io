@@ -66,7 +66,7 @@ Open a **new chat** for each question and ask it exactly as written. Tick each o
 
 - [ ] It says the 2020 edition was **replaced by SMPTE ST 2067-21:2022**
 - [ ] It includes links that start with `https://msrbot.io/`
-- [ ] Its **Confidence** line names the 2020 record's medium fields, including `amended` / `amendedBy` if it mentions the amendment
+- [ ] Its **Confidence** line names the 2020 record's medium status fields: `active`, `superseded`, `amended`, `amendedBy`, `amendedDate`
 - [ ] It ends with **Status: VERIFIED**
 
 ### Question 2: does it refuse to make things up?
@@ -76,8 +76,9 @@ This standard doesn't exist.
 
 - [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**. It should have checked the ST 2067 family list, which has no part 99. **COULD NOT VERIFY** is an honest answer but means the lookup was blocked or cut off; see the table below.
 - [ ] It does **not** make up a title
-- [ ] It lists the **full URLs** it tried
-- [ ] It doesn't speculate about *why* it's missing ("probably a typo", "the numbering doesn't go that high"). Listing real nearby parts from MSRBot is fine.
+- [ ] It lists the **full URLs** it tried. If it guessed IDs, it stopped after **about three**; which years it tried doesn't matter.
+- [ ] A COULD NOT VERIFY answer **opens with what it couldn't check**, not "didn't find"
+- [ ] It doesn't speculate about *why* it's missing or suggest nearby part numbers. It asks for the title, or where you saw it cited.
 
 ### Question 3: an everyday question
 > What's the current edition of SMPTE ST 2110-20?
@@ -93,7 +94,7 @@ This one should end in a clean **NOT FOUND**. ISDCF's documents fit in one small
 - [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**, and **not** COULD NOT VERIFY
 - [ ] It checked the **whole ISDCF file**, `https://msrbot.io/docs/_data/by-publisher/isdcf.json` (17 records, highest is Doc 15), not just one document-type file
 - [ ] It names the file's **last entry** (`ISDCF.RP-430-10.2018`) as evidence it read the whole file
-- [ ] It doesn't describe Doc 20 from memory or guess why it's missing
+- [ ] It doesn't describe Doc 20 from memory, guess why it's missing, or suggest nearby numbers
 
 ### If something's off
 
