@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **Release zip workflow works with immutable releases.** v2.4.0's attach step failed with "Cannot upload assets to an immutable release": the repo locks releases on publish, so a `release: published` trigger is always too late. The workflow is now **Publish release** (manual run with a tag). It attaches `msrbot-research.zip` to a **draft** release and then publishes it. v2.4.0 shipped without the zip and can't be amended; the next release carries it. AGENTS.md release hygiene and `research/README.md` document the draft-then-publish steps.
+
 ## [v2.4.0] - 2026-09-28
 
 ### Added
