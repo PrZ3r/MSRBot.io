@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **Release zip is attached automatically again.** Immutable releases are now off for this repo, so the `Attach research skill to release` workflow can run on `release: published`. It attaches `msrbot-research.zip` seconds after any release is published, with no manual step (this replaces v2.4.1's draft-then-run-workflow flow). It can still be run by hand with a tag, and it skips releases that are immutable (v2.3.0 through v2.4.1). AGENTS.md and `research/README.md` are updated.
+
 ### Fixed
 
 ## [v2.4.1] - 2026-09-28
