@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **`research/`: MSRBot research skill for AI assistants.** This is the `msrbot-research` Agent Skill, packaged as a Claude Code plugin. The repo root now carries a plugin marketplace (`.claude-plugin/marketplace.json`), so it installs with `/plugin marketplace add PrZ3r/MSRBot.io` then `/plugin install msrbot-research@msrbot`, or via an org-admin GitHub sync / zip upload in claude.ai. The skill makes assistants answer media-standards questions only from MSRBot records fetched during the conversation: it cites the record URL and `lastModified`, follows `supersededBy` to the current edition, flags medium/low `$meta` confidence, and says "Not found in MSRBot" instead of guessing. It includes a read-only, stdlib-only helper (`scripts/msrbot.py`: `find` / `get` / `current` / `editions` / `ref`) that handles the ~9 MB index and ~12 MB cite map. `research/prompt.md` carries the same rules as a copy-paste prompt for ChatGPT and other tools. Tracks epic #2032; update it as the lookup, search, lineage and MCP work lands.
+
 ### Changed
 
 ### Fixed
