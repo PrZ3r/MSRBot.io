@@ -44,6 +44,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 - API Explorer: [msrbot.io/api/](https://msrbot.io/api/)
 - Live API Stats: [api/stats.json](https://msrbot.io/api/stats.json)
 - JSON Schema: [api/schemas/documents.schema.json](https://msrbot.io/api/schemas/documents.schema.json)
+- AI research skill + prompt: [`research/`](research/). A Claude skill/plugin (`/plugin marketplace add PrZ3r/MSRBot.io`) and a copy-paste prompt that make AI assistants answer media-standards questions from MSRBot records, with citations, instead of from memory
 - Public Site generated from `main` at <https://msrbot.io>
 - Change Log: [msrbot.io/changelog/](https://msrbot.io/changelog/) ([source](CHANGELOG.md))
 
