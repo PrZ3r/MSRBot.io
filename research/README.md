@@ -5,7 +5,7 @@ Ask an AI assistant about media standards (SMPTE, ISO, ITU, AES, IETF, D-Cinema,
 Contents:
 
 1. [Get it](#1-get-it): pick the line that describes you
-2. [Check that it works](#2-check-that-it-works): three questions, about five minutes
+2. [Check that it works](#2-check-that-it-works): four questions, about five minutes
 3. [For advanced users](#3-for-advanced-users)
 4. [Maintaining it](#4-maintaining-it)
 
@@ -59,7 +59,7 @@ A published or shared copy is a snapshot: to update it, upload the new zip as a 
 
 ## 2. Check that it works
 
-Open a **new chat** and ask these three questions exactly as written. Tick each one off.
+Open a **new chat** for each question and ask it exactly as written. Tick each one off.
 
 ### Question 1: does it catch an outdated edition?
 > We're building off SMPTE ST 2067-21:2020. Is that still the edition to target?
@@ -81,6 +81,16 @@ This standard doesn't exist.
 > What's the current edition of SMPTE ST 2110-20?
 
 - [ ] It says **SMPTE ST 2110-20:2022**, with an `msrbot.io` link
+
+### Question 4: can it confirm something isn't there?
+
+This one should end in a clean **NOT FOUND**. ISDCF's documents fit in one small file, so the check is complete.
+
+> What is ISDCF Doc 20 about?
+
+- [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**, and **not** COULD NOT VERIFY
+- [ ] It mentions checking the ISDCF list (MSRBot has ISDCF Docs 01–15)
+- [ ] It doesn't describe what Doc 20 is about from memory, unless that's clearly labeled unverified
 
 ### If something's off
 
@@ -139,7 +149,7 @@ claude -p "Is SMPTE ST 2067-21:2020 still current?" --plugin-dir research \
   --allowedTools "Skill,Read,WebFetch,Bash(python3:*)" < /dev/null
 ```
 
-Add `--output-format stream-json --verbose` to see the tool calls. A good run shows a `Skill` call to `msrbot-research`, then `msrbot.py` or `WebFetch` calls to `msrbot.io`. Use the three questions in [section 2](#2-check-that-it-works) as the pass/fail set; for a with/without-skill comparison, run them through the `skill-creator` skill or `claude plugin eval`.
+Add `--output-format stream-json --verbose` to see the tool calls. A good run shows a `Skill` call to `msrbot-research`, then `msrbot.py` or `WebFetch` calls to `msrbot.io`. Use the four questions in [section 2](#2-check-that-it-works) as the pass/fail set; for a with/without-skill comparison, run them through the `skill-creator` skill or `claude plugin eval`.
 
 ### Where it can't run
 

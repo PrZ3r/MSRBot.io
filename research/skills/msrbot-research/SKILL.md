@@ -35,11 +35,13 @@ Choose the path that fits your tools:
 1. **Get the right docId.** Typical shapes: `SMPTE.ST2067-21.2020`, `SMPTE.RP177.1993`, `RFC4187`, `ISO.26428-1.2008`, and DOI-derived ids for journal articles (`10.5594-j18305`). In order of preference:
    - **Family list** (best for multi-part standards). Fetch `https://msrbot.io/suites/_data/suites.json` (~230 KB) and find the entry whose `publisher` and `number` match, e.g. SMPTE and `2067`. Its `parts` lists every part MSRBot holds, and `latestPerPart[part].docId` is the newest edition of each. This covers ~110 multi-part families (mostly SMPTE and ISO); single-part documents aren't in it.
    - **Guess, then confirm.** You may try a candidate docId built from the label pattern (SMPTE ST 2110-20:2022 → `SMPTE.ST2110-20.2022`). Only a successful fetch counts as evidence. A 404 means the guess was wrong, not that the document is missing. Never *state* an id you haven't fetched successfully.
+     - **If the user gave a year,** start there and follow that record's `supersededBy` links. Don't guess other years.
+     - **With no year, set a budget:** about three candidates, fetched in parallel if your tool allows. Editions can also carry a month (`.2023-09`), so year-guessing has no natural end. After the budget, stop and report COULD NOT VERIFY, or ask the user for the year or the docId.
    - **Full index** (`/api/documents.json`, ~9 MB) or a per-publisher slice. These are often too large for chat fetch tools, and a truncated read proves nothing.
 2. **Fetch the record:** `https://msrbot.io/api/doc/{docId}.json` (URL-encode the docId). Read facts from its `document` object.
 3. **Current edition:** read `document.status`. If `superseded` is true, fetch each id in `supersededBy` and repeat until you reach a record that is not superseded. Then check `amendedBy` on that edition; amendments modify an edition without replacing it. Following `supersededBy` only finds editions MSRBot has already linked, so **also check the family list**: if `latestPerPart` names a newer docId, fetch that too. Field semantics are in `references/records.md`.
 4. **References:** `document.references.normative` and `.bibliographic` list docIds. Fetch any whose details you state. A reference without a year (an undated reference) means the current edition applies. `https://msrbot.io/api/mri-cite-map.json` maps reference ids to `resolvedDocId`, and also covers references that aren't registry documents.
-5. **Provenance:** note the record's `lastModified`. Each field has a sibling `<field>$meta` recording `source`, `confidence` and `updated`. If a field your answer depends on has `confidence` "low" or "medium", say so.
+5. **Provenance:** note the record's `lastModified`. Each field has a sibling `<field>$meta` recording `source`, `confidence` and `updated`. If a field your answer depends on has `confidence` "low" or "medium", name the field and its confidence (e.g. "`publicationDate`: medium").
 
 ### "Not found" versus "couldn't check"
 
@@ -48,7 +50,18 @@ These are different answers, and users act on them differently:
 - **NOT FOUND:** you checked a source that is **complete** for the question, and the document isn't there. Examples: the family's `parts` list doesn't include the part, the script's `find` (which reads the full index) returned nothing, or you read the whole index without truncation.
 - **COULD NOT VERIFY:** you tried, but the check was incomplete. The script was blocked, a file was truncated before the relevant entries, or the family isn't in `suites.json` and your guesses 404'd. Say exactly what you tried and what was cut off. Never present this as evidence that the document doesn't exist.
 
-If a fetch fails (blocked, timeout, file too large for your tool), say what failed. Don't fill in from memory. If your environment won't fetch a URL, ask the user to open it and paste the JSON.
+When the cross-check against the family list can't run (the file is truncated), you can still answer **VERIFIED** if the last record in the chain has `status.latestVersion: true` and `active: true`, both with high confidence. Add a note that the family-list check couldn't run. Otherwise answer **PARTIAL**.
+
+If a fetch fails (blocked, timeout, file too large for your tool), say what failed and list the URLs you tried. Don't fill in from memory. For the family list, ask the user for **one entry**, not the whole file: have them open `https://msrbot.io/suites/_data/suites.json`, search for `"key": "SMPTE|2067"` (their publisher and number), and paste that entry's `parts` and `latestPerPart`.
+
+### Fetch tools that summarize
+
+Many web-fetch tools pass the page through a smaller model and hand you a summary, not the raw file. That summary can paraphrase values, and it can say "not in the content" about a file it only partly read. So:
+
+- **Ask for values word for word:** "Return docId, docLabel, docTitle, publicationDate, status and lastModified verbatim."
+- **Ask about truncation on every large file** (`suites.json`, the index, publisher slices): "Is the content truncated? What is the last entry you can see?" If the entry you need comes after that point, the file told you nothing.
+- **Treat "no match in the content" as COULD NOT VERIFY** unless the tool confirms it saw the whole file. In testing, `suites.json` was cut off partway through the SMPTE section, before families such as ST 2067 and ST 2110. The small publisher slices, such as ISDCF (~23 KB), come through whole.
+- Per-record JSON (`/api/doc/{docId}.json`, ~5–20 KB) comes through whole. Ask for exact fields and trust it.
 
 ## Rules, and why they matter
 
@@ -58,7 +71,7 @@ If a fetch fails (blocked, timeout, file too large for your tool), say what fail
 - **Never state an unverified identifier.** Candidate docIds are fine to *try*; only ones that fetched successfully appear in your answer. Invented identifiers look exactly like real ones, which makes them the hardest errors for a reader to catch.
 - **"Current" means current in MSRBot.** MSRBot re-extracts publisher data weekly, so a brand-new edition may lag by a few days. Phrase it as "the newest edition in MSRBot".
 - **MSRBot wins conflicts with memory.** Flag the conflict explicitly ("You may see ST 2067-21:2020 cited as current; MSRBot shows it superseded by the 2022 edition"). This helps users whose old notes are out of date.
-- **Keep unverified context separate.** General background (what IMF is for, why a standard exists) is fine if you label it "Unverified — not from MSRBot" and keep it apart from verified facts.
+- **Keep unverified context separate.** General background (what IMF is for, why a standard exists), including any theory about *why* a document is missing (a typo, an unpublished draft), is fine if you label it "Unverified — not from MSRBot" and keep it apart from verified facts.
 - **"I don't know" beats a confident wrong answer.**
 
 ## Answer format
