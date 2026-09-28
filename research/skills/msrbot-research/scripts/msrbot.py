@@ -11,8 +11,9 @@ record's lastModified, so answers can cite them.
   python3 msrbot.py current SMPTE.ST2067-21.2020   # follow supersededBy to the current edition
   python3 msrbot.py editions SMPTE.ST2067-21.2022  # all indexed editions sharing the docId base
   python3 msrbot.py ref SMPTE.ST2067-2             # resolve a reference id via the MRI cite map
+  python3 msrbot.py family SMPTE 2067              # every part of a multi-part family + newest edition of each
 
-The index (~9 MB) and the cite map (~12 MB) are cached for the session in the
+The index (~9 MB), the cite map (~12 MB) and suites.json (~230 KB) are cached for the session in the
 system temp dir, so repeated calls don't download them again.
 """
 
@@ -28,7 +29,9 @@ import urllib.parse
 import urllib.request
 
 BASE = os.environ.get("MSRBOT_BASE", "https://msrbot.io").rstrip("/")
-CACHE_DIR = os.path.join(tempfile.gettempdir(), "msrbot-research-cache")
+# Cache per base URL, so an override (MSRBOT_BASE) never reads another site's cached files.
+CACHE_DIR = os.path.join(tempfile.gettempdir(), "msrbot-research-cache",
+                         re.sub(r"[^A-Za-z0-9]+", "_", BASE))
 CACHE_TTL_S = 6 * 3600
 UA = "msrbot-research-skill/1.0"
 
@@ -209,6 +212,35 @@ def cmd_ref(args):
     return out
 
 
+def cmd_family(args):
+    url = f"{BASE}/suites/_data/suites.json"
+    data = _fetch_json(url, "suites.json")
+    pub = args.publisher.strip().upper()
+    num = re.sub(r"^[A-Za-z]+", "", args.number.strip())
+    hit = None
+    for s in data.get("suites", []):
+        if (s.get("publisher") or "").upper() == pub and str(s.get("number")) == num:
+            hit = s
+            break
+    if not hit:
+        return {"publisher": pub, "number": num, "found": False, "suitesUrl": url,
+                "note": "Not a multi-part family in suites.json (single-part documents aren't listed there). "
+                        "This is NOT evidence the document is absent. Use `find` or fetch candidate docIds."}
+    latest = {part: v.get("docId") for part, v in (hit.get("latestPerPart") or {}).items()}
+    return {
+        "found": True,
+        "key": hit.get("key"),
+        "suiteTitle": hit.get("suiteTitle"),
+        "parts": hit.get("parts"),
+        "latestPerPart": latest,
+        "counts": hit.get("counts"),
+        "suitePageUrl": f"{BASE}/suites/{hit.get('suiteSlug')}/" if hit.get("suiteSlug") else None,
+        "suitesUrl": url,
+        "note": "`parts` is every part MSRBot holds for this family; latestPerPart is the newest edition of each "
+                "in MSRBot. Fetch the record before stating its status or title.",
+    }
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description="Read-only MSRBot.io lookups with provenance.")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -218,11 +250,18 @@ def main(argv=None):
     c = sub.add_parser("current"); c.add_argument("docId"); c.set_defaults(fn=cmd_current)
     e = sub.add_parser("editions"); e.add_argument("docId"); e.set_defaults(fn=cmd_editions)
     r = sub.add_parser("ref"); r.add_argument("refId"); r.set_defaults(fn=cmd_ref)
+    fa = sub.add_parser("family"); fa.add_argument("publisher"); fa.add_argument("number"); fa.set_defaults(fn=cmd_family)
     args = p.parse_args(argv)
     try:
         result = args.fn(args)
     except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
-        result = {"error": f"{type(e).__name__}: {e}", "note": "Fetch failed. Report this; do not guess."}
+        blocked = isinstance(e, urllib.error.HTTPError) and e.code in (401, 403, 407) \
+            or isinstance(e, urllib.error.URLError) and not isinstance(e, urllib.error.HTTPError)
+        result = {"error": f"{type(e).__name__}: {e}",
+                  "networkBlocked": bool(blocked),
+                  "note": ("This sandbox can't reach msrbot.io (proxy/network block). Stop using this script and "
+                           "switch to your web-fetch tool with the same URLs now." if blocked else
+                           "Fetch failed. Retry once, then report it. Don't guess.")}
         print(json.dumps(result, indent=2, ensure_ascii=False))
         return 2
     print(json.dumps(result, indent=2, ensure_ascii=False))

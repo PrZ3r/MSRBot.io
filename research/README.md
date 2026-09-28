@@ -73,7 +73,7 @@ Open a **new chat** and ask these three questions exactly as written. Tick each 
 This standard doesn't exist.
 > What's the title of SMPTE ST 2067-99?
 
-- [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**
+- [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**. It should have checked the ST 2067 family list, which has no part 99. **COULD NOT VERIFY** is an honest answer but means the lookup was blocked or cut off; see the table below.
 - [ ] It does **not** make up a title
 - [ ] (Nice to have) it suggests what you might have meant
 
@@ -87,6 +87,7 @@ This standard doesn't exist.
 | What you see | What to do |
 | --- | --- |
 | A confident answer with **no msrbot.io links** | The skill didn't switch on. In Claude, check **Customize → Skills** shows it **on**, then start a new chat. In other tools, check the prompt was pasted as instructions. |
+| **COULD NOT VERIFY**, mentioning a blocked script or a cut-off file | It reached MSRBot, but not the right file. Send us the answer: that's a gap we're closing with a small lookup API ([#2035](https://github.com/PrZ3r/MSRBot.io/issues/2035)). At work, an admin can also allow `msrbot.io` for Claude's code sandbox, so the helper script can run. |
 | "I can't access msrbot.io" / "I can't browse" | Turn on web search or browsing for that chat. At work, your admin may need to allow it. |
 | Anything else odd | Copy the question and the answer and send them to whoever shared this with you, or [open an issue](https://github.com/PrZ3r/MSRBot.io/issues/new?template=bug_report.md). |
 

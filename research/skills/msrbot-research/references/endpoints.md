@@ -11,11 +11,12 @@ Use the JSON endpoints for facts and citations. The HTML pages are for linking a
 | `https://msrbot.io/api/doc/{docId}.json` | One full record: `{ $schema, apiVersion, lastModified, sourcePath, docId, document }` | ~5–20 KB | **Every fact and citation.** URL-encode the docId (`encodeURIComponent`). Exists for every docId. |
 | `https://msrbot.io/api/documents.json` | Index of all documents: `{ generatedAt, total, documents: [{ docId, publisher, docType, docLabel, docTitle, contentType?, path }] }` | ~9 MB | Finding a docId. Rows have **no status or dates**, so always fetch the record. |
 | `https://msrbot.io/docs/_data/by-publisher/{publisher}/{docType}.json` | A JSON array of full records (without `$meta`) for one publisher + doc type | 20 KB–5 MB | A **smaller alternative to the index** when your fetch tool truncates large files. Slugs are lowercase and hyphenated: `smpte/standard`, `smpte/recommended-practice`, `smpte/engineering-guideline`, `ietf/standard`, `ietf/informational`, `isdcf/technical-doc`. `/docs/_data/by-publisher/{publisher}.json` holds a whole publisher (SMPTE is ~57 MB). Not yet a documented API (tracked in PrZ3r/MSRBot.io#1170), so treat the path as subject to change. |
+| `https://msrbot.io/suites/_data/suites.json` | For each multi-part family (~110; mostly SMPTE and ISO): `publisher`, `number`, `suiteTitle`, `parts[]` (every part MSRBot holds), `latestPerPart{part: {docId, dateKey, withdrawn}}` (newest edition of each part), `suiteSlug` | ~230 KB | **Finding docIds and ruling things out** for multi-part standards: does part N exist, and what's the newest edition of each part. Single-part documents aren't listed. The site uses this file; it isn't a documented API yet (PrZ3r/MSRBot.io#1190), so the path may change. |
 | `https://msrbot.io/api/mri-cite-map.json` | `{ refId: { cite, href, isOrphan, resolvedDocId } }` for ~46k cited references | ~12 MB | Resolving a reference id (including undated ones like `SMPTE.ST2067-2`) to a registry docId, or getting citation text for references that aren't registry documents. |
 | `https://msrbot.io/api/stats.json` | Registry counts (documents, publishers, doc types, references) and `generatedAt` | 4 KB | "How many…" questions about the registry itself. |
 | `https://msrbot.io/api/schemas/documents.schema.json` | JSON Schema for document records | small | Field definitions. |
 | `https://msrbot.io/docs/{docId}/` | Human-readable document page | — | A link for the reader. **Not every document has one**: many journal articles are JSON-only and return 404 here even though `/api/doc/{docId}.json` exists. |
-| `https://msrbot.io/suites/` and `https://msrbot.io/suites/{slug}/` | Suite and collection pages (families of related documents) | — | Linking a reader to a document family. |
+| `https://msrbot.io/suites/` and `https://msrbot.io/suites/{slug}/` | Suite and collection pages (families of related documents) | — | Linking a reader to a family. The pages are drawn by JavaScript, so a fetch tool gets no data from them; use `suites.json` for data. |
 
 ## Don't use these as data sources
 
@@ -27,8 +28,9 @@ Use the JSON endpoints for facts and citations. The HTML pages are for linking a
 
 | Symptom | Meaning | What to do |
 | --- | --- | --- |
-| 404 on `/api/doc/{docId}.json` | Wrong docId, not proof of absence | Look the id up in the index or a publisher slice. |
-| Output truncated / too large | The index or cite map exceeds your tool's limit | Use a publisher slice, `scripts/msrbot.py`, or ask the user to paste the relevant part. |
+| Helper script: 403, proxy error, connection refused, `"networkBlocked": true` | The code sandbox can't reach msrbot.io | Stop using the script. Switch straight to your web-fetch tool with the same URLs. |
+| 404 on `/api/doc/{docId}.json` | Wrong docId, not proof of absence | Check `suites.json`, the index, or a publisher slice. |
+| Output truncated / too large | The file exceeds your tool's limit | Use `suites.json` for multi-part families, try candidate docIds, or ask the user to paste the relevant part. If the entry you needed was cut off, the answer is **COULD NOT VERIFY**, not NOT FOUND. |
 | Tool refuses the URL | Your environment restricts fetching | Tell the user and ask them to open the URL and paste the JSON. |
 | Timeout / 5xx | Transient | Retry once, then report. Don't answer from memory. |
 
