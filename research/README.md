@@ -17,7 +17,7 @@ Contents:
 | --- | --- |
 | **use Claude through work** and your admin has set this up | Nothing to install. Go to [Check that it works](#2-check-that-it-works). |
 | **use Claude** (claude.ai or the Claude desktop app) on your own | Follow [Add it to Claude](#add-it-to-claude). |
-| **manage your organization's Claude account** | Follow [Set it up for everyone](#set-it-up-for-everyone-admins). |
+| **manage your organization's Claude account**, or want to share it with colleagues | Follow [Set it up for everyone](#set-it-up-for-everyone-admins). |
 | **use ChatGPT, Gemini, Copilot or another AI** | Follow [Other AI tools](#other-ai-tools). |
 | **use Claude Code** | See [For advanced users](#3-for-advanced-users). |
 
@@ -40,6 +40,14 @@ For organization Owners (or Enterprise roles that can manage libraries). Once th
 4. Updates: after changes land in the repository, open the **Marketplaces** tab and select **Re-sync**. Alternatively, turn on **Sync automatically**, which needs a webhook on the repo.
 
 Prefer a one-off upload instead? Use **Add → Upload a skill** with the zip from [Add it to Claude](#add-it-to-claude). Anthropic's guide: <https://claude.com/docs/plugins/admin>.
+
+**Not an Owner? Share it or publish it from your own account.** On Team and Enterprise plans, after you've [added it to Claude](#add-it-to-claude):
+
+1. Open **[Customize → Skills](https://claude.ai/customize/skills)** and select **msrbot-research**.
+2. Choose **Share** to give it to specific colleagues (good for a pilot), or **Publish to org** to offer it to everyone.
+3. Depending on your organization's publishing policy, an Owner may need to approve it under **Plugins & skills → Requests** before others see it.
+
+A published or shared copy is a snapshot: to update it, upload the new zip as a new version. **Sync from GitHub** (above) picks up changes from the repository, so it's the better long-term option.
 
 ### Other AI tools
 
