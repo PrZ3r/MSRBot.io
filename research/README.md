@@ -23,7 +23,7 @@ Contents:
 
 ### Add it to Claude
 
-1. Get **msrbot-research.zip**, either from the [Releases page](https://github.com/PrZ3r/MSRBot.io/releases) (under **Assets**) or from whoever shared this with you. Don't unzip it.
+1. Download **[msrbot-research.zip](https://github.com/PrZ3r/MSRBot.io/releases/download/msrbot-research-v1.4.0/msrbot-research.zip)** (version 1.4.0; [release notes](https://github.com/PrZ3r/MSRBot.io/releases/tag/msrbot-research-v1.4.0)). Don't unzip it.
 2. In Claude, open **[Customize → Skills](https://claude.ai/customize/skills)**.
 3. Choose **Add** / **Upload**, and pick the zip file.
 4. Make sure **msrbot-research** is switched **on**.
@@ -163,6 +163,14 @@ Claude API skills execute without network access, so the skill can't reach msrbo
 
 ## 4. Maintaining it
 
-- **Change the skill and the prompt together.** `prompt.md` restates `SKILL.md` plus `references/`. After any change, bump `version` in `.claude-plugin/plugin.json` and rebuild the zip.
+- **Change the skill and the prompt together.** `prompt.md` restates `SKILL.md` plus `references/`. After any change, bump `version` in `.claude-plugin/plugin.json`.
+- **Publish each new version as a skill-only release**, separate from the site's `v2.x` releases. Once the change is merged to `main`:
+  ```bash
+  V=1.4.0   # the new plugin.json version
+  (cd research/skills && zip -r /tmp/msrbot-research.zip msrbot-research -x "*.DS_Store" "*__pycache__*")
+  gh release create "msrbot-research-v$V" /tmp/msrbot-research.zip --target main \
+    --title "MSRBot research skill v$V" --latest=false --notes "…"
+  ```
+  Then update the download links, which include the version, in this README (section 1) and in the main [README](../README.md#use-msrbot-with-ai-assistants). `--latest=false` keeps the site release as the repo's "Latest".
 - **Follow the API roadmap.** The skill uses today's static endpoints. The planned lookup, search, lineage and provenance APIs and the MCP server are tracked in epic [#2032](https://github.com/PrZ3r/MSRBot.io/issues/2032). As each ships, update `references/endpoints.md`, the procedure in `SKILL.md`, `scripts/msrbot.py` and `prompt.md`.
 - **Re-run [section 2](#2-check-that-it-works)** after every change, and after big registry changes.
