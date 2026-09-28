@@ -10,11 +10,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- **`research/`: MSRBot research skill for AI assistants.** This is the `msrbot-research` Agent Skill, packaged as a Claude Code plugin. The repo root now carries a plugin marketplace (`.claude-plugin/marketplace.json`), so it installs with `/plugin marketplace add PrZ3r/MSRBot.io` then `/plugin install msrbot-research@msrbot`, or via an org-admin GitHub sync / zip upload in claude.ai. The skill makes assistants answer media-standards questions only from MSRBot records fetched during the conversation: it cites the record URL and `lastModified`, follows `supersededBy` to the current edition, flags medium/low `$meta` confidence, and distinguishes NOT FOUND (a complete check) from COULD NOT VERIFY (blocked or truncated lookup), so a cut-off search never reads as absence. Every MSRBot release now carries the claude.ai zip: the new `Attach research skill to release` workflow builds it from the release's tag on publish, so `releases/latest/download/msrbot-research.zip` is always the newest copy. The main README gains a **Use MSRBot with AI assistants** section. It includes a read-only, stdlib-only helper (`scripts/msrbot.py`: `find` / `family` / `get` / `current` / `editions` / `ref`) that handles the ~9 MB index and ~12 MB cite map. `research/prompt.md` carries the same rules as a copy-paste prompt for ChatGPT and other tools. Tracks epic #2032; update it as the lookup, search, lineage and MCP work lands.
-
 ### Changed
 
 ### Fixed
+
+## [v2.4.0] - 2026-09-28
+
+### Added
+
+- **`research/`: MSRBot research skill for AI assistants.** `msrbot-research` is an Agent Skill, packaged as a Claude Code plugin. It makes assistants answer media-standards questions only from MSRBot records fetched during the conversation:
+  - it cites each record's URL and `lastModified`;
+  - it follows `supersededBy`, and cross-checks the family list, to find the current edition;
+  - it names every medium- or low-confidence `$meta` field it relies on;
+  - it separates **NOT FOUND** (a complete check) from **COULD NOT VERIFY** (a blocked or truncated lookup), so a cut-off search never reads as absence.
+
+  It includes a read-only helper using only the Python standard library (`scripts/msrbot.py`: `find` / `family` / `get` / `current` / `editions` / `ref`). `research/prompt.md` carries the same rules as a copy-paste prompt for ChatGPT and other tools, and `research/README.md` is the install guide with a four-question test checklist. The skill was refined over four rounds of claude.ai testing (plugin version 1.4.0). It tracks epic #2032; update it as the lookup, search, lineage and MCP work lands.
+- **Plugin marketplace at the repo root** (`.claude-plugin/marketplace.json`). Install with `/plugin marketplace add PrZ3r/MSRBot.io`, then `/plugin install msrbot-research@msrbot`. A claude.ai org Owner can also sync the repo under **Plugins & skills → Sync from GitHub**.
+- **Every release carries the skill.** The new `Attach research skill to release` workflow (`.github/workflows/release-skill-zip.yml`) builds `msrbot-research.zip` from the release's tagged commit when a release is published, and attaches it. `releases/latest/download/msrbot-research.zip` is therefore always the newest copy. It can be run by hand for an existing release.
+
+### Changed
+
+- **README:** new **Use MSRBot with AI assistants** section, covering what the skill does and how to get it for claude.ai, a whole org, Claude Code, and other AI tools.
+- **AGENTS.md release hygiene:** the zip is attached automatically; bump `research/.claude-plugin/plugin.json` `version` if the skill changed; publish releases from a user account (releases created with the workflow `GITHUB_TOKEN` don't fire the attach step).
 
 ## [v2.3.0] - 2026-09-24
 
