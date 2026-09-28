@@ -1,70 +1,70 @@
-name: Publish release
+name: Attach research skill to release
 
-# Publishes a DRAFT release with msrbot-research.zip (the claude.ai upload for
-# research/skills/msrbot-research) attached, so every MSRBot release carries it
-# and one link always serves the newest copy:
+# Every MSRBot release carries msrbot-research.zip (the claude.ai upload for
+# research/skills/msrbot-research), so one link always serves the newest copy:
 #   https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip
 #
-# This repo has immutable releases on: once a release is published, nothing
-# can be attached to it. So the zip goes onto the draft first, then this
-# workflow publishes it.
+# Automatic: publishing a release (e.g. `gh release create vX.Y.Z …`) triggers
+# this workflow, which builds the zip from the release's tagged commit and
+# attaches it a few seconds later. Nothing to remember.
 #
-#   1. Draft the release (web UI, or:
-#        gh release create vX.Y.Z --draft --target <sha> --title vX.Y.Z --notes-file notes.md)
-#   2. Actions -> Publish release -> Run workflow -> tag vX.Y.Z
-#        (or: gh workflow run release-skill-zip.yml -f tag=vX.Y.Z)
+# Manual: run it with a tag to (re)attach the zip to an existing release.
 #
-# The zip is built from the draft's target commit.
+# Requires immutable releases to be OFF for this repo; an immutable release
+# rejects assets after publishing. v2.3.0 through v2.4.1 were published while
+# it was on, so they can't be changed.
+#
+# Note: a release created with the workflow GITHUB_TOKEN does not fire the
+# `release` event. Releases published from a user account or a GitHub App
+# token do.
 
 on:
+  release:
+    types: [published]
   workflow_dispatch:
     inputs:
       tag:
-        description: "Tag of the DRAFT release to attach the zip to and publish (e.g. v2.4.1)"
+        description: "Release tag to attach the zip to (e.g. v2.4.1)"
         required: true
-      make_latest:
-        description: "Mark as the repo's Latest release"
-        type: boolean
-        default: true
 
 permissions:
   contents: write
 
 concurrency:
-  group: publish-release-${{ inputs.tag }}
+  group: release-skill-zip-${{ github.event.release.tag_name || inputs.tag }}
   cancel-in-progress: false
 
 jobs:
-  publish:
-    name: Attach msrbot-research.zip and publish
+  attach:
+    name: Build and attach msrbot-research.zip
     runs-on: ubuntu-latest
     env:
-      TAG: ${{ inputs.tag }}
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
       GH_TOKEN: ${{ github.token }}
     steps:
-      - name: Find the draft release
-        id: draft
+      - name: Check the release can take assets
+        id: check
         run: |
-          rel=$(gh api "repos/$GITHUB_REPOSITORY/releases" --paginate \
-                  --jq ".[] | select(.tag_name == \"$TAG\") | {id, draft, target_commitish}" | head -1)
-          if [ -z "$rel" ]; then
-            echo "::error::No release with tag $TAG. Create it as a draft first."; exit 1
+          immutable=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$TAG" --jq '.immutable // false')
+          if [ "$immutable" = "true" ]; then
+            echo "::warning::Release $TAG is immutable and can't take new assets; skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
-          if [ "$(jq -r .draft <<<"$rel")" != "true" ]; then
-            echo "::error::Release $TAG is already published. Immutable releases can't take new assets; cut a new (patch) release as a draft."; exit 1
-          fi
-          echo "id=$(jq -r .id <<<"$rel")" >> "$GITHUB_OUTPUT"
-          echo "target=$(jq -r .target_commitish <<<"$rel")" >> "$GITHUB_OUTPUT"
-          echo "Draft $TAG targets $(jq -r .target_commitish <<<"$rel")"
 
       - uses: actions/checkout@v7
+        if: steps.check.outputs.skip != 'true'
         with:
-          ref: ${{ steps.draft.outputs.target }}
+          ref: ${{ env.TAG }}
 
       - name: Build zip
         id: build
+        if: steps.check.outputs.skip != 'true'
         run: |
-          test -f research/skills/msrbot-research/SKILL.md || { echo "::error::No research skill at ${{ steps.draft.outputs.target }}"; exit 1; }
+          if [ ! -f research/skills/msrbot-research/SKILL.md ]; then
+            echo "No research skill at $TAG; nothing to attach."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           cd research/skills
           zip -r "$RUNNER_TEMP/msrbot-research.zip" msrbot-research -x "*.DS_Store" "*__pycache__*"
           # claude.ai requires the skill folder as the zip's top level.
@@ -72,11 +72,11 @@ jobs:
           version=$(python3 -c "import json;print(json.load(open('../.claude-plugin/plugin.json'))['version'])")
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - name: Attach to draft and publish
+      - name: Attach to release
+        if: steps.check.outputs.skip != 'true' && steps.build.outputs.skip != 'true'
         run: |
           gh release upload "$TAG" "$RUNNER_TEMP/msrbot-research.zip" --clobber --repo "$GITHUB_REPOSITORY"
-          gh release edit "$TAG" --draft=false --latest=${{ inputs.make_latest }} --repo "$GITHUB_REPOSITORY"
           {
-            echo "### Published \`$TAG\` with msrbot-research.zip (skill ${{ steps.build.outputs.version }})"
-            echo "https://github.com/$GITHUB_REPOSITORY/releases/tag/$TAG"
+            echo "### msrbot-research.zip attached to \`$TAG\` (skill ${{ steps.build.outputs.version }})"
+            echo "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/msrbot-research.zip"
           } >> "$GITHUB_STEP_SUMMARY"
