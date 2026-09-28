@@ -23,7 +23,7 @@ Contents:
 
 ### Add it to Claude
 
-1. Download **[msrbot-research.zip](https://github.com/PrZ3r/MSRBot.io/releases/download/msrbot-research-v1.4.0/msrbot-research.zip)** (version 1.4.0; [release notes](https://github.com/PrZ3r/MSRBot.io/releases/tag/msrbot-research-v1.4.0)). Don't unzip it.
+1. Download **[msrbot-research.zip](https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip)**. Don't unzip it. It's attached to every [MSRBot release](https://github.com/PrZ3r/MSRBot.io/releases/latest), so this link always gets the newest version.
 2. In Claude, open **[Customize → Skills](https://claude.ai/customize/skills)**.
 3. Choose **Add** / **Upload**, and pick the zip file.
 4. Make sure **msrbot-research** is switched **on**.
@@ -164,13 +164,6 @@ Claude API skills execute without network access, so the skill can't reach msrbo
 ## 4. Maintaining it
 
 - **Change the skill and the prompt together.** `prompt.md` restates `SKILL.md` plus `references/`. After any change, bump `version` in `.claude-plugin/plugin.json`.
-- **Publish each new version as a skill-only release**, separate from the site's `v2.x` releases. Once the change is merged to `main`:
-  ```bash
-  V=1.4.0   # the new plugin.json version
-  (cd research/skills && zip -r /tmp/msrbot-research.zip msrbot-research -x "*.DS_Store" "*__pycache__*")
-  gh release create "msrbot-research-v$V" /tmp/msrbot-research.zip --target main \
-    --title "MSRBot research skill v$V" --latest=false --notes "…"
-  ```
-  Then update the download links, which include the version, in this README (section 1) and in the main [README](../README.md#use-msrbot-with-ai-assistants). `--latest=false` keeps the site release as the repo's "Latest".
+- **Releases are automatic.** Every MSRBot release carries `msrbot-research.zip`: the [`Attach research skill to release`](../.github/workflows/release-skill-zip.yml) workflow builds it from the release's tagged commit when the release is published. The download link above always points at the latest release, so it never needs editing. A skill fix ships with the next MSRBot release; if it can't wait, cut a patch release (e.g. `v2.3.1`). To attach the zip to an existing release, run the workflow by hand (**Actions → Attach research skill to release → Run workflow**, enter the tag).
 - **Follow the API roadmap.** The skill uses today's static endpoints. The planned lookup, search, lineage and provenance APIs and the MCP server are tracked in epic [#2032](https://github.com/PrZ3r/MSRBot.io/issues/2032). As each ships, update `references/endpoints.md`, the procedure in `SKILL.md`, `scripts/msrbot.py` and `prompt.md`.
 - **Re-run [section 2](#2-check-that-it-works)** after every change, and after big registry changes.

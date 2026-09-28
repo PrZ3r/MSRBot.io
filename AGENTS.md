@@ -68,6 +68,7 @@ When creating an issue or pull request:
 ## Release hygiene
 - Before creating a release tag, run a final data sweep: `npm run validate` and `npm run canonicalize`.
 - When bumping a release version, update `CHANGELOG.md` and keep `package.json` + `package-lock.json` versions in sync.
+- Publishing a release attaches `msrbot-research.zip` automatically (`.github/workflows/release-skill-zip.yml`). If the skill changed since the last release, bump `research/.claude-plugin/plugin.json` `version` first. Publish releases from a user account: a release created with the workflow `GITHUB_TOKEN` won't trigger the attach step.
 
 ## Changelog, documentation, and provenance
 - If behavior, workflow, policy, or contributor expectations change, update `CHANGELOG.md` in **[Unreleased]**.

@@ -58,7 +58,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 
 | Where you use AI | How to get it |
 | --- | --- |
-| **claude.ai / Claude Desktop** | Download **[msrbot-research.zip](https://github.com/PrZ3r/MSRBot.io/releases/download/msrbot-research-v1.4.0/msrbot-research.zip)** ([release notes](https://github.com/PrZ3r/MSRBot.io/releases/tag/msrbot-research-v1.4.0)). In Claude, open **Customize → Skills**, upload the zip, and make sure the skill is switched on. Use **Share** or **Publish to org** to pass it on. |
+| **claude.ai / Claude Desktop** | Download **[msrbot-research.zip](https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip)**, which is attached to every [MSRBot release](https://github.com/PrZ3r/MSRBot.io/releases/latest), so this link is always the newest. In Claude, open **Customize → Skills**, upload the zip, and make sure the skill is switched on. Use **Share** or **Publish to org** to pass it on. |
 | **Your whole Claude organization** | An Owner opens **Organization settings → Plugins & skills → Add → Sync from GitHub** and enters `PrZ3r/MSRBot.io`. |
 | **Claude Code** | `/plugin marketplace add PrZ3r/MSRBot.io`, then `/plugin install msrbot-research@msrbot` |
 | **ChatGPT, Gemini, Copilot, others** | Paste [`research/prompt.md`](research/prompt.md) into the tool's instructions. |
