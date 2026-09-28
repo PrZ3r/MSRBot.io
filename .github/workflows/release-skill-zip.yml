@@ -1,0 +1,65 @@
+name: Attach research skill to release
+
+# Every MSRBot release carries msrbot-research.zip (the claude.ai upload for
+# research/skills/msrbot-research), so one link always serves the newest copy:
+#   https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip
+# The zip is built from the release's own tagged commit. Run it manually
+# (workflow_dispatch) to attach the zip to an existing release.
+#
+# Note: a release created with the workflow GITHUB_TOKEN does not fire the
+# `release` event. Releases published from a user account (the normal path)
+# do.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to attach the zip to (e.g. v2.3.0)"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-skill-zip-${{ github.event.release.tag_name || inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  attach:
+    name: Build and attach msrbot-research.zip
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.TAG }}
+
+      - name: Build zip
+        id: build
+        run: |
+          if [ ! -f research/skills/msrbot-research/SKILL.md ]; then
+            echo "No research skill at $TAG; nothing to attach."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          cd research/skills
+          zip -r "$RUNNER_TEMP/msrbot-research.zip" msrbot-research -x "*.DS_Store" "*__pycache__*"
+          # claude.ai requires the skill folder as the zip's top level.
+          unzip -Z1 "$RUNNER_TEMP/msrbot-research.zip" | grep -qx 'msrbot-research/SKILL.md'
+          version=$(python3 -c "import json;print(json.load(open('../.claude-plugin/plugin.json'))['version'])")
+          echo "Skill version $version at $TAG"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Attach to release
+        if: steps.build.outputs.skip != 'true'
+        run: |
+          gh release upload "$TAG" "$RUNNER_TEMP/msrbot-research.zip" --clobber --repo "$GITHUB_REPOSITORY"
+          {
+            echo "### msrbot-research.zip attached to \`$TAG\`"
+            echo "Skill version ${{ steps.build.outputs.version }}"
+            echo "Download: https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/msrbot-research.zip"
+          } >> "$GITHUB_STEP_SUMMARY"

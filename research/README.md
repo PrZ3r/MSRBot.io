@@ -23,7 +23,7 @@ Contents:
 
 ### Add it to Claude
 
-1. Get **msrbot-research.zip**, either from the [Releases page](https://github.com/PrZ3r/MSRBot.io/releases) (under **Assets**) or from whoever shared this with you. Don't unzip it.
+1. Download **[msrbot-research.zip](https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip)**. Don't unzip it. It's attached to every [MSRBot release](https://github.com/PrZ3r/MSRBot.io/releases/latest), so this link always gets the newest version.
 2. In Claude, open **[Customize → Skills](https://claude.ai/customize/skills)**.
 3. Choose **Add** / **Upload**, and pick the zip file.
 4. Make sure **msrbot-research** is switched **on**.
@@ -163,6 +163,7 @@ Claude API skills execute without network access, so the skill can't reach msrbo
 
 ## 4. Maintaining it
 
-- **Change the skill and the prompt together.** `prompt.md` restates `SKILL.md` plus `references/`. After any change, bump `version` in `.claude-plugin/plugin.json` and rebuild the zip.
+- **Change the skill and the prompt together.** `prompt.md` restates `SKILL.md` plus `references/`. After any change, bump `version` in `.claude-plugin/plugin.json`.
+- **Releases are automatic.** Every MSRBot release carries `msrbot-research.zip`: the [`Attach research skill to release`](../.github/workflows/release-skill-zip.yml) workflow builds it from the release's tagged commit when the release is published. The download link above always points at the latest release, so it never needs editing. A skill fix ships with the next MSRBot release; if it can't wait, cut a patch release (e.g. `v2.3.1`). To attach the zip to an existing release, run the workflow by hand (**Actions → Attach research skill to release → Run workflow**, enter the tag).
 - **Follow the API roadmap.** The skill uses today's static endpoints. The planned lookup, search, lineage and provenance APIs and the MCP server are tracked in epic [#2032](https://github.com/PrZ3r/MSRBot.io/issues/2032). As each ships, update `references/endpoints.md`, the procedure in `SKILL.md`, `scripts/msrbot.py` and `prompt.md`.
 - **Re-run [section 2](#2-check-that-it-works)** after every change, and after big registry changes.
