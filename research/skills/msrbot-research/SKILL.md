@@ -18,13 +18,13 @@ The reason is simple. Standards metadata is exactly the kind of thing models mis
 
 Choose the path that fits your tools:
 
-- **You can run Python with network access** (e.g. Claude Code): use `scripts/msrbot.py`. It handles the large index files, URL-encoding, and supersession chains, and returns provenance with every result.
+- **You can run Python with network access** (e.g. Claude Code): use `${CLAUDE_SKILL_DIR}/scripts/msrbot.py`. In claude.ai chat, the path is `scripts/msrbot.py`, relative to this file. The script handles the large index files, URL-encoding, and supersession chains, and returns provenance with every result. If it can't reach msrbot.io (for example, a sandbox without network access), use the URL procedure below instead.
   ```
-  python3 scripts/msrbot.py find "2067-21" --publisher SMPTE   # find docIds
-  python3 scripts/msrbot.py get SMPTE.ST2067-21.2020           # full record (--meta adds provenance detail)
-  python3 scripts/msrbot.py current SMPTE.ST2067-21.2020       # walk to the current edition
-  python3 scripts/msrbot.py editions SMPTE.ST2067-21.2022      # other editions in the index
-  python3 scripts/msrbot.py ref SMPTE.ST2067-2                 # resolve a (possibly undated) reference
+  python3 ${CLAUDE_SKILL_DIR}/scripts/msrbot.py find "2067-21" --publisher SMPTE   # find docIds
+  python3 ${CLAUDE_SKILL_DIR}/scripts/msrbot.py get SMPTE.ST2067-21.2020           # full record (--meta adds provenance detail)
+  python3 ${CLAUDE_SKILL_DIR}/scripts/msrbot.py current SMPTE.ST2067-21.2020       # walk to the current edition
+  python3 ${CLAUDE_SKILL_DIR}/scripts/msrbot.py editions SMPTE.ST2067-21.2022      # other editions in the index
+  python3 ${CLAUDE_SKILL_DIR}/scripts/msrbot.py ref SMPTE.ST2067-2                 # resolve a (possibly undated) reference
   ```
 - **You can only fetch URLs:** follow the procedure below. The endpoint details are in `references/endpoints.md`.
 
