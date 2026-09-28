@@ -1,0 +1,150 @@
+{{> header}}
+<!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <h1 class="h4 mb-1"><i class="bi bi-robot me-1"></i> Use MSRBot with AI</h1>
+    <p class="text-muted small mb-0">
+      Get answers about media standards that are checked against MSRBot, not an AI's memory.
+    </p>
+  </header>
+
+  <!-- What it does -->
+  <section class="mb-3">
+    <div class="card">
+      <div class="card-header fw-semibold">What it does</div>
+      <div class="card-body small">
+        <p class="mb-2">
+          <strong>msrbot-research</strong> is a skill for Claude, with a copy-paste prompt for other AI assistants.
+          It makes answers about media standards (SMPTE, ISO, ITU, AES, IETF, D-Cinema, IMF and more) come from MSRBot records:
+        </p>
+        <ul class="mb-0">
+          <li><strong>Cited.</strong> Every fact links to the MSRBot record it came from, with that record's last-updated date.</li>
+          <li><strong>Current.</strong> It follows supersession to the newest edition and flags outdated ones.</li>
+          <li><strong>Honest about gaps.</strong> It names any medium- or low-confidence field. It says <strong>NOT FOUND</strong> only after a complete check, and <strong>COULD NOT VERIFY</strong> when a lookup was blocked or cut off, never a guess.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get it -->
+  <section class="row g-3 mb-3">
+    <div class="col-12 col-lg-6">
+      <div class="card h-100">
+        <div class="card-header fw-semibold"><i class="bi bi-chat-square-text me-1"></i> Claude (claude.ai or the desktop app)</div>
+        <div class="card-body small">
+          <a class="btn btn-primary btn-sm mb-3" href="{{skillZipUrl}}"><i class="bi bi-download me-1"></i> Download msrbot-research.zip</a>
+          <ol class="mb-2">
+            <li>Download the zip. <strong>Don't unzip it.</strong></li>
+            <li>In Claude, open <a href="https://claude.ai/customize/skills" target="_blank" rel="noopener"><strong>Customize &rarr; Skills</strong></a> and upload it.</li>
+            <li>Make sure <strong>msrbot-research</strong> is switched <strong>on</strong>.</li>
+          </ol>
+          <p class="text-muted mb-0">Claude then uses it automatically when you ask about a standard. To pass it on, open the skill and use <strong>Share</strong> or <strong>Publish to org</strong>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card h-100">
+        <div class="card-header fw-semibold"><i class="bi bi-building me-1"></i> Everyone in your Claude organization</div>
+        <div class="card-body small">
+          <p class="mb-2">An organization Owner can install it for everyone:</p>
+          <ol class="mb-2">
+            <li>Open <a href="https://claude.ai/admin-settings/skills?tab=inventory" target="_blank" rel="noopener"><strong>Organization settings &rarr; Plugins &amp; skills</strong></a>.</li>
+            <li>Choose <strong>Add &rarr; Sync from GitHub</strong> and enter <code>PrZ3r/MSRBot.io</code>.</li>
+            <li>Set <strong>msrbot-research</strong> to <strong>Installed by default</strong>.</li>
+          </ol>
+          <p class="text-muted mb-0">Colleagues don't need to install anything. Updates arrive when the repository is re-synced.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card h-100">
+        <div class="card-header fw-semibold"><i class="bi bi-terminal me-1"></i> Claude Code</div>
+        <div class="card-body small">
+          <pre class="border rounded p-2 bg-body-secondary mb-2"><code>/plugin marketplace add PrZ3r/MSRBot.io
+/plugin install msrbot-research@msrbot</code></pre>
+          <p class="text-muted mb-0">Update later with <code>/plugin marketplace update msrbot</code>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card h-100">
+        <div class="card-header fw-semibold"><i class="bi bi-stars me-1"></i> ChatGPT, Gemini, Copilot and others</div>
+        <div class="card-body small">
+          <p class="mb-2">Copy the <a href="#ai-prompt">prompt below</a> into the tool's standing instructions:</p>
+          <ul class="mb-2">
+            <li><strong>ChatGPT:</strong> a custom GPT's <em>Instructions</em>, or a Project's instructions</li>
+            <li><strong>Gemini:</strong> a Gem</li>
+            <li><strong>Copilot:</strong> custom instructions</li>
+          </ul>
+          <p class="text-muted mb-0">The tool needs web browsing turned on so it can read MSRBot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prompt -->
+  <section class="mb-3" id="ai-prompt">
+    <div class="card">
+      <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+        <span><i class="bi bi-clipboard-check me-1"></i> Copy-paste prompt</span>
+        <button id="ai-prompt-copy" class="btn btn-sm btn-outline-secondary" type="button"><i class="bi bi-clipboard me-1"></i>Copy</button>
+      </div>
+      <div class="card-body">
+        <pre id="ai-prompt-text" class="border rounded p-2 bg-body-secondary small mb-0" style="max-height:28rem; overflow:auto; white-space:pre-wrap;">{{promptText}}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Check it works -->
+  <section class="mb-3">
+    <div class="card">
+      <div class="card-header fw-semibold"><i class="bi bi-check2-square me-1"></i> Check that it works</div>
+      <div class="card-body small">
+        <p class="mb-2">Ask each question in a <strong>new chat</strong>, without mentioning MSRBot:</p>
+        <ol class="mb-2">
+          <li><em>"We're building off SMPTE ST 2067-21:2020. Is that still the edition to target?"</em> It should say the 2020 edition was replaced by <strong>ST 2067-21:2022</strong>, with <code>msrbot.io</code> links.</li>
+          <li><em>"What's the title of SMPTE ST 2067-99?"</em> This part doesn't exist. It should answer <strong>NOT FOUND</strong> or <strong>COULD NOT VERIFY</strong>, and must not invent a title.</li>
+          <li><em>"What's the current edition of SMPTE ST 2110-20?"</em> It should say <strong>ST 2110-20:2022</strong>.</li>
+          <li><em>"What is ISDCF Doc 20 about?"</em> It should answer <strong>NOT FOUND</strong> after checking MSRBot's full ISDCF list.</li>
+        </ol>
+        <p class="text-muted mb-0">A confident answer with no <code>msrbot.io</code> links means the skill or prompt isn't active.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Links -->
+  <section class="mb-3">
+    <div class="d-flex flex-wrap gap-2 small">
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/blob/main/research/README.md" target="_blank" rel="noopener"><i class="bi bi-book me-1"></i>Full setup &amp; test guide</a>
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/releases/latest" target="_blank" rel="noopener"><i class="bi bi-tag me-1"></i>Latest release</a>
+      <a class="btn btn-outline-secondary btn-sm" href="{{assetPrefix}}api/"><i class="bi bi-braces me-1"></i>API Explorer</a>
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/issues/new?template=bug_report.md" target="_blank" rel="noopener"><i class="bi bi-bug me-1"></i>Report a wrong answer</a>
+    </div>
+  </section>
+</main>
+
+<script>
+  (function () {
+    var btn = document.getElementById('ai-prompt-copy');
+    var pre = document.getElementById('ai-prompt-text');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', function () {
+      var done = function () {
+        btn.innerHTML = '<i class="bi bi-check2 me-1"></i>Copied';
+        setTimeout(function () { btn.innerHTML = '<i class="bi bi-clipboard me-1"></i>Copy'; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pre.textContent).then(done).catch(function () {});
+      } else {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        s.removeAllRanges();
+      }
+    });
+  })();
+</script>
+
+<!-- Main content ends - do not edit below this line -->
+{{> footer}}

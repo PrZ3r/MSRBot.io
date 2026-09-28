@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **"Use MSRBot with AI" page at [msrbot.io/ai/](https://msrbot.io/ai/).** It explains what the `msrbot-research` skill does and how to get it:
+  - claude.ai / Desktop, with a download button pointing at `releases/latest/download/msrbot-research.zip`;
+  - a whole Claude organization (Sync from GitHub);
+  - Claude Code;
+  - ChatGPT, Gemini and Copilot.
+
+  It also has the copy-paste prompt with a Copy button, and the four test questions. The prompt is read from `research/prompt.md` at build time, so the site can't drift from the repo. The page is linked from the home page's Explore row and the Dev Tools menu, listed in `sitemap.xml`, and `ai` is reserved as a portal slug.
+
 ### Changed
 
 - **Release zip is attached automatically again.** Immutable releases are now off for this repo, so the `Attach research skill to release` workflow can run on `release: published`. It attaches `msrbot-research.zip` seconds after any release is published, with no manual step (this replaces v2.4.1's draft-then-run-workflow flow). It can still be run by hand with a tag, and it skips releases that are immutable (v2.3.0 through v2.4.1). AGENTS.md and `research/README.md` are updated.

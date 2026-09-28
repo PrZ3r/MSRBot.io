@@ -2,6 +2,8 @@
 
 Ask an AI assistant about media standards (SMPTE, ISO, ITU, AES, IETF, D-Cinema, IMF…) and get answers **checked against [MSRBot.io](https://msrbot.io)**, not the AI's memory. Each answer links to the MSRBot record it came from and tells you when a document has been replaced by a newer edition. When MSRBot doesn't have something, the assistant says **"Not found in MSRBot"** instead of guessing.
 
+> Sharing this with someone who doesn't use GitHub? Send them **[msrbot.io/ai](https://msrbot.io/ai/)**, which has the same download, prompt and test questions.
+
 Contents:
 
 1. [Get it](#1-get-it): pick the line that describes you
