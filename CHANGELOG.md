@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **`research/…/scripts/msrbot.py` carries the PrZ3 copyright header**, like the repo's other scripts. Skill plugin version 1.4.1; the next release's `msrbot-research.zip` includes it.
+
 ### Fixed
 
 ## [v2.5.0] - 2026-09-28
