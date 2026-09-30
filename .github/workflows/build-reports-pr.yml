@@ -14,6 +14,11 @@ name: Build MSI + MRI (PR)
 #   PRs no secrets, and Actions cannot push to a fork's branch at all. Such a
 #   PR has to be re-based onto a branch in this repo (or rebuilt after merge)
 #   for the reports to land.
+# - Dependabot PRs run that same read-only version. Their branches live in this
+#   repo, but `pull_request` events from Dependabot read the separate Dependabot
+#   secret store, where APP_ID/APP_PRIVATE_KEY do not exist — the app token step
+#   would fail outright. They only ever touch package*.json, so the reports
+#   cannot drift; they get rebuilt on the next data PR either way.
 # - Reports are always "latest main + this PR": the job merges main into the
 #   branch first (report-only conflicts resolve to main's copy, then get
 #   regenerated). After a data/report merge to main, refresh-data-prs.yml
@@ -55,38 +60,39 @@ env:
 
 jobs:
   rebuild:
-    name: ${{ (github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository) && 'Rebuild MSI + MRI' || 'MSI + MRI drift check (fork PR — read-only)' }}
+    name: ${{ (github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]')) && 'Rebuild MSI + MRI' || 'MSI + MRI drift check (read-only)' }}
     runs-on: ubuntu-latest
     env:
       BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
       # Writing (commit/push to the PR branch, PR body) needs secrets and write
-      # access to the head repo; both are absent for fork PRs.
-      SAME_REPO: ${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository }}
+      # access to the head repo. Fork PRs have neither. Dependabot PRs have the
+      # write access but not the secrets, so they are read-only too.
+      CAN_WRITE: ${{ github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]') }}
 
     steps:
       - name: Mint PrZ3 Unit token
         id: app-token
-        if: env.SAME_REPO == 'true'
+        if: env.CAN_WRITE == 'true'
         uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Checkout the branch (same-repo — the reports get committed to it)
-        if: env.SAME_REPO == 'true'
+        if: env.CAN_WRITE == 'true'
         uses: actions/checkout@v7
         with:
           ref: ${{ env.BRANCH }}
           token: ${{ steps.app-token.outputs.token }}
 
-      # Fork PR: check out the merge commit (the fork's head is not a branch
-      # here) and fetch main so the drift summary has a baseline.
-      - name: Checkout the merge commit (fork PR)
-        if: env.SAME_REPO != 'true'
+      # Read-only (fork or Dependabot): check out the merge commit — a fork's
+      # head is not a branch here — and fetch main so the summary has a baseline.
+      - name: Checkout the merge commit (read-only)
+        if: env.CAN_WRITE != 'true'
         uses: actions/checkout@v7
 
-      - name: Fetch main for the drift baseline (fork PR)
-        if: env.SAME_REPO != 'true'
+      - name: Fetch main for the drift baseline (read-only)
+        if: env.CAN_WRITE != 'true'
         run: git fetch -q --depth=1 origin +refs/heads/main:refs/remotes/origin/main
 
       # Our own report commit re-triggers `synchronize` (path filters see the
@@ -102,13 +108,13 @@ jobs:
           fi
 
       - name: Configure git identity
-        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true'
+        if: steps.self.outputs.skip != 'true' && env.CAN_WRITE == 'true'
         run: |
           git config user.name "PrZ3 Unit"
           git config user.email "prz3-unit[bot]@users.noreply.github.com"
 
       - name: Merge latest main (reports = main + this PR)
-        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true' && env.BRANCH != 'main'
+        if: steps.self.outputs.skip != 'true' && env.CAN_WRITE == 'true' && env.BRANCH != 'main'
         run: bash src/main/scripts/ci/mergeMainForReports.sh "$BRANCH"
 
       - uses: actions/setup-node@v7
@@ -142,7 +148,7 @@ jobs:
       # content change.
       - name: Commit report changes
         id: commit
-        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true'
+        if: steps.self.outputs.skip != 'true' && env.CAN_WRITE == 'true'
         run: |
           # shellcheck disable=SC2086
           if [ -n "$(git status --porcelain -- $REPORT_PATHS)" ]; then
@@ -161,17 +167,21 @@ jobs:
         run: |
           node src/main/scripts/ci/reportsPrSummary.js origin/main > "$RUNNER_TEMP/reports-summary.md"
           cat "$RUNNER_TEMP/reports-summary.md" >> "$GITHUB_STEP_SUMMARY"
-          if [ "$SAME_REPO" != 'true' ]; then
+          if [ "$CAN_WRITE" != 'true' ]; then
             # shellcheck disable=SC2086
             {
               echo ""
-              echo "_Fork PR: read-only. The reports above were rebuilt to show the drift, but nothing is committed — Actions can't push to a fork's branch. Re-push these commits to a branch in this repo, or the reports get rebuilt after merge._"
+              if [ "$GITHUB_ACTOR" = 'dependabot[bot]' ]; then
+                echo "_Dependabot PR: read-only. The reports above were rebuilt to show the drift, but nothing is committed — Dependabot runs with its own secret store, so this job cannot mint the app token it would need to push. Dependency-only PRs shouldn't move the reports; if the drift above is non-empty, rebuild after merge._"
+              else
+                echo "_Fork PR: read-only. The reports above were rebuilt to show the drift, but nothing is committed — Actions can't push to a fork's branch. Re-push these commits to a branch in this repo, or the reports get rebuilt after merge._"
+              fi
             } >> "$GITHUB_STEP_SUMMARY"
             git checkout -- $REPORT_PATHS 2>/dev/null || true
           fi
 
       - name: Push to the branch
-        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true' && env.BRANCH != 'main'
+        if: steps.self.outputs.skip != 'true' && env.CAN_WRITE == 'true' && env.BRANCH != 'main'
         run: |
           if [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/$BRANCH")" ]; then
             git push origin "HEAD:refs/heads/$BRANCH"
@@ -180,7 +190,7 @@ jobs:
           fi
 
       - name: Update PR body summary
-        if: steps.self.outputs.skip != 'true' && env.SAME_REPO == 'true' && env.BRANCH != 'main'
+        if: steps.self.outputs.skip != 'true' && env.CAN_WRITE == 'true' && env.BRANCH != 'main'
         uses: actions/github-script@v9
         with:
           github-token: ${{ steps.app-token.outputs.token }}
