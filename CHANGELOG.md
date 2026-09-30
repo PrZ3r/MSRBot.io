@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **`Build MSI + MRI (PR)` no longer fails on Dependabot PRs.** Dependabot branches live in this repo, so the workflow took the privileged path and tried to mint the PrZ3 Unit app token — but `pull_request` events from Dependabot read the separate Dependabot secret store, where `APP_ID`/`APP_PRIVATE_KEY` do not exist, so the job died on its first step. Dependabot now takes the same read-only drift-check path as fork PRs. The `SAME_REPO` gate is renamed `CAN_WRITE`, which is what it actually decides.
+
 ## [v2.5.0] - 2026-09-28
 
 ### Added
