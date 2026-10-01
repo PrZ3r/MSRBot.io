@@ -6,6 +6,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 
 - `extract` / `extract-smpte`: run SMPTE document extraction.
 - `extract-ietf`: run IETF document extraction.
+- `extract-manual`: run hand/AI-prepared records (`--input <records.json>`) through the extractor pipeline.
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
 - `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit.
@@ -69,6 +70,10 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `npm run extract-ietf`
   - Runs: `node src/main/scripts/extractDocs.js --provider ietf`
   - Action: Extracts/updates IETF-seeded docs, references, and provenance metadata.
+
+- `npm run extract-manual -- --input <records.json>`
+  - Runs: `node src/main/scripts/extractDocs.js --provider manual --input <records.json>`
+  - Action: Adds/updates documents from a records file prepared by a person or AI agent (publishers without an extractor). Citations go through `parseRefId` with MRI sightings and orphan slugs; per-field provenance comes from the record's `metaSources` / `metaSourceUrls` / `metaNotes` / `metaFlags`. Format: [manual-extraction.md](manual-extraction.md).
 
 ### Index Builders
 

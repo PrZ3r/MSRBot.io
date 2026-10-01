@@ -33,6 +33,9 @@ const { createIetfDiscovery } = require('./ietf.discovery');
 const { createIetfParser } = require('./ietf.parse');
 const { smpteMetaConfig } = require('./smpte.meta');
 const { ietfMetaConfig } = require('./ietf.meta');
+const { createManualDiscovery } = require('./manual.discovery');
+const { createManualParser } = require('./manual.parse');
+const { manualMetaConfig } = require('./manual.meta');
 
 const PROVIDER_CONFIGS = {
   smpte: {
@@ -52,6 +55,12 @@ const PROVIDER_CONFIGS = {
       filterEnabled: true,
       filterPath: 'src/main/input/filterList.ietf.json'
     }
+  },
+  // Hand/agent-prepared records (--input records.json); see docs/manual-extraction.md
+  manual: {
+    label: 'Manual',
+    seedPath: null,
+    discovery: {}
   }
 };
 
@@ -109,6 +118,24 @@ function getProvider(providerKey, deps) {
       label: cfg.label,
       seedPath: cfg.seedPath,
       metaConfig: ietfMetaConfig,
+      discovery,
+      parser
+    };
+  }
+
+  if (providerKey === 'manual') {
+    const discovery = createManualDiscovery({ inputPath: deps.inputPath });
+    const parser = createManualParser({
+      discovery,
+      parseRefId: deps.parseRefId,
+      mriRecordSighting: deps.mriRecordSighting,
+      onBadRefs: deps.onBadRefs
+    });
+    return {
+      key: providerKey,
+      label: cfg.label,
+      seedPath: cfg.seedPath,
+      metaConfig: manualMetaConfig,
       discovery,
       parser
     };

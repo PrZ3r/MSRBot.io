@@ -171,6 +171,8 @@ const providerKey = providerArg.toLowerCase().trim();
     extractRefs,
     mapRefByCite,
     parseRefId,
+    mriRecordSighting,
+    inputPath: cliArgValue('--input', null),
     withNoCache,
     NO_CACHE_HEADERS,
     onBadRefs: (refs) => {
@@ -301,6 +303,9 @@ function getMetaDefaults(source, field) {
 }
 
 function injectMeta(doc, field, source, mode, oldValue) {
+  // Per-field hints (manual provider): source and sourceUrl can differ by field.
+  const sourceOverride = doc && doc.__metaSources && doc.__metaSources[field];
+  if (typeof sourceOverride === 'string' && sourceOverride) source = sourceOverride;
   const defaults = getMetaDefaults(source, field);
   const noteOverride = (doc && doc.__metaNotes && typeof doc.__metaNotes[field] === 'string')
     ? doc.__metaNotes[field]
@@ -314,7 +319,7 @@ function injectMeta(doc, field, source, mode, oldValue) {
     note: noteOverride || defaults.note,
     updated: new Date().toISOString(),
     originalValue: oldValue === undefined ? null : oldValue,
-    sourceUrl: doc.__sourceUrl,
+    sourceUrl: (doc.__metaSourceUrls && doc.__metaSourceUrls[field]) || doc.__sourceUrl,
     version: SCRIPT_VERSION
   };
   if (flagOverride) {
@@ -522,7 +527,7 @@ const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
   const seedPath = activeProvider.seedPath;
   const seedSet = new Set();
   let seedsAdded = 0, seedsSkipped = 0;
-  if (fs.existsSync(seedPath)) {
+  if (seedPath && fs.existsSync(seedPath)) {
     try {
       const rawSeeds = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
       if (Array.isArray(rawSeeds)) {
