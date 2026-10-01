@@ -41,6 +41,7 @@ When creating an issue or pull request:
 
 ## Validation expectations by change type
 - **Docs-only changes**: sanity-check formatting and links where practical.
+- **Adding documents from a publisher without an extractor (AI agents: always)**: use the manual extractor. Read the sources and write a records file, then run `npm run extract-manual -- --input <records.json>`. That runs the records through the same `extractDocs.js` pipeline as the SMPTE and IETF extractors (reference parsing, MRI, `$meta`). Format and workflow: `docs/manual-extraction.md`. In Claude Code, the project skill `.claude/skills/msrbot-extract/` walks through it. Map citations only through `parseRefId`, using their verbatim text. If it misses or misparses, fix the parser family in `referencing.js` or add a `refMap.json` entry, with tests, as a tooling PR. Don't hand-map identifiers. The requester reviews every judgment call before the extraction runs.
 - **Data changes** to the document registry: edit the per-doc files under `src/main/data/docs/{publisher}/{docType}/[{year}/]{docId}.json` (one JSON file per document — never the assembled `documents.json`, which is a build artifact). Scaffold new docs with `npm run new-doc -- --docId <id> --publisher <pub> --docType <type>`. Then run `npm run canonicalize` (re-homes the file if you changed publisher/docType/docId/publicationDate, and injects `$meta`) and `npm run validate`.
 - **Other registry data** (`groups.json`, `projects.json`, `portals.json`, etc.): run `npm run validate` and `npm run canonicalize`.
 - **URL/normalization changes**: run `npm run validate-url` and, when appropriate, `npm run normalize-url`.
@@ -94,4 +95,4 @@ This is a Node.js static-site-generator project with no backend, no Docker, and 
 
 **No linter configured:** The project does not have ESLint or any JS linter. Validation is done via `npm run validate` (JSON schema + registry checks).
 
-**Extraction scripts require network:** `npm run extract-smpte` and `npm run extract-ietf` fetch live data and will fail without internet access. All other commands work fully offline with committed data.
+**Extraction scripts require network:** `npm run extract-smpte` and `npm run extract-ietf` fetch live data (`extract-manual` only checks the records' URLs) and will fail without internet access. All other commands work fully offline with committed data.

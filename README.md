@@ -155,6 +155,7 @@ Run scripts with:
 npm run extract
 npm run extract-smpte
 npm run extract-ietf
+npm run extract-manual -- --input <records.json>   # publishers without an extractor; see docs/manual-extraction.md
 npm run build-msi
 npm run build-mri
 npm run seed-backfill-ietf

@@ -15,6 +15,7 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
 
 ## Ways You Can Contribute
 - **Data improvements** — fix or add metadata in the per-doc files under `src/main/data/docs/` (one JSON file per document; `npm run new-doc` scaffolds a new one)
+- **New documents from publishers without an extractor** — write a records file and run `npm run extract-manual -- --input <records.json>` (see [docs/manual-extraction.md](docs/manual-extraction.md)). It reuses the full extractor pipeline, so references, MRI and provenance are handled exactly as for SMPTE/IETF. **This is the required path when an AI tool does the extraction**; Claude Code loads the `msrbot-extract` project skill automatically.
 - **Extraction logic** — enhance provider discovery/parsing in `src/main/scripts/providers/` and orchestration in `src/main/scripts/extractDocs.js`
 - **Reference parsing/resolution** — improve shared logic in `src/main/lib/referencing.js` and curated mappings in `src/main/input/refMap.json`
 - **Library improvements** — fix or add features in `src/main/lib/`
@@ -36,6 +37,7 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
     npm run extract
     npm run extract-smpte
     npm run extract-ietf
+    npm run extract-manual -- --input <records.json>
     npm run build-msi
     npm run build-mri
     npm run validate-url
