@@ -139,6 +139,16 @@ hb.registerHelper('contentTypeLabel', function (value) {
   return map[String(value)] || String(value);
 });
 
+// BCP 47 tag -> English language name ("fr" -> "French"); falls back to the tag.
+hb.registerHelper('languageName', function (tag) {
+  if (!tag) return '';
+  try {
+    return new Intl.DisplayNames(['en'], { type: 'language' }).of(String(tag)) || String(tag);
+  } catch {
+    return String(tag);
+  }
+});
+
 hb.registerHelper('suiteLink', function (doc) {
   try {
     const d = doc || this || {};
@@ -650,6 +660,10 @@ async function emitDocumentsApiOnce() {
       if (typeof d.contentType === 'string' && d.contentType.trim()) {
         row.contentType = d.contentType.trim();
       }
+      // Non-English documents only (schema 2.5.0).
+      if (typeof d.docTitleOriginal === 'string' && d.docTitleOriginal) row.docTitleOriginal = d.docTitleOriginal;
+      if (typeof d.language === 'string' && d.language && d.language !== 'en') row.language = d.language;
+      if (d.translatedBy === 'msrbot') row.translatedBy = 'msrbot';
       return row;
     });
 
