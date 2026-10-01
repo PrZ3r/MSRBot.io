@@ -131,12 +131,13 @@ def cmd_find(args):
             continue
         if args.type and (row.get("docType") or "").lower() != args.type.lower():
             continue
-        hay = [_norm(row.get(k)) for k in ("docId", "docLabel", "docTitle")]
+        hay = [_norm(row.get(k)) for k in ("docId", "docLabel", "docTitle", "docTitleOriginal")]
         if any(q in h for h in hay if h):
             rows.append({
                 "docId": row.get("docId"),
                 "docLabel": row.get("docLabel"),
                 "docTitle": row.get("docTitle"),
+                **({k: row[k] for k in ("docTitleOriginal", "language", "translatedBy") if row.get(k)}),
                 "publisher": row.get("publisher"),
                 "docType": row.get("docType"),
                 "apiUrl": BASE + row["path"] if row.get("path") else doc_api_url(row.get("docId")),
@@ -159,6 +160,7 @@ def _summary(payload, url):
         "docId": payload.get("docId"),
         "docLabel": d.get("docLabel"),
         "docTitle": d.get("docTitle"),
+        **({k: d[k] for k in ("docTitleOriginal", "language", "translatedBy") if d.get(k)}),
         "publisher": d.get("publisher"),
         "docType": d.get("docType"),
         "publicationDate": d.get("publicationDate"),
@@ -300,7 +302,7 @@ def cmd_search(args):
                 data = _fetch_json(url)
                 shards_read.append(url)
                 for row in data.get("docs", []):
-                    hay = " ".join([row.get("title") or "", row.get("label") or "", " ".join(row.get("keywords") or [])]).lower()
+                    hay = " ".join([row.get("title") or "", row.get("titleOriginal") or "", row.get("label") or "", " ".join(row.get("keywords") or [])]).lower()
                     hit = [t for t in terms if t in hay]
                     if hit:
                         matches.append(dict(row, matched=hit, apiUrl=doc_api_url(row["id"])))

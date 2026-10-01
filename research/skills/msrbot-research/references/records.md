@@ -21,7 +21,9 @@
 | --- | --- |
 | `docId` | MSRBot's stable identifier. Dated editions end in the year (`.2020`), sometimes with a month (`.2023-09`). Amendments look like `…2020Am1.2020`. |
 | `docLabel` | The publisher's human label, e.g. `SMPTE ST 2067-21:2020`. Use it in prose. |
-| `docTitle` | Title. Suite-level titles, where present, are in `docSuiteTitle`. |
+| `docTitle` | Title, always in English. Suite-level titles, where present, are in `docSuiteTitle`. |
+| `language`, `docTitleOriginal`, `abstractOriginal` | Non-English documents only: the published language (BCP 47, e.g. `fr`) and the publisher's own title and abstract. No `language` means English. |
+| `translatedBy` | `msrbot` means the English `docTitle`/`abstract` are MSRBot.io's translation, not the publisher's wording: cite `docTitleOriginal` as the title and give the English as a translation. `publisher` (or absent) means the English is official. |
 | `publisher`, `docType` | e.g. `SMPTE`, `Standard` / `Recommended Practice` / `Engineering Guideline` / `Journal Article`. |
 | `docNumber`, `docPart` | Number and part, as separate fields. |
 | `publicationDate` | `YYYY`, `YYYY-MM` or `YYYY-MM-DD`. |

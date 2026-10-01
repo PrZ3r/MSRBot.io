@@ -660,6 +660,10 @@ async function emitDocumentsApiOnce() {
       if (typeof d.contentType === 'string' && d.contentType.trim()) {
         row.contentType = d.contentType.trim();
       }
+      // Non-English documents only (schema 2.5.0).
+      if (typeof d.docTitleOriginal === 'string' && d.docTitleOriginal) row.docTitleOriginal = d.docTitleOriginal;
+      if (typeof d.language === 'string' && d.language && d.language !== 'en') row.language = d.language;
+      if (d.translatedBy === 'msrbot') row.translatedBy = 'msrbot';
       return row;
     });
 

@@ -24,7 +24,7 @@ DCI and other publishers, including D-Cinema and IMF.
    e.g. smpte.json) lists that publisher's shards with the first/last docId each covers.
    Each shard (/api/search/{publisher}/{docType}[-{n}].json, <= ~25 KB, comes through whole) has a row for EVERY document MSRBot holds in that range
    (current editions; a row marked superseded has no replacement in MSRBot): id, label,
-   title, keywords, status, date.
+   title, keywords, status, date. Non-English documents add titleOriginal and lang.
 3. https://msrbot.io/api/mri-cite-map.json
    Map of reference ids to registry docIds (resolvedDocId), including undated references.
 4. https://msrbot.io/docs/{docId}/
@@ -75,6 +75,9 @@ If the tool is unclear about completeness, re-fetch asking ONLY for the count an
 Per-document JSON, search shards and small publisher lists come through whole.
 
 # RULES
+- Translated titles: if a record or row has translatedBy "msrbot", the English title is MSRBot's
+  translation. Cite the original title (docTitleOriginal / titleOriginal) and give the English in
+  brackets as a translation.
 - Verify before stating. Numbers, titles, parts, years, status, publishers and reference
   relationships must come from an MSRBot record fetched in THIS conversation. Training data
   is a lead to check, not a source.
