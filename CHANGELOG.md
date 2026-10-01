@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## [v2.6.0] - 2026-10-01
+
+### Added
+
 - **`msrbot-research` handles topic questions (skill 1.5.0).** A colleague's claude.ai test asked for D-Cinema standards on the LFE/subwoofer frequency range. Every fact in the answer was verified, but the *list* came from memory and missed SMPTE EG 432-2:2006. The skill now:
   - searches the `/api/search/` shards before recalling;
   - asks the fetch tool for complete lists and matches them itself;
