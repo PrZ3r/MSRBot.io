@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - CST, e.g. "CST RT 031 – Projection – 2012" → `CST.RT031.2012`, plus `CST.RT021annex.2016` and `CST.NT001`;
   - AFNOR, e.g. "NF S27-100:2014" → `AFNOR.NFS27-100.2014`, and "NF EN 61947-2" → `AFNOR.NFEN61947-2`.
 
-  Across all 50,972 citations in the MRI, 91 previously unparsed citations now parse, 189 gain a part or year, and none are lost. `refMap.json` gains three CST one-offs and is now alphabetised by `npm run config-sort`. New test: `referencing.citeTypography.test.js`, with 41 real citations.
+  Across all 50,972 citations in the MRI, 91 previously unparsed citations now parse, 189 gain a part or year, and none are lost. `refMap.json` gains three CST one-offs and is now alphabetised by `npm run config-sort`. New test: `referencing.citeTypography.test.js`, with 41 real citations. `keying.js` also gains a CST rule, so CST documents form MSI lineages (`CST|RT|028|`), with annexes keyed as supplements (#2085).
 
 - **New publisher: CST (Commission Supérieure Technique de l'Image et du Son).** The first document is **CST-RT-028-2026** *Digital Projection – Subtitles – Characteristics, Dimensions and Positioning* (`CST.RT028.2026`), parsed from CST's PDF and site without an extractor. It is the first doc to use the language fields: `language: fr`, with the French title and abstract in `docTitleOriginal`/`abstractOriginal` and an English translation (`translatedBy: msrbot`, `$meta.source: inferred`, review required). Its eight cited references are recorded in the MRI with CST's citation text (`mapSource: parsed`):
   - registry docs link normally
