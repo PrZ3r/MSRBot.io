@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **`/api/search/`: a compact search index sized for AI fetch tools** (first piece of #2036). `/api/search/index.json` (~41 KB) maps each publisher and docType to shards at `/api/search/{publisher}/{docType}[-{n}].json`. Each shard is a complete list of **current editions** (superseded excluded) as `{ id, label, title, keywords, status, date }`, natural-sorted by docId and kept under ~50 KB. The index lists each shard's `first`/`last` docId, so a client can pick the shard for a number range. It totals 232 shards and 26,071 docs; SMPTE standards fit in 3 shards and engineering guidelines in 1. The shards are byte-stable (no build timestamps), validated by the new `/api/schemas/search.schema.json`, and listed on the API Explorer page and in the Dev Tools menu. Motivation: a claude.ai test asked a topic question about the LFE channel, and the skill couldn't search titles because the full slices are 0.4–5 MB, so it missed SMPTE EG 432-2:2006 even though "LFE" is in its title and keywords.
+
 ### Changed
 
 - **`research/…/scripts/msrbot.py` carries the PrZ3 copyright header**, like the repo's other scripts. Skill plugin version 1.4.1; the next release's `msrbot-research.zip` includes it.
