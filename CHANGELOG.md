@@ -36,6 +36,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **ISO 26428-2 title, and stray "docLabel" text.** `ISO.26428-2.2008` carried Part 3's title; it is now "Part 2: Audio characteristics". A case-insensitive replace of "label" with "docLabel" during the per-doc migration (#1108) had also changed 7 more strings:
+  - the titles of ISO 26428-3 and SMPTE ST 298:1997 (e.g. "Universal docLabels for …");
+  - the `details` text of ST 291-1, ST 268-1 and ISDCF D04;
+  - the recorded original title of both ST 400 editions.
+
 - **ITU references link to the right Recommendation and edition.** `R-REC-BT.1680`-style ids lost their number as a fake year and resolved to the newest BT doc (21 refs, e.g. BT.1886, BT.1700, BS.2076, linked to BT.2020-2 or BS.1352-4). ITU `YYYYMM` editions weren't ranked, so undated BT.601 and BT.709 picked an arbitrary edition (601-4, 709-1); they now pick the newest (601-7, 709-6). A dated cite with no exact id now prefers the edition from that year (X.509 1997 → `T-REC-X.509.199706`; "SMPTE 299-2009" → `SMPTE.ST299-1.2009` instead of 299-2:2010).
 
 - **Undated `Publisher.NNNN` references link to the right doc ([#2067](https://github.com/PrZ3r/MSRBot.io/issues/2067)).** The MRI read the document number in refs like `ISO.8601` as a year and stripped it, leaving the base `ISO`. As a result, 23 ISO refs (including ISO 3166 and ISO 8601) resolved to the newest ISO doc, ISO/CIE 11664-5:2024, and `IEC.1179` resolved to IEC 60958. The trailing number is no longer stripped when only a publisher prefix would remain. `mriFlush` now also drops a pointer it set itself once its presence check stops confirming it; extractor-set pointers are kept as before. 8 of the refs now resolve to their own registry editions (e.g. `ISO.8601` → `ISO.8601.2004`), and 16 become `known-publisher-no-doc`. A new `npm test` check, `referencing.datedTail.test.js`, covers this.
