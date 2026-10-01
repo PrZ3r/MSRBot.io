@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## [v2.7.0] - 2026-10-01
+
+### Added
+
 - **Manual extraction through the extractor pipeline (`npm run extract-manual`).** For publishers without an extractor, a person or AI agent reads the publisher's site and PDFs and writes a records file. The new `manual` provider (`src/main/scripts/providers/manual.*`) feeds those records to `extractDocs.js`, which handles them exactly like SMPTE and IETF output:
   - citations go through `parseRefId` with MRI sightings, and unparsed ones become orphan slugs that keep their citation text;
   - `$meta`, URL resolution, merging with existing records, the PR log and the MRI flush all run as usual.
