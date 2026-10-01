@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **New publisher: CST (Commission Supérieure Technique de l'Image et du Son).** First document added by hand, without an extractor: **CST-RT-028-2026** *Digital Projection – Subtitles – Characteristics, Dimensions and Positioning* (`CST.RT028.2026`). The English title and abstract are translated from the French original. Its eight cited references are recorded in the MRI with CST's citation text: registry docs link normally, ISO 26428-7 and ISO 8567 are canonical refs with no registry doc yet, and the AFNOR NF S27-100 and ARCOM charter citations are orphan slugs.
+
 ### Changed
 
 - **The skill carries its own version (`msrbot-research` 1.5.1).** `SKILL.md` frontmatter gains `metadata.version`, the Agent Skills spec's place for it. The claude.ai zip contains only the skill folder, not `plugin.json`, so zip installs previously had no version of ours at all; claude.ai's "V1/V2" labels are its own upload counter. A new `npm test` check (`researchSkill.test.js`) fails if `metadata.version` and `research/.claude-plugin/plugin.json` differ, and also checks the frontmatter `name` and description length. AGENTS.md and `research/README.md` say to bump both.
