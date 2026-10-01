@@ -1,7 +1,4 @@
 {
-  "meta": {
-    "totalMaps": 157
-  },
   "byCitePatterns": {
     "10.1002-pro.5560010102": [
       "[4] Richardson D.C., and Richardson J.S., Protein Science, 1992, 1, 3; D. C. Richardson D. C., and Richardson J.S., Trends in Biochem. Sci.,1994, 19, 135.",
@@ -385,6 +382,9 @@
       "/\\bHypertext\\s+Transfer\\s+Protocol\\s*\\(HTTP\\)\\b.*\\bCERN\\b.*\\b1993\\b/i",
       "/\\bhttp-spec\\.txt\\.Z\\b/i"
     ],
+    "CIE.015.2004": [
+      "/\\b1931\\s+CIE\\s+Publication\\s+15\\s*:\\s*2004\\b/i"
+    ],
     "CMR.ML": [
       "Common Metadata Ratings"
     ],
@@ -472,6 +472,13 @@
       "/\\bIETF\\s*96\\s+Proceedings\\b.*\\bJuly\\s+2016\\b/i",
       "/\\bietf\\.org\\/proceedings\\/96\\/slides\\/slides-96-quic-3\\.pdf\\b/i"
     ],
+    "IETF.WIP.PublicArchivesDirectory.199111": [
+      "Yeong, W., \"Representing Public Archives in the Directory\" , Work in Progress, November 1991.",
+      "Representing Public Archives in the Directory",
+      "/\\bRepresenting\\s+Public\\s+Archives\\s+in\\s+the\\s+Directory\\b/i",
+      "inurl:draft-+%22Representing+Public+Archives+in+the+Directory%22",
+      "sitesearch=datatracker.ietf.org%2Fdoc%2Fhtml%2F"
+    ],
     "IETF.draft-bhutton-json-schema-00": [
       "IETF draft-bhutton-json-schema-00",
       "/[\"“”']?JSON\\s+Schema:\\s+A\\s+Media\\s+Type\\s+for\\s+Describing\\s+JSON\\s+Documents[\"“”']?[\\s\\.]?$/i",
@@ -502,13 +509,6 @@
       "https://www.ietf.org/media/documents/Revised-Retiring-IETF-FTP-Service-2021-03.pdf",
       "/\\bRetiring\\s+the\\s+IETF\\s+FTP\\s+Service\\s*\\(Revised\\s+Plan\\)\\b.*\\bMarch\\s+2021\\b/i",
       "/\\bietf\\.org\\/media\\/documents\\/Revised-Retiring-IETF-FTP-Service-2021-03\\.pdf\\b/i"
-    ],
-    "IETF.WIP.PublicArchivesDirectory.199111": [
-      "Yeong, W., \"Representing Public Archives in the Directory\" , Work in Progress, November 1991.",
-      "Representing Public Archives in the Directory",
-      "/\\bRepresenting\\s+Public\\s+Archives\\s+in\\s+the\\s+Directory\\b/i",
-      "inurl:draft-+%22Representing+Public+Archives+in+the+Directory%22",
-      "sitesearch=datatracker.ietf.org%2Fdoc%2Fhtml%2F"
     ],
     "IETF.yang-security-guidelines": [
       "IETF, \"YANG Security Guidelines\", <https://trac.ietf.org/trac/ops/wiki/yang-security-guidelines>.",
@@ -645,14 +645,6 @@
       "/\\bftp:\\/\\/ftp\\.isi\\.edu\\/in-notes\\/iana\\/assignments\\/media-types\\/model\\/mesh\\b/i",
       "/\\bmodel\\/mesh\\b.*\\b1997\\b/i"
     ],
-    "ISI.iges.1995": [
-      "C. Parks, \"Registration of new Media Type application/iges\", ftp://ftp.isi.edu/in-notes/iana/assignments/media-types/application/iges, 1995.",
-      "Registration of new Media Type application/iges",
-      "ftp://ftp.isi.edu/in-notes/iana/assignments/media-types/application/iges",
-      "/\\bC\\.\\s*Parks\\b.*\\bRegistration\\s+of\\s+new\\s+Media\\s+Type\\s+application\\/iges\\b/i",
-      "/\\bftp:\\/\\/ftp\\.isi\\.edu\\/in-notes\\/iana\\/assignments\\/media-types\\/application\\/iges\\b/i",
-      "/\\bapplication\\/iges\\b.*\\b1995\\b/i"
-    ],
     "ISI.PSZ.199306": [
       "Neuman, B., and S. Augart, \"The Prospero Protocol\", USC/Information Sciences Institute, June 1993.",
       "The Prospero Protocol",
@@ -660,6 +652,14 @@
       "URL:ftp://prospero.isi.edu/pub/prospero/doc/prospero-protocol.PS.Z",
       "URL:ftp://prospero.isi.edu/pub/prospero/doc /prospero-protocol.PS.Z",
       "/\\bThe\\s+Prospero\\s+Protocol\\b/i"
+    ],
+    "ISI.iges.1995": [
+      "C. Parks, \"Registration of new Media Type application/iges\", ftp://ftp.isi.edu/in-notes/iana/assignments/media-types/application/iges, 1995.",
+      "Registration of new Media Type application/iges",
+      "ftp://ftp.isi.edu/in-notes/iana/assignments/media-types/application/iges",
+      "/\\bC\\.\\s*Parks\\b.*\\bRegistration\\s+of\\s+new\\s+Media\\s+Type\\s+application\\/iges\\b/i",
+      "/\\bftp:\\/\\/ftp\\.isi\\.edu\\/in-notes\\/iana\\/assignments\\/media-types\\/application\\/iges\\b/i",
+      "/\\bapplication\\/iges\\b.*\\b1995\\b/i"
     ],
     "ISLNTT.SAC2000.2000-08": [
       "Aoki, K., Ichikawa, T., Kanda, M., Matsui, M., Moriai, S., Nakajima, J., and T. Tokita, \"Camellia: A 128-Bit Block Cipher Suitable for Multiple Platforms -- Design and Analysis\", In Selected Areas in Cryptography, 7th Annual International Workshop, SAC 2000, August 2000.",
@@ -828,6 +828,12 @@
       "URL:ftp://uu.psi.com/wp/nir.txt",
       "/\\bTowards\\s+Networked\\s+Information\\s+Retrieval\\b/i"
     ],
+    "R-REC-BT.1680": [
+      "/\\bUIT-R\\s+1680\\b/i"
+    ],
+    "R-REC-BT.1686": [
+      "/\\bUIT-R\\s+1686\\b/i"
+    ],
     "RC.TER536.1976": [
       "Naffah, N. \"Protocole Appareil Virtuel type Ecran\" Reseau Cyclades. TER 536. 1976.",
       "/^\\s*(?:\\d+\\.\\s*)?Naffah,\\s*N\\.\\s*[\"“”]Protocole\\s+Appareil\\s+Virtuel\\s+type\\s+Ecran[\"“”]\\s+Reseau\\s+Cyclades\\.\\s*TER\\s*536\\.\\s*1976\\.?\\s*$/i"
@@ -850,14 +856,6 @@
       "/\\bTelnet\\s+Suppress\\s+Go\\s+Ahead\\s+Option\\b.*\\bRFC-?\\s*858\\b/i",
       "/\\bTELNET:5\\b.*\\bSuppress\\s+Go\\s+Ahead\\b/i"
     ],
-    "RSA.crypto.v2n2.1996": [
-      "Dobb H. Dobbertin, \"The Status of MD5 After a Recent Attack\", RSA Labs' CryptoBytes, Vol. 2 No. 2, Summer 1996. http://www.rsa.com/rsalabs/pubs/cryptobytes.html",
-      "The Status of MD5 After a Recent Attack",
-      "http://www.rsa.com/rsalabs/pubs/cryptobytes.html",
-      "/\\bDobbertin\\b.*\\bThe\\s+Status\\s+of\\s+MD5\\s+After\\s+a\\s+Recent\\s+Attack\\b/i",
-      "/\\bRSA\\s+Labs'?\\s+CryptoBytes\\b.*\\bVol\\.?\\s*2\\b.*\\bNo\\.?\\s*2\\b.*\\b1996\\b/i",
-      "/\\brsa\\.com\\/rsalabs\\/pubs\\/cryptobytes\\.html\\b/i"
-    ],
     "RSA.PKCS5.v1.5.1993": [
       "RSA Laboratories. PKCS #5: Password-Based Encryption Standard. Version 1.5, November 1993.",
       "/\\bRSA\\s+Laboratories\\b.*\\bPKCS\\s*#\\s*5\\b.*\\bPassword-Based\\s+Encryption\\s+Standard\\b.*\\bVersion\\s*1\\.5\\b.*\\b1993\\b/i",
@@ -867,6 +865,14 @@
       "RSA Laboratories. PKCS #8: Private-Key Information Syntax Standard. Version 1.2, November 1993.",
       "/\\bRSA\\s+Laboratories\\b.*\\bPKCS\\s*#\\s*8\\b.*\\bPrivate-Key\\s+Information\\s+Syntax\\s+Standard\\b.*\\bVersion\\s*1\\.2\\b.*\\b1993\\b/i",
       "/\\bPKCS\\s*#\\s*8\\b.*\\bVersion\\s*1\\.2\\b.*\\b1993\\b/i"
+    ],
+    "RSA.crypto.v2n2.1996": [
+      "Dobb H. Dobbertin, \"The Status of MD5 After a Recent Attack\", RSA Labs' CryptoBytes, Vol. 2 No. 2, Summer 1996. http://www.rsa.com/rsalabs/pubs/cryptobytes.html",
+      "The Status of MD5 After a Recent Attack",
+      "http://www.rsa.com/rsalabs/pubs/cryptobytes.html",
+      "/\\bDobbertin\\b.*\\bThe\\s+Status\\s+of\\s+MD5\\s+After\\s+a\\s+Recent\\s+Attack\\b/i",
+      "/\\bRSA\\s+Labs'?\\s+CryptoBytes\\b.*\\bVol\\.?\\s*2\\b.*\\bNo\\.?\\s*2\\b.*\\b1996\\b/i",
+      "/\\brsa\\.com\\/rsalabs\\/pubs\\/cryptobytes\\.html\\b/i"
     ],
     "SDSC.VRML.10.3.1995": [
       "G. Bell, A. Parisi, M. Pesce, \"The Virtual Reality Modeling Language\", http://sdsc.edu/SDSC/Partners/vrml/Archives/vrml10-3.html, 1995.",
@@ -1111,5 +1117,8 @@
       "/\\bWHATWG\\b.*\\bHTML\\s*[-:]?\\s*Living\\s+Standard\\b/i",
       "/\\bhtml\\.spec\\.whatwg\\.org\\b/i"
     ]
+  },
+  "meta": {
+    "totalMaps": 157
   }
 }

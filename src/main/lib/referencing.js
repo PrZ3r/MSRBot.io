@@ -147,13 +147,13 @@ let _docIdIndex = null; // Set<string> of docIds from the registry
 let _docBaseIndex = null; // Map<string base, string[]> of docIds by base
 const DATED_TAIL_RE = /\.(?:\d{8}|\d{4}(?:-\d{2}){0,2})$/; // .YYYY | .YYYY-MM | .YYYY-MM-DD | .YYYYMMDD
 
-// Strip a dated tail, unless what's left is only a publisher prefix: in
-// `ISO.8567` / `IEC.1179` the 4 digits are the document number, not a year.
+// Strip a dated tail, unless what's left has no digits at all: in `ISO.8567`,
+// `IEC.1179` or `R-REC-BT.1680` the 4 digits are the document number, not a year.
 // Without this guard, base `ISO` matched every ISO doc and undated refs
 // resolved to the newest one (ISO.11664-5.2024).
 function _stripDatedTail(id) {
   const base = String(id).replace(DATED_TAIL_RE, '');
-  return /^[A-Za-z]+$/.test(base) ? String(id) : base;
+  return /\d/.test(base) ? base : String(id);
 }
 
 function _loadDocumentsIndex() {
@@ -195,6 +195,9 @@ function _hasDocId(id) {
 function _dateRankFromId(id) {
   // Return a numeric rank for comparing dated ids; higher = newer. Undated -> -Infinity.
   if (!id || typeof id !== 'string') return Number.NEGATIVE_INFINITY;
+  // ITU editions end in YYYYMM (`R-REC-BT.709-6.201506`)
+  const ym = id.match(/\.((?:19|20)\d{2})(0[1-9]|1[0-2])$/);
+  if (ym) return parseInt(ym[1], 10) * 10000 + parseInt(ym[2], 10) * 100;
   if (_stripDatedTail(id) === id) return Number.NEGATIVE_INFINITY;
   const m = id.match(/\.(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$|\.(\d{8})$/);
   if (!m) return Number.NEGATIVE_INFINITY;
@@ -235,7 +238,13 @@ function _findSourceDocIdForRefId(refId) {
   }
 
   if (arr && arr.length) {
-    // Prefer exact base if present, else highest date rank
+    // A dated ref whose exact id isn't registered ("T-REC-X.509.1997") prefers editions from
+    // that year (`T-REC-X.509.199706`); otherwise exact base, else highest date rank.
+    const citedYear = (id.match(/\.((?:19|20)\d{2})$/) || [])[1];
+    if (citedYear && id !== base) {
+      const sameYear = arr.filter((c) => (c.match(/\.(\d{4})(?:\d{2}|\d{4}|-\d{2}(?:-\d{2})?)?$/) || [])[1] === citedYear);
+      if (sameYear.length) arr = sameYear;
+    }
     let best = null;
     let bestRank = Number.NEGATIVE_INFINITY;
     for (const cand of arr) {
@@ -877,12 +886,44 @@ function mapRefByCite(text) {
   return null;
 }
 
+// European/French citation typography (CST, AFNOR and other non-English sources), normalised
+// before the publisher families run:
+//   "ISO 26 428 – 3" / "ISO26 428 – 2" / "ISO/DIS 26 428 – 3" → "ISO 26428-3" / "ISO DIS 26428-3"
+//   "ISO/R 1996 :1971" → "ISO 1996:1971";  "SMPTE RP 200 :2012" → "SMPTE RP 200:2012"
+//   "UIT-R" / "CEI 61672-1" → "ITU-R" / "IEC 61672-1";  "ITU–R : BT 709 - 6" / "ITU-BT.709" → "ITU-R BT.709-6" / "ITU-R BT.709"
+//   "SMPTE ST2067-40", "SMPTE, «RP 177-1993", "le SMPTE (268M-2003)" → "SMPTE ST 2067-40", "SMPTE RP 177-1993", "SMPTE 268M-2003"
+//   "EBU – R95" / "EBU–R 95" → "EBU R95"
+function normalizeCiteTypography(text) {
+  const D = '[\\u2010-\\u2015-]'; // hyphen and dash family
+  let s = String(text || '').replace(/[\u00A0\u2009\u202F]/g, ' ');
+  s = s.replace(new RegExp(`\\bUIT\\s*${D}\\s*([RT])\\b`, 'g'), 'ITU-$1')
+    .replace(/\bCEI\s+(?=\d)/g, 'IEC ')
+    .replace(new RegExp(`\\bITU\\s*${D}\\s*([RT])\\b`, 'g'), 'ITU-$1')
+    .replace(/\bITU-([RT])\s*:\s*/g, 'ITU-$1 ')
+    .replace(/\bITU-(BT|BS)(?=[.\s]\d)/g, 'ITU-R $1')
+    .replace(new RegExp(`\\b(ITU-[RT]\\s+[A-Z]{1,2})\\s+(\\d+)\\s*${D}\\s*(\\d+)\\b`, 'g'), '$1.$2-$3');
+  s = s.replace(/\bISO\s*\/\s*(DIS|FDIS|CD|FCD|WD|CDV)\s+/g, 'ISO $1 ')
+    .replace(/\bISO\s*\/\s*R\s*(?=\d)/g, 'ISO ')
+    .replace(/\b(ISO|IEC)((?:\s*\/\s*(?:IEC|CIE))?(?:\s+(?:DIS|FDIS|CD|FCD|WD|CDV))?)\s*(\d{1,3})\b (\d{3})\b/g, '$1$2 $3$4')
+    .replace(new RegExp(`\\b((?:ISO|IEC)(?:\\s*\\/\\s*(?:IEC|CIE))?(?:\\s+(?:DIS|FDIS|CD|FCD|WD|CDV))?\\s+\\d{3,6})\\s*[\\u2010-\\u2015]\\s*(\\d{1,3})\\b(?!\\d)|\\b((?:ISO|IEC)(?:\\s*\\/\\s*(?:IEC|CIE))?(?:\\s+(?:DIS|FDIS|CD|FCD|WD|CDV))?\\s+\\d{3,6})\\s+-\\s*(\\d{1,3})\\b(?!\\d)`, 'g'), (m0, a, b, c, d) => `${a || c}-${b || d}`);
+  // SMPTE part after an en dash: "ST 2110–10", "ST2071–1"
+  s = s.replace(/\b((?:ST|RP|RDD|EG)\s*\d{1,4})\s*[\u2010-\u2015]\s*(\d{1,3})\b(?!\d)/g, '$1-$2');
+  // Year colon with stray spaces: "RP 200 :2012", "ST 291–1: 2011"
+  s = s.replace(/(\d)\s*:\s+((?:19|20)\d{2})\b/g, '$1:$2').replace(/(\d)\s+:\s*((?:19|20)\d{2})\b/g, '$1:$2');
+  s = s.replace(/\bSMPTE\s*,\s*[«"\u201C]\s*(?=(?:ST|RP|RDD|EG)\s*\d)/g, 'SMPTE ')
+    .replace(/\bSMPTE\s+(ST|RP|RDD|EG|AG|OV)(?=\d)/g, 'SMPTE $1 ')
+    .replace(/\bSMPTE\s*\(\s*(?=\d{1,4}M\b)/g, 'SMPTE ');
+  s = s.replace(new RegExp(`\\bEBU\\s*${D}?\\s*([RD])\\s*(?=\\d)`, 'g'), 'EBU $1');
+  return s;
+}
+
 // Main parser: derive a canonical refId from a citation text + optional href
 function parseRefId(text, href = '', opts = {}) {
   const wantDiag = !!opts.wantDiag;
   // allow explicit cite→refId normalization via refMap.json
   const diag = mapRefByCiteDiag(text);
   if (diag.refId) return wantDiag ? { refId: diag.refId, diag } : diag.refId;
+  text = normalizeCiteTypography(text);
 
   // --- ALLPARTS hinting from cite text ---
   // Some sources explicitly cite a standard as "(all parts)". Preserve that intent
@@ -1013,7 +1054,10 @@ function parseRefId(text, href = '', opts = {}) {
     // ("SMPTE EG 21-1993") is read as the year, not as part "1993"/"199".
     const smpteRe = /SMPTE\s+(ST|RP|RDD|EG|AG|OV)[\s\u00A0\u2010-\u2015\-]+(\d+[A-Za-z]?)(?:-(\d{1,3})(?!\d))?(?:[:\u2010-\u2015-]\s*(\d{4})(?:-(\d{2}))?)?/i;
     const m = text.match(smpteRe);
-    if (m) {
+    // A legacy designator earlier in the same cite ("SMPTE 326M …; … SMPTE RP204-2000") wins:
+    // the first designator is the one being cited.
+    const legacyFirst = m && text.slice(0, m.index).match(/\bSMPTE\s+\d{1,4}(?:\.\d+)?M\b/i);
+    if (m && !legacyFirst) {
       const [, type, numRaw, part, year, month] = m;
       const num = String(numRaw).toUpperCase();
       const lineage = `SMPTE.${type.toUpperCase()}${part ? `${num}-${part}` : num}`;
@@ -1039,6 +1083,41 @@ function parseRefId(text, href = '', opts = {}) {
       const lineage = `SMPTE.ST${part ? `${num}-${part}` : num}`;
       const refId = year ? `${lineage}.${year}` : lineage;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'smpte-legacy-designator' } } : refId;
+    }
+  }
+
+  // CST (Commission supérieure technique de l'image et du son) recommendations and notes:
+  //   "CST RT 031 – Projection – 2012", "CST - RT – 007 - S - 2001", "CST-RT 040 TV - 2016",
+  //   "C.S.T. – RT - 005 - P - 2002", "CST-RT021:2016", "CST-RT021-annexe:2016", "CST NT 001"
+  //   → CST.RT031.2012 / CST.RT021annex.2016 / CST.NT001
+  // The year is taken only from the designator tail (before any «, ", ( or title text).
+  {
+    const src = String(text || '');
+    const m = src.match(/\bC\.?S\.?T\.?\s*[\u2010-\u2015-]?\s*(RT|NT)\s*[\u2010-\u2015-]?\s*(\d{1,3})(?!\d)/);
+    if (m) {
+      const rest = src.slice(m.index + m[0].length);
+      const tail = rest.split(/[«"\u201C(]/)[0].slice(0, 40);
+      const annex = /^\s*[\u2010-\u2015-]?\s*annexe\b/i.test(tail);
+      const y = (tail.match(/^(?:\s*[\u2010-\u2015:-]?\s*(?:annexe|[A-Za-zÀ-ÿ.]{1,12}|v\s*\d+(?:\.\d+)?))*\s*[\u2010-\u2015:-]\s*((?:19|20)\d{2})(?!\d)/i) || [])[1];
+      const refId = `CST.${m[1]}${m[2].padStart(3, '0')}${annex ? 'annex' : ''}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'cst-designator' } } : refId;
+    }
+  }
+
+  // AFNOR / NF (French national standards): "Afnor NF S 27100", "NF S27-100:2014", "NF-S 27001",
+  // "NF S 27–001", "Réf Afnor NF-S 27100 - 2006" → AFNOR.NFS27-100[.year];
+  // "NF EN 61947-2" → AFNOR.NFEN61947-2. (S27-100 is index + number, not a part.)
+  {
+    const src = String(text || '');
+    const en = src.match(/\bNF\s+EN\s+(?:ISO\s+)?(\d{3,6}(?:-\d{1,3})*)(?:\s*[\u2010-\u2015:-]\s*((?:19|20)\d{2})(?!\d))?/);
+    if (en) {
+      const refId = `AFNOR.NFEN${en[1]}${en[2] ? `.${en[2]}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'afnor-nf-en' } } : refId;
+    }
+    const m = src.match(/\bNF\s*[\u2010-\u2015-]?\s*([A-Z])\s*(\d{2})\s*[\u2010-\u2015-]?\s*(\d{3})(?!\d)(?:\s*[\u2010-\u2015:-]\s*((?:19|20)\d{2})(?!\d))?/);
+    if (m) {
+      const refId = `AFNOR.NF${m[1]}${m[2]}-${m[3]}${m[4] ? `.${m[4]}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'afnor-nf' } } : refId;
     }
   }
 

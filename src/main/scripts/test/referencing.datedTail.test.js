@@ -35,6 +35,9 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * mriFlush resolved ISO 8567 / 3166 / 8601 / … to the newest ISO doc
  * (ISO.11664-5.2024) and IEC.1179 to IEC.60958.2023.
  *
+ * The same applies to ITU ids (`R-REC-BT.1680`), whose editions end in YYYYMM
+ * (`R-REC-BT.709-6.201506`) and must rank by that date.
+ *
  * This test pins both sides: `ISO.8567` must not resolve (and a stale bogus
  * pointer is demoted), while a genuinely dated ref like `AES3.1992` still
  * resolves to the latest edition of its base (`AES3.2009`).
@@ -65,6 +68,12 @@ writeDoc('iso-cie/standard/ISO.11664-5.2024.json', { docId: 'ISO.11664-5.2024', 
 writeDoc('iso/standard/ISO.15948.2004.json', { docId: 'ISO.15948.2004', docLabel: 'ISO 15948:2004', docTitle: 'PNG', publisher: 'ISO' });
 writeDoc('aes/standard/AES3.2009.json', { docId: 'AES3.2009', docLabel: 'AES3-2009', docTitle: 'Digital audio interface', publisher: 'AES' });
 writeDoc('aes/standard/AES3.1992.json', { docId: 'AES3.1992', docLabel: 'AES3-1992', docTitle: 'Digital audio interface', publisher: 'AES' });
+// ITU editions end in YYYYMM; BT.2020-2 is the newest R-REC-BT doc here.
+writeDoc('itu-r/recommendation/R-REC-BT.709-1.199311.json', { docId: 'R-REC-BT.709-1.199311', docLabel: 'ITU-R BT.709-1', docTitle: 'HDTV parameters', publisher: 'ITU-R', docType: 'Recommendation' });
+writeDoc('itu-r/recommendation/R-REC-BT.709-6.201506.json', { docId: 'R-REC-BT.709-6.201506', docLabel: 'ITU-R BT.709-6', docTitle: 'HDTV parameters', publisher: 'ITU-R', docType: 'Recommendation' });
+writeDoc('itu-r/recommendation/R-REC-BT.601-4.199510.json', { docId: 'R-REC-BT.601-4.199510', docLabel: 'ITU-R BT.601-4', docTitle: 'Studio encoding parameters', publisher: 'ITU-R', docType: 'Recommendation' });
+writeDoc('itu-r/recommendation/R-REC-BT.601-7.201103.json', { docId: 'R-REC-BT.601-7.201103', docLabel: 'ITU-R BT.601-7', docTitle: 'Studio encoding parameters', publisher: 'ITU-R', docType: 'Recommendation' });
+writeDoc('itu-r/recommendation/R-REC-BT.2020-2.201510.json', { docId: 'R-REC-BT.2020-2.201510', docLabel: 'ITU-R BT.2020-2', docTitle: 'UHDTV parameters', publisher: 'ITU-R', docType: 'Recommendation' });
 
 const entry = (refId, resolvedDocId) => ({
   refId,
@@ -84,6 +93,12 @@ mriStore.writeMri({
     // Bogus pointer left by the old base-stripping — must be demoted.
     'ISO.8567': entry('ISO.8567', 'ISO.11664-5.2024'),
     'IEC.1179': entry('IEC.1179', null),
+    // ITU: `.1680` is the Recommendation number (base `R-REC-BT` has no digits), and an
+    // undated BT.709 must pick the newest YYYYMM edition, not an arbitrary one.
+    'R-REC-BT.1680': entry('R-REC-BT.1680', 'R-REC-BT.2020-2.201510'),
+    'R-REC-BT.709': entry('R-REC-BT.709', 'R-REC-BT.709-1.199311'),
+    // Dated cite with no exact id: the edition from the cited year wins over the newest.
+    'R-REC-BT.601.1995': entry('R-REC-BT.601.1995', null),
     // Dated ref whose own edition is absent from the base candidates' latest.
     'AES3.1985': entry('AES3.1985', null)
   },
@@ -101,6 +116,9 @@ process.chdir(origCwd);
 assert.strictEqual(refs['ISO.8567'].resolvedDocId, null, `ISO.8567 must not resolve, got '${refs['ISO.8567'].resolvedDocId}'`);
 assert.strictEqual(refs['ISO.8567'].needsResolve, 'known-publisher-no-doc', 'ISO.8567 should be demoted to known-publisher-no-doc');
 assert.strictEqual(refs['IEC.1179'].resolvedDocId, null, `IEC.1179 must not resolve, got '${refs['IEC.1179'].resolvedDocId}'`);
+assert.strictEqual(refs['R-REC-BT.1680'].resolvedDocId, null, `R-REC-BT.1680 must not resolve, got '${refs['R-REC-BT.1680'].resolvedDocId}'`);
+assert.strictEqual(refs['R-REC-BT.709'].resolvedDocId, 'R-REC-BT.709-6.201506', `undated BT.709 should resolve to the newest edition, got '${refs['R-REC-BT.709'].resolvedDocId}'`);
+assert.strictEqual(refs['R-REC-BT.601.1995'].resolvedDocId, 'R-REC-BT.601-4.199510', `BT.601 cited as 1995 should resolve to the 1995 edition, got '${refs['R-REC-BT.601.1995'].resolvedDocId}'`);
 assert.strictEqual(refs['AES3.1985'].resolvedDocId, 'AES3.2009', `AES3.1985 should resolve to the latest AES3 edition, got '${refs['AES3.1985'].resolvedDocId}'`);
 
 fs.rmSync(sandbox, { recursive: true, force: true });

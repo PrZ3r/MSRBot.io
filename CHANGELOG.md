@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **The reference parser reads French and European citation styles, plus CST and AFNOR designators.** This came out of hand-extracting CST recommendations. `parseRefId` now normalises spaced thousands and dashes ("ISO 26 428 – 3" → `ISO.26428-3`, which used to parse as `ISO.26`), ISO/DIS, CD and R drafts, a space before ":year", French spellings (UIT-R → ITU-R, CEI → IEC), "ITU–R : BT 709 - 6", "SMPTE ST2067-40", `SMPTE, «RP 177-1993`, "ST 2110–10" and "EBU – R95". It also has two new families:
+  - CST, e.g. "CST RT 031 – Projection – 2012" → `CST.RT031.2012`, plus `CST.RT021annex.2016` and `CST.NT001`;
+  - AFNOR, e.g. "NF S27-100:2014" → `AFNOR.NFS27-100.2014`, and "NF EN 61947-2" → `AFNOR.NFEN61947-2`.
+
+  Across all 50,972 citations in the MRI, 91 previously unparsed citations now parse, 189 gain a part or year, and none are lost. `refMap.json` gains three CST one-offs and is now alphabetised by `npm run config-sort`. New test: `referencing.citeTypography.test.js`, with 41 real citations. `keying.js` also gains a CST rule, so CST documents form MSI lineages (`CST|RT|028|`), with annexes keyed as supplements (#2085).
+
 - **New publisher: CST (Commission Supérieure Technique de l'Image et du Son).** The first document is **CST-RT-028-2026** *Digital Projection – Subtitles – Characteristics, Dimensions and Positioning* (`CST.RT028.2026`), parsed from CST's PDF and site without an extractor. It is the first doc to use the language fields: `language: fr`, with the French title and abstract in `docTitleOriginal`/`abstractOriginal` and an English translation (`translatedBy: msrbot`, `$meta.source: inferred`, review required). Its eight cited references are recorded in the MRI with CST's citation text (`mapSource: parsed`):
   - registry docs link normally
   - ISO 26428-7 and ISO 8567 are canonical refs with no registry doc yet
@@ -29,6 +35,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **The skill carries its own version (`msrbot-research` 1.5.1).** `SKILL.md` frontmatter gains `metadata.version`, the Agent Skills spec's place for it. The claude.ai zip contains only the skill folder, not `plugin.json`, so zip installs previously had no version of ours at all; claude.ai's "V1/V2" labels are its own upload counter. A new `npm test` check (`researchSkill.test.js`) fails if `metadata.version` and `research/.claude-plugin/plugin.json` differ, and also checks the frontmatter `name` and description length. AGENTS.md and `research/README.md` say to bump both.
 
 ### Fixed
+
+- **ISO 26428-2 title, and stray "docLabel" text.** `ISO.26428-2.2008` carried Part 3's title; it is now "Part 2: Audio characteristics". A case-insensitive replace of "label" with "docLabel" during the per-doc migration (#1108) had also changed 7 more strings:
+  - the titles of ISO 26428-3 and SMPTE ST 298:1997 (e.g. "Universal docLabels for …");
+  - the `details` text of ST 291-1, ST 268-1 and ISDCF D04;
+  - the recorded original title of both ST 400 editions.
+
+- **ITU references link to the right Recommendation and edition.** `R-REC-BT.1680`-style ids lost their number as a fake year and resolved to the newest BT doc (21 refs, e.g. BT.1886, BT.1700, BS.2076, linked to BT.2020-2 or BS.1352-4). ITU `YYYYMM` editions weren't ranked, so undated BT.601 and BT.709 picked an arbitrary edition (601-4, 709-1); they now pick the newest (601-7, 709-6). A dated cite with no exact id now prefers the edition from that year (X.509 1997 → `T-REC-X.509.199706`; "SMPTE 299-2009" → `SMPTE.ST299-1.2009` instead of 299-2:2010).
 
 - **Undated `Publisher.NNNN` references link to the right doc ([#2067](https://github.com/PrZ3r/MSRBot.io/issues/2067)).** The MRI read the document number in refs like `ISO.8601` as a year and stripped it, leaving the base `ISO`. As a result, 23 ISO refs (including ISO 3166 and ISO 8601) resolved to the newest ISO doc, ISO/CIE 11664-5:2024, and `IEC.1179` resolved to IEC 60958. The trailing number is no longer stripped when only a publisher prefix would remain. `mriFlush` now also drops a pointer it set itself once its presence check stops confirming it; extractor-set pointers are kept as before. 8 of the refs now resolve to their own registry editions (e.g. `ISO.8601` → `ISO.8601.2004`), and 16 become `known-publisher-no-doc`. A new `npm test` check, `referencing.datedTail.test.js`, covers this.
 - **`msrbot.py search` no longer reads a stale search index (skill 1.5.2).** The helper cached the search files for 6 hours, so a copy from before the two-level format change (apiVersion 1 → 2) crashed `search` with `KeyError: 'index'`. The small `/api/search/` files are no longer cached, and an unsupported `apiVersion` is refused with a clear error.

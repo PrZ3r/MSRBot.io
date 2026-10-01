@@ -52,3 +52,5 @@ function canonicalize(path) {
 }
 
 canonicalize('src/main/config/site.json')
+// refMap.json: keys alphabetical so entries are findable; pattern order inside each entry is kept
+canonicalize('src/main/input/refMap.json')
