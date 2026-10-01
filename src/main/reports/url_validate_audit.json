@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-09-15T11:55:15.984Z",
+  "generatedAt": "2026-10-01T13:23:27.118Z",
   "target": "documents.json",
-  "good": 25350,
+  "good": 25353,
   "skippedByDomain": 0,
   "skippedByPublisher": 0,
   "index": {
-    "error": 966,
+    "error": 962,
     "errorBreakdown": {
       "Unreachable (403)": 300,
-      "Unreachable (404)": 645,
-      "Unreachable (500)": 4,
-      "Unreachable (ECONNABORTED)": 1,
+      "Unreachable (404)": 644,
+      "Unreachable (530)": 2,
+      "Unreachable (ECONNABORTED)": 2,
       "Unreachable (ECONNRESET)": 1,
-      "Unreachable (ENOTFOUND)": 3,
+      "Unreachable (ENOTFOUND)": 1,
       "Unreachable (ERR_FR_TOO_MANY_REDIRECTS)": 12
     },
-    "redirectMismatch": 232,
+    "redirectMismatch": 233,
     "redirectBreakdown": {
-      "undefined": 22,
-      "other": 210
+      "undefined": 0,
+      "other": 233
     },
     "expectationMismatch": 123,
     "expectationBreakdown": {
@@ -505,6 +505,16 @@
           "publisher": "AES",
           "field": "href",
           "url": "https://www.aes.org/publications/standards/search.cfm?docID=16",
+          "message": "Unreachable (403)",
+          "explanation": "The server refused access to the URL.",
+          "recommendedAction": "Check if the resource requires authentication or is private.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "AESj.v30.n9.580-595.198209",
+          "publisher": "AES",
+          "field": "href",
+          "url": "https://aes2.org/publications/elibrary-page/?id=3824",
           "message": "Unreachable (403)",
           "explanation": "The server refused access to the URL.",
           "recommendedAction": "Check if the resource requires authentication or is private.",
@@ -2915,16 +2925,6 @@
           "publisher": "AES",
           "field": "href",
           "url": "http://www.aes.org/e-lib/browse.cfm?elib=37",
-          "message": "Unreachable (403)",
-          "explanation": "The server refused access to the URL.",
-          "recommendedAction": "Check if the resource requires authentication or is private.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "JAES.v45-i6-456-466.199706",
-          "publisher": "AES",
-          "field": "href",
-          "url": "https://secure.aes.org/forum/pubs/journal/?elib=7853",
           "message": "Unreachable (403)",
           "explanation": "The server refused access to the URL.",
           "recommendedAction": "Check if the resource requires authentication or is private.",
@@ -9153,30 +9153,10 @@
           "riskLevel": "High"
         },
         {
-          "docId": "ISDCF.DCNC",
-          "publisher": "ISDCF",
-          "field": "href",
-          "url": "http://isdcf.com/dcnc",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "NIST.FIPS.140-3",
+          "docId": "NIST.FIPS.180-4",
           "publisher": "NIST",
           "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.140-3",
-          "message": "Unreachable (404)",
-          "explanation": "The URL points to a resource that was not found (dead link).",
-          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "NIST.FIPS.186-4",
-          "publisher": "NIST",
-          "field": "href",
-          "url": "https://doi.org/10.6028/NIST.FIPS.186-4",
+          "url": "https://doi.org/10.6028/NIST.FIPS.180-4",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -9187,6 +9167,16 @@
           "publisher": "NIST",
           "field": "href",
           "url": "https://doi.org/10.6028/NIST.FIPS.197-upd1",
+          "message": "Unreachable (404)",
+          "explanation": "The URL points to a resource that was not found (dead link).",
+          "recommendedAction": "Double-check the URL or remove it if no longer valid.",
+          "riskLevel": "High"
+        },
+        {
+          "docId": "NIST.SP.800-57p2",
+          "publisher": "NIST",
+          "field": "href",
+          "url": "https://doi.org/10.6028/NIST.SP.800-57p2",
           "message": "Unreachable (404)",
           "explanation": "The URL points to a resource that was not found (dead link).",
           "recommendedAction": "Double-check the URL or remove it if no longer valid.",
@@ -9483,43 +9473,35 @@
           "riskLevel": "High"
         }
       ],
-      "500": [
+      "530": [
         {
-          "docId": "T-REC-E.123.2001",
-          "publisher": "ITU-T",
+          "docId": "W3C.rddl.2002",
+          "publisher": "W3C",
           "field": "href",
-          "url": "https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-E.123-200102-I!!PDF-E&type=items",
-          "message": "Unreachable (500)",
+          "url": "http://www.rddl.org/",
+          "message": "Unreachable (530)",
           "explanation": "Unknown error during URL resolution.",
           "recommendedAction": "Manual investigation required.",
           "riskLevel": "Unknown"
         },
         {
-          "docId": "T-REC-E.123.2001am1.2008",
-          "publisher": "ITU-T",
+          "docId": "W3C.rddl.2010",
+          "publisher": "W3C",
           "field": "href",
-          "url": "https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-E.123-200805-I!Amd1!PDF-E&type=items",
-          "message": "Unreachable (500)",
+          "url": "http://www.rddl.org/2",
+          "message": "Unreachable (530)",
           "explanation": "Unknown error during URL resolution.",
           "recommendedAction": "Manual investigation required.",
           "riskLevel": "Unknown"
-        },
+        }
+      ],
+      "ECONNRESET": [
         {
-          "docId": "T-REC-E.123.2001e1.2008",
-          "publisher": "ITU-T",
+          "docId": "10.5594-J13094iiA",
+          "publisher": "SMPTE",
           "field": "href",
-          "url": "https://www.itu.int/rec/dologin.asp?lang=e&id=T-REC-E.123-200805-I!Err1!PDF-E&type=items",
-          "message": "Unreachable (500)",
-          "explanation": "Unknown error during URL resolution.",
-          "recommendedAction": "Manual investigation required.",
-          "riskLevel": "Unknown"
-        },
-        {
-          "docId": "T-REC-X.509.199706",
-          "publisher": "ITU-T",
-          "field": "href",
-          "url": "https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.509-199708-S!!PDF-E&type=items",
-          "message": "Unreachable (500)",
+          "url": "https://doi.org/10.5594/J13094iiA",
+          "message": "Unreachable (ECONNRESET)",
           "explanation": "Unknown error during URL resolution.",
           "recommendedAction": "Manual investigation required.",
           "riskLevel": "Unknown"
@@ -9531,26 +9513,6 @@
           "publisher": "International Civil Aviation Organization",
           "field": "href",
           "url": "https://www2023.icao.int/NACC/Documents/Meetings/2014/ECARAIM/REF08-Doc9674.pdf",
-          "message": "Unreachable (ENOTFOUND)",
-          "explanation": "DNS resolution failed. Host not found.",
-          "recommendedAction": "Check for typos or outdated domain.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "W3C.rddl.2002",
-          "publisher": "W3C",
-          "field": "href",
-          "url": "http://www.rddl.org/",
-          "message": "Unreachable (ENOTFOUND)",
-          "explanation": "DNS resolution failed. Host not found.",
-          "recommendedAction": "Check for typos or outdated domain.",
-          "riskLevel": "High"
-        },
-        {
-          "docId": "W3C.rddl.2010",
-          "publisher": "W3C",
-          "field": "href",
-          "url": "http://www.rddl.org/2",
           "message": "Unreachable (ENOTFOUND)",
           "explanation": "DNS resolution failed. Host not found.",
           "recommendedAction": "Check for typos or outdated domain.",
@@ -9681,6 +9643,16 @@
       ],
       "ECONNABORTED": [
         {
+          "docId": "JAES.v45-i6-456-466.199706",
+          "publisher": "AES",
+          "field": "href",
+          "url": "https://secure.aes.org/forum/pubs/journal/?elib=7853",
+          "message": "Unreachable (ECONNABORTED)",
+          "explanation": "Connection timed out.",
+          "recommendedAction": "Retry later or check the server’s responsiveness.",
+          "riskLevel": "Medium-High"
+        },
+        {
           "docId": "ML3807.M56.1916",
           "publisher": "MacMillan Co.",
           "field": "href",
@@ -9690,250 +9662,17 @@
           "recommendedAction": "Retry later or check the server’s responsiveness.",
           "riskLevel": "Medium-High"
         }
-      ],
-      "ECONNRESET": [
-        {
-          "docId": "SMPTE.EG31.1995",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/SMPTE.EG31.1995",
-          "message": "Unreachable (ECONNRESET)",
-          "explanation": "Unknown error during URL resolution.",
-          "recommendedAction": "Manual investigation required.",
-          "riskLevel": "Unknown"
-        }
       ]
     },
     "redirect": {
-      "undefined": [
-        {
-          "docId": "10.5594-j18491b",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18491b",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271838/;jsessionid=6826EB554F03AB9BB537C9CFF50ECEE1",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18506b",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18506b",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271904/;jsessionid=EFD8BB254860DC008B7DBAA9E8242FDD",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18506c",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18506c",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271905/;jsessionid=7FC080C4D909E0FD291BDAAA4EB5B8C5",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18506d",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18506d",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271906/;jsessionid=19D7D5ED21F73CF56AA64B4A2BD75D52",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18506e",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18506e",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271910/;jsessionid=5F538A19B367E4DE2795E3825CAA445D",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18506f",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18506f",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271911/;jsessionid=FD50A368B6A3CAD02470DAAA7C22F4D4",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18506g",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18506g",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271912/;jsessionid=0E616DDA47C10AC2D5F85574920C8B3E",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18506h",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18506h",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271925/;jsessionid=9BD20D30CC733E022880DD290C584347",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18506i",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18506i",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271926/;jsessionid=4EB4543A074F2C3207842A8607B8EFD4",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18506j",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18506j",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271920/;jsessionid=DB1481BD37E11F171084185E4A431789",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522a",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522a",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271951/;jsessionid=00067D8BC5390AF31072D22BF5444177",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522b",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522b",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271952/;jsessionid=6878C9AC06822EC4D34D20A401A229AE",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522c",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522c",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271953/;jsessionid=5F2D2D148D0C8C2C74BD8B0E10E3216B",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522d",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522d",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271954/;jsessionid=BEC7C3DB1112ACD43EDACD42E785B5C2",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522e",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522e",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271955/;jsessionid=19274812BAE6ADE53319466855808BBC",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522f",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522f",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271959/;jsessionid=502B51E07946DE4C09068D27BCC42B58",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522g",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522g",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271960/;jsessionid=FBE53AAF903AFB8F096893F7AF09F612",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522h",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522h",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271961/;jsessionid=B6D444EC55CD5371118E7BD75510A03F",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522i",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522i",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271962/;jsessionid=671E83B54A6AE49C3D96ED566D5B65D4",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522j",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522j",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271976/;jsessionid=D34F9BD66156E30BE1128E3B53148DF6",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522k",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522k",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271977/;jsessionid=7E4DF6F99440ED370FFF0EF81EDBD929",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        },
-        {
-          "docId": "10.5594-j18522l",
-          "publisher": "SMPTE",
-          "field": "href",
-          "url": "https://doi.org/10.5594/j18522l",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271971/;jsessionid=6BD3975C9F5160E80104F1B58D724B93",
-          "resolvedField": "resolvedHref",
-          "expectedResolved": "undefined",
-          "message": "resolved url mismatch"
-        }
-      ],
+      "undefined": [],
       "other": [
         {
           "docId": "10.5594-J18229",
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18229",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309479/;jsessionid=E763E978FAADBABB826284815D97CB11",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309479/;jsessionid=B0B21C003DC86857DE4AF5DE5A74FB39",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309479/;jsessionid=519281B1467EC0F5B193654D63A1A427",
           "message": "resolved url mismatch"
@@ -9943,7 +9682,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18229C1",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309476/;jsessionid=D03C44E5AA2F2F9566B2E26A14060594",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309476/;jsessionid=FEC11406C1B377D12816BF9AAFFCF6BA",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309476/;jsessionid=78A4124B12B4D56A25FCC4151B44CAFC",
           "message": "resolved url mismatch"
@@ -9953,7 +9692,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18229IIA",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309477/;jsessionid=2499EE37314923F41E7B6B795B367603",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309477/;jsessionid=35CDB2C06C1BBC50EB26A3801159CB0C",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309477/;jsessionid=B0B099545FEAB76D56D72F03E80B69EB",
           "message": "resolved url mismatch"
@@ -9963,7 +9702,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18229IVIA",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309478/;jsessionid=B8232372C690003E7A6C3FF5942EA64D",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309478/;jsessionid=E2CB1C6FFFA1FF976FD1D5FB6F066013",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309478/;jsessionid=0141B77C76E867C62B8D74FEA42ED1BE",
           "message": "resolved url mismatch"
@@ -9973,7 +9712,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18230",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309480/;jsessionid=E3E08327301D2CD2A56D9DA67127DD2A",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309480/;jsessionid=7CC45FEAFD3FF522DA1BC5411562EB47",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309480/;jsessionid=ACC5B57BCEE14468AA3EFDEACF862654",
           "message": "resolved url mismatch"
@@ -9983,7 +9722,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18231",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309481/;jsessionid=40693E0E43C2AC972E2F26BDEB8C018A",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309481/;jsessionid=CC80FFF10BB96E7B222D8454809ABB9F",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309481/;jsessionid=CEAC86F2FE5F45FBEF43A22DB1ECACA9",
           "message": "resolved url mismatch"
@@ -9993,7 +9732,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18232",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309482/;jsessionid=39BBC0BC7975DB49BC00EC03B0D108EB",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309482/;jsessionid=EC6639D5952259CE85C5B534CE6848C2",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309482/;jsessionid=D122A4ACC83B6D20A9E528E10AC5F141",
           "message": "resolved url mismatch"
@@ -10003,7 +9742,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18233",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309483/;jsessionid=0FA92A5684F7F5E682E8001C2F7E1E22",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309483/;jsessionid=F6E44303C7B948797C811D888D7D88D5",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309483/;jsessionid=A43841DD023F5694D7B49656954CD845",
           "message": "resolved url mismatch"
@@ -10013,7 +9752,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18234",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309484/;jsessionid=5FC4CDAEBEDD3C73123D8963C6838A04",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309484/;jsessionid=1335A9F5A8F498DC9ABA21B8FC1C3B65",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309484/;jsessionid=83AF637A2A267ED92155726804E3889F",
           "message": "resolved url mismatch"
@@ -10023,7 +9762,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18235",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309485/;jsessionid=46F8376EE139B88AFD5CB5A394005837",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309485/;jsessionid=0579CCBBAE3760187086A21584C6E2B8",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309485/;jsessionid=E9C169F0C2BF7DF2A445205864E97291",
           "message": "resolved url mismatch"
@@ -10033,7 +9772,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18236",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309486/;jsessionid=563B82F7B22B2FB812B2F12D45D6B48D",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309486/;jsessionid=4CAF63AA2637015C36FC2A8D920DED13",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309486/;jsessionid=21D5DF898EDD02FD52B6883A14238E65",
           "message": "resolved url mismatch"
@@ -10043,7 +9782,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18237",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309487/;jsessionid=5D76E6B3DF2842181C197A200556588B",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309487/;jsessionid=FD46689DF5ACD71A1D1684CFC3C51045",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309487/;jsessionid=9FC5443EF70DC3C8EB78D523A1629C16",
           "message": "resolved url mismatch"
@@ -10053,7 +9792,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18238",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309488/;jsessionid=B5BD20BCE199F3C6A82E8BD0B4BC8260",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309488/;jsessionid=C515FC5623F74F595F74DE0BDF6A0241",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309488/;jsessionid=0DF0D588DD81489B41F09098F62CFF3D",
           "message": "resolved url mismatch"
@@ -10063,7 +9802,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18239",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309489/;jsessionid=731023FEB4DF4E756F12A0831166B574",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309489/;jsessionid=D155A808C66B7597FA9FB3AD841A3291",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309489/;jsessionid=EF10C774A3AF329F480342E7F59883CC",
           "message": "resolved url mismatch"
@@ -10073,7 +9812,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18240",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309490/;jsessionid=33254383F99BB22D17E08A284BFDEB8E",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309490/;jsessionid=3EFF40D0027CA06AC0342E917FCD452D",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309490/;jsessionid=3A9DC01A1AD39CA36399D0838690D6E6",
           "message": "resolved url mismatch"
@@ -10083,7 +9822,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18241",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309491/;jsessionid=A54FCA7E483D61520F8968800D80397B",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309491/;jsessionid=73AE3C59A6E632F45603D2743DBA4196",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309491/;jsessionid=694D291F84C92F688DE5EEFA4D50D29A",
           "message": "resolved url mismatch"
@@ -10093,7 +9832,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18242",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309492/;jsessionid=32D16C8645219CF3FA4BF0A725295578",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309492/;jsessionid=583B4F75A834CE5D7FAA823554C661FE",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309492/;jsessionid=888037770AB76E05DDC60CCA4E6EF29D",
           "message": "resolved url mismatch"
@@ -10103,7 +9842,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18243",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309493/;jsessionid=804A261DEF9B6F10F5B5EB3D88116878",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309493/;jsessionid=764DC597BCB220AFEA0D4AD1CD246D37",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309493/;jsessionid=94D851BB1412C0F41FE6E464F95CD236",
           "message": "resolved url mismatch"
@@ -10113,7 +9852,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18244",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309494/;jsessionid=FBE62B232934AA057D117778EB532CA4",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309494/;jsessionid=3B29BCDECFFF63AD2A82CAEBA4232C52",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309494/;jsessionid=59217C3722D009FAB167842A9E9530EC",
           "message": "resolved url mismatch"
@@ -10123,7 +9862,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18245",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309495/;jsessionid=70E3F495AB0CEAE2ECD85D04F04C3C95",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309495/;jsessionid=5053D2F9A1CD98A6C9361D15E948097F",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309495/;jsessionid=CB9030CF574C3624C476CD806E6F6444",
           "message": "resolved url mismatch"
@@ -10133,7 +9872,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18246",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309496/;jsessionid=FEB71723EE411D76D57864D4DD88F3CD",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309496/;jsessionid=8F72AB159F2DA730E1B331E4CEC85F3F",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309496/;jsessionid=538E199F5DC38A6030A30B0B316376D3",
           "message": "resolved url mismatch"
@@ -10143,7 +9882,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18247",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309497/;jsessionid=D63DFE14DD86EB5C945570DA50AA4298",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309497/;jsessionid=E4BEAA246EB5B8C1BD04DF001BA9A938",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309497/;jsessionid=ABEA0534D2FB61C917CF2447B586E05D",
           "message": "resolved url mismatch"
@@ -10153,7 +9892,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18248",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309498/;jsessionid=7922082DC2081EA6A3A42786F8566407",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309498/;jsessionid=8B8BE969AA83540E01C9C41FCDB23F6E",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309498/;jsessionid=BF91F9C404A7C2D52352FDAFDE797182",
           "message": "resolved url mismatch"
@@ -10163,7 +9902,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18249",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309500/;jsessionid=B607C9D2FFD8FEDFB35218A692B23B82",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309500/;jsessionid=AACAD73E27D401B7BF29FBDBBCF54D4E",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309500/;jsessionid=FCB38B3FD6AD77174D5B2833C68DBD24",
           "message": "resolved url mismatch"
@@ -10173,7 +9912,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18250",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309501/;jsessionid=1FDC832E1B024CBE1D774798DA3682DE",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309501/;jsessionid=73662BB0AA7F139131E1FCD442BACEC0",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309501/;jsessionid=8BEF3F7093E4541B0DEED41A63B1A43E",
           "message": "resolved url mismatch"
@@ -10183,7 +9922,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18251",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309502/;jsessionid=1C661620F39F8BD48BAEA08D3FEC139D",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309502/;jsessionid=A6AE216D7189FDB772BDF97385D65195",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309502/;jsessionid=875F9D72724C465DD62D7A30504B2E7C",
           "message": "resolved url mismatch"
@@ -10193,7 +9932,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18252",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309503/;jsessionid=04A1AD99E2277731A032905DB60D97B7",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309503/;jsessionid=7120BD7EBCA390C7ABDE5DB87D37C48B",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309503/;jsessionid=2CC5E8B02A99DB28304B4FCD2E9C0E57",
           "message": "resolved url mismatch"
@@ -10203,7 +9942,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18253",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309504/;jsessionid=5431040C11E62EC49B8758B2AF736911",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309504/;jsessionid=1511EF72A6C093EDDCCAA756BEA8921A",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309504/;jsessionid=120DB1705196C8C1D2B7EE1B48498670",
           "message": "resolved url mismatch"
@@ -10213,7 +9952,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18254",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309505/;jsessionid=B71E88E4663C5E540951D4E8316EF185",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309505/;jsessionid=4768040F181579923FE1CF328812BEE3",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309505/;jsessionid=7AE9B92F80A1F7CF352578CE08A7AB20",
           "message": "resolved url mismatch"
@@ -10223,7 +9962,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18255",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309499/;jsessionid=41A43AF32937775E8E02E16F1576B41F",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309499/;jsessionid=50999A4C4728B2C9588EE4F5555F2EF1",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309499/;jsessionid=13C4F16EFC9032CF22F8BFA02BEAC35D",
           "message": "resolved url mismatch"
@@ -10233,7 +9972,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18256",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309506/;jsessionid=999FB68B12A4EC24D675CC99372D9B96",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309506/;jsessionid=22430D5B3A864CC5355D66A0D342613B",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309506/;jsessionid=217513A2CFDE95DF1F23C97F6534C2FD",
           "message": "resolved url mismatch"
@@ -10243,7 +9982,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18257",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309507/;jsessionid=CBA1D7AD3D91C6F1D37F1DCA66C99293",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309507/;jsessionid=9F51A98D98F0DE13A73350EB78516ECB",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309507/;jsessionid=C2A623D3892C9D8647847B2C6DF09619",
           "message": "resolved url mismatch"
@@ -10253,7 +9992,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18258",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309508/;jsessionid=66B819507F1D96D475D0C669517A9040",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309508/;jsessionid=516295C4AE03B106BCB682093119AA22",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309508/;jsessionid=01DD36DE72F5AD70908E3520C7C3ED13",
           "message": "resolved url mismatch"
@@ -10263,7 +10002,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18259",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309509/;jsessionid=278581F4B1701F4BE0CEB4DD70A71419",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309509/;jsessionid=555D1373D63DF90CC5751C3223316D75",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309509/;jsessionid=02BDC0C65F130AA193E79D6220DF2FA2",
           "message": "resolved url mismatch"
@@ -10273,7 +10012,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18260",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309510/;jsessionid=837C6E4540D74D7EEA50C60E6A059555",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309510/;jsessionid=C61E8CE77347E82302D751AAF472EB2B",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309510/;jsessionid=40F0A4FDBDE6B6C85DF803CCD7E359EA",
           "message": "resolved url mismatch"
@@ -10283,7 +10022,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18261",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309511/;jsessionid=795DDB3939F6FF1D58938617295540DA",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309511/;jsessionid=F6F16AD3171B087E2846A3E0A7F38BF7",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309511/;jsessionid=84DE19B2D38A3A5EB790B1012510F012",
           "message": "resolved url mismatch"
@@ -10293,7 +10032,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18262",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309512/;jsessionid=383698E1B2CA08AC13CBAC408D6C265C",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309512/;jsessionid=7C9A3DC246EEBCA731692D255F1AE065",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309512/;jsessionid=DA6B3E71DF05F56F31F57952727D6618",
           "message": "resolved url mismatch"
@@ -10303,7 +10042,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18263",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309513/;jsessionid=F71E46864EBE88FC5420EFF59352EC29",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309513/;jsessionid=89D4BCBB67BB6D44E7412944EC561D4B",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309513/;jsessionid=3FA1063ED96C998E67C4BDE4E26E8CB4",
           "message": "resolved url mismatch"
@@ -10313,7 +10052,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18264",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309514/;jsessionid=5655BC33613B7411F07ABF4120EFCCC8",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309514/;jsessionid=88F6D2409BAAEF0557E8C18E6ADB47E8",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309514/;jsessionid=4EDB49E096A345C34D8B19544213E7AB",
           "message": "resolved url mismatch"
@@ -10323,7 +10062,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18265",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309515/;jsessionid=0AD8634AD4F6DC1FC32868EACF8A01A3",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309515/;jsessionid=11C799DE569234C0E84943C69FE79B3F",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309515/;jsessionid=6BF53BBCC5966071E2FFF13380C9DBB8",
           "message": "resolved url mismatch"
@@ -10333,7 +10072,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18266",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309516/;jsessionid=FDA79D694BEF1DE36AFF7EBA4104C850",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309516/;jsessionid=2DD96AE3D4591C0591EA339461CB8E43",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309516/;jsessionid=27AAE41D0FDAD0C2B3B2EAFEDECA4FC2",
           "message": "resolved url mismatch"
@@ -10343,7 +10082,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18267",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309517/;jsessionid=CEA5922AC819C456FF3895F93E7526E0",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309517/;jsessionid=F6DDA605B9702E5909370268B8161DFD",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309517/;jsessionid=F436CF8B3E29650BE72955C091679F53",
           "message": "resolved url mismatch"
@@ -10353,7 +10092,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/J18268",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309518/;jsessionid=E4F06A14560E72370EC9F6AE00908083",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7309518/;jsessionid=531AB33FDD6C0EBD058EC5A165E77A2A",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7309518/;jsessionid=29D0E830E3DAD041D10B2845FD793182",
           "message": "resolved url mismatch"
@@ -10363,7 +10102,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476a",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271854/;jsessionid=AB7DB76BB1912241B57052E0EF8FB6EE",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271854/;jsessionid=15F2B21F9D90DF4692266BDC9F2C549B",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271854/;jsessionid=955BA14112537F746E0C94BDCE5BC2DA",
           "message": "resolved url mismatch"
@@ -10373,7 +10112,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476b",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271855/;jsessionid=E0B71D247BD379C0952277DC9F536119",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271855/;jsessionid=74F6B47B43E8D4904E8C2E16FABFEDA7",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271855/;jsessionid=FDA75D04FB105982DD34DC4219FEC5FF",
           "message": "resolved url mismatch"
@@ -10383,7 +10122,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476c",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271856/;jsessionid=1DE8B75096D57F298570458714A71503",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271856/;jsessionid=C74624140A1552AFE5145C8C27A5886B",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271856/;jsessionid=7785D620111F0877C54DB6DFFDA6A462",
           "message": "resolved url mismatch"
@@ -10393,7 +10132,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476d",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271857/;jsessionid=78FD6460F503E9F0459EBE68246365D5",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271857/;jsessionid=6E3449346CD4DB4DF9C47F94DFA60650",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271857/;jsessionid=8C0582D373BDA6290ED45D58F25DE8E3",
           "message": "resolved url mismatch"
@@ -10403,7 +10142,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476e",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271858/;jsessionid=ADDFBBDB19198D7D61292840BAD5C2CA",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271858/;jsessionid=29087168940BF59686F11CADAD6494B6",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271858/;jsessionid=C1CFB5ACC487A7F3D557415D9DCB8C1E",
           "message": "resolved url mismatch"
@@ -10413,7 +10152,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476f",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271859/;jsessionid=515E4BA91E6DCD9BFC7EC6D9847A9487",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271859/;jsessionid=4A4584BD0C45DAB1FB9687BF9FCF5F6A",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271859/;jsessionid=C7B02CB79EB5FFF1F2AB380E21824B5C",
           "message": "resolved url mismatch"
@@ -10423,7 +10162,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476g",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271866/;jsessionid=C3B36E82E0C9C8B3861CB34D354BDFD2",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271866/;jsessionid=9B70C780EB827AFCFFAAEB19DFE2EB1A",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271866/;jsessionid=B0FE00F967AD6E61E489C6FCB610F659",
           "message": "resolved url mismatch"
@@ -10433,7 +10172,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476h",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271867/;jsessionid=0EA4C4535EE8D643E21861136467FD6C",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271867/;jsessionid=E92A6A87E9573B0693EFAF3FD0A1A368",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271867/;jsessionid=49D6342620F0F2AB254081176ABF4C83",
           "message": "resolved url mismatch"
@@ -10443,7 +10182,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476i",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271878/;jsessionid=4E597C3A136D4707817BC8C91A847802",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271878/;jsessionid=DC964629F3AB9B5E345FE14AAF6C9512",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271878/;jsessionid=D2F50556A8B4D497BA5754F4E3422F36",
           "message": "resolved url mismatch"
@@ -10453,7 +10192,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476j",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271879/;jsessionid=F7190C478A61F1DADCFC08BA0BEF2CC6",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271879/;jsessionid=F3AD022C1608D6D7E99988FE4B5F2A7C",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271879/;jsessionid=E464276160382A68016CCAC20FF6E019",
           "message": "resolved url mismatch"
@@ -10463,7 +10202,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476k",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271880/;jsessionid=ABEB2442009579D77211CEE04875EE5D",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271880/;jsessionid=C57B0A0E8371A201F97D5B8346F86BDA",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271880/;jsessionid=D811919413C744B6C58144C0C69A81AF",
           "message": "resolved url mismatch"
@@ -10473,7 +10212,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18476l",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271881/;jsessionid=CFEFE92BB20AF1BB68140E7E1DF5B3BF",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271881/;jsessionid=C04E47E95E3724D4F5B5F354579B1AEE",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271881/;jsessionid=8B506DECE09725F1F13AD957C69F07B3",
           "message": "resolved url mismatch"
@@ -10483,9 +10222,19 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491a",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271837/;jsessionid=0200F4226E018B3B7ED35FD779C6C21B",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271837/;jsessionid=2F49EAFEE1689FCE4E2DD35368C4BA00",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271837/;jsessionid=86AF89F31CD09F2EE48A8DE292998B21",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18491b",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18491b",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271838/;jsessionid=3B45005E340FF95FDE78D19F06E717C7",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271838/;jsessionid=6826EB554F03AB9BB537C9CFF50ECEE1",
           "message": "resolved url mismatch"
         },
         {
@@ -10493,7 +10242,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491c",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271839/;jsessionid=135B14D217233D1FEB5C89BB11D0B63A",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271839/;jsessionid=EB8BDE375582E4999D777BD62D78C992",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271839/;jsessionid=893DEDA1E92FD77B29440301D856F1B3",
           "message": "resolved url mismatch"
@@ -10503,7 +10252,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491d",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271840/;jsessionid=67A173BAA2E87F8697C0379E80F256B5",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271840/;jsessionid=5C9091E0FF75F17B85BA923DF2D8DA75",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271840/;jsessionid=FEA10D9B5D0CDDA366A4B1C9E817AAE2",
           "message": "resolved url mismatch"
@@ -10513,7 +10262,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491e",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271846/;jsessionid=C7A17D0C577A96C4A5EC3A1D51CB36DF",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271846/;jsessionid=11884E0F90A087A78F8979EB0FB6BABF",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271846/;jsessionid=83171B6FACAB02C6ED2F6B04EA8DD4CC",
           "message": "resolved url mismatch"
@@ -10523,7 +10272,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491f",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271847/;jsessionid=7F05437A6F3047B2903C4E0A5D57D659",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271847/;jsessionid=A60335BF890074C38A7D101405759417",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271847/;jsessionid=DB0CC25ED6AEEAEA12C4D4B19B3EB8CA",
           "message": "resolved url mismatch"
@@ -10533,7 +10282,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491g",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271897/;jsessionid=9A8D8CA2675B9811A6C8ACE7A1CD4579",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271897/;jsessionid=CC66437EAD339B02F24BAF60FE62A75D",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271897/;jsessionid=974C450BD0CF27D488238A10AB46DBA6",
           "message": "resolved url mismatch"
@@ -10543,7 +10292,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491h",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271898/;jsessionid=FB0B713B834B5B47AA18D338DDE8F476",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271898/;jsessionid=ED31A9937EF526D2869DDD64DA2CE24E",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271898/;jsessionid=792AD17EF3F88B9AFAB49DBB0F8B35C3",
           "message": "resolved url mismatch"
@@ -10553,7 +10302,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491i",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271899/;jsessionid=EFB38BC445F7CA33BBCBFAB04AD585B2",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271899/;jsessionid=BE663F14B81BADC357F61AFD6A0D953F",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271899/;jsessionid=51BA18EA0EA5B2ABB11D429EED62E0D0",
           "message": "resolved url mismatch"
@@ -10563,7 +10312,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491j",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271900/;jsessionid=DBA5959B03F837C016770E1029A4FEE6",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271900/;jsessionid=0FF34D93FAE0AE3983767668DB3EB054",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271900/;jsessionid=858A5C845446B8E436FC810D11E32F58",
           "message": "resolved url mismatch"
@@ -10573,7 +10322,7 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18491k",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271901/;jsessionid=52D41F87844C346CA3037E01F2BD11AB",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271901/;jsessionid=A570009B7DA349F2268EC43F13A5186C",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271901/;jsessionid=01712D755D8023B2648A8FE34A962DB0",
           "message": "resolved url mismatch"
@@ -10583,9 +10332,219 @@
           "publisher": "SMPTE",
           "field": "href",
           "url": "https://doi.org/10.5594/j18506a",
-          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271903/;jsessionid=2C4CF4E3C617901EDD84CBD3BD143F81",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271903/;jsessionid=059ADBD4A722694E922CC259AB3BD2BC",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://ieeexplore.ieee.org/document/7271903/;jsessionid=2CF0789760C956B5A184C2D9BA2B2A27",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18506b",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18506b",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271904/;jsessionid=0683EA85D7DBF6AF9FB0459FE8F8F9B4",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271904/;jsessionid=EFD8BB254860DC008B7DBAA9E8242FDD",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18506c",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18506c",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271905/;jsessionid=E73D59CD1FFFFBE3C03D9AB972849201",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271905/;jsessionid=7FC080C4D909E0FD291BDAAA4EB5B8C5",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18506d",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18506d",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271906/;jsessionid=4E457C920238C0C751AED5E13023F217",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271906/;jsessionid=19D7D5ED21F73CF56AA64B4A2BD75D52",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18506e",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18506e",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271910/;jsessionid=07A03582AC6E4B43EF5232437AC45307",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271910/;jsessionid=5F538A19B367E4DE2795E3825CAA445D",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18506f",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18506f",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271911/;jsessionid=37F934641578D539B3BE58B145C32C95",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271911/;jsessionid=FD50A368B6A3CAD02470DAAA7C22F4D4",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18506g",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18506g",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271912/;jsessionid=34E0AFBB3BD980C1F3DB2260DC68AC49",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271912/;jsessionid=0E616DDA47C10AC2D5F85574920C8B3E",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18506h",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18506h",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271925/;jsessionid=65472E692C8F7C406189F71509BF4344",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271925/;jsessionid=9BD20D30CC733E022880DD290C584347",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18506i",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18506i",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271926/;jsessionid=28453E119092F90CB018B74E4FED839C",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271926/;jsessionid=4EB4543A074F2C3207842A8607B8EFD4",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18506j",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18506j",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271920/;jsessionid=2BB8AACC5549B241475B2D99ADEBA23E",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271920/;jsessionid=DB1481BD37E11F171084185E4A431789",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522a",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522a",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271951/;jsessionid=0FD84356CDCCDB74EE1B73F341870A69",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271951/;jsessionid=00067D8BC5390AF31072D22BF5444177",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522b",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522b",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271952/;jsessionid=C53180DB884CC7ECE37E38E517F1BDA1",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271952/;jsessionid=6878C9AC06822EC4D34D20A401A229AE",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522c",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522c",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271953/;jsessionid=C6686ABC0AF569F1747D16D923AD1443",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271953/;jsessionid=5F2D2D148D0C8C2C74BD8B0E10E3216B",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522d",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522d",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271954/;jsessionid=DF357C45D5F9A5CF03E9C1470F5AC68D",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271954/;jsessionid=BEC7C3DB1112ACD43EDACD42E785B5C2",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522e",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522e",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271955/;jsessionid=3491557658D8D313CB0353419AE18C44",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271955/;jsessionid=19274812BAE6ADE53319466855808BBC",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522f",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522f",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271959/;jsessionid=9FF6D3AFD061779A078CF21D58B847CD",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271959/;jsessionid=502B51E07946DE4C09068D27BCC42B58",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522g",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522g",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271960/;jsessionid=E74E3E7BE424DCFC149CDE6198284657",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271960/;jsessionid=FBE53AAF903AFB8F096893F7AF09F612",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522h",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522h",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271961/;jsessionid=0C81061453B7257F93D4EC0947B2D256",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271961/;jsessionid=B6D444EC55CD5371118E7BD75510A03F",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522i",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522i",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271962/;jsessionid=E4E1FD2491DE55FD2FD0F716A041B4D9",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271962/;jsessionid=671E83B54A6AE49C3D96ED566D5B65D4",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522j",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522j",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271976/;jsessionid=E30F3E97CA30C27E245C4C6FE2BF0970",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271976/;jsessionid=D34F9BD66156E30BE1128E3B53148DF6",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522k",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522k",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271977/;jsessionid=F1FD1CC79E1EDD77A54E3ACCAC31E9BB",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271977/;jsessionid=7E4DF6F99440ED370FFF0EF81EDBD929",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "10.5594-j18522l",
+          "publisher": "SMPTE",
+          "field": "href",
+          "url": "https://doi.org/10.5594/j18522l",
+          "resolvedUrl": "https://ieeexplore.ieee.org/document/7271971/;jsessionid=F74C68627217C4DC9B2CCB151E2FFA4C",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://ieeexplore.ieee.org/document/7271971/;jsessionid=6BD3975C9F5160E80104F1B58D724B93",
           "message": "resolved url mismatch"
         },
         {
@@ -10636,6 +10595,16 @@
           "resolvedUrl": "https://archive.color.org/specification/ICC1-2010_Cumulative_Errata_List_2019-05-29.pdf",
           "resolvedField": "resolvedHref",
           "expectedResolved": "https://www.color.org/specification/ICC1-2010_Cumulative_Errata_List_2019-05-29.pdf",
+          "message": "resolved url mismatch"
+        },
+        {
+          "docId": "ISDCF.DCNC",
+          "publisher": "ISDCF",
+          "field": "href",
+          "url": "http://isdcf.com/dcnc",
+          "resolvedUrl": "https://www.isdcf.com/dcnc/",
+          "resolvedField": "resolvedHref",
+          "expectedResolved": "https://registry-page.isdcf.com/",
           "message": "resolved url mismatch"
         },
         {
@@ -12036,7 +12005,7 @@
           "docId": "10.5594-J18229",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309479/;jsessionid=E763E978FAADBABB826284815D97CB11",
+          "actual": "https://ieeexplore.ieee.org/document/7309479/;jsessionid=B0B21C003DC86857DE4AF5DE5A74FB39",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12044,7 +12013,7 @@
           "docId": "10.5594-J18229C1",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309476/;jsessionid=D03C44E5AA2F2F9566B2E26A14060594",
+          "actual": "https://ieeexplore.ieee.org/document/7309476/;jsessionid=FEC11406C1B377D12816BF9AAFFCF6BA",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12052,7 +12021,7 @@
           "docId": "10.5594-J18229IIA",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309477/;jsessionid=2499EE37314923F41E7B6B795B367603",
+          "actual": "https://ieeexplore.ieee.org/document/7309477/;jsessionid=35CDB2C06C1BBC50EB26A3801159CB0C",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12060,7 +12029,7 @@
           "docId": "10.5594-J18229IVIA",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309478/;jsessionid=B8232372C690003E7A6C3FF5942EA64D",
+          "actual": "https://ieeexplore.ieee.org/document/7309478/;jsessionid=E2CB1C6FFFA1FF976FD1D5FB6F066013",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12068,7 +12037,7 @@
           "docId": "10.5594-J18230",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309480/;jsessionid=E3E08327301D2CD2A56D9DA67127DD2A",
+          "actual": "https://ieeexplore.ieee.org/document/7309480/;jsessionid=7CC45FEAFD3FF522DA1BC5411562EB47",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12076,7 +12045,7 @@
           "docId": "10.5594-J18231",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309481/;jsessionid=40693E0E43C2AC972E2F26BDEB8C018A",
+          "actual": "https://ieeexplore.ieee.org/document/7309481/;jsessionid=CC80FFF10BB96E7B222D8454809ABB9F",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12084,7 +12053,7 @@
           "docId": "10.5594-J18232",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309482/;jsessionid=39BBC0BC7975DB49BC00EC03B0D108EB",
+          "actual": "https://ieeexplore.ieee.org/document/7309482/;jsessionid=EC6639D5952259CE85C5B534CE6848C2",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12092,7 +12061,7 @@
           "docId": "10.5594-J18233",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309483/;jsessionid=0FA92A5684F7F5E682E8001C2F7E1E22",
+          "actual": "https://ieeexplore.ieee.org/document/7309483/;jsessionid=F6E44303C7B948797C811D888D7D88D5",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12100,7 +12069,7 @@
           "docId": "10.5594-J18234",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309484/;jsessionid=5FC4CDAEBEDD3C73123D8963C6838A04",
+          "actual": "https://ieeexplore.ieee.org/document/7309484/;jsessionid=1335A9F5A8F498DC9ABA21B8FC1C3B65",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12108,7 +12077,7 @@
           "docId": "10.5594-J18235",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309485/;jsessionid=46F8376EE139B88AFD5CB5A394005837",
+          "actual": "https://ieeexplore.ieee.org/document/7309485/;jsessionid=0579CCBBAE3760187086A21584C6E2B8",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12116,7 +12085,7 @@
           "docId": "10.5594-J18236",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309486/;jsessionid=563B82F7B22B2FB812B2F12D45D6B48D",
+          "actual": "https://ieeexplore.ieee.org/document/7309486/;jsessionid=4CAF63AA2637015C36FC2A8D920DED13",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12124,7 +12093,7 @@
           "docId": "10.5594-J18237",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309487/;jsessionid=5D76E6B3DF2842181C197A200556588B",
+          "actual": "https://ieeexplore.ieee.org/document/7309487/;jsessionid=FD46689DF5ACD71A1D1684CFC3C51045",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12132,7 +12101,7 @@
           "docId": "10.5594-J18238",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309488/;jsessionid=B5BD20BCE199F3C6A82E8BD0B4BC8260",
+          "actual": "https://ieeexplore.ieee.org/document/7309488/;jsessionid=C515FC5623F74F595F74DE0BDF6A0241",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12140,7 +12109,7 @@
           "docId": "10.5594-J18239",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309489/;jsessionid=731023FEB4DF4E756F12A0831166B574",
+          "actual": "https://ieeexplore.ieee.org/document/7309489/;jsessionid=D155A808C66B7597FA9FB3AD841A3291",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12148,7 +12117,7 @@
           "docId": "10.5594-J18240",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309490/;jsessionid=33254383F99BB22D17E08A284BFDEB8E",
+          "actual": "https://ieeexplore.ieee.org/document/7309490/;jsessionid=3EFF40D0027CA06AC0342E917FCD452D",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12156,7 +12125,7 @@
           "docId": "10.5594-J18241",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309491/;jsessionid=A54FCA7E483D61520F8968800D80397B",
+          "actual": "https://ieeexplore.ieee.org/document/7309491/;jsessionid=73AE3C59A6E632F45603D2743DBA4196",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12164,7 +12133,7 @@
           "docId": "10.5594-J18242",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309492/;jsessionid=32D16C8645219CF3FA4BF0A725295578",
+          "actual": "https://ieeexplore.ieee.org/document/7309492/;jsessionid=583B4F75A834CE5D7FAA823554C661FE",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12172,7 +12141,7 @@
           "docId": "10.5594-J18243",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309493/;jsessionid=804A261DEF9B6F10F5B5EB3D88116878",
+          "actual": "https://ieeexplore.ieee.org/document/7309493/;jsessionid=764DC597BCB220AFEA0D4AD1CD246D37",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12180,7 +12149,7 @@
           "docId": "10.5594-J18244",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309494/;jsessionid=FBE62B232934AA057D117778EB532CA4",
+          "actual": "https://ieeexplore.ieee.org/document/7309494/;jsessionid=3B29BCDECFFF63AD2A82CAEBA4232C52",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12188,7 +12157,7 @@
           "docId": "10.5594-J18245",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309495/;jsessionid=70E3F495AB0CEAE2ECD85D04F04C3C95",
+          "actual": "https://ieeexplore.ieee.org/document/7309495/;jsessionid=5053D2F9A1CD98A6C9361D15E948097F",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12196,7 +12165,7 @@
           "docId": "10.5594-J18246",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309496/;jsessionid=FEB71723EE411D76D57864D4DD88F3CD",
+          "actual": "https://ieeexplore.ieee.org/document/7309496/;jsessionid=8F72AB159F2DA730E1B331E4CEC85F3F",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12204,7 +12173,7 @@
           "docId": "10.5594-J18247",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309497/;jsessionid=D63DFE14DD86EB5C945570DA50AA4298",
+          "actual": "https://ieeexplore.ieee.org/document/7309497/;jsessionid=E4BEAA246EB5B8C1BD04DF001BA9A938",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12212,7 +12181,7 @@
           "docId": "10.5594-J18248",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309498/;jsessionid=7922082DC2081EA6A3A42786F8566407",
+          "actual": "https://ieeexplore.ieee.org/document/7309498/;jsessionid=8B8BE969AA83540E01C9C41FCDB23F6E",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12220,7 +12189,7 @@
           "docId": "10.5594-J18249",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309500/;jsessionid=B607C9D2FFD8FEDFB35218A692B23B82",
+          "actual": "https://ieeexplore.ieee.org/document/7309500/;jsessionid=AACAD73E27D401B7BF29FBDBBCF54D4E",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12228,7 +12197,7 @@
           "docId": "10.5594-J18250",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309501/;jsessionid=1FDC832E1B024CBE1D774798DA3682DE",
+          "actual": "https://ieeexplore.ieee.org/document/7309501/;jsessionid=73662BB0AA7F139131E1FCD442BACEC0",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12236,7 +12205,7 @@
           "docId": "10.5594-J18251",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309502/;jsessionid=1C661620F39F8BD48BAEA08D3FEC139D",
+          "actual": "https://ieeexplore.ieee.org/document/7309502/;jsessionid=A6AE216D7189FDB772BDF97385D65195",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12244,7 +12213,7 @@
           "docId": "10.5594-J18252",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309503/;jsessionid=04A1AD99E2277731A032905DB60D97B7",
+          "actual": "https://ieeexplore.ieee.org/document/7309503/;jsessionid=7120BD7EBCA390C7ABDE5DB87D37C48B",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12252,7 +12221,7 @@
           "docId": "10.5594-J18253",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309504/;jsessionid=5431040C11E62EC49B8758B2AF736911",
+          "actual": "https://ieeexplore.ieee.org/document/7309504/;jsessionid=1511EF72A6C093EDDCCAA756BEA8921A",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12260,7 +12229,7 @@
           "docId": "10.5594-J18254",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309505/;jsessionid=B71E88E4663C5E540951D4E8316EF185",
+          "actual": "https://ieeexplore.ieee.org/document/7309505/;jsessionid=4768040F181579923FE1CF328812BEE3",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12268,7 +12237,7 @@
           "docId": "10.5594-J18255",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309499/;jsessionid=41A43AF32937775E8E02E16F1576B41F",
+          "actual": "https://ieeexplore.ieee.org/document/7309499/;jsessionid=50999A4C4728B2C9588EE4F5555F2EF1",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12276,7 +12245,7 @@
           "docId": "10.5594-J18256",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309506/;jsessionid=999FB68B12A4EC24D675CC99372D9B96",
+          "actual": "https://ieeexplore.ieee.org/document/7309506/;jsessionid=22430D5B3A864CC5355D66A0D342613B",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12284,7 +12253,7 @@
           "docId": "10.5594-J18257",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309507/;jsessionid=CBA1D7AD3D91C6F1D37F1DCA66C99293",
+          "actual": "https://ieeexplore.ieee.org/document/7309507/;jsessionid=9F51A98D98F0DE13A73350EB78516ECB",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12292,7 +12261,7 @@
           "docId": "10.5594-J18258",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309508/;jsessionid=66B819507F1D96D475D0C669517A9040",
+          "actual": "https://ieeexplore.ieee.org/document/7309508/;jsessionid=516295C4AE03B106BCB682093119AA22",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12300,7 +12269,7 @@
           "docId": "10.5594-J18259",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309509/;jsessionid=278581F4B1701F4BE0CEB4DD70A71419",
+          "actual": "https://ieeexplore.ieee.org/document/7309509/;jsessionid=555D1373D63DF90CC5751C3223316D75",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12308,7 +12277,7 @@
           "docId": "10.5594-J18260",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309510/;jsessionid=837C6E4540D74D7EEA50C60E6A059555",
+          "actual": "https://ieeexplore.ieee.org/document/7309510/;jsessionid=C61E8CE77347E82302D751AAF472EB2B",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12316,7 +12285,7 @@
           "docId": "10.5594-J18261",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309511/;jsessionid=795DDB3939F6FF1D58938617295540DA",
+          "actual": "https://ieeexplore.ieee.org/document/7309511/;jsessionid=F6F16AD3171B087E2846A3E0A7F38BF7",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12324,7 +12293,7 @@
           "docId": "10.5594-J18262",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309512/;jsessionid=383698E1B2CA08AC13CBAC408D6C265C",
+          "actual": "https://ieeexplore.ieee.org/document/7309512/;jsessionid=7C9A3DC246EEBCA731692D255F1AE065",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12332,7 +12301,7 @@
           "docId": "10.5594-J18263",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309513/;jsessionid=F71E46864EBE88FC5420EFF59352EC29",
+          "actual": "https://ieeexplore.ieee.org/document/7309513/;jsessionid=89D4BCBB67BB6D44E7412944EC561D4B",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12340,7 +12309,7 @@
           "docId": "10.5594-J18264",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309514/;jsessionid=5655BC33613B7411F07ABF4120EFCCC8",
+          "actual": "https://ieeexplore.ieee.org/document/7309514/;jsessionid=88F6D2409BAAEF0557E8C18E6ADB47E8",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12348,7 +12317,7 @@
           "docId": "10.5594-J18265",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309515/;jsessionid=0AD8634AD4F6DC1FC32868EACF8A01A3",
+          "actual": "https://ieeexplore.ieee.org/document/7309515/;jsessionid=11C799DE569234C0E84943C69FE79B3F",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12356,7 +12325,7 @@
           "docId": "10.5594-J18266",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309516/;jsessionid=FDA79D694BEF1DE36AFF7EBA4104C850",
+          "actual": "https://ieeexplore.ieee.org/document/7309516/;jsessionid=2DD96AE3D4591C0591EA339461CB8E43",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12364,7 +12333,7 @@
           "docId": "10.5594-J18267",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309517/;jsessionid=CEA5922AC819C456FF3895F93E7526E0",
+          "actual": "https://ieeexplore.ieee.org/document/7309517/;jsessionid=F6DDA605B9702E5909370268B8161DFD",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12372,7 +12341,7 @@
           "docId": "10.5594-J18268",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7309518/;jsessionid=E4F06A14560E72370EC9F6AE00908083",
+          "actual": "https://ieeexplore.ieee.org/document/7309518/;jsessionid=531AB33FDD6C0EBD058EC5A165E77A2A",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12380,7 +12349,7 @@
           "docId": "10.5594-j18476a",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271854/;jsessionid=AB7DB76BB1912241B57052E0EF8FB6EE",
+          "actual": "https://ieeexplore.ieee.org/document/7271854/;jsessionid=15F2B21F9D90DF4692266BDC9F2C549B",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12388,7 +12357,7 @@
           "docId": "10.5594-j18476b",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271855/;jsessionid=E0B71D247BD379C0952277DC9F536119",
+          "actual": "https://ieeexplore.ieee.org/document/7271855/;jsessionid=74F6B47B43E8D4904E8C2E16FABFEDA7",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12396,7 +12365,7 @@
           "docId": "10.5594-j18476c",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271856/;jsessionid=1DE8B75096D57F298570458714A71503",
+          "actual": "https://ieeexplore.ieee.org/document/7271856/;jsessionid=C74624140A1552AFE5145C8C27A5886B",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12404,7 +12373,7 @@
           "docId": "10.5594-j18476d",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271857/;jsessionid=78FD6460F503E9F0459EBE68246365D5",
+          "actual": "https://ieeexplore.ieee.org/document/7271857/;jsessionid=6E3449346CD4DB4DF9C47F94DFA60650",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12412,7 +12381,7 @@
           "docId": "10.5594-j18476e",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271858/;jsessionid=ADDFBBDB19198D7D61292840BAD5C2CA",
+          "actual": "https://ieeexplore.ieee.org/document/7271858/;jsessionid=29087168940BF59686F11CADAD6494B6",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12420,7 +12389,7 @@
           "docId": "10.5594-j18476f",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271859/;jsessionid=515E4BA91E6DCD9BFC7EC6D9847A9487",
+          "actual": "https://ieeexplore.ieee.org/document/7271859/;jsessionid=4A4584BD0C45DAB1FB9687BF9FCF5F6A",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12428,7 +12397,7 @@
           "docId": "10.5594-j18476g",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271866/;jsessionid=C3B36E82E0C9C8B3861CB34D354BDFD2",
+          "actual": "https://ieeexplore.ieee.org/document/7271866/;jsessionid=9B70C780EB827AFCFFAAEB19DFE2EB1A",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12436,7 +12405,7 @@
           "docId": "10.5594-j18476h",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271867/;jsessionid=0EA4C4535EE8D643E21861136467FD6C",
+          "actual": "https://ieeexplore.ieee.org/document/7271867/;jsessionid=E92A6A87E9573B0693EFAF3FD0A1A368",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12444,7 +12413,7 @@
           "docId": "10.5594-j18476i",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271878/;jsessionid=4E597C3A136D4707817BC8C91A847802",
+          "actual": "https://ieeexplore.ieee.org/document/7271878/;jsessionid=DC964629F3AB9B5E345FE14AAF6C9512",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12452,7 +12421,7 @@
           "docId": "10.5594-j18476j",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271879/;jsessionid=F7190C478A61F1DADCFC08BA0BEF2CC6",
+          "actual": "https://ieeexplore.ieee.org/document/7271879/;jsessionid=F3AD022C1608D6D7E99988FE4B5F2A7C",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12460,7 +12429,7 @@
           "docId": "10.5594-j18476k",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271880/;jsessionid=ABEB2442009579D77211CEE04875EE5D",
+          "actual": "https://ieeexplore.ieee.org/document/7271880/;jsessionid=C57B0A0E8371A201F97D5B8346F86BDA",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12468,7 +12437,7 @@
           "docId": "10.5594-j18476l",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271881/;jsessionid=CFEFE92BB20AF1BB68140E7E1DF5B3BF",
+          "actual": "https://ieeexplore.ieee.org/document/7271881/;jsessionid=C04E47E95E3724D4F5B5F354579B1AEE",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12476,7 +12445,7 @@
           "docId": "10.5594-j18491a",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271837/;jsessionid=0200F4226E018B3B7ED35FD779C6C21B",
+          "actual": "https://ieeexplore.ieee.org/document/7271837/;jsessionid=2F49EAFEE1689FCE4E2DD35368C4BA00",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12484,7 +12453,7 @@
           "docId": "10.5594-j18491b",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271838/;jsessionid=6826EB554F03AB9BB537C9CFF50ECEE1",
+          "actual": "https://ieeexplore.ieee.org/document/7271838/;jsessionid=3B45005E340FF95FDE78D19F06E717C7",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12492,7 +12461,7 @@
           "docId": "10.5594-j18491c",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271839/;jsessionid=135B14D217233D1FEB5C89BB11D0B63A",
+          "actual": "https://ieeexplore.ieee.org/document/7271839/;jsessionid=EB8BDE375582E4999D777BD62D78C992",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12500,7 +12469,7 @@
           "docId": "10.5594-j18491d",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271840/;jsessionid=67A173BAA2E87F8697C0379E80F256B5",
+          "actual": "https://ieeexplore.ieee.org/document/7271840/;jsessionid=5C9091E0FF75F17B85BA923DF2D8DA75",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12508,7 +12477,7 @@
           "docId": "10.5594-j18491e",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271846/;jsessionid=C7A17D0C577A96C4A5EC3A1D51CB36DF",
+          "actual": "https://ieeexplore.ieee.org/document/7271846/;jsessionid=11884E0F90A087A78F8979EB0FB6BABF",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12516,7 +12485,7 @@
           "docId": "10.5594-j18491f",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271847/;jsessionid=7F05437A6F3047B2903C4E0A5D57D659",
+          "actual": "https://ieeexplore.ieee.org/document/7271847/;jsessionid=A60335BF890074C38A7D101405759417",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12524,7 +12493,7 @@
           "docId": "10.5594-j18491g",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271897/;jsessionid=9A8D8CA2675B9811A6C8ACE7A1CD4579",
+          "actual": "https://ieeexplore.ieee.org/document/7271897/;jsessionid=CC66437EAD339B02F24BAF60FE62A75D",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12532,7 +12501,7 @@
           "docId": "10.5594-j18491h",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271898/;jsessionid=FB0B713B834B5B47AA18D338DDE8F476",
+          "actual": "https://ieeexplore.ieee.org/document/7271898/;jsessionid=ED31A9937EF526D2869DDD64DA2CE24E",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12540,7 +12509,7 @@
           "docId": "10.5594-j18491i",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271899/;jsessionid=EFB38BC445F7CA33BBCBFAB04AD585B2",
+          "actual": "https://ieeexplore.ieee.org/document/7271899/;jsessionid=BE663F14B81BADC357F61AFD6A0D953F",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12548,7 +12517,7 @@
           "docId": "10.5594-j18491j",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271900/;jsessionid=DBA5959B03F837C016770E1029A4FEE6",
+          "actual": "https://ieeexplore.ieee.org/document/7271900/;jsessionid=0FF34D93FAE0AE3983767668DB3EB054",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12556,7 +12525,7 @@
           "docId": "10.5594-j18491k",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271901/;jsessionid=52D41F87844C346CA3037E01F2BD11AB",
+          "actual": "https://ieeexplore.ieee.org/document/7271901/;jsessionid=A570009B7DA349F2268EC43F13A5186C",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12564,7 +12533,7 @@
           "docId": "10.5594-j18506a",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271903/;jsessionid=2C4CF4E3C617901EDD84CBD3BD143F81",
+          "actual": "https://ieeexplore.ieee.org/document/7271903/;jsessionid=059ADBD4A722694E922CC259AB3BD2BC",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12572,7 +12541,7 @@
           "docId": "10.5594-j18506b",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271904/;jsessionid=EFD8BB254860DC008B7DBAA9E8242FDD",
+          "actual": "https://ieeexplore.ieee.org/document/7271904/;jsessionid=0683EA85D7DBF6AF9FB0459FE8F8F9B4",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12580,7 +12549,7 @@
           "docId": "10.5594-j18506c",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271905/;jsessionid=7FC080C4D909E0FD291BDAAA4EB5B8C5",
+          "actual": "https://ieeexplore.ieee.org/document/7271905/;jsessionid=E73D59CD1FFFFBE3C03D9AB972849201",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12588,7 +12557,7 @@
           "docId": "10.5594-j18506d",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271906/;jsessionid=19D7D5ED21F73CF56AA64B4A2BD75D52",
+          "actual": "https://ieeexplore.ieee.org/document/7271906/;jsessionid=4E457C920238C0C751AED5E13023F217",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12596,7 +12565,7 @@
           "docId": "10.5594-j18506e",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271910/;jsessionid=5F538A19B367E4DE2795E3825CAA445D",
+          "actual": "https://ieeexplore.ieee.org/document/7271910/;jsessionid=07A03582AC6E4B43EF5232437AC45307",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12604,7 +12573,7 @@
           "docId": "10.5594-j18506f",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271911/;jsessionid=FD50A368B6A3CAD02470DAAA7C22F4D4",
+          "actual": "https://ieeexplore.ieee.org/document/7271911/;jsessionid=37F934641578D539B3BE58B145C32C95",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12612,7 +12581,7 @@
           "docId": "10.5594-j18506g",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271912/;jsessionid=0E616DDA47C10AC2D5F85574920C8B3E",
+          "actual": "https://ieeexplore.ieee.org/document/7271912/;jsessionid=34E0AFBB3BD980C1F3DB2260DC68AC49",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12620,7 +12589,7 @@
           "docId": "10.5594-j18506h",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271925/;jsessionid=9BD20D30CC733E022880DD290C584347",
+          "actual": "https://ieeexplore.ieee.org/document/7271925/;jsessionid=65472E692C8F7C406189F71509BF4344",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12628,7 +12597,7 @@
           "docId": "10.5594-j18506i",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271926/;jsessionid=4EB4543A074F2C3207842A8607B8EFD4",
+          "actual": "https://ieeexplore.ieee.org/document/7271926/;jsessionid=28453E119092F90CB018B74E4FED839C",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12636,7 +12605,7 @@
           "docId": "10.5594-j18506j",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271920/;jsessionid=DB1481BD37E11F171084185E4A431789",
+          "actual": "https://ieeexplore.ieee.org/document/7271920/;jsessionid=2BB8AACC5549B241475B2D99ADEBA23E",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12644,7 +12613,7 @@
           "docId": "10.5594-j18522a",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271951/;jsessionid=00067D8BC5390AF31072D22BF5444177",
+          "actual": "https://ieeexplore.ieee.org/document/7271951/;jsessionid=0FD84356CDCCDB74EE1B73F341870A69",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12652,7 +12621,7 @@
           "docId": "10.5594-j18522b",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271952/;jsessionid=6878C9AC06822EC4D34D20A401A229AE",
+          "actual": "https://ieeexplore.ieee.org/document/7271952/;jsessionid=C53180DB884CC7ECE37E38E517F1BDA1",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12660,7 +12629,7 @@
           "docId": "10.5594-j18522c",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271953/;jsessionid=5F2D2D148D0C8C2C74BD8B0E10E3216B",
+          "actual": "https://ieeexplore.ieee.org/document/7271953/;jsessionid=C6686ABC0AF569F1747D16D923AD1443",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12668,7 +12637,7 @@
           "docId": "10.5594-j18522d",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271954/;jsessionid=BEC7C3DB1112ACD43EDACD42E785B5C2",
+          "actual": "https://ieeexplore.ieee.org/document/7271954/;jsessionid=DF357C45D5F9A5CF03E9C1470F5AC68D",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12676,7 +12645,7 @@
           "docId": "10.5594-j18522e",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271955/;jsessionid=19274812BAE6ADE53319466855808BBC",
+          "actual": "https://ieeexplore.ieee.org/document/7271955/;jsessionid=3491557658D8D313CB0353419AE18C44",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12684,7 +12653,7 @@
           "docId": "10.5594-j18522f",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271959/;jsessionid=502B51E07946DE4C09068D27BCC42B58",
+          "actual": "https://ieeexplore.ieee.org/document/7271959/;jsessionid=9FF6D3AFD061779A078CF21D58B847CD",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12692,7 +12661,7 @@
           "docId": "10.5594-j18522g",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271960/;jsessionid=FBE53AAF903AFB8F096893F7AF09F612",
+          "actual": "https://ieeexplore.ieee.org/document/7271960/;jsessionid=E74E3E7BE424DCFC149CDE6198284657",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12700,7 +12669,7 @@
           "docId": "10.5594-j18522h",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271961/;jsessionid=B6D444EC55CD5371118E7BD75510A03F",
+          "actual": "https://ieeexplore.ieee.org/document/7271961/;jsessionid=0C81061453B7257F93D4EC0947B2D256",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12708,7 +12677,7 @@
           "docId": "10.5594-j18522i",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271962/;jsessionid=671E83B54A6AE49C3D96ED566D5B65D4",
+          "actual": "https://ieeexplore.ieee.org/document/7271962/;jsessionid=E4E1FD2491DE55FD2FD0F716A041B4D9",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12716,7 +12685,7 @@
           "docId": "10.5594-j18522j",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271976/;jsessionid=D34F9BD66156E30BE1128E3B53148DF6",
+          "actual": "https://ieeexplore.ieee.org/document/7271976/;jsessionid=E30F3E97CA30C27E245C4C6FE2BF0970",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12724,7 +12693,7 @@
           "docId": "10.5594-j18522k",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271977/;jsessionid=7E4DF6F99440ED370FFF0EF81EDBD929",
+          "actual": "https://ieeexplore.ieee.org/document/7271977/;jsessionid=F1FD1CC79E1EDD77A54E3ACCAC31E9BB",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },
@@ -12732,7 +12701,7 @@
           "docId": "10.5594-j18522l",
           "publisher": "SMPTE",
           "field": "resolvedHref",
-          "actual": "https://ieeexplore.ieee.org/document/7271971/;jsessionid=6BD3975C9F5160E80104F1B58D724B93",
+          "actual": "https://ieeexplore.ieee.org/document/7271971/;jsessionid=F74C68627217C4DC9B2CCB151E2FFA4C",
           "expectedPrefix": "https://journal.smpte.org/periodicals/",
           "message": "Expected resolvedHref to start with https://journal.smpte.org/periodicals/"
         },

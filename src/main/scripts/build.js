@@ -251,6 +251,7 @@ const keying = require('../lib/keying');
 const { loadAllDocs } = require('../lib/registry');
 const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
 const { assembleSlices } = require('./build.assemble-registry');
+const { emitSearchApi } = require('./build.search-api');
 const buildStats = require('./utils/buildStats');
 const { lineageKeyFromDoc, lineageKeyFromDocId } = keying;
 
@@ -477,6 +478,7 @@ async function emitPortalsOnce() {
     'assets',
     'schemas',
     'api',
+    'ai',
     'search',
     'robots.txt',
     'sitemap.xml',
@@ -757,6 +759,13 @@ async function emitDocumentsApiOnce() {
   }
 
   console.log(`[api] Wrote per-doc API JSON (ok=${ok}, failed=${failed})`);
+
+  // Compact, chat-fetchable search shards (current editions) under /api/search/.
+  try {
+    emitSearchApi(docs);
+  } catch (e) {
+    console.warn('[api] Failed to write /api/search/:', e && e.message ? e.message : e);
+  }
 }
 
 // Safe write wrapper to strictly prevent legacy groups.json writes.
@@ -3360,6 +3369,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         addUrl('/docs/', 'daily', '0.8');
         addUrl('/reftree/', 'daily', '0.8');
         addUrl('/api/', 'weekly', '0.7');
+        addUrl('/ai/', 'monthly', '0.6');
         addUrl('/changelog/', 'monthly', '0.5');
 
         // Per-document detail pages at /docs/{docId}/
@@ -3586,6 +3596,50 @@ void (async () => {
   await fs.mkdir(path.join(BUILD_PATH, 'api'), { recursive: true });
   await writeFileSafe(path.join(BUILD_PATH, 'api', 'index.html'), apiHtml, 'utf8');
   console.log('[build] Wrote build/api/index.html');
+
+  // --- Emit "Use MSRBot with AI" page at /ai/index.html
+  // The copy-paste prompt is read from research/prompt.md at build time (its
+  // ```text block), so the site can never drift from the repo's copy.
+  try {
+    const tplAi = hb.compile(await fs.readFile(path.join('src','main','templates','ai.hbs'), 'utf8'));
+    const promptMd = await fs.readFile(path.join('research','prompt.md'), 'utf8');
+    const promptMatch = promptMd.match(/```text\n([\s\S]*?)```/);
+    if (!promptMatch) throw new Error('research/prompt.md has no ```text block');
+    const aiCanonical = new URL('/ai/', siteConfig.canonicalBase).href;
+    const aiDescription = 'Use MSRBot.io as the source of truth in Claude, ChatGPT and other AI assistants: cited, current, no guessing.';
+    const aiHtml = tplAi({
+      templateName: 'ai',
+      listTitle: 'Use MSRBot with AI',
+      site_version: (await execFile('git', ['rev-parse','HEAD'])).stdout.trim(),
+      date: new Date().toISOString(),
+      siteName: siteConfig.siteName,
+      author: siteConfig.author,
+      authorUrl: siteConfig.authorUrl,
+      copyright: siteConfig.copyright,
+      copyrightHolder: siteConfig.copyrightHolder,
+      copyrightYear: siteConfig.copyrightYear,
+      license: siteConfig.license,
+      licenseUrl: siteConfig.licenseUrl,
+      locale: siteConfig.locale,
+      siteDescription: aiDescription,
+      siteTitle: `Use MSRBot with AI — ${siteConfig.siteName}`,
+      canonicalBase: siteConfig.canonicalBase,
+      canonicalUrl: aiCanonical,
+      ogTitle: `Use MSRBot with AI — ${siteConfig.siteName}`,
+      ogDescription: aiDescription,
+      ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+      ogImageAlt: siteConfig.ogImageAlt,
+      assetPrefix: '../',
+      publisherUrls: siteConfig.publisherUrls,
+      skillZipUrl: 'https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip',
+      promptText: promptMatch[1].trimEnd(),
+    });
+    await fs.mkdir(path.join(BUILD_PATH, 'ai'), { recursive: true });
+    await writeFileSafe(path.join(BUILD_PATH, 'ai', 'index.html'), aiHtml, 'utf8');
+    console.log('[build] Wrote build/ai/index.html');
+  } catch (e) {
+    console.warn('[build] AI page emit failed:', e && e.message ? e.message : e);
+  }
 
   // --- Emit Changelog page at /changelog/index.html
   // Parse CHANGELOG.md into structured release objects, then render as cards.

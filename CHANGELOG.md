@@ -12,7 +12,86 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **The skill carries its own version (`msrbot-research` 1.5.1).** `SKILL.md` frontmatter gains `metadata.version`, the Agent Skills spec's place for it. The claude.ai zip contains only the skill folder, not `plugin.json`, so zip installs previously had no version of ours at all; claude.ai's "V1/V2" labels are its own upload counter. A new `npm test` check (`researchSkill.test.js`) fails if `metadata.version` and `research/.claude-plugin/plugin.json` differ, and also checks the frontmatter `name` and description length. AGENTS.md and `research/README.md` say to bump both.
+
 ### Fixed
+
+- **Undated `Publisher.NNNN` references link to the right doc ([#2067](https://github.com/PrZ3r/MSRBot.io/issues/2067)).** The MRI read the document number in refs like `ISO.8601` as a year and stripped it, leaving the base `ISO`. As a result, 23 ISO refs (including ISO 3166 and ISO 8601) resolved to the newest ISO doc, ISO/CIE 11664-5:2024, and `IEC.1179` resolved to IEC 60958. The trailing number is no longer stripped when only a publisher prefix would remain. `mriFlush` now also drops a pointer it set itself once its presence check stops confirming it; extractor-set pointers are kept as before. 8 of the refs now resolve to their own registry editions (e.g. `ISO.8601` → `ISO.8601.2004`), and 16 become `known-publisher-no-doc`. A new `npm test` check, `referencing.datedTail.test.js`, covers this.
+- **`msrbot.py search` no longer reads a stale search index (skill 1.5.2).** The helper cached the search files for 6 hours, so a copy from before the two-level format change (apiVersion 1 → 2) crashed `search` with `KeyError: 'index'`. The small `/api/search/` files are no longer cached, and an unsupported `apiVersion` is refused with a clear error.
+- **Topic searches cover every document type and publisher (skill 1.5.2).** Internal claude.ai runs copied the skill's example scope ("SMPTE standards, RPs and EGs, plus ISDCF"). They missed **SMPTE RDD 52:2020** for a global DCP distribution question, and ISO 26432-2 for the LFE question. The skill now says to scope by publisher: search *all* of a publisher's document types (RDDs, overview documents and specifications included; papers only when asked), across every publisher in the domain (D-Cinema: SMPTE, ISO, DCI, ISDCF). New rules:
+  - read **every** shard of every in-scope type and never pick shards by number range (a rerun skipped ST 1–402 as "unlikely"); say when journal articles and conference papers weren't searched;
+  - don't characterize document types, approval processes or how binding a document is from memory (a run claimed RDDs skip due process, which is false);
+  - don't claim more coverage than the search showed;
+  - when a fetch tool's completeness answer is unclear, re-fetch asking only for count and last id.
+
+  `prompt.md` mirrors these rules.
+## [v2.6.0] - 2026-10-01
+
+### Added
+
+- **`msrbot-research` handles topic questions (skill 1.5.0).** A colleague's claude.ai test asked for D-Cinema standards on the LFE/subwoofer frequency range. Every fact in the answer was verified, but the *list* came from memory and missed SMPTE EG 432-2:2006. The skill now:
+  - searches the `/api/search/` shards before recalling;
+  - asks the fetch tool for complete lists and matches them itself;
+  - fetches each candidate and follows its references one hop;
+  - answers **PARTIAL**, naming the gaps and any recalled candidates, unless every in-scope shard was read whole.
+
+  Search shards are now the preferred way to find a docId: a number with no row in a shard read whole is a true NOT FOUND, so "SMPTE ST 2067-99" no longer depends on the truncated `suites.json`. A truncated file that stops near the subject is treated as a lead. `scripts/msrbot.py` gains `search` (titles and keywords). `prompt.md`, `references/endpoints.md`, the `research/README.md` checklist and the `/ai` page are updated, with a new fifth test question (the LFE topic).
+
+- **`/api/search/`: a compact search index sized for AI fetch tools** (first piece of #2036). There are three levels, and every file is ≤ ~25 KB so chat fetch tools read it whole:
+  - `/api/search/index.json` (~18 KB) lists publishers, docTypes and counts.
+  - `/api/search/{publisher}.json` lists that publisher's shards, with each shard's `first`/`last` docId range.
+  - `/api/search/{publisher}/{docType}[-{n}].json` shards hold `{ id, label, title, keywords, status, date }` rows, natural-sorted by docId.
+
+  Rows are **current editions**. Superseded editions are excluded when their replacement is in MSRBot, and kept (marked `superseded`) when it isn't, as for 13 older RFC/ITU/IEEE/ETSI documents, so every document MSRBot holds has a row. It totals 330 shards and 26,084 rows; SMPTE standards span 6 shards. The files are byte-stable (no build timestamps), validated by `/api/schemas/search.schema.json` (`apiVersion` 2.0.0; 1.0.0 was a single-level index with ~50 KB shards, live briefly before release), and listed on the API Explorer page and in the Dev Tools menu. Motivation: a claude.ai test asked a topic question about the LFE channel, and the skill couldn't search titles because the full slices are 0.4–5 MB, so it missed SMPTE EG 432-2:2006 even though "LFE" is in its title and keywords. A later run found ~50 KB shards reported as cut off when an agent asked for verbatim matches, hence 25 KB.
+
+### Changed
+
+- **`research/…/scripts/msrbot.py` carries the PrZ3 copyright header**, like the repo's other scripts. Skill plugin version 1.4.1; the next release's `msrbot-research.zip` includes it.
+
+### Fixed
+
+- **`Build MSI + MRI (PR)` no longer fails on Dependabot PRs.** Dependabot branches live in this repo, so the workflow took the privileged path and tried to mint the PrZ3 Unit app token — but `pull_request` events from Dependabot read the separate Dependabot secret store, where `APP_ID`/`APP_PRIVATE_KEY` do not exist, so the job died on its first step. Dependabot now takes the same read-only drift-check path as fork PRs. The `SAME_REPO` gate is renamed `CAN_WRITE`, which is what it actually decides.
+
+## [v2.5.0] - 2026-09-28
+
+### Added
+
+- **"Use MSRBot with AI" page at [msrbot.io/ai/](https://msrbot.io/ai/).** It explains what the `msrbot-research` skill does and how to get it:
+  - claude.ai / Desktop, with a download button pointing at `releases/latest/download/msrbot-research.zip`;
+  - a whole Claude organization (Sync from GitHub);
+  - Claude Code;
+  - ChatGPT, Gemini and Copilot.
+
+  It also has the copy-paste prompt with a Copy button, and the four test questions. The prompt is read from `research/prompt.md` at build time, so the site can't drift from the repo. The page is linked from the home page's Explore row and the Dev Tools menu, listed in `sitemap.xml`, and `ai` is reserved as a portal slug.
+
+### Changed
+
+- **Release zip is attached automatically again.** Immutable releases are now off for this repo, so the `Attach research skill to release` workflow can run on `release: published`. It attaches `msrbot-research.zip` seconds after any release is published, with no manual step (this replaces v2.4.1's draft-then-run-workflow flow). It can still be run by hand with a tag, and it skips releases that are immutable (v2.3.0 through v2.4.1). AGENTS.md and `research/README.md` are updated.
+
+## [v2.4.1] - 2026-09-28
+
+### Fixed
+
+- **Release zip workflow works with immutable releases.** v2.4.0's attach step failed with "Cannot upload assets to an immutable release": the repo locks releases on publish, so a `release: published` trigger is always too late. The workflow is now **Publish release** (manual run with a tag). It attaches `msrbot-research.zip` to a **draft** release and then publishes it. v2.4.0 shipped without the zip and can't be amended; the next release carries it. AGENTS.md release hygiene and `research/README.md` document the draft-then-publish steps.
+
+## [v2.4.0] - 2026-09-28
+
+### Added
+
+- **`research/`: MSRBot research skill for AI assistants.** `msrbot-research` is an Agent Skill, packaged as a Claude Code plugin. It makes assistants answer media-standards questions only from MSRBot records fetched during the conversation:
+  - it cites each record's URL and `lastModified`;
+  - it follows `supersededBy`, and cross-checks the family list, to find the current edition;
+  - it names every medium- or low-confidence `$meta` field it relies on;
+  - it separates **NOT FOUND** (a complete check) from **COULD NOT VERIFY** (a blocked or truncated lookup), so a cut-off search never reads as absence.
+
+  It includes a read-only helper using only the Python standard library (`scripts/msrbot.py`: `find` / `family` / `get` / `current` / `editions` / `ref`). `research/prompt.md` carries the same rules as a copy-paste prompt for ChatGPT and other tools, and `research/README.md` is the install guide with a four-question test checklist. The skill was refined over four rounds of claude.ai testing (plugin version 1.4.0). It tracks epic #2032; update it as the lookup, search, lineage and MCP work lands.
+- **Plugin marketplace at the repo root** (`.claude-plugin/marketplace.json`). Install with `/plugin marketplace add PrZ3r/MSRBot.io`, then `/plugin install msrbot-research@msrbot`. A claude.ai org Owner can also sync the repo under **Plugins & skills → Sync from GitHub**.
+- **Every release carries the skill.** The new `Attach research skill to release` workflow (`.github/workflows/release-skill-zip.yml`) builds `msrbot-research.zip` from the release's tagged commit when a release is published, and attaches it. `releases/latest/download/msrbot-research.zip` is therefore always the newest copy. It can be run by hand for an existing release.
+
+### Changed
+
+- **README:** new **Use MSRBot with AI assistants** section, covering what the skill does and how to get it for claude.ai, a whole org, Claude Code, and other AI tools.
+- **AGENTS.md release hygiene:** the zip is attached automatically; bump `research/.claude-plugin/plugin.json` `version` if the skill changed; publish releases from a user account (releases created with the workflow `GITHUB_TOKEN` don't fire the attach step).
 
 ## [v2.3.0] - 2026-09-24
 

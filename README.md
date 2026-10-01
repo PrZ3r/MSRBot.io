@@ -44,8 +44,26 @@ What started as a personal tool to make sense of reference trees has grown into 
 - API Explorer: [msrbot.io/api/](https://msrbot.io/api/)
 - Live API Stats: [api/stats.json](https://msrbot.io/api/stats.json)
 - JSON Schema: [api/schemas/documents.schema.json](https://msrbot.io/api/schemas/documents.schema.json)
+- AI research skill + prompt: [`research/`](research/). See [Use MSRBot with AI assistants](#use-msrbot-with-ai-assistants)
 - Public Site generated from `main` at <https://msrbot.io>
 - Change Log: [msrbot.io/changelog/](https://msrbot.io/changelog/) ([source](CHANGELOG.md))
+
+## Use MSRBot with AI assistants
+
+**`msrbot-research`** makes AI assistants answer media-standards questions from MSRBot records, not from memory:
+
+- Every answer cites the MSRBot record it used and flags superseded editions.
+- It names any medium- or low-confidence field.
+- It says **NOT FOUND** only after a complete check, and **COULD NOT VERIFY** when a lookup was blocked or cut off.
+
+| Where you use AI | How to get it |
+| --- | --- |
+| **claude.ai / Claude Desktop** | Download **[msrbot-research.zip](https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip)**, which is attached to every [MSRBot release](https://github.com/PrZ3r/MSRBot.io/releases/latest), so this link is always the newest. In Claude, open **Customize → Skills**, upload the zip, and make sure the skill is switched on. Use **Share** or **Publish to org** to pass it on. |
+| **Your whole Claude organization** | An Owner opens **Organization settings → Plugins & skills → Add → Sync from GitHub** and enters `PrZ3r/MSRBot.io`. |
+| **Claude Code** | `/plugin marketplace add PrZ3r/MSRBot.io`, then `/plugin install msrbot-research@msrbot` |
+| **ChatGPT, Gemini, Copilot, others** | Paste [`research/prompt.md`](research/prompt.md) into the tool's instructions. |
+
+The same instructions are on the website at **[msrbot.io/ai](https://msrbot.io/ai/)**, which is the easiest link to share. The step-by-step guide, including a five-question checklist to confirm it's working, is in [`research/README.md`](research/README.md).
 
 ## Portals
 
