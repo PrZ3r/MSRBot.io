@@ -251,6 +251,7 @@ const keying = require('../lib/keying');
 const { loadAllDocs } = require('../lib/registry');
 const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
 const { assembleSlices } = require('./build.assemble-registry');
+const { emitSearchApi } = require('./build.search-api');
 const buildStats = require('./utils/buildStats');
 const { lineageKeyFromDoc, lineageKeyFromDocId } = keying;
 
@@ -758,6 +759,13 @@ async function emitDocumentsApiOnce() {
   }
 
   console.log(`[api] Wrote per-doc API JSON (ok=${ok}, failed=${failed})`);
+
+  // Compact, chat-fetchable search shards (current editions) under /api/search/.
+  try {
+    emitSearchApi(docs);
+  } catch (e) {
+    console.warn('[api] Failed to write /api/search/:', e && e.message ? e.message : e);
+  }
 }
 
 // Safe write wrapper to strictly prevent legacy groups.json writes.

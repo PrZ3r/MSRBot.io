@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://msrbot.io/api/schemas/search.schema.json",
+  "title": "MSRBot Search API (/api/search/)",
+  "description": "Compact search index of current editions (superseded excluded). /api/search/index.json is an Index; /api/search/{publisher}/{docType}[-{n}].json files are Shards.",
+  "oneOf": [
+    { "$ref": "#/definitions/index" },
+    { "$ref": "#/definitions/shard" }
+  ],
+  "definitions": {
+    "row": {
+      "type": "object",
+      "required": ["id", "label", "title", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "docId; fetch /api/doc/{id}.json for the full record" },
+        "label": { "type": ["string", "null"] },
+        "title": { "type": ["string", "null"] },
+        "keywords": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "description": "active | inactive | withdrawn | unknown, optionally followed by ,stabilized and/or ,amended" },
+        "date": { "type": "string", "description": "publicationDate (YYYY, YYYY-MM or YYYY-MM-DD)" }
+      }
+    },
+    "shardRef": {
+      "type": "object",
+      "required": ["path", "count", "first", "last"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string" },
+        "count": { "type": "integer", "minimum": 1 },
+        "first": { "type": "string" },
+        "last": { "type": "string" }
+      }
+    },
+    "index": {
+      "type": "object",
+      "required": ["apiVersion", "total", "publishers"],
+      "properties": {
+        "$schema": { "type": "string" },
+        "apiVersion": { "type": "string" },
+        "note": { "type": "string" },
+        "maxShardBytes": { "type": "integer" },
+        "total": { "type": "integer" },
+        "publishers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["total", "docTypes"],
+            "properties": {
+              "publisher": { "type": ["string", "null"] },
+              "total": { "type": "integer" },
+              "docTypes": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "required": ["count", "shards"],
+                  "properties": {
+                    "docType": { "type": ["string", "null"] },
+                    "count": { "type": "integer" },
+                    "shards": { "type": "array", "items": { "$ref": "#/definitions/shardRef" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "shard": {
+      "type": "object",
+      "required": ["apiVersion", "shard", "of", "count", "first", "last", "docs"],
+      "properties": {
+        "apiVersion": { "type": "string" },
+        "publisher": { "type": ["string", "null"] },
+        "docType": { "type": ["string", "null"] },
+        "shard": { "type": "integer", "minimum": 1 },
+        "of": { "type": "integer", "minimum": 1 },
+        "count": { "type": "integer" },
+        "first": { "type": "string" },
+        "last": { "type": "string" },
+        "docs": { "type": "array", "items": { "$ref": "#/definitions/row" } }
+      }
+    }
+  }
+}
