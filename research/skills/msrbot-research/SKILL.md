@@ -2,7 +2,7 @@
 name: msrbot-research
 description: Answer questions about media-technology standards and specifications (SMPTE, ISO, ITU, AES, IETF, EBU, ISDCF, DCI and other publishers, including D-Cinema, IMF, ST 2110, color and audio) using MSRBot.io (Media Standards Registry) as the verified source of truth, with citations and provenance. Use this skill whenever someone asks about a standard's number, part, title, publisher, edition or year, whether it is current, superseded, withdrawn or amended, what replaced it, what it references or depends on, or asks you to find, check, cite or list media standards, including topic questions such as "which standards cover X?". Use it even when the user doesn't mention MSRBot — any factual claim about a media standard's metadata should be checked here rather than answered from memory.
 metadata:
-  version: "1.5.1"
+  version: "1.5.2"
 ---
 
 # MSRBot research
@@ -53,7 +53,12 @@ Choose the path that fits your tools:
 
 For a topic, the hard part is finding **every** relevant document, not verifying the ones you already know. A list built from memory looks complete and isn't. In testing, an LFE question returned ST 202 and RP 200 and missed SMPTE EG 432-2, the guideline on exactly that topic.
 
-1. **Search before recalling.** With the script, run `search` with several terms, including synonyms and abbreviations (e.g. `LFE "low frequency" subwoofer bass`). With a fetch tool, read `/api/search/index.json` and the index of each publisher that could hold the answer (e.g. `/api/search/smpte.json`), then fetch **every shard** for the document types that could hold it. For a D-Cinema audio question that means SMPTE standards, recommended practices and engineering guidelines, plus small publishers such as ISDCF. Ask the tool to confirm each shard's count and last entry, and to list verbatim every row whose title or keywords match any of your terms. Then judge relevance yourself.
+1. **Search before recalling.** With the script, run `search` with several terms, including synonyms and abbreviations (e.g. `LFE "low frequency" subwoofer bass`). With a fetch tool, read `/api/search/index.json` and the index of each publisher that could hold the answer (e.g. `/api/search/smpte.json`), then fetch **every shard** for the document types that could hold it.
+   - **Scope by publisher, not by document type.** For each publisher in the domain, search **all** of its document types except journal articles and conference papers (search those only when asked for papers). That includes registered disclosure documents (RDDs), overview documents, specifications and registries, not just standards, RPs and EGs. In testing, the most direct answer to a global DCP distribution question was **SMPTE RDD 52** (the DCP Bv2.1 application profile), and it was missed because RDDs weren't searched.
+   - **Read every shard of every in-scope type. Never pick shards by number range** or skip a type because its titles look unlikely. Topics aren't grouped by number: D-Cinema documents run from SMPTE ST 195 to ST 2098, and RDD 52 sits among the RDDs. Any shard you skip makes the answer PARTIAL, and you must name it.
+   - **Journal articles and conference papers** (~24k documents, ~150 shards) aren't practical to read through a fetch tool yet. Say they weren't searched, and offer to search them (the script's `search --include-articles` can).
+   - **Include every publisher in the domain.** For D-Cinema that's at least SMPTE, ISO, DCI and ISDCF. ISO often has a twin of a SMPTE document (e.g. ISO 26432-2 alongside SMPTE EG 432-2; check `relatedDocs` in the record), and DCI's specification is where exhibition requirements live.
+   - Ask the tool to confirm each shard's count and last entry, and to list verbatim every row whose title or keywords match any of your terms. Then judge relevance yourself.
 2. **Fetch the candidates' records** and read their status. Then **go one hop**: look through each record's `references` for related documents and fetch the ones that look relevant. MSRBot doesn't yet publish "cited by" links, so a newer document that cites yours won't show up this way; that's another reason step 1 matters.
 3. **Memory may suggest search terms or candidates, never the final list.** Every document you report must have been found by the search, or fetched and verified. Say which ones came from the search.
 4. **Status for topic answers:**
@@ -76,6 +81,7 @@ If a fetch fails (blocked, timeout, file too large for your tool), say what fail
 Many web-fetch tools pass the page through a smaller model and hand you a summary, not the raw file. That summary can paraphrase values, and it can say "not in the content" about a file it only partly read. So:
 
 - **Ask for values word for word:** "Return docId, docLabel, docTitle, publicationDate, status and lastModified verbatim."
+- **If the tool's answer about completeness is unclear**, fetch the file again and ask *only* "What is the count field, and the id of the last entry in docs?" Asking about completeness and matches in one request is where answers get muddled. Count the file as read whole only when those match the file's own `count`/`last`.
 - **Ask about truncation on every large file** (`suites.json`, the index, publisher slices): "Is the content truncated? What is the last entry you can see?" If the entry you need comes after that point, the file told you nothing.
 - **Do the matching yourself.** Ask the tool for the complete list of docIds (and labels) in the file, then check the list yourself. Its yes/no answers are unreliable: in testing it said no ISDCF id contained "20" while listing `ISDCF.D15.2020` in the same reply.
 - **Treat "no match in the content" as COULD NOT VERIFY** unless the tool confirms it saw the whole file.
@@ -93,6 +99,8 @@ Many web-fetch tools pass the page through a smaller model and hand you a summar
 - **"Current" means current in MSRBot.** MSRBot re-extracts publisher data weekly, so a brand-new edition may lag by a few days. Phrase it as "the newest edition in MSRBot".
 - **MSRBot wins conflicts with memory.** Flag the conflict explicitly ("You may see ST 2067-21:2020 cited as current; MSRBot shows it superseded by the 2022 edition"). This helps users whose old notes are out of date.
 - **Keep unverified context separate.** General background (what IMF is for, why a standard exists) is fine if you label it "Unverified — not from MSRBot" and keep it apart from verified facts.
+- **Don't characterize document types or processes from memory.** Statements about how a standards body works, what a document type is, how it's approved, or how binding it is ("RDDs don't go through the full standards process", "an EG isn't binding") are memory, and in testing they were wrong. Describe the type as MSRBot records it (`docType`: "Registered Disclosure Document", "Engineering Guideline"), and point to the publisher's own procedures for anything more.
+- **Don't overstate coverage.** Say what the search found ("MSRBot has no SMPTE document with 'aspect ratio' in its title for cinema"), not what must be true beyond it ("picture format is defined here or nowhere"). Titles and keywords don't show everything a document covers.
 - **Never put a standard's content in unverified notes.** Specific values, limits or requirements ("band-limited to about 120 Hz", "must use 24-bit") stay out entirely unless you've read them in the document. Even labeled "unverified", a number from memory is what readers copy, and in testing the remembered figure was wrong. Point to the publisher link instead.
 - **Don't speculate about why something is missing** (a typo, an unpublished draft, "the numbering doesn't go that high") unless the user asks. That's memory dressed up as evidence. Don't steer the user toward particular nearby numbers either. Close by asking for the document's title, or where they saw it cited, so you can look it up properly.
 - **"I don't know" beats a confident wrong answer.**
