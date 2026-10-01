@@ -10,6 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **New publisher: CST (Commission Supérieure Technique de l'Image et du Son).** The first document is **CST-RT-028-2026** *Digital Projection – Subtitles – Characteristics, Dimensions and Positioning* (`CST.RT028.2026`), parsed from CST's PDF and site without an extractor. It is the first doc to use the language fields: `language: fr`, with the French title and abstract in `docTitleOriginal`/`abstractOriginal` and an English translation (`translatedBy: msrbot`, `$meta.source: inferred`, review required). Its eight cited references are recorded in the MRI with CST's citation text (`mapSource: parsed`):
+  - registry docs link normally
+  - ISO 26428-7 and ISO 8567 are canonical refs with no registry doc yet
+  - the AFNOR NF S27-100 and ARCOM charter citations are orphan slugs
+
+  CST also gets a site logo and publisher link.
+
 - **Fields for non-English documents (schema 2.5.0).** `docTitle` and `abstract` stay in English. The new optional fields are:
   - `language`: the BCP 47 tag of the published language
   - `docTitleOriginal` and `abstractOriginal`: the publisher's own wording
