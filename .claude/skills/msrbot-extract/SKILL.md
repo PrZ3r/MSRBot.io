@@ -30,7 +30,7 @@ Read `AGENTS.md` first; it overrides anything here. Record format: `docs/manual-
 | **Listing page linking PDFs** (CST's recommendations page) | The whole page, then each linked PDF | `sourceUrl` = the PDF. `href` = the PDF link. `href`, `publisher` and `docType` come from the listing page, so put that URL in `metaSourceUrls` | Printed in the PDF. News items and posts on the page can supply a missing day (`datePublished`) |
 | **One document landing page** (an HTML page with metadata plus a PDF or HTML link) | The page, its metadata (`<meta>`, JSON-LD, `og:`/`article:` tags) and the linked document | `sourceUrl` = the landing page for fields read there, and the document URL for fields read from the document. `href` = the document, or the landing page if that is the canonical place to get it | Prefer the document; the page's structured metadata comes next |
 | **Direct PDF URL** | The PDF only. Ask the user for the publisher's page if one exists | `sourceUrl` = `href` = the PDF | From the PDF. If none is printed, the PDF's `CreationDate` is **not** a publication date: leave the date out or ask |
-| **Document published as HTML** (a spec page with no PDF) | The page itself: title block, status or version, scope, references section | `sourceUrl` = `href` = the page | From the page's title block or metadata. References from its references section, including any `href`s, which go into `citations[].href` |
+| **Document published as HTML** (a spec page with no PDF) | The page itself: title block, status or version, scope, references section | `sourceUrl` = `href` = the page | Dates from the page's title block or metadata. Citations from the page's own references section. When a cited item is a hyperlink, copy that URL into the same citation's `href`, next to its `cite` text |
 
 Mixed cases (several PDFs per document, language editions, annexes, consultation drafts, near-duplicate titles) are judgment calls: flag them before writing records.
 
@@ -41,7 +41,7 @@ Mixed cases (several PDFs per document, language editions, annexes, consultation
 
 ### 2. Read each document
 - **PDF:** `node .claude/skills/msrbot-extract/scripts/pdf_text.mjs <pdf|url> [pages]` prints the metadata and text. It installs `pdfjs-dist` into the skill folder on first run; the repo has no PDF tooling. A PDF with no text layer (a scan) is out of scope: tell the user, don't guess from images.
-- **HTML:** read the saved page, including its `<head>` metadata (`<meta>`, JSON-LD, `og:` and `article:` tags) as well as the visible text. Copy reference entries verbatim, including their links.
+- **HTML:** read the saved page, including its `<head>` metadata (`<meta>`, JSON-LD, `og:` and `article:` tags) as well as the visible text. Copy each entry of its references section verbatim into `cite`. If the entry is a link, its URL goes in that citation's `href`; the parser reads it too (a DOI or W3C `/TR/` URL maps exactly), and an unmapped citation then renders as a clickable external link.
 - For a batch, parallel readers are fine, but give them the verbatim-only rules and own the records yourself.
 - Collect: label as printed, every printed date with its line, cover title, scope/"Objet" text, the references section verbatim, authoring body, version/supersedes notes.
 - Dates: a printed "publiée/validée" line beats a header date beats the label year; an announcement's `datePublished` can fill a missing day. Record which in `metaNotes.publicationDate`.

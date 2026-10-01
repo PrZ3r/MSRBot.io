@@ -26,7 +26,7 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
    | **Listing page linking PDFs** (CST's recommendations page) | The whole page, then each linked PDF | `sourceUrl` = the PDF. `href` = the PDF link. `href`, `publisher` and `docType` come from the listing page, so put that URL in `metaSourceUrls` | Printed in the PDF. News items and posts on the page can supply a missing day (`datePublished`) |
    | **One document landing page** (an HTML page with metadata plus a PDF or HTML link) | The page, its metadata (`<meta>`, JSON-LD, `og:`/`article:` tags) and the linked document | `sourceUrl` = the landing page for fields read there, and the document URL for fields read from the document. `href` = the document, or the landing page if that is the canonical place to get it | Prefer the document; the page's structured metadata comes next |
    | **Direct PDF URL** | The PDF only. Ask the user for the publisher's page if one exists | `sourceUrl` = `href` = the PDF | From the PDF. If none is printed, the PDF's `CreationDate` is **not** a publication date: leave the date out or ask |
-   | **Document published as HTML** (a spec page with no PDF) | The page itself: title block, status or version, scope, references section | `sourceUrl` = `href` = the page | From the page's title block or metadata. References from its references section, including any `href`s, which go into `citations[].href` |
+   | **Document published as HTML** (a spec page with no PDF) | The page itself: title block, status or version, scope, references section | `sourceUrl` = `href` = the page | Dates from the page's title block or metadata. Citations from the page's own references section. When a cited item is a hyperlink, copy that URL into the same citation's `href`, next to its `cite` text |
    
    Mixed cases (several PDFs per document, language editions, annexes, consultation drafts, near-duplicate titles) are judgment calls: flag them before writing records.
 
@@ -99,7 +99,9 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
   - Use `manual` for a value a person decided.
   - Status fields use `"status.<field>"` keys.
 - **`metaNotes` / `metaFlags`:** per-field `$meta.note`, and `{ reviewRequired, flag }`. A `reviewRequired` field drops to medium confidence.
-- **`citations`:** each citation's text exactly as printed, never a cleaned-up identifier.
+- **`citations`:** one entry per item in the document's own references section.
+  - `cite` is the text exactly as printed, never a cleaned-up identifier.
+  - `href` is optional: the URL when that reference is a hyperlink, usually in HTML documents. `parseRefId` reads it alongside the text, and an unmapped citation renders as a clickable external link.
   - The parser maps them. Citations it can't map become orphan slugs that keep the text.
   - `refId` is only for a documented judgment call. It's recorded as `mapSource: manual:explicit` and must appear in the review.
 - **Existing documents:** a record whose `docId` already exists updates that document through the pipeline's normal update path. Changed fields get `originalValue` and `overridden` in their `$meta`.
