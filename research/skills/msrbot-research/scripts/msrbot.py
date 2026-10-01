@@ -275,7 +275,11 @@ def cmd_family(args):
 def cmd_search(args):
     """Topic search over /api/search/ shards (current editions; title + keywords)."""
     idx_url = f"{BASE}/api/search/index.json"
-    index = _fetch_json(idx_url, "search-index.json")
+    # Search files are small (<= ~25 KB), so they're never cached: a stale copy
+    # from before a format change (e.g. apiVersion 1 -> 2) must not be read.
+    index = _fetch_json(idx_url)
+    if not str(index.get("apiVersion", "")).startswith("2."):
+        raise ValueError(f"unsupported /api/search apiVersion {index.get('apiVersion')!r}; update the skill")
     terms = [t.lower() for t in args.terms if t.strip()]
     pubs = index.get("publishers", {})
     wanted_pub = slug_like(args.publisher) if args.publisher else None
@@ -285,7 +289,7 @@ def cmd_search(args):
         if wanted_pub and pub_slug != wanted_pub:
             continue
         # Two-level index (apiVersion 2): shard ranges live in the per-publisher index.
-        pub_index = _fetch_json(BASE + pub["index"], "search_" + pub_slug + "_index.json")
+        pub_index = _fetch_json(BASE + pub["index"])
         for type_slug, t in sorted(pub_index.get("docTypes", {}).items()):
             if wanted_type and type_slug != wanted_type:
                 continue
@@ -293,7 +297,7 @@ def cmd_search(args):
                 continue
             for sh in t.get("shards", []):
                 url = BASE + sh["path"]
-                data = _fetch_json(url, "search_" + sh["path"].strip("/").replace("/", "_"))
+                data = _fetch_json(url)
                 shards_read.append(url)
                 for row in data.get("docs", []):
                     hay = " ".join([row.get("title") or "", row.get("label") or "", " ".join(row.get("keywords") or [])]).lower()
@@ -336,7 +340,7 @@ def main(argv=None):
     args = p.parse_args(argv)
     try:
         result = args.fn(args)
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, ValueError, KeyError) as e:
         blocked = isinstance(e, urllib.error.HTTPError) and e.code in (401, 403, 407) \
             or isinstance(e, urllib.error.URLError) and not isinstance(e, urllib.error.HTTPError)
         result = {"error": f"{type(e).__name__}: {e}",

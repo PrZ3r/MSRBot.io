@@ -16,6 +16,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+
+- **`msrbot.py search` no longer reads a stale search index (skill 1.5.2).** The helper cached the search files for 6 hours, so a copy from before the two-level format change (apiVersion 1 → 2) crashed `search` with `KeyError: 'index'`. The small `/api/search/` files are no longer cached, and an unsupported `apiVersion` is refused with a clear error.
+- **Topic searches cover every document type and publisher (skill 1.5.2).** Internal claude.ai runs copied the skill's example scope ("SMPTE standards, RPs and EGs, plus ISDCF"). They missed **SMPTE RDD 52:2020** for a global DCP distribution question, and ISO 26432-2 for the LFE question. The skill now says to scope by publisher: search *all* of a publisher's document types (RDDs, overview documents and specifications included; papers only when asked), across every publisher in the domain (D-Cinema: SMPTE, ISO, DCI, ISDCF). New rules:
+  - read **every** shard of every in-scope type and never pick shards by number range (a rerun skipped ST 1–402 as "unlikely"); say when journal articles and conference papers weren't searched;
+  - don't characterize document types, approval processes or how binding a document is from memory (a run claimed RDDs skip due process, which is false);
+  - don't claim more coverage than the search showed;
+  - when a fetch tool's completeness answer is unclear, re-fetch asking only for count and last id.
+
+  `prompt.md` mirrors these rules.
 ## [v2.6.0] - 2026-10-01
 
 ### Added
