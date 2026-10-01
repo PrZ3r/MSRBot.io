@@ -7,7 +7,7 @@ Ask an AI assistant about media standards (SMPTE, ISO, ITU, AES, IETF, D-Cinema,
 Contents:
 
 1. [Get it](#1-get-it): pick the line that describes you
-2. [Check that it works](#2-check-that-it-works): four questions, about five minutes
+2. [Check that it works](#2-check-that-it-works): five questions, about five minutes
 3. [For advanced users](#3-for-advanced-users)
 4. [Maintaining it](#4-maintaining-it)
 
@@ -76,7 +76,7 @@ Open a **new chat** for each question and ask it exactly as written. Tick each o
 This standard doesn't exist.
 > What's the title of SMPTE ST 2067-99?
 
-- [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**. It should have checked the ST 2067 family list, which has no part 99. **COULD NOT VERIFY** is an honest answer but means the lookup was blocked or cut off; see the table below.
+- [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**. It should have checked the search shard covering SMPTE ST 2036-2 to ST 2139 (`https://msrbot.io/api/search/smpte/standard-3.json`), which has no part 99. **COULD NOT VERIFY** is honest but means a lookup was blocked or cut off; see the table below.
 - [ ] It does **not** make up a title
 - [ ] It lists the **full URLs** it tried. If it guessed IDs, it stopped after **about three**; which years it tried doesn't matter.
 - [ ] A COULD NOT VERIFY answer **opens with what it couldn't check**, not "didn't find"
@@ -94,9 +94,20 @@ This one should end in a clean **NOT FOUND**. ISDCF's documents fit in one small
 > What is ISDCF Doc 20 about?
 
 - [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**, and **not** COULD NOT VERIFY
-- [ ] It checked the **whole ISDCF file**, `https://msrbot.io/docs/_data/by-publisher/isdcf.json` (17 records, highest is Doc 15), not just one document-type file
-- [ ] It names the file's **last entry** (`ISDCF.RP-430-10.2018`) as evidence it read the whole file
+- [ ] It checked **all** of ISDCF: the whole file `https://msrbot.io/docs/_data/by-publisher/isdcf.json` (17 records, highest is Doc 15), or **every** ISDCF search shard, not just one document type
+- [ ] It names the **last entry** of what it read as evidence it read the whole thing
 - [ ] It doesn't describe Doc 20 from memory, guess why it's missing, or suggest nearby numbers
+
+### Question 5: can it find documents by topic?
+
+A topic question, where a list from memory would look complete and miss things.
+
+> Check for D-Cinema standards relating to the legal frequency range for the LFE/subwoofer audio channel.
+
+- [ ] It **searched** (MSRBot search shards or the helper's `search`) before answering, rather than listing documents from memory
+- [ ] It includes **SMPTE EG 432-2:2006**, *D-Cinema Low Frequency Effects (LFE) Channel Audio Characteristics*, without being told about it
+- [ ] It also covers **SMPTE ST 202** and **SMPTE RP 200**, each with its status from the record
+- [ ] Its status is **VERIFIED** only if it read every relevant shard whole; otherwise **PARTIAL**, naming what it couldn't search
 
 ### If something's off
 
@@ -155,7 +166,7 @@ claude -p "Is SMPTE ST 2067-21:2020 still current?" --plugin-dir research \
   --allowedTools "Skill,Read,WebFetch,Bash(python3:*)" < /dev/null
 ```
 
-Add `--output-format stream-json --verbose` to see the tool calls. A good run shows a `Skill` call to `msrbot-research`, then `msrbot.py` or `WebFetch` calls to `msrbot.io`. Use the four questions in [section 2](#2-check-that-it-works) as the pass/fail set; for a with/without-skill comparison, run them through the `skill-creator` skill or `claude plugin eval`.
+Add `--output-format stream-json --verbose` to see the tool calls. A good run shows a `Skill` call to `msrbot-research`, then `msrbot.py` or `WebFetch` calls to `msrbot.io`. Use the five questions in [section 2](#2-check-that-it-works) as the pass/fail set; for a with/without-skill comparison, run them through the `skill-creator` skill or `claude plugin eval`.
 
 ### Where it can't run
 

@@ -41,6 +41,8 @@ record's lastModified, so answers can cite them.
   python3 msrbot.py editions SMPTE.ST2067-21.2022  # all indexed editions sharing the docId base
   python3 msrbot.py ref SMPTE.ST2067-2             # resolve a reference id via the MRI cite map
   python3 msrbot.py family SMPTE 2067              # every part of a multi-part family + newest edition of each
+  python3 msrbot.py search LFE "low frequency" subwoofer --publisher SMPTE
+                                                   # topic search: current editions whose title/keywords match
 
 The index (~9 MB), the cite map (~12 MB) and suites.json (~230 KB) are cached for the session in the
 system temp dir, so repeated calls don't download them again.
@@ -270,6 +272,51 @@ def cmd_family(args):
     }
 
 
+def cmd_search(args):
+    """Topic search over /api/search/ shards (current editions; title + keywords)."""
+    idx_url = f"{BASE}/api/search/index.json"
+    index = _fetch_json(idx_url, "search-index.json")
+    terms = [t.lower() for t in args.terms if t.strip()]
+    pubs = index.get("publishers", {})
+    wanted_pub = slug_like(args.publisher) if args.publisher else None
+    wanted_type = slug_like(args.type) if args.type else None
+    shards_read, matches = [], []
+    for pub_slug, pub in sorted(pubs.items()):
+        if wanted_pub and pub_slug != wanted_pub:
+            continue
+        for type_slug, t in sorted(pub.get("docTypes", {}).items()):
+            if wanted_type and type_slug != wanted_type:
+                continue
+            if not args.include_articles and type_slug in ("journal-article", "conference-paper"):
+                continue
+            for sh in t.get("shards", []):
+                url = BASE + sh["path"]
+                data = _fetch_json(url, "search_" + sh["path"].strip("/").replace("/", "_"))
+                shards_read.append(url)
+                for row in data.get("docs", []):
+                    hay = " ".join([row.get("title") or "", row.get("label") or "", " ".join(row.get("keywords") or [])]).lower()
+                    hit = [t for t in terms if t in hay]
+                    if hit:
+                        matches.append(dict(row, matched=hit, apiUrl=doc_api_url(row["id"])))
+    matches.sort(key=lambda r: (-len(r["matched"]), r["id"]))
+    return {
+        "terms": args.terms,
+        "matches": len(matches),
+        "results": matches[: args.limit],
+        "truncated": len(matches) > args.limit,
+        "shardsRead": len(shards_read),
+        "complete": True,
+        "source": {"indexUrl": idx_url, "scope": {"publisher": args.publisher, "type": args.type,
+                   "journalArticlesAndConferencePapers": bool(args.include_articles)}},
+        "note": "Searched every shard in scope in full (current editions only). Fetch each record (get) before "
+                "stating status, dates or content; follow references for related documents.",
+    }
+
+
+def slug_like(value):
+    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", value.strip().lower().replace("&", " and "))).strip("-")
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description="Read-only MSRBot.io lookups with provenance.")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -280,6 +327,10 @@ def main(argv=None):
     e = sub.add_parser("editions"); e.add_argument("docId"); e.set_defaults(fn=cmd_editions)
     r = sub.add_parser("ref"); r.add_argument("refId"); r.set_defaults(fn=cmd_ref)
     fa = sub.add_parser("family"); fa.add_argument("publisher"); fa.add_argument("number"); fa.set_defaults(fn=cmd_family)
+    se = sub.add_parser("search"); se.add_argument("terms", nargs="+"); se.add_argument("--publisher")
+    se.add_argument("--type"); se.add_argument("--include-articles", action="store_true",
+                    help="also search journal articles and conference papers (~24k rows)")
+    se.add_argument("--limit", type=int, default=40); se.set_defaults(fn=cmd_search)
     args = p.parse_args(argv)
     try:
         result = args.fn(args)
