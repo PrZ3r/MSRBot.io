@@ -57,7 +57,7 @@
               </tr>
               <tr>
                 <td class="text-nowrap"><code>/api/search/index.json</code></td>
-                <td>Compact search index of current editions (id, label, title, keywords, status, date), split per publisher and doc type into small shards (each under ~25 KB) so AI assistants can fetch them whole. The root index lists publishers; each publisher index (<code>/api/search/{publisher}.json</code>) gives every shard's <code>first</code>/<code>last</code> docId range <a href="{{assetPrefix}}api/search/index.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>Compact search index of current editions (id, label, title, keywords, status, date; non-English documents add <code>titleOriginal</code>, <code>lang</code> and, when the English title is MSRBot.io's translation, <code>translatedBy</code>), split per publisher and doc type into small shards (each under ~25 KB) so AI assistants can fetch them whole. The root index lists publishers; each publisher index (<code>/api/search/{publisher}.json</code>) gives every shard's <code>first</code>/<code>last</code> docId range <a href="{{assetPrefix}}api/search/index.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
               </tr>
               <tr>
                 <td class="text-nowrap"><code>/api/mri-cite-map.json</code></td>

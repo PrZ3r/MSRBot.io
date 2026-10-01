@@ -67,6 +67,13 @@ Each field must include correct `$meta` provenance tracking where applicable:
 
 > The `npm run canonicalize` will auto fill this info for you as a "manual" edit. 
 
+`source` says how a value was obtained:
+- `parsed`: read from the publisher's document, with `sourceUrl` set.
+- `inferred`: derived, for example a translation or a constructed `docId`.
+- `manual`: typed or decided by a person.
+
+Non-English documents keep English in `docTitle`/`abstract`, plus `language`, `docTitleOriginal`, `abstractOriginal` and `translatedBy`. See [CONTRIBUTING.md](../CONTRIBUTING.md#data-and-provenance).
+
 ## Pull Request Checklist
 - [ ] Update `CHANGELOG.md` under **[Unreleased]** when behavior, workflow, or policy changes.
 - [ ] Clear, descriptive title.

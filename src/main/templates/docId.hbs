@@ -34,6 +34,8 @@
         {{#if docSuiteTitle}}{{docSuiteTitle}} - {{/if}}{{docTitle}}
       {{/if}}
     </h1>
+    {{#if docTitleOriginal}}<p class="mb-1 text-muted"{{#if language}} lang="{{language}}"{{/if}}>{{docTitleOriginal}}</p>{{/if}}
+    {{#ifeq translatedBy "msrbot"}}<p class="small text-muted mb-0">English title and abstract translated by MSRBot.io{{#if language}} from {{languageName language}}{{/if}}.</p>{{/ifeq}}
   </header>
 
   <section class="row g-3">
@@ -62,7 +64,9 @@
             {{#if abbrevTitle}}<dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>{{abbrevTitle}}</em></dd>{{/if}}
             {{#if volume}}<dt class="col-sm-4">Volume</dt><dd class="col-sm-8">{{volume}}{{#if number}}, No. {{number}}{{/if}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if number}}<dt class="col-sm-4">Issue</dt><dd class="col-sm-8">No. {{number}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if pages}}<dt class="col-sm-4">Pages</dt><dd class="col-sm-8">{{pages}}</dd>{{/if}}{{/if}}{{/if}}
             {{#if chapter}}<dt class="col-sm-4">Chapter</dt><dd class="col-sm-8">{{chapter}}</dd>{{/if}}
+            {{#if language}}<dt class="col-sm-4">Language</dt><dd class="col-sm-8">{{languageName language}}</dd>{{/if}}
             {{#if abstract}}<dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">{{{nl2br abstract}}}</dd>{{/if}}
+            {{#if abstractOriginal}}<dt class="col-sm-4">Abstract ({{languageName language}})</dt><dd class="col-sm-8"{{#if language}} lang="{{language}}"{{/if}}>{{{nl2br abstractOriginal}}}</dd>{{/if}}
             {{#if releaseTag}}<dt class="col-sm-4">Release Tag</dt><dd class="col-sm-8"><a href="../?q={{releaseTag}}">{{releaseTag}}</a></dd>{{/if}}
             {{#if publicationDate}}<dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">{{publicationDate}}</dd>{{/if}}
             {{#if approvalDate}}<dt class="col-sm-4">Approval Date</dt><dd class="col-sm-8">{{approvalDate}}</dd>{{/if}}

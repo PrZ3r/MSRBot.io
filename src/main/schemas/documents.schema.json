@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.4.0",
+  "$id": "https://github.com/PrZ3r/MSRBot.io/documents/2.5.0",
   "$comment": "Copyright (c) 2025-26 PrZ3 LLC (d/b/a [PrZ3](https://github.com/PrZ3r))",
   "docTitle": "Schema for MSRBot.io - Documents",
   "items": {
@@ -48,6 +48,10 @@
           "abstract": {
             "type": "string"
           },
+          "abstractOriginal": {
+            "type": "string",
+            "description": "Abstract or scope text in the document's original language (see language); abstract holds the English."
+          },
           "docElement": {
             "type": "string"
           },
@@ -84,6 +88,20 @@
           },
           "docTitle": {
             "type": "string"
+          },
+          "docTitleOriginal": {
+            "type": "string",
+            "description": "Title exactly as the publisher printed it, in the document's original language (see language); docTitle holds the English."
+          },
+          "language": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$",
+            "description": "BCP 47 tag for the language the document is published in. Absent means English."
+          },
+          "translatedBy": {
+            "type": "string",
+            "enum": ["publisher", "msrbot"],
+            "description": "Who supplied the English docTitle/abstract of a non-English document: the publisher (official) or MSRBot.io (translation). Absent means publisher."
           },
           "docType": {
             "type": "string",
