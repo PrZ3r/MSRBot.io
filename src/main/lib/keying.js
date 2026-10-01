@@ -223,7 +223,8 @@ function isAmendmentDocId(docId) {
 function isSupplementDocId(docId) {
   const atscAnnex = /^ATSC\.[^.]+\.[^.]+\.(?:a|annex[a-z])\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i;
   const ebuSupp = /^EBU\.(?:R|Tech)\d+s\d+\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i;
-  return atscAnnex.test(docId) || ebuSupp.test(docId);
+  const cstAnnex = /^CST\.RT\d{3}annex\.\d{4}$/i;
+  return atscAnnex.test(docId) || ebuSupp.test(docId) || cstAnnex.test(docId);
 }
 
 // ---------------- Keying (subset; mirrors MSI behavior) ----------------
@@ -417,6 +418,11 @@ function keyFromDocId(docId, doc = {}) {
 
   m = docId.match(/^EBU\.(R|Tech)(\d+)(?:s\d*)?\.(?:\d{8}|\d{4}(?:-\d{2})?)$/i);
   if (m) return { publisher: 'EBU', type: m[1].toUpperCase(), number: m[2], part: null };
+
+  // CST recommendations and notes: CST.RT028.2026, CST.NT001; an annex (CST.RT021annex.2016)
+  // keys with its recommendation and is flagged by isSupplementDocId.
+  m = docId.match(/^CST\.(RT|NT)(\d{3})(?:annex)?(?:\.\d{4})?$/i);
+  if (m) return { publisher: 'CST', type: m[1].toUpperCase(), number: m[2], part: null };
 
   m = docId.match(/^ETSI\.([A-Za-z]+)-([0-9-]+)\.(\d{4}(?:-\d{2})?)$/i);
   if (m) return { publisher: 'ETSI', type: m[1].toUpperCase(), number: m[2], part: null };

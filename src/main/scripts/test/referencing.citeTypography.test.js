@@ -97,4 +97,12 @@ for (const [cite, expected] of cases) {
   assert.strictEqual(parseRefId(cite), expected, `parseRefId(${JSON.stringify(cite)})`);
 }
 
+// CST ids from the parser must key into MSI lineages (#2085), annexes as supplements.
+const keying = require(path.join(__dirname, '..', '..', 'lib', 'keying.js'));
+for (const [id, number] of [['CST.RT028.2026', '028'], ['CST.RT021annex.2016', '021'], ['CST.NT001', '001']]) {
+  const key = keying.keyFromDocId(id);
+  assert.ok(key && key.publisher === 'CST' && key.number === number, `keyFromDocId(${id}) = ${JSON.stringify(key)}`);
+}
+assert.ok(keying.isSupplementDocId('CST.RT021annex.2016'), 'CST annex should be a supplement');
+
 console.log(`referencing.citeTypography.test.js — all assertions passed (${cases.length} cases)`);
