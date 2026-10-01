@@ -10,6 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **Fields for non-English documents (schema 2.5.0).** `docTitle` and `abstract` stay in English. The new optional fields are:
+  - `language`: the BCP 47 tag of the published language
+  - `docTitleOriginal` and `abstractOriginal`: the publisher's own wording
+  - `translatedBy`: `publisher` for an official English title, or `msrbot` for our translation
+
+  Doc pages show the original title under the English one, with a "translated by MSRBot.io" line when the translation is ours, plus a Language row and the original-language abstract. The site search index also includes `docTitleOriginal`. CONTRIBUTING documents these fields and spells out `$meta.source` semantics: `parsed` means read from the publisher's document, `inferred` means derived (translation or constructed value), and `manual` means set by a person.
+
 ### Changed
 
 - **The skill carries its own version (`msrbot-research` 1.5.1).** `SKILL.md` frontmatter gains `metadata.version`, the Agent Skills spec's place for it. The claude.ai zip contains only the skill folder, not `plugin.json`, so zip installs previously had no version of ours at all; claude.ai's "V1/V2" labels are its own upload counter. A new `npm test` check (`researchSkill.test.js`) fails if `metadata.version` and `research/.claude-plugin/plugin.json` differ, and also checks the frontmatter `name` and description length. AGENTS.md and `research/README.md` say to bump both.

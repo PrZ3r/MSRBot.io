@@ -139,6 +139,16 @@ hb.registerHelper('contentTypeLabel', function (value) {
   return map[String(value)] || String(value);
 });
 
+// BCP 47 tag -> English language name ("fr" -> "French"); falls back to the tag.
+hb.registerHelper('languageName', function (tag) {
+  if (!tag) return '';
+  try {
+    return new Intl.DisplayNames(['en'], { type: 'language' }).of(String(tag)) || String(tag);
+  } catch {
+    return String(tag);
+  }
+});
+
 hb.registerHelper('suiteLink', function (doc) {
   try {
     const d = doc || this || {};

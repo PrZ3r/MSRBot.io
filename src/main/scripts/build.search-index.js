@@ -369,6 +369,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
           //d.docTitle,
           d.docLabel,
           d.abbrevTitle,
+          d.docTitleOriginal,
           ...authorsList,
           ...affiliationsList.map(squash),
           ...biosList,
