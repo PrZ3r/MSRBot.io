@@ -10,7 +10,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- **`/api/search/`: a compact search index sized for AI fetch tools** (first piece of #2036). `/api/search/index.json` (~41 KB) maps each publisher and docType to shards at `/api/search/{publisher}/{docType}[-{n}].json`. Each shard is a complete list of **current editions** (superseded excluded) as `{ id, label, title, keywords, status, date }`, natural-sorted by docId and kept under ~50 KB. The index lists each shard's `first`/`last` docId, so a client can pick the shard for a number range. It totals 232 shards and 26,071 docs; SMPTE standards fit in 3 shards and engineering guidelines in 1. The shards are byte-stable (no build timestamps), validated by the new `/api/schemas/search.schema.json`, and listed on the API Explorer page and in the Dev Tools menu. Motivation: a claude.ai test asked a topic question about the LFE channel, and the skill couldn't search titles because the full slices are 0.4–5 MB, so it missed SMPTE EG 432-2:2006 even though "LFE" is in its title and keywords.
+- **`msrbot-research` handles topic questions (skill 1.5.0).** A colleague's claude.ai test asked for D-Cinema standards on the LFE/subwoofer frequency range. Every fact in the answer was verified, but the *list* came from memory and missed SMPTE EG 432-2:2006. The skill now:
+  - searches the `/api/search/` shards before recalling;
+  - asks the fetch tool for complete lists and matches them itself;
+  - fetches each candidate and follows its references one hop;
+  - answers **PARTIAL**, naming the gaps and any recalled candidates, unless every in-scope shard was read whole.
+
+  Search shards are now the preferred way to find a docId: a number with no row in a shard read whole is a true NOT FOUND, so "SMPTE ST 2067-99" no longer depends on the truncated `suites.json`. A truncated file that stops near the subject is treated as a lead. `scripts/msrbot.py` gains `search` (titles and keywords). `prompt.md`, `references/endpoints.md`, the `research/README.md` checklist and the `/ai` page are updated, with a new fifth test question (the LFE topic).
+
+- **`/api/search/`: a compact search index sized for AI fetch tools** (first piece of #2036). There are three levels, and every file is ≤ ~25 KB so chat fetch tools read it whole:
+  - `/api/search/index.json` (~18 KB) lists publishers, docTypes and counts.
+  - `/api/search/{publisher}.json` lists that publisher's shards, with each shard's `first`/`last` docId range.
+  - `/api/search/{publisher}/{docType}[-{n}].json` shards hold `{ id, label, title, keywords, status, date }` rows, natural-sorted by docId.
+
+  Rows are **current editions**. Superseded editions are excluded when their replacement is in MSRBot, and kept (marked `superseded`) when it isn't, as for 13 older RFC/ITU/IEEE/ETSI documents, so every document MSRBot holds has a row. It totals 330 shards and 26,084 rows; SMPTE standards span 6 shards. The files are byte-stable (no build timestamps), validated by `/api/schemas/search.schema.json` (`apiVersion` 2.0.0; 1.0.0 was a single-level index with ~50 KB shards, live briefly before release), and listed on the API Explorer page and in the Dev Tools menu. Motivation: a claude.ai test asked a topic question about the LFE channel, and the skill couldn't search titles because the full slices are 0.4–5 MB, so it missed SMPTE EG 432-2:2006 even though "LFE" is in its title and keywords. A later run found ~50 KB shards reported as cut off when an agent asked for verbatim matches, hence 25 KB.
 
 ### Changed
 

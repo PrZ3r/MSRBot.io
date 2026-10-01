@@ -63,7 +63,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 | **Claude Code** | `/plugin marketplace add PrZ3r/MSRBot.io`, then `/plugin install msrbot-research@msrbot` |
 | **ChatGPT, Gemini, Copilot, others** | Paste [`research/prompt.md`](research/prompt.md) into the tool's instructions. |
 
-The same instructions are on the website at **[msrbot.io/ai](https://msrbot.io/ai/)**, which is the easiest link to share. The step-by-step guide, including a four-question checklist to confirm it's working, is in [`research/README.md`](research/README.md).
+The same instructions are on the website at **[msrbot.io/ai](https://msrbot.io/ai/)**, which is the easiest link to share. The step-by-step guide, including a five-question checklist to confirm it's working, is in [`research/README.md`](research/README.md).
 
 ## Portals
 

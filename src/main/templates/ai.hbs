@@ -104,9 +104,10 @@
         <p class="mb-2">Ask each question in a <strong>new chat</strong>, without mentioning MSRBot:</p>
         <ol class="mb-2">
           <li><em>"We're building off SMPTE ST 2067-21:2020. Is that still the edition to target?"</em> It should say the 2020 edition was replaced by <strong>ST 2067-21:2022</strong>, with <code>msrbot.io</code> links.</li>
-          <li><em>"What's the title of SMPTE ST 2067-99?"</em> This part doesn't exist. It should answer <strong>NOT FOUND</strong> or <strong>COULD NOT VERIFY</strong>, and must not invent a title.</li>
+          <li><em>"What's the title of SMPTE ST 2067-99?"</em> This part doesn't exist. It should answer <strong>NOT FOUND</strong>, and must not invent a title.</li>
           <li><em>"What's the current edition of SMPTE ST 2110-20?"</em> It should say <strong>ST 2110-20:2022</strong>.</li>
           <li><em>"What is ISDCF Doc 20 about?"</em> It should answer <strong>NOT FOUND</strong> after checking MSRBot's full ISDCF list.</li>
+          <li><em>"Check for D-Cinema standards relating to the legal frequency range for the LFE/subwoofer audio channel."</em> It should search before answering and include <strong>SMPTE EG 432-2:2006</strong> (D-Cinema LFE Channel Audio Characteristics) along with <strong>ST 202</strong> and <strong>RP 200</strong>.</li>
         </ol>
         <p class="text-muted mb-0">A confident answer with no <code>msrbot.io</code> links means the skill or prompt isn't active.</p>
       </div>

@@ -34,12 +34,18 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * registry's full slices (0.4–57 MB) can't be searched by topic from a chat.
  * This emits small, complete shards instead:
  *
- *   build/api/search/index.json
- *       every publisher → docType → shards [{ path, count, first, last }]
+ *   build/api/search/index.json            (small: start here)
+ *       publisher → { index, total, docTypes: { docType → { count, shards } } }
+ *   build/api/search/{publisher}.json      (per-publisher shard list)
+ *       docType → shards [{ path, count, first, last }]
  *   build/api/search/{publisher}/{docType}[-{n}].json
  *       { publisher, docType, shard, of, count, first, last, docs: [row…] }
  *
- * Rows cover CURRENT editions only (status.superseded !== true):
+ * Rows cover CURRENT editions: superseded docs are skipped when a successor
+ * (status.supersededBy) is in the registry, and kept (status "…,superseded")
+ * when none is, so every document MSRBot holds is represented by at least one
+ * row. A number with no row in a fully read shard is therefore not in MSRBot.
+ * Row shape:
  *   { id, label, title, keywords, status, date }
  * Rows are natural-sorted by docId and split so each shard stays under
  * MAX_SHARD_BYTES; `first`/`last` let a client pick the shard for a number
@@ -53,9 +59,10 @@ const path = require('path');
 const { loadAllDocs, slug } = require('../lib/registry');
 
 const SEARCH_ROOT = path.resolve('build', 'api', 'search');
-const API_VERSION = '1.0.0';
-// Comfortably under the ~100 KB at which chat fetch tools were seen to truncate.
-const MAX_SHARD_BYTES = 50 * 1024;
+const API_VERSION = '2.0.0';
+// Chat fetch tools truncated suites.json near ~100 KB, and an agent asking for
+// verbatim matches reported ~50 KB shards as cut off; 25 KB leaves real margin.
+const MAX_SHARD_BYTES = 25 * 1024;
 
 const byDocId = (a, b) => a.id.localeCompare(b.id, 'en', { numeric: true, sensitivity: 'base' });
 
@@ -67,6 +74,7 @@ function statusOf(st) {
   else flags.push('inactive');
   if (st.stabilized === true) flags.push('stabilized');
   if (st.amended === true) flags.push('amended');
+  if (st.superseded === true) flags.push('superseded');
   return flags.join(',');
 }
 
@@ -110,10 +118,14 @@ function emitSearchApi(docs = loadAllDocs()) {
   fs.rmSync(SEARCH_ROOT, { recursive: true, force: true });
 
   // publisher slug -> { name, types: Map(type slug -> { name, rows[] }) }
+  const ids = new Set(docs.filter((d) => d && d.docId).map((d) => String(d.docId)));
+  const hasSuccessorInRegistry = (doc) =>
+    (Array.isArray(doc.status.supersededBy) ? doc.status.supersededBy : []).some((id) => ids.has(String(id)));
+
   const pubs = new Map();
   for (const doc of docs) {
     if (!doc || !doc.docId) continue;
-    if (doc.status && doc.status.superseded === true) continue;
+    if (doc.status && doc.status.superseded === true && hasSuccessorInRegistry(doc)) continue;
     const pub = slug(doc.publisher);
     if (!pubs.has(pub)) pubs.set(pub, { name: doc.publisher || null, types: new Map() });
     const types = pubs.get(pub).types;
@@ -125,7 +137,7 @@ function emitSearchApi(docs = loadAllDocs()) {
   const index = {
     $schema: '/api/schemas/search.schema.json',
     apiVersion: API_VERSION,
-    note: 'Current editions only (superseded excluded). Pick a publisher and docType, then fetch its shards; first/last give each shard\'s docId range. Fetch /api/doc/{id}.json for the full record.',
+    note: 'Current editions (superseded excluded when the successor is in MSRBot; otherwise kept and marked superseded), so every document MSRBot holds has a row. Pick a publisher, fetch its index (shard list with first/last docId ranges), then fetch the shards you need. Fetch /api/doc/{id}.json for the full record.',
     maxShardBytes: MAX_SHARD_BYTES,
     total: 0,
     publishers: {},
@@ -134,7 +146,14 @@ function emitSearchApi(docs = loadAllDocs()) {
 
   for (const pub of [...pubs.keys()].sort()) {
     const { name, types } = pubs.get(pub);
-    const pubEntry = { publisher: name, total: 0, docTypes: {} };
+    const pubIndex = {
+      $schema: '/api/schemas/search.schema.json',
+      apiVersion: API_VERSION,
+      publisher: name,
+      total: 0,
+      docTypes: {},
+    };
+    const summary = { publisher: name, index: `/api/search/${pub}.json`, total: 0, docTypes: {} };
     for (const type of [...types.keys()].sort()) {
       const { name: typeName, rows } = types.get(type);
       rows.sort(byDocId);
@@ -161,11 +180,14 @@ function emitSearchApi(docs = loadAllDocs()) {
         shardCount += 1;
         return meta;
       });
-      pubEntry.docTypes[type] = { docType: typeName, count: rows.length, shards };
-      pubEntry.total += rows.length;
+      pubIndex.docTypes[type] = { docType: typeName, count: rows.length, shards };
+      summary.docTypes[type] = { docType: typeName, count: rows.length, shards: shards.length };
+      pubIndex.total += rows.length;
     }
-    index.publishers[pub] = pubEntry;
-    index.total += pubEntry.total;
+    summary.total = pubIndex.total;
+    writeJson(path.join(SEARCH_ROOT, `${pub}.json`), pubIndex);
+    index.publishers[pub] = summary;
+    index.total += summary.total;
   }
 
   writeJson(path.join(SEARCH_ROOT, 'index.json'), index);
