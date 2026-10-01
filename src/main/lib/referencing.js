@@ -147,6 +147,15 @@ let _docIdIndex = null; // Set<string> of docIds from the registry
 let _docBaseIndex = null; // Map<string base, string[]> of docIds by base
 const DATED_TAIL_RE = /\.(?:\d{8}|\d{4}(?:-\d{2}){0,2})$/; // .YYYY | .YYYY-MM | .YYYY-MM-DD | .YYYYMMDD
 
+// Strip a dated tail, unless what's left is only a publisher prefix: in
+// `ISO.8567` / `IEC.1179` the 4 digits are the document number, not a year.
+// Without this guard, base `ISO` matched every ISO doc and undated refs
+// resolved to the newest one (ISO.11664-5.2024).
+function _stripDatedTail(id) {
+  const base = String(id).replace(DATED_TAIL_RE, '');
+  return /^[A-Za-z]+$/.test(base) ? String(id) : base;
+}
+
 function _loadDocumentsIndex() {
   if (_docIdIndex && _docBaseIndex) return _docIdIndex;
   try {
@@ -156,7 +165,7 @@ function _loadDocumentsIndex() {
     const addId = (id) => {
       if (!id || typeof id !== 'string') return;
       _docIdIndex.add(id);
-      const base = id.replace(DATED_TAIL_RE, '');
+      const base = _stripDatedTail(id);
       if (base) {
         const arr = _docBaseIndex.get(base) || [];
         if (!arr.includes(id)) arr.push(id);
@@ -186,6 +195,7 @@ function _hasDocId(id) {
 function _dateRankFromId(id) {
   // Return a numeric rank for comparing dated ids; higher = newer. Undated -> -Infinity.
   if (!id || typeof id !== 'string') return Number.NEGATIVE_INFINITY;
+  if (_stripDatedTail(id) === id) return Number.NEGATIVE_INFINITY;
   const m = id.match(/\.(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$|\.(\d{8})$/);
   if (!m) return Number.NEGATIVE_INFINITY;
   if (m[4]) { // YYYYMMDD
@@ -204,7 +214,7 @@ function _findSourceDocIdForRefId(refId) {
   // 1) exact id present
   if (_docIdIndex && _docIdIndex.has(id)) return id;
   // 2) base match: choose the latest dated docId for the same base
-  const base = id.replace(DATED_TAIL_RE, '');
+  const base = _stripDatedTail(id);
   let arr = _docBaseIndex ? _docBaseIndex.get(base) : null;
 
   // Fallback: if base map is empty (e.g., index built from array without docBase fields),
@@ -683,8 +693,11 @@ function _buildRefsOut(mri) {
       // the published `RFC8446`; parser-family resolutions ditto).
       // mriFlush is NOT the sole authority on resolvedDocId — it only
       // fills the null case and (here) demotes pointers that have
-      // gone stale.
-      if (e.resolvedDocId && _hasDocIdOrBase(e.resolvedDocId)) {
+      // gone stale. A pointer that this presence check set itself
+      // (resolvedDocId === the previous sourceDocId) is not an extractor
+      // mapping: once the check no longer confirms it, it goes too.
+      const flushOwned = !!prevDoc && e.resolvedDocId === prevDoc;
+      if (e.resolvedDocId && !flushOwned && _hasDocIdOrBase(e.resolvedDocId)) {
         if (e.needsResolve !== null) { e.needsResolve = null; _dirty = true; }
       } else {
         if (e.resolvedDocId !== null) { e.resolvedDocId = null; _dirty = true; }
