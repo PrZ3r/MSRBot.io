@@ -19,7 +19,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `canonicalize`: canonicalize the per-doc registry files (key-sort, inject `$meta`, re-home strays).
 - `assemble`: emit per-publisher/docType registry slices under `build/`.
 - `keywords-sync`: detect (or `--write` append) controlled keyword updates.
-- `config-sort`: canonicalize/sort `src/main/config/site.json` key ordering.
+- `config-sort`: canonicalize/sort key ordering of `src/main/config/site.json` and `src/main/input/refMap.json`.
 - `build-index`: build search index artifacts.
 - `build-stats`: regenerate the API/site stats artifact standalone (also run automatically by `build`).
 - `build`: build full static site output.
@@ -203,7 +203,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 
 - `npm run config-sort`
   - Runs: `node src/main/scripts/utils/configSort.js`
-  - Action: Canonicalizes and key-sorts `src/main/config/site.json` for stable diffs.
+  - Action: Canonicalizes and key-sorts `src/main/config/site.json` and `src/main/input/refMap.json` (refIds alphabetical; pattern order inside each entry is kept) for stable diffs and easy lookup.
 
 ## Runtime Environment Variables
 
