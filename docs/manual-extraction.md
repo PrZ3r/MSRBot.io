@@ -11,6 +11,16 @@ This is the **preferred way to add documents by hand, and the required way for A
 
 AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` walks through the whole workflow. Other tools should follow the steps below.
 
+## When to use it, and when not
+
+- **It is a first pass, never the final word.** Whatever the extraction produces, especially when an AI did the reading, a person must verify it by hand against the publisher's sources before it merges. That means:
+  - before running: every field, date, title and translation, and every citation's mapping, checked in the review step;
+  - after running: the built doc pages.
+
+  Unverified AI-read values don't go into the registry.
+- **Small jobs may be quicker by hand.** For one or two documents with few citations, scaffolding with `npm run new-doc`, editing the per-doc files and running `npm run canonicalize` / `npm run validate` can be simpler. If an AI tool is doing the work, though, use `extract-manual`, so the shared tooling runs.
+- **Sources that change over time need a real extractor.** If the publisher issues new editions or revisions, withdraws documents, or is something we'd want to re-check regularly, write a provider in `src/main/scripts/providers/` with a scheduled workflow, as for SMPTE and IETF. A manual extraction is a one-time snapshot: it won't notice later editions, supersessions or withdrawals.
+
 ## Workflow
 
 1. **Scope:**

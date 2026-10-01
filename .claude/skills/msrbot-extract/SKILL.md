@@ -11,6 +11,12 @@ You are the **discovery and reading** step of an extractor. The publisher has no
 
 Read `AGENTS.md` first; it overrides anything here. Record format: `docs/manual-extraction.md`.
 
+## When to use it, and when not
+
+- **First pass only.** What you produce must be verified by hand by the requester against the sources before it merges. The review step (4) and the built-page check (5) are how that happens; they aren't optional.
+- **Small jobs:** for one or two documents with few citations, editing by hand (`new-doc`, `canonicalize`, `validate`) may be quicker. Say so and offer that route. If you do the work, still use `extract-manual`.
+- **Changing or versioned sources:** if the publisher revises, supersedes or withdraws documents over time, recommend a real provider in `src/main/scripts/providers/` with a scheduled run instead. A manual extraction is a one-time snapshot.
+
 ## Rules
 
 1. **Read sources whole.** The whole listing page (news posts and page metadata carry dates the download list doesn't) and each PDF's cover, contents, scope, references and annex list. Listing titles are often all-caps, truncated or misspelt; the PDF cover wins.
