@@ -176,7 +176,7 @@ Claude API skills execute without network access, so the skill can't reach msrbo
 
 ## 4. Maintaining it
 
-- **Change the skill and the prompt together.** `prompt.md` restates `SKILL.md` plus `references/`. After any change, bump `version` in `.claude-plugin/plugin.json`.
+- **Change the skill and the prompt together.** `prompt.md` restates `SKILL.md` plus `references/`. After any change, bump the version in **both** `.claude-plugin/plugin.json` and `SKILL.md`'s frontmatter (`metadata.version`). `npm test` fails if they differ. The claude.ai zip carries only the skill folder, so `metadata.version` is the only version a zip install sees. claude.ai's own "V1/V2" labels are its upload counter and won't match.
 - **Every release carries the zip, automatically.** When a release is published, the [`Attach research skill to release`](../.github/workflows/release-skill-zip.yml) workflow builds `msrbot-research.zip` from the release's tagged commit and attaches it. The download link above always points at the latest release and never needs editing. A skill fix ships with the next MSRBot release; if it can't wait, cut a patch release. To (re)attach the zip to an existing release, run the workflow by hand with its tag.
 - **Follow the API roadmap.** The skill uses today's static endpoints. The planned lookup, search, lineage and provenance APIs and the MCP server are tracked in epic [#2032](https://github.com/PrZ3r/MSRBot.io/issues/2032). As each ships, update `references/endpoints.md`, the procedure in `SKILL.md`, `scripts/msrbot.py` and `prompt.md`.
 - **Re-run [section 2](#2-check-that-it-works)** after every change, and after big registry changes.
