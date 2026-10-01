@@ -284,7 +284,9 @@ def cmd_search(args):
     for pub_slug, pub in sorted(pubs.items()):
         if wanted_pub and pub_slug != wanted_pub:
             continue
-        for type_slug, t in sorted(pub.get("docTypes", {}).items()):
+        # Two-level index (apiVersion 2): shard ranges live in the per-publisher index.
+        pub_index = _fetch_json(BASE + pub["index"], "search_" + pub_slug + "_index.json")
+        for type_slug, t in sorted(pub_index.get("docTypes", {}).items()):
             if wanted_type and type_slug != wanted_type:
                 continue
             if not args.include_articles and type_slug in ("journal-article", "conference-paper"):

@@ -76,7 +76,7 @@ Open a **new chat** for each question and ask it exactly as written. Tick each o
 This standard doesn't exist.
 > What's the title of SMPTE ST 2067-99?
 
-- [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**. It should have checked the search shard covering SMPTE ST 2036-2 to ST 2139 (`https://msrbot.io/api/search/smpte/standard-3.json`), which has no part 99. **COULD NOT VERIFY** is honest but means a lookup was blocked or cut off; see the table below.
+- [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**. It should have read the search shard whose docId range covers ST 2067 (listed in `https://msrbot.io/api/search/smpte.json`), which has no part 99. **COULD NOT VERIFY** is honest but means a lookup was blocked or cut off; see the table below.
 - [ ] It does **not** make up a title
 - [ ] It lists the **full URLs** it tried. If it guessed IDs, it stopped after **about three**; which years it tried doesn't matter.
 - [ ] A COULD NOT VERIFY answer **opens with what it couldn't check**, not "didn't find"
