@@ -41,6 +41,19 @@
             "null"
           ]
         },
+        "titleOriginal": {
+          "type": "string",
+          "description": "Title in the document's original language; present only on non-English documents"
+        },
+        "lang": {
+          "type": "string",
+          "description": "BCP 47 tag of the published language; present only on non-English documents"
+        },
+        "translatedBy": {
+          "type": "string",
+          "enum": ["msrbot"],
+          "description": "Present when title is MSRBot.io's English translation rather than the publisher's own; cite titleOriginal as the official title"
+        },
         "keywords": {
           "type": "array",
           "items": {

@@ -195,6 +195,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         (d.docId || '') + ' ' +
         (d.docLabel || '') + ' ' +
         (d.docTitle || '') + ' ' +
+        (d.docTitleOriginal || '') + ' ' +
         (d.publisher || '') + ' ' +
         (d.docType || '') + ' ' +
         (Array.isArray(d.keywords) ? d.keywords.join(' ') : '')
