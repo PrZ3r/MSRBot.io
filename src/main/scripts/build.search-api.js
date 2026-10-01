@@ -39,7 +39,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *   build/api/search/{publisher}/{docType}[-{n}].json
  *       { publisher, docType, shard, of, count, first, last, docs: [row…] }
  *
- * Rows cover CURRENT editions only (status.superseded !== true):
+ * Rows cover CURRENT editions: superseded docs are skipped when a successor
+ * (status.supersededBy) is in the registry, and kept (status "…,superseded")
+ * when none is, so every document MSRBot holds is represented by at least one
+ * row. A number with no row in a fully read shard is therefore not in MSRBot.
+ * Row shape:
  *   { id, label, title, keywords, status, date }
  * Rows are natural-sorted by docId and split so each shard stays under
  * MAX_SHARD_BYTES; `first`/`last` let a client pick the shard for a number
@@ -67,6 +71,7 @@ function statusOf(st) {
   else flags.push('inactive');
   if (st.stabilized === true) flags.push('stabilized');
   if (st.amended === true) flags.push('amended');
+  if (st.superseded === true) flags.push('superseded');
   return flags.join(',');
 }
 
@@ -110,10 +115,14 @@ function emitSearchApi(docs = loadAllDocs()) {
   fs.rmSync(SEARCH_ROOT, { recursive: true, force: true });
 
   // publisher slug -> { name, types: Map(type slug -> { name, rows[] }) }
+  const ids = new Set(docs.filter((d) => d && d.docId).map((d) => String(d.docId)));
+  const hasSuccessorInRegistry = (doc) =>
+    (Array.isArray(doc.status.supersededBy) ? doc.status.supersededBy : []).some((id) => ids.has(String(id)));
+
   const pubs = new Map();
   for (const doc of docs) {
     if (!doc || !doc.docId) continue;
-    if (doc.status && doc.status.superseded === true) continue;
+    if (doc.status && doc.status.superseded === true && hasSuccessorInRegistry(doc)) continue;
     const pub = slug(doc.publisher);
     if (!pubs.has(pub)) pubs.set(pub, { name: doc.publisher || null, types: new Map() });
     const types = pubs.get(pub).types;
@@ -125,7 +134,7 @@ function emitSearchApi(docs = loadAllDocs()) {
   const index = {
     $schema: '/api/schemas/search.schema.json',
     apiVersion: API_VERSION,
-    note: 'Current editions only (superseded excluded). Pick a publisher and docType, then fetch its shards; first/last give each shard\'s docId range. Fetch /api/doc/{id}.json for the full record.',
+    note: 'Current editions (superseded excluded when the successor is in MSRBot; otherwise kept and marked superseded), so every document MSRBot holds has a row. Pick a publisher and docType, then fetch its shards; first/last give each shard\'s docId range. Fetch /api/doc/{id}.json for the full record.',
     maxShardBytes: MAX_SHARD_BYTES,
     total: 0,
     publishers: {},

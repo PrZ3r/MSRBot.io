@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://msrbot.io/api/schemas/search.schema.json",
   "title": "MSRBot Search API (/api/search/)",
-  "description": "Compact search index of current editions (superseded excluded). /api/search/index.json is an Index; /api/search/{publisher}/{docType}[-{n}].json files are Shards.",
+  "description": "Compact search index of current editions: superseded documents are excluded when their successor is in MSRBot, and kept (status includes superseded) when it is not, so every document MSRBot holds has a row. /api/search/index.json is an Index; /api/search/{publisher}/{docType}[-{n}].json files are Shards.",
   "oneOf": [
     { "$ref": "#/definitions/index" },
     { "$ref": "#/definitions/shard" }
@@ -17,7 +17,7 @@
         "label": { "type": ["string", "null"] },
         "title": { "type": ["string", "null"] },
         "keywords": { "type": "array", "items": { "type": "string" } },
-        "status": { "type": "string", "description": "active | inactive | withdrawn | unknown, optionally followed by ,stabilized and/or ,amended" },
+        "status": { "type": "string", "description": "active | inactive | withdrawn | unknown, optionally followed by ,stabilized / ,amended / ,superseded (superseded only when the successor is not in MSRBot)" },
         "date": { "type": "string", "description": "publicationDate (YYYY, YYYY-MM or YYYY-MM-DD)" }
       }
     },
