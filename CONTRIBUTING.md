@@ -66,6 +66,18 @@ When contributing or editing document metadata:
 - Use consistent schema fields in `src/main/schemas/documents.schema.json`
 - Ensure `$meta` provenance fields are properly maintained:
   - source, confidence, updated, overridden, etc.
+  - `source` records how a value was obtained, not who obtained it:
+    - `parsed`: read directly from the publisher's document or page. Set `sourceUrl` to that page or file.
+    - `inferred`: derived rather than stated, such as a translation, a summary, or a `docId` built from registry conventions.
+    - `manual`: a person typed or decided the value.
+
+    Agent-assisted entry follows the same rules: a title read off the PDF is `parsed`, and its English translation is `inferred`.
+- Non-English documents (schema 2.5.0):
+  - `docTitle` and `abstract` stay in English, so search and the API work unchanged.
+  - Set `language` to the BCP 47 tag of the published language (for example `fr`). Leave it out for English documents.
+  - Keep the publisher's own wording in `docTitleOriginal` and `abstractOriginal`.
+  - Set `translatedBy: "msrbot"` when the English is our translation, and `"publisher"` (or leave it out) when the publisher supplies an official English title.
+  - Mark translated fields `source: "inferred"`, with a `note`, and `reviewRequired: true` until someone has reviewed them.
 - Avoid manual edits to `resolvedHref` — these are maintained by automation.
 - Keywords are controlled via `src/main/config/site.json` (`controlledKeywords`), not a schema enum.
 - Keyword validation modes:
