@@ -19,7 +19,17 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
      - keying in `src/main/lib/keying.js`;
      - a `parseRefId` family, if other documents cite it;
      - `site.json` abbreviation, logo and link.
-2. **Read:** for each document, the cover, the dates, the scope section and the references section, word for word.
+2. **Read** each document's cover or title block, dates, scope section and references section, word for word. How depends on what you were pointed at:
+
+   | Source you were pointed at | What to read | `sourceUrl` / `href` | Dates and references |
+   |---|---|---|---|
+   | **Listing page linking PDFs** (CST's recommendations page) | The whole page, then each linked PDF | `sourceUrl` = the PDF. `href` = the PDF link. `href`, `publisher` and `docType` come from the listing page, so put that URL in `metaSourceUrls` | Printed in the PDF. News items and posts on the page can supply a missing day (`datePublished`) |
+   | **One document landing page** (an HTML page with metadata plus a PDF or HTML link) | The page, its metadata (`<meta>`, JSON-LD, `og:`/`article:` tags) and the linked document | `sourceUrl` = the landing page for fields read there, and the document URL for fields read from the document. `href` = the document, or the landing page if that is the canonical place to get it | Prefer the document; the page's structured metadata comes next |
+   | **Direct PDF URL** | The PDF only. Ask the user for the publisher's page if one exists | `sourceUrl` = `href` = the PDF | From the PDF. If none is printed, the PDF's `CreationDate` is **not** a publication date: leave the date out or ask |
+   | **Document published as HTML** (a spec page with no PDF) | The page itself: title block, status or version, scope, references section | `sourceUrl` = `href` = the page | From the page's title block or metadata. References from its references section, including any `href`s, which go into `citations[].href` |
+   
+   Mixed cases (several PDFs per document, language editions, annexes, consultation drafts, near-duplicate titles) are judgment calls: flag them before writing records.
+
 3. **Write the records file** (format below).
 4. **Preview the reference mapping.** Fix parser misses in the shared tooling, not in the records:
    - a `referencing.js` family plus tests, for a recurring pattern;

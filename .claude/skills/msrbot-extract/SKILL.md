@@ -1,6 +1,6 @@
 ---
 name: msrbot-extract
-description: Add documents to the MSRBot.io registry from a publisher's website and PDFs when there is no purpose-built extractor (CST, small consortia, one-off specs) — the agent reads the sources and writes a records file, and `npm run extract-manual` runs it through the same extractDocs pipeline as the SMPTE/IETF extractors. Use when asked to add, ingest, extract or "pull in" a document or list of documents from a publisher URL into MSRBot, or to add a new publisher. Repo-only: needs an MSRBot.io checkout. Not for SMPTE/IETF (they have extractors) or for answering questions about standards (use msrbot-research).
+description: Add documents to the MSRBot.io registry when there is no purpose-built extractor. The source can be a publisher page linking PDFs, a document landing page, a direct PDF URL or a document published as HTML (CST, small consortia, one-off specs) — the agent reads the sources and writes a records file, and `npm run extract-manual` runs it through the same extractDocs pipeline as the SMPTE/IETF extractors. Use when asked to add, ingest, extract or "pull in" a document or list of documents from a publisher URL into MSRBot, or to add a new publisher. Repo-only: needs an MSRBot.io checkout. Not for SMPTE/IETF (they have extractors) or for answering questions about standards (use msrbot-research).
 metadata:
   version: "1.0.0"
 ---
@@ -23,14 +23,25 @@ Read `AGENTS.md` first; it overrides anything here. Record format: `docs/manual-
 
 ## Workflow
 
-### 1. Scope
-- Save the listing page (`curl -sL URL -o $SCRATCH/pub.html`) and enumerate every document: id, listed title, PDF link, language editions, annexes, drafts/consultations.
+### 1. Scope: what were you pointed at?
+
+| Source you were pointed at | What to read | `sourceUrl` / `href` | Dates and references |
+|---|---|---|---|
+| **Listing page linking PDFs** (CST's recommendations page) | The whole page, then each linked PDF | `sourceUrl` = the PDF. `href` = the PDF link. `href`, `publisher` and `docType` come from the listing page, so put that URL in `metaSourceUrls` | Printed in the PDF. News items and posts on the page can supply a missing day (`datePublished`) |
+| **One document landing page** (an HTML page with metadata plus a PDF or HTML link) | The page, its metadata (`<meta>`, JSON-LD, `og:`/`article:` tags) and the linked document | `sourceUrl` = the landing page for fields read there, and the document URL for fields read from the document. `href` = the document, or the landing page if that is the canonical place to get it | Prefer the document; the page's structured metadata comes next |
+| **Direct PDF URL** | The PDF only. Ask the user for the publisher's page if one exists | `sourceUrl` = `href` = the PDF | From the PDF. If none is printed, the PDF's `CreationDate` is **not** a publication date: leave the date out or ask |
+| **Document published as HTML** (a spec page with no PDF) | The page itself: title block, status or version, scope, references section | `sourceUrl` = `href` = the page | From the page's title block or metadata. References from its references section, including any `href`s, which go into `citations[].href` |
+
+Mixed cases (several PDFs per document, language editions, annexes, consultation drafts, near-duplicate titles) are judgment calls: flag them before writing records.
+
+- Save every page you use (`curl -sL URL -o $SCRATCH/<name>.html`) and enumerate the documents: id, listed title, document link(s), language editions, annexes, drafts/consultations.
 - What MSRBot already has: `find src/main/data/docs -iname '<PUB>.*'`.
 - New publisher: it needs keying (`src/main/lib/keying.js` `keyFromDocId`, else the MSI files an UNKEYED issue), a parser family if others cite it, and `site.json` abbreviation/logo/link (ask the user for the logo).
 - Flag anything that isn't one-doc-one-PDF (separate language editions, annexes, consultations, near-duplicates) and ask how to model it.
 
 ### 2. Read each document
-- `node .claude/skills/msrbot-extract/scripts/pdf_text.mjs <pdf|url> [pages]` — metadata + text (installs `pdfjs-dist` into the skill folder on first run; the repo has no PDF tooling).
+- **PDF:** `node .claude/skills/msrbot-extract/scripts/pdf_text.mjs <pdf|url> [pages]` prints the metadata and text. It installs `pdfjs-dist` into the skill folder on first run; the repo has no PDF tooling. A PDF with no text layer (a scan) is out of scope: tell the user, don't guess from images.
+- **HTML:** read the saved page, including its `<head>` metadata (`<meta>`, JSON-LD, `og:` and `article:` tags) as well as the visible text. Copy reference entries verbatim, including their links.
 - For a batch, parallel readers are fine, but give them the verbatim-only rules and own the records yourself.
 - Collect: label as printed, every printed date with its line, cover title, scope/"Objet" text, the references section verbatim, authoring body, version/supersedes notes.
 - Dates: a printed "publiée/validée" line beats a header date beats the label year; an announcement's `datePublished` can fill a missing day. Record which in `metaNotes.publicationDate`.
