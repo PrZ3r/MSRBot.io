@@ -666,6 +666,11 @@ for (const doc of results) {
       attachMetaSourceUrl(existingDoc, doc.__sourceUrl);
       attachMetaNotes(existingDoc, doc.__metaNotes || {});
       attachMetaFlags(existingDoc, doc.__metaFlags || {});
+      // Per-field source hints (manual provider) apply on update too.
+      for (const key of ['__metaSources', '__metaSourceUrls']) {
+        if (doc[key]) Object.defineProperty(existingDoc, key, { value: doc[key], enumerable: false, configurable: true, writable: true });
+        if (doc.status && doc.status[key] && existingDoc.status) Object.defineProperty(existingDoc.status, key, { value: doc.status[key], enumerable: false, configurable: true, writable: true });
+      }
       attachMetaSourceUrl(existingDoc.status, doc.__sourceUrl);
       attachMetaNotes(existingDoc.status, buildScopedMetaNotes(doc.__metaNotes, 'status'));
       attachMetaFlags(existingDoc.status, buildScopedMetaFlags(doc.__metaFlags, 'status'));
@@ -680,9 +685,16 @@ for (const doc of results) {
         normative: (existingDoc.references && existingDoc.references.normative) || [],
         bibliographic: (existingDoc.references && existingDoc.references.bibliographic) || []
       };
+      // Orphan slugs minted for this doc in this run are only pushed into references[] after
+      // the merge (orphanSlugApplyQueue); include them here so an unchanged citation list
+      // isn't reported as a references change on every re-extract.
+      const pendingOrphans = (type) => orphanSlugApplyQueue
+        .filter((q) => q.docId === doc.docId && (q.type === 'normative' ? 'normative' : 'bibliographic') === type)
+        .map((q) => q.slug);
+      const withPending = (list, type) => [...new Set([...(list || []), ...pendingOrphans(type)])];
       const newRefs = {
-        normative: (doc.references && doc.references.normative) || [],
-        bibliographic: (doc.references && doc.references.bibliographic) || []
+        normative: withPending(doc.references && doc.references.normative, 'normative'),
+        bibliographic: withPending(doc.references && doc.references.bibliographic, 'bibliographic')
       };
 
       if (doc.references) {
