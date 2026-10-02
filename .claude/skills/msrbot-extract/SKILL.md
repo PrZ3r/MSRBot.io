@@ -92,4 +92,9 @@ Docs added (docId, label, English title), fields left empty and why, references 
 ## Known pitfalls
 - French/European typography ("ISO 26 428 – 3", "RP 200 :2012", UIT-R, CEI) is handled by `parseRefId` since #2088; new typography belongs there too.
 - A stored MRI pointer can outlive the bug that set it; `mriFlush` drops pointers it set itself once unconfirmed (#2068) — run the CHECK above anyway.
+- **A citation of a whole series** ("ISO 15444", "SMPTE ST 429-*"): if the MSI has a suite for it (`src/main/reports/masterSuiteIndex.json` `suites[].key`), cite `<id>.ALLPARTS` (an explicit refId, listed in the review). It renders as a link to the suite page.
+- **Cited papers and books may already be in the registry** (SMPTE journal and conference papers have DOI docIds). Search titles before accepting an orphan, and map the citation with a `refMap.json` entry.
+- **Some publishers file errata under the same version prefix** (DCI's DCSS). Ranking by date then picks an errata sheet. Map the version to its specification record in `refMap.json`.
+- **Portals select by keyword** (`src/main/data/portals.json`: D-Cinema takes DCinema/DCP/…, Captions-Subtitles-Accessibility takes Accessibility/Captions/Subtitles/…). Choose controlled keywords so documents land in the right portals.
+- **Use `npm run extract-manual` for changes to already-added records too**: the update path records `originalValue` and `overridden`, and keeps the record's provenance.
 - Listing titles can be wrong; a "révision" means an earlier edition exists — don't link `revisionOf` unless you can identify it.
