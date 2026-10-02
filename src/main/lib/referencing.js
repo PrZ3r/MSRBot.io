@@ -916,6 +916,9 @@ function normalizeCiteTypography(text) {
   s = s.replace(/\bSMPTE\s*,\s*[«"\u201C]\s*(?=(?:ST|RP|RDD|EG)\s*\d)/g, 'SMPTE ')
     .replace(/\bSMPTE\s+(ST|RP|RDD|EG|AG|OV)(?=\d)/g, 'SMPTE $1 ')
     .replace(/\bSMPTE\s*\(\s*(?=\d{1,4}M\b)/g, 'SMPTE ');
+  // UER (Union européenne de radio-télévision) is the EBU in French; "EBU-Tech 3341" → "EBU Tech 3341"
+  s = s.replace(new RegExp(`\\bUER\\s*${D}\\s*(?=[RD]\\s*\\d|Tech)`, 'g'), 'EBU-')
+    .replace(new RegExp(`\\bEBU\\s*${D}\\s*Tech\\b`, 'g'), 'EBU Tech');
   s = s.replace(new RegExp(`\\bEBU\\s*${D}?\\s*([RD])\\s*(?=\\d)`, 'g'), 'EBU $1');
   return s;
 }

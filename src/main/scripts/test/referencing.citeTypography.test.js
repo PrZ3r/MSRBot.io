@@ -67,6 +67,10 @@ const cases = [
   ['Recommendation UIT-R 1680, Format de signal d\'image en bande de base', 'R-REC-BT.1680'], // refMap
   ['EBU – R95 V1.1 - 2016 Safe areas for 16 :9 television production', 'EBU.R95.2016'],
   ['EBU–R 95 v1.1 - 2016 Safe areas for 16 :9 television production', 'EBU.R95.2016'],
+  ['UER-R91-1998 : Allocation des canaux en audio 5.1', 'EBU.R91.1998'],
+  ['EBU-Tech 3341, 3342, 3343, 3344 : recommandations techniques relatives à l’EBU R128', 'EBU.Tech3341'],
+  ['[1] EBU-Tech.3320, User Requirements for Video Monitors in Television Production, 2010', 'EBU.Tech3320.2010'],
+  ['L’ensemble des références concernant le format « AS-10 MXF for Production Specification », dans sa version courante', 'AMWA.AS-10'],
   // CST
   ['CST RT 031 – Projection – 2012 « Méthodologie de relevé des caractéristiques dimensionnelles »', 'CST.RT031.2012'],
   ['CST - RT – 007 - S - 2001', 'CST.RT007.2001'],
