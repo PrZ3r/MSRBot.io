@@ -15,10 +15,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - Batch 1, sound/picture sync: CST-RT-009-2000 (television), CST-RT-015-2007 (35 mm release prints), CST-RT-025-2011 (cinema).
   - Batch 2, cinema sound and acoustics: CST-RT-003-2009 (advertising and trailer loudness), CST-RT-007-2001 (processor level alignment), CST-RT-013 (auditorium sound level, 2006), CST-RT-014-2001 (background noise in technical facilities), CST-RT-022-2011 (AES channel assignment), CST-RT-041-2021 (auditorium acoustics).
   - Batch 3, projection and auditoriums: CST-RT-005-2002 (35 mm projection), CST-RT-012-2003 (spectator comfort), CST-RT-020-2023 (open-air projection), CST-RT-032-2012 and CST-RT-033-2012 (measurement methods for digital projection and sound), CST-RT-034-2012 and CST-RT-035-2012 (digital projection characteristics and auditorium dimensions, both cover-marked drafts), CST-RT-045-2019 (projection equipment maintenance).
+  - Batch 4, files, archive, accessibility and TV:
+    - CST-RT-018-2017 (TV advertising safe areas);
+    - CST-RT-021-2016 (the "mezzanine file"), with its color annex CST-RT-021-Annexe-2016 as a linked record;
+    - CST-RT-026-2012 (archival master);
+    - CST-RT-039-2015 (DCP deliverables for accessibility), which appears in the D-Cinema and the Captions, Subtitles and Accessibility portals.
+- **DCI DCSS citations parse.** "Digital Cinema System Specification Version 1.2" and similar citations now map to that version's specification record, and never to one of its errata sheets. Undated DCSS references link to the newest specification.
 
 ### Changed
 
 ### Fixed
+
+- **`extract-manual` updates keep the record's provenance, and re-extracts don't flag unchanged references.** When a manual record updates an existing document, its per-field source hints now apply. For every provider, orphan citations minted in the run are counted when comparing references, so re-extracting a document whose citations haven't changed no longer marks its references as overridden.
 
 - **Research skill 1.5.4: padded dates aren't stated as exact days.** `publicationDate` is always a full date, but a source with only a year or month is padded to `-01-01` or `-01`, and `$meta.note` says so (about 2,500 records). The skill and `prompt.md` now state only the known precision. `msrbot.py get` reports `publicationDatePrecision: year|month`. `records.md`, `endpoints.md` and `search.schema.json` no longer claim `YYYY`/`YYYY-MM` values appear. This was found while adding CST-RT-015, which is dated only by year.
 
