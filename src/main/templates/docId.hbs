@@ -232,7 +232,7 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.normative)}}
                 <li class="list-group-item">
-                  {{#ifeq (getStatus id) "MRI-KNOWN"}}
+                  {{#if (showMriCite this)}}
                     {{{mriCite id}}} <span class="badge text-bg-info ms-1">EXTERNAL</span>
                   {{else}}
                   {{#if (isRefLinkable this)}}
@@ -251,7 +251,7 @@
                     {{/if}}
                   {{/if}}
                   {{#if allParts}}
-                    <span class="ms-1">[SUITE]</span>
+                    {{#if suiteSlug}}<span class="ms-1">[SUITE]</span>{{else}}<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>{{/if}}
                   {{else}}
                     {{#if (isRefLinkable this)}}
                       <span class="ms-1">[{{getStatus id}}]</span>
@@ -261,7 +261,7 @@
                       <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
                     {{/if}}
                   {{/if}}
-                  {{/ifeq}}
+                  {{/if}}
                 </li>
               {{/each}}
               </ul>
@@ -274,7 +274,7 @@
               <ul class="list-group list-group-flush small">
               {{#each (asArray referencesResolved.bibliographic)}}
                 <li class="list-group-item">
-                  {{#ifeq (getStatus id) "MRI-KNOWN"}}
+                  {{#if (showMriCite this)}}
                     {{{mriCite id}}} <span class="badge text-bg-info ms-1">EXTERNAL</span>
                   {{else}}
                   {{#if (isRefLinkable this)}}
@@ -293,7 +293,7 @@
                     {{/if}}
                   {{/if}}
                   {{#if allParts}}
-                    <span class="ms-1">[SUITE]</span>
+                    {{#if suiteSlug}}<span class="ms-1">[SUITE]</span>{{else}}<span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>{{/if}}
                   {{else}}
                     {{#if (isRefLinkable this)}}
                       <span class="ms-1">[{{getStatus id}}]</span>
@@ -303,7 +303,7 @@
                       <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span>
                     {{/if}}
                   {{/if}}
-                  {{/ifeq}}
+                  {{/if}}
                 </li>
               {{/each}}
               </ul>

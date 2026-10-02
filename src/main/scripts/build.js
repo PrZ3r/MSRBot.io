@@ -2116,6 +2116,16 @@ function _titleOf(doc){
     }
   });
 
+  // Inline <cite> mode for an MRI-known ref, except ALLPARTS refs: those render as a
+  // suite link (refHref → suite page) even when MRI carries citation text for them.
+  hb.registerHelper("showMriCite", function(ref) {
+    if (!ref || ref.allParts) return false;
+    const id = typeof ref === "string" ? ref : ref.id;
+    const resolved = followMriResolution(id);
+    if (resolved !== id && docStatuses.hasOwnProperty(resolved)) return false;
+    return !docStatuses.hasOwnProperty(id) && refKnownToMri(id);
+  });
+
   hb.registerHelper("getRefStatus", function(ref) {
     if (ref && ref.allParts) {
       return "[SUITE]";
@@ -2125,7 +2135,7 @@ function _titleOf(doc){
 
   hb.registerHelper("isRefLinkable", function(ref) {
     if (!ref || typeof ref !== 'object') return false;
-    if (ref.allParts) return true; // suite refs are routable via suiteLink/refHref logic
+    if (ref.allParts) return !!ref.suiteSlug; // suite refs link only when the MSI has that suite
     if (!ref.id) return false;
     if (Object.prototype.hasOwnProperty.call(docStatuses, ref.id)) return true;
     // Follow MRI's resolvedDocId pointer: a slug graduated by
