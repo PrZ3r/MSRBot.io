@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
     - CST-RT-021-2016 (the "mezzanine file"), with its color annex CST-RT-021-Annexe-2016 as a linked record;
     - CST-RT-026-2012 (archival master);
     - CST-RT-039-2015 (DCP deliverables for accessibility), which appears in the D-Cinema and the Captions, Subtitles and Accessibility portals.
+  - Batch 5, documents other CST records cite, plus VR:
+    - CST-RT-031-2012 (surveying auditorium dimensions), cited by RT-035;
+    - CST-RT-040-2016 ("ready for broadcast" files), cited by RT-018, with CST's official English edition as `href` and the French one in `hrefAlternates`;
+    - CST-RT-047-2023 (virtual reality), with English and French editions.
+
+    RT-011, RT-017, RT-030 and RT-043 (with its note) are not added, because they fall outside MSRBot's media scope.
 - **DCI DCSS citations parse.** A new parser family reads "Digital Cinema System Specification Version 1.2", "V1. 0", "version 1.4.2" and similar citations. Across the 51,081 citations in the MRI, 13 more now parse, with none lost or changed.
 - **`refMap.json` one-offs found during the CST extraction:**
   - "norme AES 3" → `AES3`;
@@ -44,6 +50,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **An undated or unparted reference never rolls onto a different part.** When no edition of the cited base existed, the resolver fell back to any `<base>-N` or `<base>.N` document, so it picked the newest *part*. For example, "SMPTE 299M" and "SMPTE 299-2009" linked to ST 299-1 or 299-2, ISO 13818 to 13818-1, and RP 27 to RP 27-4. A reference now resolves only to an edition of its own base: a date suffix (`.2009`) or a DCI version (`.v1.4…`). ITU `-N` revisions are the exception, because they are editions. 22 refs that had rolled onto a part are now unresolved until their base edition is in the registry. Supersession is unchanged: ST 377M resolves to `SMPTE.ST377.2004`, whose `supersededBy` leads to ST 377-1, so the reader can follow it. This reverses the "SMPTE 299-2009 → ST299-1.2009" example from v2.7.0.
 - **"All parts" references link to their suite page on doc pages again.** This had been broken site-wide since the MRI v2 doc-page work (#1097, 2026-06-18). Every ALLPARTS reference has an MRI entry, so the template rendered them as plain "EXTERNAL" citations instead of suite links; examples are SMPTE AG 16's ISO 80000, ST 382's ST 379 (MXF Generic Container) and DCI's ISO 11664. The reference tree was unaffected. An ALLPARTS reference with no MSI suite, such as RFC 1494's ISO 10021, now shows "NOT IN REGISTRY" instead of linking to the bare `/suites/` index.
 - **DCSS version citations link to the specification, not an errata sheet.** The registry files each DCSS errata release under the same version prefix, so ranking sent "DCSS Version 1.2" to "Errata 44-45". `refMap.json` now maps each version that has a specification record (1.2, 1.3, 1.4, 1.4.1, 1.4.2, 1.4.5) to it.
 - **DCI `YYYY-MMDD` editions are ranked by date.** Undated DCI references picked an arbitrary or older edition. Undated `DCI.DCSS` now resolves to the v1.4.5 specification (it was a 2019 v1.3 errata sheet), and `DCI.DCA-HDR` to its 2024-02-28 edition (it was 2022).
