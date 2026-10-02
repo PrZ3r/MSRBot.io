@@ -224,16 +224,20 @@ function _findSourceDocIdForRefId(refId) {
   let arr = _docBaseIndex ? _docBaseIndex.get(base) : null;
 
   // Fallback: if base map is empty (e.g., index built from array without docBase fields),
-  // derive candidates by scanning all docIds that start with `${base}.` or `${base}-`
+  // derive candidates by scanning docIds that start with `${base}.` (dated editions of the
+  // same document). `${base}-` is a different *part* for SMPTE/ISO/IEC/AES (ST299 vs
+  // ST299-1 vs ST299-2), so it is never a candidate: an undated ref must not roll to a part.
+  // ITU is the exception — there `-N` is a revision of the same Recommendation (BT.709-6).
   if ((!arr || arr.length === 0) && _docIdIndex && _docIdIndex.size) {
     const dotPrefix = `${base}.`;
-    const dashPrefix = `${base}-`;
+    const dashPrefix = /^[RT]-REC-/.test(base) ? `${base}-` : null;
     arr = [];
     for (const cand of _docIdIndex) {
       if (
         cand === base ||
-        cand.startsWith(dotPrefix) ||
-        cand.startsWith(dashPrefix)
+        // `${base}.` + a date or version (`.2009`, `.v1.2…`), not a dotted part (`RP27.4.1994`)
+        (cand.startsWith(dotPrefix) && /^(?:(?:19|20)\d{2}|v\d)/.test(cand.slice(dotPrefix.length))) ||
+        (dashPrefix && cand.startsWith(dashPrefix))
       ) {
         arr.push(cand);
       }
