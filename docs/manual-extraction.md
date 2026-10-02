@@ -101,7 +101,7 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
 }
 ```
 
-- **Document fields:** any field in `src/main/schemas/documents.schema.json`. `docId`, `docLabel`, `docTitle`, `docType` and `publisher` are required. Leave out anything you don't have; never add empty placeholders.
+- **Document fields:** any field in `src/main/schemas/documents.schema.json`. `publicationDate` must be a full `YYYY-MM-DD`; if only the year or month is known, pad it (`2007-01-01`) and say so in `metaNotes.publicationDate` ("Month/day absent in source — padded to 01-01"). `docId`, `docLabel`, `docTitle`, `docType` and `publisher` are required. Leave out anything you don't have; never add empty placeholders.
 - **`sourceUrl`:** where the record was read from, usually the PDF. It becomes each field's `$meta.sourceUrl` unless `metaSourceUrls` overrides it.
 - **`metaSources`:** the provenance source for each field.
   - Fields not listed are `parsed`, meaning read from the publisher.

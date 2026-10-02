@@ -92,7 +92,9 @@ function createManualParser({ discovery, parseRefId, mriRecordSighting, onBadRef
     hidden(doc, '__sourceUrl', sourceUrl);
     hidden(doc, '__metaNotes', metaNotes);
     hidden(doc, '__metaFlags', metaFlags);
-    hidden(doc, '__metaSources', metaSources);
+    // extractDocs treats docLabel/href as 'resolved' (computed by scrapers); in a manual
+    // record they are read from the publisher, so default them to 'parsed'.
+    hidden(doc, '__metaSources', { docLabel: 'parsed', href: 'parsed', ...metaSources });
     hidden(doc, '__metaSourceUrls', metaSourceUrls);
     if (doc.status && typeof doc.status === 'object') {
       hidden(doc.status, '__metaSources', scoped(metaSources, 'status'));

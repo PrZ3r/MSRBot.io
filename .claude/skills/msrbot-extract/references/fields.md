@@ -27,7 +27,7 @@ Fields not named are `parsed` from `sourceUrl`. The table says which source to u
 | `docNumber`, `docPart` | As printed (`028`) | parsed | high | PDF |
 | `docType` | From the schema enum, matching how the publisher names it (Recommendation, Standard, Specification, Guideline…) | parsed | high | listing page |
 | `publisher` | Registry publisher string (`CST`); must match `site.json` keys | parsed | high | listing page |
-| `publicationDate` | `YYYY-MM-DD` / `YYYY-MM` / `YYYY`. Printed date first; else announcement `datePublished`. Explain in `note` | parsed | high / medium | PDF or announcement |
+| `publicationDate` | Always a full `YYYY-MM-DD` (the schema requires it). Printed date first; else announcement `datePublished`. If only a year or month is known, pad it (`2007-01-01`) and note "Month/day absent in source — padded to 01-01" (registry convention). Explain the source in `note` | parsed | high / medium | PDF or announcement |
 | `href` | Direct PDF/download URL from the publisher | parsed | high | listing page |
 | `docId` | See below | inferred | medium | — |
 | `details` | Your short English summary | inferred | medium | PDF |
