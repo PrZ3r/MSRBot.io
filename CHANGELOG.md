@@ -10,8 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **`findSourceDocIdForRefId` exported from `referencing.js`.** This read-only lookup is what `mriFlush` uses, so previews and checks, such as the `msrbot-extract` mapping preview, show real resolutions instead of approximations.
 - **More CST recommendations, added with `npm run extract-manual`.** Each has the French original title and abstract plus an English translation flagged for review, and its citations are parsed from CST's own text.
   - Batch 1, sound/picture sync: CST-RT-009-2000 (television), CST-RT-015-2007 (35 mm release prints), CST-RT-025-2011 (cinema).
+  - Batch 2, cinema sound and acoustics: CST-RT-003-2009 (advertising and trailer loudness), CST-RT-007-2001 (processor level alignment), CST-RT-013 (auditorium sound level, 2006), CST-RT-014-2001 (background noise in technical facilities), CST-RT-022-2011 (AES channel assignment), CST-RT-041-2021 (auditorium acoustics).
 
 ### Changed
 
