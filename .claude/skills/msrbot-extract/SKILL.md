@@ -2,7 +2,7 @@
 name: msrbot-extract
 description: Add documents to the MSRBot.io registry when there is no purpose-built extractor. The source can be a publisher page linking PDFs, a document landing page, a direct PDF URL or a document published as HTML (CST, small consortia, one-off specs) — the agent reads the sources and writes a records file, and `npm run extract-manual` runs it through the same extractDocs pipeline as the SMPTE/IETF extractors. Use when asked to add, ingest, extract or "pull in" a document or list of documents from a publisher URL into MSRBot, or to add a new publisher. Repo-only: needs an MSRBot.io checkout. Not for SMPTE/IETF (they have extractors) or for answering questions about standards (use msrbot-research).
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # MSRBot extract (agent-driven, manual provider)
@@ -23,7 +23,7 @@ Read `AGENTS.md` first; it overrides anything here. Record format: `docs/manual-
 2. **Never guess, never "clean up" identifiers.** Unknown edition, ambiguous date, unclear docType: leave it out or ask. Citations go into the records file **verbatim**; the parser maps them, not you.
 3. **Provenance describes method, not tool.** `parsed` = read from the publisher's document/page (with a source URL); `inferred` = derived (translation, summary, constructed docId, status); `manual` = a person decided it. Never name the AI tool in data. See `references/fields.md`.
 4. **English in `docTitle`/`abstract`;** non-English documents also get `language`, `docTitleOriginal`, `abstractOriginal`, `translatedBy: "msrbot"`. Translations are `inferred` with `reviewRequired`.
-5. **Fix the shared tooling, not the output.** If `parseRefId` misses or misparses a citation, extend the publisher family in `src/main/lib/referencing.js` (recurring pattern) or add a `src/main/input/refMap.json` entry (one-off; then `npm run config-sort`), with tests and a whole-corpus parse diff — as its own tooling PR before the data. An explicit `refId` on a citation is only for a judgment call you list in the review.
+5. **Fix the shared tooling, not the output.** If `parseRefId` misses or misparses a citation, extend the publisher family in `src/main/lib/referencing.js` (recurring pattern) or add a `src/main/input/refMap.json` entry (one-off; then `npm run config-sort`), with tests and a whole-corpus parse diff — as its own tooling PR before the data. Contributors open tooling changes based on extraction findings as a separate PR from the data. Repository maintainers may combine the two in one PR, keeping them as separate commits. An explicit `refId` on a citation is only for a judgment call you list in the review.
 6. **The requester vets every judgment call before you run the extraction** (rule of the house: no extractor scripts catch your mistakes). See step 4.
 7. **Edit source inputs only.** Never hand-edit `documents.json`, `src/main/reports/`, or build output.
 
@@ -86,6 +86,7 @@ A `CHECK` (resolves outside its own lineage) is a resolver or mapping bug: stop 
 
 ### 6. Ship
 - Branch first (`feature/<publisher>-<topic>`), never `main`. `git pull` rebases here; on branches with merges use `git fetch` + `git merge`.
+- PRs: tooling changes from your findings go in a separate PR from the data, unless the requester is a repository maintainer who wants them together.
 - Commits: tooling, data (docs + MRI), reports, CHANGELOG — separate. Leave `src/main/logs/extract-runs/pr-log-*` out unless asked (scratch logs).
 - PR from `.github/pull_request_template.md`, existing labels only (`enhancement`, `mri`, `claude`…): provenance table, citation mapping table, what was left out, open questions.
 

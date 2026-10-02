@@ -45,7 +45,7 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
    - a `referencing.js` family plus tests, for a recurring pattern;
    - a `refMap.json` entry, for a one-off;
    - then a whole-corpus parse diff;
-   - shipped as a tooling PR first.
+   - shipped as a separate tooling PR first. Repository maintainers may combine tooling and data in one PR, as separate commits.
 5. **Review:** the person requesting the extraction checks every judgment call: labels, dates, titles, translations, dropped citations, explicit refIds, and what each reference resolves to.
 6. **Run:**
    ```bash
@@ -55,7 +55,7 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
    npm run build        # then look at build/docs/<docId>/index.html
    ```
 7. **PR:**
-   - data (docs + MRI) in its own commit, separate from tooling;
+   - data (docs + MRI) in its own PR, separate from any tooling changes from your findings (maintainers: its own commit is enough);
    - use the PR template;
    - include a provenance table and a citation mapping table.
 

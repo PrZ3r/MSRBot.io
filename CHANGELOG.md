@@ -49,7 +49,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - using the update path for later changes;
   - scope (media only, "Not extracted (and why)" in the PR) and filling reference gaps recursively, stopping at non-media references;
   - one record per language edition set (`hrefAlternates`);
-  - unparted and "M" citations never resolve to a part: they go to their own base, and supersession leads on.
+  - unparted and "M" citations never resolve to a part: they go to their own base, and supersession leads on;
+  - contributors open tooling fixes found during an extraction as a separate PR from the data (maintainers may combine them, as separate commits). `AGENTS.md` and `docs/manual-extraction.md` say the same.
 
 ### Fixed
 
