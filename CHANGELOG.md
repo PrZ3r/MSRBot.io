@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **More CST recommendations, added with `npm run extract-manual`.** Each has the French original title and abstract plus an English translation flagged for review, and its citations are parsed from CST's own text.
+  - Batch 1, sound/picture sync: CST-RT-009-2000 (television), CST-RT-015-2007 (35 mm release prints), CST-RT-025-2011 (cinema).
+
 ### Changed
 
 ### Fixed
