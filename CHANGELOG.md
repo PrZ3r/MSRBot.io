@@ -46,7 +46,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - looking up cited papers in the registry before accepting an orphan;
   - errata that share a version prefix;
   - portal keywords;
-  - using the update path for later changes.
+  - using the update path for later changes;
+  - scope (media only, "Not extracted (and why)" in the PR) and filling reference gaps recursively, stopping at non-media references;
+  - one record per language edition set (`hrefAlternates`);
+  - unparted and "M" citations never resolve to a part: they go to their own base, and supersession leads on.
 
 ### Fixed
 

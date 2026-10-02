@@ -15,7 +15,7 @@ List every citation from the document's references section **verbatim** in the r
 | nothing | `orphan/<docId>/h:<hash>` | orphan minted by `onBadRefs`, carrying your cite text |
 | explicit `refId` on the citation | that refId | sighting with `mapSource: manual:explicit` — list it in the review |
 
-Undated citations stay undated; the resolver links them to the latest edition. Don't pick an edition the publisher didn't cite.
+Undated citations stay undated; the resolver links them to the latest edition **of the same base**. It never rolls an unparted citation onto a part (`SMPTE.ST299` doesn't resolve to ST 299-1 or 299-2). Supersession records lead from the base edition to its parted successor. Don't pick an edition or part the publisher didn't cite.
 
 ## When the parser is wrong
 
