@@ -26,7 +26,7 @@
 | `translatedBy` | `msrbot` means the English `docTitle`/`abstract` are MSRBot.io's translation, not the publisher's wording: cite `docTitleOriginal` as the title and give the English as a translation. `publisher` (or absent) means the English is official. |
 | `publisher`, `docType` | e.g. `SMPTE`, `Standard` / `Recommended Practice` / `Engineering Guideline` / `Journal Article`. |
 | `docNumber`, `docPart` | Number and part, as separate fields. |
-| `publicationDate` | `YYYY`, `YYYY-MM` or `YYYY-MM-DD`. |
+| `publicationDate` | Always a full `YYYY-MM-DD`, but it can be **padded**. When a source gives only a year or month, the missing part is filled with `01`, and `publicationDate$meta.note` says so (e.g. "Month/day absent in source — padded to 01-01", "Day absent … padded to 01"). Check the note before stating a day or month. For a padded date, give only the year (or month and year). |
 | `doi`, `href` | Publisher links. Send users here for the actual text. |
 | `references.normative[]`, `references.bibliographic[]` | docIds this document cites. |
 | `abstract`, `keywords`, `authors` | Present on some records (common for journal articles and RFCs). |

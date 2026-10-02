@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **Research skill 1.5.4: padded dates aren't stated as exact days.** `publicationDate` is always a full date, but a source with only a year or month is padded to `-01-01` or `-01`, and `$meta.note` says so (about 2,500 records). The skill and `prompt.md` now state only the known precision. `msrbot.py get` reports `publicationDatePrecision: year|month`. `records.md`, `endpoints.md` and `search.schema.json` no longer claim `YYYY`/`YYYY-MM` values appear. This was found while adding CST-RT-015, which is dated only by year.
+
 ## [v2.7.0] - 2026-10-01
 
 ### Added
