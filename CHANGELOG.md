@@ -10,7 +10,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- **`findSourceDocIdForRefId` exported from `referencing.js`.** This read-only lookup is what `mriFlush` uses, so previews and checks, such as the `msrbot-extract` mapping preview, show real resolutions instead of approximations.
 - **More CST recommendations, added with `npm run extract-manual`.** Each has the French original title and abstract plus an English translation flagged for review, and its citations are parsed from CST's own text.
   - Batch 1, sound/picture sync: CST-RT-009-2000 (television), CST-RT-015-2007 (35 mm release prints), CST-RT-025-2011 (cinema).
   - Batch 2, cinema sound and acoustics: CST-RT-003-2009 (advertising and trailer loudness), CST-RT-007-2001 (processor level alignment), CST-RT-013 (auditorium sound level, 2006), CST-RT-014-2001 (background noise in technical facilities), CST-RT-022-2011 (AES channel assignment), CST-RT-041-2021 (auditorium acoustics).
@@ -20,17 +19,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
     - CST-RT-021-2016 (the "mezzanine file"), with its color annex CST-RT-021-Annexe-2016 as a linked record;
     - CST-RT-026-2012 (archival master);
     - CST-RT-039-2015 (DCP deliverables for accessibility), which appears in the D-Cinema and the Captions, Subtitles and Accessibility portals.
-- **DCI DCSS citations parse.** "Digital Cinema System Specification Version 1.2" and similar citations now map to that version's specification record, and never to one of its errata sheets. Undated DCSS references link to the newest specification.
+- **DCI DCSS citations parse.** A new parser family reads "Digital Cinema System Specification Version 1.2", "V1. 0", "version 1.4.2" and similar citations. Across the 51,081 citations in the MRI, 13 more now parse, with none lost or changed.
+- **`refMap.json` one-offs found during the CST extraction:**
+  - "norme AES 3" → `AES3`;
+  - the French "convention de nommage du cinéma numérique" → `ISDCF.DCNC`;
+  - three SMPTE journal papers (*The Restoration Business Part 4*, *Stability of Photographic Film Part VI*, *Proposal of a System Architecture for Digital Film Archives*) → their DOI records;
+  - the Helt & La Torre SMPTE 2014 conference paper → `10.5594-M001556`.
+
+  Two non-CST citations of the film-archive paper now link too.
+- **`findSourceDocIdForRefId` exported from `referencing.js`.** This read-only lookup is what `mriFlush` uses, so previews and checks, such as the `msrbot-extract` mapping preview, show real resolutions instead of approximations.
 
 ### Changed
 
+- **`msrbot-extract` skill updated from the CST batches.** It now covers:
+  - mapping previews with the real resolver;
+  - the requester review step;
+  - full-date padding;
+  - series citations as `<id>.ALLPARTS` when an MSI suite exists;
+  - looking up cited papers in the registry before accepting an orphan;
+  - errata that share a version prefix;
+  - portal keywords;
+  - using the update path for later changes.
+
 ### Fixed
 
-- **"All parts" references link to their suite page again on doc pages.** Every ALLPARTS reference has an MRI entry, so the doc-page template rendered them as plain "EXTERNAL" citations instead of suite links. Examples: SMPTE AG 16's ISO 80000, ST 382's ST 379 (MXF Generic Container), and DCI's ISO 11664. The reference tree was unaffected. An ALLPARTS reference with no suite in the MSI, such as RFC 1494's ISO 10021, now shows "NOT IN REGISTRY" instead of linking to the bare `/suites/` index.
+- **"All parts" references link to their suite page on doc pages again.** This had been broken site-wide since the MRI v2 doc-page work (#1097, 2026-06-18). Every ALLPARTS reference has an MRI entry, so the template rendered them as plain "EXTERNAL" citations instead of suite links; examples are SMPTE AG 16's ISO 80000, ST 382's ST 379 (MXF Generic Container) and DCI's ISO 11664. The reference tree was unaffected. An ALLPARTS reference with no MSI suite, such as RFC 1494's ISO 10021, now shows "NOT IN REGISTRY" instead of linking to the bare `/suites/` index.
+- **DCSS version citations link to the specification, not an errata sheet.** The registry files each DCSS errata release under the same version prefix, so ranking sent "DCSS Version 1.2" to "Errata 44-45". `refMap.json` now maps each version that has a specification record (1.2, 1.3, 1.4, 1.4.1, 1.4.2, 1.4.5) to it.
+- **DCI `YYYY-MMDD` editions are ranked by date.** Undated DCI references picked an arbitrary or older edition. Undated `DCI.DCSS` now resolves to the v1.4.5 specification (it was a 2019 v1.3 errata sheet), and `DCI.DCA-HDR` to its 2024-02-28 edition (it was 2022).
+- **`extract-manual` updates keep the record's provenance, and re-extracts don't flag unchanged references.** When a manual record updates an existing document, its per-field source hints now apply; a keyword update had come out `parsed`, high confidence, instead of `inferred`. For every provider, orphan citations minted in the run are now counted when comparing references, so re-extracting a document whose citations haven't changed no longer marks them as overridden.
+- **Manual records label `docLabel` and `href` as `parsed`.** The pipeline treats those two fields as `resolved` (computed), which is right for scrapers, but in a manual record they are read from the publisher. `docs/manual-extraction.md` and the skill also had it wrong that `publicationDate` could be `YYYY` or `YYYY-MM`. The schema requires a full date, and year-only or month-only dates are padded with the registry's standard note.
+- **Research skill 1.5.4: padded dates aren't stated as exact days.** `publicationDate` is always a full date, but a source with only a year or month is padded to `-01-01` or `-01`, and `$meta.note` says so (about 2,500 records).
+  - The skill and `prompt.md` now state only the known precision.
+  - `msrbot.py get` reports `publicationDatePrecision: year|month`.
+  - `records.md`, `endpoints.md` and `search.schema.json` no longer claim `YYYY`/`YYYY-MM` values appear.
 
-- **`extract-manual` updates keep the record's provenance, and re-extracts don't flag unchanged references.** When a manual record updates an existing document, its per-field source hints now apply. For every provider, orphan citations minted in the run are counted when comparing references, so re-extracting a document whose citations haven't changed no longer marks its references as overridden.
-
-- **Research skill 1.5.4: padded dates aren't stated as exact days.** `publicationDate` is always a full date, but a source with only a year or month is padded to `-01-01` or `-01`, and `$meta.note` says so (about 2,500 records). The skill and `prompt.md` now state only the known precision. `msrbot.py get` reports `publicationDatePrecision: year|month`. `records.md`, `endpoints.md` and `search.schema.json` no longer claim `YYYY`/`YYYY-MM` values appear. This was found while adding CST-RT-015, which is dated only by year.
+  This was found while adding CST-RT-015, which is dated only by year.
 
 ## [v2.7.0] - 2026-10-01
 
