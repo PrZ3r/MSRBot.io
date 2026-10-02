@@ -56,8 +56,9 @@ Mixed cases (several PDFs per document, language editions, annexes, consultation
 - One record per document (`docs/manual-extraction.md`): fields, `sourceUrl`, per-field `metaSources` / `metaSourceUrls` / `metaNotes` / `metaFlags`, and `citations.normative|bibliographic` as `{ "cite": "<verbatim>" }`.
 - Preview what the parser will do — no writes:
   ```bash
-  node -e 'const r=require("./src/main/lib/referencing");const R=require(process.argv[1]).records;for(const d of R)for(const t of ["normative","bibliographic"])for(const c of (d.citations||{})[t]||[])console.log(d.docId,t,c.refId?"[explicit] "+c.refId:(r.parseRefId(c.cite,c.href||"")||"ORPHAN"),"|",c.cite.slice(0,80))' records.json
+  node -e 'const r=require("./src/main/lib/referencing"),{loadDoc}=require("./src/main/lib/registry");for(const d of require(process.argv[1]).records)for(const t of ["normative","bibliographic"])for(const c of (d.citations||{})[t]||[]){const id=c.refId||r.parseRefId(c.cite,c.href||"");const to=id&&r.findSourceDocIdForRefId(id);console.log(d.docId,t,id||"ORPHAN","→",to?to+": "+loadDoc(to).docTitle:"-","|",c.cite.slice(0,70))}' records.json
   ```
+- The "→" column is the **real** resolver (`findSourceDocIdForRefId`, the same lookup `mriFlush` uses). Never re-implement resolution in a preview: an approximation missed the #2068 guard and showed `ISO.2969` resolving to an unrelated ISO doc. Compare each registry title with the cited title.
 - Misses/misparses → rule 5. Generic phrases that aren't documents ("les normes ISO") are simply not listed as citations; note them in the review.
 
 ### 4. Review with the requester (required)

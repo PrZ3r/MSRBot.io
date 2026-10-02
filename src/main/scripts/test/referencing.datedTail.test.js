@@ -111,6 +111,9 @@ ref.reloadDocumentsIndex();
 ref.mriFlush({ force: true });
 
 const refs = mriStore.loadMri().refs;
+// The exported read-only lookup is the same function flush uses.
+assert.strictEqual(ref.findSourceDocIdForRefId('ISO.8567'), null, 'findSourceDocIdForRefId(ISO.8567) must be null');
+assert.strictEqual(ref.findSourceDocIdForRefId('R-REC-BT.709'), 'R-REC-BT.709-6.201506', 'findSourceDocIdForRefId(R-REC-BT.709) → newest');
 process.chdir(origCwd);
 
 assert.strictEqual(refs['ISO.8567'].resolvedDocId, null, `ISO.8567 must not resolve, got '${refs['ISO.8567'].resolvedDocId}'`);

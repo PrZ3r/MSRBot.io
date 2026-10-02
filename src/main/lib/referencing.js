@@ -2800,6 +2800,9 @@ module.exports = {
   extractRefs,
   reloadRefMap,
   reloadDocumentsIndex,
+  // Read-only: the registry docId a refId resolves to (same logic mriFlush uses), or null.
+  // Lets previews and checks use the real resolver instead of re-implementing it.
+  findSourceDocIdForRefId: _findSourceDocIdForRefId,
   // MRI helpers
   mriRecordSighting,
   mriFlush,
