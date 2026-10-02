@@ -83,6 +83,14 @@ const cases = [
   ['NF S 27–001, Cinématographie - Théâtres cinématographiques', 'AFNOR.NFS27-001'],
   ['Réf Afnor NF-S 27100 - 2006', 'AFNOR.NFS27-100.2006'],
   ['NF EN 61947-2, Projection électronique - Mesure et documentation', 'AFNOR.NFEN61947-2'],
+  // DCI Digital Cinema System Specification (version-level, undated)
+  ['[10] Digital Cinema Initiatives, LLC, «Digital Cinema System Specifications Version 1.2,» Digital Cinema Initiatives, LLC, 2008.', 'DCI.DCSS.v1.2'],
+  ['1. Digital Cinema System Specification V1. 0, July 20, 2005 (Digital Cinema Initiatives, LLC)', 'DCI.DCSS.v1.0'],
+  ['[19] Digital Cinema Initiatives (DCI) . Digital cinema system specification, version 1.4.2', 'DCI.DCSS.v1.4.2'],
+  // refMap one-offs from CST batch 4
+  ['(norme AES 3, reprise dans la norme ISO 26428-3)', 'AES3'],
+  ['SMPTE : The restauration Business Part 4 In black and white – reel two – Grant Loban-2000', '10.5594-J05296'],
+  ['Les CPL produites devront respecter la dernière version en date de la convention de nommage du cinéma numérique.', 'ISDCF.DCNC'],
   // Unchanged forms
   ['ISO 9660:1988', 'ISO.9660.1988'],
   ['ISO 8601', 'ISO.8601'],

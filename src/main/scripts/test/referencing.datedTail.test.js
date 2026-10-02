@@ -71,6 +71,9 @@ writeDoc('aes/standard/AES3.1992.json', { docId: 'AES3.1992', docLabel: 'AES3-19
 // ITU editions end in YYYYMM; BT.2020-2 is the newest R-REC-BT doc here.
 writeDoc('itu-r/recommendation/R-REC-BT.709-1.199311.json', { docId: 'R-REC-BT.709-1.199311', docLabel: 'ITU-R BT.709-1', docTitle: 'HDTV parameters', publisher: 'ITU-R', docType: 'Recommendation' });
 writeDoc('itu-r/recommendation/R-REC-BT.709-6.201506.json', { docId: 'R-REC-BT.709-6.201506', docLabel: 'ITU-R BT.709-6', docTitle: 'HDTV parameters', publisher: 'ITU-R', docType: 'Recommendation' });
+// DCI editions end in YYYY-MMDD
+writeDoc('dci/specification/DCI.DCSS.v1.2.2012-1010.json', { docId: 'DCI.DCSS.v1.2.2012-1010', docLabel: 'DCSS v1.2', docTitle: 'DCSS', publisher: 'DCI', docType: 'Specification' });
+writeDoc('dci/specification/DCI.DCSS.v1.2.2018-0124.json', { docId: 'DCI.DCSS.v1.2.2018-0124', docLabel: 'DCSS v1.2', docTitle: 'DCSS', publisher: 'DCI', docType: 'Specification' });
 writeDoc('itu-r/recommendation/R-REC-BT.601-4.199510.json', { docId: 'R-REC-BT.601-4.199510', docLabel: 'ITU-R BT.601-4', docTitle: 'Studio encoding parameters', publisher: 'ITU-R', docType: 'Recommendation' });
 writeDoc('itu-r/recommendation/R-REC-BT.601-7.201103.json', { docId: 'R-REC-BT.601-7.201103', docLabel: 'ITU-R BT.601-7', docTitle: 'Studio encoding parameters', publisher: 'ITU-R', docType: 'Recommendation' });
 writeDoc('itu-r/recommendation/R-REC-BT.2020-2.201510.json', { docId: 'R-REC-BT.2020-2.201510', docLabel: 'ITU-R BT.2020-2', docTitle: 'UHDTV parameters', publisher: 'ITU-R', docType: 'Recommendation' });
@@ -114,6 +117,7 @@ const refs = mriStore.loadMri().refs;
 // The exported read-only lookup is the same function flush uses.
 assert.strictEqual(ref.findSourceDocIdForRefId('ISO.8567'), null, 'findSourceDocIdForRefId(ISO.8567) must be null');
 assert.strictEqual(ref.findSourceDocIdForRefId('R-REC-BT.709'), 'R-REC-BT.709-6.201506', 'findSourceDocIdForRefId(R-REC-BT.709) → newest');
+assert.strictEqual(ref.findSourceDocIdForRefId('DCI.DCSS.v1.2'), 'DCI.DCSS.v1.2.2018-0124', 'DCI YYYY-MMDD editions rank by date → newest');
 process.chdir(origCwd);
 
 assert.strictEqual(refs['ISO.8567'].resolvedDocId, null, `ISO.8567 must not resolve, got '${refs['ISO.8567'].resolvedDocId}'`);

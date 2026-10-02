@@ -198,6 +198,9 @@ function _dateRankFromId(id) {
   // ITU editions end in YYYYMM (`R-REC-BT.709-6.201506`)
   const ym = id.match(/\.((?:19|20)\d{2})(0[1-9]|1[0-2])$/);
   if (ym) return parseInt(ym[1], 10) * 10000 + parseInt(ym[2], 10) * 100;
+  // DCI editions end in YYYY-MMDD (`DCI.DCSS.v1.2.2014-0904`)
+  const ymd = id.match(/\.((?:19|20)\d{2})-(0[1-9]|1[0-2])(\d{2})$/);
+  if (ymd) return parseInt(ymd[1], 10) * 10000 + parseInt(ymd[2], 10) * 100 + parseInt(ymd[3], 10);
   if (_stripDatedTail(id) === id) return Number.NEGATIVE_INFINITY;
   const m = id.match(/\.(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$|\.(\d{8})$/);
   if (!m) return Number.NEGATIVE_INFINITY;
@@ -1083,6 +1086,18 @@ function parseRefId(text, href = '', opts = {}) {
       const lineage = `SMPTE.ST${part ? `${num}-${part}` : num}`;
       const refId = year ? `${lineage}.${year}` : lineage;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'smpte-legacy-designator' } } : refId;
+    }
+  }
+
+  // DCI Digital Cinema System Specification: "Digital Cinema System Specification Version 1.2",
+  // "Digital Cinema System Specifications V1. 0", "DCI DCSS v1.4.5" → DCI.DCSS.v1.2 (version-level,
+  // undated; the resolver picks the newest edition of that version).
+  {
+    const src = String(text || '');
+    const m = src.match(/\b(?:Digital\s+Cinema\s+System\s+Specifications?|DCI\s+DCSS)\s*,?\s*(?:Version|Ver\.?|V)\s*(\d+)\s*\.\s*(\d+)(?:\s*\.\s*(\d+))?/i);
+    if (m) {
+      const refId = `DCI.DCSS.v${m[1]}.${m[2]}${m[3] ? `.${m[3]}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'dci-dcss' } } : refId;
     }
   }
 
