@@ -34,7 +34,7 @@
         {{#if docSuiteTitle}}{{docSuiteTitle}} - {{/if}}{{docTitle}}
       {{/if}}
     </h1>
-    {{#if docTitleOriginal}}<p class="mb-1 text-muted"{{#if language}} lang="{{language}}"{{/if}}>{{docTitleOriginal}}</p>{{/if}}
+    {{#if docTitleOriginal}}<p class="mb-1 text-muted"{{#if language}} lang="{{language}}"{{/if}}>{{#with (alternateHref hrefAlternates language)}}<a class="text-decoration-none text-muted" href="{{this}}" target="_blank" rel="noopener" hreflang="{{../language}}">{{../docTitleOriginal}}</a>{{else}}{{docTitleOriginal}}{{/with}}</p>{{/if}}
   </header>
 
   <section class="row g-3">
@@ -64,7 +64,6 @@
             {{#if volume}}<dt class="col-sm-4">Volume</dt><dd class="col-sm-8">{{volume}}{{#if number}}, No. {{number}}{{/if}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if number}}<dt class="col-sm-4">Issue</dt><dd class="col-sm-8">No. {{number}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if pages}}<dt class="col-sm-4">Pages</dt><dd class="col-sm-8">{{pages}}</dd>{{/if}}{{/if}}{{/if}}
             {{#if chapter}}<dt class="col-sm-4">Chapter</dt><dd class="col-sm-8">{{chapter}}</dd>{{/if}}
             {{#if language}}<dt class="col-sm-4">Language</dt><dd class="col-sm-8">{{languageName language}}</dd>{{/if}}
-            {{#if (len hrefAlternates)}}<dt class="col-sm-4">Other editions</dt><dd class="col-sm-8">{{#each hrefAlternates}}{{#unless @first}}, {{/unless}}<a href="{{href}}" target="_blank" rel="noopener" hreflang="{{language}}">{{languageName language}}</a>{{/each}}</dd>{{/if}}
             {{#ifeq translatedBy "msrbot"}}<dt class="col-sm-4">Translation</dt><dd class="col-sm-8">{{#if docTitleOriginal}}Title{{#if abstractOriginal}} and abstract{{/if}}{{else}}{{#if abstractOriginal}}Abstract{{else}}English text{{/if}}{{/if}} translated{{#if language}} from {{languageName language}}{{/if}} by MSRBot.io</dd>{{/ifeq}}
             {{#if abstract}}<dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">{{{nl2br abstract}}}</dd>{{/if}}
             {{#if abstractOriginal}}<dt class="col-sm-4">Abstract ({{languageName language}})</dt><dd class="col-sm-8"{{#if language}} lang="{{language}}"{{/if}}>{{{nl2br abstractOriginal}}}</dd>{{/if}}
@@ -80,7 +79,7 @@
             {{#if doi}}<dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/{{doi}}" target="_blank" rel="noopener"><code>{{doi}}</code></a></dd>{{/if}}
             {{#if isbn}}<dt class="col-sm-4">ISBN</dt><dd class="col-sm-8"><code>{{isbn}}</code></dd>{{/if}}
             {{#if issn}}<dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">{{#if issn.print}}Print: <code>{{issn.print}}</code>{{#if issn.electronic}} <span class="text-muted">|</span> {{/if}}{{/if}}{{#if issn.electronic}}Electronic: <code>{{issn.electronic}}</code>{{/if}}{{#unless issn.print}}{{#unless issn.electronic}}<code>{{issn}}</code>{{/unless}}{{/unless}}</dd>{{/if}}
-            {{#if href}}<dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="{{href}}" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">{{href}}</a></dd>{{/if}}
+            {{#if href}}<dt class="col-sm-4">Link</dt><dd class="col-sm-8">{{#if (len hrefAlternates)}}<div><span class="text-muted">{{#ifeq translatedBy "publisher"}}English{{else}}{{#if language}}{{languageName language}}{{else}}English{{/if}}{{/ifeq}}:</span> <a href="{{href}}" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">{{href}}</a></div>{{#each hrefAlternates}}<div><span class="text-muted">{{languageName language}}:</span> <a href="{{href}}" target="_blank" rel="noopener" hreflang="{{language}}" class="text-break d-inline-block" style="max-width:100%">{{href}}</a></div>{{/each}}{{else}}<a href="{{href}}" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">{{href}}</a>{{/if}}</dd>{{/if}}
             {{#if repo}}<dt class="col-sm-4">Repo</dt><dd class="col-sm-8"><a href="{{repo}}" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">{{repo}}</a></dd>{{/if}}
             {{#if authors}}<dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8">{{#authors}}{{#if name}}<div class="mb-2{{#unless @first}} pt-2 border-top{{/unless}}"><div class="d-flex justify-content-between align-items-center gap-2"><span>{{name}}</span>{{#if affiliation}}<span class="small text-muted" title="{{affiliation}}">{{affiliation}}</span>{{/if}}</div>{{#if bio}}<details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">{{bio}}</div></details>{{/if}}</div>{{else}}<div class="mb-1{{#unless @first}} pt-2 border-top{{/unless}}">{{this}}</div>{{/if}}{{/authors}}</dd>{{/if}}
             {{#if group}}<dt class="col-sm-4">Group</dt><dd class="col-sm-8">{{#with (groupIdLookup dataGroups group)}}{{#if groupId}}<a href="../../groups/{{../../htmlLink}}#{{groupId}}">{{/if}}{{groupOrg}} {{groupName}} {{groupDesc}}{{#if groupId}}</a>{{/if}}{{/with}}</dd>{{/if}}

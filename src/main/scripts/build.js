@@ -140,6 +140,13 @@ hb.registerHelper('contentTypeLabel', function (value) {
 });
 
 // BCP 47 tag -> English language name ("fr" -> "French"); falls back to the tag.
+// The edition in `language` from a doc's hrefAlternates, if any.
+hb.registerHelper('alternateHref', function (alternates, language) {
+  if (!Array.isArray(alternates) || !language) return '';
+  const hit = alternates.find(a => a && a.language === language && a.href);
+  return hit ? hit.href : '';
+});
+
 hb.registerHelper('languageName', function (tag) {
   if (!tag) return '';
   try {
