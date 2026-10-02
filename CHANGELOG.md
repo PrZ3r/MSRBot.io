@@ -26,6 +26,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **"All parts" references link to their suite page again on doc pages.** Every ALLPARTS reference has an MRI entry, so the doc-page template rendered them as plain "EXTERNAL" citations instead of suite links. Examples: SMPTE AG 16's ISO 80000, ST 382's ST 379 (MXF Generic Container), and DCI's ISO 11664. The reference tree was unaffected. An ALLPARTS reference with no suite in the MSI, such as RFC 1494's ISO 10021, now shows "NOT IN REGISTRY" instead of linking to the bare `/suites/` index.
+
 - **`extract-manual` updates keep the record's provenance, and re-extracts don't flag unchanged references.** When a manual record updates an existing document, its per-field source hints now apply. For every provider, orphan citations minted in the run are counted when comparing references, so re-extracting a document whose citations haven't changed no longer marks its references as overridden.
 
 - **Research skill 1.5.4: padded dates aren't stated as exact days.** `publicationDate` is always a full date, but a source with only a year or month is padded to `-01-01` or `-01`, and `$meta.note` says so (about 2,500 records). The skill and `prompt.md` now state only the known precision. `msrbot.py get` reports `publicationDatePrecision: year|month`. `records.md`, `endpoints.md` and `search.schema.json` no longer claim `YYYY`/`YYYY-MM` values appear. This was found while adding CST-RT-015, which is dated only by year.
