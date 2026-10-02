@@ -90,6 +90,7 @@ const cases = [
   // refMap one-offs from CST batch 4
   ['(norme AES 3, reprise dans la norme ISO 26428-3)', 'AES3'],
   ['SMPTE : The restauration Business Part 4 In black and white – reel two – Grant Loban-2000', '10.5594-J05296'],
+  ['[5] F. Helt et V. La Torre, «Quality Assessment Framework for Color Conversions and Perception,» chez SMPTE 2014 Annual Technical Conference, Los Angeles, 2014.', '10.5594-M001556'],
   ['Les CPL produites devront respecter la dernière version en date de la convention de nommage du cinéma numérique.', 'ISDCF.DCNC'],
   // Unchanged forms
   ['ISO 9660:1988', 'ISO.9660.1988'],
