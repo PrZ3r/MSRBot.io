@@ -79,6 +79,7 @@ When contributing or editing document metadata:
   - Set `language` to the BCP 47 tag of the published language (for example `fr`). Leave it out for English documents.
   - Keep the publisher's own wording in `docTitleOriginal` and `abstractOriginal`.
   - Set `translatedBy: "msrbot"` when the English is our translation, and `"publisher"` (or leave it out) when the publisher supplies an official English title.
+  - When the publisher issues the same document in more than one language, `href` is the primary link (the **English** edition when one exists) and `hrefAlternates` lists the other editions as `{ "language": "fr", "href": "…" }` (schema 2.6.0); the doc page shows them under "Other editions". With `translatedBy: "publisher"`, the English title and abstract are read from the English edition (`parsed`, no review flag).
   - Mark translated fields `source: "inferred"`, with a `note`, and `reviewRequired: true` until someone has reviewed them.
 - Avoid manual edits to `resolvedHref` — these are maintained by automation.
 - Keywords are controlled via `src/main/config/site.json` (`controlledKeywords`), not a schema enum.

@@ -75,7 +75,7 @@ Each field must include correct `$meta` provenance tracking where applicable:
 - `inferred`: derived, for example a translation or a constructed `docId`.
 - `manual`: typed or decided by a person.
 
-Non-English documents keep English in `docTitle`/`abstract`, plus `language`, `docTitleOriginal`, `abstractOriginal` and `translatedBy`. See [CONTRIBUTING.md](../CONTRIBUTING.md#data-and-provenance).
+Non-English documents keep English in `docTitle`/`abstract`, plus `language`, `docTitleOriginal`, `abstractOriginal` and `translatedBy`, and `hrefAlternates` (other language editions of the same document; `href` is the English one when it exists). See [CONTRIBUTING.md](../CONTRIBUTING.md#data-and-provenance).
 
 ## Pull Request Checklist
 - [ ] Update `CHANGELOG.md` under **[Unreleased]** when behavior, workflow, or policy changes.
