@@ -17,6 +17,8 @@ List every citation from the document's references section **verbatim** in the r
 
 Undated citations stay undated; the resolver links them to the latest edition **of the same base**. It never rolls an unparted citation onto a part (`SMPTE.ST299` doesn't resolve to ST 299-1 or 299-2). Supersession records lead from the base edition to its parted successor. Don't pick an edition or part the publisher didn't cite.
 
+**Set citations** expand to their members: a bare "BCP 47" records both RFC 5646 and RFC 4647 (`REF_EXPANSIONS` in `referencing.js`). A citation that names its RFC keeps that RFC. Add a new set there, not as explicit refIds.
+
 ## When the parser is wrong
 
 Fix `parseRefId` (family in `src/main/lib/referencing.js`, test cases in `src/main/scripts/test/referencing.citeTypography.test.js`) or add a `refMap.json` entry (`npm run config-sort` afterwards). Before shipping a parser change, parse every MRI citation before and after and diff (≈51k cites, seconds):
