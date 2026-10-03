@@ -41,6 +41,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **API versions bumped for the additive fields in this release.** Documents schema 2.6.0 (`hrefAlternates`, `translatedBy: contributor`). `/api/doc/{docId}.json` `apiVersion` goes `1.0.0 → 1.1.0`, and `/api/documents.json` and `/api/search/` go `2.0.0 → 2.1.0`, because rows can now carry `translatedBy: "contributor"`. `/api/stats.json` stays at 1.1.0. The API page used to say "Current API version: 1.0.0"; it now lists each endpoint's version and the schema version. The research skill's `msrbot.py` accepts any `2.x` search index, so it is unaffected.
 - **`msrbot-extract` skill updated from the CST batches.** It now covers:
   - mapping previews with the real resolver;
   - the requester review step;

@@ -690,7 +690,7 @@ async function emitDocumentsApiOnce() {
 
   const payload = {
     $schema: '/api/schemas/documents.schema.json',
-    apiVersion: '2.0.0',
+    apiVersion: '2.1.0',
     generatedAt,
     sourcePath: docsPath,
     total: indexDocuments.length,
@@ -772,7 +772,7 @@ async function emitDocumentsApiOnce() {
 
     const docPayload = {
       $schema: '/api/schemas/documents.schema.json',
-      apiVersion: '1.0.0',
+      apiVersion: '1.1.0',
       // Content date, not build time: keeps per-doc shards byte-stable so
       // deploys only commit docs that changed. Build time lives on the index.
       lastModified: docLastModified(d) || null,

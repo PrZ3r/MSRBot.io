@@ -5,7 +5,7 @@
 ```json
 {
   "$schema": "/api/schemas/documents.schema.json",
-  "apiVersion": "1.0.0",
+  "apiVersion": "1.1.0",
   "lastModified": "2026-06-17T16:55:09.355Z",
   "sourcePath": "src/main/data/docs",
   "docId": "SMPTE.ST2067-21.2020",
