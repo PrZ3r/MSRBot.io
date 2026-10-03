@@ -198,6 +198,9 @@ function _dateRankFromId(id) {
   // ITU editions end in YYYYMM (`R-REC-BT.709-6.201506`)
   const ym = id.match(/\.((?:19|20)\d{2})(0[1-9]|1[0-2])$/);
   if (ym) return parseInt(ym[1], 10) * 10000 + parseInt(ym[2], 10) * 100;
+  // DCI editions end in YYYY-MMDD (`DCI.DCSS.v1.2.2014-0904`)
+  const ymd = id.match(/\.((?:19|20)\d{2})-(0[1-9]|1[0-2])(\d{2})$/);
+  if (ymd) return parseInt(ymd[1], 10) * 10000 + parseInt(ymd[2], 10) * 100 + parseInt(ymd[3], 10);
   if (_stripDatedTail(id) === id) return Number.NEGATIVE_INFINITY;
   const m = id.match(/\.(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$|\.(\d{8})$/);
   if (!m) return Number.NEGATIVE_INFINITY;
@@ -221,16 +224,20 @@ function _findSourceDocIdForRefId(refId) {
   let arr = _docBaseIndex ? _docBaseIndex.get(base) : null;
 
   // Fallback: if base map is empty (e.g., index built from array without docBase fields),
-  // derive candidates by scanning all docIds that start with `${base}.` or `${base}-`
+  // derive candidates by scanning docIds that start with `${base}.` (dated editions of the
+  // same document). `${base}-` is a different *part* for SMPTE/ISO/IEC/AES (ST299 vs
+  // ST299-1 vs ST299-2), so it is never a candidate: an undated ref must not roll to a part.
+  // ITU is the exception — there `-N` is a revision of the same Recommendation (BT.709-6).
   if ((!arr || arr.length === 0) && _docIdIndex && _docIdIndex.size) {
     const dotPrefix = `${base}.`;
-    const dashPrefix = `${base}-`;
+    const dashPrefix = /^[RT]-REC-/.test(base) ? `${base}-` : null;
     arr = [];
     for (const cand of _docIdIndex) {
       if (
         cand === base ||
-        cand.startsWith(dotPrefix) ||
-        cand.startsWith(dashPrefix)
+        // `${base}.` + a date or version (`.2009`, `.v1.2…`), not a dotted part (`RP27.4.1994`)
+        (cand.startsWith(dotPrefix) && /^(?:(?:19|20)\d{2}|v\d)/.test(cand.slice(dotPrefix.length))) ||
+        (dashPrefix && cand.startsWith(dashPrefix))
       ) {
         arr.push(cand);
       }
@@ -509,6 +516,12 @@ function _normalizeRawRef(value) {
 }
 
 function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetail, rawRef, title }) {
+  // A set id (BCP47) is recorded as a sighting of each member record.
+  if (refId && REF_EXPANSIONS[refId]) {
+    let last;
+    for (const id of REF_EXPANSIONS[refId]) last = mriRecordSighting({ docId, type, refId: id, cite, href, mapSource, mapDetail, rawRef, title });
+    return last;
+  }
   const mri = _loadMRI();
 
   _dirty = true;
@@ -913,8 +926,20 @@ function normalizeCiteTypography(text) {
   s = s.replace(/\bSMPTE\s*,\s*[«"\u201C]\s*(?=(?:ST|RP|RDD|EG)\s*\d)/g, 'SMPTE ')
     .replace(/\bSMPTE\s+(ST|RP|RDD|EG|AG|OV)(?=\d)/g, 'SMPTE $1 ')
     .replace(/\bSMPTE\s*\(\s*(?=\d{1,4}M\b)/g, 'SMPTE ');
+  // UER (Union européenne de radio-télévision) is the EBU in French; "EBU-Tech 3341" → "EBU Tech 3341"
+  s = s.replace(new RegExp(`\\bUER\\s*${D}\\s*(?=[RD]\\s*\\d|Tech)`, 'g'), 'EBU-')
+    .replace(new RegExp(`\\bEBU\\s*${D}\\s*Tech\\b`, 'g'), 'EBU Tech');
   s = s.replace(new RegExp(`\\bEBU\\s*${D}?\\s*([RD])\\s*(?=\\d)`, 'g'), 'EBU $1');
   return s;
+}
+
+// Citations of a document set that the registry holds as separate records. parseRefId
+// returns the set id; mriRecordSighting and extractDocs record each member instead.
+// BCP 47 = RFC 5646 (language tags) + RFC 4647 (matching), used only when the cite
+// doesn't name one of them.
+const REF_EXPANSIONS = { BCP47: ['RFC5646', 'RFC4647'] };
+function expandRefId(refId) {
+  return (refId && REF_EXPANSIONS[refId]) || [refId];
 }
 
 // Main parser: derive a canonical refId from a citation text + optional href
@@ -938,6 +963,19 @@ function parseRefId(text, href = '', opts = {}) {
     if (mIso && mIso[1]) {
       const refId = `ISO.${mIso[1]}.ALLPARTS`;
       return wantDiag ? { refId, diag: { mapSource: 'cite', mapDetail: 'allparts:iso' } } : refId;
+    }
+  }
+
+  // Bare BCP 47 ("BCP 47: Tags for Identifying Languages", ".../html/bcp47") → BCP47, which
+  // expands to RFC 5646 + RFC 4647. A cite or href naming an RFC ("BCP 47 (RFC 5646)") falls
+  // through to the RFC rules and keeps that RFC.
+  {
+    const src = String(text || '');
+    const h = String(href || '');
+    if ((/\bBCP\s*[\u2010-\u2015-]?\s*0*47\b/i.test(src) || /\bbcp\/?0*47\b/i.test(h))
+      && !/\bRFC\s*[-\/]?\s*\d{3,5}\b/i.test(src) && !/rfc\.?\d{3,5}/i.test(h)) {
+      const refId = 'BCP47';
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'bcp47-set' } } : refId;
     }
   }
 
@@ -1083,6 +1121,32 @@ function parseRefId(text, href = '', opts = {}) {
       const lineage = `SMPTE.ST${part ? `${num}-${part}` : num}`;
       const refId = year ? `${lineage}.${year}` : lineage;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'smpte-legacy-designator' } } : refId;
+    }
+  }
+
+  // DCI Digital Cinema System Specification: "Digital Cinema System Specification Version 1.2",
+  // "Digital Cinema System Specifications V1. 0", "DCI DCSS v1.4.5" → DCI.DCSS.v1.2 (version-level,
+  // undated; the resolver picks the newest edition of that version).
+  {
+    const src = String(text || '');
+    const m = src.match(/\b(?:Digital\s+Cinema\s+System\s+Specifications?|DCI\s+DCSS)\s*,?\s*(?:Version|Ver\.?|V)\s*(\d+)\s*\.\s*(\d+)(?:\s*\.\s*(\d+))?/i);
+    if (m) {
+      const refId = `DCI.DCSS.v${m[1]}.${m[2]}${m[3] ? `.${m[3]}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'dci-dcss' } } : refId;
+    }
+  }
+
+  // ISDCF numbered documents, cited by paper URL (in the text or href) or by number:
+  //   "…/papers/ISDCF-Doc8-TheaterKeyRetrieval-TKR-v03.pdf", "ISDCF Doc 7", "ISDCF Document 10"
+  //   → ISDCF.D08 (undated; resolves to the registry edition). Doc 1 is the naming convention, ISDCF.DCNC.
+  {
+    const src = `${String(text || '')} ${String(href || '')}`;
+    const m = src.match(/isdcf\.com\/papers\/ISDCF-Doc0?(\d{1,2})(?!\d)/i)
+      || src.match(/\bISDCF\s+Doc(?:ument)?\.?\s*(?:No\.?\s*|#\s*)?0?(\d{1,2})(?!\d)/i);
+    if (m) {
+      const n = Number(m[1]);
+      const refId = n === 1 ? 'ISDCF.DCNC' : `ISDCF.D${String(n).padStart(2, '0')}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'isdcf-doc' } } : refId;
     }
   }
 
@@ -2795,11 +2859,15 @@ function extractRefs($, currentDocId, opts = {}) {
 }
 
 module.exports = {
+  expandRefId,
   mapRefByCite,
   parseRefId,
   extractRefs,
   reloadRefMap,
   reloadDocumentsIndex,
+  // Read-only: the registry docId a refId resolves to (same logic mriFlush uses), or null.
+  // Lets previews and checks use the real resolver instead of re-implementing it.
+  findSourceDocIdForRefId: _findSourceDocIdForRefId,
   // MRI helpers
   mriRecordSighting,
   mriFlush,

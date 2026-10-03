@@ -1,7 +1,7 @@
 {
   "sourcePath": "src/main/data/docs",
   "publisherCounts": {
-    "total": 26792,
+    "total": 26817,
     "counts": {
       "SMPTE": 25975,
       "IETF": 139,
@@ -11,6 +11,7 @@
       "W3C": 38,
       "IEC": 34,
       "ITU-R": 34,
+      "CST": 26,
       "NIST": 25,
       "IEEE": 24,
       "AES": 24,
@@ -64,7 +65,6 @@
       "BBC": 1,
       "BRITISH KINEMATOGRAPHY": 1,
       "MOVIELABS": 1,
-      "CST": 1,
       "U.S. DEFENSE MAPPING AGENCY": 1,
       "FIAF": 1,
       "INTERNATIONAL CIVIL AVIATION ORGANIZATION": 1,
@@ -197970,10 +197970,10 @@
     }
   },
   "flagSummary": {
-    "totalFlags": 331,
+    "totalFlags": 334,
     "byType": {
       "DOCID_PUBDATE_MISMATCH": {
-        "count": 43,
+        "count": 45,
         "examples": [
           {
             "lineage": "AES||3|",
@@ -198014,6 +198014,14 @@
           {
             "lineage": "ASHRAE||52.1|",
             "flag": "DOCID_PUBDATE_MISMATCH:ASHRAE.52.1.2019:docIdYear=2019,pubYear=1992"
+          },
+          {
+            "lineage": "CST|RT|020|",
+            "flag": "DOCID_PUBDATE_MISMATCH:CST.RT020.2023:docIdYear=2023,pubYear=2024"
+          },
+          {
+            "lineage": "CST|RT|022|",
+            "flag": "DOCID_PUBDATE_MISMATCH:CST.RT022.2011:docIdYear=2011,pubYear=2010"
           },
           {
             "lineage": "CTA|ES|608|",
@@ -198638,6 +198646,67 @@
           }
         ]
       },
+      "MULTIPLE_LATEST_FLAGS": {
+        "count": 14,
+        "examples": [
+          {
+            "lineage": "CST|RT|021|",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|RDD|48|",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|RP|2057|",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|RP|2092|1",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|331|",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|335|",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|338|",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|385|",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|430|4",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|430|7",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|430|9",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|433|",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|2019|1",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          },
+          {
+            "lineage": "SMPTE|ST|2019|4",
+            "flag": "MULTIPLE_LATEST_FLAGS"
+          }
+        ]
+      },
       "SMPTE_MISSING_RELEASE_TAG": {
         "count": 119,
         "examples": [
@@ -199116,63 +199185,6 @@
           {
             "lineage": "SMPTE|TSP|2121|4",
             "flag": "SMPTE_MISSING_RELEASE_TAG:SMPTE.TSP2121-4.2019"
-          }
-        ]
-      },
-      "MULTIPLE_LATEST_FLAGS": {
-        "count": 13,
-        "examples": [
-          {
-            "lineage": "SMPTE|RDD|48|",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|RP|2057|",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|RP|2092|1",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|331|",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|335|",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|338|",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|385|",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|430|4",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|430|7",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|430|9",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|433|",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|2019|1",
-            "flag": "MULTIPLE_LATEST_FLAGS"
-          },
-          {
-            "lineage": "SMPTE|ST|2019|4",
-            "flag": "MULTIPLE_LATEST_FLAGS"
           }
         ]
       },
@@ -201275,6 +201287,569 @@
       }
     },
     {
+      "key": "CST|RT|003|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "003",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT003.2009",
+          "publicationDate": "2009-09-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT003.2009",
+      "latestAnyId": "CST.RT003.2009",
+      "latestDateKey": "20090901",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT003.2009",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|005|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "005",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT005.2002",
+          "publicationDate": "2002-01-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT005.2002",
+      "latestAnyId": "CST.RT005.2002",
+      "latestDateKey": "20020101",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT005.2002",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|007|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "007",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT007.2001",
+          "publicationDate": "2001-06-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT007.2001",
+      "latestAnyId": "CST.RT007.2001",
+      "latestDateKey": "20010601",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT007.2001",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|009|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "009",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT009.2000",
+          "publicationDate": "2000-11-24",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT009.2000",
+      "latestAnyId": "CST.RT009.2000",
+      "latestDateKey": "20001124",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT009.2000",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|012|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "012",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT012.2003",
+          "publicationDate": "2003-09-22",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT012.2003",
+      "latestAnyId": "CST.RT012.2003",
+      "latestDateKey": "20030922",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT012.2003",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|013|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "013",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT013.2006",
+          "publicationDate": "2006-07-10",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT013.2006",
+      "latestAnyId": "CST.RT013.2006",
+      "latestDateKey": "20060710",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT013.2006",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|014|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "014",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT014.2001",
+          "publicationDate": "2001-01-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT014.2001",
+      "latestAnyId": "CST.RT014.2001",
+      "latestDateKey": "20010101",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT014.2001",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|015|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "015",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT015.2007",
+          "publicationDate": "2007-01-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT015.2007",
+      "latestAnyId": "CST.RT015.2007",
+      "latestDateKey": "20070101",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT015.2007",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|018|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "018",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT018.2017",
+          "publicationDate": "2017-10-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT018.2017",
+      "latestAnyId": "CST.RT018.2017",
+      "latestDateKey": "20171001",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT018.2017",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|020|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "020",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT020.2023",
+          "publicationDate": "2024-02-13",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT020.2023",
+      "latestAnyId": "CST.RT020.2023",
+      "latestDateKey": "20240213",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT020.2023",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [
+        "DOCID_PUBDATE_MISMATCH:CST.RT020.2023:docIdYear=2023,pubYear=2024"
+      ],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|021|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "021",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT021.2016",
+          "publicationDate": "2016-01-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        },
+        {
+          "docId": "CST.RT021annex.2016",
+          "publicationDate": "2016-01-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT021.2016",
+      "latestAnyId": "CST.RT021.2016",
+      "latestDateKey": "20160101",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT021.2016",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [
+        "MULTIPLE_LATEST_FLAGS"
+      ],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 1
+      }
+    },
+    {
+      "key": "CST|RT|022|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "022",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT022.2011",
+          "publicationDate": "2010-10-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT022.2011",
+      "latestAnyId": "CST.RT022.2011",
+      "latestDateKey": "20110000",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT022.2011",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [
+        "DOCID_PUBDATE_MISMATCH:CST.RT022.2011:docIdYear=2011,pubYear=2010"
+      ],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|025|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "025",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT025.2011",
+          "publicationDate": "2011-09-16",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT025.2011",
+      "latestAnyId": "CST.RT025.2011",
+      "latestDateKey": "20110916",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT025.2011",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|026|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "026",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT026.2012",
+          "publicationDate": "2012-04-04",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT026.2012",
+      "latestAnyId": "CST.RT026.2012",
+      "latestDateKey": "20120404",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT026.2012",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
       "key": "CST|RT|028|",
       "publisher": "CST",
       "type": "RT",
@@ -201304,6 +201879,396 @@
       "hasWithdrawn": false,
       "hasStabilized": false,
       "latestActiveBaseId": "CST.RT028.2026",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|031|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "031",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT031.2012",
+          "publicationDate": "2012-01-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT031.2012",
+      "latestAnyId": "CST.RT031.2012",
+      "latestDateKey": "20120101",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT031.2012",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|032|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "032",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT032.2012",
+          "publicationDate": "2012-01-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT032.2012",
+      "latestAnyId": "CST.RT032.2012",
+      "latestDateKey": "20120101",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT032.2012",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|033|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "033",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT033.2012",
+          "publicationDate": "2012-01-01",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT033.2012",
+      "latestAnyId": "CST.RT033.2012",
+      "latestDateKey": "20120101",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT033.2012",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|034|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "034",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT034.2012",
+          "publicationDate": "2012-12-18",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT034.2012",
+      "latestAnyId": "CST.RT034.2012",
+      "latestDateKey": "20121218",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT034.2012",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|035|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "035",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT035.2012",
+          "publicationDate": "2012-12-18",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT035.2012",
+      "latestAnyId": "CST.RT035.2012",
+      "latestDateKey": "20121218",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT035.2012",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|039|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "039",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT039.2015",
+          "publicationDate": "2015-12-15",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT039.2015",
+      "latestAnyId": "CST.RT039.2015",
+      "latestDateKey": "20151215",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT039.2015",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|040|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "040",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT040.2016",
+          "publicationDate": "2016-12-13",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT040.2016",
+      "latestAnyId": "CST.RT040.2016",
+      "latestDateKey": "20161213",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT040.2016",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|041|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "041",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT041.2021",
+          "publicationDate": "2021-10-04",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT041.2021",
+      "latestAnyId": "CST.RT041.2021",
+      "latestDateKey": "20211004",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT041.2021",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|045|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "045",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT045.2019",
+          "publicationDate": "2019-05-02",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT045.2019",
+      "latestAnyId": "CST.RT045.2019",
+      "latestDateKey": "20190502",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT045.2019",
+      "latestSupersededBaseId": null,
+      "prevBaseId": null,
+      "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "CST|RT|047|",
+      "publisher": "CST",
+      "type": "RT",
+      "number": "047",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "CST.RT047.2023",
+          "publicationDate": "2023-03-22",
+          "releaseTag": null,
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "CST.RT047.2023",
+      "latestAnyId": "CST.RT047.2023",
+      "latestDateKey": "20230322",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": true,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": "CST.RT047.2023",
       "latestSupersededBaseId": null,
       "prevBaseId": null,
       "flagInconsistencies": [],

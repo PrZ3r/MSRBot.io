@@ -45,7 +45,7 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
    - a `referencing.js` family plus tests, for a recurring pattern;
    - a `refMap.json` entry, for a one-off;
    - then a whole-corpus parse diff;
-   - shipped as a tooling PR first.
+   - shipped as a separate tooling PR first. Repository maintainers may combine tooling and data in one PR, as separate commits.
 5. **Review:** the person requesting the extraction checks every judgment call: labels, dates, titles, translations, dropped citations, explicit refIds, and what each reference resolves to.
 6. **Run:**
    ```bash
@@ -55,7 +55,7 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
    npm run build        # then look at build/docs/<docId>/index.html
    ```
 7. **PR:**
-   - data (docs + MRI) in its own commit, separate from tooling;
+   - data (docs + MRI) in its own PR, separate from any tooling changes from your findings (maintainers: its own commit is enough);
    - use the PR template;
    - include a provenance table and a citation mapping table.
 
@@ -101,7 +101,8 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
 }
 ```
 
-- **Document fields:** any field in `src/main/schemas/documents.schema.json`. `docId`, `docLabel`, `docTitle`, `docType` and `publisher` are required. Leave out anything you don't have; never add empty placeholders.
+- **Document fields:** any field in `src/main/schemas/documents.schema.json`. `publicationDate` must be a full `YYYY-MM-DD`; if only the year or month is known, pad it (`2007-01-01`) and say so in `metaNotes.publicationDate` ("Month/day absent in source — padded to 01-01"). `docId`, `docLabel`, `docTitle`, `docType` and `publisher` are required. Leave out anything you don't have; never add empty placeholders.
+- **Several language editions:** one record. `href` is the primary link (the **English** edition when one exists); list the others in `hrefAlternates: [{ "language": "fr", "href": "…" }]`. An edition translated by an outside contributor, not the publisher, adds `"translatedBy": "contributor"` to its entry. Record only the category, never the translator's name: contributor translations are unofficial, and the linked page credits its own translators. With an official English edition, set `translatedBy: "publisher"` and read `docTitle`/`abstract` from it (they're `parsed`); the originals come from the original-language edition. No field states the `href` edition's language; it is derived: English when `translatedBy` is `"publisher"`, otherwise `language` (English when absent). The page lists every edition language from that plus `hrefAlternates`, so English appears only when an English edition exists.
 - **`sourceUrl`:** where the record was read from, usually the PDF. It becomes each field's `$meta.sourceUrl` unless `metaSourceUrls` overrides it.
 - **`metaSources`:** the provenance source for each field.
   - Fields not listed are `parsed`, meaning read from the publisher.

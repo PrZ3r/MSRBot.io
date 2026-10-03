@@ -2,7 +2,7 @@
 name: msrbot-extract
 description: Add documents to the MSRBot.io registry when there is no purpose-built extractor. The source can be a publisher page linking PDFs, a document landing page, a direct PDF URL or a document published as HTML (CST, small consortia, one-off specs) — the agent reads the sources and writes a records file, and `npm run extract-manual` runs it through the same extractDocs pipeline as the SMPTE/IETF extractors. Use when asked to add, ingest, extract or "pull in" a document or list of documents from a publisher URL into MSRBot, or to add a new publisher. Repo-only: needs an MSRBot.io checkout. Not for SMPTE/IETF (they have extractors) or for answering questions about standards (use msrbot-research).
 metadata:
-  version: "1.0.0"
+  version: "1.2.0"
 ---
 
 # MSRBot extract (agent-driven, manual provider)
@@ -23,7 +23,7 @@ Read `AGENTS.md` first; it overrides anything here. Record format: `docs/manual-
 2. **Never guess, never "clean up" identifiers.** Unknown edition, ambiguous date, unclear docType: leave it out or ask. Citations go into the records file **verbatim**; the parser maps them, not you.
 3. **Provenance describes method, not tool.** `parsed` = read from the publisher's document/page (with a source URL); `inferred` = derived (translation, summary, constructed docId, status); `manual` = a person decided it. Never name the AI tool in data. See `references/fields.md`.
 4. **English in `docTitle`/`abstract`;** non-English documents also get `language`, `docTitleOriginal`, `abstractOriginal`, `translatedBy: "msrbot"`. Translations are `inferred` with `reviewRequired`.
-5. **Fix the shared tooling, not the output.** If `parseRefId` misses or misparses a citation, extend the publisher family in `src/main/lib/referencing.js` (recurring pattern) or add a `src/main/input/refMap.json` entry (one-off; then `npm run config-sort`), with tests and a whole-corpus parse diff — as its own tooling PR before the data. An explicit `refId` on a citation is only for a judgment call you list in the review.
+5. **Fix the shared tooling, not the output.** If `parseRefId` misses or misparses a citation, extend the publisher family in `src/main/lib/referencing.js` (recurring pattern) or add a `src/main/input/refMap.json` entry (one-off; then `npm run config-sort`), with tests and a whole-corpus parse diff — as its own tooling PR before the data. Contributors open tooling changes based on extraction findings as a separate PR from the data. Repository maintainers may combine the two in one PR, keeping them as separate commits. An explicit `refId` on a citation is only for a judgment call you list in the review.
 6. **The requester vets every judgment call before you run the extraction** (rule of the house: no extractor scripts catch your mistakes). See step 4.
 7. **Edit source inputs only.** Never hand-edit `documents.json`, `src/main/reports/`, or build output.
 
@@ -42,6 +42,9 @@ Mixed cases (several PDFs per document, language editions, annexes, consultation
 
 - Save every page you use (`curl -sL URL -o $SCRATCH/<name>.html`) and enumerate the documents: id, listed title, document link(s), language editions, annexes, drafts/consultations.
 - What MSRBot already has: `find src/main/data/docs -iname '<PUB>.*'`.
+- **Scope is media.** Propose only documents within MSRBot's media scope (picture, sound, cinema, broadcast, files, archive, accessibility, immersive…). List out-of-scope ones (e.g. safety, building or HR rules) in the PR under "Not extracted (and why)" rather than silently skipping them.
+- **Fill reference gaps recursively, within scope.** When an audit finds a document that records you have (or are adding) cite, propose it too, and follow its citations the same way. Stop at the first non-media reference, such as fire-safety regulations; those stay "not in registry" or orphans.
+- **Language editions of one document are one record:** `href` = the English edition when one exists, the others in `hrefAlternates` (`references/fields.md`).
 - New publisher: it needs keying (`src/main/lib/keying.js` `keyFromDocId`, else the MSI files an UNKEYED issue), a parser family if others cite it, and `site.json` abbreviation/logo/link (ask the user for the logo).
 - Flag anything that isn't one-doc-one-PDF (separate language editions, annexes, consultations, near-duplicates) and ask how to model it.
 
@@ -56,8 +59,9 @@ Mixed cases (several PDFs per document, language editions, annexes, consultation
 - One record per document (`docs/manual-extraction.md`): fields, `sourceUrl`, per-field `metaSources` / `metaSourceUrls` / `metaNotes` / `metaFlags`, and `citations.normative|bibliographic` as `{ "cite": "<verbatim>" }`.
 - Preview what the parser will do — no writes:
   ```bash
-  node -e 'const r=require("./src/main/lib/referencing");const R=require(process.argv[1]).records;for(const d of R)for(const t of ["normative","bibliographic"])for(const c of (d.citations||{})[t]||[])console.log(d.docId,t,c.refId?"[explicit] "+c.refId:(r.parseRefId(c.cite,c.href||"")||"ORPHAN"),"|",c.cite.slice(0,80))' records.json
+  node -e 'const r=require("./src/main/lib/referencing"),{loadDoc}=require("./src/main/lib/registry");for(const d of require(process.argv[1]).records)for(const t of ["normative","bibliographic"])for(const c of (d.citations||{})[t]||[]){const id=c.refId||r.parseRefId(c.cite,c.href||"");const to=id&&r.findSourceDocIdForRefId(id);console.log(d.docId,t,id||"ORPHAN","→",to?to+": "+loadDoc(to).docTitle:"-","|",c.cite.slice(0,70))}' records.json
   ```
+- The "→" column is the **real** resolver (`findSourceDocIdForRefId`, the same lookup `mriFlush` uses). Never re-implement resolution in a preview: an approximation missed the #2068 guard and showed `ISO.2969` resolving to an unrelated ISO doc. Compare each registry title with the cited title.
 - Misses/misparses → rule 5. Generic phrases that aren't documents ("les normes ISO") are simply not listed as citations; note them in the review.
 
 ### 4. Review with the requester (required)
@@ -82,6 +86,7 @@ A `CHECK` (resolves outside its own lineage) is a resolver or mapping bug: stop 
 
 ### 6. Ship
 - Branch first (`feature/<publisher>-<topic>`), never `main`. `git pull` rebases here; on branches with merges use `git fetch` + `git merge`.
+- PRs: tooling changes from your findings go in a separate PR from the data, unless the requester is a repository maintainer who wants them together.
 - Commits: tooling, data (docs + MRI), reports, CHANGELOG — separate. Leave `src/main/logs/extract-runs/pr-log-*` out unless asked (scratch logs).
 - PR from `.github/pull_request_template.md`, existing labels only (`enhancement`, `mri`, `claude`…): provenance table, citation mapping table, what was left out, open questions.
 
@@ -90,5 +95,11 @@ Docs added (docId, label, English title), fields left empty and why, references 
 
 ## Known pitfalls
 - French/European typography ("ISO 26 428 – 3", "RP 200 :2012", UIT-R, CEI) is handled by `parseRefId` since #2088; new typography belongs there too.
+- **An undated or unparted citation never resolves to a part.** "SMPTE 299M" maps to `SMPTE.ST299` (drop the M, no part), and resolves only to an edition of that base (`SMPTE.ST299.2004`). If no base edition is in the registry, it stays unresolved. Never give it an explicit refId to `-1` or the newest part. The path to the parted successor is the base edition's `supersededBy` (ST 377M → `SMPTE.ST377.2004` → ST 377-1), and the reader takes it from there. Don't change the MSI to bridge it. If the base edition is missing, propose adding it (with `supersededBy`) as a follow-up. ITU `-N` revisions are editions, not parts.
 - A stored MRI pointer can outlive the bug that set it; `mriFlush` drops pointers it set itself once unconfirmed (#2068) — run the CHECK above anyway.
+- **A citation of a whole series** ("ISO 15444", "SMPTE ST 429-*"): if the MSI has a suite for it (`src/main/reports/masterSuiteIndex.json` `suites[].key`), cite `<id>.ALLPARTS` (an explicit refId, listed in the review). It renders as a link to the suite page.
+- **Cited papers and books may already be in the registry** (SMPTE journal and conference papers have DOI docIds). Search titles before accepting an orphan, and map the citation with a `refMap.json` entry.
+- **Some publishers file errata under the same version prefix** (DCI's DCSS). Ranking by date then picks an errata sheet. Map the version to its specification record in `refMap.json`.
+- **Portals select by keyword** (`src/main/data/portals.json`: D-Cinema takes DCinema/DCP/…, Captions-Subtitles-Accessibility takes Accessibility/Captions/Subtitles/…). Choose controlled keywords so documents land in the right portals.
+- **Use `npm run extract-manual` for changes to already-added records too**: the update path records `originalValue` and `overridden`, and keeps the record's provenance.
 - Listing titles can be wrong; a "révision" means an earlier edition exists — don't link `revisionOf` unless you can identify it.

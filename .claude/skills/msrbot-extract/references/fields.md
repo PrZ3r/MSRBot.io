@@ -23,11 +23,12 @@ Fields not named are `parsed` from `sourceUrl`. The table says which source to u
 | `abstract` | English scope/purpose text. Translated → inferred + note + reviewRequired | parsed / inferred | high / medium | PDF |
 | `abstractOriginal` | Non-English only. The scope/"Objet" section verbatim (fix hyphenation from line breaks; note any dropped footnote markers) | parsed | high | PDF |
 | `language` | BCP 47 (`fr`); omit for English | parsed | high | PDF |
-| `translatedBy` | `msrbot` when the English is ours; `publisher` when an official English edition exists | inferred | high | — |
+| `translatedBy` | `msrbot` when the English is ours; `contributor` when it is an outside contributor's translation; `publisher` when an official English edition exists | inferred | high | — |
+| `hrefAlternates` | Other language editions of the **same** document: `[{ "language": "fr", "href": "<PDF>" }]`, plus `"translatedBy": "contributor"` on an edition an outside contributor translated (absent = publisher; category only, no translator names). `href` is the primary link, the English edition when one exists. With an official English edition, English title/abstract come from it (`parsed`, no `reviewRequired`). The `href` edition's language is never stated: English with `translatedBy: "publisher"`, else `language` (English if absent) | parsed | high | listing page |
 | `docNumber`, `docPart` | As printed (`028`) | parsed | high | PDF |
 | `docType` | From the schema enum, matching how the publisher names it (Recommendation, Standard, Specification, Guideline…) | parsed | high | listing page |
 | `publisher` | Registry publisher string (`CST`); must match `site.json` keys | parsed | high | listing page |
-| `publicationDate` | `YYYY-MM-DD` / `YYYY-MM` / `YYYY`. Printed date first; else announcement `datePublished`. Explain in `note` | parsed | high / medium | PDF or announcement |
+| `publicationDate` | Always a full `YYYY-MM-DD` (the schema requires it). Printed date first; else announcement `datePublished`. If only a year or month is known, pad it (`2007-01-01`) and note "Month/day absent in source — padded to 01-01" (registry convention). Explain the source in `note` | parsed | high / medium | PDF or announcement |
 | `href` | Direct PDF/download URL from the publisher | parsed | high | listing page |
 | `docId` | See below | inferred | medium | — |
 | `details` | Your short English summary | inferred | medium | PDF |

@@ -140,6 +140,27 @@ hb.registerHelper('contentTypeLabel', function (value) {
 });
 
 // BCP 47 tag -> English language name ("fr" -> "French"); falls back to the tag.
+// The edition in `language` from a doc's hrefAlternates, if any.
+hb.registerHelper('alternateHref', function (alternates, language) {
+  if (!Array.isArray(alternates) || !language) return '';
+  const hit = alternates.find(a => a && a.language === language && a.href);
+  return hit ? hit.href : '';
+});
+
+// Every language the doc is published in, original first. No `language` means
+// English. The `href` edition is English when translatedBy is "publisher",
+// otherwise the original; hrefAlternates add the rest. Empty for a plain
+// English doc, so it gets no Language row.
+hb.registerHelper('editionLanguages', function (doc) {
+  if (!doc) return [];
+  const alternates = Array.isArray(doc.hrefAlternates) ? doc.hrefAlternates : [];
+  if (!doc.language && !alternates.length) return [];
+  const original = doc.language || 'en';
+  const tags = [original, doc.translatedBy === 'publisher' ? 'en' : original];
+  for (const a of alternates) if (a && a.language) tags.push(a.language);
+  return [...new Set(tags)];
+});
+
 hb.registerHelper('languageName', function (tag) {
   if (!tag) return '';
   try {
@@ -663,13 +684,13 @@ async function emitDocumentsApiOnce() {
       // Non-English documents only (schema 2.5.0).
       if (typeof d.docTitleOriginal === 'string' && d.docTitleOriginal) row.docTitleOriginal = d.docTitleOriginal;
       if (typeof d.language === 'string' && d.language && d.language !== 'en') row.language = d.language;
-      if (d.translatedBy === 'msrbot') row.translatedBy = 'msrbot';
+      if (d.translatedBy === 'msrbot' || d.translatedBy === 'contributor') row.translatedBy = d.translatedBy;
       return row;
     });
 
   const payload = {
     $schema: '/api/schemas/documents.schema.json',
-    apiVersion: '2.0.0',
+    apiVersion: '2.1.0',
     generatedAt,
     sourcePath: docsPath,
     total: indexDocuments.length,
@@ -751,7 +772,7 @@ async function emitDocumentsApiOnce() {
 
     const docPayload = {
       $schema: '/api/schemas/documents.schema.json',
-      apiVersion: '1.0.0',
+      apiVersion: '1.1.0',
       // Content date, not build time: keeps per-doc shards byte-stable so
       // deploys only commit docs that changed. Build time lives on the index.
       lastModified: docLastModified(d) || null,
@@ -2116,6 +2137,16 @@ function _titleOf(doc){
     }
   });
 
+  // Inline <cite> mode for an MRI-known ref, except ALLPARTS refs: those render as a
+  // suite link (refHref → suite page) even when MRI carries citation text for them.
+  hb.registerHelper("showMriCite", function(ref) {
+    if (!ref || ref.allParts) return false;
+    const id = typeof ref === "string" ? ref : ref.id;
+    const resolved = followMriResolution(id);
+    if (resolved !== id && docStatuses.hasOwnProperty(resolved)) return false;
+    return !docStatuses.hasOwnProperty(id) && refKnownToMri(id);
+  });
+
   hb.registerHelper("getRefStatus", function(ref) {
     if (ref && ref.allParts) {
       return "[SUITE]";
@@ -2125,7 +2156,7 @@ function _titleOf(doc){
 
   hb.registerHelper("isRefLinkable", function(ref) {
     if (!ref || typeof ref !== 'object') return false;
-    if (ref.allParts) return true; // suite refs are routable via suiteLink/refHref logic
+    if (ref.allParts) return !!ref.suiteSlug; // suite refs link only when the MSI has that suite
     if (!ref.id) return false;
     if (Object.prototype.hasOwnProperty.call(docStatuses, ref.id)) return true;
     // Follow MRI's resolvedDocId pointer: a slug graduated by

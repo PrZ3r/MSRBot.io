@@ -94,6 +94,8 @@ const parser = createManualParser({
 
   // provenance hints are present but never serialized
   assert.strictEqual(doc.__metaSources.docTitle, 'inferred');
+  assert.strictEqual(doc.__metaSources.docLabel, 'parsed', 'docLabel defaults to parsed for manual records');
+  assert.strictEqual(doc.__metaSources.href, 'parsed', 'href defaults to parsed for manual records');
   assert.strictEqual(doc.status.__metaSources.active, 'inferred');
   assert.strictEqual(doc.__metaSourceUrls.href, 'https://example.org/list');
   const json = JSON.stringify(doc);
