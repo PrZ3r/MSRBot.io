@@ -79,7 +79,7 @@ const fullDetailsPath = `src/main/logs/extract-runs/pr-log-full-${timestamp}.log
 // Raw URL (kept for logging/diagnostics)
 const detailsFileRawUrl = `https://raw.githubusercontent.com/PrZ3r/MSRBot.io/main/${fullDetailsPath}`;
 
-const { parseRefId, extractRefs, mapRefByCite, mriFlush, mriEnsureFile, mriPruneToSightings, mriRecordSighting } = require('../lib/referencing');
+const { parseRefId, expandRefId, extractRefs, mapRefByCite, mriFlush, mriEnsureFile, mriPruneToSightings, mriRecordSighting } = require('../lib/referencing');
 
 // Guard to avoid double logging/flushing MRI on multiple exit signals
 let _mriFlushedOnce = false;
@@ -302,6 +302,14 @@ function getMetaDefaults(source, field) {
   return srcMap[field] || srcMap[`status.${field}`] || srcMap.default || metaConfig.unknown.default;
 }
 
+// JSON with object keys sorted, so values that differ only in key order (canonicalize
+// sorts keys inside array entries such as hrefAlternates) compare equal.
+function stableStringify(value) {
+  return JSON.stringify(value, (_k, v) => (v && typeof v === 'object' && !Array.isArray(v)
+    ? Object.keys(v).sort().reduce((o, k) => { o[k] = v[k]; return o; }, {})
+    : v));
+}
+
 function injectMeta(doc, field, source, mode, oldValue) {
   // Per-field hints (manual provider): source and sourceUrl can differ by field.
   const sourceOverride = doc && doc.__metaSources && doc.__metaSources[field];
@@ -456,7 +464,7 @@ function updateFieldGuarded(doc, path, newValue, {
 
   // Avoid churn
   const oldValue = parent[key];
-  const same = JSON.stringify(oldValue) === JSON.stringify(newValue);
+  const same = stableStringify(oldValue) === stableStringify(newValue);
   if (same) return { updated: false, reason: 'no-change' };
 
   // Apply
@@ -580,6 +588,13 @@ for (const doc of results) {
     let removedRefs = { normative: [], bibliographic: [] };
     let duplicateNormRemoved = false;
     let duplicateBibRemoved = false;
+
+    // A set citation (BCP 47) becomes its member records (REF_EXPANSIONS in referencing.js).
+    if (doc.references) {
+      for (const t of ['normative', 'bibliographic']) {
+        if (Array.isArray(doc.references[t])) doc.references[t] = [...new Set(doc.references[t].flatMap(expandRefId))];
+      }
+    }
 
     const index = existingDocs.findIndex(d => d.docId === doc.docId);
     logSmart(`  Checking ${doc.docId}...`);
@@ -800,7 +815,7 @@ for (const doc of results) {
         const oldVal = oldValues[key];
         const newVal = doc[key];
         const isEqual = typeof newVal === 'object'
-          ? JSON.stringify(oldVal) === JSON.stringify(newVal)
+          ? stableStringify(oldVal) === stableStringify(newVal)
           : oldVal === newVal;
 
         if (!isEqual) {

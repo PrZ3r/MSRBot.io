@@ -516,6 +516,12 @@ function _normalizeRawRef(value) {
 }
 
 function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetail, rawRef, title }) {
+  // A set id (BCP47) is recorded as a sighting of each member record.
+  if (refId && REF_EXPANSIONS[refId]) {
+    let last;
+    for (const id of REF_EXPANSIONS[refId]) last = mriRecordSighting({ docId, type, refId: id, cite, href, mapSource, mapDetail, rawRef, title });
+    return last;
+  }
   const mri = _loadMRI();
 
   _dirty = true;
@@ -927,6 +933,15 @@ function normalizeCiteTypography(text) {
   return s;
 }
 
+// Citations of a document set that the registry holds as separate records. parseRefId
+// returns the set id; mriRecordSighting and extractDocs record each member instead.
+// BCP 47 = RFC 5646 (language tags) + RFC 4647 (matching), used only when the cite
+// doesn't name one of them.
+const REF_EXPANSIONS = { BCP47: ['RFC5646', 'RFC4647'] };
+function expandRefId(refId) {
+  return (refId && REF_EXPANSIONS[refId]) || [refId];
+}
+
 // Main parser: derive a canonical refId from a citation text + optional href
 function parseRefId(text, href = '', opts = {}) {
   const wantDiag = !!opts.wantDiag;
@@ -948,6 +963,19 @@ function parseRefId(text, href = '', opts = {}) {
     if (mIso && mIso[1]) {
       const refId = `ISO.${mIso[1]}.ALLPARTS`;
       return wantDiag ? { refId, diag: { mapSource: 'cite', mapDetail: 'allparts:iso' } } : refId;
+    }
+  }
+
+  // Bare BCP 47 ("BCP 47: Tags for Identifying Languages", ".../html/bcp47") → BCP47, which
+  // expands to RFC 5646 + RFC 4647. A cite or href naming an RFC ("BCP 47 (RFC 5646)") falls
+  // through to the RFC rules and keeps that RFC.
+  {
+    const src = String(text || '');
+    const h = String(href || '');
+    if ((/\bBCP\s*[\u2010-\u2015-]?\s*0*47\b/i.test(src) || /\bbcp\/?0*47\b/i.test(h))
+      && !/\bRFC\s*[-\/]?\s*\d{3,5}\b/i.test(src) && !/rfc\.?\d{3,5}/i.test(h)) {
+      const refId = 'BCP47';
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'bcp47-set' } } : refId;
     }
   }
 
@@ -2831,6 +2859,7 @@ function extractRefs($, currentDocId, opts = {}) {
 }
 
 module.exports = {
+  expandRefId,
   mapRefByCite,
   parseRefId,
   extractRefs,

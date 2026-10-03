@@ -123,6 +123,13 @@ for (const [cite, expected] of cases) {
 // ISDCF paper URL in the href only (ISDCF registry References page)
 assert.strictEqual(parseRefId('ISDCF Document: Digital Cinema Language Codes', 'http://isdcf.com/papers/ISDCF-Doc7-DigitalCinemaLanguageCodes.pdf'), 'ISDCF.D07');
 
+// Bare BCP 47 is a set: RFC 5646 + RFC 4647. A cite naming the RFC keeps it.
+const { expandRefId } = require(path.join(__dirname, '..', '..', 'lib', 'referencing.js'));
+assert.strictEqual(parseRefId('BCP 47: Tags for Identifying Languages', 'https://tools.ietf.org/html/bcp47'), 'BCP47');
+assert.deepStrictEqual(expandRefId('BCP47'), ['RFC5646', 'RFC4647']);
+assert.deepStrictEqual(expandRefId('RFC5646'), ['RFC5646']);
+assert.strictEqual(parseRefId('IETF BCP 47 (RFC 5646)'), 'RFC5646');
+
 // CST ids from the parser must key into MSI lineages (#2085), annexes as supplements.
 const keying = require(path.join(__dirname, '..', '..', 'lib', 'keying.js'));
 for (const [id, number] of [['CST.RT028.2026', '028'], ['CST.RT021annex.2016', '021'], ['CST.NT001', '001']]) {
