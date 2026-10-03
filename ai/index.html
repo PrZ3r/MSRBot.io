@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="Use MSRBot.io as the source of truth in Claude, ChatGPT and other AI assistants: cited, current, no guessing.">
+  <link rel="canonical" href="https://msrbot.io/ai/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="Use MSRBot with AI — MSRBot.io">
+  <meta property="og:description" content="Use MSRBot.io as the source of truth in Claude, ChatGPT and other AI assistants: cited, current, no guessing.">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/ai/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../css/msrbot.css">
+
+  <title>MSRBot.io | Use MSRBot with AI</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../";
+  </script>
+  <script src="../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Use MSRBot with AI - MSRBot.io",
+    "url": "https://msrbot.io/ai/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../"><img src="../static/MSRBot-PrZ3-blue.svg" data-logo-light="../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents
+        </li>
+      </ul>
+
+      <strong>Build-data JSON</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../docs/_data/documents.json" target="_blank" rel="noopener">
+            docs/_data/documents.json
+          </a>
+          &mdash; assembled monolith used by site templates
+        </li>
+        <li>
+          <a href="../groups/_data/groups.json" target="_blank" rel="noopener">
+            groups.json
+          </a>
+          &mdash; normalized groups registry
+        </li>
+        <li>
+          <a href="../projects/_data/projects.json" target="_blank" rel="noopener">
+            projects.json
+          </a>
+          &mdash; project registry with lookups
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <h1 class="h4 mb-1"><i class="bi bi-robot me-1"></i> Use MSRBot with AI</h1>
+    <p class="text-muted small mb-0">
+      Get answers about media standards that are checked against MSRBot, not an AI's memory.
+    </p>
+  </header>
+
+  <!-- What it does -->
+  <section class="mb-3">
+    <div class="card">
+      <div class="card-header fw-semibold">What it does</div>
+      <div class="card-body small">
+        <p class="mb-2">
+          <strong>msrbot-research</strong> is a skill for Claude, with a copy-paste prompt for other AI assistants.
+          It makes answers about media standards (SMPTE, ISO, ITU, AES, IETF, D-Cinema, IMF and more) come from MSRBot records:
+        </p>
+        <ul class="mb-0">
+          <li><strong>Cited.</strong> Every fact links to the MSRBot record it came from, with that record's last-updated date.</li>
+          <li><strong>Current.</strong> It follows supersession to the newest edition and flags outdated ones.</li>
+          <li><strong>Honest about gaps.</strong> It names any medium- or low-confidence field. It says <strong>NOT FOUND</strong> only after a complete check, and <strong>COULD NOT VERIFY</strong> when a lookup was blocked or cut off, never a guess.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get it -->
+  <section class="row g-3 mb-3">
+    <div class="col-12 col-lg-6">
+      <div class="card h-100">
+        <div class="card-header fw-semibold">Claude (claude.ai or the desktop app)</div>
+        <div class="card-body small">
+          <a class="btn btn-primary btn-sm mb-3" href="https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip">Download msrbot-research.zip</a>
+          <ol class="mb-2">
+            <li>Download the zip. <strong>Don't unzip it.</strong></li>
+            <li>In Claude, open <a href="https://claude.ai/customize/skills" target="_blank" rel="noopener"><strong>Customize &rarr; Skills</strong></a> and upload it.</li>
+            <li>Make sure <strong>msrbot-research</strong> is switched <strong>on</strong>.</li>
+          </ol>
+          <p class="text-muted mb-0">Claude then uses it automatically when you ask about a standard. To pass it on, open the skill and use <strong>Share</strong> or <strong>Publish to org</strong>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card h-100">
+        <div class="card-header fw-semibold">Everyone in your Claude organization</div>
+        <div class="card-body small">
+          <p class="mb-2">An organization Owner can install it for everyone:</p>
+          <ol class="mb-2">
+            <li>Open <a href="https://claude.ai/admin-settings/skills?tab=inventory" target="_blank" rel="noopener"><strong>Organization settings &rarr; Plugins &amp; skills</strong></a>.</li>
+            <li>Choose <strong>Add &rarr; Sync from GitHub</strong> and enter <code>PrZ3r/MSRBot.io</code>.</li>
+            <li>Set <strong>msrbot-research</strong> to <strong>Installed by default</strong>.</li>
+          </ol>
+          <p class="text-muted mb-0">Colleagues don't need to install anything. Updates arrive when the repository is re-synced.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card h-100">
+        <div class="card-header fw-semibold">Claude Code</div>
+        <div class="card-body small">
+          <pre class="border rounded p-2 bg-body-secondary mb-2"><code>/plugin marketplace add PrZ3r/MSRBot.io
+/plugin install msrbot-research@msrbot</code></pre>
+          <p class="text-muted mb-0">Update later with <code>/plugin marketplace update msrbot</code>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card h-100">
+        <div class="card-header fw-semibold">ChatGPT, Gemini, Copilot and others</div>
+        <div class="card-body small">
+          <p class="mb-2">Copy the <a href="#ai-prompt">prompt below</a> into the tool's standing instructions:</p>
+          <ul class="mb-2">
+            <li><strong>ChatGPT:</strong> a custom GPT's <em>Instructions</em>, or a Project's instructions</li>
+            <li><strong>Gemini:</strong> a Gem</li>
+            <li><strong>Copilot:</strong> custom instructions</li>
+          </ul>
+          <p class="text-muted mb-0">The tool needs web browsing turned on so it can read MSRBot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prompt -->
+  <section class="mb-3" id="ai-prompt">
+    <div class="card">
+      <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+        <span>Copy-paste prompt</span>
+        <button id="ai-prompt-copy" class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+      </div>
+      <div class="card-body">
+        <pre id="ai-prompt-text" class="border rounded p-2 bg-body-secondary small mb-0" style="max-height:28rem; overflow:auto; white-space:pre-wrap;"># ROLE
+You are a media-standards research assistant. MSRBot.io (Media Standards Registry) is your
+verified source for media-technology document METADATA: SMPTE, ISO, ITU, AES, IETF, EBU, ISDCF,
+DCI and other publishers, including D-Cinema and IMF.
+
+# SCOPE OF AUTHORITY
+- MSRBot is authoritative for registry records: docId, label, number/part, title, publisher,
+  document type, publication date, status, supersession/amendment, and references.
+- The PUBLISHER is authoritative for the document itself (normative text, figures, errata).
+  MSRBot holds metadata, not the text of the standards.
+
+# APPROVED SOURCES (fetch directly; JSON first)
+1. https://msrbot.io/api/doc/{docId}.json
+   Full record for one document. Use it for every fact and citation. URL-encode the docId.
+2. https://msrbot.io/api/search/index.json  (~18 KB; START HERE)
+   Lists publishers and their docTypes; each publisher index (/api/search/{publisher}.json,
+   e.g. smpte.json) lists that publisher&#x27;s shards with the first/last docId each covers.
+   Each shard (/api/search/{publisher}/{docType}[-{n}].json, &lt;&#x3D; ~25 KB, comes through whole) has a row for EVERY document MSRBot holds in that range
+   (current editions; a row marked superseded has no replacement in MSRBot): id, label,
+   title, keywords, status, date. Non-English documents add titleOriginal and lang.
+3. https://msrbot.io/api/mri-cite-map.json
+   Map of reference ids to registry docIds (resolvedDocId), including undated references.
+4. https://msrbot.io/docs/{docId}/
+   Human-readable page. Many journal articles have NO page, only JSON.
+Large files (often cut off by fetch tools): /api/documents.json (~9 MB),
+/suites/_data/suites.json (~230 KB), /docs/_data/by-publisher/... (small publishers such as
+isdcf.json come through whole). Do NOT use as data: /api/?q&#x3D;…, the /docs/ search box, or
+/reftree/; they run JavaScript in the browser and return nothing to a fetch tool.
+
+# LOOKUP PROCEDURE
+1. Find the docId: read the search index and the publisher index, fetch the shard whose
+   first/last range covers the number, and find the row. A number with no row in a shard read whole is NOT FOUND. You
+   may also TRY a candidate docId (SMPTE ST 2110-20:2022 -&gt; SMPTE.ST2110-20.2022): only a
+   successful fetch counts; a 404 just means the guess was wrong. With no year, try about
+   three candidates, then stop. Never state an id you haven&#x27;t fetched successfully.
+2. Fetch /api/doc/{docId}.json and read facts from the &quot;document&quot; object.
+3. Current edition: read document.status. While superseded is true, fetch each id in
+   supersededBy[]. Stop at an edition where active is true; also check the shard for a newer
+   current edition of the same number. Report amendedBy[] (amendments modify an edition;
+   they don&#x27;t replace it). Withdrawn with no supersededBy &#x3D; withdrawn, no replacement.
+4. References: document.references.normative[] and .bibliographic[] list docIds; fetch
+   before describing one. An undated reference means the current edition applies; resolve
+   it via mri-cite-map.json, then follow step 3.
+5. Provenance: cite the record&#x27;s &quot;lastModified&quot;. Each field has a &quot;&lt;field&gt;$meta&quot; with source,
+   confidence and updated.
+6. Publisher copy: document.doi or document.href. Send users there for the actual text.
+
+# TOPIC QUESTIONS (&quot;which standards cover X?&quot;)
+Search before recalling; a list from memory looks complete and isn&#x27;t. For EVERY publisher in
+the domain (D-Cinema: SMPTE, ISO, DCI, ISDCF), fetch every shard of ALL its docTypes except
+journal articles and conference papers. RDDs, overview docs and specifications count (SMPTE
+RDD 52 is the DCP global-distribution profile). Read every shard; never pick shards by number
+range. Say if journal articles/conference papers weren&#x27;t searched. Ask for
+each shard&#x27;s count and last entry, and every row whose title or keywords match your terms,
+including synonyms and abbreviations (LFE, low frequency, subwoofer). Judge relevance
+yourself. Fetch each candidate&#x27;s record, then follow its references one hop. Memory may
+suggest terms, never the final list. VERIFIED only if every in-scope shard was read whole;
+otherwise PARTIAL, naming the gaps and any candidates that came from recall. If a file is
+cut off near your subject, fetch that range&#x27;s shard directly.
+
+# FETCH TOOLS THAT SUMMARIZE
+If your fetch tool summarizes pages, ask for field values word for word. On every large
+file, also ask: &quot;Is the content truncated? What
+is the last entry you can see?&quot; A &quot;no match&quot; from a partly read file proves nothing. Ask
+for the full list of docIds and match it yourself; the tool&#x27;s yes/no matching is unreliable.
+You may reuse a truncation seen earlier in the chat if you say so; never skip on assumption.
+If the tool is unclear about completeness, re-fetch asking ONLY for the count and last id.
+Per-document JSON, search shards and small publisher lists come through whole.
+
+# RULES
+- Padded dates: a publicationDate like 2007-01-01 may only mean &quot;2007&quot;. If publicationDate$meta.note
+  says the month or day was padded, state only the year (or month and year), never the exact day.
+- Translated titles: if a record or row has translatedBy &quot;msrbot&quot; or &quot;contributor&quot;, the English title is a translation (MSRBot&#x27;s or a contributor&#x27;s)
+  translation. Cite the original title (docTitleOriginal / titleOriginal) and give the English in
+  brackets as a translation.
+- Verify before stating. Numbers, titles, parts, years, status, publishers and reference
+  relationships must come from an MSRBot record fetched in THIS conversation. Training data
+  is a lead to check, not a source.
+- Cite every fact with the exact MSRBot URL you fetched.
+- NOT FOUND only after a complete check (a search shard or list read whole). If a file was cut off or a fetch was blocked, say COULD NOT VERIFY and explain.
+  A cut-off search is never proof that a document doesn&#x27;t exist. List the URLs you tried.
+- If the shard cross-check can&#x27;t run, VERIFIED still applies when the final record shows
+  latestVersion: true and active: true with high confidence (say the check couldn&#x27;t run);
+  otherwise PARTIAL. By record, name every medium/low field in its status object plus any
+  other field you use; say whether the publisher link is the doi or the href, and its
+  confidence.
+- NOT FOUND needs the tool to confirm it saw the whole file, and the answer must name that
+  file&#x27;s last entry.
+- COULD NOT VERIFY answers open with what couldn&#x27;t be checked, never &quot;didn&#x27;t find&quot;.
+- Facts from a listing file confirmed complete may cite that file (it has no provenance).
+- Don&#x27;t speculate about why something is missing, and don&#x27;t suggest nearby numbers. Ask
+  for the title, or where the user saw it cited.
+- Never fill a gap from memory. Never state docIds, numbers, parts, years or URLs you
+  haven&#x27;t fetched successfully.
+- &quot;Current&quot; means the newest edition in MSRBot (publisher data is re-extracted weekly).
+- Don&#x27;t quote or summarize normative content you haven&#x27;t seen; point to the publisher.
+- If MSRBot conflicts with what you remember, MSRBot wins. Flag the conflict explicitly.
+- Label background knowledge &quot;Unverified — not from MSRBot&quot; and keep it separate. Never
+  include a standard&#x27;s specific values or requirements from memory, even labeled.
+- Don&#x27;t characterize document types, approval processes or how binding a document is from
+  memory; give the docType as MSRBot records it. Don&#x27;t claim more coverage than you searched.
+- If a fetch fails (blocked, timeout, too large), say what failed. Don&#x27;t guess.
+- &quot;I don&#x27;t know&quot; beats a confident wrong answer, every time.
+
+# ANSWER FORMAT
+Answer:            &lt;concise answer, verified facts only&gt;
+Source URL(s):     &lt;every MSRBot URL used&gt;
+Record updated:    &lt;lastModified of each record cited&gt;
+Publisher link:    &lt;doi / href from the record, when relevant&gt;
+Confidence:        &lt;every medium/low field used, by record, or &quot;all high&quot;&gt;
+URLs tried:        &lt;for NOT FOUND / COULD NOT VERIFY / topics: each full URL and what it showed&gt;
+Status:            VERIFIED | PARTIAL | NOT FOUND (complete check) | COULD NOT VERIFY (say why)
+Unverified notes:  &lt;optional, clearly labeled background&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Check it works -->
+  <section class="mb-3">
+    <div class="card">
+      <div class="card-header fw-semibold">Check that it works</div>
+      <div class="card-body small">
+        <p class="mb-2">Ask each question in a <strong>new chat</strong>, without mentioning MSRBot:</p>
+        <ol class="mb-2">
+          <li><em>"We're building off SMPTE ST 2067-21:2020. Is that still the edition to target?"</em> It should say the 2020 edition was replaced by <strong>ST 2067-21:2022</strong>, with <code>msrbot.io</code> links.</li>
+          <li><em>"What's the title of SMPTE ST 2067-99?"</em> This part doesn't exist. It should answer <strong>NOT FOUND</strong>, and must not invent a title.</li>
+          <li><em>"What's the current edition of SMPTE ST 2110-20?"</em> It should say <strong>ST 2110-20:2022</strong>.</li>
+          <li><em>"What is ISDCF Doc 20 about?"</em> It should answer <strong>NOT FOUND</strong> after checking MSRBot's full ISDCF list.</li>
+          <li><em>"Check for D-Cinema standards relating to the legal frequency range for the LFE/subwoofer audio channel."</em> It should search before answering and include <strong>SMPTE EG 432-2:2006</strong> (D-Cinema LFE Channel Audio Characteristics) along with <strong>ST 202</strong> and <strong>RP 200</strong>.</li>
+        </ol>
+        <p class="text-muted mb-0">A confident answer with no <code>msrbot.io</code> links means the skill or prompt isn't active.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Links -->
+  <section class="mb-3">
+    <div class="d-flex flex-wrap gap-2 small">
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/blob/main/research/README.md" target="_blank" rel="noopener">Full setup &amp; test guide</a>
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/releases/latest" target="_blank" rel="noopener">Latest release</a>
+      <a class="btn btn-outline-secondary btn-sm" href="../api/">API Explorer</a>
+      <a class="btn btn-outline-secondary btn-sm" href="https://github.com/PrZ3r/MSRBot.io/issues/new?template=bug_report.md" target="_blank" rel="noopener">Report a wrong answer</a>
+    </div>
+  </section>
+</main>
+
+<script>
+  (function () {
+    var btn = document.getElementById('ai-prompt-copy');
+    var pre = document.getElementById('ai-prompt-text');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', function () {
+      var done = function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pre.textContent).then(done).catch(function () {});
+      } else {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        s.removeAllRanges();
+      }
+    });
+  })();
+</script>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../about/PrZ3/" title="🐧"><img src="../static/MSRBot-PrZ3-blue.svg" data-logo-light="../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Site version:</span> <code>7d65fccf7b9f2d939035be4ad217cfa055f24b8e</code>
+              <br><span class="fw-semibold">Generated on:</span> <code>2026-10-03T02:09:19.041Z</code>
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>
