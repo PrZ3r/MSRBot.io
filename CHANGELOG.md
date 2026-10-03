@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## [v2.8.0] - 2026-10-02
+
+### Added
+
 - **`hrefAlternates` for documents published in several languages (schema 2.6.0).** One record per document. `href` is the primary link, the English edition when one exists, and `hrefAlternates` lists the other editions as `{ language, href }`. The doc page lists each edition's URL in the Link row, followed by "(French edition)"-style labels (English first), lists every edition language in the Language row ("French, English"; English only when an English edition exists), links the original-language title to its edition, and the research skill's `records.md` documents the field. `translatedBy` gains `contributor` for third-party translations, at document level and on each `hrefAlternates` entry ("(French edition, contributor translation)"); the search API and `search.schema.json` emit it like `msrbot`. It is first used for CST-RT-040 and CST-RT-047, whose English editions are official (`translatedBy: "publisher"`).
 - **More CST recommendations, added with `npm run extract-manual`.** Each has the French original title and abstract plus an English translation flagged for review, and its citations are parsed from CST's own text.
   - Batch 1, sound/picture sync: CST-RT-009-2000 (television), CST-RT-015-2007 (35 mm release prints), CST-RT-025-2011 (cinema).
