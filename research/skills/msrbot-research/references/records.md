@@ -24,7 +24,7 @@
 | `docTitle` | Title, always in English. Suite-level titles, where present, are in `docSuiteTitle`. |
 | `language`, `docTitleOriginal`, `abstractOriginal` | Non-English documents only: the published language (BCP 47, e.g. `fr`) and the publisher's own title and abstract. No `language` means English. |
 | `translatedBy` | `msrbot` means the English `docTitle`/`abstract` are MSRBot.io's translation, not the publisher's wording: cite `docTitleOriginal` as the title and give the English as a translation. `publisher` (or absent) means the English is official. |
-| `hrefAlternates` | Other language editions of the same document, as `[{ language, href }]`. `href` is the primary link (the English edition when one exists). Offer the alternates when the user may want the original. |
+| `hrefAlternates` | Other language editions of the same document, as `[{ language, href }]`. `href` is the primary link: the English edition when `translatedBy` is `"publisher"`, otherwise the original-language edition (`language`, English when absent). Offer the alternates when the user may want the original. |
 | `publisher`, `docType` | e.g. `SMPTE`, `Standard` / `Recommended Practice` / `Engineering Guideline` / `Journal Article`. |
 | `docNumber`, `docPart` | Number and part, as separate fields. |
 | `publicationDate` | Always a full `YYYY-MM-DD`, but it can be **padded**. When a source gives only a year or month, the missing part is filled with `01`, and `publicationDate$meta.note` says so (e.g. "Month/day absent in source — padded to 01-01", "Day absent … padded to 01"). Check the note before stating a day or month. For a padded date, give only the year (or month and year). |

@@ -147,13 +147,17 @@ hb.registerHelper('alternateHref', function (alternates, language) {
   return hit ? hit.href : '';
 });
 
-// Every language the doc is published in, original first: `language`, then an
-// official English edition (translatedBy: publisher), then hrefAlternates.
+// Every language the doc is published in, original first. No `language` means
+// English. The `href` edition is English when translatedBy is "publisher",
+// otherwise the original; hrefAlternates add the rest. Empty for a plain
+// English doc, so it gets no Language row.
 hb.registerHelper('editionLanguages', function (doc) {
-  if (!doc || !doc.language) return [];
-  const tags = [doc.language];
-  if (doc.translatedBy === 'publisher') tags.push('en');
-  for (const a of Array.isArray(doc.hrefAlternates) ? doc.hrefAlternates : []) if (a && a.language) tags.push(a.language);
+  if (!doc) return [];
+  const alternates = Array.isArray(doc.hrefAlternates) ? doc.hrefAlternates : [];
+  if (!doc.language && !alternates.length) return [];
+  const original = doc.language || 'en';
+  const tags = [original, doc.translatedBy === 'publisher' ? 'en' : original];
+  for (const a of alternates) if (a && a.language) tags.push(a.language);
   return [...new Set(tags)];
 });
 

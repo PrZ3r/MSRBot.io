@@ -24,7 +24,7 @@ Fields not named are `parsed` from `sourceUrl`. The table says which source to u
 | `abstractOriginal` | Non-English only. The scope/"Objet" section verbatim (fix hyphenation from line breaks; note any dropped footnote markers) | parsed | high | PDF |
 | `language` | BCP 47 (`fr`); omit for English | parsed | high | PDF |
 | `translatedBy` | `msrbot` when the English is ours; `publisher` when an official English edition exists | inferred | high | — |
-| `hrefAlternates` | Other language editions of the **same** document: `[{ "language": "fr", "href": "<PDF>" }]`. `href` is the primary link, the English edition when one exists. With an official English edition, English title/abstract come from it (`parsed`, no `reviewRequired`) | parsed | high | listing page |
+| `hrefAlternates` | Other language editions of the **same** document: `[{ "language": "fr", "href": "<PDF>" }]`. `href` is the primary link, the English edition when one exists. With an official English edition, English title/abstract come from it (`parsed`, no `reviewRequired`). The `href` edition's language is never stated: English with `translatedBy: "publisher"`, else `language` (English if absent) | parsed | high | listing page |
 | `docNumber`, `docPart` | As printed (`028`) | parsed | high | PDF |
 | `docType` | From the schema enum, matching how the publisher names it (Recommendation, Standard, Specification, Guideline…) | parsed | high | listing page |
 | `publisher` | Registry publisher string (`CST`); must match `site.json` keys | parsed | high | listing page |
