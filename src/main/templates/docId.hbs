@@ -63,7 +63,7 @@
             {{#if abbrevTitle}}<dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>{{abbrevTitle}}</em></dd>{{/if}}
             {{#if volume}}<dt class="col-sm-4">Volume</dt><dd class="col-sm-8">{{volume}}{{#if number}}, No. {{number}}{{/if}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if number}}<dt class="col-sm-4">Issue</dt><dd class="col-sm-8">No. {{number}}{{#if pages}}, pp. {{pages}}{{/if}}</dd>{{else}}{{#if pages}}<dt class="col-sm-4">Pages</dt><dd class="col-sm-8">{{pages}}</dd>{{/if}}{{/if}}{{/if}}
             {{#if chapter}}<dt class="col-sm-4">Chapter</dt><dd class="col-sm-8">{{chapter}}</dd>{{/if}}
-            {{#if language}}<dt class="col-sm-4">Language</dt><dd class="col-sm-8">{{languageName language}}</dd>{{/if}}
+            {{#if language}}{{#with (editionLanguages this)}}<dt class="col-sm-4">Language{{#if this.[1]}}s{{/if}}</dt><dd class="col-sm-8">{{#each this}}{{#unless @first}}, {{/unless}}{{languageName this}}{{/each}}</dd>{{/with}}{{/if}}
             {{#ifeq translatedBy "msrbot"}}<dt class="col-sm-4">Translation</dt><dd class="col-sm-8">{{#if docTitleOriginal}}Title{{#if abstractOriginal}} and abstract{{/if}}{{else}}{{#if abstractOriginal}}Abstract{{else}}English text{{/if}}{{/if}} translated{{#if language}} from {{languageName language}}{{/if}} by MSRBot.io</dd>{{/ifeq}}
             {{#if abstract}}<dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">{{{nl2br abstract}}}</dd>{{/if}}
             {{#if abstractOriginal}}<dt class="col-sm-4">Abstract ({{languageName language}})</dt><dd class="col-sm-8"{{#if language}} lang="{{language}}"{{/if}}>{{{nl2br abstractOriginal}}}</dd>{{/if}}
