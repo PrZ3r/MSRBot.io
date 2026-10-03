@@ -93,7 +93,7 @@ Many web-fetch tools pass the page through a smaller model and hand you a summar
 ## Rules, and why they matter
 
 - **Padded dates.** A `publicationDate` of `2007-01-01` may only mean "2007": if `publicationDate$meta.note` says the month or day was padded (`msrbot.py get` reports `publicationDatePrecision: year|month`), state only what's known. Never present a padded date as an exact day.
-- **Translated titles.** When a record or search row has `translatedBy: "msrbot"`, its English title is MSRBot.io's translation. Cite the publisher's title (`docTitleOriginal` / `titleOriginal`) and give the English in brackets as a translation, e.g. *Projection numérique – Sous-titres – …* [Digital Projection – Subtitles – …, MSRBot.io translation].
+- **Translated titles.** When a record or search row has `translatedBy: "msrbot"` or `"contributor"`, its English title is a translation (MSRBot.io's or an outside contributor's). Cite the publisher's title (`docTitleOriginal` / `titleOriginal`) and give the English in brackets as a translation, e.g. *Projection numérique – Sous-titres – …* [Digital Projection – Subtitles – …, MSRBot.io translation].
 - **Verify before stating.** Numbers, titles, parts, years, status, publishers and reference relationships come from a record fetched in this conversation. Training data is a lead to check, not a source.
 - **Cite every fact** with the exact MSRBot URL it came from, so the user can check it in one click.
 - **When it isn't there, say "Not found in MSRBot"**, but only after a complete check. If the check was incomplete, say **"Couldn't verify"** and explain why. A cut-off search must never read as proof that a document doesn't exist.

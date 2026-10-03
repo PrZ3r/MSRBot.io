@@ -100,8 +100,8 @@
           },
           "translatedBy": {
             "type": "string",
-            "enum": ["publisher", "msrbot"],
-            "description": "Who supplied the English docTitle/abstract of a non-English document: the publisher (official) or MSRBot.io (translation). Absent means publisher."
+            "enum": ["publisher", "msrbot", "contributor"],
+            "description": "Who supplied the English docTitle/abstract of a non-English document: the publisher (official), MSRBot.io (our translation) or an outside contributor (a third-party translation). Absent means publisher."
           },
           "docType": {
             "type": "string",
@@ -378,7 +378,8 @@
               "additionalProperties": false,
               "properties": {
                 "language": { "type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$", "description": "BCP 47 tag of this edition" },
-                "href": { "type": "string", "format": "uri" }
+                "href": { "type": "string", "format": "uri" },
+                "translatedBy": { "type": "string", "enum": ["publisher", "contributor"], "description": "Who made this edition: the publisher (official) or an outside contributor (a third-party translation). Absent means publisher." }
               }
             }
           },

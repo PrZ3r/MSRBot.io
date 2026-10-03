@@ -77,7 +77,7 @@ Per-document JSON, search shards and small publisher lists come through whole.
 # RULES
 - Padded dates: a publicationDate like 2007-01-01 may only mean "2007". If publicationDate$meta.note
   says the month or day was padded, state only the year (or month and year), never the exact day.
-- Translated titles: if a record or row has translatedBy "msrbot", the English title is MSRBot's
+- Translated titles: if a record or row has translatedBy "msrbot" or "contributor", the English title is a translation (MSRBot's or a contributor's)
   translation. Cite the original title (docTitleOriginal / titleOriginal) and give the English in
   brackets as a translation.
 - Verify before stating. Numbers, titles, parts, years, status, publishers and reference
