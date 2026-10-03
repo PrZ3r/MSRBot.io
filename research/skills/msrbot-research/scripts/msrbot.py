@@ -153,9 +153,18 @@ def cmd_find(args):
     }
 
 
+def _date_precision(d):
+    # Sources with only a year or month are padded to -01-01 / -01; the $meta note says so.
+    note = str((d.get("publicationDate$meta") or {}).get("note") or "").lower()
+    if "padded" not in note:
+        return None
+    return "year" if ("month" in note or "01-01" in note) else "month"
+
+
 def _summary(payload, url):
     d = payload.get("document", {})
     status = strip_meta(d.get("status") or {})
+    precision = _date_precision(d)
     return {
         "docId": payload.get("docId"),
         "docLabel": d.get("docLabel"),
@@ -164,6 +173,7 @@ def _summary(payload, url):
         "publisher": d.get("publisher"),
         "docType": d.get("docType"),
         "publicationDate": d.get("publicationDate"),
+        **({"publicationDatePrecision": precision} if precision else {}),
         "status": status,
         "doi": d.get("doi"),
         "publisherUrl": d.get("href"),

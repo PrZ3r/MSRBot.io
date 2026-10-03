@@ -51,8 +51,8 @@
         },
         "translatedBy": {
           "type": "string",
-          "enum": ["msrbot"],
-          "description": "Present when title is MSRBot.io's English translation rather than the publisher's own; cite titleOriginal as the official title"
+          "enum": ["msrbot", "contributor"],
+          "description": "Present when title is an English translation rather than the publisher's own: msrbot (MSRBot.io's) or contributor (an outside contributor's); cite titleOriginal as the official title"
         },
         "keywords": {
           "type": "array",
@@ -66,7 +66,7 @@
         },
         "date": {
           "type": "string",
-          "description": "publicationDate (YYYY, YYYY-MM or YYYY-MM-DD)"
+          "description": "publicationDate, always YYYY-MM-DD; may be padded from a year or month (fetch the record and check publicationDate$meta.note before stating a day)"
         }
       }
     },

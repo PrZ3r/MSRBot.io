@@ -45,6 +45,7 @@ What started as a personal tool to make sense of reference trees has grown into 
 - Live API Stats: [api/stats.json](https://msrbot.io/api/stats.json)
 - JSON Schema: [api/schemas/documents.schema.json](https://msrbot.io/api/schemas/documents.schema.json)
 - AI research skill + prompt: [`research/`](research/). See [Use MSRBot with AI assistants](#use-msrbot-with-ai-assistants)
+- Manual / AI-assisted extraction (contributors): `npm run extract-manual` + the [`msrbot-extract`](.claude/skills/msrbot-extract/SKILL.md) project skill. See [Adding documents with AI](#adding-documents-with-ai-contributors)
 - Public Site generated from `main` at <https://msrbot.io>
 - Change Log: [msrbot.io/changelog/](https://msrbot.io/changelog/) ([source](CHANGELOG.md))
 
@@ -64,6 +65,16 @@ What started as a personal tool to make sense of reference trees has grown into 
 | **ChatGPT, Gemini, Copilot, others** | Paste [`research/prompt.md`](research/prompt.md) into the tool's instructions. |
 
 The same instructions are on the website at **[msrbot.io/ai](https://msrbot.io/ai/)**, which is the easiest link to share. The step-by-step guide, including a five-question checklist to confirm it's working, is in [`research/README.md`](research/README.md).
+
+### Adding documents with AI (contributors)
+
+For publishers without an extractor (for example CST), an AI agent working in a repo checkout can read the publisher's page, PDFs or HTML documents and prepare the records. **`npm run extract-manual`** then runs them through the same pipeline as the SMPTE and IETF extractors: reference parsing, MRI, provenance and validation.
+
+- **In Claude Code:** the [`msrbot-extract`](.claude/skills/msrbot-extract/SKILL.md) project skill loads automatically in this repo. Point Claude at the publisher page and it walks through the steps.
+- **Other AI tools:** follow [`docs/manual-extraction.md`](docs/manual-extraction.md). AGENTS.md requires this path for AI extraction.
+- **Treat it as a first pass that a person verifies by hand.** For one or two documents, editing by hand may be quicker. For sources that change over time, write a real extractor provider instead. See [when to use it](docs/manual-extraction.md#when-to-use-it-and-when-not).
+
+This is a contributor tool. It is not the public research skill above, and it isn't on msrbot.io/ai.
 
 ## Portals
 
@@ -155,6 +166,7 @@ Run scripts with:
 npm run extract
 npm run extract-smpte
 npm run extract-ietf
+npm run extract-manual -- --input <records.json>   # publishers without an extractor; see docs/manual-extraction.md
 npm run build-msi
 npm run build-mri
 npm run seed-backfill-ietf
@@ -201,6 +213,7 @@ For the full command and flag reference (including `build-mri`, `build-msi`, `au
 - `npm run extract`: convenience alias for SMPTE extraction (currently equivalent to `extract-smpte`).
 - `npm run extract-smpte`: explicit SMPTE extraction.
 - `npm run extract-ietf`: explicit IETF extraction.
+- `npm run extract-manual -- --input <records.json>`: hand- or AI-prepared records for publishers without an extractor, run through the same pipeline. See [docs/manual-extraction.md](docs/manual-extraction.md) and [Adding documents with AI](#adding-documents-with-ai-contributors).
 - Under the hood, extraction now requires an explicit provider flag:
   - `node src/main/scripts/extractDocs.js --provider smpte`
   - `node src/main/scripts/extractDocs.js --provider ietf`
@@ -232,7 +245,7 @@ For the full command and flag reference (including `build-mri`, `build-msi`, `au
   - Write updates to `site.json`: `npm run keywords-sync -- --write`
 ---
 ### Contributing
-Issues and pull requests are welcome.  
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). To add documents from a publisher without an extractor, including with an AI tool, see [docs/manual-extraction.md](docs/manual-extraction.md).  
 For questions or collaboration inquiries, contact [Steve LLamb](https://github.com/SteveLLamb).
 
 ---

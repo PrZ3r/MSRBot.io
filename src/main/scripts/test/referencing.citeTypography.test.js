@@ -67,6 +67,10 @@ const cases = [
   ['Recommendation UIT-R 1680, Format de signal d\'image en bande de base', 'R-REC-BT.1680'], // refMap
   ['EBU – R95 V1.1 - 2016 Safe areas for 16 :9 television production', 'EBU.R95.2016'],
   ['EBU–R 95 v1.1 - 2016 Safe areas for 16 :9 television production', 'EBU.R95.2016'],
+  ['UER-R91-1998 : Allocation des canaux en audio 5.1', 'EBU.R91.1998'],
+  ['EBU-Tech 3341, 3342, 3343, 3344 : recommandations techniques relatives à l’EBU R128', 'EBU.Tech3341'],
+  ['[1] EBU-Tech.3320, User Requirements for Video Monitors in Television Production, 2010', 'EBU.Tech3320.2010'],
+  ['L’ensemble des références concernant le format « AS-10 MXF for Production Specification », dans sa version courante', 'AMWA.AS-10'],
   // CST
   ['CST RT 031 – Projection – 2012 « Méthodologie de relevé des caractéristiques dimensionnelles »', 'CST.RT031.2012'],
   ['CST - RT – 007 - S - 2001', 'CST.RT007.2001'],
@@ -83,6 +87,25 @@ const cases = [
   ['NF S 27–001, Cinématographie - Théâtres cinématographiques', 'AFNOR.NFS27-001'],
   ['Réf Afnor NF-S 27100 - 2006', 'AFNOR.NFS27-100.2006'],
   ['NF EN 61947-2, Projection électronique - Mesure et documentation', 'AFNOR.NFEN61947-2'],
+  // DCI Digital Cinema System Specification: versions with a spec record map to it via refMap
+  // (never to an errata release of the same version); others fall back to the version-level family.
+  ['[10] Digital Cinema Initiatives, LLC, «Digital Cinema System Specifications Version 1.2,» Digital Cinema Initiatives, LLC, 2008.', 'DCI.DCSS.v1.2.2012-1010'],
+  ['Digital Cinema System Specification Version 1.4, July 2020', 'DCI.DCSS.v1.4.0.2020-0720'],
+  ['[19] Digital Cinema Initiatives (DCI) . Digital cinema system specification, version 1.4.2', 'DCI.DCSS.v1.4.2.2022-0615'],
+  ['1. Digital Cinema System Specification V1. 0, July 20, 2005 (Digital Cinema Initiatives, LLC)', 'DCI.DCSS.v1.0'],
+  // refMap one-offs from CST batch 4
+  ['(norme AES 3, reprise dans la norme ISO 26428-3)', 'AES3'],
+  ['SMPTE : The restauration Business Part 4 In black and white – reel two – Grant Loban-2000', '10.5594-J05296'],
+  ['[5] F. Helt et V. La Torre, «Quality Assessment Framework for Color Conversions and Perception,» chez SMPTE 2014 Annual Technical Conference, Los Angeles, 2014.', '10.5594-M001556'],
+  ['Les CPL produites devront respecter la dernière version en date de la convention de nommage du cinéma numérique.', 'ISDCF.DCNC'],
+  // ISDCF documents (ISDCF registry References page and SMPTE journal papers)
+  ['7. ISDCF Theater Key Retrieval .” [Online]. Available: https://files.isdcf.com/papers/ISDCF-Doc8-TheaterKeyRetrieval-TKR-v03.pdf .', 'ISDCF.D08'],
+  ['ISDCF Doc 7', 'ISDCF.D07'],
+  ['ISDCF Document 10: Subtitles and Captions in Digital Cinema', 'ISDCF.D10'],
+  ['ISDCF Doc 1', 'ISDCF.DCNC'],
+  ['3. Hurst J. , “P-HFR — Prototype DCP for High Frame Rate Projection” , http://isdcf.com/papers/ISDCF-HighFrameRate-DCP.pdf , accessed September 9, 2013 .', 'ISDCF.P-HFR.2012'],
+  ['IANA Document: Language Subtag Registry', 'IANA.LSR'],
+  ['MovieLabs Common Metadata Ratings', 'CMR.ML'],
   // Unchanged forms
   ['ISO 9660:1988', 'ISO.9660.1988'],
   ['ISO 8601', 'ISO.8601'],
@@ -96,6 +119,16 @@ const cases = [
 for (const [cite, expected] of cases) {
   assert.strictEqual(parseRefId(cite), expected, `parseRefId(${JSON.stringify(cite)})`);
 }
+
+// ISDCF paper URL in the href only (ISDCF registry References page)
+assert.strictEqual(parseRefId('ISDCF Document: Digital Cinema Language Codes', 'http://isdcf.com/papers/ISDCF-Doc7-DigitalCinemaLanguageCodes.pdf'), 'ISDCF.D07');
+
+// Bare BCP 47 is a set: RFC 5646 + RFC 4647. A cite naming the RFC keeps it.
+const { expandRefId } = require(path.join(__dirname, '..', '..', 'lib', 'referencing.js'));
+assert.strictEqual(parseRefId('BCP 47: Tags for Identifying Languages', 'https://tools.ietf.org/html/bcp47'), 'BCP47');
+assert.deepStrictEqual(expandRefId('BCP47'), ['RFC5646', 'RFC4647']);
+assert.deepStrictEqual(expandRefId('RFC5646'), ['RFC5646']);
+assert.strictEqual(parseRefId('IETF BCP 47 (RFC 5646)'), 'RFC5646');
 
 // CST ids from the parser must key into MSI lineages (#2085), annexes as supplements.
 const keying = require(path.join(__dirname, '..', '..', 'lib', 'keying.js'));

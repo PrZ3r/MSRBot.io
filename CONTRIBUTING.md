@@ -15,6 +15,7 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
 
 ## Ways You Can Contribute
 - **Data improvements** — fix or add metadata in the per-doc files under `src/main/data/docs/` (one JSON file per document; `npm run new-doc` scaffolds a new one)
+- **New documents from publishers without an extractor** — write a records file and run `npm run extract-manual -- --input <records.json>` (see [docs/manual-extraction.md](docs/manual-extraction.md)). It reuses the full extractor pipeline, so references, MRI and provenance are handled exactly as for SMPTE/IETF. **This is the required path when an AI tool does the extraction**; Claude Code loads the `msrbot-extract` project skill automatically. It's a first pass that must be verified by hand. For sources that change over time, write a real provider instead (see [When to use it](docs/manual-extraction.md#when-to-use-it-and-when-not)).
 - **Extraction logic** — enhance provider discovery/parsing in `src/main/scripts/providers/` and orchestration in `src/main/scripts/extractDocs.js`
 - **Reference parsing/resolution** — improve shared logic in `src/main/lib/referencing.js` and curated mappings in `src/main/input/refMap.json`
 - **Library improvements** — fix or add features in `src/main/lib/`
@@ -36,6 +37,7 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
     npm run extract
     npm run extract-smpte
     npm run extract-ietf
+    npm run extract-manual -- --input <records.json>
     npm run build-msi
     npm run build-mri
     npm run validate-url
@@ -76,7 +78,9 @@ When contributing or editing document metadata:
   - `docTitle` and `abstract` stay in English, so search and the API work unchanged.
   - Set `language` to the BCP 47 tag of the published language (for example `fr`). Leave it out for English documents.
   - Keep the publisher's own wording in `docTitleOriginal` and `abstractOriginal`.
-  - Set `translatedBy: "msrbot"` when the English is our translation, and `"publisher"` (or leave it out) when the publisher supplies an official English title.
+  - Set `translatedBy: "msrbot"` when the English is our translation, `"contributor"` when it is an outside contributor's translation, and `"publisher"` (or leave it out) when the publisher supplies an official English title.
+  - Each `hrefAlternates` entry can carry its own `translatedBy`: `"publisher"` (or absent) for an official edition, `"contributor"` for a translation made by an outside contributor (e.g. community translations of the ISDCF naming convention). The doc page labels it "(French edition, contributor translation)". Record only the category, never the translator's name: contributor translations are unofficial, and the linked page credits its own translators.
+  - When the publisher issues the same document in more than one language, `href` is the primary link (the **English** edition when one exists) and `hrefAlternates` lists the other editions as `{ "language": "fr", "href": "…" }` (schema 2.6.0); the doc page lists each edition's URL in the Link row, followed by "(French edition)"-style labels, and links the original-language title to its edition. With `translatedBy: "publisher"`, the English title and abstract are read from the English edition (`parsed`, no review flag). No field states the `href` edition's language; it is derived: English when `translatedBy` is `"publisher"`, otherwise `language` (English when absent). The page lists every edition language from that plus `hrefAlternates`, so English appears only when an English edition exists.
   - Mark translated fields `source: "inferred"`, with a `note`, and `reviewRequired: true` until someone has reviewed them.
 - Avoid manual edits to `resolvedHref` — these are maintained by automation.
 - Keywords are controlled via `src/main/config/site.json` (`controlledKeywords`), not a schema enum.

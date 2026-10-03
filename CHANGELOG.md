@@ -10,6 +10,80 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **`hrefAlternates` for documents published in several languages (schema 2.6.0).** One record per document. `href` is the primary link, the English edition when one exists, and `hrefAlternates` lists the other editions as `{ language, href }`. The doc page lists each edition's URL in the Link row, followed by "(French edition)"-style labels (English first), lists every edition language in the Language row ("French, English"; English only when an English edition exists), links the original-language title to its edition, and the research skill's `records.md` documents the field. `translatedBy` gains `contributor` for third-party translations, at document level and on each `hrefAlternates` entry ("(French edition, contributor translation)"); the search API and `search.schema.json` emit it like `msrbot`. It is first used for CST-RT-040 and CST-RT-047, whose English editions are official (`translatedBy: "publisher"`).
+- **More CST recommendations, added with `npm run extract-manual`.** Each has the French original title and abstract plus an English translation flagged for review, and its citations are parsed from CST's own text.
+  - Batch 1, sound/picture sync: CST-RT-009-2000 (television), CST-RT-015-2007 (35 mm release prints), CST-RT-025-2011 (cinema).
+  - Batch 2, cinema sound and acoustics: CST-RT-003-2009 (advertising and trailer loudness), CST-RT-007-2001 (processor level alignment), CST-RT-013 (auditorium sound level, 2006), CST-RT-014-2001 (background noise in technical facilities), CST-RT-022-2011 (AES channel assignment), CST-RT-041-2021 (auditorium acoustics).
+  - Batch 3, projection and auditoriums: CST-RT-005-2002 (35 mm projection), CST-RT-012-2003 (spectator comfort), CST-RT-020-2023 (open-air projection), CST-RT-032-2012 and CST-RT-033-2012 (measurement methods for digital projection and sound), CST-RT-034-2012 and CST-RT-035-2012 (digital projection characteristics and auditorium dimensions, both cover-marked drafts), CST-RT-045-2019 (projection equipment maintenance).
+  - Batch 4, files, archive, accessibility and TV:
+    - CST-RT-018-2017 (TV advertising safe areas);
+    - CST-RT-021-2016 (the "mezzanine file"), with its color annex CST-RT-021-Annexe-2016 as a linked record;
+    - CST-RT-026-2012 (archival master);
+    - CST-RT-039-2015 (DCP deliverables for accessibility), which appears in the D-Cinema and the Captions, Subtitles and Accessibility portals.
+  - Batch 5, documents other CST records cite, plus VR:
+    - CST-RT-031-2012 (surveying auditorium dimensions), cited by RT-035;
+    - CST-RT-040-2016 ("ready for broadcast" files), cited by RT-018, with CST's official English edition as `href` and the French one in `hrefAlternates`;
+    - CST-RT-047-2023 (virtual reality), with English and French editions.
+  - `ISDCF.DCNC` (update path): the 14 normative references from ISDCF's [References page](https://www.isdcf.com/registry/references/) (ISO 639 and 3166, the IANA Language Subtag Registry, BCP 47 as RFC 5646 and RFC 4647, ISDCF Doc 7, SMPTE ST 428-12 and four ST 429 parts, and MovieLabs ratings). Also its French and Japanese contributor translations, with provenance from ISDCF's [Translations page](https://www.isdcf.com/registry/translations/).
+
+    RT-011, RT-017, RT-030 and RT-043 (with its note) are not added, because they fall outside MSRBot's media scope.
+- **DCI DCSS citations parse.** A new parser family reads "Digital Cinema System Specification Version 1.2", "V1. 0", "version 1.4.2" and similar citations. Across the 51,081 citations in the MRI, 13 more now parse, with none lost or changed.
+- **`refMap.json` one-offs found during the CST extraction:**
+  - "norme AES 3" → `AES3`;
+  - the French "convention de nommage du cinéma numérique" → `ISDCF.DCNC`;
+  - three SMPTE journal papers (*The Restoration Business Part 4*, *Stability of Photographic Film Part VI*, *Proposal of a System Architecture for Digital Film Archives*) → their DOI records;
+  - the Helt & La Torre SMPTE 2014 conference paper → `10.5594-M001556`.
+
+  Two non-CST citations of the film-archive paper now link too.
+- **ISDCF document citations parse.** A new parser family maps ISDCF paper URLs (`…/papers/ISDCF-Doc8-…pdf`, in the cite text or its `href`) and "ISDCF Doc 7" / "ISDCF Document 10" to `ISDCF.D08`-style ids, which resolve to the registry edition; Doc 1 maps to `ISDCF.DCNC`. `refMap.json` adds the P-HFR paper URL and ISDCF's wording for the IANA Language Subtag Registry and MovieLabs Common Metadata Ratings. Across the 51,144 citations in the MRI, 4 more now parse (two SMPTE journal citations each of ISDCF Doc 8 and P-HFR), with none lost or changed.
+- **A bare "BCP 47" citation records both of its RFCs.** BCP 47 is RFC 5646 (language tags) plus RFC 4647 (matching), and both are in the registry. `parseRefId` maps a bare "BCP 47" (or a `…/bcp47` link) to the set id `BCP47`. `mriRecordSighting` and `extractDocs` then record each member instead, through `expandRefId` and a small `REF_EXPANSIONS` table in `referencing.js`. A citation that names its RFC ("BCP 47 (RFC 5646)") keeps that RFC. No existing MRI citation changes.
+- **`findSourceDocIdForRefId` exported from `referencing.js`.** This read-only lookup is what `mriFlush` uses, so previews and checks, such as the `msrbot-extract` mapping preview, show real resolutions instead of approximations.
+
+### Changed
+
+- **API versions bumped for the additive fields in this release.** Documents schema 2.6.0 (`hrefAlternates`, `translatedBy: contributor`). `/api/doc/{docId}.json` `apiVersion` goes `1.0.0 → 1.1.0`, and `/api/documents.json` and `/api/search/` go `2.0.0 → 2.1.0`, because rows can now carry `translatedBy: "contributor"`. `/api/stats.json` stays at 1.1.0. The API page used to say "Current API version: 1.0.0"; it now lists each endpoint's version and the schema version. The research skill's `msrbot.py` accepts any `2.x` search index, so it is unaffected.
+- **`msrbot-extract` skill updated from the CST batches.** It now covers:
+  - mapping previews with the real resolver;
+  - the requester review step;
+  - full-date padding;
+  - series citations as `<id>.ALLPARTS` when an MSI suite exists;
+  - looking up cited papers in the registry before accepting an orphan;
+  - errata that share a version prefix;
+  - portal keywords;
+  - using the update path for later changes;
+  - scope (media only, "Not extracted (and why)" in the PR) and filling reference gaps recursively, stopping at non-media references;
+  - one record per language edition set (`hrefAlternates`);
+  - unparted and "M" citations never resolve to a part: they go to their own base, and supersession leads on;
+  - contributors open tooling fixes found during an extraction as a separate PR from the data (maintainers may combine them, as separate commits). `AGENTS.md` and `docs/manual-extraction.md` say the same.
+
+### Fixed
+
+- **Re-extracts don't mark an unchanged list of objects as overridden.** The update path compared values with plain `JSON.stringify`, so key order mattered. Canonicalize sorts keys inside array entries (such as `hrefAlternates`), and an unchanged value then came out `overridden`, with an `originalValue` identical to the new one. The comparison now sorts keys first.
+- **An undated or unparted reference never rolls onto a different part.** When no edition of the cited base existed, the resolver fell back to any `<base>-N` or `<base>.N` document, so it picked the newest *part*. For example, "SMPTE 299M" and "SMPTE 299-2009" linked to ST 299-1 or 299-2, ISO 13818 to 13818-1, and RP 27 to RP 27-4. A reference now resolves only to an edition of its own base: a date suffix (`.2009`) or a DCI version (`.v1.4…`). ITU `-N` revisions are the exception, because they are editions. 22 refs that had rolled onto a part are now unresolved until their base edition is in the registry. Supersession is unchanged: ST 377M resolves to `SMPTE.ST377.2004`, whose `supersededBy` leads to ST 377-1, so the reader can follow it. This reverses the "SMPTE 299-2009 → ST299-1.2009" example from v2.7.0.
+- **"All parts" references link to their suite page on doc pages again.** This had been broken site-wide since the MRI v2 doc-page work (#1097, 2026-06-18). Every ALLPARTS reference has an MRI entry, so the template rendered them as plain "EXTERNAL" citations instead of suite links; examples are SMPTE AG 16's ISO 80000, ST 382's ST 379 (MXF Generic Container) and DCI's ISO 11664. The reference tree was unaffected. An ALLPARTS reference with no MSI suite, such as RFC 1494's ISO 10021, now shows "NOT IN REGISTRY" instead of linking to the bare `/suites/` index.
+- **DCSS version citations link to the specification, not an errata sheet.** The registry files each DCSS errata release under the same version prefix, so ranking sent "DCSS Version 1.2" to "Errata 44-45". `refMap.json` now maps each version that has a specification record (1.2, 1.3, 1.4, 1.4.1, 1.4.2, 1.4.5) to it.
+- **DCI `YYYY-MMDD` editions are ranked by date.** Undated DCI references picked an arbitrary or older edition. Undated `DCI.DCSS` now resolves to the v1.4.5 specification (it was a 2019 v1.3 errata sheet), and `DCI.DCA-HDR` to its 2024-02-28 edition (it was 2022).
+- **`extract-manual` updates keep the record's provenance, and re-extracts don't flag unchanged references.** When a manual record updates an existing document, its per-field source hints now apply; a keyword update had come out `parsed`, high confidence, instead of `inferred`. For every provider, orphan citations minted in the run are now counted when comparing references, so re-extracting a document whose citations haven't changed no longer marks them as overridden.
+- **Manual records label `docLabel` and `href` as `parsed`.** The pipeline treats those two fields as `resolved` (computed), which is right for scrapers, but in a manual record they are read from the publisher. `docs/manual-extraction.md` and the skill also had it wrong that `publicationDate` could be `YYYY` or `YYYY-MM`. The schema requires a full date, and year-only or month-only dates are padded with the registry's standard note.
+- **Research skill 1.5.4: padded dates aren't stated as exact days.** `publicationDate` is always a full date, but a source with only a year or month is padded to `-01-01` or `-01`, and `$meta.note` says so (about 2,500 records).
+  - The skill and `prompt.md` now state only the known precision.
+  - `msrbot.py get` reports `publicationDatePrecision: year|month`.
+  - `records.md`, `endpoints.md` and `search.schema.json` no longer claim `YYYY`/`YYYY-MM` values appear.
+
+  This was found while adding CST-RT-015, which is dated only by year.
+
+## [v2.7.0] - 2026-10-01
+
+### Added
+
+- **Manual extraction through the extractor pipeline (`npm run extract-manual`).** For publishers without an extractor, a person or AI agent reads the publisher's site and PDFs and writes a records file. The new `manual` provider (`src/main/scripts/providers/manual.*`) feeds those records to `extractDocs.js`, which handles them exactly like SMPTE and IETF output:
+  - citations go through `parseRefId` with MRI sightings, and unparsed ones become orphan slugs that keep their citation text;
+  - `$meta`, URL resolution, merging with existing records, the PR log and the MRI flush all run as usual.
+
+  Records can set provenance per field: `injectMeta` now honours per-field `source` and `sourceUrl` hints, so a translated title can be `inferred` while the label is `parsed`. An explicit `refId` on a citation is logged as a `manual:explicit` judgment call.
+
+  This is the required path when an AI tool does the extraction. The output is a first pass that a person must verify by hand; for sources that change over time, a real provider with a scheduled run is still the right tool. In Claude Code, the new repo-only project skill `.claude/skills/msrbot-extract/` walks through it: reading sources, writing records, the requester review, running, and verification. AGENTS.md, CONTRIBUTING, `docs/commands.md`, the README and the new `docs/manual-extraction.md` all document it. New test: `manualProvider.test.js`.
+
 - **The reference parser reads French and European citation styles, plus CST and AFNOR designators.** This came out of hand-extracting CST recommendations. `parseRefId` now normalises spaced thousands and dashes ("ISO 26 428 – 3" → `ISO.26428-3`, which used to parse as `ISO.26`), ISO/DIS, CD and R drafts, a space before ":year", French spellings (UIT-R → ITU-R, CEI → IEC), "ITU–R : BT 709 - 6", "SMPTE ST2067-40", `SMPTE, «RP 177-1993`, "ST 2110–10" and "EBU – R95". It also has two new families:
   - CST, e.g. "CST RT 031 – Projection – 2012" → `CST.RT031.2012`, plus `CST.RT021annex.2016` and `CST.NT001`;
   - AFNOR, e.g. "NF S27-100:2014" → `AFNOR.NFS27-100.2014`, and "NF EN 61947-2" → `AFNOR.NFEN61947-2`.

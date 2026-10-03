@@ -12,6 +12,7 @@
   "provenance": {
     "firstSeen": "2025-10-07T22:56:58.716Z",
     "mapSource": [
+      "manual:regex",
       "regex",
       "replay",
       "smpte-ref-xml"
@@ -19,10 +20,19 @@
     "mapDetails": [
       "from-documents.json",
       "/\\bIANA Language Subtag Registry\\b/i",
-      "ref-bib-1"
+      "ref-bib-1",
+      "/\\bIANA\\b[^.]{0,20}\\bLanguage\\s+Subtag\\s+Registry\\b/i"
     ]
   },
   "rawVariants": [
+    {
+      "docId": "ISDCF.DCNC",
+      "type": "normative",
+      "cite": "IANA Document: Language Subtag Registry",
+      "href": "http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
+      "rawRef": "",
+      "title": null
+    },
     {
       "docId": "SMPTE.RDD52.2020",
       "type": "normative",

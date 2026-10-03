@@ -59,7 +59,7 @@ const path = require('path');
 const { loadAllDocs, slug } = require('../lib/registry');
 
 const SEARCH_ROOT = path.resolve('build', 'api', 'search');
-const API_VERSION = '2.0.0';
+const API_VERSION = '2.1.0';
 // Chat fetch tools truncated suites.json near ~100 KB, and an agent asking for
 // verbatim matches reported ~50 KB shards as cut off; 25 KB leaves real margin.
 const MAX_SHARD_BYTES = 25 * 1024;
@@ -87,7 +87,7 @@ function rowOf(doc) {
   // Non-English documents only, so English rows stay the same size.
   if (typeof doc.docTitleOriginal === 'string' && doc.docTitleOriginal) row.titleOriginal = doc.docTitleOriginal;
   if (typeof doc.language === 'string' && doc.language && doc.language !== 'en') row.lang = doc.language;
-  if (doc.translatedBy === 'msrbot') row.translatedBy = 'msrbot';
+  if (doc.translatedBy === 'msrbot' || doc.translatedBy === 'contributor') row.translatedBy = doc.translatedBy;
   if (Array.isArray(doc.keywords) && doc.keywords.length) row.keywords = doc.keywords.filter((k) => typeof k === 'string');
   row.status = statusOf(doc.status);
   if (typeof doc.publicationDate === 'string' && doc.publicationDate) row.date = doc.publicationDate;

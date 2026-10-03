@@ -41,7 +41,10 @@ npm run build-mri               # optional: see the MRI delta before pushing
 The document registry source of truth is the per-doc files under `src/main/data/docs/`
 (one JSON file per document, sharded by `{publisher}/{docType}/`; title-identified
 docTypes such as journal articles add a `{year}/` level). Edit those files directly, or
-scaffold a new one with `npm run new-doc`.
+scaffold a new one with `npm run new-doc`. To add documents from a publisher without an
+extractor (and always when an AI tool is doing it), use `npm run extract-manual` with a
+records file instead. It runs the normal extractor pipeline; see
+[manual-extraction.md](manual-extraction.md).
 
 A file's path is derived from its own `publisher`, `docType`, `docId` (and
 `publicationDate`) — if you change any of those, run `npm run canonicalize` and it
@@ -72,7 +75,7 @@ Each field must include correct `$meta` provenance tracking where applicable:
 - `inferred`: derived, for example a translation or a constructed `docId`.
 - `manual`: typed or decided by a person.
 
-Non-English documents keep English in `docTitle`/`abstract`, plus `language`, `docTitleOriginal`, `abstractOriginal` and `translatedBy`. See [CONTRIBUTING.md](../CONTRIBUTING.md#data-and-provenance).
+Non-English documents keep English in `docTitle`/`abstract`, plus `language`, `docTitleOriginal`, `abstractOriginal` and `translatedBy`, and `hrefAlternates` (other language editions of the same document; `href` is the English one when it exists; `translatedBy: "contributor"` marks a third-party translation). See [CONTRIBUTING.md](../CONTRIBUTING.md#data-and-provenance).
 
 ## Pull Request Checklist
 - [ ] Update `CHANGELOG.md` under **[Unreleased]** when behavior, workflow, or policy changes.

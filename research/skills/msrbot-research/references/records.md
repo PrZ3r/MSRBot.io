@@ -5,7 +5,7 @@
 ```json
 {
   "$schema": "/api/schemas/documents.schema.json",
-  "apiVersion": "1.0.0",
+  "apiVersion": "1.1.0",
   "lastModified": "2026-06-17T16:55:09.355Z",
   "sourcePath": "src/main/data/docs",
   "docId": "SMPTE.ST2067-21.2020",
@@ -23,10 +23,11 @@
 | `docLabel` | The publisher's human label, e.g. `SMPTE ST 2067-21:2020`. Use it in prose. |
 | `docTitle` | Title, always in English. Suite-level titles, where present, are in `docSuiteTitle`. |
 | `language`, `docTitleOriginal`, `abstractOriginal` | Non-English documents only: the published language (BCP 47, e.g. `fr`) and the publisher's own title and abstract. No `language` means English. |
-| `translatedBy` | `msrbot` means the English `docTitle`/`abstract` are MSRBot.io's translation, not the publisher's wording: cite `docTitleOriginal` as the title and give the English as a translation. `publisher` (or absent) means the English is official. |
+| `translatedBy` | `msrbot` (MSRBot.io's) or `contributor` (an outside contributor's) means the English `docTitle`/`abstract` are a translation, not the publisher's wording: cite `docTitleOriginal` as the title and give the English as a translation. `publisher` (or absent) means the English is official. |
+| `hrefAlternates` | Other language editions of the same document, as `[{ language, href, translatedBy? }]`; `translatedBy: "contributor"` marks a third-party translation, not an official edition. `href` is the primary link: the English edition when `translatedBy` is `"publisher"`, otherwise the original-language edition (`language`, English when absent). Offer the alternates when the user may want the original. |
 | `publisher`, `docType` | e.g. `SMPTE`, `Standard` / `Recommended Practice` / `Engineering Guideline` / `Journal Article`. |
 | `docNumber`, `docPart` | Number and part, as separate fields. |
-| `publicationDate` | `YYYY`, `YYYY-MM` or `YYYY-MM-DD`. |
+| `publicationDate` | Always a full `YYYY-MM-DD`, but it can be **padded**. When a source gives only a year or month, the missing part is filled with `01`, and `publicationDate$meta.note` says so (e.g. "Month/day absent in source — padded to 01-01", "Day absent … padded to 01"). Check the note before stating a day or month. For a padded date, give only the year (or month and year). |
 | `doi`, `href` | Publisher links. Send users here for the actual text. |
 | `references.normative[]`, `references.bibliographic[]` | docIds this document cites. |
 | `abstract`, `keywords`, `authors` | Present on some records (common for journal articles and RFCs). |

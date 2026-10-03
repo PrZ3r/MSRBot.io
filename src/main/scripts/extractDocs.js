@@ -79,7 +79,7 @@ const fullDetailsPath = `src/main/logs/extract-runs/pr-log-full-${timestamp}.log
 // Raw URL (kept for logging/diagnostics)
 const detailsFileRawUrl = `https://raw.githubusercontent.com/PrZ3r/MSRBot.io/main/${fullDetailsPath}`;
 
-const { parseRefId, extractRefs, mapRefByCite, mriFlush, mriEnsureFile, mriPruneToSightings, mriRecordSighting } = require('../lib/referencing');
+const { parseRefId, expandRefId, extractRefs, mapRefByCite, mriFlush, mriEnsureFile, mriPruneToSightings, mriRecordSighting } = require('../lib/referencing');
 
 // Guard to avoid double logging/flushing MRI on multiple exit signals
 let _mriFlushedOnce = false;
@@ -171,6 +171,8 @@ const providerKey = providerArg.toLowerCase().trim();
     extractRefs,
     mapRefByCite,
     parseRefId,
+    mriRecordSighting,
+    inputPath: cliArgValue('--input', null),
     withNoCache,
     NO_CACHE_HEADERS,
     onBadRefs: (refs) => {
@@ -300,7 +302,18 @@ function getMetaDefaults(source, field) {
   return srcMap[field] || srcMap[`status.${field}`] || srcMap.default || metaConfig.unknown.default;
 }
 
+// JSON with object keys sorted, so values that differ only in key order (canonicalize
+// sorts keys inside array entries such as hrefAlternates) compare equal.
+function stableStringify(value) {
+  return JSON.stringify(value, (_k, v) => (v && typeof v === 'object' && !Array.isArray(v)
+    ? Object.keys(v).sort().reduce((o, k) => { o[k] = v[k]; return o; }, {})
+    : v));
+}
+
 function injectMeta(doc, field, source, mode, oldValue) {
+  // Per-field hints (manual provider): source and sourceUrl can differ by field.
+  const sourceOverride = doc && doc.__metaSources && doc.__metaSources[field];
+  if (typeof sourceOverride === 'string' && sourceOverride) source = sourceOverride;
   const defaults = getMetaDefaults(source, field);
   const noteOverride = (doc && doc.__metaNotes && typeof doc.__metaNotes[field] === 'string')
     ? doc.__metaNotes[field]
@@ -314,7 +327,7 @@ function injectMeta(doc, field, source, mode, oldValue) {
     note: noteOverride || defaults.note,
     updated: new Date().toISOString(),
     originalValue: oldValue === undefined ? null : oldValue,
-    sourceUrl: doc.__sourceUrl,
+    sourceUrl: (doc.__metaSourceUrls && doc.__metaSourceUrls[field]) || doc.__sourceUrl,
     version: SCRIPT_VERSION
   };
   if (flagOverride) {
@@ -451,7 +464,7 @@ function updateFieldGuarded(doc, path, newValue, {
 
   // Avoid churn
   const oldValue = parent[key];
-  const same = JSON.stringify(oldValue) === JSON.stringify(newValue);
+  const same = stableStringify(oldValue) === stableStringify(newValue);
   if (same) return { updated: false, reason: 'no-change' };
 
   // Apply
@@ -522,7 +535,7 @@ const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
   const seedPath = activeProvider.seedPath;
   const seedSet = new Set();
   let seedsAdded = 0, seedsSkipped = 0;
-  if (fs.existsSync(seedPath)) {
+  if (seedPath && fs.existsSync(seedPath)) {
     try {
       const rawSeeds = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
       if (Array.isArray(rawSeeds)) {
@@ -575,6 +588,13 @@ for (const doc of results) {
     let removedRefs = { normative: [], bibliographic: [] };
     let duplicateNormRemoved = false;
     let duplicateBibRemoved = false;
+
+    // A set citation (BCP 47) becomes its member records (REF_EXPANSIONS in referencing.js).
+    if (doc.references) {
+      for (const t of ['normative', 'bibliographic']) {
+        if (Array.isArray(doc.references[t])) doc.references[t] = [...new Set(doc.references[t].flatMap(expandRefId))];
+      }
+    }
 
     const index = existingDocs.findIndex(d => d.docId === doc.docId);
     logSmart(`  Checking ${doc.docId}...`);
@@ -661,6 +681,11 @@ for (const doc of results) {
       attachMetaSourceUrl(existingDoc, doc.__sourceUrl);
       attachMetaNotes(existingDoc, doc.__metaNotes || {});
       attachMetaFlags(existingDoc, doc.__metaFlags || {});
+      // Per-field source hints (manual provider) apply on update too.
+      for (const key of ['__metaSources', '__metaSourceUrls']) {
+        if (doc[key]) Object.defineProperty(existingDoc, key, { value: doc[key], enumerable: false, configurable: true, writable: true });
+        if (doc.status && doc.status[key] && existingDoc.status) Object.defineProperty(existingDoc.status, key, { value: doc.status[key], enumerable: false, configurable: true, writable: true });
+      }
       attachMetaSourceUrl(existingDoc.status, doc.__sourceUrl);
       attachMetaNotes(existingDoc.status, buildScopedMetaNotes(doc.__metaNotes, 'status'));
       attachMetaFlags(existingDoc.status, buildScopedMetaFlags(doc.__metaFlags, 'status'));
@@ -675,9 +700,16 @@ for (const doc of results) {
         normative: (existingDoc.references && existingDoc.references.normative) || [],
         bibliographic: (existingDoc.references && existingDoc.references.bibliographic) || []
       };
+      // Orphan slugs minted for this doc in this run are only pushed into references[] after
+      // the merge (orphanSlugApplyQueue); include them here so an unchanged citation list
+      // isn't reported as a references change on every re-extract.
+      const pendingOrphans = (type) => orphanSlugApplyQueue
+        .filter((q) => q.docId === doc.docId && (q.type === 'normative' ? 'normative' : 'bibliographic') === type)
+        .map((q) => q.slug);
+      const withPending = (list, type) => [...new Set([...(list || []), ...pendingOrphans(type)])];
       const newRefs = {
-        normative: (doc.references && doc.references.normative) || [],
-        bibliographic: (doc.references && doc.references.bibliographic) || []
+        normative: withPending(doc.references && doc.references.normative, 'normative'),
+        bibliographic: withPending(doc.references && doc.references.bibliographic, 'bibliographic')
       };
 
       if (doc.references) {
@@ -783,7 +815,7 @@ for (const doc of results) {
         const oldVal = oldValues[key];
         const newVal = doc[key];
         const isEqual = typeof newVal === 'object'
-          ? JSON.stringify(oldVal) === JSON.stringify(newVal)
+          ? stableStringify(oldVal) === stableStringify(newVal)
           : oldVal === newVal;
 
         if (!isEqual) {
