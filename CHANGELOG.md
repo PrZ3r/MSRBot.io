@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - the Helt & La Torre SMPTE 2014 conference paper → `10.5594-M001556`.
 
   Two non-CST citations of the film-archive paper now link too.
+- **ISDCF document citations parse.** A new parser family maps ISDCF paper URLs (`…/papers/ISDCF-Doc8-…pdf`, in the cite text or its `href`) and "ISDCF Doc 7" / "ISDCF Document 10" to `ISDCF.D08`-style ids, which resolve to the registry edition; Doc 1 maps to `ISDCF.DCNC`. `refMap.json` adds the P-HFR paper URL and ISDCF's wording for the IANA Language Subtag Registry and MovieLabs Common Metadata Ratings. Across the 51,144 citations in the MRI, 4 more now parse (two SMPTE journal citations each of ISDCF Doc 8 and P-HFR), with none lost or changed.
 - **`findSourceDocIdForRefId` exported from `referencing.js`.** This read-only lookup is what `mriFlush` uses, so previews and checks, such as the `msrbot-extract` mapping preview, show real resolutions instead of approximations.
 
 ### Changed

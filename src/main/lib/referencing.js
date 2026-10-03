@@ -1108,6 +1108,20 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // ISDCF numbered documents, cited by paper URL (in the text or href) or by number:
+  //   "…/papers/ISDCF-Doc8-TheaterKeyRetrieval-TKR-v03.pdf", "ISDCF Doc 7", "ISDCF Document 10"
+  //   → ISDCF.D08 (undated; resolves to the registry edition). Doc 1 is the naming convention, ISDCF.DCNC.
+  {
+    const src = `${String(text || '')} ${String(href || '')}`;
+    const m = src.match(/isdcf\.com\/papers\/ISDCF-Doc0?(\d{1,2})(?!\d)/i)
+      || src.match(/\bISDCF\s+Doc(?:ument)?\.?\s*(?:No\.?\s*|#\s*)?0?(\d{1,2})(?!\d)/i);
+    if (m) {
+      const n = Number(m[1]);
+      const refId = n === 1 ? 'ISDCF.DCNC' : `ISDCF.D${String(n).padStart(2, '0')}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'isdcf-doc' } } : refId;
+    }
+  }
+
   // CST (Commission supérieure technique de l'image et du son) recommendations and notes:
   //   "CST RT 031 – Projection – 2012", "CST - RT – 007 - S - 2001", "CST-RT 040 TV - 2016",
   //   "C.S.T. – RT - 005 - P - 2002", "CST-RT021:2016", "CST-RT021-annexe:2016", "CST NT 001"

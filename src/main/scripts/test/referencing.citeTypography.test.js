@@ -98,6 +98,14 @@ const cases = [
   ['SMPTE : The restauration Business Part 4 In black and white – reel two – Grant Loban-2000', '10.5594-J05296'],
   ['[5] F. Helt et V. La Torre, «Quality Assessment Framework for Color Conversions and Perception,» chez SMPTE 2014 Annual Technical Conference, Los Angeles, 2014.', '10.5594-M001556'],
   ['Les CPL produites devront respecter la dernière version en date de la convention de nommage du cinéma numérique.', 'ISDCF.DCNC'],
+  // ISDCF documents (ISDCF registry References page and SMPTE journal papers)
+  ['7. ISDCF Theater Key Retrieval .” [Online]. Available: https://files.isdcf.com/papers/ISDCF-Doc8-TheaterKeyRetrieval-TKR-v03.pdf .', 'ISDCF.D08'],
+  ['ISDCF Doc 7', 'ISDCF.D07'],
+  ['ISDCF Document 10: Subtitles and Captions in Digital Cinema', 'ISDCF.D10'],
+  ['ISDCF Doc 1', 'ISDCF.DCNC'],
+  ['3. Hurst J. , “P-HFR — Prototype DCP for High Frame Rate Projection” , http://isdcf.com/papers/ISDCF-HighFrameRate-DCP.pdf , accessed September 9, 2013 .', 'ISDCF.P-HFR.2012'],
+  ['IANA Document: Language Subtag Registry', 'IANA.LSR'],
+  ['MovieLabs Common Metadata Ratings', 'CMR.ML'],
   // Unchanged forms
   ['ISO 9660:1988', 'ISO.9660.1988'],
   ['ISO 8601', 'ISO.8601'],
@@ -111,6 +119,9 @@ const cases = [
 for (const [cite, expected] of cases) {
   assert.strictEqual(parseRefId(cite), expected, `parseRefId(${JSON.stringify(cite)})`);
 }
+
+// ISDCF paper URL in the href only (ISDCF registry References page)
+assert.strictEqual(parseRefId('ISDCF Document: Digital Cinema Language Codes', 'http://isdcf.com/papers/ISDCF-Doc7-DigitalCinemaLanguageCodes.pdf'), 'ISDCF.D07');
 
 // CST ids from the parser must key into MSI lineages (#2085), annexes as supplements.
 const keying = require(path.join(__dirname, '..', '..', 'lib', 'keying.js'));
