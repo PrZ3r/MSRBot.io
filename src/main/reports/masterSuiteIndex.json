@@ -1,9 +1,9 @@
 {
   "sourcePath": "src/main/data/docs",
   "publisherCounts": {
-    "total": 26817,
+    "total": 26819,
     "counts": {
-      "SMPTE": 25975,
+      "SMPTE": 25977,
       "IETF": 139,
       "ISO": 108,
       "ISO/IEC": 98,
@@ -197970,7 +197970,7 @@
     }
   },
   "flagSummary": {
-    "totalFlags": 334,
+    "totalFlags": 331,
     "byType": {
       "DOCID_PUBDATE_MISMATCH": {
         "count": 45,
@@ -199189,7 +199189,7 @@
         ]
       },
       "LATEST_FLAG_BEFORE_DATE": {
-        "count": 20,
+        "count": 19,
         "examples": [
           {
             "lineage": "SMPTE|RDD|48|",
@@ -199260,10 +199260,6 @@
             "flag": "LATEST_FLAG_BEFORE_DATE"
           },
           {
-            "lineage": "SMPTE|ST|2067|21",
-            "flag": "LATEST_FLAG_BEFORE_DATE"
-          },
-          {
             "lineage": "SMPTE|ST|2067|103",
             "flag": "LATEST_FLAG_BEFORE_DATE"
           },
@@ -199274,7 +199270,7 @@
         ]
       },
       "LATEST_FLAG_CONFLICT_WITH_GRAPH": {
-        "count": 14,
+        "count": 12,
         "examples": [
           {
             "lineage": "SMPTE|ST|2029|",
@@ -199307,14 +199303,6 @@
           {
             "lineage": "SMPTE|ST|2065|4",
             "flag": "LATEST_FLAG_CONFLICT_WITH_GRAPH:base:SMPTE.ST2065-4.2022<>SMPTE.ST2065-4.2023-02"
-          },
-          {
-            "lineage": "SMPTE|ST|2067|21",
-            "flag": "LATEST_FLAG_CONFLICT_WITH_GRAPH:any:SMPTE.ST2067-21.2022<>SMPTE.ST2067-21.2023-02"
-          },
-          {
-            "lineage": "SMPTE|ST|2067|21",
-            "flag": "LATEST_FLAG_CONFLICT_WITH_GRAPH:base:SMPTE.ST2067-21.2022<>SMPTE.ST2067-21.2023-02"
           },
           {
             "lineage": "SMPTE|ST|2067|103",
@@ -221298,8 +221286,8 @@
       "docs": [
         {
           "docId": "SMPTE.AG26",
-          "publicationDate": "2026-08-31",
-          "releaseTag": "20260831-pub",
+          "publicationDate": "2026-09-22",
+          "releaseTag": "20260922-pub",
           "statusActive": true,
           "statusSuperseded": false,
           "statusWithdrawn": false,
@@ -221310,7 +221298,7 @@
       ],
       "latestBaseId": "SMPTE.AG26",
       "latestAnyId": "SMPTE.AG26",
-      "latestDateKey": "20260831",
+      "latestDateKey": "20260922",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
       "hasActiveBase": true,
@@ -257822,8 +257810,8 @@
       "type": "ST",
       "number": "2067",
       "part": "21",
-      "suiteTitle": "Interoperable Master Format (IMF)",
-      "suiteTitleSource": "unique",
+      "suiteTitle": "Interoperable Master Format",
+      "suiteTitleSource": "latestAny",
       "docs": [
         {
           "docId": "SMPTE.ST2067-21.2014",
@@ -257873,8 +257861,8 @@
           "docId": "SMPTE.ST2067-21.2022",
           "publicationDate": "2022-11-24",
           "releaseTag": "20221124-pub",
-          "statusActive": true,
-          "statusSuperseded": false,
+          "statusActive": false,
+          "statusSuperseded": true,
           "statusWithdrawn": false,
           "statusStabilized": false,
           "statusAmended": false,
@@ -257890,27 +257878,35 @@
           "statusStabilized": false,
           "statusAmended": false,
           "statusVersionless": false
+        },
+        {
+          "docId": "SMPTE.ST2067-21.2026-07",
+          "publicationDate": "2026-07-23",
+          "releaseTag": "20260723-pub",
+          "statusActive": true,
+          "statusSuperseded": false,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
         }
       ],
-      "latestBaseId": "SMPTE.ST2067-21.2022",
-      "latestAnyId": "SMPTE.ST2067-21.2022",
-      "latestDateKey": "20221124",
+      "latestBaseId": "SMPTE.ST2067-21.2026-07",
+      "latestAnyId": "SMPTE.ST2067-21.2026-07",
+      "latestDateKey": "20260723",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
       "hasActiveBase": true,
       "hasWithdrawn": false,
       "hasStabilized": false,
-      "latestActiveBaseId": "SMPTE.ST2067-21.2023-02",
-      "latestSupersededBaseId": "SMPTE.ST2067-21.2020",
-      "prevBaseId": "SMPTE.ST2067-21.2022",
+      "latestActiveBaseId": "SMPTE.ST2067-21.2026-07",
+      "latestSupersededBaseId": "SMPTE.ST2067-21.2022",
+      "prevBaseId": "SMPTE.ST2067-21.2023-02",
       "flagInconsistencies": [
-        "LATEST_FLAG_BEFORE_DATE",
-        "LATEST_FLAG_CONFLICT_WITH_GRAPH:any:SMPTE.ST2067-21.2022<>SMPTE.ST2067-21.2023-02",
-        "LATEST_FLAG_CONFLICT_WITH_GRAPH:base:SMPTE.ST2067-21.2022<>SMPTE.ST2067-21.2023-02",
         "SMPTE_MISSING_RELEASE_TAG:SMPTE.ST2067-21.2023-02"
       ],
       "counts": {
-        "bases": 5,
+        "bases": 6,
         "amendments": 1,
         "supplements": 0
       }
@@ -261266,6 +261262,17 @@
           "docId": "SMPTE.ST2110-41.2024-03",
           "publicationDate": "2024-03-08",
           "releaseTag": "20240308-pub",
+          "statusActive": false,
+          "statusSuperseded": true,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        },
+        {
+          "docId": "SMPTE.ST2110-41.2026-06",
+          "publicationDate": "2026-06-29",
+          "releaseTag": "20260629-pub",
           "statusActive": true,
           "statusSuperseded": false,
           "statusWithdrawn": false,
@@ -261274,20 +261281,20 @@
           "statusVersionless": false
         }
       ],
-      "latestBaseId": "SMPTE.ST2110-41.2024-03",
-      "latestAnyId": "SMPTE.ST2110-41.2024-03",
-      "latestDateKey": "20240308",
+      "latestBaseId": "SMPTE.ST2110-41.2026-06",
+      "latestAnyId": "SMPTE.ST2110-41.2026-06",
+      "latestDateKey": "20260629",
       "latestAnyStatusWithdrawn": false,
       "latestBaseStatusWithdrawn": false,
       "hasActiveBase": true,
       "hasWithdrawn": false,
       "hasStabilized": false,
-      "latestActiveBaseId": "SMPTE.ST2110-41.2024-03",
-      "latestSupersededBaseId": null,
-      "prevBaseId": null,
+      "latestActiveBaseId": "SMPTE.ST2110-41.2026-06",
+      "latestSupersededBaseId": "SMPTE.ST2110-41.2024-03",
+      "prevBaseId": "SMPTE.ST2110-41.2024-03",
       "flagInconsistencies": [],
       "counts": {
-        "bases": 1,
+        "bases": 2,
         "amendments": 0,
         "supplements": 0
       }
@@ -270499,10 +270506,10 @@
         "SMPTE|ST|2067|203",
         "SMPTE|ST|2067|204"
       ],
-      "suiteTitle": "Interoperable Master Format (IMF)",
-      "latestAnyId": "SMPTE.ST2067-204.2026-05",
-      "latestAnyLineageKey": "SMPTE|ST|2067|204",
-      "latestDateKey": "20260527",
+      "suiteTitle": "Interoperable Master Format",
+      "latestAnyId": "SMPTE.ST2067-21.2026-07",
+      "latestAnyLineageKey": "SMPTE|ST|2067|21",
+      "latestDateKey": "20260723",
       "hasActiveBase": true,
       "hasWithdrawn": true,
       "hasStabilized": true,
@@ -270553,9 +270560,9 @@
           "withdrawn": true
         },
         "21": {
-          "docId": "SMPTE.ST2067-21.2022",
+          "docId": "SMPTE.ST2067-21.2026-07",
           "lineageKey": "SMPTE|ST|2067|21",
-          "dateKey": "20221124",
+          "dateKey": "20260723",
           "withdrawn": false
         },
         "30": {
@@ -270657,7 +270664,7 @@
         "SMPTE.ST2067-8.2013",
         "SMPTE.ST2067-9.2018",
         "SMPTE.ST2067-20.2016",
-        "SMPTE.ST2067-21.2022",
+        "SMPTE.ST2067-21.2026-07",
         "SMPTE.ST2067-30.2013",
         "SMPTE.ST2067-40.2021",
         "SMPTE.ST2067-50.2018",
@@ -270677,8 +270684,8 @@
       "counts": {
         "lineages": 23,
         "parts": 23,
-        "docs": 47,
-        "bases": 44,
+        "docs": 48,
+        "bases": 45,
         "amendments": 3,
         "supplements": 0
       },
@@ -271435,9 +271442,9 @@
         "SMPTE|ST|2110|43"
       ],
       "suiteTitle": "Professional Media Over Managed IP Networks",
-      "latestAnyId": "SMPTE.ST2110-30.2025-10",
-      "latestAnyLineageKey": "SMPTE|ST|2110|30",
-      "latestDateKey": "20251001",
+      "latestAnyId": "SMPTE.ST2110-41.2026-06",
+      "latestAnyLineageKey": "SMPTE|ST|2110|41",
+      "latestDateKey": "20260629",
       "hasActiveBase": true,
       "hasWithdrawn": false,
       "hasStabilized": false,
@@ -271512,9 +271519,9 @@
           "withdrawn": false
         },
         "41": {
-          "docId": "SMPTE.ST2110-41.2024-03",
+          "docId": "SMPTE.ST2110-41.2026-06",
           "lineageKey": "SMPTE|ST|2110|41",
-          "dateKey": "20240308",
+          "dateKey": "20260629",
           "withdrawn": false
         },
         "43": {
@@ -271536,14 +271543,14 @@
         "SMPTE.ST2110-30.2025-10",
         "SMPTE.ST2110-31.2022",
         "SMPTE.ST2110-40.2023-12",
-        "SMPTE.ST2110-41.2024-03",
+        "SMPTE.ST2110-41.2026-06",
         "SMPTE.ST2110-43.2021"
       ],
       "counts": {
         "lineages": 13,
         "parts": 13,
-        "docs": 20,
-        "bases": 20,
+        "docs": 21,
+        "bases": 21,
         "amendments": 0,
         "supplements": 0
       },
@@ -272084,7 +272091,6 @@
         "SMPTE|ST|2067|8",
         "SMPTE|ST|2067|9",
         "SMPTE|ST|2067|20",
-        "SMPTE|ST|2067|21",
         "SMPTE|ST|2067|30",
         "SMPTE|ST|2067|40",
         "SMPTE|ST|2067|50",
@@ -272109,10 +272115,10 @@
       "hasWithdrawn": true,
       "hasStabilized": true,
       "counts": {
-        "lineages": 27,
-        "docs": 49,
-        "bases": 46,
-        "amendments": 3,
+        "lineages": 26,
+        "docs": 43,
+        "bases": 41,
+        "amendments": 2,
         "supplements": 0
       }
     },
