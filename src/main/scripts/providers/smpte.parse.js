@@ -27,6 +27,18 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+// SMPTE registers DOIs with the publication month from 2026 on (10.5594/SMPTE.ST2094-50.2026-08);
+// 2023–2025 docs, whose docIds already carry the month, were mostly registered year-only
+// (10.5594/SMPTE.ST2048-1.2024). This picks the default form; verifyDoi checks it at doi.org.
+const DOI_MONTH_FROM_YEAR = 2026;
+
+// Default DOI for a dated SMPTE docId: the docId itself from DOI_MONTH_FROM_YEAR on, else year-only.
+function defaultSmpteDoi(docId) {
+  const m = String(docId || '').match(/^(SMPTE\.[A-Z]+[\w-]*)\.((?:19|20)\d{2})-\d{2}$/);
+  if (!m) return `10.5594/${docId}`;
+  return Number(m[2]) >= DOI_MONTH_FROM_YEAR ? `10.5594/${docId}` : `10.5594/${m[1]}.${m[2]}`;
+}
+
 function createSmpteParser(deps) {
   const {
     axios,
@@ -122,7 +134,7 @@ function createSmpteParser(deps) {
 
     let docId = pubTypeNum ? `SMPTE.${pubTypeNum}.${dateString}` : 'UNKNOWN';
     let docLabel = `SMPTE ${pubType || ''} ${docNumber || ''}${docPart ? `-${docPart}` : ''}:${dateString}`;
-    let doi = `10.5594/${docId}`;
+    let doi = defaultSmpteDoi(docId);
     let href = `https://doi.org/${doi}`;
     const repoUrl = `https://github.com/SMPTE/${pubTypeNum.toLowerCase()}/`;
 
@@ -459,7 +471,9 @@ function createSmpteParser(deps) {
             id = mappedId;
           }
         }
-        const doi = `10.5594/SMPTE.${pubType}${pubNumber}${pubPart ? `-${pubPart}` : ''}.${pubDateObj.format('YYYY')}`;
+        const doi = pubDateObj.year() >= DOI_MONTH_FROM_YEAR
+          ? `10.5594/SMPTE.${pubType}${pubNumber}${pubPart ? `-${pubPart}` : ''}.${dateShort}`
+          : `10.5594/SMPTE.${pubType}${pubNumber}${pubPart ? `-${pubPart}` : ''}.${pubDateObj.format('YYYY')}`;
         const href = `https://doi.org/${doi}`;
         const pubTypeNum = `${pubType}${pubNumber}${pubPart ? `-${pubPart}` : ''}`;
         const repoUrl = `https://github.com/SMPTE/${pubTypeNum.toLowerCase()}/`;
@@ -638,16 +652,16 @@ function createSmpteParser(deps) {
     return null;
   }
 
-  // Docs from 2023 on carry the month in their docId (SMPTE.ST2094-50.2026-08), and SMPTE
-  // registered their DOIs in both forms: year-only (10.5594/SMPTE.ST2048-1.2024) through early
-  // 2026, with the month (10.5594/SMPTE.ST2094-50.2026-08) after that, with exceptions. No date
-  // separates them, so the DOI is checked at doi.org: the docId form first, then the year-only form.
-  // When neither is registered the DOI keeps the docId form and is flagged for review, instead
-  // of carrying the "verified" note.
+  // Docs from 2023 on carry the month in their docId, but the registered DOI form has exceptions
+  // both ways (ST2136-1:2026-02 is year-only, ST2123 has the month every year), so the DOI is
+  // checked at doi.org: the default form (defaultSmpteDoi) first, then the other one. When
+  // neither can be confirmed the DOI keeps the default form and is flagged for review, instead
+  // of carrying the "verified" note — so a new 2026+ doc not yet registered still gets the month.
   async function verifyDoi(doc) {
     const m = String(doc.docId || '').match(/^(SMPTE\.[A-Z]+[\w-]*)\.((?:19|20)\d{2})-\d{2}$/);
     if (!m || !doc.doi) return;
-    const candidates = [`10.5594/${doc.docId}`, `10.5594/${m[1]}.${m[2]}`];
+    const preferred = defaultSmpteDoi(doc.docId);
+    const candidates = [preferred, ...[`10.5594/${doc.docId}`, `10.5594/${m[1]}.${m[2]}`].filter(d => d !== preferred)];
     let unreachable = false;
     for (const doi of candidates) {
       const registered = await doiRegistered(doi);
@@ -658,14 +672,13 @@ function createSmpteParser(deps) {
       }
       if (registered === null) unreachable = true;
     }
-    if (unreachable) {
-      console.warn(`⚠️ doi.org unreachable — DOI for ${doc.docId} not verified, keeping ${doc.doi}`);
-      return;
-    }
-    doc.doi = candidates[0];
-    doc.href = `https://doi.org/${candidates[0]}`;
-    console.warn(`⚠️ No registered DOI for ${doc.docId} (tried ${candidates.join(', ')})`);
-    const notes = { ...(doc.__metaNotes || {}), doi: 'Constructed from docId; not registered at doi.org at extraction', href: 'DOI link not registered at doi.org at extraction' };
+    doc.doi = preferred;
+    doc.href = `https://doi.org/${preferred}`;
+    console.warn(unreachable
+      ? `⚠️ doi.org unreachable — DOI for ${doc.docId} not verified, using ${preferred}`
+      : `⚠️ No registered DOI for ${doc.docId} (tried ${candidates.join(', ')})`);
+    const why = unreachable ? 'doi.org unreachable at extraction' : 'not registered at doi.org at extraction';
+    const notes = { ...(doc.__metaNotes || {}), doi: `Default SMPTE DOI form for the publication year; ${why}`, href: `DOI link ${why}` };
     const flags = { ...(doc.__metaFlags || {}), doi: { reviewRequired: true }, href: { reviewRequired: true } };
     Object.defineProperty(doc, '__metaNotes', { value: notes, enumerable: false, configurable: true, writable: true });
     Object.defineProperty(doc, '__metaFlags', { value: flags, enumerable: false, configurable: true, writable: true });
