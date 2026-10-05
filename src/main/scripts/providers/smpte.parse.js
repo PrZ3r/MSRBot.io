@@ -615,8 +615,60 @@ function createSmpteParser(deps) {
       console.warn(`⚠️ Superseded normalization failed for ${rootUrl}: ${e.message}`);
     }
 
+    for (const d of docs) {
+      try {
+        await verifyDoi(d);
+      } catch (e) {
+        console.warn(`⚠️ DOI verification failed for ${d.docId}: ${e.message}`);
+      }
+    }
+
     console.log(`📊 Release summary — HTML: ${countHTML}, PDF: ${countPDF}, none: ${countNoIframe}`);
     return docs;
+  }
+
+  // Is the DOI registered? Asks the doi.org handle API: 200 = registered, 404 = not.
+  // Returns null when doi.org can't be reached, so a network failure isn't read as "not registered".
+  async function doiRegistered(doi) {
+    try {
+      const res = await axios.get(`https://doi.org/api/handles/${doi}`, { timeout: 10000, validateStatus: () => true });
+      if (res.status === 200) return true;
+      if (res.status === 404) return false;
+    } catch (_) {}
+    return null;
+  }
+
+  // Docs from 2023 on carry the month in their docId (SMPTE.ST2094-50.2026-08), and SMPTE
+  // registered their DOIs in both forms: year-only (10.5594/SMPTE.ST2048-1.2024) through early
+  // 2026, with the month (10.5594/SMPTE.ST2094-50.2026-08) after that, with exceptions. No date
+  // separates them, so the DOI is checked at doi.org: the docId form first, then the year-only form.
+  // When neither is registered the DOI keeps the docId form and is flagged for review, instead
+  // of carrying the "verified" note.
+  async function verifyDoi(doc) {
+    const m = String(doc.docId || '').match(/^(SMPTE\.[A-Z]+[\w-]*)\.((?:19|20)\d{2})-\d{2}$/);
+    if (!m || !doc.doi) return;
+    const candidates = [`10.5594/${doc.docId}`, `10.5594/${m[1]}.${m[2]}`];
+    let unreachable = false;
+    for (const doi of candidates) {
+      const registered = await doiRegistered(doi);
+      if (registered) {
+        doc.doi = doi;
+        doc.href = `https://doi.org/${doi}`;
+        return;
+      }
+      if (registered === null) unreachable = true;
+    }
+    if (unreachable) {
+      console.warn(`⚠️ doi.org unreachable — DOI for ${doc.docId} not verified, keeping ${doc.doi}`);
+      return;
+    }
+    doc.doi = candidates[0];
+    doc.href = `https://doi.org/${candidates[0]}`;
+    console.warn(`⚠️ No registered DOI for ${doc.docId} (tried ${candidates.join(', ')})`);
+    const notes = { ...(doc.__metaNotes || {}), doi: 'Constructed from docId; not registered at doi.org at extraction', href: 'DOI link not registered at doi.org at extraction' };
+    const flags = { ...(doc.__metaFlags || {}), doi: { reviewRequired: true }, href: { reviewRequired: true } };
+    Object.defineProperty(doc, '__metaNotes', { value: notes, enumerable: false, configurable: true, writable: true });
+    Object.defineProperty(doc, '__metaFlags', { value: flags, enumerable: false, configurable: true, writable: true });
   }
 
   return { extractFromSeedDoc, extractFromUrl };
