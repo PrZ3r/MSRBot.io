@@ -998,6 +998,24 @@ function parseRefId(text, href = '', opts = {}) {
     const [, shortname, yyyymmdd] = text.match(/\bREC-([A-Za-z0-9._-]+)-(\d{8})\b/i);
     { const refId = `W3C.${String(shortname).toLowerCase()}.${yyyymmdd}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'w3c:dated-REC-cite' } } : refId; }
   }
+  // W3C author-date cites with no href (SMPTE ST 2053, ST 2067-21), e.g.:
+  // "World Wide Web Consortium (W3C) (2004, October 28). XML Schema Part 1: Structures (Second Edition)"
+  // → W3C.xmlschema-1.20041028. Only titles with a known shortname map; others fall through.
+  {
+    const m = String(text || '').match(/\bWorld\s+Wide\s+Web\s+Consortium\s*\(W3C\)\s*\(\s*((?:19|20)\d{2})\s*,\s*([A-Za-z]+)\.?\s+(\d{1,2})\s*\)\s*\.?\s*(.+)$/i);
+    const mo = m && ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'].indexOf(m[2].slice(0, 3).toLowerCase());
+    if (m && mo >= 0) {
+      const title = m[4];
+      const xsd = title.match(/^XML\s+Schema\s+Part\s+([0-2])\b/i);
+      const shortname = xsd ? `xmlschema-${xsd[1]}`
+        : /^Extensible\s+Markup\s+Language\s*\(XML\)\s*1\.0\b/i.test(title) ? 'xml'
+          : null;
+      if (shortname) {
+        const refId = `W3C.${shortname}.${m[1]}${String(mo + 1).padStart(2, '0')}${m[3].padStart(2, '0')}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'w3c:author-date-cite' } } : refId;
+      }
+    }
+  }
   // xml2rfc bibxml4 W3C dated entries (e.g., reference.W3C.REC-ldp-20150226.xml)
   if (/reference\.W3C\.([A-Za-z]+)-([A-Za-z0-9._-]+)-(\d{8})\.xml(?:[?#].*)?$/i.test(href)) {
     const [, stage, shortname, yyyymmdd] = href.match(/reference\.W3C\.([A-Za-z]+)-([A-Za-z0-9._-]+)-(\d{8})\.xml/i);
@@ -1584,6 +1602,32 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // CTA / ANSI-CTA (Consumer Technology Association, CEA's successor): "CTA 861-G", "CTA-608-E S-2019"
+  // → CTA.861-G / CTA.608-ES.2019  (revision letter kept, plus the R/S reaffirmed/stabilized mark,
+  // matching registry docIds; an undated ref resolves to the newest edition via the base index).
+  // Case-sensitive: "cta" in prose isn't a designator.
+  {
+    const src = String(text || '');
+    const m = src.match(/\b(?:ANSI[\/-])?CTA[\s‐-―-](\d{2,4}(?:\.\d+)?)(?:[\s‐-―-]([A-Z]{1,2})\b(?:\s*([RS])[\s‐-―-]*(?=(?:19|20)\d{2}\b))?)?/);
+    if (m) {
+      // Year from the text after the designator, so "CTA-2045" isn't read as the year 2045
+      const y = (src.slice(m.index + m[0].length).match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `CTA.${m[1]}${m[2] ? `-${m[2]}${m[3] || ''}` : ''}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'cta-designator' } } : refId;
+    }
+  }
+
+  // ICC (International Color Consortium): "Specification ICC.1:2022", ".../ICC.1-2022-05.pdf"
+  // → ICC.1.2022  (registry docIds are ICC.<n>.<year>)
+  {
+    const m = String(text || '').match(/\bICC\.(\d+)\s*:\s*((?:19|20)\d{2})\b/)
+      || String(href || '').match(/color\.org\/specification\/ICC\.(\d+)[-_:]((?:19|20)\d{2})\b/i);
+    if (m) {
+      const refId = `ICC.${m[1]}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'icc-designator' } } : refId;
+    }
+  }
+
   // FCC (US Federal Communications Commission): "FCC 08-255-2008" → FCC.08-255.2008
   {
     const m = String(text || '').match(/\bFCC\s+(\d+(?:-\d+)*)[\s‐-―-]+((?:19|20)\d{2})\b/i);
@@ -1684,6 +1728,17 @@ function parseRefId(text, href = '', opts = {}) {
     if (best) {
       const refId = `IEC.${best.base}${best.year ? `.${best.year}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iec designator' } } : refId;
+    }
+  }
+
+  // Last resort: a cite no family recognised whose href is a GitHub repository root
+  // ("OpenJPH", https://github.com/aous72/OpenJPH) → GITHUB.aous72.OpenJPH, matching the
+  // GITHUB.<owner>.<repo> refMap ids. Deeper links (blobs, releases) aren't the repo itself.
+  {
+    const m = String(href || '').trim().match(/^https?:\/\/(?:www\.)?github\.com\/([A-Za-z0-9-]+)\/([A-Za-z0-9._-]+?)(?:\.git)?\/?$/i);
+    if (m) {
+      const refId = `GITHUB.${m[1]}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'github-repo' } } : refId;
     }
   }
 
