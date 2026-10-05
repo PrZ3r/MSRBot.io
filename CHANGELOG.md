@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **A dated reference no longer resolves to a different edition.** When the cited edition wasn't in the registry, the MRI pointed it at the newest edition of the same document. "Specification ICC.1:2022" showed as ICC.1:2010, and SMPTE ST 274:1998 as ST 274:2008. A dated reference now resolves only to an edition from the year it cites, and otherwise is listed as a missing reference under its own id. Undated references still resolve to the newest edition. Across the 5,980 refIds in the MRI, 201 that pointed at another edition become missing (137 SMPTE, 40 ISO, 24 other), and no other resolution changes.
+
 ## [v2.8.0] - 2026-10-02
 
 ### Added

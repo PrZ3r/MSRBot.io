@@ -245,12 +245,15 @@ function _findSourceDocIdForRefId(refId) {
   }
 
   if (arr && arr.length) {
-    // A dated ref whose exact id isn't registered ("T-REC-X.509.1997") prefers editions from
-    // that year (`T-REC-X.509.199706`); otherwise exact base, else highest date rank.
-    const citedYear = (id.match(/\.((?:19|20)\d{2})$/) || [])[1];
-    if (citedYear && id !== base) {
-      const sameYear = arr.filter((c) => (c.match(/\.(\d{4})(?:\d{2}|\d{4}|-\d{2}(?:-\d{2})?)?$/) || [])[1] === citedYear);
-      if (sameYear.length) arr = sameYear;
+    // A dated ref names one edition. If its exact id isn't registered ("T-REC-X.509.1997") it
+    // may resolve to an edition from that year (`T-REC-X.509.199706`), never to another
+    // edition: ICC.1.2022 must stay ICC.1.2022, not become ICC.1.2010. Only an undated ref
+    // rolls to the exact base or the newest edition.
+    if (id !== base) {
+      const citedYear = (id.match(/\.((?:19|20)\d{2})(?:\d{2}|\d{4}|-\d{4}|-\d{2}(?:-\d{2})?)?$/) || [])[1];
+      if (!citedYear) return null;
+      arr = arr.filter((c) => (c.match(/\.(\d{4})(?:\d{2}|\d{4}|-\d{4}|-\d{2}(?:-\d{2})?)?$/) || [])[1] === citedYear);
+      if (!arr.length) return null;
     }
     let best = null;
     let bestRank = Number.NEGATIVE_INFINITY;

@@ -41,9 +41,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * Parts are never editions: an undated ref (SMPTE.ST299) does not resolve to ST299-1 or
  * ST299-2, nor to a dotted legacy part (RP27.4). ITU is the exception: there `-N` is a revision.
  *
+ * A dated ref names one edition: it resolves to an edition from the cited year
+ * or not at all. `AES3.1985` must not become `AES3.2009` (nor ICC.1.2022 become
+ * ICC.1.2010); only an undated ref rolls to the newest edition.
+ *
  * This test pins both sides: `ISO.8567` must not resolve (and a stale bogus
- * pointer is demoted), while a genuinely dated ref like `AES3.1992` still
- * resolves to the latest edition of its base (`AES3.2009`).
+ * pointer is demoted), while undated `R-REC-BT.709` resolves to the newest edition.
  *
  *   node src/main/scripts/test/referencing.datedTail.test.js
  */
@@ -110,8 +113,9 @@ mriStore.writeMri({
     'R-REC-BT.709': entry('R-REC-BT.709', 'R-REC-BT.709-1.199311'),
     // Dated cite with no exact id: the edition from the cited year wins over the newest.
     'R-REC-BT.601.1995': entry('R-REC-BT.601.1995', null),
-    // Dated ref whose own edition is absent from the base candidates' latest.
-    'AES3.1985': entry('AES3.1985', null)
+    // Dated ref whose own edition is absent: stays unresolved, and a stale
+    // cross-edition pointer the flush set earlier is demoted.
+    'AES3.1985': entry('AES3.1985', 'AES3.2009')
   },
   reverse: {},
   orphans: { unmapped: [] }
@@ -129,6 +133,9 @@ assert.strictEqual(ref.findSourceDocIdForRefId('SMPTE.ST299'), null, 'undated SM
 assert.strictEqual(ref.findSourceDocIdForRefId('SMPTE.ST299.2004'), null, 'dated SMPTE.ST299.2004 must not roll to a part');
 assert.strictEqual(ref.findSourceDocIdForRefId('SMPTE.RP27'), null, 'SMPTE.RP27 must not match the dotted part RP27.4');
 assert.strictEqual(ref.findSourceDocIdForRefId('DCI.DCSS.v1.2'), 'DCI.DCSS.v1.2.2018-0124', 'DCI YYYY-MMDD editions rank by date → newest');
+assert.strictEqual(ref.findSourceDocIdForRefId('AES3.1992'), 'AES3.1992', 'exact dated edition resolves to itself');
+assert.strictEqual(ref.findSourceDocIdForRefId('AES3.2022'), null, 'dated AES3.2022 must not roll back to AES3.2009');
+assert.strictEqual(ref.findSourceDocIdForRefId('DCI.DCSS.v1.2.2012'), 'DCI.DCSS.v1.2.2012-1010', 'dated ref resolves to the same-year edition');
 process.chdir(origCwd);
 
 assert.strictEqual(refs['ISO.8567'].resolvedDocId, null, `ISO.8567 must not resolve, got '${refs['ISO.8567'].resolvedDocId}'`);
@@ -137,7 +144,7 @@ assert.strictEqual(refs['IEC.1179'].resolvedDocId, null, `IEC.1179 must not reso
 assert.strictEqual(refs['R-REC-BT.1680'].resolvedDocId, null, `R-REC-BT.1680 must not resolve, got '${refs['R-REC-BT.1680'].resolvedDocId}'`);
 assert.strictEqual(refs['R-REC-BT.709'].resolvedDocId, 'R-REC-BT.709-6.201506', `undated BT.709 should resolve to the newest edition, got '${refs['R-REC-BT.709'].resolvedDocId}'`);
 assert.strictEqual(refs['R-REC-BT.601.1995'].resolvedDocId, 'R-REC-BT.601-4.199510', `BT.601 cited as 1995 should resolve to the 1995 edition, got '${refs['R-REC-BT.601.1995'].resolvedDocId}'`);
-assert.strictEqual(refs['AES3.1985'].resolvedDocId, 'AES3.2009', `AES3.1985 should resolve to the latest AES3 edition, got '${refs['AES3.1985'].resolvedDocId}'`);
+assert.strictEqual(refs['AES3.1985'].resolvedDocId, null, `AES3.1985 must not resolve to another AES3 edition, got '${refs['AES3.1985'].resolvedDocId}'`);
 
 fs.rmSync(sandbox, { recursive: true, force: true });
 
