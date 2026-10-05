@@ -54,9 +54,12 @@ function mriPruneToSightings(index, opts = {}) {
       }
     }
 
-    // Optionally drop the entire refId if it has no variants and isn't a source doc itself
+    // Optionally drop the entire refId if it has no variants and isn't a source doc itself.
+    // Ask the registry now rather than trusting the stored `resolution.sourcePresent`: prune runs
+    // before mriFlush refreshes it, so a renamed or removed doc (CMR.ML → MOVIELABS.CMR) would
+    // otherwise survive one more build as an uncited "missing" ref.
     const hasAny = Array.isArray(entry.rawVariants) && entry.rawVariants.length > 0;
-    const isSource = !!(entry.resolution && entry.resolution.sourcePresent);
+    const isSource = !hasAny && !!_findSourceDocIdForRefId(refId);
     if (removeEmptyRefs && !hasAny && !isSource) {
       delete mri.refs[refId];
       removedRefs++;
