@@ -64,7 +64,7 @@ const PAGES = 3;
 
 // A predecessor designator: "SMPTE 259M-2006", "ANSI/SMPTE 244M-1995", "RP 87-1995",
 // "EG 22-1993", "RP 210.8-2004", "SMPTE ST 291:2010", "ECR 1-1978" (Engineering Committee
-// Recommendation, the predecessor of EGs). The number must not follow a letter, so "AES3-1992"
+// Report, a one-off SMPTE designation). The number must not follow a letter, so "AES3-1992"
 // in running text is not read as SMPTE 3.
 const DESIGNATOR = /(?<![A-Za-z])(?:ANSI\/)?(?:SMPTE\s+)?(?:ST|RP|EG|RDD|OV|AG|ECR)?\s*\d[\d.]*[A-Z]?(?:-\d{1,3})?\s*[-–:]\s*(?:19|20)\d{2}/g;
 const PHRASE = /(Revision of|Supersedes|Replaces)\s*(.*)/;

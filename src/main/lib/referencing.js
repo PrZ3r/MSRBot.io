@@ -1122,8 +1122,8 @@ function parseRefId(text, href = '', opts = {}) {
   const parts = String(text).split('|').map(p => p.trim());
   text = parts.find(p => /ISO\/IEC|ISO/.test(p)) || parts[0];
 
-  // SMPTE (ST/RP/RDD/EG/AG/OV, and ECR: the Engineering Committee Recommendations that preceded
-  // EGs), optional part, optional year[:YYYY or YYYY-MM]
+  // SMPTE (ST/RP/RDD/EG/AG/OV, and ECR: Engineering Committee Report, a one-off SMPTE
+  // designation), optional part, optional year[:YYYY or YYYY-MM]
   {
     // part is 1-3 digits NOT followed by another digit, so a hyphen-separated year
     // ("SMPTE EG 21-1993") is read as the year, not as part "1993"/"199". A dotted part

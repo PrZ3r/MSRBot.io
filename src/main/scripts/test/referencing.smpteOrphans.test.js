@@ -89,7 +89,7 @@ const cases = [
   // ST 291-1:2011 revises "ST 291:2010"; a cite of "ST 291-1:2010" means that document
   ['SMPTE ST 291-1:2010 — Ancillary Data Packet and Space Formatting', '', 'SMPTE.ST291.2010'],
   ['SMPTE ST 291-1:2011 — Ancillary Data Packet and Space Formatting', '', 'SMPTE.ST291-1.2011'],
-  // ECR: Engineering Committee Recommendation (predecessor of EGs)
+  // ECR: Engineering Committee Report (a one-off SMPTE designation)
   ['SMPTE ECR 1-1978', '', 'SMPTE.ECR1.1978'],
   // Must not change
   ['SMPTE AG-02', 'https://doc.smpte-doc.org/ag-02/main/', 'SMPTE.AG02'],
