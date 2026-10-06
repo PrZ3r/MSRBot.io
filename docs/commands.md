@@ -9,6 +9,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `extract-manual`: run hand/AI-prepared records (`--input <records.json>`) through the extractor pipeline.
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
+- `build-smpte-backfill`: list SMPTE editions with evidence but no digital copy (backfill tracking).
 - `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit.
 - `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
 - `docs-validate`: run the standard validation script.
@@ -92,6 +93,13 @@ This is the canonical CLI reference for local scripts in `package.json`.
     - `--count-only`
     - `--separate-aux`
     - `--publisher-counts`
+
+- `npm run build-smpte-backfill`
+  - Runs: `node src/main/scripts/buildSmpteBackfill.js` (after `build-mri`; it reads the presence audit)
+  - Action: Lists every SMPTE edition with evidence of existence but no digital copy, to track what needs backfilling:
+    - **placeholders**: records with no `href`, confirmed by a later edition's "Revision of" line;
+    - **cited**: SMPTE refIds that registry documents cite but that aren't in the registry.
+  - Key outputs: `src/main/reports/smpteBackfill.json`, `src/main/reports/smpteBackfill.md`. No timestamps; an edition drops off once it's ingested. Rebuilt by `Build MSI + MRI (PR)`.
 
 - `npm run build-mri`
   - Runs: `node src/main/scripts/buildMasterReferenceIndex.js`

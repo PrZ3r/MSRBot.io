@@ -36,6 +36,7 @@ on:
       - 'src/main/lib/**'
       - 'src/main/scripts/buildMasterSuiteIndex.js'
       - 'src/main/scripts/buildMasterReferenceIndex.js'
+      - 'src/main/scripts/buildSmpteBackfill.js'
       - 'package.json'
       - 'package-lock.json'
   # Manual full rebuild: on a branch, commits to that branch; on main, opens a PR.
@@ -56,6 +57,8 @@ env:
     src/main/reports/masterSuiteIndex.json
     src/main/reports/mri
     src/main/reports/mri_presence_audit.json
+    src/main/reports/smpteBackfill.json
+    src/main/reports/smpteBackfill.md
   COMMIT_SUBJECT: 'chore(reports): rebuild MSI/MRI'
 
 jobs:
@@ -143,6 +146,11 @@ jobs:
           node src/main/scripts/buildMasterReferenceIndex.js \
             --audit-out src/main/reports/mri_presence_audit.json
           test -f src/main/reports/mri/index.json || { echo "MRI not emitted"; exit 1; }
+
+      # SMPTE editions with evidence but no digital copy; reads the presence audit above.
+      - name: Build SMPTE backfill list
+        if: steps.self.outputs.skip != 'true'
+        run: npm run build-smpte-backfill
 
       # The reports carry no timestamps, so any working-tree change is a real
       # content change.
@@ -235,5 +243,7 @@ jobs:
             src/main/reports/masterSuiteIndex.json
             src/main/reports/mri
             src/main/reports/mri_presence_audit.json
+            src/main/reports/smpteBackfill.json
+            src/main/reports/smpteBackfill.md
           labels: automated, reports, msi, mri
           delete-branch: true

@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **SMPTE backfill list (`npm run build-smpte-backfill`).** `src/main/reports/smpteBackfill.json` and `.md` list every SMPTE edition we have evidence for but no digital copy of: placeholders confirmed by a later edition's "Revision of" line, and SMPTE refIds that registry documents cite but the registry lacks. It is derived from the data, so an edition drops off once it's ingested, and the PR reports workflow rebuilds it alongside the MSI and MRI. 378 editions at the start (317 placeholders, 61 cited).
 ### Changed
 
 ### Fixed
