@@ -11,10 +11,10 @@ See [docs/mri-citation-system.md](../../../docs/mri-citation-system.md) for the 
 
 ## Totals
 
-- Registry docs: **26298**
-- Docs with non-empty `references[]`: **5477**
-- Total ref-entries audited: **52607**
-- MRI `refs[]` entries: **43405**
+- Registry docs: **26816**
+- Docs with non-empty `references[]`: **5668**
+- Total ref-entries audited: **55808**
+- MRI `refs[]` entries: **46478**
 - **Leak count: 0**
 
 ## Result: PASS
