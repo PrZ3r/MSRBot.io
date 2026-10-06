@@ -70,7 +70,8 @@ A document's front page often names the edition it replaces: "SMPTE 259M-2008 â€
 - **Predecessor not in the registry:** if it's an edition with no digital copy, it can be added as a **placeholder record** so the lineage is complete and citations of it resolve:
   - `docId`, `docLabel`, `docTitle`, `docType` and `publisher` (the required fields).
   - `publicationDate` padded from the year, with a `metaNotes` entry saying so.
-  - **No `href`.** A missing link is how the registry says there is no copy.
+  - **`status.placeholder: true`.** This marks the record as known from evidence and not yet confirmed against the document; the doc page shows a placeholder banner. Clear it once the document is confirmed, wherever the copy comes from (publisher, archive or self-hosted).
+  - **No `href`** until a copy is found.
   - `status`: `active: false`, `latestVersion: false`, `superseded: true`, `supersededBy: [<every document that names it>]`. Several documents can revise one, and one document can revise several (as in IETF), so both lists can hold more than one entry.
   - A `statusNote` naming the confirming document, e.g. "No digital copy available. This edition is confirmed by the 'Revision of' line in SMPTE ST 259:2008."
   - `sourceUrl`: the confirming PDF. Set `metaSources` for every field to `inferred`.

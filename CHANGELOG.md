@@ -10,7 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- **SMPTE backfill list (`npm run build-smpte-backfill`).** `src/main/reports/smpteBackfill.json` and `.md` list every SMPTE edition we have evidence for but no digital copy of: placeholders confirmed by a later edition's "Revision of" line, and SMPTE refIds that registry documents cite but the registry lacks. It is derived from the data, so an edition drops off once it's ingested, and the PR reports workflow rebuilds it alongside the MSI and MRI. 378 editions at the start (317 placeholders, 61 cited).
+- **`status.placeholder` and a placeholder banner (schema 2.8.0).** The flag marks an edition known to exist from evidence but not yet confirmed against the document: a later edition's "Revision of" line, citations, or earlier manual research. It's independent of `href`, since a copy may later come from the publisher, an archive or self-hosting. Flagged doc pages show a banner: "Placeholder record. This edition is known from evidence … but hasn't been confirmed against the document itself." `extract-manual` can set it, and a record's `metaSources` now set the provenance of status fields on update.
+- **SMPTE backfill list (`npm run build-smpte-backfill`).** `src/main/reports/smpteBackfill.json` and `.md` list every SMPTE edition we have evidence for but haven't confirmed:
+  - placeholders, flagged `status.placeholder`;
+  - SMPTE refIds that registry documents cite but the registry lacks.
+
+  It's derived from the data, so the PR reports workflow keeps it current alongside the MSI and MRI, and `npm run build` regenerates it too. It isn't published to the site.
 ### Changed
 
 ### Fixed

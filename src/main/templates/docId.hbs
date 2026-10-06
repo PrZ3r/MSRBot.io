@@ -99,6 +99,12 @@
         </div>
       </div>
       
+      {{#if status.placeholder}}
+      <div class="row small m-2">
+        <span class="label text-center px-3 label-warn text-bg-warning"><strong>Placeholder record.</strong> This edition is known from evidence (a later edition's "Revision of" line, citations, or earlier research) but hasn't been confirmed against the document itself.</span>
+      </div>
+      {{/if}}
+
       {{#if status.withdrawnNotice}}
       <div class="row small m-2">
         <span class="label text-center px-3 label-warn text-bg-warning text-uppercase">Withdrawl notice: <a href="{{status.withdrawnNotice}}">{{status.withdrawnNotice}}</a></span>
