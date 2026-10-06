@@ -243,7 +243,7 @@ function keyFromDocId(docId, doc = {}) {
   m = docId.match(/^SMPTE\.OM\.([A-Za-z][A-Za-z0-9-]*)(?:\.(?:\d{8}|\d{4}(?:-\d{2})?))?$/i);
   if (m) return { publisher: 'SMPTE', type: 'OM', number: m[1], part: null };
 
-  m = docId.match(/^SMPTE\.(OM|AG|ST|RP|EG|ER|RDD|OV|TSP)(\d+[A-Za-z]*)(?:-(\d+))?\./i);
+  m = docId.match(/^SMPTE\.(OM|AG|ST|RP|EG|ER|ECR|RDD|OV|TSP)(\d+[A-Za-z]*)(?:-(\d+))?\./i);
   if (m) { const docType=m[1].toUpperCase(); const num=m[2]; let part=m[3]||null; if (docType==='OV') part=part||'0'; return { publisher:'SMPTE', type:docType, number:num, part }; }
 
   m = docId.match(/^OMG\.([A-Za-z0-9]+)(?:\.[A-Za-z0-9.-]+)?$/i);
