@@ -105,7 +105,7 @@ const cases = [
   ['ISDCF Doc 1', 'ISDCF.DCNC'],
   ['3. Hurst J. , “P-HFR — Prototype DCP for High Frame Rate Projection” , http://isdcf.com/papers/ISDCF-HighFrameRate-DCP.pdf , accessed September 9, 2013 .', 'ISDCF.P-HFR.2012'],
   ['IANA Document: Language Subtag Registry', 'IANA.LSR'],
-  ['MovieLabs Common Metadata Ratings', 'CMR.ML'],
+  ['MovieLabs Common Metadata Ratings', 'MOVIELABS.CMR'],
   // Unchanged forms
   ['ISO 9660:1988', 'ISO.9660.1988'],
   ['ISO 8601', 'ISO.8601'],
