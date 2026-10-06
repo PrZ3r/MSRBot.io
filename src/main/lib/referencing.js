@@ -1132,9 +1132,13 @@ function parseRefId(text, href = '', opts = {}) {
     // the first designator is the one being cited.
     const legacyFirst = m && text.slice(0, m.index).match(/\bSMPTE\s+\d{1,4}(?:\.\d+)?M\b/i);
     if (m && !legacyFirst) {
-      const [, type, numRaw, part, year, month] = m;
-      const num = String(numRaw).toUpperCase();
-      const lineage = `SMPTE.${type.toUpperCase()}${part ? `${num}-${part}` : num}`;
+      const [, typeRaw, numRaw, part, year, month] = m;
+      // A legacy "M" suffix after a type token ("ST 336M:2007") is not part of the number.
+      const num = String(numRaw).toUpperCase().replace(/^(\d+)M$/, '$1');
+      // Part 0 of a SMPTE suite is its Overview Document, whatever type it's cited as
+      // ("SMPTE ST 2081-0:2015 — … Roadmap" → SMPTE.OV2081-0.2015).
+      const type = part === '0' ? 'OV' : typeRaw.toUpperCase();
+      const lineage = `SMPTE.${type}${part ? `${num}-${part}` : num}`;
       if (year) {
         const y = parseInt(year, 10);
         const suffix = (y >= 2023 && month) ? `${year}-${month}` : year;
@@ -1154,7 +1158,7 @@ function parseRefId(text, href = '', opts = {}) {
       const num = m[1];
       const part = m[2] || m[4]; // dotted ("305.2M") or hyphenated ("2016-1:2008") part
       const year = m[5];
-      const lineage = `SMPTE.ST${part ? `${num}-${part}` : num}`;
+      const lineage = `SMPTE.${part === '0' ? 'OV' : 'ST'}${part ? `${num}-${part}` : num}`;
       const refId = year ? `${lineage}.${year}` : lineage;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'smpte-legacy-designator' } } : refId;
     }
