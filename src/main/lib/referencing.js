@@ -148,6 +148,7 @@ function _getDocsPath() {
 }
 let _docIdIndex = null; // Set<string> of docIds from the registry
 let _docBaseIndex = null; // Map<string base, string[]> of docIds by base
+let _doiAliasIndex = null; // Map<string SMPTE designation from DOI, string docId> where they differ
 const DATED_TAIL_RE = /\.(?:\d{8}|\d{4}(?:-\d{2}){0,2})$/; // .YYYY | .YYYY-MM | .YYYY-MM-DD | .YYYYMMDD
 
 // Strip a dated tail, unless what's left has no digits at all: in `ISO.8567`,
@@ -164,6 +165,7 @@ function _loadDocumentsIndex() {
   try {
     _docIdIndex = new Set();
     _docBaseIndex = new Map();
+    _doiAliasIndex = new Map();
 
     const addId = (id) => {
       if (!id || typeof id !== 'string') return;
@@ -180,11 +182,17 @@ function _loadDocumentsIndex() {
       if (d && typeof d === 'object') {
         if (typeof d.docId === 'string') addId(d.docId);
         if (typeof d.docBase === 'string') addId(d.docBase);
+        // SMPTE DOIs carry the designation printed on the document ("RP 86-1991"), while the
+        // docId uses the library release date (`SMPTE.RP86.1990`, released 1990-06-05,
+        // published 1991). Citations use the printed designation, so index it.
+        const doiId = typeof d.doi === 'string' && (d.doi.match(/^10\.5594\/(SMPTE\..+)$/) || [])[1];
+        if (doiId && doiId !== d.docId && typeof d.docId === 'string') _doiAliasIndex.set(doiId, d.docId);
       }
     }
   } catch {
     _docIdIndex = new Set();
     _docBaseIndex = new Map();
+    _doiAliasIndex = new Map();
   }
   return _docIdIndex;
 }
@@ -222,6 +230,9 @@ function _findSourceDocIdForRefId(refId) {
   const id = String(refId);
   // 1) exact id present
   if (_docIdIndex && _docIdIndex.has(id)) return id;
+  // 1b) the SMPTE designation registered as a doc's DOI (`SMPTE.RP86.1991` → `SMPTE.RP86.1990`).
+  // Same document, not another edition. An exact docId always wins over a DOI alias.
+  if (_doiAliasIndex && _doiAliasIndex.has(id)) return _doiAliasIndex.get(id);
   // 2) base match: choose the latest dated docId for the same base
   const base = _stripDatedTail(id);
   let arr = _docBaseIndex ? _docBaseIndex.get(base) : null;
@@ -281,6 +292,7 @@ function _hasDocIdOrBase(id) {
 function reloadDocumentsIndex() {
   _docIdIndex = null;
   _docBaseIndex = null;
+  _doiAliasIndex = null;
   return _loadDocumentsIndex();
 }
 
@@ -1113,16 +1125,29 @@ function parseRefId(text, href = '', opts = {}) {
   // SMPTE (ST/RP/RDD/EG/AG/OV), optional part, optional year[:YYYY or YYYY-MM]
   {
     // part is 1-3 digits NOT followed by another digit, so a hyphen-separated year
-    // ("SMPTE EG 21-1993") is read as the year, not as part "1993"/"199".
-    const smpteRe = /SMPTE\s+(ST|RP|RDD|EG|AG|OV)[\s\u00A0\u2010-\u2015\-]+(\d+[A-Za-z]?)(?:-(\d{1,3})(?!\d))?(?:[:\u2010-\u2015-]\s*(\d{4})(?:-(\d{2}))?)?/i;
+    // ("SMPTE EG 21-1993") is read as the year, not as part "1993"/"199". A dotted part
+    // ("SMPTE ST 363.2-2002", "RP 27.3-1989") is a part; dotted *revisions* ("305.2M",
+    // "210.4") are refMap entries, since the notation doesn't say which it is.
+    const smpteRe = /SMPTE\s+(ST|RP|RDD|EG|AG|OV)[\s\u00A0\u2010-\u2015\-]+(\d+[A-Za-z]?)(?:[-.](\d{1,3})(?!\d))?(?:[:\u2010-\u2015-]\s*(\d{4})(?:-(\d{2}))?)?/i;
     const m = text.match(smpteRe);
     // A legacy designator earlier in the same cite ("SMPTE 326M …; … SMPTE RP204-2000") wins:
     // the first designator is the one being cited.
     const legacyFirst = m && text.slice(0, m.index).match(/\bSMPTE\s+\d{1,4}(?:\.\d+)?M\b/i);
     if (m && !legacyFirst) {
-      const [, type, numRaw, part, year, month] = m;
-      const num = String(numRaw).toUpperCase();
-      const lineage = `SMPTE.${type.toUpperCase()}${part ? `${num}-${part}` : num}`;
+      const [, typeRaw, numRaw, partRaw, year, month] = m;
+      // A legacy "M" suffix after a type token ("ST 336M:2007") is not part of the number,
+      // and neither are leading zeros ("ST 0352", "RDD 09") — except for AG, whose
+      // registry ids are zero-padded (SMPTE.AG02).
+      const num = String(numRaw).toUpperCase().replace(/^(\d+)M$/, '$1')
+        .replace(/^0+(?=\d)/, (z) => (/^AG$/i.test(typeRaw) ? z : ''));
+      // RP 210 (Metadata Dictionary) numbers its revisions with a dot ("RP 210.4-2002" is
+      // revision 4, published 2002), so for RP 210 a dotted suffix is not a part.
+      const dottedRevision = /^RP$/i.test(typeRaw) && num === '210' && new RegExp(`${numRaw}\\.${partRaw}`).test(m[0]);
+      const part = dottedRevision ? undefined : partRaw;
+      // Part 0 of a SMPTE suite is its Overview Document, whatever type it's cited as
+      // ("SMPTE ST 2081-0:2015 — … Roadmap" → SMPTE.OV2081-0.2015).
+      const type = part === '0' ? 'OV' : typeRaw.toUpperCase();
+      const lineage = `SMPTE.${type}${part ? `${num}-${part}` : num}`;
       if (year) {
         const y = parseInt(year, 10);
         const suffix = (y >= 2023 && month) ? `${year}-${month}` : year;
@@ -1137,12 +1162,12 @@ function parseRefId(text, href = '', opts = {}) {
   // The M-suffixed (or bare) number is always a Standard — RP/EG/AG/OM/RDD/OV always carry
   // their type token (handled by the block above) — so emit SMPTE.ST<num>[-part].<year>.
   {
-    const m = text.match(/(?:\bANSI\s*\/\s*)?\bSMPTE\s+(\d{1,4})(?:\.(\d+))?(M)?\b(?:-(\d{1,2})(?=[-:\s,]|$))?(?:[-:\s]\s*(\d{4}))?/i);
+    const m = text.match(/(?:\bANSI\s*\/\s*)?\bSMPTE\s+(\d{1,4})(?:\.(\d+))?(M)?\b(?:-(\d{1,2})(?=[-:\s,]|$))?(?:[-\u2010-\u2015:\s]\s*(\d{4}))?/i);
     if (m && (m[3] || m[5])) { // require an M suffix or a year — don't match bare prose
-      const num = m[1];
+      const num = m[1].replace(/^0+(?=\d)/, ''); // "SMPTE 0352–2010" → 352
       const part = m[2] || m[4]; // dotted ("305.2M") or hyphenated ("2016-1:2008") part
       const year = m[5];
-      const lineage = `SMPTE.ST${part ? `${num}-${part}` : num}`;
+      const lineage = `SMPTE.${part === '0' ? 'OV' : 'ST'}${part ? `${num}-${part}` : num}`;
       const refId = year ? `${lineage}.${year}` : lineage;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'smpte-legacy-designator' } } : refId;
     }
@@ -1483,7 +1508,7 @@ function parseRefId(text, href = '', opts = {}) {
   //   "ANSI/ASME B1.1-1989" → ASME.B1.1.1989  "ANSI/AIIM MS34-1990" → AIIM.MS34.1990
   {
     const m = String(text || '').match(/\bANSI[\/\s]([A-Z]{2,6})\s+([A-Z]{0,4}\d[\w.]*?)[\s‐-―-]+((?:19|20)?\d{2})\b/i);
-    if (m) {
+    if (m && m[1].toUpperCase() !== 'SMPTE') { // ANSI/SMPTE belongs to the legacy-SMPTE block
       const yr = m[3].length === 2 ? `19${m[3]}` : m[3];
       const refId = `${m[1].toUpperCase()}.${m[2].toUpperCase()}.${yr}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-codesignation' } } : refId;

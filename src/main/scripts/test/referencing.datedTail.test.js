@@ -87,6 +87,12 @@ writeDoc('dci/specification/DCI.DCSS.v1.2.2012-1010.json', { docId: 'DCI.DCSS.v1
 writeDoc('dci/specification/DCI.DCSS.v1.2.2018-0124.json', { docId: 'DCI.DCSS.v1.2.2018-0124', docLabel: 'DCSS v1.2', docTitle: 'DCSS', publisher: 'DCI', docType: 'Specification' });
 writeDoc('itu-r/recommendation/R-REC-BT.601-4.199510.json', { docId: 'R-REC-BT.601-4.199510', docLabel: 'ITU-R BT.601-4', docTitle: 'Studio encoding parameters', publisher: 'ITU-R', docType: 'Recommendation' });
 writeDoc('itu-r/recommendation/R-REC-BT.601-7.201103.json', { docId: 'R-REC-BT.601-7.201103', docLabel: 'ITU-R BT.601-7', docTitle: 'Studio encoding parameters', publisher: 'ITU-R', docType: 'Recommendation' });
+// SMPTE DOI carries the printed designation: RP 86 was released 1990-06-05 but published as
+// "RP 86-1991", so citations say 1991 while the docId says 1990.
+writeDoc('smpte/recommended-practice/SMPTE.RP86.1990.json', { docId: 'SMPTE.RP86.1990', docLabel: 'SMPTE RP 86:1990', docTitle: 'Video Record Parameters', publisher: 'SMPTE', docType: 'Recommended Practice', doi: '10.5594/SMPTE.RP86.1991' });
+// An exact docId wins over another doc's DOI alias (ST40.1997 carries ST400.2004's DOI).
+writeDoc('smpte/standard/SMPTE.ST400.2004.json', { docId: 'SMPTE.ST400.2004', docLabel: 'SMPTE ST 400:2004', docTitle: 'Channel Assignments', publisher: 'SMPTE', doi: '10.5594/SMPTE.ST400.2004' });
+writeDoc('smpte/standard/SMPTE.ST40.1997.json', { docId: 'SMPTE.ST40.1997', docLabel: 'SMPTE ST 40:1997', docTitle: 'Photographic Audio Records', publisher: 'SMPTE', doi: '10.5594/SMPTE.ST400.2004' });
 writeDoc('itu-r/recommendation/R-REC-BT.2020-2.201510.json', { docId: 'R-REC-BT.2020-2.201510', docLabel: 'ITU-R BT.2020-2', docTitle: 'UHDTV parameters', publisher: 'ITU-R', docType: 'Recommendation' });
 
 const entry = (refId, resolvedDocId) => ({
@@ -134,6 +140,9 @@ assert.strictEqual(ref.findSourceDocIdForRefId('SMPTE.ST299.2004'), null, 'dated
 assert.strictEqual(ref.findSourceDocIdForRefId('SMPTE.RP27'), null, 'SMPTE.RP27 must not match the dotted part RP27.4');
 assert.strictEqual(ref.findSourceDocIdForRefId('DCI.DCSS.v1.2'), 'DCI.DCSS.v1.2.2018-0124', 'DCI YYYY-MMDD editions rank by date → newest');
 assert.strictEqual(ref.findSourceDocIdForRefId('AES3.1992'), 'AES3.1992', 'exact dated edition resolves to itself');
+assert.strictEqual(ref.findSourceDocIdForRefId('SMPTE.RP86.1991'), 'SMPTE.RP86.1990', 'printed designation (DOI) resolves to the released docId');
+assert.strictEqual(ref.findSourceDocIdForRefId('SMPTE.RP86.1992'), null, 'a year that is neither the docId nor the DOI stays missing');
+assert.strictEqual(ref.findSourceDocIdForRefId('SMPTE.ST400.2004'), 'SMPTE.ST400.2004', 'exact docId wins over a DOI alias');
 assert.strictEqual(ref.findSourceDocIdForRefId('AES3.2022'), null, 'dated AES3.2022 must not roll back to AES3.2009');
 assert.strictEqual(ref.findSourceDocIdForRefId('DCI.DCSS.v1.2.2012'), 'DCI.DCSS.v1.2.2012-1010', 'dated ref resolves to the same-year edition');
 process.chdir(origCwd);
