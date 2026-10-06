@@ -98,7 +98,7 @@
     }
   },
   "skippedDocs": {
-    "totalSkipped": 24683,
+    "totalSkipped": 24682,
     "byPublisher": {
       "NOKIA BELL LABS": {
         "count": 2,
@@ -356,7 +356,7 @@
         ]
       },
       "SMPTE": {
-        "count": 24566,
+        "count": 24565,
         "docIds": [
           "10.5594-J00021",
           "10.5594-J00021C1",
@@ -24913,7 +24913,6 @@
           "978-1-61482-966-9-9",
           "SMPTE.AG27",
           "SMPTE.DOC-LIB",
-          "SMPTE.ECR1.1978",
           "SMPTE.EG428-23",
           "SMPTE.J107.9.603.815.1998",
           "SMPTE.PH22-52.1960",
@@ -196812,13 +196811,6 @@
             "category": "docType"
           },
           {
-            "docId": "SMPTE.ECR1.1978",
-            "reason": "UNKEYED",
-            "rule": "UNKEYED",
-            "ruleDetail": "noRegexMatch",
-            "category": "standard"
-          },
-          {
             "docId": "SMPTE.EG428-23",
             "reason": "FILTERED",
             "rule": "FILTERED",
@@ -197973,12 +197965,12 @@
     },
     "summaryByReason": {
       "FILTERED": 24682,
-      "UNKEYED": 1,
+      "UNKEYED": 0,
       "UNKNOWN": 0
     }
   },
   "flagSummary": {
-    "totalFlags": 654,
+    "totalFlags": 656,
     "byType": {
       "DOCID_PUBDATE_MISMATCH": {
         "count": 45,
@@ -198166,7 +198158,7 @@
         ]
       },
       "SUPERSEDED_BY_OUT_OF_LINEAGE": {
-        "count": 131,
+        "count": 132,
         "examples": [
           {
             "lineage": "AIM|BC|4|",
@@ -198581,6 +198573,10 @@
             "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:SMPTE.AG06-02.2021->SMPTE.AG06"
           },
           {
+            "lineage": "SMPTE|ECR|1|",
+            "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:SMPTE.ECR1.1978->SMPTE.EG1.1990"
+          },
+          {
             "lineage": "SMPTE|EG|9|",
             "flag": "SUPERSEDED_BY_OUT_OF_LINEAGE:SMPTE.EG9.2005->SMPTE.RP155.2014"
           },
@@ -198756,8 +198752,12 @@
         ]
       },
       "SMPTE_MISSING_RELEASE_TAG": {
-        "count": 432,
+        "count": 433,
         "examples": [
+          {
+            "lineage": "SMPTE|ECR|1|",
+            "flag": "SMPTE_MISSING_RELEASE_TAG:SMPTE.ECR1.1978"
+          },
           {
             "lineage": "SMPTE|EG|2|",
             "flag": "SMPTE_MISSING_RELEASE_TAG:SMPTE.EG2.1995"
@@ -199753,10 +199753,6 @@
           {
             "lineage": "SMPTE|ST|145|",
             "flag": "SMPTE_MISSING_RELEASE_TAG:SMPTE.ST145.1999"
-          },
-          {
-            "lineage": "SMPTE|ST|146|",
-            "flag": "SMPTE_MISSING_RELEASE_TAG:SMPTE.ST146.1996"
           }
         ]
       },
@@ -222036,6 +222032,48 @@
       "latestSupersededBaseId": null,
       "prevBaseId": null,
       "flagInconsistencies": [],
+      "counts": {
+        "bases": 1,
+        "amendments": 0,
+        "supplements": 0
+      }
+    },
+    {
+      "key": "SMPTE|ECR|1|",
+      "publisher": "SMPTE",
+      "type": "ECR",
+      "number": "1",
+      "part": null,
+      "suiteTitle": null,
+      "suiteTitleSource": null,
+      "docs": [
+        {
+          "docId": "SMPTE.ECR1.1978",
+          "publicationDate": "1978-01-01",
+          "releaseTag": null,
+          "statusActive": false,
+          "statusSuperseded": true,
+          "statusWithdrawn": false,
+          "statusStabilized": false,
+          "statusAmended": false,
+          "statusVersionless": false
+        }
+      ],
+      "latestBaseId": "SMPTE.ECR1.1978",
+      "latestAnyId": "SMPTE.ECR1.1978",
+      "latestDateKey": "19780101",
+      "latestAnyStatusWithdrawn": false,
+      "latestBaseStatusWithdrawn": false,
+      "hasActiveBase": false,
+      "hasWithdrawn": false,
+      "hasStabilized": false,
+      "latestActiveBaseId": null,
+      "latestSupersededBaseId": "SMPTE.ECR1.1978",
+      "prevBaseId": null,
+      "flagInconsistencies": [
+        "SUPERSEDED_BY_OUT_OF_LINEAGE:SMPTE.ECR1.1978->SMPTE.EG1.1990",
+        "SMPTE_MISSING_RELEASE_TAG:SMPTE.ECR1.1978"
+      ],
       "counts": {
         "bases": 1,
         "amendments": 0,
