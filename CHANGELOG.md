@@ -10,6 +10,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **`status.placeholder` and a placeholder banner (schema 2.8.0).** The flag marks an edition known to exist from evidence but not yet confirmed against the document: a later edition's "Revision of" line, citations, or earlier manual research. It's independent of `href`, since a copy may later come from the publisher, an archive or self-hosting. Flagged doc pages show a banner: "Placeholder record. This edition is known from evidence … but hasn't been confirmed against the document itself." `extract-manual` can set it, and a record's `metaSources` now set the provenance of status fields on update.
+- **Placeholders report from the MSI.** Every MSI build marks flagged editions in their lineage (`statusPlaceholder`, plus a lineage `counts.placeholders`) and writes `src/main/reports/masterSuiteIndex-placeholders.json` and `.md`. Together they are the list of placeholder editions still to be confirmed, by lineage, with their evidence and the edition that confirms them. Cited editions with no record at all stay with their `MISSING REF` issues.
+### Changed
+
+### Fixed
+
+## [v2.9.0] - 2026-10-06
+
+### Added
+
+- **317 SMPTE placeholder editions and `revisionOf` on 627 SMPTE documents, read from PDF front pages (#2373).** A SMPTE front page names the edition it replaces ("SMPTE 259M-2008 — Revision of SMPTE 259M-2006"). A scan of every PDF release on pub.smpte.org found 628 such lines.
+  - **Placeholders:** 317 named editions had no digital copy and weren't in the registry, so each is now a placeholder record. It has no `href`, is superseded by the edition that names it, and has a `statusNote` citing that document. One is the one-off Engineering Committee Report SMPTE ECR 1-1978.
+  - **`revisionOf`:** the 627 documents that name a predecessor now carry it. Before this, only 15 HTML releases did. Some links cross document families (ST 12-2 ← RP 188, ST 377-1 ← ST 377M).
+  - **Impact:** 91 of the 153 open SMPTE missing references now resolve (#2242). MSI lineages go from 1,446 to 1,454.
 - **New docType "Engineering Committee Report" (schema 2.7.0).** A one-off SMPTE designation (ECR), abbreviated "ECR" on the site. The only known instance is ECR 1-1978, revised by EG 1:1990.
 - **`src/main/scripts/extras/scanRevisionOf.js` reads a document's predecessor from its PDF front page.** A SMPTE front page names the edition it replaces ("SMPTE 259M-2008 — Revision of SMPTE 259M-2006"). The tool parses that line, including older RP/EG/RDD pages that omit "SMPTE" and lines that run on into the document's own designator, and maps the predecessor with `parseRefId`.
   - **Modes:** `--pdf <url|path>` reads one PDF, for manual extraction. `--docs` and `--all-smpte` scan registry documents through their pub.smpte.org release pages and write a JSON report. It never writes the registry.

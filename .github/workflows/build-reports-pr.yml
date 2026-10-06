@@ -56,6 +56,8 @@ env:
     src/main/reports/masterSuiteIndex.json
     src/main/reports/mri
     src/main/reports/mri_presence_audit.json
+    src/main/reports/masterSuiteIndex-placeholders.json
+    src/main/reports/masterSuiteIndex-placeholders.md
   COMMIT_SUBJECT: 'chore(reports): rebuild MSI/MRI'
 
 jobs:
@@ -235,5 +237,7 @@ jobs:
             src/main/reports/masterSuiteIndex.json
             src/main/reports/mri
             src/main/reports/mri_presence_audit.json
+            src/main/reports/masterSuiteIndex-placeholders.json
+            src/main/reports/masterSuiteIndex-placeholders.md
           labels: automated, reports, msi, mri
           delete-branch: true
