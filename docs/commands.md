@@ -84,11 +84,13 @@ This is the canonical CLI reference for local scripts in `package.json`.
     - `src/main/reports/masterSuiteIndex.json`
     - `src/main/reports/masterSuiteIndex-publisherCounts.json`
     - `src/main/reports/masterSuiteIndex-skippedDocs.json`
+    - `src/main/reports/masterSuiteIndex-placeholders.json` and `.md`: every edition flagged `status.placeholder` (known from evidence, not yet confirmed against the document), by lineage, with its evidence (front page or earlier research) and the edition that confirms it. Written on every MSI build; flagged records the MSI doesn't place in a lineage are listed separately.
   - Supported flags:
     - `--in <path>` (optional; defaults to the per-doc registry when omitted)
     - `--out <path>`
     - `--pub-out <path>`
     - `--skips-out <path>`
+    - `--placeholders-out <path>` (the `.md` is written next to it)
     - `--count-only`
     - `--separate-aux`
     - `--publisher-counts`

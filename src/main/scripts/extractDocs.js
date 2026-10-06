@@ -853,6 +853,7 @@ for (const doc of results) {
               'reaffirmDate',
               'unknown',
               'statusNote',
+              'placeholder',
               'errataExist',
               'supersededDate',
               'versionless'
@@ -860,7 +861,9 @@ for (const doc of results) {
             for (const field of statusFields) {
               if (newVal[field] !== undefined) {
                 const oldStatusVal = existingDoc.status[field];
-                const fieldSource = resolvedStatusFields.includes(field) ? 'resolved' : 'parsed';
+                // A manual record's own metaSources ("status.<field>") win over the default.
+                const declared = doc.status && doc.status.__metaSources && doc.status.__metaSources[field];
+                const fieldSource = declared || (resolvedStatusFields.includes(field) ? 'resolved' : 'parsed');
                 const res = updateFieldGuarded(existingDoc, `status.${field}`, newVal[field], { incomingSource: fieldSource, log: true });
                 if (res.updated) {
                   injectMeta(existingDoc.status, field, fieldSource, 'update', oldStatusVal);

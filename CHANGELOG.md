@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **`status.placeholder` and a placeholder banner (schema 2.8.0).** The flag marks an edition known to exist from evidence but not yet confirmed against the document: a later edition's "Revision of" line, citations, or earlier manual research. It's independent of `href`, since a copy may later come from the publisher, an archive or self-hosting. Flagged doc pages show a banner: "Placeholder record. This edition is known from evidence … but hasn't been confirmed against the document itself." `extract-manual` can set it, and a record's `metaSources` now set the provenance of status fields on update.
+- **Placeholders report from the MSI.** Every MSI build marks flagged editions in their lineage (`statusPlaceholder`, plus a lineage `counts.placeholders`) and writes `src/main/reports/masterSuiteIndex-placeholders.json` and `.md`. Together they are the list of placeholder editions still to be confirmed, by lineage, with their evidence and the edition that confirms them. Cited editions with no record at all stay with their `MISSING REF` issues.
 ### Changed
 
 ### Fixed
