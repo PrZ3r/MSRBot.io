@@ -1799,6 +1799,9 @@ function _titleOf(doc){
       else if(docType == "Advisory Note"){
         dTA = "AN"
       }
+      else if(docType == "Engineering Committee Report"){
+        dTA = "ECR"
+      }
       else if(docType == "Engineering Guideline"){
         dTA = "EG"
       }

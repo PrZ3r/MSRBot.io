@@ -942,7 +942,7 @@ function normalizeCiteTypography(text) {
   // Year colon with stray spaces: "RP 200 :2012", "ST 291–1: 2011"
   s = s.replace(/(\d)\s*:\s+((?:19|20)\d{2})\b/g, '$1:$2').replace(/(\d)\s+:\s*((?:19|20)\d{2})\b/g, '$1:$2');
   s = s.replace(/\bSMPTE\s*,\s*[«"\u201C]\s*(?=(?:ST|RP|RDD|EG)\s*\d)/g, 'SMPTE ')
-    .replace(/\bSMPTE\s+(ST|RP|RDD|EG|AG|OV)(?=\d)/g, 'SMPTE $1 ')
+    .replace(/\bSMPTE\s+(ST|RP|RDD|EG|AG|OV|ECR)(?=\d)/g, 'SMPTE $1 ')
     .replace(/\bSMPTE\s*\(\s*(?=\d{1,4}M\b)/g, 'SMPTE ');
   // UER (Union européenne de radio-télévision) is the EBU in French; "EBU-Tech 3341" → "EBU Tech 3341"
   s = s.replace(new RegExp(`\\bUER\\s*${D}\\s*(?=[RD]\\s*\\d|Tech)`, 'g'), 'EBU-')
@@ -1122,13 +1122,14 @@ function parseRefId(text, href = '', opts = {}) {
   const parts = String(text).split('|').map(p => p.trim());
   text = parts.find(p => /ISO\/IEC|ISO/.test(p)) || parts[0];
 
-  // SMPTE (ST/RP/RDD/EG/AG/OV), optional part, optional year[:YYYY or YYYY-MM]
+  // SMPTE (ST/RP/RDD/EG/AG/OV, and ECR: Engineering Committee Report, a one-off SMPTE
+  // designation), optional part, optional year[:YYYY or YYYY-MM]
   {
     // part is 1-3 digits NOT followed by another digit, so a hyphen-separated year
     // ("SMPTE EG 21-1993") is read as the year, not as part "1993"/"199". A dotted part
     // ("SMPTE ST 363.2-2002", "RP 27.3-1989") is a part; dotted *revisions* ("305.2M",
     // "210.4") are refMap entries, since the notation doesn't say which it is.
-    const smpteRe = /SMPTE\s+(ST|RP|RDD|EG|AG|OV)[\s\u00A0\u2010-\u2015\-]+(\d+[A-Za-z]?)(?:[-.](\d{1,3})(?!\d))?(?:[:\u2010-\u2015-]\s*(\d{4})(?:-(\d{2}))?)?/i;
+    const smpteRe = /SMPTE\s+(ST|RP|RDD|EG|AG|OV|ECR)[\s\u00A0\u2010-\u2015\-]+(\d+[A-Za-z]?)(?:[-.](\d{1,3})(?!\d))?(?:[:\u2010-\u2015-]\s*(\d{4})(?:-(\d{2}))?)?/i;
     const m = text.match(smpteRe);
     // A legacy designator earlier in the same cite ("SMPTE 326M …; … SMPTE RP204-2000") wins:
     // the first designator is the one being cited.

@@ -53,6 +53,7 @@ Mixed cases (several PDFs per document, language editions, annexes, consultation
 - **HTML:** read the saved page, including its `<head>` metadata (`<meta>`, JSON-LD, `og:` and `article:` tags) as well as the visible text. Copy each entry of its references section verbatim into `cite`. If the entry is a link, its URL goes in that citation's `href`; the parser reads it too (a DOI or W3C `/TR/` URL maps exactly), and an unmapped citation then renders as a clickable external link.
 - For a batch, parallel readers are fine, but give them the verbatim-only rules and own the records yourself.
 - Collect: label as printed, every printed date with its line, cover title, scope/"Objet" text, the references section verbatim, authoring body, version/supersedes notes.
+- **Predecessor (`revisionOf`):** read the front page's "Revision of" / "Supersedes" line. `node src/main/scripts/extras/scanRevisionOf.js --pdf <url|path>` prints it and the predecessor's refId, parsed with `parseRefId`. Older pages omit "SMPTE" ("Revision of RP 87-1995"), and only the first designator is the predecessor. Set `revisionOf` to that refId. If the predecessor isn't in the registry, propose a placeholder record for it (see `docs/manual-extraction.md` › Predecessors and placeholder records).
 - Dates: a printed "publiée/validée" line beats a header date beats the label year; an announcement's `datePublished` can fill a missing day. Record which in `metaNotes.publicationDate`.
 
 ### 3. Write the records file and preview the mapping
@@ -102,4 +103,4 @@ Docs added (docId, label, English title), fields left empty and why, references 
 - **Some publishers file errata under the same version prefix** (DCI's DCSS). Ranking by date then picks an errata sheet. Map the version to its specification record in `refMap.json`.
 - **Portals select by keyword** (`src/main/data/portals.json`: D-Cinema takes DCinema/DCP/…, Captions-Subtitles-Accessibility takes Accessibility/Captions/Subtitles/…). Choose controlled keywords so documents land in the right portals.
 - **Use `npm run extract-manual` for changes to already-added records too**: the update path records `originalValue` and `overridden`, and keeps the record's provenance.
-- Listing titles can be wrong; a "révision" means an earlier edition exists — don't link `revisionOf` unless you can identify it.
+- Listing titles can be wrong; a "révision" means an earlier edition exists. Don't link `revisionOf` unless you can identify it, ideally from the document's own "Revision of" line.
