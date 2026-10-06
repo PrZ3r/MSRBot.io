@@ -15,6 +15,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **Registry data cleanup from the SMPTE missing-ref audit (#2242).**
+  - **Renamed:** `CMR.ML` → `MOVIELABS.CMR`, the publisher-prefixed form, matching `MOVIELABS.BT709-HDR10.v1.0` (#2164).
+  - **Duplicate records merged into the one kept:**
+    - `SMPTE.RP27.3.1989` → `SMPTE.RP27-3.1989` and `SMPTE.RP27.4.1994` → `SMPTE.RP27-4.1994`. Dotted part numbers aren't the registry's numbering.
+    - `SMPTE.ST292-0.2011`, a Zoho duplicate, → the extractor's `SMPTE.OV292-0.2011`.
+  - **What a merge keeps:** each merge only adds the duplicate's fields (abstract, ISBN, ICS codes, approval date and so on) and takes its DOI, the form registered at doi.org. `RP27-4` keeps its parsed reference `ANSI.IT2.19.1990`, not the duplicate's hand-entered `NAPM.IT2.19.1994`.
+  - **Re-keyed citations:** 43 citations in 40 docs, all re-derived from their verbatim cites with `rekeyRefs.js` after the group C and D parser fixes. Each list keeps its prior value in `<type>$meta.originalValue`.
+  - **Notes:** `SMPTE.ST386.2004` and `SMPTE.ST387.2004` gain a `details` note. They cite "SMPTE 305.2M-2002", an edition that was probably never published (ST 305 went from 305.2M-2000 to ST 305:2005). The citation is kept as printed.
+
 ### Fixed
 
 - **Old SMPTE designators parse to the right id (#2242, group D).**
