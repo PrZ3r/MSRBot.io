@@ -72,8 +72,23 @@ const cases = [
   ['SMPTE 299-2009 — 24-Bit Digital Audio Format for SMPTE 292 Bit-Serial Interface', '', 'SMPTE.ST299-1.2009'],
   ['SMPTE RP 27.3-1989 — Specifications for Safe Action and Safe Title Area Test Pattern for Television Systems', '', 'SMPTE.RP27-3.1989'],
   ['[SMPTE RP 2242] — SMPTE Labels Register', '', 'SMPTE.RP224'],
+  // Group D decisions (#2242): bare ANSI/SMPTE numbers are standards; ".N" is a revision
+  // for ST 305 and RP 210, a part for ST 363 and RP 27
+  ['ANSI/SMPTE 40–1991, Motion-Picture Film (35-mm)-Photographic Audio Records-Release Prints', '', 'SMPTE.ST40.1991'],
+  ['ANSI/SMPTE 139–1986 (R1991), Motion-Picture Film (35-mm)-Perforated KS', '', 'SMPTE.ST139.1986'],
+  ['SMPTE 305.2M-2000 — Television — Serial Data Transport Interface (SDTI)', '', 'SMPTE.ST305.2000'],
+  ['SMPTE 305.2M-2002 — Television — Serial Data Transport Interface (SDTI)', '', 'SMPTE.ST305.2002'],
+  ['SMPTE 3052M-2000, Television — Serial Data Transport Interface (SDTI)', '', 'SMPTE.ST305.2000'],
+  ['SMPTE 210.4-2002 — Metadata Dictionary Registry of Metadata Element Descriptions', '', 'SMPTE.RP210.2002'],
+  ['SMPTE RP 210.1–2001 — Metadata Dictionary', '', 'SMPTE.RP210.2001'],
+  ['SMPTE ST 363.2-2002 — Television — Declarative Data Essence, Content Level 1 [Appendix D for JFIF]', '', 'SMPTE.ST363-2.2002'],
+  // En dash before the year; leading zeros (but AG ids are zero-padded)
+  ['2. SMPTE 292M– 1998 , “Bit-Serial Digital Interface for High-Definition Television”', '', 'SMPTE.ST292.1998'],
+  ['10) SMPTE 0352–2010, “Video Payload Identification Codes for Serial Digital Interfaces”', '', 'SMPTE.ST352.2010'],
+  ['12. SMPTE RDD 09-2009 MXF Interoperability Specification of Sony MPEG Long GOP Products', '', 'SMPTE.RDD9.2009'],
   // Must not change
-  ['SMPTE 305.2M-2000 — Television — Serial Data Transport Interface (SDTI)', '', 'SMPTE.ST305-2.2000'],
+  ['SMPTE AG-02', 'https://doc.smpte-doc.org/ag-02/main/', 'SMPTE.AG02'],
+  ['ANSI/SCTE 127 2007', '', 'SCTE.127.2007'],
   ['SMPTE ST 2067-21:2026-07', '', 'SMPTE.ST2067-21.2026-07'],
   ['ANSI/SMPTE 259M-1997', '', 'SMPTE.ST259.1997'],
   ['CEA-608-E (ANSI) (2008)', '', 'CEA.608.2008'],
