@@ -56,16 +56,35 @@ process.chdir(REPO_ROOT);
 
 const axios = require('axios');
 const { loadAllDocs, loadDoc } = require('../../lib/registry');
-const { parseRefId } = require('../../lib/referencing');
+const { parseRefId, findSourceDocIdForRefId } = require('../../lib/referencing');
 
 const argv = process.argv.slice(2);
 const arg = (f) => { const i = argv.indexOf(f); return i >= 0 && argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : null; };
 const PAGES = 3;
 
-// The predecessor designator: "SMPTE 259M-2006", "ANSI/SMPTE 244M-1995", "RP 87-1995",
-// "EG 22-1993", "RP 210.8-2004", "SMPTE ST 291:2010".
-const DESIGNATOR = /(?:ANSI\/)?(?:SMPTE\s+)?(?:ST|RP|EG|RDD|OV|AG)?\s*\d[\d.]*[A-Z]?(?:-\d{1,3})?\s*[-–:]\s*(?:19|20)\d{2}/;
+// A predecessor designator: "SMPTE 259M-2006", "ANSI/SMPTE 244M-1995", "RP 87-1995",
+// "EG 22-1993", "RP 210.8-2004", "SMPTE ST 291:2010". The number must not follow a letter, so
+// "AES3-1992" in running text is not read as SMPTE 3.
+const DESIGNATOR = /(?<![A-Za-z])(?:ANSI\/)?(?:SMPTE\s+)?(?:ST|RP|EG|RDD|OV|AG)?\s*\d[\d.]*[A-Z]?(?:-\d{1,3})?\s*[-–:]\s*(?:19|20)\d{2}/g;
 const PHRASE = /(Revision of|Supersedes|Replaces)\s*(.*)/;
+
+// Every predecessor named after the phrase ("SMPTE 12M-1999, RP 159-1995 and RP 164-1996"),
+// stopping at the document's own designator, which the line often runs on into. Its own
+// designator may be printed with a different year from its docId ("RP 86-1991" on
+// SMPTE.RP86.1990), so it also stops at anything that resolves to the document itself, and a
+// "predecessor" newer than the document is never one.
+const yearOf = (id) => +((String(id).match(/\.((?:19|20)\d{2})(?:-\d{2})?$/) || [])[1] || 0);
+function predecessorsIn(tail, selfDocId) {
+  const out = [];
+  for (const d of tail.match(DESIGNATOR) || []) {
+    const id = parseRefId(/SMPTE/.test(d) ? d : `SMPTE ${d.replace(/^ANSI\//, '')}`);
+    if (!id) continue;
+    if (selfDocId && (id === selfDocId || findSourceDocIdForRefId(id) === selfDocId)) break;
+    if (selfDocId && yearOf(id) > yearOf(selfDocId)) break;
+    if (!out.includes(id)) out.push(id);
+  }
+  return out;
+}
 
 async function pdfText(buf) {
   const { extractText, getDocumentProxy } = await import('unpdf');
@@ -74,8 +93,9 @@ async function pdfText(buf) {
   return text.slice(0, PAGES);
 }
 
-// Returns { phrase, line, predecessor } or null. `selfDocId` lets the "ANSI/SMPTE 1993" case
-// (number dropped by the PDF's text layer) fall back to the document's own number.
+// Returns { phrase, line, predecessor, predecessors } or null. `predecessor` is the first of
+// `predecessors`. `selfDocId` stops the list at the document's own designator, and lets the
+// "ANSI/SMPTE 1993" case (number dropped by the PDF's text layer) fall back to its own number.
 function findRevision(pages, selfDocId) {
   for (const page of pages) {
     const lines = String(page).split(/\n/).map((l) => l.trim()).filter(Boolean);
@@ -84,13 +104,11 @@ function findRevision(pages, selfDocId) {
       const m = lines[i].match(PHRASE);
       if (!m) continue;
       const tail = [m[2], ...lines.slice(i + 1, i + 3)].join(' ').trim();
-      const d = tail.match(DESIGNATOR);
-      let predecessor = null;
-      if (d) predecessor = parseRefId(/SMPTE/.test(d[0]) ? d[0] : `SMPTE ${d[0].replace(/^ANSI\//, '')}`);
-      if (!predecessor && selfDocId && /ANSI\/SMPTE\s+(?:19|20)\d{2}/.test(tail)) {
-        predecessor = `${selfDocId.replace(/\.\d{4}.*$/, '')}.${tail.match(/(?:19|20)\d{2}/)[0]}`;
+      const predecessors = predecessorsIn(tail, selfDocId);
+      if (!predecessors.length && selfDocId && /ANSI\/SMPTE\s+(?:19|20)\d{2}/.test(tail)) {
+        predecessors.push(`${selfDocId.replace(/\.\d{4}.*$/, '')}.${tail.match(/(?:19|20)\d{2}/)[0]}`);
       }
-      return { phrase: m[1], line: tail.slice(0, 160), predecessor };
+      return { phrase: m[1], line: tail.slice(0, 160), predecessor: predecessors[0] || null, predecessors };
     }
   }
   return null;

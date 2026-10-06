@@ -53,9 +53,19 @@ const cases = [
   [page('Revision of ANSI/SMPTE 17M-1992 SMPTE 17M-1998'), 'SMPTE.ST17.1998', 'SMPTE.ST17.1992'],
   // ST 247:2003: the PDF text layer dropped the number; fall back to the doc's own
   [page('Revision of ANSI/SMPTE 1993 Copyright © 2003 by THE SOCIETY OF'), 'SMPTE.ST247.2003', 'SMPTE.ST247.1993'],
+  // ST 428-3:2006: "AES3-1992" in running text is not SMPTE 3
+  [page('revision of AES3-1992) 3 Definition of terms Left: A loudspeaker position'), 'SMPTE.ST428-3.2006', null],
+  // RDD 44:2017: only its own designator follows the phrase
+  [page('Revision of', 'SMPTE RDD 44:2017 SMPTE REGISTERED DISCLOSURE DOCUMENT'), 'SMPTE.RDD44.2017', null],
   // A table-of-contents entry is not the revision line
   [page('Revision Notes ............................ 12', 'no predecessor here'), 'SMPTE.ST1.2000', null],
 ];
+
+// ST 12-1:2008 names three predecessors
+{
+  const hit = findRevision(page('Revision of SMPTE 12M-1999, RP 159-1995 and RP 164-1996SMPTE STANDARD'), 'SMPTE.ST12-1.2008');
+  assert.deepStrictEqual(hit.predecessors, ['SMPTE.ST12.1999', 'SMPTE.RP159.1995', 'SMPTE.RP164.1996']);
+}
 
 let failed = 0;
 for (const [pages, self, want] of cases) {

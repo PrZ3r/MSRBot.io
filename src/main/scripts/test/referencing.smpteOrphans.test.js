@@ -86,6 +86,9 @@ const cases = [
   ['2. SMPTE 292M– 1998 , “Bit-Serial Digital Interface for High-Definition Television”', '', 'SMPTE.ST292.1998'],
   ['10) SMPTE 0352–2010, “Video Payload Identification Codes for Serial Digital Interfaces”', '', 'SMPTE.ST352.2010'],
   ['12. SMPTE RDD 09-2009 MXF Interoperability Specification of Sony MPEG Long GOP Products', '', 'SMPTE.RDD9.2009'],
+  // ST 291-1:2011 revises "ST 291:2010"; a cite of "ST 291-1:2010" means that document
+  ['SMPTE ST 291-1:2010 — Ancillary Data Packet and Space Formatting', '', 'SMPTE.ST291.2010'],
+  ['SMPTE ST 291-1:2011 — Ancillary Data Packet and Space Formatting', '', 'SMPTE.ST291-1.2011'],
   // Must not change
   ['SMPTE AG-02', 'https://doc.smpte-doc.org/ag-02/main/', 'SMPTE.AG02'],
   ['ANSI/SCTE 127 2007', '', 'SCTE.127.2007'],
