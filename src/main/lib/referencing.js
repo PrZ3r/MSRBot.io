@@ -148,6 +148,7 @@ function _getDocsPath() {
 }
 let _docIdIndex = null; // Set<string> of docIds from the registry
 let _docBaseIndex = null; // Map<string base, string[]> of docIds by base
+let _doiAliasIndex = null; // Map<string SMPTE designation from DOI, string docId> where they differ
 const DATED_TAIL_RE = /\.(?:\d{8}|\d{4}(?:-\d{2}){0,2})$/; // .YYYY | .YYYY-MM | .YYYY-MM-DD | .YYYYMMDD
 
 // Strip a dated tail, unless what's left has no digits at all: in `ISO.8567`,
@@ -164,6 +165,7 @@ function _loadDocumentsIndex() {
   try {
     _docIdIndex = new Set();
     _docBaseIndex = new Map();
+    _doiAliasIndex = new Map();
 
     const addId = (id) => {
       if (!id || typeof id !== 'string') return;
@@ -180,11 +182,17 @@ function _loadDocumentsIndex() {
       if (d && typeof d === 'object') {
         if (typeof d.docId === 'string') addId(d.docId);
         if (typeof d.docBase === 'string') addId(d.docBase);
+        // SMPTE DOIs carry the designation printed on the document ("RP 86-1991"), while the
+        // docId uses the library release date (`SMPTE.RP86.1990`, released 1990-06-05,
+        // published 1991). Citations use the printed designation, so index it.
+        const doiId = typeof d.doi === 'string' && (d.doi.match(/^10\.5594\/(SMPTE\..+)$/) || [])[1];
+        if (doiId && doiId !== d.docId && typeof d.docId === 'string') _doiAliasIndex.set(doiId, d.docId);
       }
     }
   } catch {
     _docIdIndex = new Set();
     _docBaseIndex = new Map();
+    _doiAliasIndex = new Map();
   }
   return _docIdIndex;
 }
@@ -222,6 +230,9 @@ function _findSourceDocIdForRefId(refId) {
   const id = String(refId);
   // 1) exact id present
   if (_docIdIndex && _docIdIndex.has(id)) return id;
+  // 1b) the SMPTE designation registered as a doc's DOI (`SMPTE.RP86.1991` → `SMPTE.RP86.1990`).
+  // Same document, not another edition. An exact docId always wins over a DOI alias.
+  if (_doiAliasIndex && _doiAliasIndex.has(id)) return _doiAliasIndex.get(id);
   // 2) base match: choose the latest dated docId for the same base
   const base = _stripDatedTail(id);
   let arr = _docBaseIndex ? _docBaseIndex.get(base) : null;
@@ -281,6 +292,7 @@ function _hasDocIdOrBase(id) {
 function reloadDocumentsIndex() {
   _docIdIndex = null;
   _docBaseIndex = null;
+  _doiAliasIndex = null;
   return _loadDocumentsIndex();
 }
 
