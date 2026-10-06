@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **`src/main/scripts/extras/rekeyRefs.js` re-keys stored citations after a parser fix.** Citations written by earlier runs or one-off backfills keep the refId the parser produced at the time. `--refs A,B` re-parses each citing doc's verbatim cite (from the MRI sightings) and replaces the stored refId when the result differs. `--rename OLD=NEW` handles citations with no cite text, e.g. after a registry merge. Dry run by default; `--apply` writes, recording the prior list in `<type>$meta.originalValue`.
 - **CTA, ICC, W3C author-date and GitHub citations parse.** New parser families read CTA designators ("CTA 861-G", "ANSI/CTA-608-E S-2019" → `CTA.608-ES.2019`), ICC specifications ("Specification ICC.1:2022" or a color.org `ICC.1-2022` link → `ICC.1.2022`) and W3C author-date cites ("World Wide Web Consortium (W3C) (2004, October 28). XML Schema Part 1: …" → `W3C.xmlschema-1.20041028`). A cite with no other match whose link is a GitHub repository root becomes `GITHUB.<owner>.<repo>`. New refMap entries cover Kakadu (`KAKADUSOFTWARE.COM`), OpenJPEG (`OPENJPEG.ORG`) and the MovieLabs BT.709-to-HDR10 best practice (`MOVIELABS.BT709-HDR10.v1.0`). These are the seven citations from ST 2067-21:2026-07 and ST 2094-50:2026-08 that were left unparsed. Across the 49,925 distinct citations in the MRI, 24 more now parse, with none lost or changed.
 
 ### Changed
