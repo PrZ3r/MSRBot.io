@@ -63,9 +63,10 @@ const arg = (f) => { const i = argv.indexOf(f); return i >= 0 && argv[i + 1] && 
 const PAGES = 3;
 
 // A predecessor designator: "SMPTE 259M-2006", "ANSI/SMPTE 244M-1995", "RP 87-1995",
-// "EG 22-1993", "RP 210.8-2004", "SMPTE ST 291:2010". The number must not follow a letter, so
-// "AES3-1992" in running text is not read as SMPTE 3.
-const DESIGNATOR = /(?<![A-Za-z])(?:ANSI\/)?(?:SMPTE\s+)?(?:ST|RP|EG|RDD|OV|AG)?\s*\d[\d.]*[A-Z]?(?:-\d{1,3})?\s*[-–:]\s*(?:19|20)\d{2}/g;
+// "EG 22-1993", "RP 210.8-2004", "SMPTE ST 291:2010", "ECR 1-1978" (Engineering Committee
+// Recommendation, the predecessor of EGs). The number must not follow a letter, so "AES3-1992"
+// in running text is not read as SMPTE 3.
+const DESIGNATOR = /(?<![A-Za-z])(?:ANSI\/)?(?:SMPTE\s+)?(?:ST|RP|EG|RDD|OV|AG|ECR)?\s*\d[\d.]*[A-Z]?(?:-\d{1,3})?\s*[-–:]\s*(?:19|20)\d{2}/g;
 const PHRASE = /(Revision of|Supersedes|Replaces)\s*(.*)/;
 
 // Every predecessor named after the phrase ("SMPTE 12M-1999, RP 159-1995 and RP 164-1996"),
@@ -76,7 +77,13 @@ const PHRASE = /(Revision of|Supersedes|Replaces)\s*(.*)/;
 const yearOf = (id) => +((String(id).match(/\.((?:19|20)\d{2})(?:-\d{2})?$/) || [])[1] || 0);
 function predecessorsIn(tail, selfDocId) {
   const out = [];
-  for (const d of tail.match(DESIGNATOR) || []) {
+  for (const m of tail.matchAll(DESIGNATOR)) {
+    const d = m[0].trim();
+    // A bare number right after a word the tool doesn't know ("XYZ 1-1978") belongs to that
+    // word, not to SMPTE: skip it rather than read it as a SMPTE standard.
+    const before = tail.slice(0, m.index + (m[0].length - m[0].trimStart().length)).match(/([A-Za-z]+)\s*$/);
+    // A word ending in SMPTE is still SMPTE: text layers mangle "ANSI/SMPTE" into "ANSMPTE".
+    if (/^\d/.test(d) && before && !/^(of|and|or|ANSI)$/i.test(before[1]) && !/SMPTE$/i.test(before[1])) continue;
     const id = parseRefId(/SMPTE/.test(d) ? d : `SMPTE ${d.replace(/^ANSI\//, '')}`);
     if (!id) continue;
     if (selfDocId && (id === selfDocId || findSourceDocIdForRefId(id) === selfDocId)) break;

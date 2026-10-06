@@ -57,6 +57,12 @@ const cases = [
   [page('revision of AES3-1992) 3 Definition of terms Left: A loudspeaker position'), 'SMPTE.ST428-3.2006', null],
   // RDD 44:2017: only its own designator follows the phrase
   [page('Revision of', 'SMPTE RDD 44:2017 SMPTE REGISTERED DISCLOSURE DOCUMENT'), 'SMPTE.RDD44.2017', null],
+  // EG 1:1990: an ECR predecessor (not SMPTE ST 1)
+  [page('Revision of ECR 1-1978 EG 1-1990 SMPTE ENGINEERING GUIDELINE'), 'SMPTE.EG1.1990', 'SMPTE.ECR1.1978'],
+  // ST 97:2004: text layer mangled "ANSI/SMPTE" into "ANSMPTE"
+  [page('Revision of ANSMPTE 97-1999 Copyright © 2004 by THE SOCIETY OF'), 'SMPTE.ST97.2004', 'SMPTE.ST97.1999'],
+  // An unknown prefix before a bare number is not a SMPTE standard
+  [page('Revision of XYZ 4-1980 SMPTE STANDARD'), 'SMPTE.ST9.1990', null],
   // A table-of-contents entry is not the revision line
   [page('Revision Notes ............................ 12', 'no predecessor here'), 'SMPTE.ST1.2000', null],
 ];
