@@ -59,6 +59,23 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
    - use the PR template;
    - include a provenance table and a citation mapping table.
 
+## Predecessors and placeholder records
+
+A document's front page often names the edition it replaces: "SMPTE 259M-2008 — Revision of SMPTE 259M-2006". Record it as `revisionOf`.
+
+- **Reading it:** `node src/main/scripts/extras/scanRevisionOf.js --pdf <url|path>` prints the line and the predecessor's refId, parsed with `parseRefId`. It reads pages 1–3.
+  - Older RP/EG/RDD pages leave out "SMPTE" ("Revision of RP 87-1995"); the tool handles that.
+  - The extracted line often runs on into the document's own designator; only the first designator counts.
+- **Bulk:** `--docs A,B,…` or `--all-smpte` scans registry documents through their pub.smpte.org release pages, and `--out <file>` writes a JSON report. The tool only reads; it never writes the registry.
+- **Predecessor not in the registry:** if it's an edition with no digital copy, it can be added as a **placeholder record** so the lineage is complete and citations of it resolve:
+  - `docId`, `docLabel`, `docTitle`, `docType` and `publisher` (the required fields).
+  - `publicationDate` padded from the year, with a `metaNotes` entry saying so.
+  - **No `href`.** A missing link is how the registry says there is no copy.
+  - `status`: `active: false`, `latestVersion: false`, `superseded: true`, `supersededBy: [<the document that names it>]`.
+  - A `statusNote` naming the confirming document, e.g. "No digital copy available. This edition is confirmed by the 'Revision of' line in SMPTE ST 259:2008."
+  - `sourceUrl`: the confirming PDF. Set `metaSources` for every field to `inferred`.
+  - In the same records file, update the successor with `revisionOf: [<placeholder docId>]`.
+
 ## Records file
 
 ```json
