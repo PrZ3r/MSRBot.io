@@ -33,6 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **ECR documents key into the MSI.** The SMPTE keying pattern didn't include the new ECR type, so `SMPTE.ECR1.1978` was filed as UNKEYED (#2374). It now has its own lineage.
 - **Old SMPTE designators parse to the right id (#2242, group D).**
   - **Bare ANSI/SMPTE numbers:** "ANSI/SMPTE 40–1991" was caught by the ANSI co-designation rule and lost its type (`SMPTE.40.1991`). It is now `SMPTE.ST40.1991`.
   - **En and em dashes before the year:** "SMPTE 292M– 1998" and "SMPTE 2021–2008" are now read with their year. Before, the year was dropped (or the cite didn't parse), so the undated ref silently resolved to the newest edition.
