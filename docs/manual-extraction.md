@@ -71,7 +71,7 @@ A document's front page often names the edition it replaces: "SMPTE 259M-2008 â€
   - `docId`, `docLabel`, `docTitle`, `docType` and `publisher` (the required fields).
   - `publicationDate` padded from the year, with a `metaNotes` entry saying so.
   - **No `href`.** A missing link is how the registry says there is no copy.
-  - `status`: `active: false`, `latestVersion: false`, `superseded: true`, `supersededBy: [<the document that names it>]`.
+  - `status`: `active: false`, `latestVersion: false`, `superseded: true`, `supersededBy: [<every document that names it>]`. Several documents can revise one, and one document can revise several (as in IETF), so both lists can hold more than one entry.
   - A `statusNote` naming the confirming document, e.g. "No digital copy available. This edition is confirmed by the 'Revision of' line in SMPTE ST 259:2008."
   - `sourceUrl`: the confirming PDF. Set `metaSources` for every field to `inferred`.
   - In the same records file, update the successor with `revisionOf: [<placeholder docId>]`.
