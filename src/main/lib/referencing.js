@@ -1012,6 +1012,7 @@ function normalizePublisherLeadIn(text) {
     .replace(/\bI?IS[O0]\s*\/\s*IEC\b/g, 'ISO/IEC')                // source typos "IISO/IEC", "IS0/IEC"
     .replace(/([A-Za-z0-9.])\s*[\u2013\u2014]\s*(\d)/g, '$1-$2')     // "BT.2100–2", "2059–1"
     .replace(/^SMPTE\s*,\s*/, 'SMPTE ')
+    .replace(/^EBU\s+Tech(?:nical)?\.?\s+Doc(?:ument)?\.?\s+(?=\d)/i, 'EBU Tech ')   // "EBU Technical Document 3344"
     // Spelled-out document type: "SMPTE Recommended Practice 168", "SMPTE Standard 2084"
     .replace(/^SMPTE\s+(Standard|Recommended Practice|Engineering Guideline)\s+(?=\d)/,
       (_, t) => `SMPTE ${{ Standard: 'ST', 'Recommended Practice': 'RP', 'Engineering Guideline': 'EG' }[t]} `)

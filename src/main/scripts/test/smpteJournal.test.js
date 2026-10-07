@@ -117,8 +117,9 @@ eq(pdfReferenceEntries([
 eq(pdfReferenceEntries.lastMode, 'numbered', 'mode: numbered');
 eq(pdfReferenceEntries(['RefeRences\n1. A, “One,” 2015.\n2. B, “Two,” 2015.Ann Lee has worked in broadcast for 20 years.']),
   ['A, “One,” 2015.', 'B, “Two,” 2015.'], 'small-caps heading; glued-on bio trimmed');
-eq(pdfReferenceEntries(['Bibliography\ni. A, “One,” 2015.\nii. B, “Two,” 2015.\nOther Sources\nC, “Not a ref,” 2015.']),
-  ['A, “One,” 2015.', 'B, “Two,” 2015.'], 'roman-numbered list ends at "Other Sources"');
+eq(pdfReferenceEntries(['Bibliography\ni. A, “One,” 2015.\nii. B, “Two,” 2015.\nOther Sources\nCole, Carl, “Three,” Videonet.\nDecember 11, 2013.\nDee, Dan, “Four,” 2014.']),
+  ['A, “One,” 2015.', 'B, “Two,” 2015.', 'Cole, Carl, “Three,” Videonet. December 11, 2013.', 'Dee, Dan, “Four,” 2014.'],
+  'roman-numbered list, then its "Other Sources" list appended (a wrapped date stays with its entry)');
 eq(pdfReferenceEntries(['Bibliography\nSMPTE, “Some Standard Title Here,” 2015.\nJones, A., “A paper title that\nwraps,” 2014.']),
   ['SMPTE, “Some Standard Title Here,” 2015.', 'Jones, A., “A paper title that wraps,” 2014.'], 'unnumbered bibliography split at citation starts');
 eq(pdfReferenceEntries.lastMode, 'unnumbered', 'mode: unnumbered');

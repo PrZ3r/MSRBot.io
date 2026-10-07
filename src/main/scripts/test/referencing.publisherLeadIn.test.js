@@ -61,6 +61,7 @@ const cases = [
   // Spelled-out SMPTE document type
   ['SMPTE Recommended Practice 168, ', 'SMPTE.RP168'],
   ['SMPTE Standard 2084:2014, ', 'SMPTE.ST2084.2014'],
+  ['EBU Technical Document 3344, 2011', 'EBU.Tech3344.2011'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }

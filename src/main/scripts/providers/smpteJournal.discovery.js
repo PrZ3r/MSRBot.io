@@ -45,6 +45,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                    <publication> records, 2015–2023): references only, parsed
  *                    from the paper's PDF in the same folder, for papers that
  *                    have none yet. Metadata for those papers is never touched.
+ *   --crossref-fill  with --pdf-refs: where the PDF parse finds fewer references
+ *                    than Crossref lists for the DOI, add Crossref's unmatched
+ *                    entries (the maintainer's exception to "Crossref is a check,
+ *                    never a source"; each is marked mapSource crossref-fill).
  *
  * With no readable local source — the path is missing, holds no papers, or
  * holds only Dropbox online-only placeholders (0-byte files) — discovery
@@ -86,6 +90,7 @@ function createSmpteJournalDiscovery({ sourcePath, fromYear, toYear, pdfRefs } =
   const from = Number(fromYear || argValue('--from') || DEFAULT_FROM);
   const to = Number(toYear || argValue('--to') || 9999);
   const withPdfRefs = pdfRefs !== undefined ? !!pdfRefs : process.argv.includes('--pdf-refs');
+  const crossrefFill = withPdfRefs && process.argv.includes('--crossref-fill');
   let primaries = null; // [{ file, docType, kind: 'content_batch' | 'pdf-refs', pdf? }]
 
   // content_batch primaries from `from` onward; 0-byte files counted separately.
@@ -145,6 +150,7 @@ function createSmpteJournalDiscovery({ sourcePath, fromYear, toYear, pdfRefs } =
   return {
     source,
     from,
+    crossrefFill,
     discoverFromRootDocPage,
     normalizeSeedUrl: (u) => u,
     shouldFilterUrl: () => false,

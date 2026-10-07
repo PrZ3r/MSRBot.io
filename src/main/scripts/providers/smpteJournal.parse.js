@@ -257,7 +257,8 @@ function unnumberedEntries(lines) {
   let prevClosed = true;
   for (const line of lines) {
     const opens = /^(?:[A-Z][A-Za-z'’.-]+(?:,|\s)|[A-Z]{2,}|“|")/.test(line)
-      && !/^(?:Retrieved|Available|Accessed|Web\.|\[Online\])/.test(line);
+      && !/^(?:Retrieved|Available|Accessed|Web\.|\[Online\])/.test(line)
+      && !/^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d/.test(line); // a wrapped date
     if (!out.length || (prevClosed && opens && out[out.length - 1].length > 25)) out.push(line);
     else out[out.length - 1] = joinWrapped(out[out.length - 1], line);
     // "Ranjan, A., … (2019)." — APA: the title follows on the next line.
@@ -312,20 +313,29 @@ function pdfReferenceEntries(pages) {
     const plain = entries.length ? [] : unnumberedEntries(strict.plain);
     if (loose.length > entries.length && loose.length >= plain.length) { entries = loose; pdfReferenceEntries.lastMode = 'loose'; }
     else if (plain.length > entries.length) {
-      // Body text set after an unnumbered bibliography (a closing section in
-      // the next column) reads as entries: drop a trailing run with no year or URL.
-      let end = plain.length;
-      while (end > 0 && !/(?:19|20)\d{2}(?!\d)|https?:|www\./.test(plain[end - 1])) end--;
-      entries = plain.slice(0, end);
+      entries = trimProse(plain);
       pdfReferenceEntries.lastMode = 'unnumbered';
     }
   }
+  // A second, unnumbered list after the main one ("Other Sources",
+  // "Additional References") is part of the references: appended in order.
+  if (strict.supp.length) entries = entries.concat(trimProse(unnumberedEntries(strict.supp)));
   return entries.map(cleanPdfEntry).filter((e) => e.length > 3);
+}
+
+// Body text set after an unnumbered bibliography (a closing section in the
+// next column) reads as entries: drop a trailing run with no year or URL.
+function trimProse(list) {
+  let end = list.length;
+  while (end > 0 && !/(?:19|20)\d{2}(?!\d)|https?:|www\./.test(list[end - 1])) end--;
+  return list.slice(0, end);
 }
 
 function collectPdfEntries(list, h, loose) {
   const blocks = []; // { n, pre, text }
   const plain = [];  // post-heading lines, for the unnumbered fallback
+  const supp = [];   // lines of a supplementary list ("Other Sources")
+  let inSupp = false;
   let cur = null;
   let stopped = false;
   let plainStopped = false;
@@ -342,8 +352,11 @@ function collectPdfEntries(list, h, loose) {
         .replace(/\s*The authors are solely responsible for the content of this technical presentation[\s\S]*?(?:\(SMPTE®?\)|$)\s*/g, ' ')
         .trim();
       if (!line) continue;
-      if (REF_STOP.test(line) || /^Other Sources$/i.test(line)) { cur = null; stopped = true; if (!pre) plainStopped = true; continue; }
+      if (REF_STOP.test(line)) { cur = null; stopped = true; inSupp = false; if (!pre) plainStopped = true; continue; }
       if (isPageNoise(line) || REF_HEAD.test(`\n${line}\n`)) { cur = null; continue; }
+      const sh = !pre && line.match(/^(?:Other Sources|Additional References)\s*:?\s*(.*)$/i);
+      if (sh) { cur = null; stopped = true; inSupp = true; plainStopped = true; if (sh[1]) supp.push(sh[1]); continue; }
+      if (inSupp) { supp.push(line); continue; }
       if (!pre && !plainStopped) plain.push(line);
       // Loose: entries run together on one line ("… Overview [2]SMPTE …", "… • Digital …").
       for (const part of loose ? line.split(/\s+(?=\[\s*\d{1,3}\s*\]|[•▪●◦]\s)/) : [line]) {
@@ -362,7 +375,7 @@ function collectPdfEntries(list, h, loose) {
     const pool = c.some((b) => !b.pre) ? c.filter((b) => !b.pre) : c;
     entries.push(pool.reduce((a, b) => (b.text.length > a.text.length ? b : a)).text);
   }
-  return { entries, plain };
+  return { entries, plain, supp };
 }
 
 // Conference papers repeat SMPTE's disclaimer footer on every page; an
@@ -415,6 +428,16 @@ function mergeAuthors(existingList, extracted) {
 
 // ---- parser ---------------------------------------------------------------
 // Title compare key: case, punctuation and spacing ignored.
+// Share of the shorter text's words (4+ letters) found in the other.
+function tokenOverlap(a, b) {
+  const toks = (s) => new Set(String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').split(' ').filter((w) => w.length > 3));
+  const A = toks(a), B = toks(b);
+  if (!A.size || !B.size) return 0;
+  let i = 0;
+  for (const w of A) if (B.has(w)) i++;
+  return i / Math.min(A.size, B.size);
+}
+
 function titleKey(t) {
   return String(t || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, ' ').trim();
 }
@@ -608,7 +631,8 @@ function createSmpteJournalParser({ discovery }) {
   }
 
   // Crossref's reference count for a DOI: a cross-check only (never a source).
-  async function crossrefCount(doi) {
+  // A DOI's Crossref record (message), or null.
+  async function crossrefWork(doi) {
     try {
       const res = await fetch(`https://api.crossref.org/works/${encodeURIComponent(doi)}`, {
         headers: { 'User-Agent': 'MSRBot.io (https://github.com/PrZ3r/MSRBot.io)' },
@@ -616,9 +640,55 @@ function createSmpteJournalParser({ discovery }) {
       });
       if (!res.ok) return null;
       const j = await res.json();
-      const n = j && j.message && (j.message['references-count'] ?? j.message['reference-count']);
-      return Number.isInteger(n) ? n : null;
+      return (j && j.message) || null;
     } catch { return null; }
+  }
+  const crossrefCount = (w) => {
+    const n = w && (w['references-count'] ?? w['reference-count']);
+    return Number.isInteger(n) ? n : null;
+  };
+
+  // --crossref-fill (the maintainer's call, for papers whose PDF parse falls
+  // short of Crossref's list): Crossref entries with no match among the parsed
+  // citations. Matched by DOI (in our text, or resolving to a doc already
+  // cited), by text, or — for a DOI-only entry — by the DOI's title. Empty
+  // entries are skipped. More candidates than the gap → ambiguous, none taken.
+  async function crossrefFill(work, cites, out, gap) {
+    const seen = new Set();
+    const cands = [];
+    for (const r of (work && work.reference) || []) {
+      const doi = String(r.DOI || '').trim();
+      let text = decodeEntities(String(r.unstructured || [r.author, r['article-title'], r['journal-title'] || r['volume-title'] || r['series-title'], r.year].filter(Boolean).join(', ')))
+        .replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+        .replace(/,\s*0$/, '')                      // Crossref's empty year
+        .replace(/\?([^?]+?)\s?\?(?=,|$)/, '“$1”')    // garbled quotes: "?Call for Evidence ?"
+        .replace(/\s\?\s/g, ' – ');                  // garbled dash: "Environment ? CAVE"
+      if (!/[A-Za-z]{3}/.test(text)) text = '';
+      if (!text && !doi) continue;
+      const key = doi ? doi.toLowerCase() : titleKey(text);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      if (doi && cites.some((c) => c.toLowerCase().includes(doi.toLowerCase()))) continue;
+      const viaDoi = doi && resolvePdfCite(`doi: ${doi}`);
+      if (viaDoi && viaDoi.refId && out.includes(viaDoi.refId)) continue;
+      let probe = text;
+      if (!probe && doi) {
+        const w = await crossrefWork(doi);
+        const t = w && [].concat(w.title || [])[0];
+        if (t) {
+          const who = (w.author || []).slice(0, 3).map((a) => [a.given, a.family].filter(Boolean).join(' ')).join(', ');
+          const year = ((w.issued || {})['date-parts'] || [[]])[0][0];
+          text = decodeEntities(`${who ? `${who}, ` : ''}“${t},” ${[].concat(w['container-title'] || [])[0] || w.publisher || ''}${year ? `, ${year}` : ''}. doi: ${doi}`)
+            .replace(/<[^>]+>/g, '').replace(/ ,/g, ',');
+          probe = t;
+        } else text = `doi: ${doi}`;
+      }
+      if (probe && cites.some((c) => tokenOverlap(c, probe) >= 0.6)) continue;
+      cands.push({ doi, text });
+    }
+    if (!cands.length) return { added: [], skipped: null };
+    if (cands.length > gap) return { added: [], skipped: `${cands.length} unmatched Crossref entries for ${gap} missing; ambiguous, none added` };
+    return { added: cands, skipped: null };
   }
 
   async function extractPdfRefs(p) {
@@ -666,23 +736,50 @@ function createSmpteJournalParser({ discovery }) {
     }
     if (!out.length) return [];
 
-    const cr = await crossrefCount(doi);
+    const work = await crossrefWork(doi);
+    const cr = crossrefCount(work);
+    let fill = null;
+    if (discovery.crossrefFill && cr !== null && cr > cites.length) {
+      fill = await crossrefFill(work, cites, out, cr - cites.length);
+      for (const c of fill.added) {
+        let r = c.doi ? resolvePdfCite(`${c.text} doi: ${c.doi}`) : resolvePdfCite(c.text);
+        // Crossref lowercases some entries ("itu-r bs 1864, 2010"): retry for the designator.
+        if (!r.refId && c.text === c.text.toLowerCase()) {
+          const id = parseCiteDesignator(c.text.toUpperCase(), { isRegistryDoc: (x) => ctx.docIds.has(x) });
+          if (id) r = { refId: id, via: 'leading-designator' };
+        }
+        const sight = {
+          docId, type: 'bibliographic', cite: c.text, href: c.doi ? `https://doi.org/${c.doi}` : pdfCiteHref(c.text), rawRef: c.text,
+          title: pdfCiteTitle(c.text), mapSource: 'crossref-fill', mapDetail: r.via,
+        };
+        if (r.refId && r.refId !== docId) {
+          mriRecordSighting({ ...sight, refId: r.refId });
+          if (!out.includes(r.refId)) out.push(r.refId);
+        } else if (!r.refId) {
+          const mint = mriRecordSighting(sight);
+          if (mint && mint.mintedSlug && !out.includes(mint.mintedSlug)) out.push(mint.mintedSlug);
+        }
+      }
+    }
     const where = path.relative(discovery.source, p.pdf);
     const check = cr === null
       ? 'Crossref cross-check unavailable for this DOI.'
       : `Cross-check: Crossref lists ${cr} reference(s) for this DOI; ${cites.length} parsed from the PDF.`;
     const note = `References parsed from the published PDF (${where})${mode === 'unnumbered' ? ', unnumbered bibliography' : ''}. `
       + "SMPTE's library delivery has no reference file or full text for this paper "
-      + '(src/main/reports/smpte-upstream/referenceFilesTruthTable.md). ' + check;
+      + '(src/main/reports/smpte-upstream/referenceFilesTruthTable.md). ' + check
+      + (fill && fill.added.length ? ` Crossref fill: ${fill.added.length} reference(s) the PDF parse missed were added from Crossref's list for this DOI (MRI mapSource crossref-fill), at the maintainer's direction.` : '')
+      + (fill && fill.skipped ? ` Crossref fill skipped: ${fill.skipped}.` : '');
+    const total = cites.length + (fill ? fill.added.length : 0);
 
     const doc = { docId, references: { bibliographic: out } };
     if (prev.normative) doc.references.normative = prev.normative;
     Object.defineProperty(doc, '__sourceUrl', { value: undefined, enumerable: false, configurable: true, writable: true });
     Object.defineProperty(doc, '__metaNotes', { value: { 'references.bibliographic': note }, enumerable: false, configurable: true, writable: true });
-    const mismatch = cr !== null && cr !== cites.length;
+    const mismatch = cr !== null && cr !== total;
     if (mismatch || mode === 'unnumbered') {
       const flag = mismatch
-        ? `PDF reference count (${cites.length}) differs from Crossref (${cr}); check the parse against the PDF`
+        ? `Reference count (${total}${fill && fill.added.length ? `, ${fill.added.length} from Crossref` : ''}) differs from Crossref (${cr}); check the parse against the PDF`
         : 'Unnumbered bibliography split by line heuristics; check entry boundaries against the PDF';
       Object.defineProperty(doc, '__metaFlags', { value: { 'references.bibliographic': { reviewRequired: true, flag } }, enumerable: false, configurable: true, writable: true });
     }
