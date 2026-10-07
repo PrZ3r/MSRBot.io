@@ -1,0 +1,220 @@
+{
+  "abstract": "LTO tape Systems, SAN, NAS, Object Store, RAM, and WAN Optimizers all have configurations available to protect the fidelity of image contents in the workflow. Each system has different methods to ensure that frames contents aren't corrupted, and each method protects against a variety of different failure conditions. And yet, unrecoverable frame corruption still occurs at an unacceptable level. This problem is even more serious in an archive scenario, where content may sit untouched for a long duration, and with the corruption staying undetected for extended periods of time. Media and Entertainment workflows rely solely on the protections provided by the underlying compute, storage, and transmission technologies to ensure the fidelity of the data in the workflow. These protections are very difficult to fully characterize and track, because the technologies are generally deployed deep in the hardware or at the lowest software levels of the IT infrastructure. Depending on the path a frame takes through the workflow, it will be treated to a varying set of protection technologies, like RAID, erasure coding, ECC Memory, and parity checking. To overcome the uncertainty of associated with how these methods ensure fidelity, the industry employs failure detection at each stage of the workflow (generally MD5 checksums). When a corrupt image is detected, the entire file must be restored from a backup copy. This approach is very expensive and introduces significant delays in the production when errors occur. This paper will explore the IT technology utilized in the workflow, and discuss the protection mechanisms provided or employed by each workflow element. In this context, the paper will discuss how frame corruption can occur, even when all of the protection technologies are working as designed. The paper will also discuss a method for providing protection to images at the frame level using Forward Error Correction, such that there is uniformity of protection for images applied throughout the workflow, and such that media errors may be recovered in most cases without having to access a backup copy.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "authors": [
+    {
+      "affiliation": "Pixspan, Inc.",
+      "name": "Keith R. Hogan"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "contentType": "orig-research",
+  "contentType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "copyright": {
+    "holder": "Society of Motion Picture and Television Engineers, Inc.",
+    "holder$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "year": "2017",
+    "year$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "copyright$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docId": "10.5594-M001797",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docLabel": "SMPTE Meetings and Conferences ( October 2017)",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docTitle": "Exploring Image Corruption in the Workflow, and how to Stop this from Happening",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docType": "Conference Paper",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "doi": "10.5594/M001797",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "href": "https://doi.org/10.5594/M001797",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "isbn": {
+    "print": "978-1-61482-959-1",
+    "print$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "isbn$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "keywords": [
+    "Data Corruption",
+    "Forward Error Correction",
+    "Storage",
+    "Archive",
+    "SSDs",
+    "Object Storage",
+    "SAN",
+    "NAS",
+    "ECC",
+    "RAID",
+    "Erasure Coding",
+    "Raster",
+    "Metadata",
+    "MD5",
+    "Hash Function"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "number": "10",
+  "number$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "pages": "1–21",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publicationDate": "2017-10-23",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisher": "SMPTE",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisherLocation": {
+    "city": "White Plains, NY",
+    "city$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "country": "USA",
+    "country$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "publisherLocation$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "volume": "2017",
+  "volume$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281429.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  }
+}

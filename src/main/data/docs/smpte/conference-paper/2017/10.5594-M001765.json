@@ -1,0 +1,216 @@
+{
+  "abstract": "Programmable data plane pipelines are now available in line rate packet processors implemented in commercially-available Ethernet switches. This development can provide useful functionality for professional media IP networks. Programmable data plane technology enables a more flexible method of controlling packet processing than previous fixed-function software defined networking (SDN) methodologies. The packet processor parser can be programmed to extract any header desired, and match+action tables based on those headers can be more complex than in nonprogrammable switching solutions. An application of this technology is the ability for an Ethernet switch to parse the RTP timestamp field for frame-accurate video switching of SMPTE ST 2110-20 video flows. Another application is enabling fair multi-link transport of RTP “elephant” flows. And a further application is to extract ST 2110-20 video header fields and make switching decisions based on sample row number fields for video compositing. This paper provides descriptions of these applications in the P4 data plane programming language, and discusses implementations of some of these applications on actual network processors.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "authors": [
+    {
+      "affiliation": "FOX Networks Engineering & Operations",
+      "name": "Thomas Edwards"
+    },
+    {
+      "affiliation": "Arista Networks",
+      "name": "Nick Ciarleglio"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "contentType": "orig-research",
+  "contentType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "copyright": {
+    "holder": "Society of Motion Picture and Television Engineers, Inc.",
+    "holder$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "year": "2017",
+    "year$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "copyright$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docId": "10.5594-M001765",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docLabel": "SMPTE Meetings and Conferences ( October 2017)",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docTitle": "Programmable Data Plane for Professional Media Networking",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docType": "Conference Paper",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "doi": "10.5594/M001765",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "href": "https://doi.org/10.5594/M001765",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "isbn": {
+    "print": "978-1-61482-959-1",
+    "print$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "isbn$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "keywords": [
+    "Professional Media Networking (PMN)",
+    "IP",
+    "ST 2110",
+    "SDN",
+    "P4",
+    "Programmable Data Plane",
+    "RTP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "number": "10",
+  "number$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "pages": "1–15",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publicationDate": "2017-10-23",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisher": "SMPTE",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisherLocation": {
+    "city": "White Plains, NY",
+    "city$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "country": "USA",
+    "country$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "publisherLocation$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "volume": "2017",
+  "volume$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2017/8281382/8281383/08281397.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  }
+}

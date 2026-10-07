@@ -1,0 +1,224 @@
+{
+  "abstract": "The term “OTT”, for “Over-the-Top” video, typically refers to video file streaming services over the open Internet, irrespective of the underlying network characteristics and ownership. Netflix, Hulu, and Amazon were among the pioneers of the approach, providing subscription-based and transactional services “over-the-top” of the broadband networks built and maintained in turn by the earlier pioneers of Broadband IP which was essentially invented by cable service providers through the introduction of the cable modem. — Cable operators are transforming their IP distribution networks to handle video services directly and rapidly adopting OTT techniques as a part of that service, thus the underlying Adaptive Bit Rate Streaming (ABR) technologies are of interest to the cable industry. OTT means many different things to different people — when we discuss it here we discuss it in its technological capacity (network-independent reliable streaming over IP), rather than the underlying business model. — ABR technologies are enabling client adaption to changing network conditions, as well as adapting to device heterogeneity — a multitude of IP-based user devices such as TVs, computers, tablets, and smart phones with vastly different capabilities. As opposed to provisioned set-top boxes configurations of the past, crops of different devices are used today to consume OTT content. The multichannel video programming distributors (MVPDs) have to now handle this device heterogeneity. Unfortunately, in reality, MVPDs must also adapt to ABR technology heterogeneity. That's because the number of codecs and number of supported media formats are growing — the latter much faster than the former. — The most logical conceptual approach to the problem of such combinatorial growth in codec-format-encryption permutations involves decoupling transcoding from packaging—in part because compression of audiovisual information does not have too many interdependencies with systems-level encapsulation, encryption and signaling. This decoupling brings multiple benefits to large-scale deployments, such as cost reduction, improved resilience and greater service velocity. — In specific, decoupling of transcoders from packagers enables both to grow at their own organic rates. For instance, content storage (e.g. for VOD) grows on the basis of aggregate titles/assets, while content caching and content data networks (CDNs) use (e.g. for live/linear) grows as a function of the number of requesting client devices. By separating them, scaling happens faster, better, and at lower cost than the alternative. — Decoupling transcoding from packaging requires a common on-the-wire interface—a single intermediate format that will contain a sufficient amount of information to enable packaging while leaving transcoders unaware of the final media delivery formats. A simple, backwards-compatible technology that fits well into existing architectures and workflows is what makes incremental adoption and extension possible. — In this paper, we explore the design of a multicast/unicast intermediate ABR format and the resulting architecture for just-in-time and linear packagers.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "authors": [
+    {
+      "affiliation": "Technology & Product: VIDEO- Video Architecture Group, Comcast",
+      "name": "Yasser F. Syed"
+    },
+    {
+      "affiliation": "InterDigital Communications, Inc.",
+      "name": "Alex Giladi"
+    },
+    {
+      "affiliation": "Technology & Product: VIDEO- ViPER, Comcast",
+      "name": "Neill Kipp"
+    },
+    {
+      "affiliation": "Network & Cloud BU, Arris Group Inc.",
+      "name": "Wendell Sun"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "contentType": "orig-research",
+  "contentType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "copyright": {
+    "holder": "Society of Motion Picture and Television Engineers, Inc.",
+    "holder$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "year": "2015",
+    "year$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "copyright$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docId": "10.5594-M001647",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docLabel": "SMPTE Meetings and Conferences ( October 2015)",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docTitle": "Extending Cable Workflows to OTT: Decoupling Content Generation from Delivery Technologies",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docType": "Conference Paper",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "doi": "10.5594/M001647",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "href": "https://doi.org/10.5594/M001647",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "isbn": {
+    "print": "978-1-61482-956-0",
+    "print$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "isbn$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "keywords": [
+    "Adaptive Bitrate Streaming",
+    "IP Distribution",
+    "Packagers",
+    "DASH",
+    "OTT",
+    "MVPD",
+    "JITP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "number": "10",
+  "number$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "pages": "1–16",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publicationDate": "2015-10-26",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisher": "SMPTE",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisherLocation": {
+    "city": "White Plains, NY",
+    "city$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "country": "USA",
+    "country$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "publisherLocation$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "volume": "2015",
+  "volume$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2015/7399587/7399588/07399635.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  }
+}
