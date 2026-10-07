@@ -1,6 +1,6 @@
 # IDAMS field backfill — keywords + author bios
 
-> DRY-RUN · 2026-10-07T16:05:07.797Z
+> APPLY · 2026-10-07T16:08:53.892Z
 > Source: raw `_source/SMPTE/{Journal Article Repository,Conference Repository}` <publication> XML · joined on exact `doi`
 
 ## Totals
