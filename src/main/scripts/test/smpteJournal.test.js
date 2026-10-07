@@ -42,7 +42,9 @@ const assert = require('assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { readContentBatch, nested, union, mergeAuthors } = require('../providers/smpteJournal.parse');
+const {
+  readContentBatch, nested, union, mergeAuthors, pdfReferenceEntries, pdfCiteTitle, pdfCiteHref,
+} = require('../providers/smpteJournal.parse');
 const { createSmpteJournalDiscovery } = require('../providers/smpteJournal.discovery');
 
 let n = 0;
@@ -99,6 +101,50 @@ fs.mkdirSync(path.join(empty, 'Journal Article Repository', '2026', 'X'), { recu
 fs.writeFileSync(path.join(empty, 'Journal Article Repository', '2026', 'X', 'p.xml'), '');
 eq(createSmpteJournalDiscovery({ sourcePath: empty, fromYear: 2025 }).allPrimaries(), [], '0-byte placeholders → no papers');
 eq(createSmpteJournalDiscovery({ sourcePath: lib, fromYear: 2027 }).allPrimaries(), [], '--from after the newest year → no papers');
+
+// ---- PDF reference sections (2015–2023 papers) ---------------------------
+// Two-column page: the right column (refs 3–4) extracts first; entries are
+// rebuilt by number, wrapped lines joined, footer lines dropped.
+eq(pdfReferenceEntries([
+  'Body text.\nReferences\n3. C. Day, “Third,” 2017.\n4. D. Eve, “Fourth,” http://example.org/\nx\n'
+  + '1. A. Bee, “First paper,” SMPTE Mot.\nImag. J., 124(3):19–27, 2015.\n42 SMPTE Motion Imaging Journal\n2. B. Cee, “Second,” 2016.',
+]), [
+  'A. Bee, “First paper,” SMPTE Mot. Imag. J., 124(3):19–27, 2015.',
+  'B. Cee, “Second,” 2016.',
+  'C. Day, “Third,” 2017.',
+  'D. Eve, “Fourth,” http://example.org/x',
+], 'numbered refs reassembled in order across columns');
+eq(pdfReferenceEntries.lastMode, 'numbered', 'mode: numbered');
+eq(pdfReferenceEntries(['RefeRences\n1. A, “One,” 2015.\n2. B, “Two,” 2015.Ann Lee has worked in broadcast for 20 years.']),
+  ['A, “One,” 2015.', 'B, “Two,” 2015.'], 'small-caps heading; glued-on bio trimmed');
+eq(pdfReferenceEntries(['Bibliography\ni. A, “One,” 2015.\nii. B, “Two,” 2015.\nOther Sources\nCole, Carl, “Three,” Videonet.\nDecember 11, 2013.\nDee, Dan, “Four,” 2014.']),
+  ['A, “One,” 2015.', 'B, “Two,” 2015.', 'Cole, Carl, “Three,” Videonet. December 11, 2013.', 'Dee, Dan, “Four,” 2014.'],
+  'roman-numbered list, then its "Other Sources" list appended (a wrapped date stays with its entry)');
+eq(pdfReferenceEntries(['Bibliography\nSMPTE, “Some Standard Title Here,” 2015.\nJones, A., “A paper title that\nwraps,” 2014.']),
+  ['SMPTE, “Some Standard Title Here,” 2015.', 'Jones, A., “A paper title that wraps,” 2014.'], 'unnumbered bibliography split at citation starts');
+eq(pdfReferenceEntries.lastMode, 'unnumbered', 'mode: unnumbered');
+eq(pdfReferenceEntries(['References\n1. A, “One,” Retrieved from: The authors are solely responsible for the content of this technical presentation. '
+  + 'Blah blah. © 2017 Society of Motion Picture & Television Engineers® (SMPTE®) http://x.org/a']),
+  ['A, “One,” Retrieved from: http://x.org/a'], 'conference disclaimer footer cut out of a wrapped entry');
+eq(pdfReferenceEntries(['No reference section here.']), [], 'no heading → no entries');
+eq(pdfReferenceEntries(['References\n[ 1] A. Bee, “One,” 2015.\n[2]SMPTE, ST 2084:2014. [3] C. Day, “Three,” 2016.']),
+  ['A. Bee, “One,” 2015.', 'SMPTE, ST 2084:2014.', 'C. Day, “Three,” 2016.'], 'bracket numbers: spaced, unspaced, same line');
+eq(pdfReferenceEntries.lastMode, 'numbered', 'bracket numbers (spaced, unspaced, same line) read by the numbered pass');
+eq(pdfReferenceEntries(['References\n[Wang09] Z. Wang, “MSE,” 2009.\n[Bonneel] N. Bonneel, “Example-based,” 2013.']),
+  ['Z. Wang, “MSE,” 2009.', 'N. Bonneel, “Example-based,” 2013.'], 'loose: keyed entries in order of appearance');
+eq(pdfReferenceEntries(['References\n1 Michael Smith, Audio Reference Book, 2015.\n2 Joe Lee, “Two,” 2016.']),
+  ['Michael Smith, Audio Reference Book, 2015.', 'Joe Lee, “Two,” 2016.'], 'loose: footnote-style numbers');
+eq(pdfReferenceEntries(['ments for the Web.\nReferences\n1. “Prev Ref One,” 2019.\n2. “Prev Ref Two,” 2019.\nJPEG Status and Progress Report\nBody.'], { title: 'JPEG Status and Progress Report' }),
+  [], 'PDF opening in the previous article\'s references: dropped up to the title');
+eq(pdfReferenceEntries(['A'.repeat(5) + '\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nReferences\n1. “Own One,” 2022.\n2. “Own Two,” 2022.\nIntroduction from the Standards Vice President'], { title: 'Introduction from the Standards Vice President' }).length,
+  2, 'heading further down (title box extracted late): kept');
+pdfReferenceEntries(['References\n• Transcode\n• Storage\n• File based']);
+ok(pdfReferenceEntries.lastMode !== 'loose', 'loose: bulleted body text (no years, URLs or titles) is not taken as references');
+eq(pdfReferenceEntries(['Bibliography\nRanjan, A., & Black, M. J. (2019).\nCompetitive Collaboration. CVPR.\nTzeng, E. (2017). Adversarial Adaptation. CVPR.']),
+  ['Ranjan, A., & Black, M. J. (2019). Competitive Collaboration. CVPR.', 'Tzeng, E. (2017). Adversarial Adaptation. CVPR.'], 'APA: title after "(2019)." stays with its entry');
+eq(pdfCiteTitle('A. Bee, “First paper,” SMPTE Mot. Imag. J., 2015.'), 'First paper', 'quoted title, trailing comma dropped');
+eq(pdfCiteHref('W. V., “Studios,” 2022, doi: 10.5594/JMI.2022.3166161. Accessed'), 'https://doi.org/10.5594/JMI.2022.3166161', 'href from DOI');
+eq(pdfCiteHref('X, “Y,” [Online]. Available: https://www.itu.int/rec/R-REC-BT/en.'), 'https://www.itu.int/rec/R-REC-BT/en', 'href: first URL, trailing period trimmed');
 
 fs.rmSync(lib, { recursive: true, force: true });
 fs.rmSync(empty, { recursive: true, force: true });

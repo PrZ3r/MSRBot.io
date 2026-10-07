@@ -40,6 +40,15 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * Flags (read here, so extractDocs.js needs nothing provider-specific):
  *   --source <dir>   library root (default: _source/SMPTE — a symlink to the library)
  *   --from <year>    first year to read (default: 2025)
+ *   --to <year>      last year to read (default: no limit)
+ *   --pdf-refs       also read papers delivered WITHOUT full text (the IEEE-era
+ *                    <publication> records, 2015–2023): references only, parsed
+ *                    from the paper's PDF in the same folder, for papers that
+ *                    have none yet. Metadata for those papers is never touched.
+ *   --crossref-fill  with --pdf-refs: where the PDF parse finds fewer references
+ *                    than Crossref lists for the DOI, add Crossref's unmatched
+ *                    entries (the maintainer's exception to "Crossref is a check,
+ *                    never a source"; each is marked mapSource crossref-fill).
  *
  * With no readable local source — the path is missing, holds no papers, or
  * holds only Dropbox online-only placeholders (0-byte files) — discovery
@@ -76,10 +85,13 @@ function walkXml(dir, out = []) {
   return out;
 }
 
-function createSmpteJournalDiscovery({ sourcePath, fromYear } = {}) {
+function createSmpteJournalDiscovery({ sourcePath, fromYear, toYear, pdfRefs } = {}) {
   const source = path.resolve(sourcePath || argValue('--source') || DEFAULT_SOURCE);
   const from = Number(fromYear || argValue('--from') || DEFAULT_FROM);
-  let primaries = null; // [{ file, docType }]
+  const to = Number(toYear || argValue('--to') || 9999);
+  const withPdfRefs = pdfRefs !== undefined ? !!pdfRefs : process.argv.includes('--pdf-refs');
+  const crossrefFill = withPdfRefs && process.argv.includes('--crossref-fill');
+  let primaries = null; // [{ file, docType, kind: 'content_batch' | 'pdf-refs', pdf? }]
 
   // content_batch primaries from `from` onward; 0-byte files counted separately.
   function load() {
@@ -89,7 +101,7 @@ function createSmpteJournalDiscovery({ sourcePath, fromYear } = {}) {
     for (const { dir, docType } of CORPORA) {
       const root = path.join(source, dir);
       let years;
-      try { years = fs.readdirSync(root).filter((y) => /^\d{4}$/.test(y) && Number(y) >= from).sort(); } catch { continue; }
+      try { years = fs.readdirSync(root).filter((y) => /^\d{4}$/.test(y) && Number(y) >= from && Number(y) <= to).sort(); } catch { continue; }
       for (const y of years) {
         for (const file of walkXml(path.join(root, y))) {
           let size = 0;
@@ -97,7 +109,16 @@ function createSmpteJournalDiscovery({ sourcePath, fromYear } = {}) {
           if (!size) { placeholders++; continue; }
           let head = '';
           try { head = fs.readFileSync(file, 'utf8').slice(0, 400); } catch { continue; }
-          if (head.includes('<content_batch')) primaries.push({ file, docType });
+          if (head.includes('<content_batch')) primaries.push({ file, docType, kind: 'content_batch' });
+          else if (withPdfRefs && head.includes('<publication')) {
+            // IEEE-era record: usable only if its main PDF sits beside it.
+            const x = fs.readFileSync(file, 'utf8');
+            const pdfName = (x.match(/filetype="MainPDF">([^<]+)</) || [])[1];
+            const pdf = pdfName && path.join(path.dirname(file), pdfName);
+            let pdfSize = 0;
+            try { pdfSize = pdf ? fs.statSync(pdf).size : 0; } catch { /* not pulled */ }
+            if (pdfSize) primaries.push({ file, docType, kind: 'pdf-refs', pdf });
+          }
         }
       }
     }
@@ -107,11 +128,12 @@ function createSmpteJournalDiscovery({ sourcePath, fromYear } = {}) {
         ? 'the path does not exist'
         : placeholders
           ? `${placeholders} file(s) are 0-byte placeholders (Dropbox online-only?) — make the folder available offline`
-          : `no content_batch papers from ${from} onward`;
+          : `no papers from ${from}${to < 9999 ? `–${to}` : ' onward'}${withPdfRefs ? ' (content_batch, or records with a PDF)' : ''}`;
       console.log(`ℹ️ No local SMPTE journal source at ${source} (${why}) — nothing to do.`);
       console.log('   This extractor needs a local copy of the SMPTE journal library XML. See docs/commands.md.');
     } else {
-      console.log(`📚 SMPTE journal library: ${source} — ${primaries.length} paper(s) from ${from} onward${placeholders ? ` (${placeholders} 0-byte placeholder(s) skipped)` : ''}`);
+      const pdfN = primaries.filter((p) => p.kind === 'pdf-refs').length;
+      console.log(`📚 SMPTE journal library: ${source} — ${primaries.length} paper(s) from ${from}${to < 9999 ? `–${to}` : ' onward'}${pdfN ? ` (${pdfN} references-only from PDF)` : ''}${placeholders ? ` (${placeholders} 0-byte placeholder(s) skipped)` : ''}`);
     }
     return primaries;
   }
@@ -128,6 +150,7 @@ function createSmpteJournalDiscovery({ sourcePath, fromYear } = {}) {
   return {
     source,
     from,
+    crossrefFill,
     discoverFromRootDocPage,
     normalizeSeedUrl: (u) => u,
     shouldFilterUrl: () => false,
