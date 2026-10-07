@@ -19,6 +19,7 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
 
   Unverified AI-read values don't go into the registry.
 - **Small jobs may be quicker by hand.** For one or two documents with few citations, scaffolding with `npm run new-doc`, editing the per-doc files and running `npm run canonicalize` / `npm run validate` can be simpler. If an AI tool is doing the work, though, use `extract-manual`, so the shared tooling runs.
+- **SMPTE journal and conference papers have their own extractor.** Use `npm run extract-smpte-journal`, which reads the local SMPTE journal library ([commands](commands.md#extraction)), not a records file.
 - **Sources that change over time need a real extractor.** If the publisher issues new editions or revisions, withdraws documents, or is something we'd want to re-check regularly, write a provider in `src/main/scripts/providers/` with a scheduled workflow, as for SMPTE and IETF. A manual extraction is a one-time snapshot: it won't notice later editions, supersessions or withdrawals.
 
 ## Workflow

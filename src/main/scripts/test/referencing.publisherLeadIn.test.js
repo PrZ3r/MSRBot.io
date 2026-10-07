@@ -55,6 +55,13 @@ const cases = [
   ['SMPTE ST, 2059–1:2021 (Revision of SMPTE ST 2059–1:2015) ', 'SMPTE.ST2059-1.2021'],
   ['International Telecommunication Union-Radiocommunication (ITU-R), Recommendation BT.2100–2, ', 'R-REC-BT.2100-2'],
   ['International Telecommunication Union-Telecommunication (ITU-T), H.265 IISO/IEC 23008–2: Information technology', 'ISO.23008-2'],
+  // Dash-spaced long name (PDF text): "Union – Radiocommunication"
+  ['International Telecommunications Union – Radiocommunication (ITU-R), Recommendation BT.709-6, ', 'R-REC-BT.709-6'],
+  ['International Telecommunication Union - Radiocommunication (ITU-R), Recommendation BT.2100-2, ', 'R-REC-BT.2100-2'],
+  // Spelled-out SMPTE document type
+  ['SMPTE Recommended Practice 168, ', 'SMPTE.RP168'],
+  ['SMPTE Standard 2084:2014, ', 'SMPTE.ST2084.2014'],
+  ['EBU Technical Document 3344, 2011', 'EBU.Tech3344.2011'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }
