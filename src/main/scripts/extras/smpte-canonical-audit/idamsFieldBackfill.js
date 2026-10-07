@@ -7,13 +7,16 @@
  *
  * Fills, on registry docs matched by EXACT `doi` (case-sensitive — J vs j):
  *
- *   1. keywords  registry empty, source has articleinfo/keywordset terms.
+ *   1. keywords  registry empty (or filled by an earlier run of this script —
+ *                re-conformed), source has articleinfo/keywordset terms.
  *                Terms are CDATA-unwrapped with inline markup (<italic>) and
  *                entities stripped, then conformed the keywordConformIngest
- *                way: vocab casing → fold → normalizeKeyword(). Drops come from
- *                keywordVocabDecisions.json. Terms new to the vocabulary are
- *                added to site.json controlledKeywords on --apply (the
- *                validator gates doc.keywords ⊆ controlledKeywords).
+ *                way (idamsPublication.js makeKeywordConformer) against the
+ *                pre-IDAMS vocabulary, with keywordVocabDecisions.json +
+ *                keywordIdamsDecisions.json folds/drops. On --apply, new terms
+ *                join site.json controlledKeywords (the validator gates
+ *                doc.keywords ⊆ controlledKeywords) and terms no doc carries
+ *                any more are pruned.
  *   2. bios      no registry author has a bio yet, source authors do. Each
  *                source bio lands on the registry author it matches by name
  *                (full name, else surname + first initial; unique matches
@@ -34,14 +37,15 @@ const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..');
 process.chdir(REPO_ROOT);
 
 const { loadAllDocs, saveDoc } = require('../../../lib/registry');
-const { SOURCE_ROOT, REPOS, readAllArticles, makeKeywordConformer, matchBios } = require('./idamsPublication');
+const {
+  SOURCE_ROOT, REPOS, readAllArticles, makeKeywordConformer, matchBios, loadDecisions, preIdamsVocab, pruneUnusedVocab,
+} = require('./idamsPublication');
 
 const APPLY = process.argv.includes('--apply');
 const NOW = new Date().toISOString();
 const VERSION = 'smpte-idams-publication@v1';
 const SITE_PATH = 'src/main/config/site.json';
 const REPORTS = 'src/main/reports/smpte-canonical-audit';
-const DECISIONS_PATH = path.join(REPORTS, 'keywordVocabDecisions.json');
 const OUT_MD = path.join(REPORTS, 'idamsFieldBackfill.md');
 
 const { articles, files: filesScanned } = readAllArticles();
@@ -51,15 +55,19 @@ for (const a of articles) {
 }
 console.log(`[idams] ${filesScanned} <publication> files scanned · ${source.size} articles with keywords or bios`);
 
-const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
-const decisions = JSON.parse(fs.readFileSync(DECISIONS_PATH, 'utf8'));
-const { conformList, inVocab, prime, totals: howTotals } = makeKeywordConformer(site, decisions);
-
 // ---- walk registry -------------------------------------------------------
 const isLocked = (doc, key) => (doc[`${key}$meta`] || {}).excludeChanges === true;
 const docs = loadAllDocs();
 const byDoi = new Map();
 for (const d of docs) if (d.doi) byDoi.set(String(d.doi).trim(), d);
+
+// Conform against the vocabulary as it stands without these passes, so a
+// re-run folds away spellings an earlier run added.
+const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
+const decisions = loadDecisions(REPORTS);
+const { conformList, inVocab, prime, totals: howTotals } = makeKeywordConformer(preIdamsVocab(site, docs), decisions);
+// Keywords this script wrote on an earlier run are re-conformed, not skipped.
+const oursKw = (d) => String((d['keywords$meta'] || {}).note || '').includes('idamsFieldBackfill.js');
 
 const kwChanges = [];
 const bioChanges = [];
@@ -68,7 +76,7 @@ const bioUnmatched = [];
 const bioRealigned = [];
 const newVocab = new Map(); // term → doc count
 const tally = {
-  sourceNotInRegistry: 0, kwAlreadyPresent: 0, kwLocked: 0, kwEmptyAfterConform: 0,
+  sourceNotInRegistry: 0, kwAlreadyPresent: 0, kwLocked: 0, kwEmptyAfterConform: 0, kwReconformedSame: 0,
   bioAlreadyPresent: 0, bioLocked: 0, bioNoRegAuthors: 0, bioNoneMatched: 0,
 };
 
@@ -77,14 +85,18 @@ for (const [doi, s] of source) {
   if (!doc) { tally.sourceNotInRegistry++; continue; }
 
   if (s.keywords.length) {
-    if (Array.isArray(doc.keywords) && doc.keywords.length) tally.kwAlreadyPresent++;
+    const had = Array.isArray(doc.keywords) && doc.keywords.length;
+    if (had && !oursKw(doc)) tally.kwAlreadyPresent++;
     else if (isLocked(doc, 'keywords')) tally.kwLocked++;
     else {
       const out = conformList(s.keywords);
       if (!out.length) tally.kwEmptyAfterConform++;
-      else {
+      else if (had && JSON.stringify(out) === JSON.stringify(doc.keywords)) {
+        tally.kwReconformedSame++;
         for (const t of out) if (!inVocab(t)) newVocab.set(t, (newVocab.get(t) || 0) + 1);
-        kwChanges.push({ doc, raw: s.keywords, after: out, rel: s.rel });
+      } else {
+        for (const t of out) if (!inVocab(t)) newVocab.set(t, (newVocab.get(t) || 0) + 1);
+        kwChanges.push({ doc, raw: s.keywords, before: had ? doc.keywords : null, after: out, rel: s.rel });
       }
     }
   }
@@ -140,14 +152,16 @@ if (APPLY) {
   }
   for (const doc of byDoc.values()) saveDoc(doc);
 
-  const missing = [...newVocab.keys()].filter((t) => !(site.controlledKeywords || []).some((k) => k.toLowerCase() === t.toLowerCase()));
-  const adds = (decisions.adds || []).filter((a) => !(site.controlledKeywords || []).some((k) => k.toLowerCase() === a.toLowerCase()));
-  if (missing.length || adds.length) {
-    site.controlledKeywords = Array.from(new Set([...(site.controlledKeywords || []), ...missing, ...adds]))
-      .sort((a, b) => a.localeCompare(b));
-    fs.writeFileSync(SITE_PATH, JSON.stringify(site, null, 2) + '\n', 'utf8');
-  }
-  console.log(`[idams] wrote ${byDoc.size} docs · +${missing.length + adds.length} controlledKeywords`);
+  // Exact match: the validator compares exactly, so a re-run's spelling must
+  // be listed even when a stale case variant still is (pruned just below).
+  const listed = new Set(site.controlledKeywords || []);
+  const missing = [...newVocab.keys()].filter((t) => !listed.has(t));
+  const adds = (decisions.adds || []).filter((a) => !listed.has(a));
+  site.controlledKeywords = [...(site.controlledKeywords || []), ...missing, ...adds];
+  const pruned = pruneUnusedVocab(site, loadAllDocs());
+  site.controlledKeywords = Array.from(new Set(site.controlledKeywords)).sort((a, b) => a.localeCompare(b));
+  fs.writeFileSync(SITE_PATH, JSON.stringify(site, null, 2) + '\n', 'utf8');
+  console.log(`[idams] wrote ${byDoc.size} docs · +${missing.length + adds.length} controlledKeywords · −${pruned} unused`);
 }
 
 // ---- report --------------------------------------------------------------
@@ -163,8 +177,8 @@ const md = [
   '',
   `- <publication> files scanned: ${filesScanned}; articles with keywords or bios: ${source.size}`,
   `- source articles with no registry doc: ${tally.sourceNotInRegistry} (the 2016–2023 coverage gap — minted by idamsIngest.js)`,
-  `- **keywords**: ${kwChanges.length} docs to fill (${fmt(kwDocTypes)}) · already had keywords ${tally.kwAlreadyPresent} · locked ${tally.kwLocked} · empty after conform ${tally.kwEmptyAfterConform}`,
-  `  - term mapping: vocab ${howTotals.vocab} · fold ${howTotals.fold} · typo-fix ${howTotals.fix} · variant→vocab ${howTotals.variant} · new ${howTotals.normalize} · dropped ${howTotals.drop}`,
+  `- **keywords**: ${kwChanges.length} docs to fill or re-conform (${fmt(kwDocTypes)}) · re-conformed, unchanged ${tally.kwReconformedSame} · already had keywords ${tally.kwAlreadyPresent} · locked ${tally.kwLocked} · empty after conform ${tally.kwEmptyAfterConform}`,
+  `  - term mapping: IDAMS fold ${howTotals.idamsFold} · vocab ${howTotals.vocab} · fold ${howTotals.fold} · typo-fix ${howTotals.fix} · variant→vocab ${howTotals.variant} · new ${howTotals.normalize} · dropped ${howTotals.drop}`,
   `  - terms new to controlledKeywords: **${newVocab.size}** (added on --apply)`,
   `- **bios**: ${bioChanges.length} docs / ${biosWritten} bios to fill (${fmt(bioDocTypes)}) · already had bios ${tally.bioAlreadyPresent} · locked ${tally.bioLocked} · no registry authors ${tally.bioNoRegAuthors} · no bio matched ${tally.bioNoneMatched}`,
   `  - realigned (source paired bio with the wrong author; text match wins): ${bioRealigned.length}`,
@@ -172,9 +186,9 @@ const md = [
   '',
   '## Keyword fills',
   '',
-  '| docId | source terms | → registry keywords |',
-  '|---|---|---|',
-  ...kwChanges.map((c) => `| \`${c.doc.docId}\` | ${esc(c.raw.join(' · '))} | ${esc(c.after.join(' · '))} |`),
+  '| docId | source terms | registry now | → registry keywords |',
+  '|---|---|---|---|',
+  ...kwChanges.map((c) => `| \`${c.doc.docId}\` | ${esc(c.raw.join(' · '))} | ${esc((c.before || []).join(' · ') || '—')} | ${esc(c.after.join(' · '))} |`),
   '',
   '## New controlledKeywords terms',
   '',

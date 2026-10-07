@@ -241,15 +241,17 @@ const trailingAcronym = (s) => ((String(s).match(/\(([A-Za-z0-9.+-]{2,})s?\)\s*$
 // ("Precision Time Protocol (PTP)" → PTP). Remaining new terms cluster by
 // variant key and land as ONE controlledKeywords entry: the spelling most docs
 // use (prime() counts them up front), else the first seen.
-function makeKeywordConformer(site, decisions) {
+function makeKeywordConformer(vocab, decisions) {
   const vocabByLower = new Map();
-  for (const k of [...(site.controlledKeywords || []), ...(decisions.adds || [])]) vocabByLower.set(String(k).toLowerCase(), k);
+  for (const k of [...vocab, ...(decisions.adds || [])]) vocabByLower.set(String(k).toLowerCase(), k);
+  const idamsFoldByLower = new Map(Object.entries(decisions.idamsFolds || {}).map(([k, v]) => [k.toLowerCase(), v]));
   const vocabByVariant = new Map();
   for (const k of vocabByLower.values()) if (!vocabByVariant.has(variantKey(k))) vocabByVariant.set(variantKey(k), k);
   const foldByLower = new Map(Object.entries(decisions.folds || {}).map(([k, v]) => [k.toLowerCase(), v]));
-  const dropLower = new Set((decisions.drops || []).map((d) => String(typeof d === 'string' ? d : d.term || '').toLowerCase()));
+  const dropLower = new Set([...(decisions.drops || []), ...(decisions.idamsDrops || [])]
+    .map((d) => String(typeof d === 'string' ? d : d.term || '').toLowerCase()));
   const runVocab = new Map(); // variant key → chosen spelling
-  const totals = { vocab: 0, fold: 0, fix: 0, variant: 0, normalize: 0, drop: 0 };
+  const totals = { idamsFold: 0, vocab: 0, fold: 0, fix: 0, variant: 0, normalize: 0, drop: 0 };
 
   const vocabVariant = (term) => {
     const v = vocabByVariant.get(variantKey(term));
@@ -264,7 +266,7 @@ function makeKeywordConformer(site, decisions) {
     for (const terms of termLists) {
       for (const raw of new Set(terms)) {
         const lo = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim().toLowerCase();
-        if (dropLower.has(lo) || vocabByLower.has(lo) || foldByLower.has(lo) || FIX.has(lo)) continue;
+        if (dropLower.has(lo) || idamsFoldByLower.has(lo) || vocabByLower.has(lo) || foldByLower.has(lo) || FIX.has(lo)) continue;
         const term = normalizeIeee(raw);
         if (vocabVariant(term)) continue;
         const key = variantKey(term);
@@ -288,7 +290,8 @@ function makeKeywordConformer(site, decisions) {
       const lo = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim().toLowerCase();
       let term;
       if (dropLower.has(lo)) { totals.drop++; continue; }
-      if (vocabByLower.has(lo)) { term = vocabByLower.get(lo); totals.vocab++; }
+      if (idamsFoldByLower.has(lo)) { term = idamsFoldByLower.get(lo); totals.idamsFold++; }
+      else if (vocabByLower.has(lo)) { term = vocabByLower.get(lo); totals.vocab++; }
       else if (foldByLower.has(lo)) { term = foldByLower.get(lo); totals.fold++; }
       else if (FIX.has(lo)) { term = FIX.get(lo); totals.fix++; }
       else {
@@ -393,7 +396,47 @@ function matchBios(regAuthors, srcAuthors) {
   return { assigned, unmatched, realigned };
 }
 
+// ---- decisions + vocabulary ----------------------------------------------
+// keywordVocabDecisions.json (earlier passes) plus keywordIdamsDecisions.json
+// (this arc, from keywordIdamsAudit.md). IDAMS folds are checked before the
+// vocabulary so they also override a spelling an earlier run added.
+function loadDecisions(reportsDir) {
+  const base = JSON.parse(fs.readFileSync(path.join(reportsDir, 'keywordVocabDecisions.json'), 'utf8'));
+  let idams = {};
+  try { idams = JSON.parse(fs.readFileSync(path.join(reportsDir, 'keywordIdamsDecisions.json'), 'utf8')); } catch { /* none yet */ }
+  return { ...base, idamsFolds: idams.folds || {}, idamsDrops: idams.drops || [] };
+}
+
+// Keywords the IDAMS passes wrote: every doc idamsIngest.js minted, and the
+// keywords idamsFieldBackfill.js filled.
+const IDAMS_SCRIPTS = /idamsIngest\.js|idamsFieldBackfill\.js/;
+const idamsWroteKeywords = (d) => IDAMS_SCRIPTS.test(String((d['docId$meta'] || {}).note || ''))
+  || IDAMS_SCRIPTS.test(String((d['keywords$meta'] || {}).note || ''));
+
+// The vocabulary as it stands without the IDAMS passes: every controlledKeywords
+// term some non-IDAMS doc carries. (Before these passes every vocabulary term
+// was in use, so this is exactly the pre-IDAMS set — re-runs conform against it
+// instead of against spellings an earlier run added.)
+function preIdamsVocab(site, docs) {
+  const used = new Set();
+  for (const d of docs) if (!idamsWroteKeywords(d)) for (const k of d.keywords || []) used.add(k);
+  return (site.controlledKeywords || []).filter((k) => used.has(k));
+}
+
+// Drop controlledKeywords no doc carries any more (spellings a re-run folded away).
+function pruneUnusedVocab(site, docs) {
+  const used = new Set();
+  for (const d of docs) for (const k of d.keywords || []) used.add(k);
+  const before = (site.controlledKeywords || []).length;
+  site.controlledKeywords = (site.controlledKeywords || []).filter((k) => used.has(k));
+  return before - site.controlledKeywords.length;
+}
+
 module.exports = {
+  loadDecisions,
+  idamsWroteKeywords,
+  preIdamsVocab,
+  pruneUnusedVocab,
   SOURCE_ROOT,
   REPOS,
   cleanText,

@@ -39,7 +39,9 @@ const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..');
 process.chdir(REPO_ROOT);
 
 const { loadAllDocs, saveDoc, docAbsPath } = require('../../../lib/registry');
-const { readAllArticles, makeKeywordConformer, matchBios } = require('./idamsPublication');
+const {
+  readAllArticles, makeKeywordConformer, matchBios, loadDecisions, preIdamsVocab, pruneUnusedVocab,
+} = require('./idamsPublication');
 
 const APPLY = process.argv.includes('--apply');
 const LIMIT = (() => {
@@ -52,7 +54,6 @@ const VERSION = 'smpte-idams-publication@v1';
 const OUR_NOTE = 'idamsIngest.js';
 const SITE_PATH = 'src/main/config/site.json';
 const REPORTS = 'src/main/reports/smpte-canonical-audit';
-const DECISIONS_PATH = path.join(REPORTS, 'keywordVocabDecisions.json');
 const OUT_MD = path.join(REPORTS, 'idamsIngest.md');
 const OUT_JSON = path.join(REPORTS, 'idamsIngest.json');
 
@@ -108,8 +109,9 @@ function correctContentType(title, canonical) {
 // ---- source --------------------------------------------------------------
 const { articles, files } = readAllArticles();
 const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
-const decisions = JSON.parse(fs.readFileSync(DECISIONS_PATH, 'utf8'));
-const { conformList, inVocab, prime, totals: kwTotals } = makeKeywordConformer(site, decisions);
+// Conform against the vocabulary without the IDAMS passes, so a re-run folds
+// away spellings an earlier run added.
+const { conformList, inVocab, prime, totals: kwTotals } = makeKeywordConformer(preIdamsVocab(site, allDocs), loadDecisions(REPORTS));
 
 const candidates = articles.filter((a) => a.doi && !existingDois.has(a.doi));
 // Same DOI in more than one file (re-exports): identical title → one doc.
@@ -288,12 +290,15 @@ if (APPLY) {
     saveDoc(s.doc);
     if (fresh) written++;
   }
-  const missing = [...newVocab.keys()].filter((t) => !(site.controlledKeywords || []).some((k) => k.toLowerCase() === t.toLowerCase()));
-  if (missing.length) {
-    site.controlledKeywords = Array.from(new Set([...(site.controlledKeywords || []), ...missing])).sort((x, y) => x.localeCompare(y));
-    fs.writeFileSync(SITE_PATH, JSON.stringify(site, null, 2) + '\n', 'utf8');
-  }
-  console.log(`[idams-ingest] wrote ${written} new docs${LIMIT ? ` (limit ${LIMIT})` : ''} · +${missing.length} controlledKeywords`);
+  // Exact match (the validator compares exactly); then drop spellings no doc
+  // carries any more.
+  const listed = new Set(site.controlledKeywords || []);
+  const missing = [...newVocab.keys()].filter((t) => !listed.has(t));
+  site.controlledKeywords = [...(site.controlledKeywords || []), ...missing];
+  const pruned = pruneUnusedVocab(site, loadAllDocs());
+  site.controlledKeywords = Array.from(new Set(site.controlledKeywords)).sort((x, y) => x.localeCompare(y));
+  fs.writeFileSync(SITE_PATH, JSON.stringify(site, null, 2) + '\n', 'utf8');
+  console.log(`[idams-ingest] wrote ${written} new docs${LIMIT ? ` (limit ${LIMIT})` : ''} · +${missing.length} controlledKeywords · −${pruned} unused`);
 }
 
 // ---- reports -------------------------------------------------------------
@@ -325,7 +330,7 @@ const md = [
   `- docId collisions (incl. case-only): **${collisions.length}** ${collisions.length ? '⚠️ apply refused until resolved' : '✓'}`,
   `- same DOI, different title in two files: ${dupDoi.length} (left out — listed below)`,
   `- coverage: abstract ${coverage.abstract} · authors ${coverage.authors} (${coverage.bios} bios) · keywords ${coverage.keywords} · pages ${coverage.pages}`,
-  `- keywords: vocab ${kwTotals.vocab} · fold ${kwTotals.fold} · typo-fix ${kwTotals.fix} · variant→vocab ${kwTotals.variant} · new ${kwTotals.normalize} · dropped ${kwTotals.drop} · **${newVocab.size}** new controlledKeywords`,
+  `- keywords: IDAMS fold ${kwTotals.idamsFold} · vocab ${kwTotals.vocab} · fold ${kwTotals.fold} · typo-fix ${kwTotals.fix} · variant→vocab ${kwTotals.variant} · new ${kwTotals.normalize} · dropped ${kwTotals.drop} · **${newVocab.size}** new controlledKeywords`,
   `- bios realigned to the author they name: ${bioRealigned.length} · unplaced: ${bioUnmatched.reduce((n, u) => n + u.unmatched.length, 0)}`,
   `- contentType corrections: ${ctChanges.length}`,
   `- new facet chips (count ≥${minDocs} ∪ portals ∪ curation.add − remove, before → after): ${newChips.length ? newChips.map(([k, n]) => `${k} (${n})`).join(', ') : 'none'}`,
