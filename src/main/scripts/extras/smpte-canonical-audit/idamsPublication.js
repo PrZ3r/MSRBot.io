@@ -208,10 +208,19 @@ function readAllArticles() {
 // carrying a capital past their first letter are passed through as-is via its
 // extraAcronyms hook; wrapping quotes go, and the word after "(" or an em dash
 // is capitalized like any other ("(Computer Graphics)", "Broadcast—Satellite").
+// Mixed-case names that really do start lowercase (everything else of the
+// form "sT", "iS-10", "iTU-R", "vR" is a source glitch → uppercased).
+const LOWER_INITIAL_OK = new Set(['mdns', 'icam06', 'ion', 'iphone', 'ipad', 'ios', 'ebook']);
+
 function normalizeIeee(raw) {
-  const s = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim();
+  const s = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim()
+    .replace(/(?<!\b[A-Z]|\bInc|\betc)[.;,]+$/, ''); // "Cache Management." → "Cache Management"
   const keep = new Map();
-  for (const w of s.split(/\s+/)) if (/[A-Z]/.test(w.slice(1))) keep.set(w.toLowerCase(), w);
+  for (let w of s.split(/\s+/)) {
+    if (!/[A-Z]/.test(w.slice(1))) continue;
+    if (/^[a-z][A-Z0-9][A-Z0-9.\-/]*$/.test(w) && !LOWER_INITIAL_OK.has(w.toLowerCase())) w = w.toUpperCase();
+    keep.set(w.toLowerCase(), w);
+  }
   return normalizeKeyword(s, keep)
     .replace(/([(—])([a-z])/g, (_, p, c) => `${p}${c.toUpperCase()}`)
     .replace(/^([a-z])(?=[a-z])/, (c) => c.toUpperCase()); // "media-over-IP" → "Media-over-IP"; "iON" stays
@@ -266,7 +275,7 @@ function makeKeywordConformer(vocab, decisions) {
     for (const terms of termLists) {
       for (const raw of new Set(terms)) {
         const lo = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim().toLowerCase();
-        if (dropLower.has(lo) || idamsFoldByLower.has(lo) || vocabByLower.has(lo) || foldByLower.has(lo) || FIX.has(lo)) continue;
+        if (dropLower.has(lo) || dropLower.has(lo.replace(/[.;,]+$/, '')) || idamsFoldByLower.has(lo) || vocabByLower.has(lo) || foldByLower.has(lo) || FIX.has(lo)) continue;
         const term = normalizeIeee(raw);
         if (vocabVariant(term)) continue;
         const key = variantKey(term);
@@ -289,7 +298,7 @@ function makeKeywordConformer(vocab, decisions) {
     for (const raw of terms) {
       const lo = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim().toLowerCase();
       let term;
-      if (dropLower.has(lo)) { totals.drop++; continue; }
+      if (dropLower.has(lo) || dropLower.has(lo.replace(/[.;,]+$/, ''))) { totals.drop++; continue; }
       if (idamsFoldByLower.has(lo)) { term = idamsFoldByLower.get(lo); totals.idamsFold++; }
       else if (vocabByLower.has(lo)) { term = vocabByLower.get(lo); totals.vocab++; }
       else if (foldByLower.has(lo)) { term = foldByLower.get(lo); totals.fold++; }

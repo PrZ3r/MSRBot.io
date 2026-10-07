@@ -1,6 +1,7 @@
 {
-  "_about": "IDAMS keyword decisions (idamsFieldBackfill.js / idamsIngest.js), layered over keywordVocabDecisions.json. Keys are lowercase source terms. Built from keywordIdamsAudit.md: §1 same term / different spelling, §2 acronym or expansion (initials guesses with the wrong meaning left out: AAF, CVE, MCS), plus hand-picked typos.",
+  "_about": "IDAMS keyword decisions (idamsFieldBackfill.js / idamsIngest.js), layered over keywordVocabDecisions.json. Keys are lowercase source terms. Built from keywordIdamsAudit.md: §1 same term / different spelling, §2 acronym or expansion (initials guesses with the wrong meaning left out: AAF, CVE, MCS), plus hand-picked typos. Drops: non-topics — source boilerplate, IEEE subject-category labels, run-together keyword strings.",
   "folds": {
+    "2110": "ST 2110",
     "360-video": "360° Video",
     "3d-lookup table (3d-lut)": "3D LUT",
     "alliance for open media": "AOM",
@@ -36,11 +37,21 @@
     "olumetric videos": "Volumetric Video",
     "output profile list": "OPL",
     "precision time protocol": "PTP",
+    "smpte 2110": "ST 2110",
     "smpte st2022": "ST 2022",
     "software defined networks": "SDN",
     "st2110": "ST 2110",
+    "standard (st) 2110": "ST 2110",
     "supplemental enhancement informtation": "SEI",
     "vp-9": "VP9"
   },
-  "drops": []
+  "drops": [
+    "(the smpte disclaimer is on a footer on this page, and will show in print preview or page layout view.)",
+    "broadcast technology: broadcasting",
+    "communications technology: tv",
+    "computers and information processing: image processing",
+    "engineering general: standards",
+    "imaging: motion pictures",
+    "ndr news distribution content sharing editorial workflow metadata rights description"
+  ]
 }
