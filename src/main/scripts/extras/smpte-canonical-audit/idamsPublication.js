@@ -214,7 +214,9 @@ const LOWER_INITIAL_OK = new Set(['mdns', 'icam06', 'ion', 'iphone', 'ipad', 'io
 
 function normalizeIeee(raw) {
   const s = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim()
-    .replace(/(?<!\b[A-Z]|\bInc|\betc)[.;,]+$/, ''); // "Cache Management." → "Cache Management"
+    .replace(/(?<!\b[A-Z]|\bInc|\betc)[.;,]+$/, '') // "Cache Management." → "Cache Management"
+    .replace(/(\d)\s*[–—]\s*(\d)/g, '$1-$2')            // "ST 2022–7" → "ST 2022-7"
+    .replace(/^SMPTE\s+(?=ST\s*\d)/i, '');                // "SMPTE ST 2059" → "ST 2059" (house style)
   const keep = new Map();
   for (let w of s.split(/\s+/)) {
     if (!/[A-Z]/.test(w.slice(1))) continue;
@@ -234,93 +236,197 @@ const FIX = new Map([
   ['atsc 30', 'ATSC 3.0'],
 ]);
 
-// Variant key for the long-tail "obvious duplicate variants" FOLD: drops a
-// trailing "(ACRONYM)", unifies hyphen / slash / space, and singularizes
-// words — "High-dynamic Range (HDR)" ≡ "High Dynamic Range", "Codecs" ≡ "Codec".
-const variantKey = (s) => String(s).toLowerCase()
-  .replace(/\s*\([^)]*\)\s*$/, '')
-  .replace(/[-_/]+/g, ' ')
-  .replace(/\b([a-z]{3,}[^s])s\b/g, '$1')
-  .replace(/\s+/g, ' ').trim();
-const trailingAcronym = (s) => ((String(s).match(/\(([A-Za-z0-9.+-]{2,})s?\)\s*$/) || [])[1] || null);
+// ---- clustering ----------------------------------------------------------
+// clusterKey: what a term "is" once spelling noise is gone — case, spacing,
+// hyphens/dashes/dots/slashes, diacritics, Δ/delta, ×/x, British spelling,
+// plurals ("APIs" → API), a leading SMPTE, ST/BT/Rec. standard forms
+// ("SMPTE ST 2059–2" ≡ "ST2059-2", "Rec. 2020" ≡ "ITU-R BT.2020"), Ethernet
+// rates ("100 gbit/s" ≡ "100Gbps" ≡ "100 Gigabit Ethernet") and a trailing
+// "(ACRONYM)" ("Wide Color Gamut (WCG)" ≡ "Wide Colour Gamut").
+const BRIT = [[/colour/g, 'color'], [/centre/g, 'center'], [/metre/g, 'meter'], [/isation/g, 'ization'],
+  [/ise$/g, 'ize'], [/analyse/g, 'analyze'], [/programme/g, 'program'], [/grey/g, 'gray'],
+  [/modelling/g, 'modeling'], [/artefact/g, 'artifact']];
+const KEEP_S = /(ss|us|is|ws|ics|ous)$/;
+function clusterKey(term) {
+  const s = String(term)
+    .replace(/\b([A-Z]{2,})s\b/g, '$1')
+    .replace(/\s*\([^()]*\)\s*$/, '')
+    .toLowerCase()
+    .normalize('NFKD').replace(/[̀-ͯ]/g, '')
+    .replace(/international telecommunications? union[- ]?radiocommunication(?:\s*\(itu-r\))?/g, 'itu-r')
+    .replace(/\b(?:recommendation|rec)\.?\s*(?:itu-r\s*)?(?:bt\.?\s*)?(\d{3,4})\b/g, 'itu-r bt $1')
+    .replace(/(^|[^-])\bbt\.?\s*(\d{3,4})\b/g, (m, pre, n) => `${pre}${/itu-r\s*$/.test(pre) ? '' : 'itu-r '}bt ${n}`)
+    .replace(/δ|∆/g, 'delta ').replace(/×/g, 'x').replace(/[′’']/g, '')
+    .replace(/[–—]/g, '-')
+    .replace(/(?:itu-r\s*)+/g, 'itu-r ')
+    .replace(/\bsmpte\s+(?=\d)/g, 'st ')
+    .replace(/\bsmpte\s+(?=(?:st|rp|eg|rdd|ot)\s*\d)/g, '')
+    .replace(/\b(st|rp|eg|rdd)\s*(\d)/g, '$1 $2')
+    .replace(/(\d+)\s*(?:gigabit(?:\s*ethernet)?(?:\s*interface)?|gbit(?:\/s(?:ec)?)?|gb\/s|gbps|gbe)\b/g, '$1gbe');
+  return s.split(/[^a-z0-9]+/).filter(Boolean)
+    .map((w) => { let x = w; for (const [re, to] of BRIT) x = x.replace(re, to); return x; })
+    .map((w) => (w.length > 4 && /s$/.test(w) && !KEEP_S.test(w) ? w.slice(0, -1) : w))
+    .join('');
+}
+const trailingAcronym = (s) => ((String(s).match(/\(([A-Za-z0-9][A-Za-z0-9.+\-/ ]{1,14})\)\s*$/) || [])[1] || null);
+const longForm = (s) => String(s).replace(/\s*\([^()]*\)\s*$/, '').trim();
 
-// vocab = site.json controlledKeywords ∪ keywordVocabDecisions adds; folds and
-// drops from keywordVocabDecisions. A non-vocab term then folds onto the vocab
-// term it is a variant of — same variant key, or its "(ACR)" is a vocab term
-// ("Precision Time Protocol (PTP)" → PTP). Remaining new terms cluster by
-// variant key and land as ONE controlledKeywords entry: the spelling most docs
-// use (prime() counts them up front), else the first seen.
+// vocab = the pre-IDAMS controlledKeywords ∪ keywordVocabDecisions adds.
+// Order per term: IDAMS fold → drop → vocab (exact) → earlier folds → typo fix
+// → normalizeIeee → cluster. prime() sees every term up front and builds the
+// clusters: one per clusterKey, joined through "Long Form (ACR)" pairs when the
+// acronym is unambiguous (one long form across the corpus) — and, when the
+// acronym is itself an existing term, only for a 3+-word long form, so
+// "Aspect Ratio (AR)" can't join AR (augmented reality). A cluster lands on its
+// existing vocabulary term when it has one, else on the spelling most docs use
+// (tie → shorter).
 function makeKeywordConformer(vocab, decisions) {
   const vocabByLower = new Map();
   for (const k of [...vocab, ...(decisions.adds || [])]) vocabByLower.set(String(k).toLowerCase(), k);
   const idamsFoldByLower = new Map(Object.entries(decisions.idamsFolds || {}).map(([k, v]) => [k.toLowerCase(), v]));
-  const vocabByVariant = new Map();
-  for (const k of vocabByLower.values()) if (!vocabByVariant.has(variantKey(k))) vocabByVariant.set(variantKey(k), k);
   const foldByLower = new Map(Object.entries(decisions.folds || {}).map(([k, v]) => [k.toLowerCase(), v]));
   const dropLower = new Set([...(decisions.drops || []), ...(decisions.idamsDrops || [])]
     .map((d) => String(typeof d === 'string' ? d : d.term || '').toLowerCase()));
-  const runVocab = new Map(); // variant key → chosen spelling
   const totals = { idamsFold: 0, vocab: 0, fold: 0, fix: 0, variant: 0, normalize: 0, drop: 0 };
 
-  const vocabVariant = (term) => {
-    const v = vocabByVariant.get(variantKey(term));
-    if (v) return v;
-    const acr = trailingAcronym(term);
-    return acr ? vocabByLower.get(acr.toLowerCase()) || null : null;
-  };
+  const parent = new Map();
+  const find = (k) => { if (!parent.has(k)) parent.set(k, k); while (parent.get(k) !== k) k = parent.get(k); return k; };
+  const union = (x, y) => { const a = find(x); const b = find(y); if (a !== b) parent.set(b, a); };
+  const vocabKeys = new Map(); // clusterKey → vocab term
+  for (const k of vocabByLower.values()) { const ck = clusterKey(k); if (ck && !vocabKeys.has(ck)) vocabKeys.set(ck, k); }
+  const surfaceCount = new Map(); // normalized spelling → docs
+  const rep = new Map();          // cluster root → chosen spelling
+  let primed = false;
 
-  // Count each new spelling's docs so a cluster lands on its majority form.
+  // Explicit decisions first, then the raw term itself.
+  function early(raw) {
+    const lo = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim().toLowerCase();
+    const bare = lo.replace(/[.;,]+$/, '');
+    if (dropLower.has(lo) || dropLower.has(bare)) return { drop: true };
+    if (idamsFoldByLower.has(lo)) return { term: idamsFoldByLower.get(lo), how: 'idamsFold' };
+    if (idamsFoldByLower.has(bare)) return { term: idamsFoldByLower.get(bare), how: 'idamsFold' };
+    if (vocabByLower.has(lo)) return { term: vocabByLower.get(lo), how: 'vocab' };
+    if (foldByLower.has(lo)) return { term: foldByLower.get(lo), how: 'fold' };
+    if (FIX.has(lo)) return { term: FIX.get(lo), how: 'fix' };
+    const n = normalizeIeee(raw);
+    const nl = n.toLowerCase();
+    if (dropLower.has(nl)) return { drop: true };
+    if (idamsFoldByLower.has(nl)) return { term: idamsFoldByLower.get(nl), how: 'idamsFold' };
+    if (vocabByLower.has(nl)) return { term: vocabByLower.get(nl), how: 'vocab' };
+    return { term: n, how: null };
+  }
+
   function prime(termLists) {
-    const counts = new Map(); // variant key → Map(spelling → docs)
-    for (const terms of termLists) {
-      for (const raw of new Set(terms)) {
-        const lo = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim().toLowerCase();
-        if (dropLower.has(lo) || dropLower.has(lo.replace(/[.;,]+$/, '')) || idamsFoldByLower.has(lo) || vocabByLower.has(lo) || foldByLower.has(lo) || FIX.has(lo)) continue;
-        const term = normalizeIeee(raw);
-        if (vocabVariant(term)) continue;
-        const key = variantKey(term);
-        if (!counts.has(key)) counts.set(key, new Map());
-        counts.get(key).set(term, (counts.get(key).get(term) || 0) + 1);
+    const terms = [];
+    for (const list of termLists) {
+      for (const raw of new Set(list)) {
+        const e = early(raw);
+        if (e.drop || e.how) continue;
+        terms.push(e.term);
+        surfaceCount.set(e.term, (surfaceCount.get(e.term) || 0) + 1);
       }
     }
-    // Majority spelling; a tie prefers the form carrying "(ACR)", then shorter.
-    for (const [key, m] of counts) {
-      const best = [...m].sort((a, b) => b[1] - a[1]
-        || Number(Boolean(trailingAcronym(b[0]))) - Number(Boolean(trailingAcronym(a[0])))
-        || a[0].length - b[0].length)[0][0];
-      runVocab.set(key, best);
+    // Acronym ↔ long form, from every "Long Form (ACR)" in vocab + corpus.
+    const acrLongs = new Map(); // acr key → Set(long key)
+    for (const t of [...vocabByLower.values(), ...surfaceCount.keys()]) {
+      const acr = trailingAcronym(t);
+      if (!acr) continue;
+      const ak = clusterKey(acr);
+      const lk = clusterKey(longForm(t));
+      if (!ak || !lk || ak === lk) continue;
+      if (!acrLongs.has(ak)) acrLongs.set(ak, new Map());
+      const prev = acrLongs.get(ak).get(lk);
+      acrLongs.get(ak).set(lk, { long: longForm(t), n: (prev ? prev.n : 0) + (surfaceCount.get(t) || 1) });
     }
+    for (const t of surfaceCount.keys()) find(clusterKey(t));
+    // An acronym's long forms are grouped by their first two words; only the
+    // dominant group joins the acronym ("High Efficiency Video Coding" /
+    // "… Codec" join HEVC, a stray "Video Coding (HEVC)" does not). A tie means
+    // two real meanings (IP: Internet Protocol / Intellectual Property) — no join.
+    const lead = (long) => long.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean).slice(0, 2).join(' ');
+    for (const [ak, longs] of acrLongs) {
+      const groups = new Map(); // lead → { n, keys, words }
+      for (const [lk, { long, n }] of longs) {
+        const g = groups.get(lead(long)) || { n: 0, keys: [], words: 0 };
+        g.n += n; g.keys.push(lk); g.words = Math.max(g.words, long.split(/[\s-]+/).length);
+        groups.set(lead(long), g);
+      }
+      const ranked = [...groups.values()].sort((x, y) => y.n - x.n);
+      if (ranked.length > 1 && ranked[0].n === ranked[1].n) continue;
+      const top = ranked[0];
+      if (vocabKeys.has(ak) && !top.keys.some((lk) => vocabKeys.has(lk)) && top.words < 3) continue;
+      for (const lk of top.keys) union(ak, lk);
+    }
+    // Representative per cluster.
+    const members = new Map();
+    for (const t of surfaceCount.keys()) {
+      const r = find(clusterKey(t));
+      if (!members.has(r)) members.set(r, []);
+      members.get(r).push(t);
+    }
+    const vocabByRoot = new Map();
+    for (const [ck, v] of vocabKeys) if (parent.has(ck)) { const r = find(ck); if (!vocabByRoot.has(r)) vocabByRoot.set(r, v); }
+    for (const [r, list] of members) {
+      const own = list.map((t) => vocabKeys.get(clusterKey(t))).find(Boolean);
+      // House style first (ST 2110 not SMPTE ST 2110; 100GbE not 100Gbit/Sec;
+      // no lowercase start), then most docs, then shorter.
+      const offStyle = (t) => /^SMPTE\s/i.test(t) || /\bST\d/.test(t) || /\d\s*(gbit|gbps|gb\/s)/i.test(t) || /^[a-z]/.test(t) || /[–—]/.test(t);
+      const styled = list.filter((t) => !offStyle(t));
+      // Ties: keep a version decimal (TLS 1.3, not TLS 13) and a slash (TCP/IP),
+      // prefer acronym capitals (CGI, CALM Act) unless the whole phrase is
+      // shouted (SCENE REFERRED), then shorter.
+      const score = (t) => [
+        /\d\.\d/.test(t) ? 1 : 0,
+        /[A-Za-z]\/[A-Za-z]/.test(t) ? 1 : 0,
+        /\s/.test(t) && t === t.toUpperCase() ? -1 : (t.match(/[A-Z]/g) || []).length,
+      ];
+      const tie = (a, b) => { const x = score(a); const y = score(b); for (let i = 0; i < x.length; i++) if (x[i] !== y[i]) return y[i] - x[i]; return 0; };
+      rep.set(r, own || vocabByRoot.get(r)
+        || (styled.length ? styled : list)
+          .sort((a, b) => surfaceCount.get(b) - surfaceCount.get(a) || tie(a, b) || a.length - b.length || a.localeCompare(b))[0]);
+    }
+    primed = true;
+  }
+
+  function resolve(term) {
+    const ck = clusterKey(term);
+    if (vocabKeys.has(ck)) return { term: vocabKeys.get(ck), how: 'variant' };
+    if (primed && parent.has(ck)) {
+      const r = rep.get(find(ck));
+      if (r) return { term: r, how: vocabByLower.has(r.toLowerCase()) ? 'variant' : 'normalize' };
+    }
+    return { term, how: 'normalize' };
   }
 
   function conformList(terms) {
     const out = [];
     const seen = new Set();
     for (const raw of terms) {
-      const lo = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim().toLowerCase();
-      let term;
-      if (dropLower.has(lo) || dropLower.has(lo.replace(/[.;,]+$/, ''))) { totals.drop++; continue; }
-      if (idamsFoldByLower.has(lo)) { term = idamsFoldByLower.get(lo); totals.idamsFold++; }
-      else if (vocabByLower.has(lo)) { term = vocabByLower.get(lo); totals.vocab++; }
-      else if (foldByLower.has(lo)) { term = foldByLower.get(lo); totals.fold++; }
-      else if (FIX.has(lo)) { term = FIX.get(lo); totals.fix++; }
-      else {
-        term = normalizeIeee(raw);
-        const v = vocabVariant(term);
-        if (v) { term = v; totals.variant++; }
-        else {
-          const key = variantKey(term);
-          if (runVocab.has(key)) term = runVocab.get(key); else runVocab.set(key, term);
-          totals.normalize++;
-        }
-      }
+      const e = early(raw);
+      if (e.drop) { totals.drop++; continue; }
+      const r = e.how ? e : resolve(e.term);
+      totals[r.how]++;
+      const term = r.term;
       if (!term || seen.has(term.toLowerCase())) continue;
       seen.add(term.toLowerCase());
       out.push(term);
     }
     return out;
   }
+
+  // Spellings folded into each landing term (for reports): term → [[spelling, docs]].
+  function merges() {
+    const out = new Map();
+    for (const [t, n] of surfaceCount) {
+      const r = resolve(t).term;
+      if (r === t) continue;
+      if (!out.has(r)) out.set(r, []);
+      out.get(r).push([t, n]);
+    }
+    return out;
+  }
   const inVocab = (t) => vocabByLower.has(String(t).toLowerCase());
-  return { conformList, inVocab, prime, totals };
+  return { conformList, inVocab, prime, merges, totals };
 }
 
 // ---- bio placement -------------------------------------------------------
@@ -442,6 +548,7 @@ function pruneUnusedVocab(site, docs) {
 }
 
 module.exports = {
+  clusterKey,
   loadDecisions,
   idamsWroteKeywords,
   preIdamsVocab,

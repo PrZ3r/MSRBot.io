@@ -71,7 +71,8 @@ const oursKw = (d) => String((d['keywords$meta'] || {}).note || '').includes('id
 
 const kwChanges = [];
 const bioChanges = [];
-prime([...source].filter(([doi]) => byDoi.has(doi)).map(([, a]) => a.keywords));
+// Same corpus as idamsIngest.js, so both passes land a cluster on one spelling.
+prime(articles.map((a) => a.keywords));
 const bioUnmatched = [];
 const bioRealigned = [];
 const newVocab = new Map(); // term → doc count

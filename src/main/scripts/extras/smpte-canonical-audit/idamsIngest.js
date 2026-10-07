@@ -111,7 +111,7 @@ const { articles, files } = readAllArticles();
 const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
 // Conform against the vocabulary without the IDAMS passes, so a re-run folds
 // away spellings an earlier run added.
-const { conformList, inVocab, prime, totals: kwTotals } = makeKeywordConformer(preIdamsVocab(site, allDocs), loadDecisions(REPORTS));
+const { conformList, inVocab, prime, merges, totals: kwTotals } = makeKeywordConformer(preIdamsVocab(site, allDocs), loadDecisions(REPORTS));
 
 const candidates = articles.filter((a) => a.doi && !existingDois.has(a.doi));
 // Same DOI in more than one file (re-exports): identical title → one doc.
@@ -127,7 +127,8 @@ for (const a of candidates) {
   } else dupDoi.push({ doi: a.doi, a: prev.title, b: a.title, files: [prev.rel, a.rel] });
 }
 for (const d of dupDoi) byDoi.delete(d.doi);
-prime([...byDoi.values()].map((a) => a.keywords));
+// Same corpus as idamsFieldBackfill.js, so both passes land a cluster on one spelling.
+prime(articles.map((a) => a.keywords));
 
 // ---- doc assembly --------------------------------------------------------
 const meta = (rel, extra = {}) => ({
@@ -376,6 +377,13 @@ const md = [
   '## Collisions',
   '',
   ...collisions.map((c) => `- \`${c.docId}\` vs existing \`${c.other}\` (${c.rel})`),
+  '',
+  '## Keyword merges',
+  '',
+  'Each landing term, then the source spellings folded into it (docs). **Bold** = an existing vocabulary term.',
+  '',
+  ...[...merges()].sort((x, y) => y[1].reduce((n, [, c]) => n + c, 0) - x[1].reduce((n, [, c]) => n + c, 0))
+    .map(([to, from]) => `- ${inVocab(to) ? `**${esc(to)}**` : esc(to)} ← ${from.sort((x, y) => y[1] - x[1]).map(([t, n]) => `${esc(t)} (${n})`).join(' · ')}`),
   '',
   '## New controlledKeywords terms',
   '',
