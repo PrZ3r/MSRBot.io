@@ -5,6 +5,18 @@
 > from the SMPTE canonical Journal/Conference repositories. The 147 retired plain-DOI duplicates are
 > excluded — those need NO AWS action (both real documents already exist under plain + XY DOIs).
 
+## Reference files missing from the library (2015–2023)
+
+> Added: 2026-10-07. Detail: [`referenceFilesTruthTable.md`](referenceFilesTruthTable.md) and per paper `referenceFilesTruthTable.csv`.
+
+Separately from the missing documents below, SMPTE's library delivery for 2015–2023 lacks the papers' **reference lists**:
+
+- **410 papers name a reference file that isn't delivered.** The IEEE record names a `-ref.xml` (e.g. `10-5594_M001855-ref.xml`). None of the 410 are in the library export or the AWS bucket (searched by file name, DOI and article number). ➜ supply the files.
+- **415 journal articles (2016–2023) have references, but the record says none.** They carry `articlereferenceflag=F` and name no file, yet references were deposited with the DOI and/or the published PDF has a references section. ➜ correct the records and supply the reference data.
+- Before 2015 the HIGHWIRE NLM delivery carried references, and from 2024 the FTXML full text does; only the 2015–2023 IEEE-era delivery has this gap.
+
+## Documents missing from the canonical repositories
+
 | docId | doi | year | contentType | title |
 |---|---|---|---|---|
 | `10.5594-J00051` | 10.5594/J00051 | 1960 | review | TV and Film Production Data Book |
