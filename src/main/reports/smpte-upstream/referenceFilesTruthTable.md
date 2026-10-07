@@ -11,6 +11,8 @@
 - **B — 415 papers: the record lists no reference file, yet references exist.** 415 of them carry `articlereferenceflag=F` (“no references”). Evidence: references deposited with the DOI (399) and/or a references section in the published PDF (408). All 415 are journal articles: 376 from 2017–2023 and 39 from 2016, the IEEE Xplore era; Xplore showed references for articles of this period. ➜ **SMPTE: correct the records and supply reference data.**
 - **C — 220 papers: no evidence of references** (no file named, nothing deposited, no references section found in the PDF). Likely papers without a reference list; listed for completeness.
 
+**No full text either.** SMPTE's library has no FTXML (JATS full text, which carries the reference list in 2024+ deliveries) for any paper from 2015–2023: 0 files for journal or conference in any of those years, against 99 journal and 40 conference papers in 2024. So for this period the delivery has neither the reference files nor the full text that would contain the references. Confirmed both in the AWS bucket and in the local library copy.
+
 MSRBot will meanwhile extract references from the published PDFs, so the registry is complete regardless; this report is the record of what SMPTE’s delivery is missing.
 
 ## By year
@@ -40,4 +42,5 @@ MSRBot will meanwhile extract references from the published PDFs, so the registr
 
 1. **Supply the 410 named reference files (verdict A).** File names and issue folders: `referenceFilesTruthTable.csv`, rows with verdict A. Add them to the AWS library beside each article’s XML.
 2. **Correct the 415 records that omit existing references (verdict B)** — set `articlereferenceflag`, and supply the reference data (IEEE held it for Xplore). Rows with verdict B.
-3. Going forward, include each paper’s reference list in the library delivery (as the 2024+ FTXML already does).
+3. **Supply FTXML full text for 2015–2023**, as delivered for 2024+, or at minimum the reference lists.
+4. Going forward, keep including each paper’s reference list in the library delivery (as the 2024+ FTXML does).
