@@ -205,6 +205,18 @@ function docLabel(rec, docType) {
 // numbered blocks from the heading's page to the end and rebuilt 1, 2, 3 …
 // Case-insensitive: small-caps headings extract as "RefeRences".
 const REF_HEAD = /(?:^|\n)\s*(?:references|bibliography|works cited|literature cited)\s*:?\s*(?:\n|$)/i;
+// A heading line has capitals ("References", small caps "RefeRences" or
+// "rEFErEncES"); an all-lowercase "references" is a label inside a figure.
+const HEAD_WORD = /^(?:references|bibliography|works cited|literature cited)\s*:?$/i;
+const isHeadLine = (line) => HEAD_WORD.test(line) && /[A-Z]/.test(line);
+function headAt(page) {
+  let pos = 0;
+  for (const raw of String(page).split('\n')) {
+    if (isHeadLine(raw.trim())) return pos;
+    pos += raw.length + 1;
+  }
+  return -1;
+}
 // A line that ends the reference list (the bios / acknowledgments that follow).
 const REF_STOP = /^(?:About the Authors?|ABOUT THE AUTHORS?|The Authors?$|Author Biograph(?:y|ies)|Biograph(?:y|ies)$|Acknowledg(?:e)?ments?|ACKNOWLEDG(?:E)?MENTS?|Appendix\b|APPENDIX\b|Presented at the|A contribution received)/;
 // A line that interrupts an entry: running page headers / footers, captions.
@@ -242,7 +254,7 @@ function romanToInt(r) {
 }
 // "12. …", "[12] …", "12) …" — or roman "xii. …" (a few 2015 conference papers).
 function entryStart(line) {
-  const m = line.match(/^\[?(\d{1,3})[.\])]\s+(\S.*)$/);
+  const m = line.match(/^\[?(\d{1,3})[.\])]\s+(\S.*)$/) || line.match(/^\[\s*(\d{1,3})\s*\]\s*(\S.*)$/);   // "12. …", "[12] …", "[ 12 ] …"
   if (m) return { n: Number(m[1]), text: m[2] };
   const r = line.match(/^([ivxlc]{1,7})[.)]\s+(\S.*)$/i);
   if (r && /^(?:[ivxlc]+)$/i.test(r[1])) return { n: romanToInt(r[1]), text: r[2] };
@@ -255,7 +267,11 @@ function entryStart(line) {
 function unnumberedEntries(lines) {
   const out = [];
   let prevClosed = true;
-  for (const line of lines) {
+  for (const raw of lines) {
+    // A numbered line ("1. A. Akhtar, …" in a bibliography) always opens an entry.
+    const num = raw.match(/^\[?\d{1,3}[.\])]\s+(\S.*)$/);
+    const line = num ? num[1] : raw;
+    if (num) { out.push(line); prevClosed = /[.)]$/.test(line); continue; }
     const opens = /^(?:[A-Z][A-Za-z'’.-]+(?:,|\s)|[A-Z]{2,}|“|")/.test(line)
       && !/^(?:Retrieved|Available|Accessed|Web\.|\[Online\])/.test(line)
       && !/^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d/.test(line); // a wrapped date
@@ -289,6 +305,27 @@ function looseStart(line, seq) {
   return null;
 }
 
+// Some PDFs open with the tail of the previous article in the issue, its
+// references included. A paper can't reach its own references within its first
+// lines, so when a reference heading is among the first 10 lines of the PDF and
+// the paper's title follows on its first two pages, everything before the title
+// is dropped. (A heading further down — an editorial whose title box extracts
+// after its text — is left alone.)
+function startAtTitle(list, title) {
+  const words = String(title || '').split(/[^A-Za-z0-9]+/).filter(Boolean).slice(0, 6);
+  if (words.length < 3) return list;
+  const re = new RegExp(words.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('[^A-Za-z0-9]+'), 'i');
+  for (let k = 0; k < Math.min(2, list.length); k++) {
+    const m = re.exec(list[k]);
+    if (!m) continue;
+    const before = list.slice(0, k).join('\n') + '\n' + list[k].slice(0, m.index);
+    const early = String(list[0]).split('\n').map((l) => l.trim()).filter(Boolean).slice(0, 10).some(isHeadLine);
+    if (early && before.split('\n').some((l) => isHeadLine(l.trim()))) return [list[k].slice(m.index), ...list.slice(k + 1)];
+    return list;
+  }
+  return list;
+}
+
 // A year, a URL or a quoted title.
 const looksCited = (e) => /(?:19|20)\d{2}(?!\d)|https?:|www\.|[“"]/.test(e);
 
@@ -296,10 +333,10 @@ const looksCited = (e) => /(?:19|20)\d{2}(?!\d)|https?:|www\.|[“"]/.test(e);
 // reference-number order. Numbered lists are rebuilt by number; unnumbered
 // bibliographies fall back to unnumberedEntries() (pdfReferenceEntries.lastMode
 // reports which).
-function pdfReferenceEntries(pages) {
+function pdfReferenceEntries(pages, { title } = {}) {
   pdfReferenceEntries.lastMode = 'none';
-  const list = Array.isArray(pages) ? pages : [String(pages || '')];
-  const h = list.findIndex((p) => REF_HEAD.test(p));
+  const list = startAtTitle(Array.isArray(pages) ? pages : [String(pages || '')], title);
+  const h = list.findIndex((p) => headAt(p) >= 0);
   if (h < 0) return [];
   const strict = collectPdfEntries(list, h, false);
   let entries = strict.entries;
@@ -320,7 +357,9 @@ function pdfReferenceEntries(pages) {
   // A second, unnumbered list after the main one ("Other Sources",
   // "Additional References") is part of the references: appended in order.
   if (strict.supp.length) entries = entries.concat(trimProse(unnumberedEntries(strict.supp)));
-  return entries.map(cleanPdfEntry).filter((e) => e.length > 3);
+  // An author bio set after the list ("Rachel McIntire is a workflow producer …").
+  const bio = /^[A-Z][a-z]+(?:\s+[A-Z]\.)?\s+[A-Z][a-zA-Z'’-]+\s+(?:is|was|has|received|joined|holds|graduated|earned|works|serves)\s/;
+  return entries.map(cleanPdfEntry).filter((e) => e.length > 3 && !bio.test(e));
 }
 
 // Body text set after an unnumbered bibliography (a closing section in the
@@ -342,10 +381,10 @@ function collectPdfEntries(list, h, loose) {
   let seq = 0;
   for (let i = h; i < list.length; i++) {
     const page = list[i];
-    const headAt = i === h ? page.search(REF_HEAD) : -1;
+    const headPos = i === h ? headAt(page) : -1;
     let pos = 0;
     for (const raw of page.split('\n')) {
-      const pre = i === h && pos < headAt;
+      const pre = i === h && pos < headPos;
       pos += raw.length + 1;
       // A whole disclaimer footer on one line goes first, keeping any citation text around it.
       const line = raw.replace(/\s+/g, ' ')
@@ -353,13 +392,23 @@ function collectPdfEntries(list, h, loose) {
         .trim();
       if (!line) continue;
       if (REF_STOP.test(line)) { cur = null; stopped = true; inSupp = false; if (!pre) plainStopped = true; continue; }
+      // A second heading after a numbered list ("References" … "Bibliography")
+      // opens a supplementary list, like "Other Sources".
+      // (A repeated "References" on a two-column page is not one.)
+      if (isHeadLine(line) && !/^references/i.test(line) && !pre && blocks.some((b) => !b.pre)) { cur = null; stopped = true; inSupp = true; plainStopped = true; continue; }
       if (isPageNoise(line) || REF_HEAD.test(`\n${line}\n`)) { cur = null; continue; }
       const sh = !pre && line.match(/^(?:Other Sources|Additional References)\s*:?\s*(.*)$/i);
       if (sh) { cur = null; stopped = true; inSupp = true; plainStopped = true; if (sh[1]) supp.push(sh[1]); continue; }
-      if (inSupp) { supp.push(line); continue; }
+      if (inSupp) {
+        // …unless the numbered list resumes (a repeated heading on a continuation page).
+        const next = (loose ? looseStart(line, seq) : entryStart(line));
+        const maxN = blocks.reduce((a, b) => Math.max(a, b.n), 0);
+        if (!(next && next.n === maxN + 1)) { supp.push(line); continue; }
+        inSupp = false;
+      }
       if (!pre && !plainStopped) plain.push(line);
       // Loose: entries run together on one line ("… Overview [2]SMPTE …", "… • Digital …").
-      for (const part of loose ? line.split(/\s+(?=\[\s*\d{1,3}\s*\]|[•▪●◦]\s)/) : [line]) {
+      for (const part of line.split(loose ? /\s+(?=\[\s*\d{1,3}\s*\]|[•▪●◦]\s)/ : /\s+(?=\[\s*\d{1,3}\s*\]\s*[A-Z“"])/)) {
         const m = loose ? looseStart(part, seq) : entryStart(part);
         if (m) { if (m.seq) seq++; cur = { n: m.n, pre, text: m.text }; blocks.push(cur); stopped = false; continue; }
         if (cur && !stopped) cur.text = joinWrapped(cur.text, part);
@@ -713,9 +762,17 @@ function createSmpteJournalParser({ discovery }) {
       console.warn(`   ⚠️ ${docId}: could not read ${path.basename(p.pdf)} (${e.message})`);
       return [];
     }
-    const cites = pdfReferenceEntries(pages);
+    const cites = pdfReferenceEntries(pages, { title: existing.docTitle });
     const mode = pdfReferenceEntries.lastMode;
-    if (!cites.length) return [];
+    if (!cites.length) {
+      // A list this pass wrote earlier that a corrected parse no longer finds
+      // (e.g. another article's references) is withdrawn; any other is untouched.
+      if (!(Array.isArray(prev.bibliographic) && prev.bibliographic.length)) return [];
+      const doc = { docId, references: { bibliographic: [] } };
+      if (prev.normative) doc.references.normative = prev.normative;
+      Object.defineProperty(doc, '__sourceUrl', { value: undefined, enumerable: false, configurable: true, writable: true });
+      return [doc];
+    }
 
     const out = [];
     for (const cite of cites) {

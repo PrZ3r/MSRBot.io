@@ -128,12 +128,16 @@ eq(pdfReferenceEntries(['References\n1. A, “One,” Retrieved from: The author
   ['A, “One,” Retrieved from: http://x.org/a'], 'conference disclaimer footer cut out of a wrapped entry');
 eq(pdfReferenceEntries(['No reference section here.']), [], 'no heading → no entries');
 eq(pdfReferenceEntries(['References\n[ 1] A. Bee, “One,” 2015.\n[2]SMPTE, ST 2084:2014. [3] C. Day, “Three,” 2016.']),
-  ['A. Bee, “One,” 2015.', 'SMPTE, ST 2084:2014.', 'C. Day, “Three,” 2016.'], 'loose: bracket numbers (spaced, unspaced, same line)');
-eq(pdfReferenceEntries.lastMode, 'loose', 'mode: loose');
+  ['A. Bee, “One,” 2015.', 'SMPTE, ST 2084:2014.', 'C. Day, “Three,” 2016.'], 'bracket numbers: spaced, unspaced, same line');
+eq(pdfReferenceEntries.lastMode, 'numbered', 'bracket numbers (spaced, unspaced, same line) read by the numbered pass');
 eq(pdfReferenceEntries(['References\n[Wang09] Z. Wang, “MSE,” 2009.\n[Bonneel] N. Bonneel, “Example-based,” 2013.']),
   ['Z. Wang, “MSE,” 2009.', 'N. Bonneel, “Example-based,” 2013.'], 'loose: keyed entries in order of appearance');
 eq(pdfReferenceEntries(['References\n1 Michael Smith, Audio Reference Book, 2015.\n2 Joe Lee, “Two,” 2016.']),
   ['Michael Smith, Audio Reference Book, 2015.', 'Joe Lee, “Two,” 2016.'], 'loose: footnote-style numbers');
+eq(pdfReferenceEntries(['ments for the Web.\nReferences\n1. “Prev Ref One,” 2019.\n2. “Prev Ref Two,” 2019.\nJPEG Status and Progress Report\nBody.'], { title: 'JPEG Status and Progress Report' }),
+  [], 'PDF opening in the previous article\'s references: dropped up to the title');
+eq(pdfReferenceEntries(['A'.repeat(5) + '\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nReferences\n1. “Own One,” 2022.\n2. “Own Two,” 2022.\nIntroduction from the Standards Vice President'], { title: 'Introduction from the Standards Vice President' }).length,
+  2, 'heading further down (title box extracted late): kept');
 pdfReferenceEntries(['References\n• Transcode\n• Storage\n• File based']);
 ok(pdfReferenceEntries.lastMode !== 'loose', 'loose: bulleted body text (no years, URLs or titles) is not taken as references');
 eq(pdfReferenceEntries(['Bibliography\nRanjan, A., & Black, M. J. (2019).\nCompetitive Collaboration. CVPR.\nTzeng, E. (2017). Adversarial Adaptation. CVPR.']),
