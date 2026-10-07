@@ -38,6 +38,8 @@
  *   node …/extractFtxmlRefs.js            # dry-run -> report
  *   node …/extractFtxmlRefs.js --apply    # write docs + MRI
  *   node …/extractFtxmlRefs.js --limit 20 # cap to N source docs
+ *   node …/extractFtxmlRefs.js --all      # also docs that already have references
+ *   node …/extractFtxmlRefs.js --refresh  # re-parse and replace refs this script wrote
  *
  * Reports: src/main/reports/smpte-canonical-audit/ftxmlRefApply.{json,md}
  */
@@ -46,9 +48,13 @@ const fs = require('fs');
 const path = require('path');
 const { loadAllDocs, saveDoc } = require('../../../lib/registry');
 const {
+  parseCiteDesignator,
+  tidyCiteText,
+  citeHref,
   mapRefByCite,
   reloadRefMap,
   mriRecordSighting,
+  mriReplaceSighting,
   mriFlush,
   mriEnsureFile,
   _contentHash,
@@ -59,6 +65,15 @@ process.chdir(REPO_ROOT);
 
 const NOW = new Date().toISOString();
 const APPLY = process.argv.includes('--apply');
+// Docs that already carry references (the #1248 apply, and any cleanup since)
+// are skipped unless --all — a re-run for newly ingested issues must not
+// re-record sightings or re-touch their refs.
+const ALL = process.argv.includes('--all');
+// --refresh: re-parse every FTXML doc and REPLACE the references this script
+// wrote earlier (doc list + MRI cite/rawRef), for the 2026-10 parse fixes:
+// the first <ref> no longer swallows "<ref-list><title>References</title>",
+// cites drop the <label> number and the spaced-out punctuation.
+const REFRESH = process.argv.includes('--refresh');
 const LIMIT = (() => {
   const i = process.argv.indexOf('--limit');
   if (i < 0) return 0;
@@ -81,6 +96,7 @@ function decodeEntities(s) {
 const strip = (s) => decodeEntities(String(s || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
 function tag(x, t) { const m = String(x).match(new RegExp(`<${t}\\b[^>]*>([\\s\\S]*?)</${t}>`, 'i')); return m ? m[1] : ''; }
 const tagText = (x, t) => strip(tag(x, t));
+const citeText = tidyCiteText; // shared (referencing.js)
 function field(block, t) { const m = String(block).match(new RegExp(`<${t}\\b[^>]*>([\\s\\S]*?)</${t}>`, 'i')); return m ? strip(m[1]) : ''; }
 
 // ---- registry + indices --------------------------------------------------
@@ -189,6 +205,14 @@ function resolve(rawRef) {
     if (mapped) return { kind: 'canonical', refId: mapped, via: 'mapRefByCite' };
   }
 
+  // 4. leading designator — the shared head-only parse (referencing.js
+  // parseCiteDesignator): never reads the title, so title mentions of a
+  // standard can't be pulled onto it (the #1248 precision rule).
+  {
+    const id = parseCiteDesignator(citeText(rawRef), { isRegistryDoc: (x) => docIds.has(x) });
+    if (id) return { kind: 'canonical', refId: id, via: 'leading-designator' };
+  }
+
   // 5. #1229 content-hash pre-check before minting
   const h = _contentHash(rawRef);
   if (h && hashToRefId.has(h)) return { kind: 'canonical', refId: hashToRefId.get(h), via: 'content-hash' };
@@ -198,7 +222,10 @@ function resolve(rawRef) {
 
 // ---- walk the catalog ----------------------------------------------------
 const catalog = JSON.parse(fs.readFileSync(CATALOG, 'utf8'));
-const counters = { files: 0, sourceDocs: new Set(), refs: 0, canonical: 0, orphan: 0, inRegistry: 0, knownNoDoc: 0 };
+const refreshed = new Set(); // docs whose earlier FTXML refs are replaced, not merged
+const citeSamples = [];      // before → after citation text (report)
+let mriBefore = {}; try { mriBefore = (loadMri() || {}).refs || {}; } catch { /* none */ }
+const counters = { files: 0, sourceDocs: new Set(), refs: 0, canonical: 0, orphan: 0, inRegistry: 0, knownNoDoc: 0, skippedHasRefs: 0 };
 const byVia = {};
 const perDoc = new Map();   // docId -> ordered refIds/slugs
 const unmapped = [];
@@ -208,16 +235,27 @@ for (const f of catalog.files) {
   if (!f.refCount) continue;
   const doc = docForFtxml(f.path);
   if (!doc) { unmapped.push(f.path); continue; }
+  const hasRefs = Array.isArray((doc.references || {}).bibliographic) && doc.references.bibliographic.length;
+  const oursRefs = /extractFtxmlRefs/.test(String(((doc.references || {})['bibliographic$meta'] || {}).note || ''));
+  if (hasRefs && !ALL && !(REFRESH && oursRefs)) { counters.skippedHasRefs++; continue; }
+  if (REFRESH && hasRefs) refreshed.add(doc.docId);
   counters.files++;
   counters.sourceDocs.add(doc.docId);
 
   let xml; try { xml = fs.readFileSync(f.path, 'utf8'); } catch { continue; }
   const refList = xml.match(/<ref-list\b[\s\S]*?<\/ref-list>/);
   if (!refList) continue;
-  const rawRefs = refList[0].match(/<ref\b[^>]*>[\s\S]*?<\/ref>/g) || [];
+  // <ref …> only — /<ref\b/ also matched <ref-list>, so every first ref
+  // swallowed the list's <title>References</title>.
+  const rawRefs = refList[0].match(/<ref(?:\s[^>]*)?>[\s\S]*?<\/ref>/g) || [];
 
   for (const raw of rawRefs) {
     counters.refs++;
+    if (citeSamples.length < 25) {
+      const id = (raw.match(/<ref\s+id="([^"]+)"/) || [])[1];
+      const old = id && mriBefore[`orphan/${doc.docId}/${id}`];
+      citeSamples.push({ docId: doc.docId, id, before: old ? old.citationText : null, after: citeText(raw) });
+    }
     const r = resolve(raw);
     byVia[r.via] = (byVia[r.via] || 0) + 1;
 
@@ -229,12 +267,13 @@ for (const f of catalog.files) {
       if (docIds.has(r.refId)) counters.inRegistry++; else counters.knownNoDoc++;
       if (APPLY) {
         try {
-          mriRecordSighting({
+          const sight = {
             docId: doc.docId, type: 'bibliographic', refId: r.refId,
-            cite: strip(raw.replace(/<ref\b[^>]*>|<\/ref>/g, '')), href: '',
+            cite: citeText(raw), href: citeHref(raw),
             rawRef: raw, title: field(raw, 'article-title') || '',
             mapSource: 'ftxml-extract', mapDetail: r.via,
-          });
+          };
+          if (!(REFRESH && mriReplaceSighting(sight))) mriRecordSighting(sight);
         } catch (e) { console.warn(`[ftxml-refs] mri canonical failed ${doc.docId}/${r.refId}: ${e.message}`); }
       }
       if (!bucket.includes(r.refId)) bucket.push(r.refId);
@@ -244,13 +283,17 @@ for (const f of catalog.files) {
     counters.orphan++;
     if (APPLY) {
       try {
-        const mint = mriRecordSighting({
+        const sight = {
           docId: doc.docId, type: 'bibliographic',
-          cite: strip(raw.replace(/<ref\b[^>]*>|<\/ref>/g, '')), href: '',
+          cite: citeText(raw), href: citeHref(raw),
           rawRef: raw, title: field(raw, 'article-title') || '',
           mapSource: 'ftxml-extract', mapDetail: r.via,
-        });
-        const slug = mint && mint.mintedSlug;
+        };
+        const refXmlId = (raw.match(/<ref\s+id="([^"]+)"/) || [])[1];
+        const existingSlug = refXmlId ? `orphan/${doc.docId}/${refXmlId}` : null;
+        let slug = null;
+        if (REFRESH && existingSlug && mriReplaceSighting({ ...sight, refId: existingSlug })) slug = existingSlug;
+        else { const mint = mriRecordSighting(sight); slug = mint && mint.mintedSlug; }
         if (slug && !bucket.includes(slug)) bucket.push(slug);
       } catch (e) { console.warn(`[ftxml-refs] mint failed ${doc.docId}: ${e.message}`); }
     } else {
@@ -266,13 +309,20 @@ for (const f of catalog.files) {
 
 // ---- write ---------------------------------------------------------------
 let docsWritten = 0;
+const staleRefs = []; // refs a refreshed doc carried that the corrected parse no longer produces
+for (const docId of refreshed) {
+  const doc = byDocId.get(docId);
+  const existing = Array.isArray(((doc || {}).references || {}).bibliographic) ? doc.references.bibliographic : [];
+  const stale = existing.filter((r) => !(perDoc.get(docId) || []).includes(r));
+  if (stale.length) staleRefs.push({ docId, stale });
+}
 if (APPLY) {
   for (const [docId, refs] of perDoc) {
     const doc = byDocId.get(docId);
     if (!doc || !refs.length) continue;
     doc.references = doc.references || {};
     const existing = Array.isArray(doc.references.bibliographic) ? doc.references.bibliographic : [];
-    const merged = [...existing];
+    const merged = refreshed.has(docId) ? [] : [...existing];
     for (const r of refs) if (!merged.includes(r)) merged.push(r);
     doc.references.bibliographic = merged;
     doc.references['bibliographic$meta'] = {
@@ -312,6 +362,14 @@ const md = [
   `- FTXML files with refs      : ${counters.files}`,
   `- source docs touched        : **${counters.sourceDocs.size}**`,
   `- refs processed             : **${counters.refs}**`,
+  `- skipped (doc already has references; --all to include): ${counters.skippedHasRefs}`,
+  `- refreshed (earlier FTXML refs replaced): ${refreshed.size} docs · orphans replaced: ${staleRefs.reduce((n, x) => n + x.stale.length, 0)}`,
+  '',
+  '## Citation text — before → after (first 25)',
+  '',
+  ...citeSamples.map((c) => `- \`${c.docId}/${c.id}\`\n  - before: ${c.before || '—'}\n  - after: ${c.after}`),
+  '',
+  ...(staleRefs.length ? ['## Replaced on refresh', '', 'Earlier orphan slugs the corrected run no longer produces — typically because the cited article is now a registry doc (e.g. a 2016–2023 MIJ article from the IDAMS ingest) and the ref links to it directly.', '', ...staleRefs.map((x) => `- \`${x.docId}\`: ${x.stale.join(', ')}`), ''] : []),
   `- → canonical refId (direct link) : **${counters.canonical}** (${counters.inRegistry} resolve to a registry doc)`,
   `- → orphan slug (MRI, EXTERNAL badge) : **${counters.orphan}**`,
   `- unmapped FTXML files       : ${unmapped.length}`,

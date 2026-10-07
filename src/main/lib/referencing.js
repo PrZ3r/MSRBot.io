@@ -87,7 +87,9 @@ function mriPruneToSightings(index, opts = {}) {
     if (!docId || !presentDocIds.has(docId)) return { docGone: true, nowResolved: false };
     let nowResolved = false;
     try {
-      const rid = parseRefId(cite || '', href || '');
+      // Title-safe: a citation whose TITLE mentions a standard ("Overview of
+      // SMPTE ST 2110 …") must not count as resolved to it.
+      const rid = parseCiteDesignator(cite || '', { isRegistryDoc: (x) => !!_findSourceDocIdForRefId(x) });
       if (rid) {
         const key = `${rid}||${docId}||${type || ''}`;
         if (index.has(key)) nowResolved = true;
@@ -116,6 +118,9 @@ function mriPruneToSightings(index, opts = {}) {
   // 2. New slug-keyed orphans in refs[]
   for (const [slug, entry] of Object.entries(mri.refs || {})) {
     if (!entry || !entry.isOrphan) continue;
+    // A slug its doc still cites is never dropped — that would leave the doc
+    // pointing at nothing (the MRI coverage invariant).
+    if (index.has(`${slug}||${entry.sourceDoc}||bibliographic`) || index.has(`${slug}||${entry.sourceDoc}||normative`)) continue;
     const { docGone, nowResolved } = tryResolveOrphan(entry.sourceDoc, entry.citationText, entry.href, (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].type) || null);
     if (docGone || nowResolved) {
       delete mri.refs[slug];
@@ -773,6 +778,37 @@ function _buildRefsOut(mri) {
 }
 
 mriFlush
+// Re-extraction: replace what an earlier sighting recorded for (docId, type).
+// mriRecordSighting deliberately keeps existing non-empty cite / rawRef, so a
+// corrected re-parse of the same source (e.g. the FTXML ref-list fix) would
+// never land through it. For an orphan slug the doc itself minted, the entry's
+// citationText / rawRef / title / contentHash are replaced as well.
+// Returns false when refId is not in the MRI (caller mints instead).
+function mriReplaceSighting({ docId, type, refId, cite, href, rawRef, title }) {
+  const mri = _loadMRI();
+  const entry = mri.refs && mri.refs[refId];
+  if (!entry) return false;
+  _dirty = true;
+  entry.rawVariants = (entry.rawVariants || []).filter((v) => !(v && v.docId === docId && v.type === type));
+  entry.rawVariants.push({
+    docId,
+    type,
+    cite: cite == null ? '' : String(cite),
+    href: href == null ? '' : String(href),
+    rawRef: _normalizeRawRef(rawRef),
+    title: title && String(title).trim() ? String(title) : null,
+  });
+  entry.rawVariants = _dedupeVariants(entry.rawVariants);
+  if (entry.isOrphan && entry.sourceDoc === docId) {
+    entry.citationText = cite || synthesizeCiteFromRawRef(rawRef) || null;
+    entry.rawRef = rawRef || null;
+    entry.title = title || null;
+    entry.href = href || null;
+    if (rawRef) entry.contentHash = _contentHash(rawRef);
+  }
+  return true;
+}
+
 function mriFlush(opts = {}) {
   const { force = false } = opts;
   const mri = _loadMRI();
@@ -961,12 +997,107 @@ function expandRefId(refId) {
 }
 
 // Main parser: derive a canonical refId from a citation text + optional href
+// Bibliography styles (SMPTE's journal among them) lead with the publisher
+// before the designator: "SMPTE, ST 2084:2014, “…”", "International
+// Organization for Standardization/International Electrotechnical Commission
+// (ISO/IEC) 23009-1:2019", "International Telecommunication Union-
+// Radiocommunication (ITU-R), Recommendation BT.709-6", "SMPTE, EG 432-1: 2010".
+// Reduce the lead-in to the bare designator the parser families already read.
+const LEAD_IN_BODIES = 'ISO\\/IEC|ISO|IEC|ITU-R|ITU-T|ITU|ETSI|IETF|IEEE|CTA|ATSC|EBU|AES|SMPTE|ANSI|DVB|CIE';
+function normalizePublisherLeadIn(text) {
+  return String(text || '')
+    // Only a spelled-out name (words, no digits — not "CEA-608-E (ANSI)") and only
+    // when a designator follows (not a date: W3C author-date keeps its long form).
+    .replace(new RegExp(`^[A-Z][A-Za-z.&/'’ -]{3,160}?\\(\\s*(${LEAD_IN_BODIES})\\s*\\)\\s*,?\\s*(?=(?:[A-Z]{1,4}[ -]?)?\\d|Recommendation\\b|[A-Z]{2,5}-\\d)`), '$1 ')
+    .replace(/\bI?IS[O0]\s*\/\s*IEC\b/g, 'ISO/IEC')                // source typos "IISO/IEC", "IS0/IEC"
+    .replace(/([A-Za-z0-9.])\s*[\u2013\u2014]\s*(\d)/g, '$1-$2')     // "BT.2100–2", "2059–1"
+    .replace(/^SMPTE\s*,\s*/, 'SMPTE ')
+    .replace(/\bSMPTE\s+(ST|RP|EG|RDD|OV)\s*,\s*(?=\d)/, 'SMPTE $1 ')   // "SMPTE ST, 2059-1:2021"
+    .replace(/\b(ST|RP|EG|RDD|OV)-(?=\d)/g, '$1 ')                   // "ST-2022-6", "ST-352"
+    .replace(/\b(ITU-[RT])\s*,?\s*Recommendation\s+/, '$1 ')
+    .replace(/\b((?:ST|RP|EG|RDD|OV|AG)\s*\d+[A-Z]?(?:-\d+)*)\s*:\s+((?:19|20)\d{2})\b/, '$1:$2');
+}
+
+// Citation text as printed, from a JATS/NLM <ref> (or plain text): the
+// <mixed-citation> (else <element-citation>, else the body) without its
+// <label> number, tags joined WITHOUT inserted spaces, entities decoded and
+// punctuation spacing tidied — "Xu , “ Survey ,” 16 ( 3 ): 645 – 678" →
+// "Xu, “Survey,” 16(3): 645–678".
+function tidyCiteText(rawRef) {
+  const src = String(rawRef || '');
+  const pick = (t) => { const m = src.match(new RegExp(`<${t}\\b[^>]*>([\\s\\S]*?)</${t}>`, 'i')); return m ? m[1] : null; };
+  const body = pick('mixed-citation') || pick('element-citation') || src.replace(/<ref\b[^>]*>|<\/ref>/g, '');
+  return body
+    .replace(/<label\b[^>]*>[\s\S]*?<\/label>/g, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => { try { return String.fromCodePoint(parseInt(h, 16)); } catch { return ''; } })
+    .replace(/&#(\d+);/g, (_, d) => { try { return String.fromCodePoint(parseInt(d, 10)); } catch { return ''; } })
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'")
+    .replace(/\s+/g, ' ')
+    .replace(/\s+([,.;:!?)\]”’])/g, '$1')
+    .replace(/([(\[“‘])\s+/g, '$1')
+    .replace(/(\d)\s*([\u2013\u2014])\s*(\d)/g, '$1$2$3')
+    .trim();
+}
+
+// The link a JATS/NLM <ref> carries: its <uri> (text or xlink:href) or
+// <ext-link xlink:href>, else its <pub-id pub-id-type="doi"> as a doi.org URL.
+// Trailing sentence punctuation is trimmed. Returns '' when there is none.
+function citeHref(rawRef) {
+  const src = String(rawRef || '');
+  const clean = (u) => String(u || '').replace(/&amp;/g, '&').replace(/\s+/g, '').replace(/[.,;:)\]]+$/, '');
+  const attr = src.match(/<(?:uri|ext-link)\b[^>]*\bxlink:href=["']([^"']+)["']/i);
+  if (attr && /^https?:\/\//i.test(clean(attr[1]))) return clean(attr[1]);
+  const uri = src.match(/<uri\b[^>]*>([\s\S]*?)<\/uri>/i);
+  if (uri && /^https?:\/\//i.test(clean(uri[1].replace(/<[^>]+>/g, '')))) return clean(uri[1].replace(/<[^>]+>/g, ''));
+  const doi = src.match(/<pub-id\b[^>]*pub-id-type=["']doi["'][^>]*>([^<]+)<\/pub-id>/i);
+  if (doi) return `https://doi.org/${clean(doi[1])}`;
+  return '';
+}
+
+// The designator a free-text bibliography entry cites, read with its quoted
+// TITLE removed — so a paper whose title merely mentions a standard ("Is SMPTE
+// ST 2110 the future of your facility?") is never pulled onto it, while both
+// publisher-first ("SMPTE, ST 2084:2014, “…”") and author-first ("R. Pantos,
+// “HTTP Live Streaming,” IETF RFC 8216, 2017") styles resolve. The text before
+// the title is tried first. SMPTE standard DOIs (10.5594/SMPTE.ST2110-20.2022)
+// map to the standard. Never taken: a bare DOI that isRegistryDoc(id) doesn't
+// know, an ISBN (the proceedings volume, not the paper), a year read as a
+// number ("(CTA), 2021"), a malformed id ("ISO.11172-"), a study group. A
+// designator found only AFTER the title is also refused when the entry is a
+// meeting / proceedings / session / draft ("ITU-T Q.6/SG16 VCEG 13th Meeting",
+// "draft-pantos-hls-rfc8216bis") unless it is a registry doc. Returns refId or null.
+const DESIGNATOR_BODIES = /\b(SMPTE|ISO|IEC|ITU|ETSI|IETF|IEEE|CTA|CEA|ATSC|EBU|AES|ANSI|DVB|CIE|RFC|DCI|SCTE)\b/;
+const VENUE_WORDS = /\b(proceedings|proc\.|presented at|session|symposium|meeting|draft)\b/i;
+function parseCiteDesignator(cite, { isRegistryDoc = () => false } = {}) {
+  const text = String(cite || '');
+  const tryParse = (s) => {
+    if (!DESIGNATOR_BODIES.test(s)) return null;
+    let id = null;
+    try { id = parseRefId(s); } catch { return null; }
+    if (!id) return null;
+    id = id.replace(/^10\.5594-(SMPTE\..+)$/, '$1');
+    if (/^10\./.test(id) && !isRegistryDoc(id)) return null;
+    if (/^T-REC-SG\./.test(id) || /^ISBN\./.test(id) || /^[A-Za-z]+\.(?:19|20)\d{2}$/.test(id) || /-$/.test(id)) return null;
+    return id;
+  };
+  const head = text.split(/[“"]/)[0];
+  const fromHead = tryParse(head);
+  if (fromHead) return fromHead;
+  const withoutTitle = text.replace(/“[^”]*”/g, ' ').replace(/"[^"]*"/g, ' ');
+  if (withoutTitle === head) return null;
+  const fromTail = tryParse(withoutTitle);
+  if (!fromTail) return null;
+  if (VENUE_WORDS.test(withoutTitle) && !isRegistryDoc(fromTail)) return null;
+  return fromTail;
+}
+
 function parseRefId(text, href = '', opts = {}) {
   const wantDiag = !!opts.wantDiag;
   // allow explicit cite→refId normalization via refMap.json
   const diag = mapRefByCiteDiag(text);
   if (diag.refId) return wantDiag ? { refId: diag.refId, diag } : diag.refId;
-  text = normalizeCiteTypography(text);
+  text = normalizePublisherLeadIn(normalizeCiteTypography(text));
 
   // --- ALLPARTS hinting from cite text ---
   // Some sources explicitly cite a standard as "(all parts)". Preserve that intent
@@ -2949,6 +3080,10 @@ module.exports = {
   expandRefId,
   mapRefByCite,
   parseRefId,
+  normalizePublisherLeadIn,
+  parseCiteDesignator,
+  tidyCiteText,
+  citeHref,
   extractRefs,
   reloadRefMap,
   reloadDocumentsIndex,
@@ -2957,6 +3092,7 @@ module.exports = {
   findSourceDocIdForRefId: _findSourceDocIdForRefId,
   // MRI helpers
   mriRecordSighting,
+  mriReplaceSighting,
   mriFlush,
   mriEnsureFile,
   mriPruneToSightings,
