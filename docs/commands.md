@@ -7,6 +7,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `extract` / `extract-smpte`: run SMPTE document extraction.
 - `extract-ietf`: run IETF document extraction.
 - `extract-manual`: run hand/AI-prepared records (`--input <records.json>`) through the extractor pipeline.
+- `extract-smpte-journal`: add/update SMPTE journal and conference papers from a **local** copy of the SMPTE journal library (maintainer only).
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
 - `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit.
@@ -74,6 +75,27 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `npm run extract-manual -- --input <records.json>`
   - Runs: `node src/main/scripts/extractDocs.js --provider manual --input <records.json>`
   - Action: Adds/updates documents from a records file prepared by a person or AI agent (publishers without an extractor). Citations go through `parseRefId` with MRI sightings and orphan slugs; per-field provenance comes from the record's `metaSources` / `metaSourceUrls` / `metaNotes` / `metaFlags`. Format: [manual-extraction.md](manual-extraction.md).
+
+- `npm run extract-smpte-journal [-- --source <dir>] [-- --from <year>]`
+  - Runs: `node src/main/scripts/extractDocs.js --provider smpte-journal`
+  - **Requires a local copy of the SMPTE journal library XML.** The library isn't public: the maintainer downloads each new SMPTE Motion Imaging Journal issue and conference from SMPTE's AWS library. Without a readable local copy (missing path, empty folder, or Dropbox online-only 0-byte placeholders) the command prints "No local SMPTE journal source … nothing to do" and exits without touching the registry. It can't run on a schedule or in CI.
+  - Action: reads each paper's `content_batch` file (metadata, keywords, authors) and its `FTXML/` full text (references), and feeds them through the extractDocs pipeline like the other extractors:
+    - a new paper is added;
+    - an unchanged paper is skipped;
+    - a field SMPTE changed in a re-download is updated, with the old value in `originalValue`;
+    - a field locked with `excludeChanges` / `excludeOverwrite` in its `$meta` is never changed.
+
+    The command only adds or changes what it extracts; it never deletes. Hand-added keywords and authors' bios, affiliations and ORCIDs are kept. The exception is references: a paper's reference list from its FTXML replaces the stored bibliographic list as a unit, and a paper with no FTXML keeps what it has.
+  - Flags:
+    - `--source <dir>`: library root. Default `_source/SMPTE`, the maintainer's symlink to the library. It must contain `Journal Article Repository/` and/or `Conference Repository/Conference Papers/`.
+    - `--from <year>`: first year to read. Default `2025`; earlier years are already in the registry.
+  - Keywords are conformed with `src/main/lib/keywordConform.js`, using the rules in `src/main/config/keywordDecisions.json` (folds, drops, splits, acronyms). Add a rule there, not in the extractor.
+  - Typical use after downloading a new issue:
+    ```bash
+    npm run extract-smpte-journal
+    npm run canonicalize && npm run validate
+    git diff        # review; commit, or `git checkout -- src/main/data src/main/reports` to discard
+    ```
 
 ### Index Builders
 

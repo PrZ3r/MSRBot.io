@@ -36,6 +36,9 @@ const { ietfMetaConfig } = require('./ietf.meta');
 const { createManualDiscovery } = require('./manual.discovery');
 const { createManualParser } = require('./manual.parse');
 const { manualMetaConfig } = require('./manual.meta');
+const { createSmpteJournalDiscovery } = require('./smpteJournal.discovery');
+const { createSmpteJournalParser } = require('./smpteJournal.parse');
+const { smpteJournalMetaConfig } = require('./smpteJournal.meta');
 
 const PROVIDER_CONFIGS = {
   smpte: {
@@ -59,6 +62,13 @@ const PROVIDER_CONFIGS = {
   // Hand/agent-prepared records (--input records.json); see docs/manual-extraction.md
   manual: {
     label: 'Manual',
+    seedPath: null,
+    discovery: {}
+  },
+  // Local only: reads the maintainer's copy of the SMPTE journal library
+  // (--source, default _source/SMPTE; --from, default 2025). Not schedulable.
+  'smpte-journal': {
+    label: 'SMPTE Journal (local library)',
     seedPath: null,
     discovery: {}
   }
@@ -136,6 +146,19 @@ function getProvider(providerKey, deps) {
       label: cfg.label,
       seedPath: cfg.seedPath,
       metaConfig: manualMetaConfig,
+      discovery,
+      parser
+    };
+  }
+
+  if (providerKey === 'smpte-journal') {
+    const discovery = createSmpteJournalDiscovery();
+    const parser = createSmpteJournalParser({ discovery });
+    return {
+      key: providerKey,
+      label: cfg.label,
+      seedPath: cfg.seedPath,
+      metaConfig: smpteJournalMetaConfig,
       discovery,
       parser
     };

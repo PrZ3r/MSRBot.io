@@ -38,6 +38,7 @@ MSRBot.io runs a fully automated pipeline of GitHub Actions that:
     npm run extract-smpte
     npm run extract-ietf
     npm run extract-manual -- --input <records.json>
+    npm run extract-smpte-journal   # maintainer only: needs a local copy of the SMPTE journal library XML
     npm run build-msi
     npm run build-mri
     npm run validate-url
