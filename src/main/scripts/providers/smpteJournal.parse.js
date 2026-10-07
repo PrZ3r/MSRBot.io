@@ -258,6 +258,20 @@ function createSmpteJournalParser({ discovery }) {
     for (const { rec } of recs) if (rec.doi) doiCount.set(rec.doi, (doiCount.get(rec.doi) || 0) + 1);
     const dupDois = new Set([...doiCount].filter(([, n]) => n > 1).map(([d]) => d));
 
+    // Papers in this run are citable too: a new paper citing another one in
+    // the same delivery (or a 2026 paper citing a 2025 one ingested in the
+    // same pass) resolves by DOI or volume + first page like a registry doc.
+    for (const { rec } of recs) {
+      const id = docIdFor(rec, dupDois);
+      if (rec.doi && !byDoi.has(rec.doi)) byDoi.set(rec.doi, { docId: id });
+      if (!byDocId.has(id)) byDocId.set(id, null);
+      if (/^10\.5594-[jJmM]/.test(id) && rec.volume && rec.fpage) {
+        const key = `${String(rec.volume).trim()}|${String(rec.fpage).trim()}`;
+        if (!volPages.has(key)) volPages.set(key, []);
+        if (!volPages.get(key).includes(id)) volPages.get(key).push(id);
+      }
+    }
+
     const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
     const kw = makeKeywordConformer(site.controlledKeywords || [], loadKeywordDecisions(), { shouted: true });
     kw.prime(recs.map(({ rec }) => rec.rawKeywords));
@@ -335,7 +349,7 @@ function createSmpteJournalParser({ discovery }) {
     if (!rec) return [];
     const docType = p.docType;
     const docId = docIdFor(rec, dupDois);
-    const existing = byDocId.get(docId);
+    const existing = byDocId.get(docId) || null;
 
     const keywords = union(existing && existing.keywords, rec.rawKeywords.length ? kw.conformList(rec.rawKeywords) : []);
     const authors = mergeAuthors(existing && existing.authors, rec.authors);
