@@ -38,6 +38,7 @@
  *   node …/extractFtxmlRefs.js            # dry-run -> report
  *   node …/extractFtxmlRefs.js --apply    # write docs + MRI
  *   node …/extractFtxmlRefs.js --limit 20 # cap to N source docs
+ *   node …/extractFtxmlRefs.js --all      # also docs that already have references
  *
  * Reports: src/main/reports/smpte-canonical-audit/ftxmlRefApply.{json,md}
  */
@@ -59,6 +60,10 @@ process.chdir(REPO_ROOT);
 
 const NOW = new Date().toISOString();
 const APPLY = process.argv.includes('--apply');
+// Docs that already carry references (the #1248 apply, and any cleanup since)
+// are skipped unless --all — a re-run for newly ingested issues must not
+// re-record sightings or re-touch their refs.
+const ALL = process.argv.includes('--all');
 const LIMIT = (() => {
   const i = process.argv.indexOf('--limit');
   if (i < 0) return 0;
@@ -198,7 +203,7 @@ function resolve(rawRef) {
 
 // ---- walk the catalog ----------------------------------------------------
 const catalog = JSON.parse(fs.readFileSync(CATALOG, 'utf8'));
-const counters = { files: 0, sourceDocs: new Set(), refs: 0, canonical: 0, orphan: 0, inRegistry: 0, knownNoDoc: 0 };
+const counters = { files: 0, sourceDocs: new Set(), refs: 0, canonical: 0, orphan: 0, inRegistry: 0, knownNoDoc: 0, skippedHasRefs: 0 };
 const byVia = {};
 const perDoc = new Map();   // docId -> ordered refIds/slugs
 const unmapped = [];
@@ -208,6 +213,8 @@ for (const f of catalog.files) {
   if (!f.refCount) continue;
   const doc = docForFtxml(f.path);
   if (!doc) { unmapped.push(f.path); continue; }
+  const hasRefs = Array.isArray((doc.references || {}).bibliographic) && doc.references.bibliographic.length;
+  if (hasRefs && !ALL) { counters.skippedHasRefs++; continue; }
   counters.files++;
   counters.sourceDocs.add(doc.docId);
 
@@ -312,6 +319,7 @@ const md = [
   `- FTXML files with refs      : ${counters.files}`,
   `- source docs touched        : **${counters.sourceDocs.size}**`,
   `- refs processed             : **${counters.refs}**`,
+  `- skipped (doc already has references; --all to include): ${counters.skippedHasRefs}`,
   `- → canonical refId (direct link) : **${counters.canonical}** (${counters.inRegistry} resolve to a registry doc)`,
   `- → orphan slug (MRI, EXTERNAL badge) : **${counters.orphan}**`,
   `- unmapped FTXML files       : ${unmapped.length}`,

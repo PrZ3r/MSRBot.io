@@ -33,6 +33,11 @@
  *   node …/ingestNlmCanonicalDocs.js               # dry-run → staging report
  *   node …/ingestNlmCanonicalDocs.js --apply       # saveDoc() each staged doc
  *   node …/ingestNlmCanonicalDocs.js --limit 20    # cap to N primaries
+ *   node …/ingestNlmCanonicalDocs.js --overwrite   # also re-write docs already on disk
+ *
+ * Keywords (index_terms, ALL CAPS) are conformed with the shared IDAMS keyword
+ * conformer (idamsPublication.js) against the current controlledKeywords and
+ * the keyword decisions; new terms join controlledKeywords on --apply.
  *
  * Reports:
  *   src/main/reports/smpte-canonical-audit/nlmIngest.json   (full staged docs)
@@ -41,13 +46,18 @@
 
 const fs = require('fs');
 const path = require('path');
-const { loadAllDocs, saveDoc } = require('../../../lib/registry');
+const { loadAllDocs, saveDoc, docAbsPath } = require('../../../lib/registry');
+const { makeKeywordConformer, loadDecisions } = require('./idamsPublication');
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..');
 process.chdir(REPO_ROOT);
 
 const NOW = new Date().toISOString();
 const APPLY = process.argv.includes('--apply');
+// Docs already on disk are left alone unless --overwrite: the 491 earlier docs
+// carry keyword cleanup, contentType fixes and FTXML references (#1248) that a
+// re-ingest from source would undo.
+const OVERWRITE = process.argv.includes('--overwrite');
 const LIMIT = (() => {
   const i = process.argv.indexOf('--limit');
   if (i < 0) return 0;
@@ -321,6 +331,7 @@ const staged = [];
 const collisions = [];
 const dupDoiPairs = [];
 const skippedInReg = { count: 0 };
+const skippedOnDisk = [];
 const seenIds = new Map();
 const byCorpus = {};
 const byContentType = {};
@@ -361,13 +372,31 @@ for (const { label, root, docType } of CORPORA) {
     }
     seenIds.set(doc.docId, f);
 
+    if (!OVERWRITE && fs.existsSync(docAbsPath(doc))) { skippedOnDisk.push(doc.docId); continue; }
+
     byContentType[rec.contentType || '?'] = (byContentType[rec.contentType || '?'] || 0) + 1;
     byCorpus[label].staged++;
     staged.push({ corpus: label, sourceFile: f, docId: doc.docId, keyMode: rec.doi ? 'doi' : (rec.isConf ? 'isbn-seq' : 'issn-vol-issue-seq'), doc });
   }
 }
 
-console.log(`[ingest] staged ${staged.length} docs | skipped in-registry ${skippedInReg.count} | collisions ${collisions.length}`);
+// ---- keywords: shared conformer ---------------------------------------------
+const SITE_PATH = 'src/main/config/site.json';
+const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
+const kw = makeKeywordConformer(site.controlledKeywords || [], loadDecisions('src/main/reports/smpte-canonical-audit'));
+kw.prime(staged.map((s) => s.doc.keywords || []));
+const newVocab = new Set();
+for (const s of staged) {
+  if (!Array.isArray(s.doc.keywords) || !s.doc.keywords.length) continue;
+  const raw = s.doc.keywords;
+  const out = kw.conformList(raw);
+  if (!out.length) { delete s.doc.keywords; delete s.doc['keywords$meta']; continue; }
+  s.doc.keywords = out;
+  s.doc['keywords$meta'] = { ...META_HI, note: `${META_HI.note}; index_terms conformed via idamsPublication.js (controlledKeywords + keyword decisions)`, originalValue: raw };
+  for (const t of out) if (!kw.inVocab(t)) newVocab.add(t);
+}
+
+console.log(`[ingest] staged ${staged.length} docs | already on disk ${skippedOnDisk.length} | skipped in-registry ${skippedInReg.count} | collisions ${collisions.length} | new keywords ${newVocab.size}`);
 
 // ---- apply / report ------------------------------------------------------
 
@@ -383,13 +412,20 @@ if (APPLY) {
     if (++w % 100 === 0) console.log(`[ingest]   …${w}/${staged.length}`);
   }
   console.log(`[ingest] wrote ${w} docs.`);
+  const listed = new Set(site.controlledKeywords || []);
+  const missing = [...newVocab].filter((t) => !listed.has(t));
+  if (missing.length) {
+    site.controlledKeywords = [...listed, ...missing].sort((a, b) => a.localeCompare(b));
+    fs.writeFileSync(SITE_PATH, JSON.stringify(site, null, 2) + '\n', 'utf8');
+  }
+  console.log(`[ingest] +${missing.length} controlledKeywords`);
 }
 
 const summary = {
   generatedAt: NOW,
   apply: APPLY,
   limit: LIMIT || null,
-  totals: { staged: staged.length, skippedInRegistry: skippedInReg.count, collisions: collisions.length, duplicateUpstreamDois: dupDois.size },
+  totals: { staged: staged.length, alreadyOnDisk: skippedOnDisk.length, newKeywords: newVocab.size, skippedInRegistry: skippedInReg.count, collisions: collisions.length, duplicateUpstreamDois: dupDois.size },
   byCorpus,
   keyMode,
   byContentType,
@@ -406,6 +442,8 @@ const md = [
   '## Totals',
   `- content_batch primaries staged as new docs: **${staged.length}**`,
   `- skipped (DOI already in registry): ${skippedInReg.count}`,
+  `- skipped (already on disk; --overwrite to re-write): ${skippedOnDisk.length}`,
+  `- keywords new to controlledKeywords: ${newVocab.size}${newVocab.size ? ` — ${[...newVocab].sort().join(', ')}` : ''}`,
   `- **docId collisions: ${collisions.length}** ${collisions.length ? '⚠️ must resolve before --apply' : '✓'}\n`,
   '## By corpus',
   '| corpus | primaries | staged | already in registry |',
