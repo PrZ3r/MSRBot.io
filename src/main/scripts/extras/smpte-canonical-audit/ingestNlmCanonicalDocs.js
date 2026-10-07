@@ -310,6 +310,7 @@ const isOurs = (d) => String((d['docId$meta'] || {}).note || '').includes(OUR_NO
 const _allDocs = loadAllDocs();
 const existing = new Set(_allDocs.filter((d) => d.doi && !isOurs(d)).map((d) => String(d.doi).trim()));
 const existingIds = new Set(_allDocs.filter((d) => !isOurs(d)).map((d) => d.docId));
+const byDocIdAll = new Map(_allDocs.map((d) => [d.docId, d]));
 
 // Pre-scan: DOIs the canonical source assigned to MORE THAN ONE distinct paper.
 // (A genuine SMPTE upstream error — see the collision report / upstream register.)
@@ -372,7 +373,13 @@ for (const { label, root, docType } of CORPORA) {
     }
     seenIds.set(doc.docId, f);
 
-    if (!OVERWRITE && fs.existsSync(docAbsPath(doc))) { skippedOnDisk.push(doc.docId); continue; }
+    // Docs this script conformed with the shared keyword conformer (the 2026
+    // additions onward) are refreshable; older docs on disk are left alone.
+    if (!OVERWRITE && fs.existsSync(docAbsPath(doc))) {
+      const onDisk = byDocIdAll.get(doc.docId);
+      const refreshable = onDisk && String((onDisk['keywords$meta'] || {}).note || '').includes('idamsPublication.js');
+      if (!refreshable) { skippedOnDisk.push(doc.docId); continue; }
+    }
 
     byContentType[rec.contentType || '?'] = (byContentType[rec.contentType || '?'] || 0) + 1;
     byCorpus[label].staged++;
@@ -383,7 +390,7 @@ for (const { label, root, docType } of CORPORA) {
 // ---- keywords: shared conformer ---------------------------------------------
 const SITE_PATH = 'src/main/config/site.json';
 const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
-const kw = makeKeywordConformer(site.controlledKeywords || [], loadDecisions('src/main/reports/smpte-canonical-audit'));
+const kw = makeKeywordConformer(site.controlledKeywords || [], loadDecisions('src/main/reports/smpte-canonical-audit'), { shouted: true });
 kw.prime(staged.map((s) => s.doc.keywords || []));
 const newVocab = new Set();
 for (const s of staged) {

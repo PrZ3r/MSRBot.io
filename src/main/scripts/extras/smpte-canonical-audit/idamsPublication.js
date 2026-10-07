@@ -212,13 +212,15 @@ function readAllArticles() {
 // form "sT", "iS-10", "iTU-R", "vR" is a source glitch → uppercased).
 const LOWER_INITIAL_OK = new Set(['mdns', 'icam06', 'ion', 'iphone', 'ipad', 'ios', 'ebook']);
 
-function normalizeIeee(raw, knownAcronyms = null) {
+function normalizeIeee(raw, knownAcronyms = null, shouted = false) {
   let s0 = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim();
-  // Shouted terms (content_batch index_terms arrive ALL CAPS): a multi-word or
-  // long single-word term with no lowercase is lowercased first, so it title-
-  // cases like any other ("NEURAL RADIANCE FIELDS" → "Neural Radiance Fields");
-  // short all-caps tokens (ABR, QUIC) are acronyms and stay.
-  if (/[A-Z]/.test(s0) && !/[a-z]/.test(s0) && (/\s/.test(s0) || s0.replace(/[^A-Z]/g, '').length > 5)) s0 = s0.toLowerCase();
+  // Shouted sources only (content_batch index_terms arrive ALL CAPS — the
+  // caller opts in): a multi-word or long single-word term with no lowercase
+  // is lowercased first, so it title-cases like any other ("NEURAL RADIANCE
+  // FIELDS" → "Neural Radiance Fields"); short all-caps tokens (ABR, QUIC)
+  // stay, and vocabulary acronyms are restored below. Never applied to IDAMS
+  // terms, whose capitals are deliberate ("ITU-R BT.2100", "TLS 1.3").
+  if (shouted && /[A-Z]/.test(s0) && !/[a-z]/.test(s0) && (/\s/.test(s0) || s0.replace(/[^A-Z]/g, '').length > 5)) s0 = s0.toLowerCase();
   const s = s0
     .replace(/(?<!\b[A-Z]|\bInc|\betc)[.;,]+$/, '') // "Cache Management." → "Cache Management"
     .replace(/(\d)\s*[–—]\s*(\d)/g, '$1-$2')            // "ST 2022–7" → "ST 2022-7"
@@ -291,7 +293,7 @@ const longForm = (s) => String(s).replace(/\s*\([^()]*\)\s*$/, '').trim();
 // "Aspect Ratio (AR)" can't join AR (augmented reality). A cluster lands on its
 // existing vocabulary term when it has one, else on the spelling most docs use
 // (tie → shorter).
-function makeKeywordConformer(vocab, decisions) {
+function makeKeywordConformer(vocab, decisions, { shouted = false } = {}) {
   const vocabByLower = new Map();
   for (const k of [...vocab, ...(decisions.adds || [])]) vocabByLower.set(String(k).toLowerCase(), k);
   const idamsFoldByLower = new Map(Object.entries(decisions.idamsFolds || {}).map(([k, v]) => [k.toLowerCase(), v]));
@@ -305,7 +307,9 @@ function makeKeywordConformer(vocab, decisions) {
     'IMAX', 'CBC', 'RAI', 'ZDF', 'ARD', 'NRK', 'SVT', 'KBS', 'IRT', 'MPEG', 'JPEG', 'IETF', 'W3C', 'IEEE', 'ISO', 'IEC',
     'ANSI', 'CTA', 'VSF', 'AMWA', 'DPP', 'SRT'].map((a) => [a.toLowerCase(), a]));
   for (const k of vocabByLower.values()) {
-    for (const w of String(k).split(/[\s(),]+/)) if (/^[A-Z][A-Z0-9]{1,6}$/.test(w)) knownAcronyms.set(w.toLowerCase(), w);
+    for (const w of String(k).split(/[\s(),]+/)) {
+      if (/^[A-Z][A-Z0-9.\-/]{1,10}$/.test(w) && (w.match(/[A-Z]/g) || []).length >= 2) knownAcronyms.set(w.toLowerCase(), w);
+    }
   }
 
   const parent = new Map();
@@ -327,7 +331,7 @@ function makeKeywordConformer(vocab, decisions) {
     if (vocabByLower.has(lo)) return { term: vocabByLower.get(lo), how: 'vocab' };
     if (foldByLower.has(lo)) return { term: foldByLower.get(lo), how: 'fold' };
     if (FIX.has(lo)) return { term: FIX.get(lo), how: 'fix' };
-    const n = normalizeIeee(raw, knownAcronyms);
+    const n = normalizeIeee(raw, knownAcronyms, shouted);
     const nl = n.toLowerCase();
     if (dropLower.has(nl)) return { drop: true };
     if (idamsFoldByLower.has(nl)) return { term: idamsFoldByLower.get(nl), how: 'idamsFold' };
