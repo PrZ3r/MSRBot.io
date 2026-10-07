@@ -69,6 +69,12 @@ assert.strictEqual(parseCiteDesignator('SMPTE, ST 2084:2014, “High Dynamic Ran
 assert.strictEqual(parseCiteDesignator('J. Doe, “Is SMPTE ST 2110 the future of your facility?” 2019.'), null); n++;
 assert.strictEqual(parseCiteDesignator('Professional Media Over Managed IP Networks, ST ST 2110–20, 2022. doi: 10.5594/SMPTE.ST2110-20.2022'), 'SMPTE.ST2110-20.2022'); n++;
 assert.strictEqual(parseCiteDesignator('Joint Video Experts Team (JVET) of ITU-T SG 16 WP 3 and ISO/IEC JTC 1/SC 29, '), null, 'study group'); n++;
+// Author-first: the designator after the title resolves; venues and drafts don't.
+assert.strictEqual(parseCiteDesignator('R. Pantos and W. May, “HTTP Live Streaming,” IETF RFC 8216, 2017.'), 'RFC8216'); n++;
+assert.strictEqual(parseCiteDesignator('J. Lapierre, “X,” presented at the SMPTE 2018 Annual Technical Conference & Exhibition, Oct. 2018.'), null, 'conference'); n++;
+assert.strictEqual(parseCiteDesignator('G. Bjontegaard, “Calculation of average PSNR,” ITU-T Q.6/SG16 VCEG 13th Meeting, 2001.'), null, 'meeting'); n++;
+assert.strictEqual(parseCiteDesignator('R. Pantos, “HLS 2nd ed.,” IETF Draft, 2023. draft-pantos-hls-rfc8216bis-14.'), null, 'draft'); n++;
+assert.strictEqual(parseCiteDesignator('Consumer Technology Association (CTA), 2021.'), null, 'year as number'); n++;
 
 // tidyCiteText: label dropped, tags joined without spaces, punctuation tidied.
 const raw = '<ref id="ref1"><label>1.</label> <mixed-citation><string-name>R. Xu</string-name>, &#x201C;<article-title>Survey</article-title>,&#x201D; <source>IEEE Trans.</source>, <volume>16</volume> (<issue>3</issue>): <fpage>645</fpage>&#x2013;<lpage>678</lpage>, 2005.</mixed-citation></ref>';

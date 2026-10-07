@@ -1050,24 +1050,41 @@ function citeHref(rawRef) {
   return '';
 }
 
-// The designator a free-text bibliography entry cites, read ONLY from the text
-// before the title's opening quote ("SMPTE, ST 2084:2014, “…”" → its head), so
-// a paper whose title merely mentions a standard ("Is SMPTE ST 2110 the future
-// of your facility?") is never pulled onto it. SMPTE standard DOIs
-// (10.5594/SMPTE.ST2110-20.2022) map to the standard; a bare DOI from an
-// author-led paper cite is kept only when isRegistryDoc(id) says it is a
-// registry doc; study groups (ITU-T SG 16) are not documents. Returns refId or null.
+// The designator a free-text bibliography entry cites, read with its quoted
+// TITLE removed — so a paper whose title merely mentions a standard ("Is SMPTE
+// ST 2110 the future of your facility?") is never pulled onto it, while both
+// publisher-first ("SMPTE, ST 2084:2014, “…”") and author-first ("R. Pantos,
+// “HTTP Live Streaming,” IETF RFC 8216, 2017") styles resolve. The text before
+// the title is tried first. SMPTE standard DOIs (10.5594/SMPTE.ST2110-20.2022)
+// map to the standard. Never taken: a bare DOI that isRegistryDoc(id) doesn't
+// know, an ISBN (the proceedings volume, not the paper), a year read as a
+// number ("(CTA), 2021"), a malformed id ("ISO.11172-"), a study group. A
+// designator found only AFTER the title is also refused when the entry is a
+// meeting / proceedings / session / draft ("ITU-T Q.6/SG16 VCEG 13th Meeting",
+// "draft-pantos-hls-rfc8216bis") unless it is a registry doc. Returns refId or null.
 const DESIGNATOR_BODIES = /\b(SMPTE|ISO|IEC|ITU|ETSI|IETF|IEEE|CTA|CEA|ATSC|EBU|AES|ANSI|DVB|CIE|RFC|DCI|SCTE)\b/;
+const VENUE_WORDS = /\b(proceedings|proc\.|presented at|session|symposium|meeting|draft)\b/i;
 function parseCiteDesignator(cite, { isRegistryDoc = () => false } = {}) {
-  const head = String(cite || '').split(/[“"]/)[0];
-  if (!DESIGNATOR_BODIES.test(head)) return null;
-  let id = null;
-  try { id = parseRefId(head); } catch { return null; }
-  if (!id) return null;
-  id = id.replace(/^10\.5594-(SMPTE\..+)$/, '$1');
-  if (/^10\./.test(id) && !isRegistryDoc(id)) return null;
-  if (/^T-REC-SG\./.test(id)) return null;
-  return id;
+  const text = String(cite || '');
+  const tryParse = (s) => {
+    if (!DESIGNATOR_BODIES.test(s)) return null;
+    let id = null;
+    try { id = parseRefId(s); } catch { return null; }
+    if (!id) return null;
+    id = id.replace(/^10\.5594-(SMPTE\..+)$/, '$1');
+    if (/^10\./.test(id) && !isRegistryDoc(id)) return null;
+    if (/^T-REC-SG\./.test(id) || /^ISBN\./.test(id) || /^[A-Za-z]+\.(?:19|20)\d{2}$/.test(id) || /-$/.test(id)) return null;
+    return id;
+  };
+  const head = text.split(/[“"]/)[0];
+  const fromHead = tryParse(head);
+  if (fromHead) return fromHead;
+  const withoutTitle = text.replace(/“[^”]*”/g, ' ').replace(/"[^"]*"/g, ' ');
+  if (withoutTitle === head) return null;
+  const fromTail = tryParse(withoutTitle);
+  if (!fromTail) return null;
+  if (VENUE_WORDS.test(withoutTitle) && !isRegistryDoc(fromTail)) return null;
+  return fromTail;
 }
 
 function parseRefId(text, href = '', opts = {}) {
