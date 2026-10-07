@@ -1,15 +1,15 @@
 # IDAMS field backfill — keywords + author bios
 
-> DRY-RUN · 2026-10-07T15:50:38.850Z
+> DRY-RUN · 2026-10-07T16:05:07.797Z
 > Source: raw `_source/SMPTE/{Journal Article Repository,Conference Repository}` <publication> XML · joined on exact `doi`
 
 ## Totals
 
 - <publication> files scanned: 26175; articles with keywords or bios: 2463
-- source articles with no registry doc: 908 (the 2016–2023 coverage gap — separate ingest)
+- source articles with no registry doc: 908 (the 2016–2023 coverage gap — minted by idamsIngest.js)
 - **keywords**: 65 docs to fill (Journal Article 7 · Conference Paper 58) · already had keywords 240 · locked 0 · empty after conform 0
-  - term mapping: vocab 10 · fold 1 · typo-fix 3 · normalize 338 · dropped 4
-  - terms new to controlledKeywords: **328** (added on --apply)
+  - term mapping: vocab 10 · fold 1 · typo-fix 3 · variant→vocab 10 · new 328 · dropped 4
+  - terms new to controlledKeywords: **320** (added on --apply)
 - **bios**: 469 docs / 1060 bios to fill (Journal Article 445 · Conference Paper 24) · already had bios 810 · locked 0 · no registry authors 5 · no bio matched 0
   - realigned (source paired bio with the wrong author; text match wins): 23
   - docs with ≥1 unmatched source bio: 0 (0 bios)
@@ -19,10 +19,10 @@
 | docId | source terms | → registry keywords |
 |---|---|---|
 | `10.5594-J07620` | Densitometers · Color densitometry | Densitometers · Color Densitometry |
-| `10.5594-j18616` | judder · motion artifacts · frame-rate · subjective study | Judder · Motion Artifacts · Frame-rate |
+| `10.5594-j18616` | judder · motion artifacts · frame-rate · subjective study | Judder · Motion Artifacts · Frame Rate |
 | `10.5594-j18548` | receivers · television broadcasting | Receivers · Television Broadcasting |
-| `10.5594-j18572` | digital audio broadcasting · rendering (computer graphics) · audio signal processing · broadcast channels · interactive systems | Digital Audio Broadcasting · Rendering (Computer Graphics) · Audio Signal Processing · Broadcast Channels · Interactive Systems |
-| `10.5594-j18576` | photometry · dimensions · units | Photometry · Dimensions · Units |
+| `10.5594-j18572` | digital audio broadcasting · rendering (computer graphics) · audio signal processing · broadcast channels · interactive systems | Digital Audio Broadcasting · Rendering · Audio Signal Processing · Broadcast Channels · Interactive Systems |
+| `10.5594-j18576` | photometry · dimensions · units | Photometry · Dimension · Units |
 | `10.5594-j18577` | cinema · dynamic range · viewer preference | Dynamic Range · Viewer Preference |
 | `10.5594-j18635` | information retrieval · speech recognition · content-based retrieval · search engines | Information Retrieval · Speech Recognition · Content-based Retrieval · Search Engines |
 | `10.5594-M00123` | Digital TV · Service Information · Electronic Program Guide | Digital TV · Service Information · Electronic Program Guide |
@@ -32,10 +32,10 @@
 | `10.5594-M001333` | Digital Restoration of old films · Intensity Flicker · Regularization | Digital Restoration Of Old Films · Intensity Flicker · Regularization |
 | `10.5594-M001400` | Stereoscopic system · 3D lens · 65-mm film · interaxial distance (basis of the shooting) · “Stereo-70” · “Phantom-65” · 3D camera | Stereoscopic System · 3D Lens · 65-mm Film · Interaxial Distance (Basis Of The Shooting) · Stereo-70 · Phantom-65 · 3D Camera |
 | `10.5594-M001407` | stereoscopic 3D television · digital video · compression artifacts · network artifacts · subjective testing · active shutter · circularly polarized | Stereoscopic 3D Television · Digital Video · Compression Artifacts · Network Artifacts · Subjective Testing · Active Shutter · Circularly Polarized |
-| `10.5594-M001411` | Stereoscopic 3D content generation · post-production · depth editing | Stereoscopic 3D Content Generation · Post-production · Depth Editing |
+| `10.5594-M001411` | Stereoscopic 3D content generation · post-production · depth editing | Stereoscopic 3D Content Generation · Post Production · Depth Editing |
 | `10.5594-M001412` | Blu-ray 3D · Multiview Video Coding · MPEG-4 MVC · Base view · Dependent View · Offset Metadata · BD-Java · BD-J · 3D graphics · 3D Subtitling · Disparity Map | Blu-ray 3D · Multiview Video Coding · MPEG-4 MVC · Base View · Dependent View · Offset Metadata · BD-Java · BD-J · 3D Graphics · 3D Subtitling · Disparity Map |
 | `10.5594-M001417` | Mobile3DTV · error resilient transmission · DVB-H | Mobile3DTV · Error Resilient Transmission · DVB-H |
-| `10.5594-M001357` | DI · Digital Intermediate · Recorder film · CRTs · LED · Lasers · Spectral Sensitivity · recorders | DI · Digital Intermediate · Recorder Film · CRTs · LED · Lasers · Spectral Sensitivity · Recorders |
+| `10.5594-M001357` | DI · Digital Intermediate · Recorder film · CRTs · LED · Lasers · Spectral Sensitivity · recorders | DI · Digital Intermediate · Recorder Film · CRTs · LED · Laser · Spectral Sensitivity · Recorders |
 | `10.5594-M001358` | Digital preservation · digital restoration · quality measure · quality estimator · quality assessment · audio-visual quality | Digital Preservation · Digital Restoration · Quality Measure · Quality Estimator · Quality Assessment · Audio-visual Quality |
 | `10.5594-M001362` | Interactive video · non-linear content · user interaction · object description · personalization · IPTV | Interactive Video · Non-linear Content · User Interaction · Object Description · Personalization · IPTV |
 | `10.5594-M001365` | AACS · audio watermark · Cinavia · content protection · embedding · film print mastering · theatrical post-production workflows | AACS · Audio Watermark · Cinavia · Content Protection · Embedding · Film Print Mastering · Theatrical Post-production Workflows |
@@ -43,7 +43,7 @@
 | `10.5594-M001372` | BNC · HD-BNC · DIN 1.0/2.3 · Mini BNC · Slimline BNC · Micro BNC | BNC · HD-BNC · DIN 1.0/2.3 · Mini BNC · Slimline BNC · Micro BNC |
 | `10.5594-M001373` | “Ultra-low-delay” · “H.264” · “HDTV Codec” · “Wireless Camera” | Ultra-low-delay · H.264 · HDTV Codec · Wireless Camera |
 | `10.5594-M001383` | Restoration · Classic film | Restoration · Classic Film |
-| `10.5594-M001385` | 3D-TV · 2D-to-3D conversion · 3D cinema | 3D-TV · 2D-to-3D Conversion · 3D Cinema |
+| `10.5594-M001385` | 3D-TV · 2D-to-3D conversion · 3D cinema | 3D-TV · 2D To 3D Conversion · 3D Cinema |
 | `10.5594-M001387` | Dataflow programming · massively parallel architecture · H.264 codec · low power | Dataflow Programming · Massively Parallel Architecture · H.264 Codec · Low Power |
 | `10.5594-M001391` | Migrating from MPEG-2 to MPEG-4 AVC · bandwidth efficiency · DVB-S2 · MPEG-4 AVC · transcoding receiver · transcoder · compression concatenation effects | Migrating From MPEG-2 To MPEG-4 AVC · Bandwidth Efficiency · DVB-S2 · MPEG-4 AVC · Transcoding Receiver · Transcoder · Compression Concatenation Effects |
 | `10.5594-M001398` | Uniformity · screen's measurement · vignetting | Uniformity · Screen's Measurement · Vignetting |
@@ -61,11 +61,11 @@
 | `10.5594-M001434` | file-based work flow · video file transmission · transmission priority · TCP · congestion control algorithm | File-based Work Flow · Video File Transmission · Transmission Priority · TCP · Congestion Control Algorithm |
 | `10.5594-M001441` | spatial concealment · image restoration · H.264/AVC · intra prediction | Spatial Concealment · Image Restoration · H.264/AVC · Intra Prediction |
 | `10.5594-M001442` | file-based system · quality check · converter | File-based System · Quality Check · Converter |
-| `10.5594-M001452` | IP Content Networks · Transport · Architectures · Standards & Applications · IP Protecton | IP Content Networks · Transport · Architectures · Standards & Applications · IP Protection |
+| `10.5594-M001452` | IP Content Networks · Transport · Architectures · Standards & Applications · IP Protecton | IP Content Networks · Transport · Architecture · Standards & Applications · IP Protection |
 | `10.5594-M001454` | Stereoscopic 3D (S3D) · Retinex · Structural Similarity Index Measure (SSIM) · Color Matching · Image Enhancement | Stereoscopic 3D (S3D) · Retinex · Structural Similarity Index Measure (SSIM) · Color Matching · Image Enhancement |
 | `10.5594-M001457` | Digital Restoration · Motion Picture · Computational Photography | Digital Restoration · Motion Picture · Computational Photography |
 | `10.5594-M001458` | Multispectral video · multispectral camera · multispectral display · observer variability · observer metamerism | Multispectral Video · Multispectral Camera · Multispectral Display · Observer Variability · Observer Metamerism |
-| `10.5594-M001459` | Color Matching Functions · 1931 CIE Standard Observer | Color Matching Functions · 1931 CIE Standard Observer |
+| `10.5594-M001459` | Color Matching Functions · 1931 CIE Standard Observer | Color-Matching Functions · 1931 CIE Standard Observer |
 | `10.5594-M001465` | Film postproduction · distant collaboration · video streaming | Film Postproduction · Distant Collaboration · Video Streaming |
 | `10.5594-M001476` | digital broadcasts · cable television · time division multiplexing · FTTH | Digital Broadcasts · Cable Television · Time Division Multiplexing · FTTH |
 | `10.5594-M001483` | Audio codec evaluation · ITU-R · listening tests · BS.1116 · ciritcal listening setup · subjective testing | Audio Codec Evaluation · ITU-R · Listening Tests · BS.1116 · Critical Listening Setup · Subjective Testing |
@@ -73,16 +73,16 @@
 | `10.5594-M001492` | Computational cinematography · depth map · disparity map · hybrid 3D · motion scene camera · multi-camera array · stereo · time-of-flight · tri-focal | Computational Cinematography · Depth Map · Disparity Map · Hybrid 3D · Motion Scene Camera · Multi-camera Array · Stereo · Time-of-flight · Tri-focal |
 | `10.5594-M001502` | equalization · room curve · ideal room curve · preferred listening curve · room resonances · neutral transfer function · time-windowed · Fast-Fourier Transform · FFT · spectrum analysis · Real-Time Analysis · RTA · time-windowing · ST 202:2010 · regenerative method · room resonances · room modes · room ring modes · standing waves · flat direct sound response · average response | Equalization · Room Curve · Ideal Room Curve · Preferred Listening Curve · Room Resonances · Neutral Transfer Function · Time-windowed · Fast-Fourier Transform · FFT · Spectrum Analysis · Real-Time Analysis · RTA · Time-windowing · ST 202:2010 · Regenerative Method · Room Modes · Room Ring Modes · Standing Waves · Flat Direct Sound Response · Average Response |
 | `10.5594-M001526` | ARIB · standards development organization · radio systems · digital broadcasting · study · R&D · standardization · UHDTV systems · essential industry property rights | ARIB · Standards Development Organization · Radio Systems · Digital Broadcasting · Study · R&D · Standardization · UHDTV Systems · Essential Industry Property Rights |
-| `10.5594-M001530` | Codecs · image representation · image manipulation · contourisation · contour images | Codecs · Image Representation · Image Manipulation · Contourisation · Contour Images |
-| `10.5594-M001534` | Multi-camera acquisition · free viewpoint · light-field processing · depth-of-field | Multi-camera Acquisition · Free Viewpoint · Light-field Processing · Depth-of-field |
+| `10.5594-M001530` | Codecs · image representation · image manipulation · contourisation · contour images | Codec · Image Representation · Image Manipulation · Contourisation · Contour Images |
+| `10.5594-M001534` | Multi-camera acquisition · free viewpoint · light-field processing · depth-of-field | Multi-camera Acquisition · Free Viewpoint · Light-field Processing · Depth of Field |
 | `10.5594-M001538` | SMPTE ST2022 · Ucompressed Transport · RTP Switching · Centralized management | SMPTE ST2022 · Uncompressed Transport · RTP Switching · Centralized Management |
-| `10.5594-M001545` | Immersive Sound · Theater Audio · Evaluation Procedure · Haas Effect · Precedence Effect · Directional Cues · Channel-Based · Object-Based · Wave Field Synthesis (WFS) · High-Order Ambisonics (HOA) | Immersive Sound · Theater Audio · Evaluation Procedure · Haas Effect · Precedence Effect · Directional Cues · Channel-Based · Object-Based · Wave Field Synthesis (WFS) · High-Order Ambisonics (HOA) |
+| `10.5594-M001545` | Immersive Sound · Theater Audio · Evaluation Procedure · Haas Effect · Precedence Effect · Directional Cues · Channel-Based · Object-Based · Wave Field Synthesis (WFS) · High-Order Ambisonics (HOA) | Immersive Sound · Theater Audio · Evaluation Procedure · Haas Effect · Precedence Effect · Directional Cues · Channel-Based · Object-based · Wave Field Synthesis (WFS) · High-Order Ambisonics (HOA) |
 | `10.5594-M001548` | AES-3-4 · AES-2id-2012 · ANSI/SMPTE 276M-1995 · digital audio cable · digital audio transformer · AES/EBU cable · AES-2id · AES3id · 96 kHz sample rate · 192 kHz sample rate | AES-3-4 · AES-2id-2012 · ANSI/SMPTE 276M-1995 · Digital Audio Cable · Digital Audio Transformer · AES/EBU Cable · AES-2id · AES3id · 96 kHz Sample Rate · 192 kHz Sample Rate |
 | `10.5594-M001561` | Identity · Identity Domains · Media Identity · Media Identity Domains | Identity · Identity Domains · Media Identity · Media Identity Domains |
-| `10.5594-M001568` | Photometry · photometric units · dimensions · tutorial | Photometry · Photometric Units · Dimensions · Tutorial |
+| `10.5594-M001568` | Photometry · photometric units · dimensions · tutorial | Photometry · Photometric Units · Dimension · Tutorial |
 | `10.5594-M001587` | Forensic watermarking · piracy · content monitoring · live streaming | Forensic Watermarking · Piracy · Content Monitoring · Streaming |
 | `10.5594-M001592` | Remote Monitoring · MPEG Monitor · Confidence Monitoring · iON · Loudness Control | Remote Monitoring · MPEG Monitor · Confidence Monitoring · iON · Loudness Control |
-| `10.5594-M001593` | Judder · Motion Artifacts · Frame-Rate · Subjective Study | Judder · Motion Artifacts · Frame-rate |
+| `10.5594-M001593` | Judder · Motion Artifacts · Frame-Rate · Subjective Study | Judder · Motion Artifacts · Frame Rate |
 
 ## New controlledKeywords terms
 
@@ -90,11 +90,9 @@ Review for the long-tail drop/fold list before --apply (keywordVocabDecisions.js
 
 - 3D Cinema (2)
 - Digital Restoration (2)
-- Dimensions (2)
 - Disparity Map (2)
 - DVB-S2 (2)
 - DVB-T2 (2)
-- Frame-rate (2)
 - Judder (2)
 - Motion Artifacts (2)
 - Photometry (2)
@@ -103,7 +101,7 @@ Review for the long-tail drop/fold list before --apply (keywordVocabDecisions.js
 - 192 kHz Sample Rate
 - 1931 CIE Standard Observer
 - 22.2 Multichannel Sound
-- 2D-to-3D Conversion
+- 2D To 3D Conversion
 - 3D Camera
 - 3D Graphics
 - 3D Lens
@@ -124,7 +122,6 @@ Review for the long-tail drop/fold list before --apply (keywordVocabDecisions.js
 - AES3id
 - ANSI/SMPTE 276M-1995
 - Arc
-- Architectures
 - ARIB
 - Asynchrony
 - ATSC-MH
@@ -154,9 +151,8 @@ Review for the long-tail drop/fold list before --apply (keywordVocabDecisions.js
 - Cinavia
 - Circularly Polarized
 - Classic Film
-- Codecs
+- Codec
 - Color Densitometry
-- Color Matching Functions
 - Compressed Video
 - Compression Artifacts
 - Compression Concatenation Effects
@@ -181,7 +177,6 @@ Review for the long-tail drop/fold list before --apply (keywordVocabDecisions.js
 - Depth Distortion
 - Depth Editing
 - Depth Map
-- Depth-of-field
 - DI
 - Dickson
 - Digital Audio Broadcasting
@@ -264,7 +259,6 @@ Review for the long-tail drop/fold list before --apply (keywordVocabDecisions.js
 - ISDB-T
 - ISDB-Tb
 - ITU-R
-- Lasers
 - Lauste
 - LED
 - Lee De Forest
@@ -302,7 +296,7 @@ Review for the long-tail drop/fold list before --apply (keywordVocabDecisions.js
 - Neutral Transfer Function
 - Non-linear Content
 - Object Description
-- Object-Based
+- Object-based
 - Observer Variability
 - OFDM
 - Offset Metadata
@@ -318,7 +312,6 @@ Review for the long-tail drop/fold list before --apply (keywordVocabDecisions.js
 - Photometric Units
 - Photometrics
 - Piracy
-- Post-production
 - Precedence Effect
 - Preferred Listening Curve
 - Pulfrich Effect
@@ -338,7 +331,6 @@ Review for the long-tail drop/fold list before --apply (keywordVocabDecisions.js
 - Regenerative Method
 - Regularization
 - Remote Monitoring
-- Rendering (Computer Graphics)
 - Restoration
 - Retinex
 - Reverberation

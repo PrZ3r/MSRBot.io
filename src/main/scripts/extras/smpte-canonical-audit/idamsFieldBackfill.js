@@ -34,215 +34,26 @@ const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..');
 process.chdir(REPO_ROOT);
 
 const { loadAllDocs, saveDoc } = require('../../../lib/registry');
-const { normalizeKeyword } = require('../../utils/keyword.normalize');
+const { SOURCE_ROOT, REPOS, readAllArticles, makeKeywordConformer, matchBios } = require('./idamsPublication');
 
 const APPLY = process.argv.includes('--apply');
 const NOW = new Date().toISOString();
 const VERSION = 'smpte-idams-publication@v1';
-const SOURCE_ROOT = '_source/SMPTE';
-const REPOS = ['Journal Article Repository', 'Conference Repository'];
 const SITE_PATH = 'src/main/config/site.json';
 const REPORTS = 'src/main/reports/smpte-canonical-audit';
 const DECISIONS_PATH = path.join(REPORTS, 'keywordVocabDecisions.json');
 const OUT_MD = path.join(REPORTS, 'idamsFieldBackfill.md');
 
-// ---- text cleaning -------------------------------------------------------
-function decodeEntities(s) {
-  return String(s)
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
-    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
-    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"').replace(/&apos;/g, "'");
-}
-// CDATA first, then inline markup (<italic xmlns:…>), then entities.
-function cleanText(s) {
-  if (s == null) return null;
-  const out = decodeEntities(String(s)
-    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-    .replace(/<!--[\s\S]*?-->/g, ' ')
-    .replace(/<[^>]+>/g, ''))
-    .replace(/\s+/g, ' ')
-    .trim();
-  return out || null;
-}
-function nameKey(s) {
-  return String(s || '')
-    .normalize('NFKD').replace(/[̀-ͯ]/g, '')
-    .toLowerCase().replace(/[^a-z ]+/g, ' ').replace(/\s+/g, ' ').trim();
-}
-const tag = (xml, name) => {
-  const m = xml.match(new RegExp(`<${name}>([\\s\\S]*?)</${name}>`));
-  return m ? cleanText(m[1]) : null;
-};
-
-// ---- source walk ---------------------------------------------------------
-function listXml(dir, out = []) {
-  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (e.name === '__MACOSX' || e.name.startsWith('.')) continue;
-    const p = path.join(dir, e.name);
-    if (e.isDirectory()) listXml(p, out);
-    else if (e.name.endsWith('.xml') && !e.name.endsWith('-ref.xml')) out.push(p);
-  }
-  return out;
-}
-
-function parseArticle(xml) {
-  const doi = (xml.match(/<articledoi>\s*([^<\s]+)\s*<\/articledoi>/) || [])[1];
-  const keywords = [];
-  for (const ks of xml.matchAll(/<keywordset\b[^>]*>([\s\S]*?)<\/keywordset>/g)) {
-    for (const m of ks[1].matchAll(/<keywordterm>([\s\S]*?)<\/keywordterm>/g)) {
-      const t = cleanText(m[1]);
-      if (t) keywords.push(t);
-    }
-  }
-  const authors = [];
-  for (const m of xml.matchAll(/<author\b[^>]*>([\s\S]*?)<\/author>/g)) {
-    const a = m[1];
-    authors.push({
-      order: Number(tag(a, 'authororder')) || authors.length + 1,
-      name: tag(a, 'nonnormname'),
-      firstname: tag(a, 'firstname'),
-      surname: tag(a, 'surname'),
-      bio: tag(a, 'authorbio'),
-    });
-  }
-  return { doi, keywords, authors };
-}
-
-const source = new Map(); // doi → { keywords, authors, rel }
-let filesScanned = 0;
-for (const repo of REPOS) {
-  for (const file of listXml(path.join(SOURCE_ROOT, repo))) {
-    const xml = fs.readFileSync(file, 'utf8');
-    if (!xml.includes('<publication')) continue;
-    filesScanned++;
-    if (!xml.includes('<keywordset') && !xml.includes('<authorbio')) continue;
-    for (const chunk of xml.split(/<article\b/).slice(1)) {
-      const a = parseArticle(chunk);
-      if (!a.doi) continue;
-      if (!a.keywords.length && !a.authors.some((x) => x.bio)) continue;
-      source.set(a.doi, { ...a, rel: path.relative(SOURCE_ROOT, file) });
-    }
-  }
+const { articles, files: filesScanned } = readAllArticles();
+const source = new Map(); // doi → article with keywords or bios
+for (const a of articles) {
+  if (a.doi && (a.keywords.length || a.authors.some((x) => x.bio))) source.set(a.doi, a);
 }
 console.log(`[idams] ${filesScanned} <publication> files scanned · ${source.size} articles with keywords or bios`);
 
-// ---- keyword conform (keywordConformIngest rules) -------------------------
 const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
 const decisions = JSON.parse(fs.readFileSync(DECISIONS_PATH, 'utf8'));
-const vocabByLower = new Map();
-for (const k of [...(site.controlledKeywords || []), ...(decisions.adds || [])]) vocabByLower.set(String(k).toLowerCase(), k);
-const foldByLower = new Map(Object.entries(decisions.folds || {}).map(([k, v]) => [k.toLowerCase(), v]));
-const dropLower = new Set((decisions.drops || []).map((d) => String(typeof d === 'string' ? d : d.term || '').toLowerCase()));
-
-// IEEE terms arrive mixed-case ("Digital TV", "DVB-S2", "192 kHz", "AES3id"),
-// unlike the ALL-CAPS index_terms normalizeKeyword() was written for. Tokens
-// carrying a capital past their first letter are passed through as-is via its
-// extraAcronyms hook; wrapping quotes go, and "(computer graphics)" gets the
-// word after "(" capitalized like any other word.
-function normalizeIeee(raw) {
-  const s = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim();
-  const keep = new Map();
-  for (const w of s.split(/\s+/)) if (/[A-Z]/.test(w.slice(1))) keep.set(w.toLowerCase(), w);
-  return normalizeKeyword(s, keep).replace(/\(([a-z])/g, (_, c) => `(${c.toUpperCase()}`);
-}
-
-// Source typos (long-tail FIX policy — keywordLongTailApply.js).
-const FIX = new Map([
-  ['ciritcal listening setup', 'Critical Listening Setup'],
-  ['ucompressed transport', 'Uncompressed Transport'],
-  ['ip protecton', 'IP Protection'],
-]);
-// New (non-vocab) terms, first-seen form wins, so case variants across docs
-// ("Frame-rate" / "Frame-Rate") land as one controlledKeywords entry.
-const runVocab = new Map();
-
-function conformList(terms) {
-  const out = [];
-  const seen = new Set();
-  const how = { vocab: 0, fold: 0, fix: 0, normalize: 0, drop: 0 };
-  for (const raw of terms) {
-    const lo = raw.replace(/^[“”"']+|[“”"']+$/g, '').trim().toLowerCase();
-    let term;
-    if (dropLower.has(lo)) { how.drop++; continue; }
-    if (vocabByLower.has(lo)) { term = vocabByLower.get(lo); how.vocab++; }
-    else if (foldByLower.has(lo)) { term = foldByLower.get(lo); how.fold++; }
-    else if (FIX.has(lo)) { term = FIX.get(lo); how.fix++; }
-    else {
-      term = normalizeIeee(raw);
-      const key = term.toLowerCase();
-      if (runVocab.has(key)) term = runVocab.get(key); else runVocab.set(key, term);
-      how.normalize++;
-    }
-    if (!term || seen.has(term.toLowerCase())) continue;
-    seen.add(term.toLowerCase());
-    out.push(term);
-  }
-  return { out, how };
-}
-
-// ---- bio matching --------------------------------------------------------
-// The source's own bio↔author pairing is unreliable: multi-author articles
-// often carry author B's bio on author A (two-way swaps, three-way rotations).
-// So the bio TEXT decides first — a bio goes to the registry author whose
-// surname it names earliest. Only a bio naming no registry author (affiliation-
-// only text, OCR-misspelt names) falls back to the source author-name pairing.
-// Two bios claiming one author → both reported, neither written.
-const surnameKey = (name) => nameKey(String(name || '').trim().split(/\s+/).pop());
-
-function matchBios(regAuthors, srcAuthors) {
-  const withBio = srcAuthors.filter((s) => s.bio);
-  const regKeys = regAuthors.map((a) => nameKey(a && a.name));
-  const regSur = regAuthors.map((a) => surnameKey(a && a.name));
-  const claims = new Map(); // reg index → [{ bio, how, source }]
-  const unmatched = [];
-  for (const s of withBio) {
-    const source = s.name || `${s.firstname} ${s.surname}`;
-    const text = ` ${nameKey(s.bio)} `;
-    let pick = -1;
-    let how = 'text';
-    let best = Infinity;
-    regSur.forEach((sur, i) => {
-      if (!sur) return;
-      let at = text.indexOf(` ${sur} `);
-      // Shared surname (Yasuaki / Yukihiro Nishida): the given name decides.
-      if (at >= 0 && regSur.filter((x) => x === sur).length > 1) {
-        const given = regKeys[i].split(' ')[0];
-        at = given.length > 1 ? text.indexOf(` ${given} `) : -1;
-      }
-      if (at >= 0 && at < best) { best = at; pick = i; }
-    });
-    if (pick < 0) {
-      how = 'name';
-      const full = nameKey(source);
-      const sur = nameKey(s.surname);
-      const ini = nameKey(s.firstname).charAt(0);
-      let hits = regKeys.map((k, i) => (k && k === full ? i : -1)).filter((i) => i >= 0);
-      if (hits.length !== 1 && sur) {
-        hits = regKeys.map((k, i) => {
-          const parts = k.split(' ');
-          return parts[parts.length - 1] === sur && (!ini || parts[0].charAt(0) === ini) ? i : -1;
-        }).filter((i) => i >= 0);
-      }
-      if (hits.length !== 1) { unmatched.push({ source, reason: `no surname in bio; ${hits.length} name candidates` }); continue; }
-      pick = hits[0];
-    }
-    if (!claims.has(pick)) claims.set(pick, []);
-    claims.get(pick).push({ bio: s.bio, how, source });
-  }
-  const assigned = new Map(); // reg index → bio
-  const realigned = [];
-  for (const [i, list] of claims) {
-    if (list.length > 1) {
-      for (const c of list) unmatched.push({ source: c.source, reason: `bio collides on ${regAuthors[i].name}` });
-      continue;
-    }
-    assigned.set(i, list[0].bio);
-    if (list[0].how === 'text' && nameKey(list[0].source) !== regKeys[i]
-        && surnameKey(list[0].source) !== regSur[i]) realigned.push({ from: list[0].source, to: regAuthors[i].name });
-  }
-  return { assigned, unmatched, realigned };
-}
+const { conformList, inVocab, prime, totals: howTotals } = makeKeywordConformer(site, decisions);
 
 // ---- walk registry -------------------------------------------------------
 const isLocked = (doc, key) => (doc[`${key}$meta`] || {}).excludeChanges === true;
@@ -252,6 +63,7 @@ for (const d of docs) if (d.doi) byDoi.set(String(d.doi).trim(), d);
 
 const kwChanges = [];
 const bioChanges = [];
+prime([...source].filter(([doi]) => byDoi.has(doi)).map(([, a]) => a.keywords));
 const bioUnmatched = [];
 const bioRealigned = [];
 const newVocab = new Map(); // term → doc count
@@ -259,7 +71,6 @@ const tally = {
   sourceNotInRegistry: 0, kwAlreadyPresent: 0, kwLocked: 0, kwEmptyAfterConform: 0,
   bioAlreadyPresent: 0, bioLocked: 0, bioNoRegAuthors: 0, bioNoneMatched: 0,
 };
-const howTotals = { vocab: 0, fold: 0, fix: 0, normalize: 0, drop: 0 };
 
 for (const [doi, s] of source) {
   const doc = byDoi.get(doi);
@@ -269,11 +80,10 @@ for (const [doi, s] of source) {
     if (Array.isArray(doc.keywords) && doc.keywords.length) tally.kwAlreadyPresent++;
     else if (isLocked(doc, 'keywords')) tally.kwLocked++;
     else {
-      const { out, how } = conformList(s.keywords);
-      for (const k of Object.keys(how)) howTotals[k] += how[k];
+      const out = conformList(s.keywords);
       if (!out.length) tally.kwEmptyAfterConform++;
       else {
-        for (const t of out) if (!vocabByLower.has(t.toLowerCase())) newVocab.set(t, (newVocab.get(t) || 0) + 1);
+        for (const t of out) if (!inVocab(t)) newVocab.set(t, (newVocab.get(t) || 0) + 1);
         kwChanges.push({ doc, raw: s.keywords, after: out, rel: s.rel });
       }
     }
@@ -323,7 +133,7 @@ if (APPLY) {
     c.doc.authors = c.after;
     c.doc['authors$meta'] = {
       ...prev,
-      note: `${prev.note ? `${prev.note}; ` : ''}bios backfilled from SMPTE IDAMS <publication> authorgroup/author/authorbio (name-matched) — idamsFieldBackfill.js`,
+      note: `${prev.note ? `${prev.note}; ` : ''}bios backfilled from SMPTE IDAMS <publication> authorgroup/author/authorbio (placed on the author each bio names) — idamsFieldBackfill.js`,
       updated: NOW,
       version: VERSION,
     };
@@ -347,14 +157,14 @@ const md = [
   '# IDAMS field backfill — keywords + author bios',
   '',
   `> ${APPLY ? 'APPLY' : 'DRY-RUN'} · ${NOW}`,
-  `> Source: raw \`${SOURCE_ROOT}/{${REPOS.join(',')}}\` <publication> XML · joined on exact \`doi\``,
+  `> Source: raw \`${SOURCE_ROOT}/{${REPOS.map((r) => r.repo).join(',')}}\` <publication> XML · joined on exact \`doi\``,
   '',
   '## Totals',
   '',
   `- <publication> files scanned: ${filesScanned}; articles with keywords or bios: ${source.size}`,
-  `- source articles with no registry doc: ${tally.sourceNotInRegistry} (the 2016–2023 coverage gap — separate ingest)`,
+  `- source articles with no registry doc: ${tally.sourceNotInRegistry} (the 2016–2023 coverage gap — minted by idamsIngest.js)`,
   `- **keywords**: ${kwChanges.length} docs to fill (${fmt(kwDocTypes)}) · already had keywords ${tally.kwAlreadyPresent} · locked ${tally.kwLocked} · empty after conform ${tally.kwEmptyAfterConform}`,
-  `  - term mapping: vocab ${howTotals.vocab} · fold ${howTotals.fold} · typo-fix ${howTotals.fix} · normalize ${howTotals.normalize} · dropped ${howTotals.drop}`,
+  `  - term mapping: vocab ${howTotals.vocab} · fold ${howTotals.fold} · typo-fix ${howTotals.fix} · variant→vocab ${howTotals.variant} · new ${howTotals.normalize} · dropped ${howTotals.drop}`,
   `  - terms new to controlledKeywords: **${newVocab.size}** (added on --apply)`,
   `- **bios**: ${bioChanges.length} docs / ${biosWritten} bios to fill (${fmt(bioDocTypes)}) · already had bios ${tally.bioAlreadyPresent} · locked ${tally.bioLocked} · no registry authors ${tally.bioNoRegAuthors} · no bio matched ${tally.bioNoneMatched}`,
   `  - realigned (source paired bio with the wrong author; text match wins): ${bioRealigned.length}`,
