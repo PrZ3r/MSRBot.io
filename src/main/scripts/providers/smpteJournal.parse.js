@@ -46,6 +46,20 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *   - nested objects (issn, isbn, copyright, publisherLocation): when the
  *     values match the registry copy, that copy is returned as-is ($meta
  *     included), so an unchanged paper is never reported as updated.
+ *
+ * An extraction only ADDS or CHANGES what it extracts — it never deletes.
+ * Keywords someone added by hand, an author's bio / affiliation / ORCID,
+ * extra keys in a nested object: all kept. Keywords and authors are unioned
+ * (existing first, new source values appended); scalar fields change only
+ * when the source changed. Fields other processes own (resolvedHref, …) are
+ * not this extractor's concern. Locks hold: a field whose $meta has
+ * excludeChanges / excludeOverwrite is never changed (extractDocs enforces it
+ * for top-level fields and references; nested() enforces it per nested key).
+ *
+ * References are the exception: a paper's reference list is the source's,
+ * taken as a unit, so the extracted bibliographic list REPLACES the stored
+ * one. When the paper has no FTXML or no <ref-list>, the stored references
+ * are left as they are; normative references are never touched.
  */
 
 const fs = require('fs');
@@ -176,6 +190,43 @@ function docLabel(rec, docType) {
   return label || rec.title || 'Untitled';
 }
 
+// ---- merge rules (never delete) -------------------------------------------
+// Nested object: source values merged over the registry copy. Unchanged →
+// the registry copy as-is ($meta included); keys the source lacks are kept;
+// a changed or new key gets fresh provenance.
+function nested(existing, key, value) {
+  if (!value) return undefined;
+  const prev = (existing && existing[key] && typeof existing[key] === 'object') ? existing[key] : {};
+  if (Object.entries(value).every(([k, v]) => prev[k] === v)) return Object.keys(prev).length ? prev : undefined;
+  const out = { ...prev };
+  const locked = (k) => { const m = prev[`${k}$meta`]; return !!(m && (m.excludeChanges === true || m.excludeOverwrite === true)); };
+  for (const [k, v] of Object.entries(value)) {
+    if (prev[k] === v || locked(k)) continue; // a locked key (excludeChanges / excludeOverwrite) keeps its value
+    out[k] = v;
+    out[`${k}$meta`] = { source: 'parsed', confidence: 'high', note: "Read from SMPTE's journal library delivery (content_batch)", originalValue: prev[k], updated: new Date().toISOString() };
+  }
+  return out;
+}
+
+// Arrays: keep everything the registry has, append what the source adds.
+function union(existingList, extracted) {
+  const prev = Array.isArray(existingList) ? existingList : [];
+  const out = [...prev];
+  for (const v of extracted || []) if (!out.includes(v)) out.push(v);
+  return out;
+}
+
+// Authors: keep each registry author object (bio, affiliation, ORCID);
+// add source authors not yet listed; never remove one.
+function mergeAuthors(existingList, extracted) {
+  const prev = Array.isArray(existingList) ? existingList : [];
+  const nameOf = (a) => String(a && typeof a === 'object' ? a.name : a || '').trim().toLowerCase();
+  const have = new Set(prev.map(nameOf));
+  const out = [...prev];
+  for (const a of extracted || []) if (!have.has(nameOf(a))) { out.push(a); have.add(nameOf(a)); }
+  return out;
+}
+
 // ---- parser ---------------------------------------------------------------
 function createSmpteJournalParser({ discovery }) {
   let ctx = null;
@@ -216,21 +267,6 @@ function createSmpteJournalParser({ discovery }) {
   }
 
   // Reuse the registry's nested object (with its $meta) when the values match.
-  function nested(existing, key, value) {
-    if (!value) return undefined;
-    const prev = existing && existing[key];
-    if (prev && typeof prev === 'object') {
-      const plain = Object.fromEntries(Object.entries(prev).filter(([k]) => !k.endsWith('$meta')));
-      if (JSON.stringify(Object.keys(plain).sort().map((k) => [k, plain[k]])) === JSON.stringify(Object.keys(value).sort().map((k) => [k, value[k]]))) return prev;
-    }
-    const stamped = {};
-    for (const [k, v] of Object.entries(value)) {
-      stamped[k] = v;
-      stamped[`${k}$meta`] = { source: 'parsed', confidence: 'high', note: "Read from SMPTE's journal library delivery (content_batch)", updated: new Date().toISOString() };
-    }
-    return stamped;
-  }
-
   function isSmpteJournalSource(src) {
     const s = String(src || '').toLowerCase().trim();
     return /^journal$/.test(s) || /smp[te]|soc.*mot|trans.*mot/.test(s);
@@ -276,7 +312,7 @@ function createSmpteJournalParser({ discovery }) {
       const r = resolveRef(raw);
       const sight = {
         docId, type: 'bibliographic', cite: tidyCiteText(raw), href: citeHref(raw), rawRef: raw,
-        title: field(raw, 'article-title') || '', mapSource: 'smpte-journal', mapDetail: r.via,
+        title: field(raw, 'article-title') || '', mapSource: 'ftxml-extract', mapDetail: r.via,
       };
       if (r.refId) {
         if (r.refId === docId) continue;
@@ -301,14 +337,15 @@ function createSmpteJournalParser({ discovery }) {
     const docId = docIdFor(rec, dupDois);
     const existing = byDocId.get(docId);
 
-    const keywords = rec.rawKeywords.length ? kw.conformList(rec.rawKeywords) : [];
+    const keywords = union(existing && existing.keywords, rec.rawKeywords.length ? kw.conformList(rec.rawKeywords) : []);
+    const authors = mergeAuthors(existing && existing.authors, rec.authors);
     const doc = {
       docId,
       docType,
       docLabel: docLabel(rec, docType),
       docTitle: rec.title || rec.contentType || 'Untitled',
       doi: rec.doi || undefined,
-      authors: rec.authors.length ? rec.authors : undefined,
+      authors: authors.length ? authors : undefined,
       abstract: rec.abstract || undefined,
       pages: rec.pages || undefined,
       volume: rec.volume || undefined,
@@ -333,8 +370,13 @@ function createSmpteJournalParser({ discovery }) {
     if (rec.doi && dupDois.has(rec.doi)) doc.doiCollision = rec.doi;
     for (const k of Object.keys(doc)) if (doc[k] === undefined) delete doc[k];
 
-    const bib = references(p.file, docId);
-    if (bib) doc.references = { bibliographic: bib };
+    // References: the source list as a unit (see header); absent → untouched.
+    const extractedBib = references(p.file, docId);
+    if (extractedBib) {
+      const prevRefs = (existing && existing.references) || {};
+      doc.references = { bibliographic: extractedBib };
+      if (prevRefs.normative) doc.references.normative = prevRefs.normative;
+    }
 
     Object.defineProperty(doc, '__sourceUrl', { value: undefined, enumerable: false, configurable: true, writable: true });
     return [doc];
@@ -343,4 +385,4 @@ function createSmpteJournalParser({ discovery }) {
   return { extractFromUrl, extractFromSeedDoc: extractFromUrl };
 }
 
-module.exports = { createSmpteJournalParser, readContentBatch };
+module.exports = { createSmpteJournalParser, readContentBatch, nested, union, mergeAuthors };
