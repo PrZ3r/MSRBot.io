@@ -23,7 +23,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **Standards cited publisher-first now parse.** Bibliographies (SMPTE's journal among them) often name the publisher before the designator: "SMPTE, ST 2084:2014", "International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) 23009-1:2019", "… (ITU-R), Recommendation BT.709-6". `parseRefId` returned nothing for these. It now strips the publisher name first. The fix is in `referencing.js`, so manual extraction and every other extractor pick it up. It also corrects en-dash versions ("BT.2100–2"), "ST-2022-6" and the "IISO/IEC" typo. Author-date citations and designators followed by a parenthetical ("CEA-608-E (ANSI)") are left alone.
+- **Two citation helpers in `referencing.js`.** `parseCiteDesignator()` reads a citation's designator only from the text before its title, so a paper whose title mentions a standard isn't linked to it. `tidyCiteText()` produces a JATS/NLM `<ref>` citation as printed, without the `<label>` number or the extra spaces around punctuation. `mriReplaceSighting()` lets a corrected re-parse replace citation text the MRI recorded earlier.
+- **References list in paper order.** Doc pages sorted references as plain strings, so a paper's ref10 came before ref2 (1, 10, 11, …). The sort is now numeric-aware. This also puts ST 2 before ST 12.
+
 ### Fixed
+
+- **ISBN showed "[object Object]" on 419 conference papers.** The schema allows `isbn` as a string or `{ print, electronic }`, like `issn`, but the doc template and citations printed it raw. The doc page now shows Print / Electronic like ISSN, and citations use one value.
+- **Journal (FTXML) references, 2024–2026.** The #1248 extraction put the ref-list heading into each paper's first citation ("References 1. R. Xu …"), kept the reference number, and added spaces around punctuation ("Xu , “ Survey ,” 16 ( 3 )"). `extractFtxmlRefs.js --refresh` re-parses all 176 FTXML papers and replaces their citation text. Standards citations now link to the standard: 352 references resolve, up from 54.
 
 ## [v2.9.0] - 2026-10-06
 

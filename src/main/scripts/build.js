@@ -1986,8 +1986,11 @@ function _titleOf(doc){
         return { id: resolved, undated: wasUndated };
       }
 
+      // Numeric-aware: orphan/<doc>/ref2 before …/ref10 (a paper's own order),
+      // and ST 2 before ST 12.
+      const refIdCompare = (a, b) => String(a).localeCompare(String(b), 'en', { numeric: true });
       if (normRefs && Array.isArray(normRefs)) {
-        normRefs.sort();
+        normRefs.sort(refIdCompare);
         for (let i = 0; i < normRefs.length; i++) {
           const r = normRefs[i];
           const obj = getLatestRef(r, 'normative');
@@ -1997,7 +2000,7 @@ function _titleOf(doc){
       }
 
       if (bibRefs && Array.isArray(bibRefs)) {
-        bibRefs.sort();
+        bibRefs.sort(refIdCompare);
         for (let i = 0; i < bibRefs.length; i++) {
           const r = bibRefs[i];
           const obj = getLatestRef(r, 'bibliographic');
