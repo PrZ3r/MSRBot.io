@@ -1,13 +1,13 @@
 # FTXML reference apply — backfill onto the 491 ingested docs
 
-> APPLY · 2026-10-07T18:20:08.030Z
+> APPLY · 2026-10-07T18:27:38.113Z
 
 ## Totals
 - FTXML files with refs      : 177
 - source docs touched        : **176**
 - refs processed             : **3164**
 - skipped (doc already has references; --all to include): 0
-- refreshed (earlier FTXML refs replaced): 176 docs · orphans replaced: 0
+- refreshed (earlier FTXML refs replaced): 176 docs · orphans replaced: 25
 
 ## Citation text — before → after (first 25)
 
@@ -57,46 +57,64 @@
   - before: N. Molinero, “Harmony Valley - Research Project Resources, [Online]. Available: https://linktr.ee/harmonyvalley.
   - after: N. Molinero, “Harmony Valley - Research Project Resources, [Online]. Available: https://linktr.ee/harmonyvalley.
 - `10.5594-JMI.2024-YQTR8645/ref1`
-  - before: References [1] SMPTE, ST 2019-1 : 2016 , “ VC-3 Picture Compression and Data Stream Format .”.
+  - before: —
   - after: SMPTE, ST 2019-1: 2016, “VC-3 Picture Compression and Data Stream Format.”.
 - `10.5594-JMI.2024-YQTR8645/ref2`
-  - before: [2] SMPTE, ST 2019-1: 2016, Amd 1 : 2023 , “ VC-3 Picture Compression and Data Stream Format - Amendment 1 .”.
+  - before: —
   - after: SMPTE, ST 2019-1: 2016, Amd 1: 2023, “VC-3 Picture Compression and Data Stream Format - Amendment 1.”.
 - `10.5594-JMI.2024-YQTR8645/ref3`
-  - before: [3] SMPTE, RP 2019-2 : 2016 , “ VC-3 Decoder and Bitstream Conformance .”.
+  - before: —
   - after: SMPTE, RP 2019-2: 2016, “VC-3 Decoder and Bitstream Conformance.”.
 - `10.5594-JMI.2024-YQTR8645/ref4`
-  - before: [4] SMPTE, RDD 36 : 2015 , “ Apple ProRes Bitstream Syntax and Decoding Process .”.
+  - before: —
   - after: SMPTE, RDD 36: 2015, “Apple ProRes Bitstream Syntax and Decoding Process.”.
 - `10.5594-JMI.2024-YQTR8645/ref5`
-  - before: [5] SMPTE, RDD 50 : 2019 , “ Avid DNxUncompressed - Packing Definition and Mapping into the MXF Generic Container .”.
+  - before: —
   - after: SMPTE, RDD 50: 2019, “Avid DNxUncompressed - Packing Definition and Mapping into the MXF Generic Container.”.
 - `10.5594-JMI.2024-JUNZ2729/ref1`
   - before: D. Grois, and A. Giladi, “Perceptual quantization matrices for high dynamic range H.265/MPEG-HEVC video coding”, Proc. SPIE 11137. Applications of Digital Image Processing XLII, 1113700, 2020.
   - after: D. Grois, and A. Giladi, “Perceptual quantization matrices for high dynamic range H.265/MPEG-HEVC video coding”, Proc. SPIE 11137. Applications of Digital Image Processing XLII, 1113700, 2020.
 - `10.5594-JMI.2024-JUNZ2729/ref2`
-  - before: [2] D. Grois , “ Performance Comparison of Emerging EVC and VVC Video Coding Standards with HEVC and AV1 ,” in SMPTE Mot Imag. J. 730 ( 4 ): 1 – 12 , May 2021 , doi: 10.5594/JMI.2021.3065442 .
+  - before: —
   - after: D. Grois, “Performance Comparison of Emerging EVC and VVC Video Coding Standards with HEVC and AV1,” in SMPTE Mot Imag. J. 730 (4): 1–12, May 2021, doi: 10.5594/JMI.2021.3065442.
 - `10.5594-JMI.2024-JUNZ2729/ref3`
   - before: D. Grois, T. Nguyen, and D. Marpe, “Coding Efficiency Comparison of AV1/VP9, H.265/MPEG-HEVC, and H.264/MPEG-AVC Encoders,” Picture Coding Symposium (PCS), Nuremberg, Germany, Dec. 2016.
   - after: D. Grois, T. Nguyen, and D. Marpe, “Coding Efficiency Comparison of AV1/VP9, H.265/MPEG-HEVC, and H.264/MPEG-AVC Encoders,” Picture Coding Symposium (PCS), Nuremberg, Germany, Dec. 2016.
 - `10.5594-JMI.2024-JUNZ2729/ref4`
-  - before: [4] International Telecommunication Union-Telecommunication (ITU-T), Recommendation H. 265 (04/13), Series H : “ Audiovisual and Multimedia Systems, Infrastructure of audiovisual services - Coding of Moving Video, High Efficiency Video Coding ,” Apr. 2013 .
+  - before: —
   - after: International Telecommunication Union-Telecommunication (ITU-T), Recommendation H. 265 (04/13), Series H: “Audiovisual and Multimedia Systems, Infrastructure of audiovisual services - Coding of Moving Video, High Efficiency Video Coding,” Apr. 2013.
 - `10.5594-JMI.2024-JUNZ2729/ref5`
   - before: D. Grois, B. Bross, D. Marpe, and K. Sührinq, “HEVC/H.265 Video Cding Standard: Part 1.” [Online]. Available: https://www.youtube.com/watch?v=TLNkK-5C1KN8&t=764s.
   - after: D. Grois, B. Bross, D. Marpe, and K. Sührinq, “HEVC/H.265 Video Cding Standard: Part 1.” [Online]. Available: https://www.youtube.com/watch?v=TLNkK-5C1KN8&t=764s.
 
-- → canonical refId (direct link) : **352** (130 resolve to a registry doc)
-- → orphan slug (MRI, EXTERNAL badge) : **2812**
+## Replaced on refresh
+
+Earlier orphan slugs the corrected run no longer produces — typically because the cited article is now a registry doc (e.g. a 2016–2023 MIJ article from the IDAMS ingest) and the ref links to it directly.
+
+- `10.5594-JMI.2024-MRLF3850`: orphan/10.5594-JMI.2024-MRLF3850/ref71
+- `10.5594-JMI.2024-OFBT6040`: orphan/10.5594-JMI.2024-OFBT6040/ref5, orphan/10.5594-JMI.2024-OFBT6040/ref11, orphan/10.5594-JMI.2024-OFBT6040/ref12, orphan/10.5594-JMI.2024-OFBT6040/ref19
+- `10.5594-JMI.2024-XERC8120`: orphan/10.5594-JMI.2024-XERC8120/ref14
+- `10.5594-JMI.2024-IPYX8877__2024-SMPTEMIJAPRIL2024_18-18`: orphan/10.5594-JMI.2024-IPYX8877__2024-SMPTEMIJAPRIL2024_18-18/ref16, orphan/10.5594-JMI.2024-IPYX8877__2024-SMPTEMIJAPRIL2024_18-18/ref17
+- `10.5594-JMI.2025-BBXM4789`: orphan/10.5594-JMI.2025-BBXM4789/ref1
+- `10.5594-JMI.2025-LWQF4260`: orphan/10.5594-JMI.2025-LWQF4260/ref3, orphan/10.5594-JMI.2025-LWQF4260/ref4
+- `10.5594-JMI.2025-NYXN3212`: orphan/10.5594-JMI.2025-NYXN3212/ref8
+- `10.5594-JMI.2026-CKZU8948`: orphan/10.5594-JMI.2026-CKZU8948/ref8, orphan/10.5594-JMI.2026-CKZU8948/ref9
+- `10.5594-JMI.2026-HLCK3638`: orphan/10.5594-JMI.2026-HLCK3638/ref4, orphan/10.5594-JMI.2026-HLCK3638/ref8, orphan/10.5594-JMI.2026-HLCK3638/ref10, orphan/10.5594-JMI.2026-HLCK3638/ref12, orphan/10.5594-JMI.2026-HLCK3638/ref13
+- `10.5594-JMI.2026-KJYI8219`: orphan/10.5594-JMI.2026-KJYI8219/ref1, orphan/10.5594-JMI.2026-KJYI8219/ref4
+- `10.5594-MOO-3001`: orphan/10.5594-MOO-3001/ref7
+- `10.5594-MOO-3050`: orphan/10.5594-MOO-3050/ref15
+- `10.5594-MOO-3006`: orphan/10.5594-MOO-3006/ref1, orphan/10.5594-MOO-3006/ref2
+
+- → canonical refId (direct link) : **384** (134 resolve to a registry doc)
+- → orphan slug (MRI, EXTERNAL badge) : **2780**
 - unmapped FTXML files       : 0
 - docs written               : 176
 
 ## By resolution path
 | path | refs |
 |---|---:|
-| `orphan-slug` | 2790 |
-| `leading-designator` | 298 |
+| `orphan-slug` | 2758 |
+| `leading-designator` | 330 |
 | `direct-doi` | 40 |
 | `vol+pages-ambiguous` | 22 |
 | `vol+pages` | 11 |
