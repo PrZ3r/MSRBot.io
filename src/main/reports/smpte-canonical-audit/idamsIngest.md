@@ -1,6 +1,6 @@
 # IDAMS ingest — SMPTE docs never in the registry
 
-> APPLY · 2026-10-07T17:09:33.718Z
+> APPLY · 2026-10-07T17:32:05.531Z
 > Source: 26214 <publication> files · 25684 articles · 2276 with a DOI not in the registry
 
 ## Totals
@@ -9,10 +9,10 @@
 - docId collisions (incl. case-only): **0** ✓
 - same DOI, different title in two files: 0 (left out — listed below)
 - coverage: abstract 1321 · authors 1316 (1019 bios) · keywords 799 · pages 2276
-- keywords: IDAMS fold 800 · vocab 1554 · fold 235 · typo-fix 5 · variant→vocab 439 · new 2872 · dropped 137 · **1760** new controlledKeywords
+- keywords: IDAMS fold 805 · vocab 1557 · fold 235 · typo-fix 5 · variant→vocab 440 · new 2880 · dropped 120 · **1769** new controlledKeywords
 - bios realigned to the author they name: 2 · unplaced: 0
 - contentType corrections: 792
-- new facet chips (count ≥30 ∪ portals ∪ curation.add − remove, before → after): Artificial Intelligence (58), Video Compression (47), Wide Color Gamut (43), IP (42), 8K (40), Broadcast (38), PTP (36), Live Production (36), DASH (34), OTT (33)
+- new facet chips (count ≥30 ∪ portals ∪ curation.add − remove, before → after): Artificial Intelligence (59), Video Compression (47), Wide Color Gamut (43), IP (42), 8K (40), Broadcast (38), PTP (36), Live Production (36), DASH (34), OTT (33)
 
 ## By year
 
@@ -686,7 +686,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - X Curve ← X-curve (1)
 - CALM Act ← Calm Act (1)
 - Long-Term Storage ← Long-term Storage (1)
-- Multi CDN ← Multi-CDN (1)
+- **Multi CDN** ← Multi-CDN (1)
 - **DisplayPort** ← DisplayPort (DP) (1)
 - Display Stream Compression ← Display Stream Compression (DSC) (1)
 - **HDMI** ← Highdefinition Multimedia Interface (HDMI) (1)
@@ -800,6 +800,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Professional Media Networking (PMN) ← PMN (1)
 - **Cloud-Native** ← Cloud Native (1)
 - 120-Hz Interline Scan ← 120-Hz Inter-line Scan (1)
+- Noniterative ← Non-iterative (1)
 - Joint Video Exploration Team (JVET) ← JVET (1)
 - **DCinema** ← D Cinema (1)
 - **Microservices** ← Micro-services (1)
@@ -821,6 +822,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Plastic Optical Fiber (POF) ← Plastic Optical Fiber (1)
 - Extended Dynamic Range (EDR) ← EDR (1)
 - Infrastructure-as-code (IaC) ← Infrastructure-as-code (1)
+- Multilayered ← Multi-layered (1)
 - Extremely High Chroma ← Extremely-high Chroma (1)
 - Essential Video Coding (EVC) ← EVC (1)
 - Color Space Conversion ← Color-space Conversion (1)
@@ -1051,7 +1053,6 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Mentoring (3)
 - Minority (3)
 - Motion Quality (3)
-- Multi CDN (3)
 - Multicast Adaptive Bitrate (MABR) (3)
 - Multicloud (3)
 - Multidirectional Modulation Transfer Function (MTF) (3)
@@ -1160,6 +1161,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Color Space (2)
 - Common Media Server Data (CMSD) (2)
 - Compatibility (2)
+- Complexity (2)
 - Composition (2)
 - Compression Artifacts (2)
 - Compression Recorder (2)
@@ -1179,6 +1181,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Data Migration (2)
 - Demographics (2)
 - Demosaic (2)
+- Deployment (2)
 - Depth Image-based Rendering (DIBR) (2)
 - Device Control (2)
 - DevOps (2)
@@ -1257,7 +1260,6 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Home Viewing (2)
 - Horizon IC-41 (2)
 - HTTP Dynamic Streaming (2)
-- HTTP/3 (2)
 - Hue (2)
 - Hue Shift (2)
 - Hue-preserving (2)
@@ -1350,6 +1352,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Multicast Switching (2)
 - Multichannel (2)
 - Multicodec Streaming (2)
+- Multilayered (2)
 - Multilingual CLIP (2)
 - NASA (2)
 - Near-line Storage (2)
@@ -1361,6 +1364,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - NFV (2)
 - NIST (2)
 - Nits (2)
+- Noniterative (2)
 - Nonuniformity (2)
 - NoSQL (2)
 - OAuth 2.0 (2)
@@ -1394,6 +1398,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - POP (2)
 - Posters (2)
 - Pre-production (2)
+- Preference (2)
 - Proactive Monitoring (2)
 - Product Design (2)
 - Production Codecs (2)
@@ -1631,9 +1636,11 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - B&W Film
 - B4-mount
 - Baby Boomers
+- Background Luminance
 - Bandwidth Competition
 - Bandwidth Control
 - Bare Copper
+- Bare Metal
 - Basic UMID
 - BBC Sport
 - BCP-003
@@ -1826,6 +1833,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Deep Root Cause Analysis
 - Delivery
 - Denial Of Service Attack
+- Density
 - Depth Distortion
 - Depth Perception
 - Depth Upscaling
@@ -1927,6 +1935,8 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - File Retiming
 - File-based Closed Captioning System
 - File-based QC
+- Film Negative
+- Film Positive
 - Film Preservation
 - Fios
 - Fitzpatrick Scale
@@ -2124,6 +2134,8 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Metameric Index
 - Metered Rendering
 - Metered Streaming Applications
+- Methodology
+- Metrics
 - Metrics Reporting
 - Microphone Array
 - Microsoft
@@ -2152,7 +2164,6 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - MRC
 - Multi-base ISO
 - Multi-dimensional Sound
-- Multi-layered
 - Multi-physical Layer Pipe (M-PLP)
 - Multi-platform
 - Multi-Screen Movie Theater
@@ -2203,7 +2214,6 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - NMS
 - Noise Cancelation
 - Non-Blocking Multicast
-- Non-iterative
 - Non-linearity Estimation
 - Nonparametric Machine Learning
 - NRZ-I
@@ -2258,6 +2268,7 @@ Each landing term, then the source spellings folded into it (docs). **Bold** = a
 - Pipeline
 - Pipeline Processing
 - Pixel Mapping
+- Planning
 - Playout
 - PLS
 - Plug and Play

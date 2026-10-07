@@ -1,43 +1,32 @@
 # NLM canonical new-doc ingestion — todo #2
 
-> Generated: 2026-07-10T20:01:10.986Z
+> Generated: 2026-10-07T17:25:12.170Z
 > Mode: **APPLY**
 
 ## Totals
-- content_batch primaries staged as new docs: **491**
+- content_batch primaries staged as new docs: **9**
 - skipped (DOI already in registry): 0
+- skipped (already on disk; --overwrite to re-write): 521
+- keywords new to controlledKeywords: 0
 - **docId collisions: 0** ✓
 
 ## By corpus
 | corpus | primaries | staged | already in registry |
 |---|---:|---:|---:|
-| journal | 415 | 415 | 0 |
-| conference | 76 | 76 | 0 |
+| journal | 454 | 9 | 0 |
+| conference | 76 | 0 | 0 |
 
 ## docId key mode
 | mode | count | example format |
 |---|---:|---|
-| DOI → dash | 266 | `10.5594-JMI.2025-LZES6606` |
+| DOI → dash | 282 | `10.5594-JMI.2025-LZES6606` |
 | ISBN + seq (conference DOI-less) | 36 | `978-1-61482-965-2-1` |
-| ISSN + vol.issue + seq (journal DOI-less) | 189 | `2160-2492-v133.1-1` |
+| ISSN + vol.issue + seq (journal DOI-less) | 212 | `2160-2492-v133.1-1` |
 
 ## contentType distribution (from `<pubitype>`, verbatim registry vocab)
 | contentType | count |
 |---|---:|
-| `orig-research` | 197 |
-| `advert` | 98 |
-| `opinion` | 52 |
-| `info-society` | 38 |
-| `awards` | 19 |
-| `front-cover` | 17 |
-| `toc` | 17 |
-| `list-staff` | 17 |
-| `future-events` | 12 |
-| `review` | 10 |
-| `content-announce` | 8 |
-| `obit` | 4 |
-| `errata` | 1 |
-| `info-author` | 1 |
+| `orig-research` | 9 |
 
 ## Duplicate-DOI upstream errors (2 DOIs → 4 papers)
 SMPTE assigned one DOI to multiple distinct papers. Both sides staged with a disambiguated docId (re-key once fixed). **→ smpte-upstream register (todo #3).**
