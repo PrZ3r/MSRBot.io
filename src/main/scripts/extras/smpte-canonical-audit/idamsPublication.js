@@ -284,6 +284,7 @@ function makeKeywordConformer(vocab, decisions) {
   const vocabByLower = new Map();
   for (const k of [...vocab, ...(decisions.adds || [])]) vocabByLower.set(String(k).toLowerCase(), k);
   const idamsFoldByLower = new Map(Object.entries(decisions.idamsFolds || {}).map(([k, v]) => [k.toLowerCase(), v]));
+  const splitByLower = new Map(Object.entries(decisions.idamsSplits || {}).map(([k, v]) => [k.toLowerCase(), v]));
   const foldByLower = new Map(Object.entries(decisions.folds || {}).map(([k, v]) => [k.toLowerCase(), v]));
   const dropLower = new Set([...(decisions.drops || []), ...(decisions.idamsDrops || [])]
     .map((d) => String(typeof d === 'string' ? d : d.term || '').toLowerCase()));
@@ -319,7 +320,7 @@ function makeKeywordConformer(vocab, decisions) {
   function prime(termLists) {
     const terms = [];
     for (const list of termLists) {
-      for (const raw of new Set(list)) {
+      for (const raw of new Set(splitAll(list))) {
         const e = early(raw);
         if (e.drop || e.how) continue;
         terms.push(e.term);
@@ -388,23 +389,39 @@ function makeKeywordConformer(vocab, decisions) {
     primed = true;
   }
 
+  // An IDAMS fold also applies to whatever spelling a cluster landed on, and
+  // follows chains (A → B → C) — so a fold written against one spelling covers
+  // every variant clustered with it.
+  function followFolds(r) {
+    let { term, how } = r;
+    for (let i = 0; i < 5 && idamsFoldByLower.has(term.toLowerCase()); i++) {
+      const next = idamsFoldByLower.get(term.toLowerCase());
+      if (next === term) break;
+      term = next; how = 'idamsFold';
+    }
+    return { term, how };
+  }
+
   function resolve(term) {
     const ck = clusterKey(term);
     if (vocabKeys.has(ck)) return { term: vocabKeys.get(ck), how: 'variant' };
     if (primed && parent.has(ck)) {
       const r = rep.get(find(ck));
-      if (r) return { term: r, how: vocabByLower.has(r.toLowerCase()) ? 'variant' : 'normalize' };
+      if (r) return followFolds({ term: r, how: vocabByLower.has(r.toLowerCase()) ? 'variant' : 'normalize' });
     }
-    return { term, how: 'normalize' };
+    return followFolds({ term, how: 'normalize' });
   }
+
+  // Run-together terms ("PQ. HLG") become their parts before anything else.
+  const splitAll = (terms) => terms.flatMap((raw) => splitByLower.get(String(raw).trim().toLowerCase()) || [raw]);
 
   function conformList(terms) {
     const out = [];
     const seen = new Set();
-    for (const raw of terms) {
+    for (const raw of splitAll(terms)) {
       const e = early(raw);
       if (e.drop) { totals.drop++; continue; }
-      const r = e.how ? e : resolve(e.term);
+      const r = e.how ? followFolds(e) : resolve(e.term);
       totals[r.how]++;
       const term = r.term;
       if (!term || seen.has(term.toLowerCase())) continue;
@@ -519,7 +536,7 @@ function loadDecisions(reportsDir) {
   const base = JSON.parse(fs.readFileSync(path.join(reportsDir, 'keywordVocabDecisions.json'), 'utf8'));
   let idams = {};
   try { idams = JSON.parse(fs.readFileSync(path.join(reportsDir, 'keywordIdamsDecisions.json'), 'utf8')); } catch { /* none yet */ }
-  return { ...base, idamsFolds: idams.folds || {}, idamsDrops: idams.drops || [] };
+  return { ...base, idamsFolds: idams.folds || {}, idamsDrops: idams.drops || [], idamsSplits: idams.splits || {} };
 }
 
 // Keywords the IDAMS passes wrote: every doc idamsIngest.js minted, and the
