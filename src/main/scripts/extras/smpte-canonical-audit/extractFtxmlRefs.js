@@ -50,6 +50,7 @@ const { loadAllDocs, saveDoc } = require('../../../lib/registry');
 const {
   parseCiteDesignator,
   tidyCiteText,
+  citeHref,
   mapRefByCite,
   reloadRefMap,
   mriRecordSighting,
@@ -268,7 +269,7 @@ for (const f of catalog.files) {
         try {
           const sight = {
             docId: doc.docId, type: 'bibliographic', refId: r.refId,
-            cite: citeText(raw), href: '',
+            cite: citeText(raw), href: citeHref(raw),
             rawRef: raw, title: field(raw, 'article-title') || '',
             mapSource: 'ftxml-extract', mapDetail: r.via,
           };
@@ -284,7 +285,7 @@ for (const f of catalog.files) {
       try {
         const sight = {
           docId: doc.docId, type: 'bibliographic',
-          cite: citeText(raw), href: '',
+          cite: citeText(raw), href: citeHref(raw),
           rawRef: raw, title: field(raw, 'article-title') || '',
           mapSource: 'ftxml-extract', mapDetail: r.via,
         };

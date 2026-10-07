@@ -40,7 +40,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 const assert = require('assert');
-const { parseRefId, normalizePublisherLeadIn, parseCiteDesignator, tidyCiteText } = require('../../lib/referencing');
+const { parseRefId, normalizePublisherLeadIn, parseCiteDesignator, tidyCiteText, citeHref } = require('../../lib/referencing');
 
 const cases = [
   ['SMPTE, ST 2084:2014', 'SMPTE.ST2084.2014'],
@@ -73,5 +73,10 @@ assert.strictEqual(parseCiteDesignator('Joint Video Experts Team (JVET) of ITU-T
 // tidyCiteText: label dropped, tags joined without spaces, punctuation tidied.
 const raw = '<ref id="ref1"><label>1.</label> <mixed-citation><string-name>R. Xu</string-name>, &#x201C;<article-title>Survey</article-title>,&#x201D; <source>IEEE Trans.</source>, <volume>16</volume> (<issue>3</issue>): <fpage>645</fpage>&#x2013;<lpage>678</lpage>, 2005.</mixed-citation></ref>';
 assert.strictEqual(tidyCiteText(raw), 'R. Xu, “Survey,” IEEE Trans., 16 (3): 645–678, 2005.'); n++;
+
+// citeHref: <uri> text, then DOI → doi.org; trailing punctuation trimmed.
+assert.strictEqual(citeHref('<ref><mixed-citation>Available: <uri>https://www.fastcompany.com/90741893/x</uri>.</mixed-citation></ref>'), 'https://www.fastcompany.com/90741893/x'); n++;
+assert.strictEqual(citeHref('<ref><mixed-citation><pub-id pub-id-type="doi">10.1017/atsip.2019.23</pub-id></mixed-citation></ref>'), 'https://doi.org/10.1017/atsip.2019.23'); n++;
+assert.strictEqual(citeHref('<ref><mixed-citation>R. Xu, “Survey,” 2005.</mixed-citation></ref>'), ''); n++;
 
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

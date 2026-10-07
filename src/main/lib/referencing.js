@@ -798,6 +798,7 @@ function mriReplaceSighting({ docId, type, refId, cite, href, rawRef, title }) {
     entry.citationText = cite || synthesizeCiteFromRawRef(rawRef) || null;
     entry.rawRef = rawRef || null;
     entry.title = title || null;
+    entry.href = href || null;
     if (rawRef) entry.contentHash = _contentHash(rawRef);
   }
   return true;
@@ -1032,6 +1033,21 @@ function tidyCiteText(rawRef) {
     .replace(/([(\[“‘])\s+/g, '$1')
     .replace(/(\d)\s*([\u2013\u2014])\s*(\d)/g, '$1$2$3')
     .trim();
+}
+
+// The link a JATS/NLM <ref> carries: its <uri> (text or xlink:href) or
+// <ext-link xlink:href>, else its <pub-id pub-id-type="doi"> as a doi.org URL.
+// Trailing sentence punctuation is trimmed. Returns '' when there is none.
+function citeHref(rawRef) {
+  const src = String(rawRef || '');
+  const clean = (u) => String(u || '').replace(/&amp;/g, '&').replace(/\s+/g, '').replace(/[.,;:)\]]+$/, '');
+  const attr = src.match(/<(?:uri|ext-link)\b[^>]*\bxlink:href=["']([^"']+)["']/i);
+  if (attr && /^https?:\/\//i.test(clean(attr[1]))) return clean(attr[1]);
+  const uri = src.match(/<uri\b[^>]*>([\s\S]*?)<\/uri>/i);
+  if (uri && /^https?:\/\//i.test(clean(uri[1].replace(/<[^>]+>/g, '')))) return clean(uri[1].replace(/<[^>]+>/g, ''));
+  const doi = src.match(/<pub-id\b[^>]*pub-id-type=["']doi["'][^>]*>([^<]+)<\/pub-id>/i);
+  if (doi) return `https://doi.org/${clean(doi[1])}`;
+  return '';
 }
 
 // The designator a free-text bibliography entry cites, read ONLY from the text
@@ -3045,6 +3061,7 @@ module.exports = {
   normalizePublisherLeadIn,
   parseCiteDesignator,
   tidyCiteText,
+  citeHref,
   extractRefs,
   reloadRefMap,
   reloadDocumentsIndex,
