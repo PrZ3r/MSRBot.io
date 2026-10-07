@@ -1,0 +1,201 @@
+{
+  "abstract": "CBC/Radio-Canada is putting the finishing touches to its new IP-based production center in Montréal. During the design and early deployment of this major facility, it became clear that we would need to automate and manage the staging and configuration of the thousands of media devices in a fashion similar to an IT data center. — In fact, these new devices require thousands of parameters to be configured, and there are more frequent updates than for conventional devices. Moreover, once the system is put in production, business continuity imposes careful management of system changes in order to minimize the risk of technical regressions and human errors. — The good news is that the IT industry has solved that problem in order to operate huge data centers that require high availability. Continuous Integration and Continuous Deployment (CI/CD) practices have proven track records for operating data centers throughout their lifecycle, from configuration and provisioning, updates and changes, to sanity checks and monitoring. Tools such as DHCP, DNS, IPAM and configuration management tools are mature and widely used. — This paper will present the architecture and implementation of CBC's automated deployment workflow. We will cover requirements on endpoint devices and the technical and human-factor challenges we encountered during our journey putting in place the novel approach for the media facility. We believe these tools and methods will be applicable as a way forward to many media-over-IP projects at all scales.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "authors": [
+    {
+      "affiliation": "P.Eng., M.Sc.A, Project Lead, Core Systems, Technology and Infrastructure, CBC/Radio-Canada",
+      "name": "Alexandre Dugas"
+    },
+    {
+      "affiliation": "P.Eng., Director, Transport Architecture & Lab, Technology and Infrastructure, CBC/Radio-Canada",
+      "name": "Felix Poulin"
+    },
+    {
+      "affiliation": "P.Eng., Senior Director, Core Systems, Technology and Infrastructure, CBC/Radio-Canada",
+      "name": "Francois Legrand"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "contentType": "orig-research",
+  "contentType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "copyright": {
+    "holder": "Society of Motion Picture and Television Engineers, Inc.",
+    "holder$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "year": "2020",
+    "year$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "copyright$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docId": "10.5594-M001918",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docLabel": "SMPTE Meetings and Conferences ( November 2020)",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docTitle": "Automated Deployment of CBC/Radio-Canada's Media-over-IP Data Center",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docType": "Conference Paper",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "doi": "10.5594/M001918",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "href": "https://doi.org/10.5594/M001918",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "keywords": [
+    "Media-over-IP",
+    "Automation",
+    "Configuration",
+    "DevOps",
+    "ST 2110"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "number": "11",
+  "number$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "pages": "1–14",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publicationDate": "2020-11-10",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisher": "SMPTE",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisherLocation": {
+    "city": "White Plains, NY",
+    "city$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "country": "USA",
+    "country$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "publisherLocation$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "volume": "2020",
+  "volume$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490967.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  }
+}

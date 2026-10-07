@@ -1,0 +1,275 @@
+{
+  "abbrevTitle": "SMPTE Mot. Imag. J",
+  "abbrevTitle$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "abstract": "The high-efficiency video coding (HEVC) video compression standard, which drives a significant increase in coding efficiency, is an essential technology for delivering ultrahigh-definition content in the high dynamic range (HDR). This improved coding efficiency comes at a significant cost in computational complexity. Adaptive streaming and content-adaptive encoding significantly increase the compute required for encoding for the additional encodes and analysis required to support the corresponding use cases. All these factors combined require a careful analysis of tradeoffs to avoid exorbitant infrastructure costs of transition to HEVC. This paper discusses how the throughput of an HEVC encoder can be optimized to enable a cost-efficient distributed encoding system running on commodity hardware. We chose the popular open-source ×265 video encoder for this study due to its wide adoption. We first examine the ×265 presets, which combine various performance and encoding efficiency tradeoffs into a single operational point. We then detail some additional options that enable additional analysis on a selective subset of cases, such as per frame or per coding tree unit; these options are representative of several such options that are not exposed via the presets of ×265. Specifically, we discuss options pertaining to selective in-loop filtering and dynamically retargeting rate-distortion optimization (RDO) tools depending on the quality fluctuations encountered at runtime. We present tradeoff results for real-world 4K HDR content to demonstrate the applicability of these coding tools to real content used for over-the-top (OTT) and live streaming.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "authors": [
+    {
+      "bio": "Pradeep Ramachandran is a principal engineer and a member of the office of the chief technical officer at Multicore Ware Inc., Chennai, India. In his current role, he leads a team of engineers focused on developing various solutions for video pipelines that transcend the boundary of hardware and software. His team is responsible for the popular open-source high-efficiency video coding (HEVC) codec ×265. These include software and hybrid encoders and decoders. His research interest is solving problems in systems design that require innovations across the boundary of hardware and software. He received a PhD degree from the University of Illinois Urbana-Champaign, Champaign, IL, in 2011.",
+      "name": "Pradeep Ramachandran",
+      "orcid": "0000-0002-1844-609X"
+    },
+    {
+      "bio": "Praveen Kumar Karadugattu received a BE degree in electronics from Madras University, Chennai, India, in 2004 and an MTech degree in digital communication engineering from the Department of Telecommunication Engineering, MS Ramaiah Institute of Technology, Bengaluru, India, in 2006. He has worked in the R&D departments of various companies spanning across telecom, semicon, mobile, and OTT technologies. Since his internship days, he has been working on various multimedia technologies, focusing on video compression, image processing, multimedia frameworks, and streaming. His interests include researching video and image compression algorithms for improving perceptual quality of broadcast grade content. He is currently a video architect on the video team of the Media and AI Analytics Business Unit, which is focused on developing algorithms that fit into video and image processing pipelines and is responsible for the popular open-source HEVC encoder ×265.",
+      "name": "Praveen Kumar Karadugattu"
+    },
+    {
+      "bio": "Alex Giladim is a Comcast Fellow leading the Advanced Technologies Group within Comcast Cable’s VIPER, Denver, CO, organization. He works on video encoding and various aspects of end-to-end content distribution in adaptive streaming ecosystems. He has worked on architecture, implementation, and standardization of various stages of video delivery pipeline since 2000. He has been an active contributor to the Motion Picture Experts Group (MPEG)-Dynamic Adaptive Streaming over HTTP (DASH) standardization since 2010, and is involved in the architectural aspects of DASH-based deployments. His current interests are large-scale distributed video encoding and adaptive streaming. He holds a MSEE degree from Stanford University, Stanford, CA, and the BSc degree from Technion, Haifa, Israel.",
+      "name": "Alex Giladim"
+    },
+    {
+      "bio": "Dan Grois received a PhD degree from the Communication Systems Engineering Department, Ben-Gurion University of the Negev (BGU), Israel, in 2011. From 2011 to 2013, he was a senior researcher with the Communication Systems Engineering Department, BGU. From mid-2013 until 2017, he was a senior researcher with the Video Coding and Analytics Department, Fraunhofer Institute for Telecommunications– Heinrich Hertz Institute (HHI), Germany. Currently, he is a principal researcher at Comcast, where he is mainly working on advanced perceptual video quality optimization techniques for HDR UltraHD video coding, on neural networks for video compression including advanced deep learning and machine learning techniques. In addition, since 2013, he actively participates in the video standardization activities of the International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) and the International Telecommunication Union– Telecommunication (ITU-T) organizations, such as JCT-VC, JVET, and is an active contributor of HEVC and versatile video coding (VVC) video coding standards. He is an author and co-author of more than 70 publications in the areas of image/video coding and data processing, which have been presented at top-tier international conferences, and published in various scientific journals, and books. He is a senior member of the IEEE and a member of the Association for Computing Machinery (ACM), SMPTE, International Society for Optics and Photonics (SPIE), Society of Cable Telecommunications Engineer (SCTE), and Illinois State Board of Education (ISBE).",
+      "name": "Dan Grois"
+    },
+    {
+      "bio": "Pooja Venkatesan is currently a video code engineer at MulticoreWare Inc., Chennai, India. She received a BE degree in computer science from RMK Engineering College, Chennai. Her interests include video compression techniques, video quality metrics based on human visual systems, and machine learning applications in video coding.",
+      "name": "Pooja Venkatesan",
+      "orcid": "0000-0001-7727-6724"
+    },
+    {
+      "bio": "Bhavna Hariharan received a master’s degree in software engineering from the Coimbatore Institute of Technology, Coimbatore, India, in 2016. She joined MulticoreWare Inc., first as an intern in 2016, and later on, after graduating as a full-time software engineer. During her tenure at MulticoreWare, she was involved in developing a benchmarking tool and had been actively involved in the end-to-end design and development of some of the niche algorithms that went into improving the performance and quality of the ×265 encoder. In 2019, she joined Ittiam Systems, Bangalore, India, where she is currently a senior engineer. She is presently involved in the development of encoders and decoders across multiple video encoding standards.",
+      "name": "Bhavna Hariharan"
+    },
+    {
+      "bio": "Kavitha Sampath received a bachelor’s degree in information technology from Anna University, Chennai, India, in 2013, and is currently a technical lead at MulticoreWare Inc. As part of the team working on MulticoreWare’s flagship HEVC encoder, she has contributed comprehensively to ×265’s enhancement and has experience building machine learning solutions for image understanding. Her research interests include use of machine learning for solving problems in the space of video compression.",
+      "name": "Kavitha Sampath"
+    },
+    {
+      "bio": "Kalyan Goswami received a BTech degree from Kalyani University, Kalyani, India, in 2004, an MS degree in electrical engineering from the Indian Institute of Technology (IIT) Kharagpur, Kharagpur, India, in 2011, and a PhD degree in computer engineering from the Department of Computer Engineering, Sun Moon University, Asan, South Korea, in 2015. From 2015 to 2016, he was a postdoctoral researcher with the Electronics and Telecommunications Research Institute, Gwangju, South Korea. From 2017 to 2019, he was a video architect at MulticoreWare, Inc., Chennai, India, where he led a research team mainly focused on video algorithm development of the open-source HEVC encoder (×265). Currently, he is a solution architect at SSIMWAVE, Toronto, Canada, focusing on video quality measurement. He has published more than 25 research articles, mainly in the video processing domain. His research interests include video codec algorithm development, machine learning, perceptual quality measurement, and improvement.",
+      "name": "Kalyan Goswami"
+    },
+    {
+      "bio": "Kevin Pikus is a principal engineer and a member of the Viper Advanced Technology Group. He has played various roles through his Comcast career. His first job was with Comcast Interactive Media (CIM) maintaining the new technology of adaptive bitrate streaming that was invented by his previous employer. He then played a key role in architecting the new transcoder platform that is still in use today. He plays a key role in video quality assessment and works with companies to build products that are now used in the Comcast VQ workflow. He currently works on next-generation video encoding technologies. He has specialized training in network architecture, system administration and content management systems.",
+      "name": "Kevin Pikus"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "contentType": "orig-research",
+  "contentType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "copyright": {
+    "holder": "SMPTE",
+    "holder$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "year": "2020",
+    "year$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "copyright$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docId": "10.5594-JMI.2020.3001463",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docLabel": "SMPTE Motion Imaging Journal ( Volume: 129, Issue: 7, August 2020)",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docTitle": "Speed-Distortion Optimization: Tradeoffs in Open-Source HEVC Encoding",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "docType": "Journal Article",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "doi": "10.5594/JMI.2020.3001463",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "href": "https://doi.org/10.5594/JMI.2020.3001463",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "issn": {
+    "electronic": "2160-2492",
+    "electronic$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "print": "1545-0279",
+    "print$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "issn$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "journalAcronym": "MIJR",
+  "journalAcronym$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "journalTitle": "SMPTE Motion Imaging Journal",
+  "journalTitle$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "keywords": [
+    "Video Coding",
+    "X265",
+    "Open Source",
+    "Streaming"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "number": "7",
+  "number$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "pages": "17–25",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publicationDate": "2020-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisher": "SMPTE",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "publisherLocation": {
+    "city": "White Plains, NY",
+    "city$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "country": "USA",
+    "country$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "publisherLocation$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  },
+  "volume": "129",
+  "volume$meta": {
+    "confidence": "high",
+    "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Journal Article Repository/2020/7261654/9146749/09146793.xml) via idamsIngest.js",
+    "source": "parsed",
+    "updated": "2026-10-07T17:09:33.718Z",
+    "version": "smpte-idams-publication@v1"
+  }
+}
