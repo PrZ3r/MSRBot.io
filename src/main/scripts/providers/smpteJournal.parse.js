@@ -60,6 +60,13 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * taken as a unit, so the extracted bibliographic list REPLACES the stored
  * one. When the paper has no FTXML or no <ref-list>, the stored references
  * are left as they are; normative references are never touched.
+ *
+ * --pdf-refs (IEEE-era <publication> records, 2015–2023, which have no FTXML
+ * and no reference file): REFERENCES ONLY, from the reference section of the
+ * paper's PDF. Only papers with no bibliography (or one this pass wrote) are
+ * filled; no other field is emitted. Each list's $meta note records Crossref's
+ * reference count for the DOI next to the parsed count — a cross-check of what
+ * the delivery lost, never a source — and a mismatch sets reviewRequired.
  */
 
 const fs = require('fs');
@@ -190,6 +197,124 @@ function docLabel(rec, docType) {
   return label || rec.title || 'Untitled';
 }
 
+// ---- PDF reference lists (IEEE-era papers, no full text) -------------------
+// The papers from 2015–2023 were delivered without FTXML or reference files;
+// their references exist only in the published PDF. The PDF's text order is
+// not reading order — two-column reference pages come out right column first
+// (entries 5–17, then 1–4 under the heading) — so entries are collected as
+// numbered blocks from the heading's page to the end and rebuilt 1, 2, 3 …
+// Case-insensitive: small-caps headings extract as "RefeRences".
+const REF_HEAD = /(?:^|\n)\s*(?:references|bibliography|works cited|literature cited)\s*:?\s*(?:\n|$)/i;
+// A line that ends the reference list (the bios / acknowledgments that follow).
+const REF_STOP = /^(?:About the Authors?|ABOUT THE AUTHORS?|The Authors?$|Author Biograph(?:y|ies)|Biograph(?:y|ies)$|Acknowledg(?:e)?ments?|ACKNOWLEDG(?:E)?MENTS?|Appendix\b|APPENDIX\b|Presented at the|A contribution received)/;
+// A line that interrupts an entry: running page headers / footers, captions.
+const isPageNoise = (line) => /^\d{1,4}$/.test(line)
+  || /SMPTE Motion Imaging Journal\s*(?:\/\/\s*\d+)?$/i.test(line)
+  || /^\d+\s*(?:\/\/|\|)?\s*SMPTE Motion Imaging Journal/i.test(line)
+  || /SMPTE Motion Imaging Journal\s*\|\s*[A-Z][a-z]+(?:\/[A-Z][a-z]+)?\.? \d{4}\s*\d*$/.test(line)
+  || /^(?:FIGURE|Figure|TABLE|Table)\s+\d+[.:]/.test(line)
+  || (/^[^a-z]{12,}$/.test(line) && !/^\[?\d{1,3}[.\])]/.test(line) && /[A-Z]{3,}/.test(line) && !/https?:|www\./.test(line));
+
+// Join a wrapped line onto an entry: keep URLs whole, drop end-of-line
+// hyphenation in words ("Broad-" + "casting"), else join with a space.
+function joinWrapped(a, b) {
+  const lastTok = (a.match(/\S+$/) || [''])[0];
+  const urlish = /(?:https?:\/\/|www\.)\S*$/.test(lastTok);
+  if (urlish && /^[\w\-\/.?=&%#~+:@]+/.test(b) && !/[,;)]$/.test(lastTok)) return a + b;
+  if (/[A-Za-z]-$/.test(a) && /^[a-z]/.test(b) && !urlish) return a.slice(0, -1) + b;
+  if (/-$/.test(a)) return a + b;
+  return `${a} ${b}`;
+}
+
+const ROMAN = { i: 1, v: 5, x: 10, l: 50, c: 100 };
+function romanToInt(r) {
+  let n = 0;
+  const s = r.toLowerCase();
+  for (let i = 0; i < s.length; i++) {
+    const v = ROMAN[s[i]];
+    const next = ROMAN[s[i + 1]] || 0;
+    n += v < next ? -v : v;
+  }
+  return n;
+}
+// "12. …", "[12] …", "12) …" — or roman "xii. …" (a few 2015 conference papers).
+function entryStart(line) {
+  const m = line.match(/^\[?(\d{1,3})[.\])]\s+(\S.*)$/);
+  if (m) return { n: Number(m[1]), text: m[2] };
+  const r = line.match(/^([ivxlc]{1,7})[.)]\s+(\S.*)$/i);
+  if (r && /^(?:[ivxlc]+)$/i.test(r[1])) return { n: romanToInt(r[1]), text: r[2] };
+  return null;
+}
+
+// Unnumbered bibliography (no entry numbers): a new entry starts where the
+// previous line closed a citation (period, or a URL) and the next line opens
+// one (capitalized author / organization, or a quote).
+function unnumberedEntries(lines) {
+  const out = [];
+  let prevClosed = true;
+  for (const line of lines) {
+    const opens = /^(?:[A-Z][A-Za-z'’.-]+(?:,|\s)|[A-Z]{2,}|“|")/.test(line);
+    if (!out.length || (prevClosed && opens && out[out.length - 1].length > 25)) out.push(line);
+    else out[out.length - 1] = joinWrapped(out[out.length - 1], line);
+    prevClosed = /[.)]$|(?:https?:\/\/|www\.)\S+$/.test(line);
+  }
+  return out;
+}
+
+// pages: the PDF's text per page (or one string). Returns citation strings in
+// reference-number order. Numbered lists are rebuilt by number; unnumbered
+// bibliographies fall back to unnumberedEntries() (pdfReferenceEntries.lastMode
+// reports which).
+function pdfReferenceEntries(pages) {
+  pdfReferenceEntries.lastMode = 'none';
+  const list = Array.isArray(pages) ? pages : [String(pages || '')];
+  const h = list.findIndex((p) => REF_HEAD.test(p));
+  if (h < 0) return [];
+  const blocks = []; // { n, pre, text }
+  const plain = [];  // post-heading lines, for the unnumbered fallback
+  let cur = null;
+  let stopped = false;
+  let plainStopped = false;
+  for (let i = h; i < list.length; i++) {
+    const page = list[i];
+    const headAt = i === h ? page.search(REF_HEAD) : -1;
+    let pos = 0;
+    for (const raw of page.split('\n')) {
+      const pre = i === h && pos < headAt;
+      pos += raw.length + 1;
+      const line = raw.replace(/\s+/g, ' ').trim();
+      if (!line) continue;
+      if (REF_STOP.test(line) || /^Other Sources$/i.test(line)) { cur = null; stopped = true; if (!pre) plainStopped = true; continue; }
+      if (isPageNoise(line) || REF_HEAD.test(`\n${line}\n`)) { cur = null; continue; }
+      if (!pre && !plainStopped) plain.push(line);
+      const m = entryStart(line);
+      if (m) { cur = { n: m.n, pre, text: m.text }; blocks.push(cur); stopped = false; continue; }
+      if (cur && !stopped) cur.text = joinWrapped(cur.text, line);
+    }
+    cur = null;
+  }
+  let entries = [];
+  for (let n = 1; ; n++) {
+    const c = blocks.filter((b) => b.n === n);
+    if (!c.length) break;
+    entries.push((c.find((b) => !b.pre) || c[0]).text);
+  }
+  if (entries.length) pdfReferenceEntries.lastMode = 'numbered';
+  else if (plain.length) { entries = unnumberedEntries(plain); pdfReferenceEntries.lastMode = 'unnumbered'; }
+  return entries.map(cleanPdfEntry).filter((e) => e.length > 3);
+}
+
+// Conference papers repeat SMPTE's disclaimer footer on every page; an
+// entry that wraps across a page picks it up. An entry can also run on into
+// an unheaded author bio (often glued on with no space: "…FDLOhj.Al Kovalick
+// has worked"): end it at the first sentence that starts "Name … is/was/…".
+function cleanPdfEntry(e) {
+  let t = String(e).replace(/\s*The authors are solely responsible for the content of this technical presentation[\s\S]*?(?:\(SMPTE®?\)|$)\s*/g, ' ');
+  const cut = t.search(/\.\s*[A-Z][a-z]+(?:\s+[A-Z]\.)?\s+[A-Z][a-zA-Z'’-]+\s+(?:is|was|has|received|joined|holds|graduated|earned|works|serves)\b/);
+  if (cut > 0) t = t.slice(0, cut + 1);
+  return t.replace(/\s+/g, ' ').trim();
+}
+
 // ---- merge rules (never delete) -------------------------------------------
 // Nested object: source values merged over the registry copy. Unchanged →
 // the registry copy as-is ($meta included); keys the source lacks are kept;
@@ -228,6 +353,28 @@ function mergeAuthors(existingList, extracted) {
 }
 
 // ---- parser ---------------------------------------------------------------
+// Title compare key: case, punctuation and spacing ignored.
+function titleKey(t) {
+  return String(t || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+// Quoted title of a plain-text citation ("…" or “…”), without the trailing comma.
+function pdfCiteTitle(cite) {
+  const m = String(cite).match(/[“"]([^”"]{4,}?)[,.]?[”"]/);
+  return m ? m[1].trim() : '';
+}
+
+// First URL in a plain-text citation, else its DOI.
+function pdfCiteHref(cite) {
+  const clean = (u) => u.replace(/[.,;:)\]]+$/, '');
+  const url = String(cite).match(/https?:\/\/\S+/);
+  if (url) return clean(url[0]);
+  const doi = String(cite).match(/\b(10\.\d{4,9}\/[^\s,;"“”]+)/);
+  return doi ? `https://doi.org/${clean(doi[1])}` : '';
+}
+
+const pdfRefsStats = { papers: 0, entries: 0, mismatch: 0, noCrossref: 0 };
+
 function createSmpteJournalParser({ discovery }) {
   let ctx = null;
 
@@ -245,6 +392,23 @@ function createSmpteJournalParser({ discovery }) {
       const key = `${String(d.volume).trim()}|${String(d.pages).split(/[-–—]/)[0].trim()}`;
       if (!volPages.has(key)) volPages.set(key, []);
       volPages.get(key).push(d.docId);
+    }
+    // PDF citations: volume + issue + first page (pages restart per issue in
+    // later volumes), and normalized title (venue- and year-checked on use).
+    const volIssuePages = new Map();
+    const titles = new Map();
+    for (const d of docs) {
+      if (!/^10\.5594-/.test(d.docId || '')) continue;
+      if (d.volume && d.number && d.pages) {
+        const key = `${String(d.volume).trim()}|${String(d.number).trim()}|${String(d.pages).split(/[-–—]/)[0].trim()}`;
+        if (!volIssuePages.has(key)) volIssuePages.set(key, []);
+        volIssuePages.get(key).push(d.docId);
+      }
+      const t = titleKey(d.docTitle);
+      if (t.length >= 20) {
+        if (!titles.has(t)) titles.set(t, []);
+        titles.get(t).push({ docId: d.docId, conf: d.docType === 'Conference Paper', year: Number(String(d.publicationDate || '').slice(0, 4)) || null });
+      }
     }
     const hashToRefId = new Map();
     try {
@@ -276,7 +440,7 @@ function createSmpteJournalParser({ discovery }) {
     const kw = makeKeywordConformer(site.controlledKeywords || [], loadKeywordDecisions(), { shouted: true });
     kw.prime(recs.map(({ rec }) => rec.rawKeywords));
 
-    ctx = { byDocId, byDoi, docIds: new Set(byDocId.keys()), volPages, hashToRefId, dupDois, kw };
+    ctx = { byDocId, byDoi, docIds: new Set(byDocId.keys()), volPages, volIssuePages, titles, hashToRefId, dupDois, kw };
     return ctx;
   }
 
@@ -341,10 +505,140 @@ function createSmpteJournalParser({ discovery }) {
     return out.length ? out : null;
   }
 
+  // --- References-only pass from the PDF (IEEE-era records, 2015–2023) ---
+
+  // One plain-text citation → { refId } (registry doc) or { refId: null } (orphan).
+  function resolvePdfCite(cite) {
+    const { byDoi, docIds, volPages, volIssuePages, titles } = ctx;
+    const doi = ((cite.match(/\b(10\.\d{4,9}\/ ?[^\s,;"“”]+)/) || [])[1] || "").replace("/ ", "/");
+    if (doi) {
+      const t = doi.replace(/[.)\]]+$/, '');
+      if (byDoi.has(t)) return { refId: byDoi.get(t).docId, via: 'direct-doi' };
+      if (docIds.has(t.replace(/\//g, '-'))) return { refId: t.replace(/\//g, '-'), via: 'direct-doi' };
+    }
+    if (/SMPTE|Mot(?:ion)?\.? ?Imag|Motion Pict|Soc(?:iety)?\.? (?:of )?Motion/i.test(cite)) {
+      // "vol. 124, no. 3, pp. 19–27", "Vol. 124, Issue: 8, pp. 19-24" or "124(3):19–27"
+      const short = cite.match(/\b(\d{2,3})\s*\((\d+)\)\s*:\s*(\d+)/);
+      const vol = short ? short[1] : (cite.match(/\bvol\.?\s*(\d+)/i) || [])[1];
+      const issue = short ? short[2] : (cite.match(/\b(?:no\.|issue:?)\s*(\d+)/i) || [])[1];
+      const fpage = short ? short[3] : (cite.match(/\bpp?\.\s*(\d+)/i) || [])[1];
+      const hits = vol && fpage && (issue ? volIssuePages.get(`${vol}|${issue}|${fpage}`) : volPages.get(`${vol}|${fpage}`));
+      if (hits && hits.length === 1) return { refId: hits[0], via: issue ? 'vol+issue+pages' : 'vol+pages' };
+    }
+    // An SMPTE paper cited by its exact title, when the venue (journal vs
+    // conference) and year agree: one candidate only.
+    const t = titleKey(pdfCiteTitle(cite));
+    if (t && titles.has(t) && /SMPTE|Mot(?:ion)?\.? ?Imag|Motion Pict|Technical Conference/i.test(cite)) {
+      const conf = /Conference|Conf\.|presented at|Proc\./i.test(cite) && !/Mot(?:ion)?\.? ?Imag|J\. SMPTE|Journal/i.test(cite);
+      const years = (cite.match(/\b(?:19|20)\d{2}\b/g) || []).map(Number);
+      const cand = titles.get(t).filter((c) => c.conf === conf && (!years.length || !c.year || years.some((y) => Math.abs(y - c.year) <= 1)));
+      if (cand.length === 1) return { refId: cand[0].docId, via: 'smpte-title' };
+    }
+    const title = pdfCiteTitle(cite);
+    if (title) {
+      const mapped = mapRefByCite(title);
+      if (mapped) return { refId: mapped, via: 'mapRefByCite' };
+    }
+    const id = parseCiteDesignator(cite, { isRegistryDoc: (x) => docIds.has(x) });
+    if (id) return { refId: id, via: 'leading-designator' };
+    return { refId: null, via: 'orphan-slug' };
+  }
+
+  // Crossref's reference count for a DOI: a cross-check only (never a source).
+  async function crossrefCount(doi) {
+    try {
+      const res = await fetch(`https://api.crossref.org/works/${encodeURIComponent(doi)}`, {
+        headers: { 'User-Agent': 'MSRBot.io (https://github.com/PrZ3r/MSRBot.io)' },
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!res.ok) return null;
+      const j = await res.json();
+      const n = j && j.message && (j.message['references-count'] ?? j.message['reference-count']);
+      return Number.isInteger(n) ? n : null;
+    } catch { return null; }
+  }
+
+  async function extractPdfRefs(p) {
+    const { byDoi } = init();
+    let xml;
+    try { xml = fs.readFileSync(p.file, 'utf8'); } catch { return []; }
+    const doi = decodeEntities(tag(xml, 'articledoi')).trim();
+    const existing = doi && byDoi.get(doi);
+    if (!existing || !existing.docId) return [];
+    const docId = existing.docId;
+    // Never over a better source: only papers with no bibliography, or one this pass wrote.
+    const prev = existing.references || {};
+    const prevMeta = prev['bibliographic$meta'];
+    if (Array.isArray(prev.bibliographic) && prev.bibliographic.length && !(prevMeta && /^References parsed from the published PDF/.test(prevMeta.note || ''))) return [];
+
+    let pages;
+    try {
+      const { extractText, getDocumentProxy } = await import('unpdf');
+      const pdf = await getDocumentProxy(new Uint8Array(fs.readFileSync(p.pdf)));
+      ({ text: pages } = await extractText(pdf, { mergePages: false }));
+    } catch (e) {
+      console.warn(`   ⚠️ ${docId}: could not read ${path.basename(p.pdf)} (${e.message})`);
+      return [];
+    }
+    const cites = pdfReferenceEntries(pages);
+    const mode = pdfReferenceEntries.lastMode;
+    if (!cites.length) return [];
+
+    const out = [];
+    for (const cite of cites) {
+      const r = resolvePdfCite(cite);
+      const sight = {
+        docId, type: 'bibliographic', cite, href: pdfCiteHref(cite), rawRef: cite,
+        title: pdfCiteTitle(cite), mapSource: 'pdf-extract', mapDetail: r.via,
+      };
+      if (r.refId) {
+        if (r.refId === docId) continue;
+        mriRecordSighting({ ...sight, refId: r.refId });
+        if (!out.includes(r.refId)) out.push(r.refId);
+      } else {
+        const mint = mriRecordSighting(sight);
+        const slug = mint && mint.mintedSlug;
+        if (slug && !out.includes(slug)) out.push(slug);
+      }
+    }
+    if (!out.length) return [];
+
+    const cr = await crossrefCount(doi);
+    const where = path.relative(discovery.source, p.pdf);
+    const check = cr === null
+      ? 'Crossref cross-check unavailable for this DOI.'
+      : `Cross-check: Crossref lists ${cr} reference(s) for this DOI; ${cites.length} parsed from the PDF.`;
+    const note = `References parsed from the published PDF (${where})${mode === 'unnumbered' ? ', unnumbered bibliography' : ''}. `
+      + "SMPTE's library delivery has no reference file or full text for this paper "
+      + '(src/main/reports/smpte-upstream/referenceFilesTruthTable.md). ' + check;
+
+    const doc = { docId, references: { bibliographic: out } };
+    if (prev.normative) doc.references.normative = prev.normative;
+    Object.defineProperty(doc, '__sourceUrl', { value: undefined, enumerable: false, configurable: true, writable: true });
+    Object.defineProperty(doc, '__metaNotes', { value: { 'references.bibliographic': note }, enumerable: false, configurable: true, writable: true });
+    const mismatch = cr !== null && cr !== cites.length;
+    if (mismatch || mode === 'unnumbered') {
+      const flag = mismatch
+        ? `PDF reference count (${cites.length}) differs from Crossref (${cr}); check the parse against the PDF`
+        : 'Unnumbered bibliography split by line heuristics; check entry boundaries against the PDF';
+      Object.defineProperty(doc, '__metaFlags', { value: { 'references.bibliographic': { reviewRequired: true, flag } }, enumerable: false, configurable: true, writable: true });
+    }
+    if (!pdfRefsStats.papers) {
+      process.once('exit', () => console.log(`📄 PDF references: ${pdfRefsStats.papers} paper(s), ${pdfRefsStats.entries} citation(s); `
+        + `${pdfRefsStats.mismatch} differ from Crossref's count (flagged reviewRequired), ${pdfRefsStats.noCrossref} without a Crossref count`));
+    }
+    pdfRefsStats.papers++;
+    pdfRefsStats.entries += cites.length;
+    if (mismatch) pdfRefsStats.mismatch++;
+    if (cr === null) pdfRefsStats.noCrossref++;
+    return [doc];
+  }
+
   async function extractFromUrl(key) {
-    const { byDocId, dupDois, kw } = init();
     const p = discovery.getPrimary(key);
     if (!p) throw new Error(`no SMPTE journal paper for ${key}`);
+    if (p.kind === 'pdf-refs') return extractPdfRefs(p);
+    const { byDocId, dupDois, kw } = init();
     const rec = readContentBatch(p.file);
     if (!rec) return [];
     const docType = p.docType;
@@ -399,4 +693,7 @@ function createSmpteJournalParser({ discovery }) {
   return { extractFromUrl, extractFromSeedDoc: extractFromUrl };
 }
 
-module.exports = { createSmpteJournalParser, readContentBatch, nested, union, mergeAuthors };
+module.exports = {
+  createSmpteJournalParser, readContentBatch, nested, union, mergeAuthors,
+  pdfReferenceEntries, pdfCiteTitle, pdfCiteHref, pdfRefsStats,
+};

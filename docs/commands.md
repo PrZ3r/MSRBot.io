@@ -76,7 +76,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Runs: `node src/main/scripts/extractDocs.js --provider manual --input <records.json>`
   - Action: Adds/updates documents from a records file prepared by a person or AI agent (publishers without an extractor). Citations go through `parseRefId` with MRI sightings and orphan slugs; per-field provenance comes from the record's `metaSources` / `metaSourceUrls` / `metaNotes` / `metaFlags`. Format: [manual-extraction.md](manual-extraction.md).
 
-- `npm run extract-smpte-journal [-- --source <dir>] [-- --from <year>]`
+- `npm run extract-smpte-journal [-- --source <dir>] [-- --from <year>] [-- --to <year>] [-- --pdf-refs]`
   - Runs: `node src/main/scripts/extractDocs.js --provider smpte-journal`
   - **Requires a local copy of the SMPTE journal library XML.** The library isn't public: the maintainer downloads each new SMPTE Motion Imaging Journal issue and conference from SMPTE's AWS library. Without a readable local copy (missing path, empty folder, or Dropbox online-only 0-byte placeholders) the command prints "No local SMPTE journal source … nothing to do" and exits without touching the registry. It can't run on a schedule or in CI.
   - Action: reads each paper's `content_batch` file (metadata, keywords, authors) and its `FTXML/` full text (references), and feeds them through the extractDocs pipeline like the other extractors:
@@ -89,6 +89,12 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Flags:
     - `--source <dir>`: library root. Default `_source/SMPTE`, the maintainer's symlink to the library. It must contain `Journal Article Repository/` and/or `Conference Repository/Conference Papers/`.
     - `--from <year>`: first year to read. Default `2025`; earlier years are already in the registry.
+    - `--to <year>`: last year to read. Default: no limit.
+    - `--pdf-refs`: also read the IEEE-era `<publication>` records (2015–2023). SMPTE's delivery for those years has no FTXML and no reference file, so this pass takes **references only**, parsed from the paper's PDF in the same folder. The PDFs aren't in the default download; pull them from AWS first (records without a PDF are skipped).
+      - It fills papers with no bibliographic references, and re-runs replace only lists this pass wrote. It never overwrites references from another source, and never touches a paper's other fields.
+      - Each list's `bibliographic$meta.note` names the PDF and records a **Crossref cross-check**: how many references Crossref holds for the DOI against how many were parsed. Crossref is a check, never a source; nothing from it is written. A count mismatch, or a bibliography with no entry numbers, sets `reviewRequired` with a `flag` saying what to check.
+      - Citations resolve like the FTXML path: DOI, SMPTE volume + issue + first page, an SMPTE paper's exact title (venue and year must agree), `refMap`, then `parseCiteDesignator`. Anything else becomes an orphan with its printed text.
+      - Typical run: `npm run extract-smpte-journal -- --from 2015 --to 2023 --pdf-refs` (needs network for the Crossref check; without it, the note says the check was unavailable).
   - Keywords are conformed with `src/main/lib/keywordConform.js`, using the rules in `src/main/config/keywordDecisions.json` (folds, drops, splits, acronyms). Add a rule there, not in the extractor.
   - Typical use after downloading a new issue:
     ```bash
