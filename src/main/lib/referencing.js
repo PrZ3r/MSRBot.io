@@ -87,7 +87,9 @@ function mriPruneToSightings(index, opts = {}) {
     if (!docId || !presentDocIds.has(docId)) return { docGone: true, nowResolved: false };
     let nowResolved = false;
     try {
-      const rid = parseRefId(cite || '', href || '');
+      // Title-safe: a citation whose TITLE mentions a standard ("Overview of
+      // SMPTE ST 2110 …") must not count as resolved to it.
+      const rid = parseCiteDesignator(cite || '', { isRegistryDoc: (x) => !!_findSourceDocIdForRefId(x) });
       if (rid) {
         const key = `${rid}||${docId}||${type || ''}`;
         if (index.has(key)) nowResolved = true;
@@ -116,6 +118,9 @@ function mriPruneToSightings(index, opts = {}) {
   // 2. New slug-keyed orphans in refs[]
   for (const [slug, entry] of Object.entries(mri.refs || {})) {
     if (!entry || !entry.isOrphan) continue;
+    // A slug its doc still cites is never dropped — that would leave the doc
+    // pointing at nothing (the MRI coverage invariant).
+    if (index.has(`${slug}||${entry.sourceDoc}||bibliographic`) || index.has(`${slug}||${entry.sourceDoc}||normative`)) continue;
     const { docGone, nowResolved } = tryResolveOrphan(entry.sourceDoc, entry.citationText, entry.href, (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].type) || null);
     if (docGone || nowResolved) {
       delete mri.refs[slug];
