@@ -167,6 +167,7 @@ npm run extract
 npm run extract-smpte
 npm run extract-ietf
 npm run extract-manual -- --input <records.json>   # publishers without an extractor; see docs/manual-extraction.md
+npm run extract-smpte-journal                      # maintainer only: needs a local copy of the SMPTE journal library
 npm run build-msi
 npm run build-mri
 npm run seed-backfill-ietf
@@ -189,6 +190,7 @@ npm run local-server
 Quick reference:
 - `extract` / `extract-smpte`: run SMPTE document extraction.
 - `extract-ietf`: run IETF document extraction.
+- `extract-smpte-journal`: SMPTE journal/conference papers from a local copy of the SMPTE journal library (maintainer only; does nothing without the local XML).
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
 - `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit (`--write` to apply + canonicalize).
@@ -214,6 +216,7 @@ For the full command and flag reference (including `build-mri`, `build-msi`, `au
 - `npm run extract-smpte`: explicit SMPTE extraction.
 - `npm run extract-ietf`: explicit IETF extraction.
 - `npm run extract-manual -- --input <records.json>`: hand- or AI-prepared records for publishers without an extractor, run through the same pipeline. See [docs/manual-extraction.md](docs/manual-extraction.md) and [Adding documents with AI](#adding-documents-with-ai-contributors).
+- `npm run extract-smpte-journal`: SMPTE Motion Imaging Journal and conference papers from the maintainer's **local** copy of the SMPTE journal library (content_batch + FTXML). Requires the library XML on disk; otherwise it reports "nothing to do". See [docs/commands.md](docs/commands.md#extraction).
 - Under the hood, extraction now requires an explicit provider flag:
   - `node src/main/scripts/extractDocs.js --provider smpte`
   - `node src/main/scripts/extractDocs.js --provider ietf`
