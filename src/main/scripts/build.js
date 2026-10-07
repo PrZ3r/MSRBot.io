@@ -1394,8 +1394,12 @@ function _titleOf(doc){
   function _docBaseOf(doc){
     return (doc && doc.docBase) || '';
   }
+  // isbn is a string or { print, electronic } (schema allows both); citations
+  // take one value, print first.
   function _isbnOf(doc){
-    return (doc && doc.isbn) || '';
+    const v = doc && doc.isbn;
+    if (v && typeof v === 'object') return v.print || v.electronic || '';
+    return v || '';
   }
   function _authorsOf(doc){
     return (doc && doc.authors) || '';
