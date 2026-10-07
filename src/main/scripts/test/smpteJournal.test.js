@@ -126,6 +126,17 @@ eq(pdfReferenceEntries(['References\n1. A, “One,” Retrieved from: The author
   + 'Blah blah. © 2017 Society of Motion Picture & Television Engineers® (SMPTE®) http://x.org/a']),
   ['A, “One,” Retrieved from: http://x.org/a'], 'conference disclaimer footer cut out of a wrapped entry');
 eq(pdfReferenceEntries(['No reference section here.']), [], 'no heading → no entries');
+eq(pdfReferenceEntries(['References\n[ 1] A. Bee, “One,” 2015.\n[2]SMPTE, ST 2084:2014. [3] C. Day, “Three,” 2016.']),
+  ['A. Bee, “One,” 2015.', 'SMPTE, ST 2084:2014.', 'C. Day, “Three,” 2016.'], 'loose: bracket numbers (spaced, unspaced, same line)');
+eq(pdfReferenceEntries.lastMode, 'loose', 'mode: loose');
+eq(pdfReferenceEntries(['References\n[Wang09] Z. Wang, “MSE,” 2009.\n[Bonneel] N. Bonneel, “Example-based,” 2013.']),
+  ['Z. Wang, “MSE,” 2009.', 'N. Bonneel, “Example-based,” 2013.'], 'loose: keyed entries in order of appearance');
+eq(pdfReferenceEntries(['References\n1 Michael Smith, Audio Reference Book, 2015.\n2 Joe Lee, “Two,” 2016.']),
+  ['Michael Smith, Audio Reference Book, 2015.', 'Joe Lee, “Two,” 2016.'], 'loose: footnote-style numbers');
+pdfReferenceEntries(['References\n• Transcode\n• Storage\n• File based']);
+ok(pdfReferenceEntries.lastMode !== 'loose', 'loose: bulleted body text (no years, URLs or titles) is not taken as references');
+eq(pdfReferenceEntries(['Bibliography\nRanjan, A., & Black, M. J. (2019).\nCompetitive Collaboration. CVPR.\nTzeng, E. (2017). Adversarial Adaptation. CVPR.']),
+  ['Ranjan, A., & Black, M. J. (2019). Competitive Collaboration. CVPR.', 'Tzeng, E. (2017). Adversarial Adaptation. CVPR.'], 'APA: title after "(2019)." stays with its entry');
 eq(pdfCiteTitle('A. Bee, “First paper,” SMPTE Mot. Imag. J., 2015.'), 'First paper', 'quoted title, trailing comma dropped');
 eq(pdfCiteHref('W. V., “Studios,” 2022, doi: 10.5594/JMI.2022.3166161. Accessed'), 'https://doi.org/10.5594/JMI.2022.3166161', 'href from DOI');
 eq(pdfCiteHref('X, “Y,” [Online]. Available: https://www.itu.int/rec/R-REC-BT/en.'), 'https://www.itu.int/rec/R-REC-BT/en', 'href: first URL, trailing period trimmed');

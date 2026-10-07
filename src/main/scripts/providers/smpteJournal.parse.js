@@ -213,6 +213,9 @@ const isPageNoise = (line) => /^\d{1,4}$/.test(line)
   || /^\d+\s*(?:\/\/|\|)?\s*SMPTE Motion Imaging Journal/i.test(line)
   || /SMPTE Motion Imaging Journal\s*\|\s*[A-Z][a-z]+(?:\/[A-Z][a-z]+)?\.? \d{4}\s*\d*$/.test(line)
   || /^(?:FIGURE|Figure|TABLE|Table)\s+\d+[.:]/.test(line)
+  || /^©\s*\d{4}\s+Society of Motion Picture/.test(line)
+  // Lines of the conference disclaimer footer
+  || /technical presentation|SMPTE Board of Editors|constitute an endorsement|SMPTE meeting paper|jwelch@smpte\.org|Title of Presentation, Meeting name/.test(line)
   || (/^[^a-z]{12,}$/.test(line) && !/^\[?\d{1,3}[.\])]/.test(line) && /[A-Z]{3,}/.test(line) && !/https?:|www\./.test(line));
 
 // Join a wrapped line onto an entry: keep URLs whole, drop end-of-line
@@ -253,13 +256,40 @@ function unnumberedEntries(lines) {
   const out = [];
   let prevClosed = true;
   for (const line of lines) {
-    const opens = /^(?:[A-Z][A-Za-z'’.-]+(?:,|\s)|[A-Z]{2,}|“|")/.test(line);
+    const opens = /^(?:[A-Z][A-Za-z'’.-]+(?:,|\s)|[A-Z]{2,}|“|")/.test(line)
+      && !/^(?:Retrieved|Available|Accessed|Web\.|\[Online\])/.test(line);
     if (!out.length || (prevClosed && opens && out[out.length - 1].length > 25)) out.push(line);
     else out[out.length - 1] = joinWrapped(out[out.length - 1], line);
-    prevClosed = /[.)]$|(?:https?:\/\/|www\.)\S+$/.test(line);
+    // "Ranjan, A., … (2019)." — APA: the title follows on the next line.
+    // "… Cinnamon S." — an author list wrapping at an initial isn't a close.
+    // A line ending in a year closes too ("…, TV Technology / August 2015"); a
+    // journal abbreviation doesn't ("SMPTE Mot. / Imag. J.").
+    prevClosed = (/[.)]$|(?:https?:\/\/|www\.)\S+$/.test(line) || /\b(?:19|20)\d{2}$/.test(line))
+      && !/\(\d{4}[a-z]?\)\.$/.test(line) && !/\s[A-Z]\.$/.test(line)
+      && !/\b(?:Mot|Imag|Proc|Trans|Int|Conf|Soc|Vol|No|pp|Eng|Tech|Comput|Commun|Electron|Res|Sci|Am|Assoc)\.$/.test(line);
   }
   return out;
 }
+
+// Looser entry starts, tried only when the strict pass finds < 2 entries:
+// "[ 1] …", "[2]SMPTE …", footnote-style "1 Michael …" / "1E. Giorgianni",
+// bare roman "i Futuresource …" (numbered), and keyed "[Wang09] …" or
+// bulleted "• …" entries (numbered in order of appearance).
+function looseStart(line, seq) {
+  let m = line.match(/^\[\s*(\d{1,3})\s*\]\s*(\S.*)$/);
+  if (m) return { n: Number(m[1]), text: m[2] };
+  m = line.match(/^(\d{1,3})(?![\d.,:)\]/-])\s*([A-Z“"].*)$/);
+  // …but not a wrapped access date: "(date accessed\n18 September 2018)".
+  if (m && !/^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?,?\s+\d{4}\b/.test(m[2])) return { n: Number(m[1]), text: m[2] };
+  m = line.match(/^([ivx]{1,5})\s+([A-Z].*)$/);
+  if (m) return { n: romanToInt(m[1]), text: m[2] };
+  m = line.match(/^\[([A-Za-z][\w+.&-]{1,24})\]\s*(\S.*)$/) || line.match(/^[•▪●◦]\s*(\S.*)$/);
+  if (m) return { n: seq + 1, text: m[2] || m[1], seq: true };
+  return null;
+}
+
+// A year, a URL or a quoted title.
+const looksCited = (e) => /(?:19|20)\d{2}(?!\d)|https?:|www\.|[“"]/.test(e);
 
 // pages: the PDF's text per page (or one string). Returns citation strings in
 // reference-number order. Numbered lists are rebuilt by number; unnumbered
@@ -270,11 +300,36 @@ function pdfReferenceEntries(pages) {
   const list = Array.isArray(pages) ? pages : [String(pages || '')];
   const h = list.findIndex((p) => REF_HEAD.test(p));
   if (h < 0) return [];
+  const strict = collectPdfEntries(list, h, false);
+  let entries = strict.entries;
+  if (entries.length) pdfReferenceEntries.lastMode = 'numbered';
+  if (entries.length < 2) {
+    // Whichever reading finds more entries: loose starts or the unnumbered split.
+    // Loose starts also match bulleted body text ("• Transcode", future-work
+    // lists): keep them only when most entries read as citations.
+    let loose = collectPdfEntries(list, h, true).entries;
+    if (loose.filter(looksCited).length < 0.6 * loose.length) loose = [];
+    const plain = entries.length ? [] : unnumberedEntries(strict.plain);
+    if (loose.length > entries.length && loose.length >= plain.length) { entries = loose; pdfReferenceEntries.lastMode = 'loose'; }
+    else if (plain.length > entries.length) {
+      // Body text set after an unnumbered bibliography (a closing section in
+      // the next column) reads as entries: drop a trailing run with no year or URL.
+      let end = plain.length;
+      while (end > 0 && !/(?:19|20)\d{2}(?!\d)|https?:|www\./.test(plain[end - 1])) end--;
+      entries = plain.slice(0, end);
+      pdfReferenceEntries.lastMode = 'unnumbered';
+    }
+  }
+  return entries.map(cleanPdfEntry).filter((e) => e.length > 3);
+}
+
+function collectPdfEntries(list, h, loose) {
   const blocks = []; // { n, pre, text }
   const plain = [];  // post-heading lines, for the unnumbered fallback
   let cur = null;
   let stopped = false;
   let plainStopped = false;
+  let seq = 0;
   for (let i = h; i < list.length; i++) {
     const page = list[i];
     const headAt = i === h ? page.search(REF_HEAD) : -1;
@@ -282,26 +337,32 @@ function pdfReferenceEntries(pages) {
     for (const raw of page.split('\n')) {
       const pre = i === h && pos < headAt;
       pos += raw.length + 1;
-      const line = raw.replace(/\s+/g, ' ').trim();
+      // A whole disclaimer footer on one line goes first, keeping any citation text around it.
+      const line = raw.replace(/\s+/g, ' ')
+        .replace(/\s*The authors are solely responsible for the content of this technical presentation[\s\S]*?(?:\(SMPTE®?\)|$)\s*/g, ' ')
+        .trim();
       if (!line) continue;
       if (REF_STOP.test(line) || /^Other Sources$/i.test(line)) { cur = null; stopped = true; if (!pre) plainStopped = true; continue; }
       if (isPageNoise(line) || REF_HEAD.test(`\n${line}\n`)) { cur = null; continue; }
       if (!pre && !plainStopped) plain.push(line);
-      const m = entryStart(line);
-      if (m) { cur = { n: m.n, pre, text: m.text }; blocks.push(cur); stopped = false; continue; }
-      if (cur && !stopped) cur.text = joinWrapped(cur.text, line);
+      // Loose: entries run together on one line ("… Overview [2]SMPTE …", "… • Digital …").
+      for (const part of loose ? line.split(/\s+(?=\[\s*\d{1,3}\s*\]|[•▪●◦]\s)/) : [line]) {
+        const m = loose ? looseStart(part, seq) : entryStart(part);
+        if (m) { if (m.seq) seq++; cur = { n: m.n, pre, text: m.text }; blocks.push(cur); stopped = false; continue; }
+        if (cur && !stopped) cur.text = joinWrapped(cur.text, part);
+      }
     }
     cur = null;
   }
-  let entries = [];
+  const entries = [];
   for (let n = 1; ; n++) {
     const c = blocks.filter((b) => b.n === n);
     if (!c.length) break;
-    entries.push((c.find((b) => !b.pre) || c[0]).text);
+    // Post-heading blocks first; of those, the fullest (a stray fragment loses).
+    const pool = c.some((b) => !b.pre) ? c.filter((b) => !b.pre) : c;
+    entries.push(pool.reduce((a, b) => (b.text.length > a.text.length ? b : a)).text);
   }
-  if (entries.length) pdfReferenceEntries.lastMode = 'numbered';
-  else if (plain.length) { entries = unnumberedEntries(plain); pdfReferenceEntries.lastMode = 'unnumbered'; }
-  return entries.map(cleanPdfEntry).filter((e) => e.length > 3);
+  return { entries, plain };
 }
 
 // Conference papers repeat SMPTE's disclaimer footer on every page; an
@@ -312,7 +373,7 @@ function cleanPdfEntry(e) {
   let t = String(e).replace(/\s*The authors are solely responsible for the content of this technical presentation[\s\S]*?(?:\(SMPTE®?\)|$)\s*/g, ' ');
   const cut = t.search(/\.\s*[A-Z][a-z]+(?:\s+[A-Z]\.)?\s+[A-Z][a-zA-Z'’-]+\s+(?:is|was|has|received|joined|holds|graduated|earned|works|serves)\b/);
   if (cut > 0) t = t.slice(0, cut + 1);
-  return t.replace(/\s+/g, ' ').trim();
+  return t.replace(/\s+/g, ' ').trim().replace(/^[.,;:]\s*/, '');
 }
 
 // ---- merge rules (never delete) -------------------------------------------
@@ -534,6 +595,8 @@ function createSmpteJournalParser({ discovery }) {
       const cand = titles.get(t).filter((c) => c.conf === conf && (!years.length || !c.year || years.some((y) => Math.abs(y - c.year) <= 1)));
       if (cand.length === 1) return { refId: cand[0].docId, via: 'smpte-title' };
     }
+    const whole = mapRefByCite(cite);
+    if (whole) return { refId: whole, via: 'mapRefByCite' };
     const title = pdfCiteTitle(cite);
     if (title) {
       const mapped = mapRefByCite(title);
