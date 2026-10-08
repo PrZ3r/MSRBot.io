@@ -1112,6 +1112,8 @@ function createIetfParser(deps) {
       const trackerJsonAuthors = normalizeAuthorNames(trackerJson?.authors);
       const trackerFullAuthors = $tracker
         ? $tracker('meta[property="article:author"]').map((_, el) => ($tracker(el).attr('content') || '').trim()).get().filter(Boolean)
+          // A profile typo that doubles the surname ("Jeff Downs Downs", RFC6597).
+          .map((name) => name.replace(/^(\S.*?\s)(\S+)\s+\2$/u, '$1$2'))
         : [];
       const fullNamesAlign = trackerFullAuthors.length > 0 &&
         (!trackerJsonAuthors.length || trackerFullAuthors.length === trackerJsonAuthors.length);

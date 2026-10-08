@@ -1154,6 +1154,20 @@ for (const doc of results) {
       orphanCitationsAdded += 1;
       orphanForceTouched.add(docId);
     }
+    // A list made only of these (RFC678: two orphans, nothing resolved) has no $meta
+    // from the merge; write it here rather than leave canonicalize to inject a
+    // "manual" default.
+    if (!doc.references[`${bucket}$meta`]) {
+      doc.references[`${bucket}$meta`] = {
+        confidence: 'medium',
+        note: 'Citations without a standard ID, kept as MRI orphan refs (or resolved once the reference label was stripped)',
+        originalValue: null,
+        source: 'parsed',
+        sourceUrl: doc.__sourceUrl || doc.resolvedHref || doc.href || null,
+        updated: new Date().toISOString(),
+        version: SCRIPT_VERSION
+      };
+    }
   }
   if (orphanCitationsAdded > 0) {
     console.log(`🔗 Cited ${orphanCitationsAdded} reference(s) recovered from unparsed citations (orphan slugs, or IDs that resolved once the label was stripped) in ${orphanForceTouched.size} source doc(s).`);
