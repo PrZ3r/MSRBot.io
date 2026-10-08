@@ -270,6 +270,20 @@ const providerKey = providerArg.toLowerCase().trim();
         const type = String((r && r.type) || 'bibliographic').trim();
         if (isNonCitationLine(rawCite) || isNonCitationLine(cite)) { entry.orphanStatus = 'non-citation'; continue; }
         if (!docId || (!cite && !href)) continue;
+        // The provider tried the labelled text ("Zhenqing2012 ] Zhenqing, S., …"); without
+        // the label it may resolve (parser or refMap). Then cite the ID, not an orphan.
+        let resolvedId = null;
+        try { resolvedId = parseRefId(cite, href) || mapRefByCite(cite) || null; } catch {}
+        if (resolvedId && resolvedId !== docId) {
+          try {
+            mriRecordSighting({ docId, type, refId: resolvedId, cite, href, rawRef: (r && r.rawRef) || null, mapSource: `extractDocs:${providerKey}`, mapDetail: 'onBadRefs-unlabelled' });
+            orphanSlugApplyQueue.push({ docId, slug: resolvedId, type });
+            entry.orphanStatus = 'resolved';
+          } catch (e) {
+            console.warn(`[mri] failed to record resolved sighting for ${docId}: ${e && e.message ? e.message : e}`);
+          }
+          continue;
+        }
         try {
           const result = mriRecordSighting({
             docId,
@@ -1108,7 +1122,7 @@ for (const doc of results) {
     }
   }
   if (orphanCitationsAdded > 0) {
-    console.log(`🔗 Cited ${orphanCitationsAdded} new MRI orphan slug(s) from ${orphanForceTouched.size} source doc(s).`);
+    console.log(`🔗 Cited ${orphanCitationsAdded} reference(s) recovered from unparsed citations (orphan slugs, or IDs that resolved once the label was stripped) in ${orphanForceTouched.size} source doc(s).`);
   }
 
   // Persist only the docs this run touched, each to its own shard file.
