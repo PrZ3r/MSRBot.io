@@ -213,8 +213,9 @@ const providerKey = providerArg.toLowerCase().trim();
     onBadRefs: (refs) => {
       if (!Array.isArray(refs) || !refs.length) return;
       // Three-step routing:
-      //   1. Console summary buffer (`badRefs`) — used at end of run to print
-      //      "🚫 Citations without a standard ID" so devs see them.
+      //   1. Run-log buffer (`badRefs`), tagged with the orphan outcome: the log
+      //      lists orphans this run created, counts ones already in the MRI, and
+      //      lists as unparseable only citations that couldn't be recorded.
       //   2. MRI — each ref lands as a source-anchored orphan slug via
       //      `mriRecordSighting` (mint path picks a stable content-hash
       //      suffix when no `<ref id>` is available), so the citation info is
@@ -227,7 +228,8 @@ const providerKey = providerArg.toLowerCase().trim();
       //      orphan because the source doc has no references[] entry pointing
       //      at it.
       for (const r of refs) {
-        badRefs.push(r);
+        const entry = { ...r, orphanStatus: 'unrecorded' };
+        badRefs.push(entry);
         const docId = String((r && r.docId) || '').trim();
         const cite = String((r && r.refText) || (r && r.cite) || '').trim();
         const href = String((r && r.href) || '').trim();
@@ -246,7 +248,11 @@ const providerKey = providerArg.toLowerCase().trim();
             mapDetail: 'onBadRefs',
           });
           const slug = result && result.mintedSlug;
-          if (slug) orphanSlugApplyQueue.push({ docId, slug, type });
+          if (slug) {
+            orphanSlugApplyQueue.push({ docId, slug, type });
+            entry.orphanStatus = result.created ? 'new' : 'existing';
+            entry.slug = slug;
+          }
         } catch (e) {
           console.warn(`[mri] failed to record bad-ref sighting for ${docId}: ${e && e.message ? e.message : e}`);
         }
@@ -1133,7 +1139,9 @@ for (const doc of results) {
     docId: String(ref.docId || '').trim(),
     type: String(ref.type || '').trim(),
     cite: formatBadRefText(ref.refText),
-    href: String(ref.href || '').trim()
+    href: String(ref.href || '').trim(),
+    orphanStatus: ref.orphanStatus || 'unrecorded',
+    slug: ref.slug || null
   });
   const shouldKeepBadRefItem = (item) => {
     const cite = String(item.cite || '').trim();
@@ -1151,15 +1159,42 @@ for (const doc of results) {
     return true;
   };
   const filteredBadRefItems = badRefs.map(toBadRefItem).filter(shouldKeepBadRefItem);
+  // A citation without a standard ID is an orphan ref, not a failure. Report the orphans
+  // this run created; count the ones already in the MRI; "unparseable" is only what
+  // couldn't be recorded at all.
+  const dedupeBySlug = (items) => {
+    const seen = new Set();
+    return items.filter((i) => { const k = i.slug || `${i.docId}|${i.cite}`; if (seen.has(k)) return false; seen.add(k); return true; });
+  };
+  const newOrphanItems = dedupeBySlug(filteredBadRefItems.filter((i) => i.orphanStatus === 'new'));
+  const existingOrphanCount = dedupeBySlug(filteredBadRefItems.filter((i) => i.orphanStatus === 'existing')).length;
+  const unrecordedItems = filteredBadRefItems.filter((i) => i.orphanStatus === 'unrecorded');
+  const refItemLines = (ref) => [
+    `- From ${ref.docId} (${ref.type})${ref.slug ? ` → \`${ref.slug}\`` : ''}:`,
+    `  - cite: ${ref.cite}`,
+    ...(ref.href ? [`  - href: ${ref.href}`] : [])
+  ];
+  const orphanReportLines = (cap = Infinity) => {
+    const lines = [];
+    if (newOrphanItems.length) {
+      lines.push(`### 🆕 New orphan refs (${newOrphanItems.length}) — citations without a standard ID:\n`);
+      newOrphanItems.slice(0, cap).forEach((ref) => lines.push(...refItemLines(ref)));
+      if (newOrphanItems.length > cap) lines.push(`…and ${newOrphanItems.length - cap} more — [full list here](${DETAILS_DIFF_TOKEN})`);
+      lines.push('');
+    }
+    if (existingOrphanCount) {
+      lines.push(`ℹ️ ${existingOrphanCount} orphan ref(s) already in the MRI were seen again (not listed).`);
+      lines.push('');
+    }
+    if (unrecordedItems.length) {
+      lines.push(`### 🚫 Unparseable references (${unrecordedItems.length}) — not recorded:\n`);
+      unrecordedItems.forEach((ref) => lines.push(...refItemLines(ref)));
+      lines.push('');
+    }
+    return lines;
+  };
 
-  if (filteredBadRefItems.length > 0) {
-    console.log('🚫 Citations without a standard ID (kept as orphan refs):');
-    filteredBadRefItems.forEach((ref) => {
-      console.log(`- From ${ref.docId} (${ref.type}):`);
-      console.log(`  - cite: ${ref.cite}`);
-      if (ref.href) console.log(`  - href: ${ref.href}`);
-    });
-  }
+  for (const line of orphanReportLines()) console.log(line);
   // The legacy `src/main/reports/badRefs.latest.json` persistence is gone.
   // Unparseable refs are now first-class entries in MRI keyed by source-
   // anchored slugs (`orphan/<docId>/<suffix>`), populated via the
@@ -1298,16 +1333,7 @@ for (const doc of results) {
     fullDetailsLines.push(`- ${docId}`);
   });
   fullDetailsLines.push('');
-  // Add unparseable refs if any
-  if (filteredBadRefItems.length > 0) {
-    fullDetailsLines.push('### 🚫 Citations without a standard ID (kept as orphan refs):\n');
-    filteredBadRefItems.forEach((ref) => {
-      fullDetailsLines.push(`- From ${ref.docId} (${ref.type}):`);
-      fullDetailsLines.push(`  - cite: ${ref.cite}`);
-      if (ref.href) fullDetailsLines.push(`  - href: ${ref.href}`);
-    });
-    fullDetailsLines.push('');
-  }
+  fullDetailsLines.push(...orphanReportLines());
 
   // Write full details file
   fs.mkdirSync('src/main/logs/extract-runs', { recursive: true });
@@ -1336,16 +1362,7 @@ for (const doc of results) {
   prLines.push('');
   prLines.push(`### ⚠️ Skipped ${skippedDocs.length} duplicate(s)`);
   prLines.push('');
-  // Add unparseable refs summary to PR log if present
-  if (filteredBadRefItems.length > 0) {
-    prLines.push('### 🚫 Citations without a standard ID (kept as orphan refs):\n');
-    filteredBadRefItems.forEach((ref) => {
-      prLines.push(`- From ${ref.docId} (${ref.type}):`);
-      prLines.push(`  - cite: ${ref.cite}`);
-      if (ref.href) prLines.push(`  - href: ${ref.href}`);
-    });
-    prLines.push('');
-  }
+  prLines.push(...orphanReportLines(MAX_SUMMARY));
 
   fs.writeFileSync(prLogPath, prLines.join('\n'));
   console.log(`\n📄 PR log updated: ${prLogPath}`);

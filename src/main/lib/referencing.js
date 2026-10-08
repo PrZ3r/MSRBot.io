@@ -644,7 +644,8 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
     if (docId && suffix) {
       const slug = `orphan/${docId}/${suffix}`;
       const refXmlId = refXmlIdValue || suffix; // keep sourceRefId meaningful for either path
-      if (!mri.refs[slug]) {
+      const created = !mri.refs[slug];
+      if (created) {
         // If the extractor passed no cite text but raw XML carries enough
         // structure to synthesise one, do it now — orphan slug renderers
         // (refTree, docId page) read citationText, not rawRef.
@@ -684,7 +685,8 @@ function mriRecordSighting({ docId, type, refId, cite, href, mapSource, mapDetai
       // Return the slug so callers can cite it from doc.references[].
       // (stats are computed once in mriFlush — recounting refs here on every
       // sighting was O(sightings × refs) and ~90% of a full MRI build.)
-      return { mintedSlug: slug, kind: 'orphan-slug' };
+      // `created`: new to the MRI this run (a run log lists these, not every orphan seen).
+      return { mintedSlug: slug, kind: 'orphan-slug', created };
     } else {
       // Can't mint a deterministic slug (missing docId or <ref id="...">) — fall
       // back to the legacy unmapped[] path so we don't drop the citation entirely.
