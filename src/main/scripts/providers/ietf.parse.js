@@ -44,6 +44,9 @@ const IETF_ACRONYMS = new Map([
   ['keyderivationmethod', 'KeyDerivationMethod'],
   ['keyinfo', 'KeyInfo'],
   ['nntp', 'NNTP'],
+  ['tls', 'TLS'],
+  ['ws', 'WS'],
+  ['wss', 'WSS'],
   // Lowercase joiners inside multi-word index keywords ("Internet of Things", "CoAP in Browsers")
   ['of', 'of'],
   ['in', 'in'],
@@ -183,22 +186,46 @@ function createIetfParser(deps) {
     return s || '';
   }
 
-  // The shared keyword folds (keywordDecisions.json) apply to IETF terms too, so the
-  // index's "internet of things" lands on the controlled "IoT" like SMPTE's does.
-  let keywordFolds = null;
-  function foldKeyword(kw) {
-    if (!keywordFolds) {
+  // The shared keyword folds and drops (keywordDecisions.json) apply to IETF terms too,
+  // so the index's "internet of things" lands on the controlled "IoT" like SMPTE's does,
+  // and contentless index words ("values", "implementations") are left out.
+  let keywordRules = null;
+  function keywordDecisions() {
+    if (!keywordRules) {
       try {
-        keywordFolds = new Map(Object.entries(loadKeywordDecisions().folds || {}).map(([k, v]) => [k.toLowerCase(), v]));
+        const d = loadKeywordDecisions();
+        keywordRules = {
+          folds: new Map(Object.entries(d.folds || {}).map(([k, v]) => [k.toLowerCase(), v])),
+          drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase()))
+        };
       } catch {
-        keywordFolds = new Map();
+        keywordRules = { folds: new Map(), drops: new Set() };
       }
     }
-    return keywordFolds.get(String(kw).toLowerCase()) || kw;
+    return keywordRules;
   }
 
+  function foldKeyword(kw) {
+    return keywordDecisions().folds.get(String(kw).toLowerCase()) || kw;
+  }
+
+  function isDroppedKeyword(kw) {
+    return keywordDecisions().drops.has(String(kw).toLowerCase());
+  }
+
+  // The index's own casing is deliberate when a word has capitals past its first
+  // letter (BOOTP, TLSv1.0, IPv6, WebSocket, PKIX); the normalizer would title-case
+  // them ("Bootp", "Ipv6"). Keep those words as written. "(MTU)" listed on its own
+  // loses the parentheses.
   function splitKeywordValues(values = []) {
-    return unique(splitAndNormalizeKeywords(values, IETF_ACRONYMS).map(foldKeyword));
+    const acronyms = new Map(IETF_ACRONYMS);
+    const cleaned = values.map((v) => String(v || '').trim().replace(/^\((.+)\)$/, '$1'));
+    for (const v of cleaned) {
+      for (const word of v.split(/[\s;,]+/)) {
+        if (/[A-Z]/.test(word.slice(1)) && !acronyms.has(word.toLowerCase())) acronyms.set(word.toLowerCase(), word);
+      }
+    }
+    return unique(splitAndNormalizeKeywords(cleaned, acronyms).filter((kw) => !isDroppedKeyword(kw)).map(foldKeyword));
   }
 
   function buildReferences(normative = [], bibliographic = []) {

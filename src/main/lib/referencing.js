@@ -1522,7 +1522,9 @@ function parseRefId(text, href = '', opts = {}) {
     const src = String(text || '');
     const m = src.match(/\bNIST\b[\s\S]{0,120}?\b(?:SP|Special\s+Publication)?\s*(800-[0-9A-Za-z-]+)\b/i);
     if (m?.[1]) {
-      const sp = String(m[1]).toUpperCase();
+      // NIST writes the revision lowercase ("800-56Ar3", from a DOI in the cite text);
+      // uppercasing it would split one SP into two ids (NIST.SP.800-56AR3).
+      const sp = String(m[1]).toUpperCase().replace(/R(\d+)$/, 'r$1');
       const revMatch = src.match(/\bRev\.?\s*([0-9]+)\b/i);
       const rev = revMatch?.[1] ? `r${revMatch[1]}` : '';
       const refId = `NIST.SP.${sp}${rev}`;

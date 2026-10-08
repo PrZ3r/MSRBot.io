@@ -65,6 +65,9 @@ const cases = [
   // ITU-T keeps "Recommendation" so the cited edition year survives (RFC9231)
   ['ITU-T, "Information technology - Procedures for the operation of object identifier registration authorities", ITU-T Recommendation X.660, July 2011, <https://www.itu.int/rec/T-REC-X.660>.', 'T-REC-X.660.2011'],
   ['ITU-T, "Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation", ITU-T Recommendation X.680, February 2021, <https://www.itu.int/rec/T-REC-X.680>.', 'T-REC-X.680.2021'],
+  // NIST SP revision stays lowercase, as NIST writes it (RFC8446 cites the DOI in text)
+  ['Barker, E., "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography", National Institute of Standards and Technology, DOI 10.6028/NIST.SP.800-56Ar3, April 2018.', 'NIST.SP.800-56Ar3'],
+  ['NIST SP 800-52 Rev. 2', 'NIST.SP.800-52r2'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }
