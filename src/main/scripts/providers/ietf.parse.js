@@ -222,15 +222,20 @@ function createIetfParser(deps) {
   }
 
   // The index's own casing is deliberate when a word has capitals past its first
-  // letter (BOOTP, TLSv1.0, IPv6, WebSocket, PKIX); the normalizer would title-case
-  // them ("Bootp", "Ipv6"). Keep those words as written. "(MTU)" listed on its own
-  // loses the parentheses.
+  // letter (BOOTP, TLSv1.0, IPv6, WebSocket, PKIX) or is a version ("PKCS #1 v1.5");
+  // the normalizer would title-case them ("Bootp", "Ipv6", "V1.5"). Keep those words
+  // as written. "(MTU)" listed on its own loses the parentheses.
   function splitKeywordValues(values = []) {
     const acronyms = new Map(IETF_ACRONYMS);
-    const cleaned = values.map((v) => String(v || '').trim().replace(/^\((.+)\)$/, '$1'));
+    // A list tail the index kept as its own keyword ("and URN") loses the conjunction.
+    const cleaned = values.map((v) => String(v || '').trim()
+      .replace(/^\((.+)\)$/, '$1')
+      .replace(/^(?:and|or)\s+/i, ''));
     for (const v of cleaned) {
       for (const word of v.split(/[\s;,]+/)) {
-        if (/[A-Z]/.test(word.slice(1)) && !acronyms.has(word.toLowerCase())) acronyms.set(word.toLowerCase(), word);
+        // Capitals past the first letter (BOOTP, IPv6), or a version token ("v1.5").
+        const keep = /[A-Z]/.test(word.slice(1)) || /^v\d+(?:\.\d+)*$/.test(word);
+        if (keep && !acronyms.has(word.toLowerCase())) acronyms.set(word.toLowerCase(), word);
       }
     }
     return unique(splitAndNormalizeKeywords(cleaned, acronyms).filter((kw) => !isDroppedKeyword(kw)).map(foldKeyword));
