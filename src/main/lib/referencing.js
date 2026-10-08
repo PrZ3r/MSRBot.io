@@ -1636,7 +1636,8 @@ function parseRefId(text, href = '', opts = {}) {
   // ANSI committee standards: "ANSI S4.40-1992", "ANSI PH5.4-1970", "ANSI S4.6-1982 (R1992)".
   // (ANSI/SMPTE co-designations are handled by the legacy-SMPTE block — slash, not space.)
   {
-    const m = String(text || '').match(/\bANSI\s+([A-Z]{1,4}\d{0,3})\.(\d+(?:\.\d+)?[A-Za-z]?)[\s‐-―-]+(\d{4})/i);
+    // xml2rfc prints the year after a comma: "ANSI X3.106, 1983".
+    const m = String(text || '').match(/\bANSI\s+([A-Z]{1,4}\d{0,3})\.(\d+(?:\.\d+)?[A-Za-z]?)(?:,\s*|[\s‐-―-]+)(\d{4})/i);
     if (m) {
       const refId = `ANSI.${m[1].toUpperCase()}.${m[2].toUpperCase()}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator' } } : refId;
@@ -1690,6 +1691,22 @@ function parseRefId(text, href = '', opts = {}) {
       const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
       const refId = `CIE.${num}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'cie-designator' } } : refId;
+    }
+  }
+
+  // IEEE standards as xml2rfc prints them (RFC reference lists):
+  //   "IEEE 802 Std 802.11F(TM)-2003" → IEEE.STD802.11F.2003 (working-group lead-in, ™ mark)
+  //   "IEEE 1003.1, 2013 Edition"     → IEEE.STD1003.1.2013
+  //   "…", IEEE 754.                  → IEEE.STD754 (undated designator closing the cite)
+  {
+    const src = String(text || '');
+    const wg = src.match(/\bIEEE\s+\d{3,4}\s+Std\.?\s+(\d{3,4}(?:\.\d+)?[A-Z]{0,3})(?:\s*\(TM\)|™)?[\s‐-―-]+((?:19|20)\d{2})\b/);
+    const ed = src.match(/\bIEEE\s+(\d{3,4}(?:\.\d+)?),\s*((?:19|20)\d{2})\s+Edition\b/i);
+    const tail = src.match(/,\s*IEEE\s+(\d{3,4}(?:\.\d+)?)\.?\s*$/);
+    const hit = wg || ed;
+    if (hit || tail) {
+      const refId = hit ? `IEEE.STD${hit[1]}.${hit[2]}` : `IEEE.STD${tail[1]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-xml2rfc' } } : refId;
     }
   }
 
@@ -1866,6 +1883,16 @@ function parseRefId(text, href = '', opts = {}) {
     return scored[0];
   };
 
+  // xml2rfc's "ISO Standard 10646:2014, 2014" / "ISO Standard 26324, 2012": the series
+  // name sits between ISO and the number, and the year may follow a comma.
+  {
+    const m = String(text || '').match(/\bISO\s+Standard\s+(\d+(?:-\d+)*)(?::((?:19|20)\d{2}))?(?:\s*,\s*(?:[A-Z][a-z]+\s+)?((?:19|20)\d{2})\b)?/);
+    if (m) {
+      const year = m[2] || m[3];
+      const refId = `ISO.${m[1]}${year ? `.${year}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-standard-xml2rfc' } } : refId;
+    }
+  }
   {
     const best = pickBestStdMatch(/\bISO\s*\/\s*(?:IEC|CIE)\s+(?:(?:DIS|FDIS|CD|FCD|WD|PDTR|PDTS|CDV)[\s\/]+)?([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
     if (best) {
@@ -2337,17 +2364,31 @@ function extractRefs($, currentDocId, opts = {}) {
       bounds.sort((a, b) => a.pos - b.pos);
       const firstRefSectionPos = bounds.length ? bounds[0].pos : -1;
       const allSectionHeadingPositions = [];
+      const sectionHeadings = [];
       {
-        const sectionHeadingRe = /<span[^>]*>\s*<a[^>]*\bid=["'](?:section|appendix)-[^"']+["'][^>]*>/ig;
+        const sectionHeadingRe = /<span[^>]*>\s*<a[^>]*\bid=["'](section|appendix)-([^"'.]+)[^"']*["'][^>]*>/ig;
         let hm;
         while ((hm = sectionHeadingRe.exec(raw)) !== null) {
           allSectionHeadingPositions.push(hm.index);
+          sectionHeadings.push({ pos: hm.index, top: `${hm[1].toLowerCase()}-${hm[2]}` });
         }
       }
+      // A references block ends at the next bound, or at the first heading outside its own
+      // top-level section (Appendix A after "12. References"), never at end of document:
+      // otherwise appendices (RFC8446's state machines, RFC7296's message flows),
+      // acknowledgments and author addresses were parsed as citations.
+      const boundEndAt = (i) => {
+        const start = bounds[i].pos;
+        const nextBound = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
+        const own = sectionHeadings.find((h) => h.pos === start);
+        if (!own) return nextBound;
+        const out = sectionHeadings.find((h) => h.pos > start && h.top !== own.top);
+        return out ? Math.min(out.pos, nextBound) : nextBound;
+      };
       const classifyPosByBounds = (pos) => {
         for (let i = 0; i < bounds.length; i++) {
           const start = bounds[i].pos;
-          const end = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
+          const end = boundEndAt(i);
           if (pos >= start && pos < end) return bounds[i].key;
         }
         return null;
@@ -2355,7 +2396,7 @@ function extractRefs($, currentDocId, opts = {}) {
       const boundEndForPos = (pos) => {
         for (let i = 0; i < bounds.length; i++) {
           const start = bounds[i].pos;
-          const end = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
+          const end = boundEndAt(i);
           if (pos >= start && pos < end) return end;
         }
         return raw.length;
@@ -2495,7 +2536,7 @@ function extractRefs($, currentDocId, opts = {}) {
       const plainSeen = new Set();
       for (let b = 0; b < bounds.length; b++) {
         const start = bounds[b].pos;
-        const end = b + 1 < bounds.length ? bounds[b + 1].pos : raw.length;
+        const end = boundEndAt(b);
         if (end <= start) continue;
 
         const sectionSlice = raw.slice(start, end);
@@ -2563,7 +2604,7 @@ function extractRefs($, currentDocId, opts = {}) {
       // are plain numbered lines (e.g., "1. ...") without ref-* anchors.
       for (let b = 0; b < bounds.length; b++) {
         const start = bounds[b].pos;
-        const end = b + 1 < bounds.length ? bounds[b + 1].pos : raw.length;
+        const end = boundEndAt(b);
         if (end <= start) continue;
         const key = bounds[b].key;
         const sectionSlice = raw.slice(start, end);
@@ -2622,7 +2663,7 @@ function extractRefs($, currentDocId, opts = {}) {
       // paragraph-like entries separated by blank lines (no markers/numbering).
       for (let b = 0; b < bounds.length; b++) {
         const start = bounds[b].pos;
-        const end = b + 1 < bounds.length ? bounds[b + 1].pos : raw.length;
+        const end = boundEndAt(b);
         if (end <= start) continue;
         const key = bounds[b].key;
         const sectionSlice = raw.slice(start, end);

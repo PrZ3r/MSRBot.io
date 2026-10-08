@@ -68,6 +68,14 @@ const cases = [
   // NIST SP revision stays lowercase, as NIST writes it (RFC8446 cites the DOI in text)
   ['Barker, E., "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography", National Institute of Standards and Technology, DOI 10.6028/NIST.SP.800-56Ar3, April 2018.', 'NIST.SP.800-56Ar3'],
   ['NIST SP 800-52 Rev. 2', 'NIST.SP.800-52r2'],
+  // xml2rfc's printed forms in RFC reference lists
+  ['International Organization for Standardization, "Information Technology - Universal Multiple-Octet Coded Character Set (UCS)", ISO Standard 10646:2014, 2014.', 'ISO.10646.2014'],
+  ['International Organization for Standardization, "Information and documentation - Digital object identifier system", ISO Standard 26324, 2012.', 'ISO.26324.2012'],
+  ['American National Standards Institute, "American National Standard for Information Systems-Data Link Encryption", ANSI X3.106, 1983.', 'ANSI.X3.106.1983'],
+  ['IEEE 802, "IEEE Standard for Local and Metropolitan Area Networks: Overview and Architecture", IEEE 802 Std 802(TM)-2014, 2014.', 'IEEE.STD802.2014'],
+  ['IEEE, "IEEE Trial-Use Recommended Practice for Multi- Vendor Access Point Interoperability", IEEE 802 Std 802.11F(TM)-2003, 2003.', 'IEEE.STD802.11F.2003'],
+  ['IEEE and The Open Group, "Portable Operating System Interface (POSIX)", The Open Group Base Specifications Issue 7, IEEE 1003.1, 2013 Edition.', 'IEEE.STD1003.1.2013'],
+  ['IEEE, "IEEE Standard for Floating-Point Arithmetic", IEEE 754.', 'IEEE.STD754'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }
