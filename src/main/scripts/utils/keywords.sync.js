@@ -57,7 +57,7 @@ function main() {
 
   const current = sortedUnique(
     (Array.isArray(site.controlledKeywords) ? site.controlledKeywords : [])
-      .map(normalizeKeyword)
+      .map((kw) => normalizeKeyword(kw))
   );
   const currentSet = new Set(current);
 
