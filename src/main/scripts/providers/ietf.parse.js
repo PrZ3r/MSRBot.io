@@ -1020,8 +1020,18 @@ function createIetfParser(deps) {
       const publicationDate = publicationDatePick.value;
       if (publicationDatePick.sourceNote) metaNotes.publicationDate = publicationDatePick.sourceNote;
 
+      // Datatracker doc.json (and the RFC index) now give initials only ("R. Braden").
+      // The doc page's article:author meta carries the profile's full name, in author
+      // order; use it when it lines up one-to-one with doc.json.
+      const trackerJsonAuthors = normalizeAuthorNames(trackerJson?.authors);
+      const trackerFullAuthors = $tracker
+        ? $tracker('meta[property="article:author"]').map((_, el) => ($tracker(el).attr('content') || '').trim()).get().filter(Boolean)
+        : [];
+      const fullNamesAlign = trackerFullAuthors.length > 0 &&
+        (!trackerJsonAuthors.length || trackerFullAuthors.length === trackerJsonAuthors.length);
       const authorsPick = pickFirstArrayWithSource([
-        [normalizeAuthorNames(trackerJson?.authors), 'Parsed from Datatracker doc.json authors'],
+        [fullNamesAlign ? trackerFullAuthors : [], 'Parsed from Datatracker doc page article:author (profile full names)'],
+        [trackerJsonAuthors, 'Parsed from Datatracker doc.json authors'],
         [index?.authors, 'Parsed from RFC index XML authors'],
         [cHtml.authors, 'Parsed from RFC HTML citation_author metadata'],
         [cTracker.authors, 'Parsed from Datatracker HTML author metadata'],
