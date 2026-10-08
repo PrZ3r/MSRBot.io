@@ -53,6 +53,13 @@ const html = `<html><body><pre>
    [<a id="ref-RFC5246">RFC5246</a>]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246, August 2008.
 
+<span class="grey">Rescorla                     Standards Track                   [Page 85]</span>
+   [Page 85]
+
+Acknowledgments from the First Edition (1998)
+
+   [Holz] Ralph Holz NICTA 13 Garden St. Eveleigh 2015 NSW Australia
+
 <span class="h2"><a class="selflink" id="appendix-A" href="#appendix-A">Appendix A</a>.  State Machine</span>
 
    [K_send = early data] | | v | / WAIT_SH ----+ | | Recv ServerHello
@@ -72,5 +79,7 @@ assert.deepStrictEqual(r.references.normative, ['RFC2119']); n++;
 assert.deepStrictEqual(r.references.bibliographic, ['RFC5246']); n++;
 const bad = (r.badRefs || []).map((b) => String(b.refText || b.cite || ''));
 assert.ok(!bad.some((t) => /K_send|WAIT_|maskLen|Page 85/.test(t)), `appendix text leaked: ${JSON.stringify(bad)}`); n++;
+// Unnumbered sections are unindented text in htmlized RFCs and end the block too.
+assert.ok(!bad.some((t) => /Acknowledgments|Ralph Holz/.test(t)), `unnumbered section leaked: ${JSON.stringify(bad)}`); n++;
 
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

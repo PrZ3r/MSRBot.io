@@ -2377,13 +2377,25 @@ function extractRefs($, currentDocId, opts = {}) {
       // top-level section (Appendix A after "12. References"), never at end of document:
       // otherwise appendices (RFC8446's state machines, RFC7296's message flows),
       // acknowledgments and author addresses were parsed as citations.
+      // Unnumbered sections ("Acknowledgments", "Authors' Addresses") are plain text at
+      // column 0 in htmlized RFCs, where entries and body text are indented; the first
+      // such line after the References heading ends the block too.
+      const unindentedHeadingAfter = (start, end) => {
+        const headingLineEnd = raw.indexOf('\n', start);
+        if (headingLineEnd < 0 || headingLineEnd >= end) return end;
+        const re = /\n([A-Z][A-Za-z0-9'’ ,()&:-]{2,90})[ \t]*(?=\n)/g;
+        re.lastIndex = headingLineEnd;
+        const m = re.exec(raw);
+        return m && m.index < end ? m.index + 1 : end;
+      };
       const boundEndAt = (i) => {
         const start = bounds[i].pos;
         const nextBound = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
         const own = sectionHeadings.find((h) => h.pos === start);
         if (!own) return nextBound;
         const out = sectionHeadings.find((h) => h.pos > start && h.top !== own.top);
-        return out ? Math.min(out.pos, nextBound) : nextBound;
+        const end = out ? Math.min(out.pos, nextBound) : nextBound;
+        return unindentedHeadingAfter(start, end);
       };
       const classifyPosByBounds = (pos) => {
         for (let i = 0; i < bounds.length; i++) {
@@ -2548,6 +2560,8 @@ function extractRefs($, currentDocId, opts = {}) {
           if (!markerText) continue;
           // Skip numeric-only markers; these are often list ordinals and too ambiguous.
           if (/^\d+(?:\.\d+)?$/.test(markerText)) continue;
+          // Page footers ("[Page 85]") look like markers in old text RFCs.
+          if (/^Page\s+\d+$/i.test(markerText)) continue;
 
           const key = classifyPosByBounds(absPos);
           if (!key) continue;

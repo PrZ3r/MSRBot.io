@@ -59,11 +59,20 @@ function loadKeywordRules() {
 }
 const keywordRules = loadKeywordRules();
 
-// Procedural appendix example lines that leak from legacy RFC HTML fallback parsing
-// (RFC8323 "2. The CoAP client establishes…"). Not citations: never report them and
-// never mint them as orphan refs.
+// Lines the legacy RFC HTML fallback picks up that aren't citations: never report them
+// and never mint them as orphan refs.
+//   "2. The CoAP client establishes…"   RFC8323 procedural example step
+//   "1 ] ASCII", "5 ] Initial Connection Protocol"
+//                                       RFC821-style key line; the citation itself is
+//                                       on the next line and is captured separately
+//   "[**] Editor's Note: …", "<4> It might be suggested…"
+//                                       footnotes inside an old reference list
 function isNonCitationLine(cite) {
-  return /^\d+\.\s+The\s+CoAP\s+client\b/i.test(String(cite || ''));
+  const c = String(cite || '').trim();
+  if (/^\d+\.\s+The\s+CoAP\s+client\b/i.test(c)) return true;
+  if (/^\d{1,3}\s*\]\s*[^"“,;:]{1,40}$/.test(c) && c.split(/\s+/).length <= 6) return true;
+  if (/^(?:\[\*+\]|&lt;\d+&gt;|<\d+>)\s/.test(c)) return true;
+  return false;
 }
 const { loadAllDocs, saveDoc } = require('../lib/registry');
 
@@ -205,7 +214,7 @@ const providerKey = providerArg.toLowerCase().trim();
       if (!Array.isArray(refs) || !refs.length) return;
       // Three-step routing:
       //   1. Console summary buffer (`badRefs`) — used at end of run to print
-      //      "🚫 Unparseable References Found:" so devs see what failed.
+      //      "🚫 Citations without a standard ID" so devs see them.
       //   2. MRI — each ref lands as a source-anchored orphan slug via
       //      `mriRecordSighting` (mint path picks a stable content-hash
       //      suffix when no `<ref id>` is available), so the citation info is
@@ -1144,7 +1153,7 @@ for (const doc of results) {
   const filteredBadRefItems = badRefs.map(toBadRefItem).filter(shouldKeepBadRefItem);
 
   if (filteredBadRefItems.length > 0) {
-    console.log('🚫 Unparseable References Found (also written to MRI as orphan slugs):');
+    console.log('🚫 Citations without a standard ID (kept as orphan refs):');
     filteredBadRefItems.forEach((ref) => {
       console.log(`- From ${ref.docId} (${ref.type}):`);
       console.log(`  - cite: ${ref.cite}`);
@@ -1291,7 +1300,7 @@ for (const doc of results) {
   fullDetailsLines.push('');
   // Add unparseable refs if any
   if (filteredBadRefItems.length > 0) {
-    fullDetailsLines.push('### 🚫 Unparseable References Found:\n');
+    fullDetailsLines.push('### 🚫 Citations without a standard ID (kept as orphan refs):\n');
     filteredBadRefItems.forEach((ref) => {
       fullDetailsLines.push(`- From ${ref.docId} (${ref.type}):`);
       fullDetailsLines.push(`  - cite: ${ref.cite}`);
@@ -1329,7 +1338,7 @@ for (const doc of results) {
   prLines.push('');
   // Add unparseable refs summary to PR log if present
   if (filteredBadRefItems.length > 0) {
-    prLines.push('### 🚫 Unparseable References Found:\n');
+    prLines.push('### 🚫 Citations without a standard ID (kept as orphan refs):\n');
     filteredBadRefItems.forEach((ref) => {
       prLines.push(`- From ${ref.docId} (${ref.type}):`);
       prLines.push(`  - cite: ${ref.cite}`);
