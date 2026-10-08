@@ -78,8 +78,10 @@ function citeWithoutLabel(raw) {
     .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
     .replace(/^\d{1,4}\s*\]\s*/u, '')
     .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')                 // old numbered list: "3. Pickens, J., …"
-    .replace(/^\[\s*[A-Za-z][A-Za-z0-9_.:+-]{0,31}\s*\]\s*(?=\S)/u, '')
-    .replace(/^[A-Za-z][A-Za-z0-9_.:+-]{0,31}\s*\]\s*(?=\S)/u, '')
+    // labels may start with a digit and run long: "802.1X", "3GPP-SA3-030736",
+    // "11-05-0822-03-000u-tgu-requirements" (RFC5113/RFC5281)
+    .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+-]{0,63}\s*\]\s*(?=\S)/u, '')
+    .replace(/^[A-Za-z0-9][A-Za-z0-9_.:+-]{0,63}\s*\]\s*(?=\S)/u, '')
     .replace(/\s*\[\s*$/u, '')
     .replace(/\s*\]\s*$/u, '')
     .trim();
@@ -92,6 +94,8 @@ function isNonCitationLine(cite) {
   if (/^(?:\[\*+\]|&lt;\d+&gt;|<\d+>)\s/.test(c)) return true;
   // The wrapped tail of the previous citation (RFC7303), not a citation of its own.
   if (/^Latest version available at\b/i.test(c)) return true;
+  // Copyright notice after the reference list (RFC5246).
+  if (/^Copyright \(C\)/i.test(c)) return true;
   return false;
 }
 const { loadAllDocs, saveDoc } = require('../lib/registry');

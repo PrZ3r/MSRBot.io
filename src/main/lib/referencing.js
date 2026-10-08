@@ -1721,9 +1721,11 @@ function parseRefId(text, href = '', opts = {}) {
 
   // IEEE standards: "IEEE Standard 1588-2008", "IEEE 802-1990", "... P754-2008" → IEEE.STD1588.2008
   {
-    const m = String(text || '').match(/\bIEEE\s+(?:Std\.?\s+|Standard\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+))?[\s‐-―-]+(\d{4})/i);
+    // also a letter suffix and a comma before the year (xml2rfc): "IEEE Standard 802.1X-2004",
+    // "IEEE Standard 802.11, 2003", "IEEE Standard 802.1X, December 2004"
+    const m = String(text || '').match(/\bIEEE\s+(?:Std\.?\s+|Standard\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+[A-Z]{0,3}))?(?:,\s*(?:[A-Z][a-z]+\.?\s+)?|[\s‐-―-]+)((?:19|20)\d{2})\b/i);
     if (m) {
-      const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2]}` : ''}.${m[3]}`;
+      const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2].toUpperCase()}` : ''}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-designator' } } : refId;
     }
   }

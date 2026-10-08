@@ -79,6 +79,9 @@ const cases = [
   ['U.S. National Institute of Standards and Technology, "SECURE HASH STANDARD", Federal Information Processing Standard (FIPS) 180-2, August 2002.', 'NIST.FIPS.180-2'],
   ['National Institute of Standards and Technology (NIST), FIPS Publication 180-3: Secure Hash Standard, October 2008.', 'NIST.FIPS.180-3'],
   ['"Public Key Cryptography for the Financial Services Industry: The Elliptic Curve Digital Signature Algorithm (ECDSA)", American National Standards Institute (ANSI) X9.62.', 'ANSI.X9.62'],
+  ['Institute of Electrical and Electronics Engineers, "Local and Metropolitan Area Networks: Port-Based Network Access Control", IEEE Standard 802.1X-2004, December 2004.', 'IEEE.STD802.1X.2004'],
+  ['"Local and Metropolitan Area Networks: Port-Based Network Access Control", IEEE Standard 802.1X, December 2004.', 'IEEE.STD802.1X.2004'],
+  ['IEEE, "Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications", IEEE Standard 802.11, 2003.', 'IEEE.STD802.11.2003'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }
