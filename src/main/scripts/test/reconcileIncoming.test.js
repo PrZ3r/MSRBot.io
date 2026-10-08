@@ -37,7 +37,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const assert = require('assert');
 const path = require('path');
-const { reconcileIncoming, authorsEquivalent, mergeKeywords } = require(path.join(__dirname, '..', 'utils', 'reconcileIncoming.js'));
+const { reconcileIncoming, authorsEquivalent, mergeKeywords, conformHeld } = require(path.join(__dirname, '..', 'utils', 'reconcileIncoming.js'));
 
 const A = (...names) => names.map((name) => ({ name }));
 let n = 0;
@@ -72,6 +72,29 @@ assert.strictEqual(mergeKeywords(['W-OTS', 'W-OTS+'], ['WOTS', 'WOTS+']).length,
 assert.deepStrictEqual(mergeKeywords(['CoAP', 'IoT'], ['CoAP', 'Internet of Things']), ['CoAP', 'IoT', 'Internet of Things']); n++;
 assert.deepStrictEqual(mergeKeywords(undefined, ['NNTP']), ['NNTP']); n++;
 assert.deepStrictEqual(mergeKeywords(['Security'], []), ['Security']); n++;
+
+// Re-runs conform held keywords to the shared rules; controlled terms are never touched.
+{
+  const rules = {
+    vocab: new Map(['AAA', 'TLS', 'Encryption', 'Security', 'SNMP'].map((k) => [k.toLowerCase(), k])),
+    folds: new Map([['transport layer security', 'TLS']]),
+    drops: new Set(['values']),
+  };
+  assert.deepStrictEqual(conformHeld(['Aaa', 'Transport Layer Security', 'Values', 'Security'], rules), ['AAA', 'TLS', 'Security']); n++;
+  assert.deepStrictEqual(conformHeld(['TLS', 'Transport Layer Security'], rules), ['TLS'], 'fold onto a held term dedupes'); n++;
+  const clean = ['Security', 'Encryption'];
+  assert.strictEqual(conformHeld(clean, rules), clean, 'controlled terms untouched'); n++;
+  assert.deepStrictEqual(conformHeld(['Some Uncontrolled Term'], rules), ['Some Uncontrolled Term'], 'no rule, no change'); n++;
+  assert.deepStrictEqual(conformHeld(['SNMP', 'and AAA'], rules), ['SNMP', 'AAA'], 'stored list tail'); n++;
+  // Batch-2 re-run: held "Aaa"/"Accounting", incoming "AAA" → AAA, not a second copy.
+  assert.deepStrictEqual(mergeKeywords(['SNMP', 'Aaa', 'Values'], ['SNMP', 'AAA'], rules), ['SNMP', 'AAA']); n++;
+  // Index typo against a controlled held term still loses.
+  assert.deepStrictEqual(mergeKeywords(['Security', 'Encryption'], ['Security', 'Eneryption'], rules), ['Security', 'Encryption']); n++;
+  const doc = { keywords: ['Aaa'] };
+  const inc = { keywords: ['AAA'] };
+  assert.deepStrictEqual(reconcileIncoming(doc, inc, { keywordRules: rules }), [], 'a conformed list is an update, not "kept"'); n++;
+  assert.deepStrictEqual(inc.keywords, ['AAA']); n++;
+}
 
 // Whole doc: trailing slash, whitespace, list order are kept; real updates pass through.
 {

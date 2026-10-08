@@ -40,6 +40,24 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const { getProvider, listProviders } = require('./providers');
 const { reconcileIncoming } = require('./utils/reconcileIncoming');
+const { loadKeywordDecisions } = require('../lib/keywordConform');
+
+// The shared keyword rules, so a re-run conforms keywords an earlier run stored.
+function loadKeywordRules() {
+  try {
+    const d = loadKeywordDecisions();
+    const site = JSON.parse(require('fs').readFileSync(require('path').resolve(process.cwd(), 'src/main/config/site.json'), 'utf8'));
+    return {
+      vocab: new Map((site.controlledKeywords || []).map((k) => [String(k).toLowerCase(), k])),
+      folds: new Map(Object.entries(d.folds || {}).map(([k, v]) => [k.toLowerCase(), v])),
+      drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase()))
+    };
+  } catch (e) {
+    console.warn(`⚠️ Keyword rules not loaded (${e.message}); held keywords won't be conformed.`);
+    return null;
+  }
+}
+const keywordRules = loadKeywordRules();
 
 // Procedural appendix example lines that leak from legacy RFC HTML fallback parsing
 // (RFC8323 "2. The CoAP client establishes…"). Not citations: never report them and
@@ -689,7 +707,7 @@ for (const doc of results) {
       const existingDoc = existingDocs[index];
       // Upstream re-renders of values we already hold (initials-form authors, trailing
       // slash, whitespace, reordered lists) are not updates.
-      const keptFields = reconcileIncoming(existingDoc, doc);
+      const keptFields = reconcileIncoming(existingDoc, doc, { keywordRules });
       if (keptFields.length) logSmart(`   = ${doc.docId}: kept existing ${keptFields.join(', ')}`);
       attachMetaSourceUrl(existingDoc, doc.__sourceUrl);
       attachMetaNotes(existingDoc, doc.__metaNotes || {});

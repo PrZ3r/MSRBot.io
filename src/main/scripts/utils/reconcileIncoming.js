@@ -40,9 +40,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *   abstract           differs only in whitespace
  *   authors            same people, initials form ("R. Braden" for "Robert T. Braden",
  *                      Datatracker doc.json), any order
- *   keywords           never drop a held term; add only terms that aren't a case /
- *                      plural / hyphen / typo variant of one ("Eneryption" vs
- *                      "Encryption", "WOTS" vs "W-OTS")
+ *   keywords           never drop a held controlled term; add only terms that aren't
+ *                      a case / plural / hyphen / typo variant of one ("Eneryption"
+ *                      vs "Encryption", "WOTS" vs "W-OTS"). Held terms the keyword
+ *                      rules would change are conformed first (see conformHeld), so
+ *                      a re-run cleans up what an earlier run got wrong.
  *   status.<list>      same set in another order
  */
 
@@ -120,7 +122,29 @@ function keywordVariant(a, b) {
   return Math.min(x.length, y.length) >= 6 && editDistance(x, y) <= 1;
 }
 
-function mergeKeywords(held, incoming) {
+// Held keywords outside the controlled vocabulary go through the shared rules:
+// dropped terms go, and a term whose fold or case-insensitive match is controlled
+// becomes that term ("Aaa" → "AAA", "Transport Layer Security" → "TLS").
+// Controlled terms are never touched.
+function conformHeld(held, rules) {
+  if (!rules || !Array.isArray(held)) return held;
+  const { vocab = new Map(), folds = new Map(), drops = new Set() } = rules;
+  const out = [];
+  for (const raw of held) {
+    if (vocab.get(String(raw).toLowerCase()) === raw) { out.push(raw); continue; }
+    // Same cleanup the IETF parser now does: a list tail stored as "and URN".
+    const kw = String(raw).replace(/^(?:and|or)\s+/i, '');
+    const lower = kw.toLowerCase();
+    if (drops.has(lower)) continue;
+    const folded = folds.get(lower) || kw;
+    out.push(vocab.get(String(folded).toLowerCase()) || kw);
+  }
+  const deduped = [...new Set(out)];
+  return JSON.stringify(deduped) === JSON.stringify(held) ? held : deduped;
+}
+
+function mergeKeywords(held, incoming, rules = null) {
+  held = conformHeld(held, rules);
   if (!Array.isArray(held) || !held.length) return incoming;
   if (!Array.isArray(incoming)) return held;
   const out = [...held];
@@ -143,7 +167,7 @@ function sameSet(a, b) {
  * Mutates `incoming` in place, putting back held values where incoming only
  * re-renders them. Returns the list of field paths it kept.
  */
-function reconcileIncoming(held, incoming) {
+function reconcileIncoming(held, incoming, { keywordRules = null } = {}) {
   const kept = [];
   if (!held || !incoming) return kept;
 
@@ -169,10 +193,11 @@ function reconcileIncoming(held, incoming) {
   }
 
   if (incoming.keywords !== undefined) {
-    const merged = mergeKeywords(held.keywords, incoming.keywords);
+    const merged = mergeKeywords(held.keywords, incoming.keywords, keywordRules);
     if (merged !== incoming.keywords) {
       incoming.keywords = merged;
-      kept.push('keywords');
+      // Only "kept" when the result is the held list; a conformed list is an update.
+      if (JSON.stringify(merged) === JSON.stringify(held.keywords)) kept.push('keywords');
     }
   }
 
@@ -190,4 +215,4 @@ function reconcileIncoming(held, incoming) {
   return kept;
 }
 
-module.exports = { reconcileIncoming, authorsEquivalent, mergeKeywords };
+module.exports = { reconcileIncoming, authorsEquivalent, mergeKeywords, conformHeld };
