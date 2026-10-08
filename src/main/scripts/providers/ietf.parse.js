@@ -196,17 +196,25 @@ function createIetfParser(deps) {
         const d = loadKeywordDecisions();
         keywordRules = {
           folds: new Map(Object.entries(d.folds || {}).map(([k, v]) => [k.toLowerCase(), v])),
-          drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase()))
+          drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase())),
+          vocab: new Map()
         };
+        // A term already in controlledKeywords takes that casing ("MAIL" → "Mail").
+        try {
+          const site = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'src/main/config/site.json'), 'utf8'));
+          for (const k of site.controlledKeywords || []) keywordRules.vocab.set(String(k).toLowerCase(), k);
+        } catch {}
       } catch {
-        keywordRules = { folds: new Map(), drops: new Set() };
+        keywordRules = { folds: new Map(), drops: new Set(), vocab: new Map() };
       }
     }
     return keywordRules;
   }
 
   function foldKeyword(kw) {
-    return keywordDecisions().folds.get(String(kw).toLowerCase()) || kw;
+    const { folds, vocab } = keywordDecisions();
+    const folded = folds.get(String(kw).toLowerCase()) || kw;
+    return vocab.get(String(folded).toLowerCase()) || folded;
   }
 
   function isDroppedKeyword(kw) {
