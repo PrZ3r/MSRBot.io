@@ -39,6 +39,14 @@ const dayjs = require('dayjs');
 const fs = require('fs');
 const { execSync } = require('child_process');
 const { getProvider, listProviders } = require('./providers');
+const { reconcileIncoming } = require('./utils/reconcileIncoming');
+
+// Procedural appendix example lines that leak from legacy RFC HTML fallback parsing
+// (RFC8323 "2. The CoAP client establishes…"). Not citations: never report them and
+// never mint them as orphan refs.
+function isNonCitationLine(cite) {
+  return /^\d+\.\s+The\s+CoAP\s+client\b/i.test(String(cite || ''));
+}
 const { loadAllDocs, saveDoc } = require('../lib/registry');
 
 // --- Hashing for extractor script versioning ---
@@ -198,6 +206,7 @@ const providerKey = providerArg.toLowerCase().trim();
         const href = String((r && r.href) || '').trim();
         const type = String((r && r.type) || 'bibliographic').trim();
         if (!docId || (!cite && !href)) continue;
+        if (isNonCitationLine(cite)) continue;
         try {
           const result = mriRecordSighting({
             docId,
@@ -678,6 +687,10 @@ for (const doc of results) {
         delete doc.repo;
       }
       const existingDoc = existingDocs[index];
+      // Upstream re-renders of values we already hold (initials-form authors, trailing
+      // slash, whitespace, reordered lists) are not updates.
+      const keptFields = reconcileIncoming(existingDoc, doc);
+      if (keptFields.length) logSmart(`   = ${doc.docId}: kept existing ${keptFields.join(', ')}`);
       attachMetaSourceUrl(existingDoc, doc.__sourceUrl);
       attachMetaNotes(existingDoc, doc.__metaNotes || {});
       attachMetaFlags(existingDoc, doc.__metaFlags || {});
@@ -1047,6 +1060,15 @@ for (const doc of results) {
   }
   console.log(`💾 Wrote ${savedCount} per-doc registry file(s).`);
 
+  // Keep the raw source the run parsed alongside the data it changed (provider opt-in).
+  if ((newDocs.length || updatedDocs.length) && typeof activeProvider.parser.persistSourceSnapshots === 'function') {
+    try {
+      for (const p of activeProvider.parser.persistSourceSnapshots()) console.log(`🗄️ Saved source snapshot: ${p}`);
+    } catch (e) {
+      console.warn(`⚠️ Source snapshot save failed: ${e.message}`);
+    }
+  }
+
   console.log(`✅ Added ${newDocs.length} new documents.`);
   console.log(`🔁 Updated ${updatedDocs.length} documents.`);
   if (skippedDocs.length > 0) {
@@ -1090,9 +1112,7 @@ for (const doc of results) {
     const cite = String(item.cite || '').trim();
     const href = String(item.href || '').trim();
     if (!cite && !href) return false;
-    // Suppress known procedural appendix example lines that can leak from
-    // legacy RFC HTML fallback parsing (not bibliographic citations).
-    if (/^\d+\.\s+The\s+CoAP\s+client\b/i.test(cite)) return false;
+    if (isNonCitationLine(cite)) return false;
     // Final guard: if a citation is now resolvable (by parser or refMap mapping),
     // do not emit/persist it as unparseable.
     try {

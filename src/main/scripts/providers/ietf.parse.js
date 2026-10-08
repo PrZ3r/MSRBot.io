@@ -42,6 +42,10 @@ const IETF_ACRONYMS = new Map([
   ['encryptionmethod', 'EncryptionMethod'],
   ['keyderivationmethod', 'KeyDerivationMethod'],
   ['keyinfo', 'KeyInfo'],
+  ['nntp', 'NNTP'],
+  // Lowercase joiners inside multi-word index keywords ("Internet of Things", "CoAP in Browsers")
+  ['of', 'of'],
+  ['in', 'in'],
   ['signaturemethod', 'SignatureMethod'],
   ['signturemethod', 'SignatureMethod'],
 ]);
@@ -78,9 +82,13 @@ function createIetfParser(deps) {
   }
 
   const docIdMapPath = path.resolve(process.cwd(), 'src/main/input/docIdMap.ietf.json');
-  const rfcIndexCachePath = path.resolve(process.cwd(), 'src/main/input/rfc-index.xml');
+  // Snapshot of the index the run parsed. Read as the offline fallback; rewritten by
+  // persistSourceSnapshots() only when a run changes registry docs, so each data PR
+  // carries the index it was built from.
+  const rfcIndexCachePath = path.resolve(process.cwd(), 'src/main/input/sources/ietf/rfc-index.xml');
   const RFC_INDEX_URL = 'https://www.rfc-editor.org/rfc-index.xml';
   let rfcIndexMapPromise = null;
+  let rfcIndexLiveXml = null;
   // RFC index XML/XSD mapping contract (https://www.rfc-editor.org/rfc-index.xsd).
   // status:
   // - required: expected from index for valid RFC entries and should be present.
@@ -579,9 +587,12 @@ function createIetfParser(deps) {
     rfcIndexMapPromise = (async () => {
       // Primary source: live RFC Editor index.
       try {
-        const res = await axios.get(withNoCache(RFC_INDEX_URL), { headers: NO_CACHE_HEADERS });
+        const res = await axios.get(withNoCache(RFC_INDEX_URL), { headers: NO_CACHE_HEADERS, responseType: 'text' });
         const map = parseRfcIndexMap(res.data);
-        if (map.size) return map;
+        if (map.size) {
+          rfcIndexLiveXml = typeof res.data === 'string' ? res.data : null;
+          return map;
+        }
       } catch {}
 
       // Fallback: local checked-in cache for offline/local runs.
@@ -1087,53 +1098,21 @@ function createIetfParser(deps) {
       const infoText = $info ? $info.root().text() : '';
       const combinedText = `${trackerText}\n${infoText}`;
 
-      const relFromIndex = index?.relations || { supersededBy: [], supersedes: [], amendedBy: [], amends: [] };
-      const relFromInfoDl = relationsFromInfoDl($info);
+      // The RFC index is canonical for relations. The info page <dl> is only a fallback for
+      // RFCs missing from the index: its redesigned markup leaks stray ids into the loose
+      // label match (RFC1035 "amends" its obsoleted RFCs, RFC9190 "amends" RFC2119).
+      const rel = index?.relations || relationsFromInfoDl($info);
+      const relNote = index?.relations ? 'Parsed from RFC index XML' : 'Parsed from RFC info relation <dl>';
+      const notSelf = (ids) => unique(ids || []).filter(id => id !== `RFC${rfcNum}`);
+      const supersededBy = notSelf(rel.supersededBy);
+      const supersedes = notSelf(rel.supersedes);
+      const amendedBy = notSelf(rel.amendedBy);
+      const amends = notSelf(rel.amends);
 
-      const structuredSupersededBy = unique([
-        ...(relFromIndex.supersededBy || []),
-        ...(relFromInfoDl.supersededBy || [])
-      ]);
-      const structuredSupersedes = unique([
-        ...(relFromIndex.supersedes || []),
-        ...(relFromInfoDl.supersedes || [])
-      ]);
-      const structuredAmendedBy = unique([
-        ...(relFromIndex.amendedBy || []),
-        ...(relFromInfoDl.amendedBy || [])
-      ]);
-      const structuredAmends = unique([
-        ...(relFromIndex.amends || []),
-        ...(relFromInfoDl.amends || [])
-      ]);
-
-      // Only fall back to loose text extraction when structured relation data is absent.
-      const fallbackSupersededBy = [];
-      const fallbackSupersedes = [];
-      const fallbackAmendedBy = [];
-      const fallbackAmends = [];
-
-      const supersededBy = unique([
-        ...structuredSupersededBy,
-        ...fallbackSupersededBy
-      ]).filter(id => id !== `RFC${rfcNum}`);
-      const supersedes = unique([
-        ...structuredSupersedes,
-        ...fallbackSupersedes
-      ]).filter(id => id !== `RFC${rfcNum}`);
-      const amendedBy = unique([
-        ...structuredAmendedBy,
-        ...fallbackAmendedBy
-      ]).filter(id => id !== `RFC${rfcNum}`);
-      const amends = unique([
-        ...structuredAmends,
-        ...fallbackAmends
-      ]).filter(id => id !== `RFC${rfcNum}`);
-
-      if (supersededBy.length) metaNotes['status.supersededBy'] = 'Parsed from RFC index XML and RFC info relation <dl>';
-      if (supersedes.length) metaNotes['status.supersedes'] = 'Parsed from RFC index XML and RFC info relation <dl>';
-      if (amendedBy.length) metaNotes['status.amendedBy'] = 'Parsed from RFC index XML and RFC info relation <dl>';
-      if (amends.length) metaNotes['status.amends'] = 'Parsed from RFC index XML and RFC info relation <dl>';
+      if (supersededBy.length) metaNotes['status.supersededBy'] = relNote;
+      if (supersedes.length) metaNotes['status.supersedes'] = relNote;
+      if (amendedBy.length) metaNotes['status.amendedBy'] = relNote;
+      if (amends.length) metaNotes['status.amends'] = relNote;
 
       const errataUrls = unique([
         index?.errataUrl,
@@ -1433,7 +1412,20 @@ function createIetfParser(deps) {
     return extractFromSeedDoc(rootUrl);
   }
 
-  return { extractFromSeedDoc, extractFromUrl };
+  // Write the live-fetched RFC index over the committed snapshot. Called by extractDocs
+  // only when the run added/updated docs. No-op when the index came from the fallback
+  // (nothing new to record) or was never fetched.
+  function persistSourceSnapshots() {
+    if (!rfcIndexLiveXml) return [];
+    let current = null;
+    try { current = fs.readFileSync(rfcIndexCachePath, 'utf8'); } catch {}
+    if (current === rfcIndexLiveXml) return [];
+    fs.mkdirSync(path.dirname(rfcIndexCachePath), { recursive: true });
+    fs.writeFileSync(rfcIndexCachePath, rfcIndexLiveXml);
+    return [path.relative(process.cwd(), rfcIndexCachePath)];
+  }
+
+  return { extractFromSeedDoc, extractFromUrl, persistSourceSnapshots };
 }
 
 module.exports = { createIetfParser };

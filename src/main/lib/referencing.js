@@ -1018,7 +1018,9 @@ function normalizePublisherLeadIn(text) {
       (_, t) => `SMPTE ${{ Standard: 'ST', 'Recommended Practice': 'RP', 'Engineering Guideline': 'EG' }[t]} `)
     .replace(/\bSMPTE\s+(ST|RP|EG|RDD|OV)\s*,\s*(?=\d)/, 'SMPTE $1 ')   // "SMPTE ST, 2059-1:2021"
     .replace(/\b(ST|RP|EG|RDD|OV)-(?=\d)/g, '$1 ')                   // "ST-2022-6", "ST-352"
-    .replace(/\b(ITU-[RT])\s*,?\s*Recommendation\s+/, '$1 ')
+    // ITU-R only: "ITU-T Recommendation X.660, July 2011" must keep its "Recommendation"
+    // so the dated ITU-T block (T-REC-X.660.2011) matches, not the undated sector block.
+    .replace(/\b(ITU-R)\s*,?\s*Recommendation\s+/, '$1 ')
     .replace(/\b((?:ST|RP|EG|RDD|OV|AG)\s*\d+[A-Z]?(?:-\d+)*)\s*:\s+((?:19|20)\d{2})\b/, '$1:$2');
 }
 
