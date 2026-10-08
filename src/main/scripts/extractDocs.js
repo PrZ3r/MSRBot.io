@@ -67,6 +67,22 @@ const keywordRules = loadKeywordRules();
 //                                       on the next line and is captured separately
 //   "[**] Editor's Note: …", "<4> It might be suggested…"
 //                                       footnotes inside an old reference list
+// Citation text without its reference-list label: "[DH] Diffie, W. …", "DH ] Diffie, W. …"
+// and "[12] …" all become "Diffie, W. …". Orphans are keyed on this text, so the
+// labelled and unlabelled captures of one citation (two parser passes) are one orphan,
+// and doc pages show the citation, not "DH ] …".
+function citeWithoutLabel(raw) {
+  return String(raw || '')
+    .replace(/\s+/g, ' ')
+    .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
+    .replace(/^\d{1,4}\s*\]\s*/u, '')
+    .replace(/^\[\s*[A-Za-z][A-Za-z0-9_.:+-]{0,31}\s*\]\s*(?=\S)/u, '')
+    .replace(/^[A-Za-z][A-Za-z0-9_.:+-]{0,31}\s*\]\s*(?=\S)/u, '')
+    .replace(/\s*\[\s*$/u, '')
+    .replace(/\s*\]\s*$/u, '')
+    .trim();
+}
+
 function isNonCitationLine(cite) {
   const c = String(cite || '').trim();
   if (/^\d+\.\s+The\s+CoAP\s+client\b/i.test(c)) return true;
@@ -231,11 +247,14 @@ const providerKey = providerArg.toLowerCase().trim();
         const entry = { ...r, orphanStatus: 'unrecorded' };
         badRefs.push(entry);
         const docId = String((r && r.docId) || '').trim();
-        const cite = String((r && r.refText) || (r && r.cite) || '').trim();
+        // Key line checks run on the raw text ("1 ] ASCII"); the orphan stores the
+        // citation without its label.
+        const rawCite = String((r && r.refText) || (r && r.cite) || '').trim();
+        const cite = citeWithoutLabel(rawCite);
         const href = String((r && r.href) || '').trim();
         const type = String((r && r.type) || 'bibliographic').trim();
+        if (isNonCitationLine(rawCite) || isNonCitationLine(cite)) { entry.orphanStatus = 'non-citation'; continue; }
         if (!docId || (!cite && !href)) continue;
-        if (isNonCitationLine(cite)) continue;
         try {
           const result = mriRecordSighting({
             docId,
@@ -1124,15 +1143,7 @@ for (const doc of results) {
     console.warn(`⚠️ MRI prune during extract failed: ${e.message}`);
   }
 
-  const formatBadRefText = (raw) => String(raw || '')
-    .replace(/\s+/g, ' ')
-    .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
-    .replace(/^\d{1,4}\s*\]\s*/u, '')
-    .replace(/^\[\s*([A-Za-z][A-Za-z0-9_.:-]{0,31})\s*\]\s*/u, '$1 ')
-    .replace(/^([A-Za-z][A-Za-z0-9_.:-]{0,31})\s*\]\s*/u, '$1 ')
-    .replace(/\s*\[\s*$/u, '')
-    .replace(/\s*\]\s*$/u, '')
-    .trim();
+  const formatBadRefText = (raw) => citeWithoutLabel(raw);
 
   const toBadRefItem = (ref) => ({
     provider: providerKey,
@@ -1147,7 +1158,7 @@ for (const doc of results) {
     const cite = String(item.cite || '').trim();
     const href = String(item.href || '').trim();
     if (!cite && !href) return false;
-    if (isNonCitationLine(cite)) return false;
+    if (item.orphanStatus === 'non-citation' || isNonCitationLine(cite)) return false;
     // Final guard: if a citation is now resolvable (by parser or refMap mapping),
     // do not emit/persist it as unparseable.
     try {
