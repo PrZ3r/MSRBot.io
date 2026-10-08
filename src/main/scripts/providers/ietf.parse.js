@@ -203,6 +203,7 @@ function createIetfParser(deps) {
         keywordRules = {
           folds: new Map(Object.entries(d.folds || {}).map(([k, v]) => [k.toLowerCase(), v])),
           drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase())),
+          splits: new Map(Object.entries(d.splits || {}).map(([k, v]) => [k.toLowerCase(), v])),
           vocab: new Map()
         };
         // A term already in controlledKeywords takes that casing ("MAIL" → "Mail").
@@ -211,7 +212,7 @@ function createIetfParser(deps) {
           for (const k of site.controlledKeywords || []) keywordRules.vocab.set(String(k).toLowerCase(), k);
         } catch {}
       } catch {
-        keywordRules = { folds: new Map(), drops: new Set(), vocab: new Map() };
+        keywordRules = { folds: new Map(), drops: new Set(), splits: new Map(), vocab: new Map() };
       }
     }
     return keywordRules;
@@ -244,7 +245,9 @@ function createIetfParser(deps) {
         if (keep && !acronyms.has(word.toLowerCase())) acronyms.set(word.toLowerCase(), word);
       }
     }
-    return unique(splitAndNormalizeKeywords(cleaned, acronyms).filter((kw) => !isDroppedKeyword(kw)).map(foldKeyword));
+    // "Authentication Integrity" → Authentication, Integrity (keywordDecisions splits)
+    const splitTerms = (kw) => keywordDecisions().splits.get(String(kw).toLowerCase()) || [kw];
+    return unique(splitAndNormalizeKeywords(cleaned, acronyms).flatMap(splitTerms).filter((kw) => !isDroppedKeyword(kw)).map(foldKeyword));
   }
 
   function buildReferences(normative = [], bibliographic = []) {

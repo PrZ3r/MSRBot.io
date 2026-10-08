@@ -128,9 +128,9 @@ function keywordVariant(a, b) {
 // Controlled terms are never touched.
 function conformHeld(held, rules) {
   if (!rules || !Array.isArray(held)) return held;
-  const { vocab = new Map(), folds = new Map(), drops = new Set() } = rules;
+  const { vocab = new Map(), folds = new Map(), drops = new Set(), splits = new Map() } = rules;
   const out = [];
-  for (const raw of held) {
+  for (const raw of held.flatMap((kw) => splits.get(String(kw).toLowerCase()) || [kw])) {
     if (vocab.get(String(raw).toLowerCase()) === raw) { out.push(raw); continue; }
     // Same cleanup the IETF parser now does: a list tail stored as "and URN".
     const kw = String(raw).replace(/^(?:and|or)\s+/i, '');

@@ -50,7 +50,8 @@ function loadKeywordRules() {
     return {
       vocab: new Map((site.controlledKeywords || []).map((k) => [String(k).toLowerCase(), k])),
       folds: new Map(Object.entries(d.folds || {}).map(([k, v]) => [k.toLowerCase(), v])),
-      drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase()))
+      drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase())),
+      splits: new Map(Object.entries(d.splits || {}).map(([k, v]) => [k.toLowerCase(), v]))
     };
   } catch (e) {
     console.warn(`⚠️ Keyword rules not loaded (${e.message}); held keywords won't be conformed.`);
