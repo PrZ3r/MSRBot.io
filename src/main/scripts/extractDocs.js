@@ -823,6 +823,13 @@ for (const doc of results) {
       let changedFields = [];
       const oldValues = { ...existingDoc, status: { ...(existingDoc.status || {}) } };
       const newValues = { ...doc, status: { ...(doc.status || {}) } };
+      // (after oldValues, so the PR log shows what was removed)
+      // Every held keyword conformed away (all on the drop list): remove the field.
+      if (doc.__clearKeywords && Array.isArray(existingDoc.keywords)) {
+        delete existingDoc.keywords;
+        delete existingDoc['keywords$meta'];
+        changedFields.push('keywords');
+      }
 
       const oldRefs = {
         normative: (existingDoc.references && existingDoc.references.normative) || [],

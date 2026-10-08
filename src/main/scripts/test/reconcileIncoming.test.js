@@ -94,6 +94,14 @@ assert.deepStrictEqual(mergeKeywords(['Security'], []), ['Security']); n++;
   const inc = { keywords: ['AAA'] };
   assert.deepStrictEqual(reconcileIncoming(doc, inc, { keywordRules: rules }), [], 'a conformed list is an update, not "kept"'); n++;
   assert.deepStrictEqual(inc.keywords, ['AAA']); n++;
+  // Source gave no keywords: held ones are still conformed; all-dropped → flagged for removal.
+  const inc2 = {};
+  reconcileIncoming({ keywords: ['Aaa', 'Values'] }, inc2, { keywordRules: rules });
+  assert.deepStrictEqual(inc2.keywords, ['AAA']); n++;
+  const inc3 = {};
+  reconcileIncoming({ keywords: ['Values'] }, inc3, { keywordRules: rules });
+  assert.strictEqual(inc3.keywords, undefined); n++;
+  assert.strictEqual(inc3.__clearKeywords, true); n++;
 }
 
 // Whole doc: trailing slash, whitespace, list order are kept; real updates pass through.

@@ -45,6 +45,12 @@ const IETF_ACRONYMS = new Map([
   ['keyinfo', 'KeyInfo'],
   ['nntp', 'NNTP'],
   ['tls', 'TLS'],
+  ['dtls', 'DTLS'],
+  ['ecn', 'ECN'],
+  ['idn', 'IDN'],
+  ['idna', 'IDNA'],
+  ['rsa', 'RSA'],
+  ['subjectpublickeyinfo', 'SubjectPublicKeyInfo'],
   ['ws', 'WS'],
   ['wss', 'WSS'],
   // Lowercase joiners inside multi-word index keywords ("Internet of Things", "CoAP in Browsers")

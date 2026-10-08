@@ -192,6 +192,16 @@ function reconcileIncoming(held, incoming, { keywordRules = null } = {}) {
     kept.push('authors');
   }
 
+  // The source gave no keywords (or all were dropped): still conform what's held, and
+  // flag an all-dropped list for removal (RFC6066's TLS extension names).
+  if (incoming.keywords === undefined && Array.isArray(held.keywords) && held.keywords.length && keywordRules) {
+    const conformed = conformHeld(held.keywords, keywordRules);
+    if (conformed !== held.keywords) {
+      if (conformed.length) incoming.keywords = conformed;
+      else Object.defineProperty(incoming, '__clearKeywords', { value: true, enumerable: false, configurable: true });
+    }
+  }
+
   if (incoming.keywords !== undefined) {
     const merged = mergeKeywords(held.keywords, incoming.keywords, keywordRules);
     if (merged !== incoming.keywords) {
