@@ -617,6 +617,33 @@ function injectMetaForDoc(doc, source, mode, changedFieldsMap = {}) {
 
 const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
 
+// --only <ids|urls|file.json>: process just these seeds (doc IDs like RFC7595 or seed
+// URLs, comma-separated, or a JSON array file), even ones on the filter list. For
+// working through a backlog in batches without re-extracting everything.
+function parseOnlyArg() {
+  const raw = cliArgValue('--only', null);
+  if (!raw) return null;
+  let items = [];
+  if (fs.existsSync(raw)) {
+    try { items = JSON.parse(fs.readFileSync(raw, 'utf8')); } catch (e) { console.error(`❌ --only: cannot read ${raw}: ${e.message}`); process.exit(1); }
+  } else {
+    items = raw.split(',');
+  }
+  const out = (Array.isArray(items) ? items : []).map((v) => String(v || '').trim()).filter(Boolean);
+  if (!out.length) { console.error('❌ --only: no doc IDs or URLs given.'); process.exit(1); }
+  return out;
+}
+const onlyList = parseOnlyArg();
+const onlyMatchesOne = (item, url) => {
+  const u = String(url || '').toLowerCase().replace(/\/+$/, '');
+  const it = String(item || '').toLowerCase().replace(/\/+$/, '');
+  if (/^https?:\/\//.test(it)) return u === it;
+  const rfc = it.match(/^rfc\s*0*(\d+)$/);
+  if (rfc) return new RegExp(`/rfc${rfc[1]}$`).test(u);
+  return u.endsWith(`/${it}`);
+};
+const onlyMatches = (url) => onlyList.some((item) => onlyMatchesOne(item, url));
+
 // Main async block
 (async () => {
   //const urls = require('../input/urls.json');
@@ -632,7 +659,8 @@ const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
         for (const raw of rawSeeds) {
           const seed = normalizeSeedUrl(raw);
           if (!seed) continue;
-          if (shouldFilterUrl(seed)) {
+          if (onlyList && !onlyMatches(seed)) continue;
+          if (!onlyList && shouldFilterUrl(seed)) {
             seedsSkipped++;
             continue;
           }
@@ -646,6 +674,12 @@ const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
     } catch (e) {
       console.warn(`⚠️ Failed to read/parse ${seedPath}: ${e.message}`);
     }
+  }
+  if (onlyList) {
+    urls = urls.filter(onlyMatches);
+    console.log(`🎯 --only: ${urls.length} of ${onlyList.length} requested seed(s) found (filter list bypassed).`);
+    const unmatched = onlyList.filter((item) => !urls.some((u) => onlyMatchesOne(item, u)));
+    if (unmatched.length) console.warn(`⚠️ --only: not in ${seedPath}: ${unmatched.join(', ')}`);
   }
   console.log(`\n📂 Processing ${urls.length} ${activeProvider.label} URLs... (seeds added: ${seedsAdded}, seeds skipped: ${seedsSkipped})`);
   

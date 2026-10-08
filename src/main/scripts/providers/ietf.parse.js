@@ -493,18 +493,49 @@ function createIetfParser(deps) {
     return parseRfcRefsFromText(raw.join('\n'));
   }
 
+  // Per-host pacing and retry, so a batch doesn't trip rate limits: Datatracker answers
+  // bursts with 403/429. Requests to one host start at least REQUEST_GAP_MS apart
+  // (MSRBOT_REQUEST_GAP_MS overrides); 403/429/5xx retry up to 3 times, honouring
+  // Retry-After, else after 5s / 15s / 45s. Other errors (404) fail at once.
+  const REQUEST_GAP_MS = Number(process.env.MSRBOT_REQUEST_GAP_MS || 400);
+  const RETRY_STATUSES = new Set([403, 429, 502, 503, 504]);
+  const RETRY_WAITS_MS = [5000, 15000, 45000];
+  const nextSlotByHost = new Map();
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  async function politeGet(url, config) {
+    let host = '';
+    try { host = new URL(url).host; } catch {}
+    for (let attempt = 0; ; attempt++) {
+      const now = Date.now();
+      const slot = Math.max(now, nextSlotByHost.get(host) || 0);
+      nextSlotByHost.set(host, slot + REQUEST_GAP_MS);
+      if (slot > now) await sleep(slot - now);
+      try {
+        return await axios.get(url, config);
+      } catch (e) {
+        const status = e && e.response && e.response.status;
+        if (!RETRY_STATUSES.has(status) || attempt >= RETRY_WAITS_MS.length) throw e;
+        const retryAfter = Number(e.response.headers && e.response.headers['retry-after']);
+        const wait = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : RETRY_WAITS_MS[attempt];
+        console.warn(`⏳ ${status} from ${host}; retry ${attempt + 1}/${RETRY_WAITS_MS.length} in ${Math.round(wait / 1000)}s: ${url}`);
+        nextSlotByHost.set(host, Date.now() + wait + REQUEST_GAP_MS);
+        await sleep(wait);
+      }
+    }
+  }
+
   async function fetchHtml(url) {
-    const res = await axios.get(withNoCache(url), { headers: NO_CACHE_HEADERS });
+    const res = await politeGet(withNoCache(url), { headers: NO_CACHE_HEADERS });
     return cheerio.load(res.data);
   }
 
   async function fetchJson(url) {
-    const res = await axios.get(withNoCache(url), { headers: NO_CACHE_HEADERS });
+    const res = await politeGet(withNoCache(url), { headers: NO_CACHE_HEADERS });
     return res?.data && typeof res.data === 'object' ? res.data : null;
   }
 
   async function fetchXml(url) {
-    const res = await axios.get(withNoCache(url), { headers: NO_CACHE_HEADERS });
+    const res = await politeGet(withNoCache(url), { headers: NO_CACHE_HEADERS });
     const raw = String(res.data || '');
     return {
       raw,
@@ -642,7 +673,7 @@ function createIetfParser(deps) {
     rfcIndexMapPromise = (async () => {
       // Primary source: live RFC Editor index.
       try {
-        const res = await axios.get(withNoCache(RFC_INDEX_URL), { headers: NO_CACHE_HEADERS, responseType: 'text' });
+        const res = await politeGet(withNoCache(RFC_INDEX_URL), { headers: NO_CACHE_HEADERS, responseType: 'text' });
         const map = parseRfcIndexMap(res.data);
         if (map.size) {
           rfcIndexLiveXml = typeof res.data === 'string' ? res.data : null;
