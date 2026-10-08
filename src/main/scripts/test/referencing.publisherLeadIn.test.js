@@ -62,6 +62,9 @@ const cases = [
   ['SMPTE Recommended Practice 168, ', 'SMPTE.RP168'],
   ['SMPTE Standard 2084:2014, ', 'SMPTE.ST2084.2014'],
   ['EBU Technical Document 3344, 2011', 'EBU.Tech3344.2011'],
+  // ITU-T keeps "Recommendation" so the cited edition year survives (RFC9231)
+  ['ITU-T, "Information technology - Procedures for the operation of object identifier registration authorities", ITU-T Recommendation X.660, July 2011, <https://www.itu.int/rec/T-REC-X.660>.', 'T-REC-X.660.2011'],
+  ['ITU-T, "Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation", ITU-T Recommendation X.680, February 2021, <https://www.itu.int/rec/T-REC-X.680>.', 'T-REC-X.680.2021'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }
