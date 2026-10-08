@@ -82,6 +82,16 @@ const cases = [
   ['Institute of Electrical and Electronics Engineers, "Local and Metropolitan Area Networks: Port-Based Network Access Control", IEEE Standard 802.1X-2004, December 2004.', 'IEEE.STD802.1X.2004'],
   ['"Local and Metropolitan Area Networks: Port-Based Network Access Control", IEEE Standard 802.1X, December 2004.', 'IEEE.STD802.1X.2004'],
   ['IEEE, "Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications", IEEE Standard 802.11, 2003.', 'IEEE.STD802.11.2003'],
+  // batch 8: SCTE, ETSI EN, ANSI designator-first, US-ASCII → INCITS (refMap)
+  ['SCTE Data Standards Subcommittee, "Data-Over-Cable Service Interface Specifications: DOCSIS 1.0 Baseline Privacy Interface Specification SCTE 22-2 2002", 2002.', 'SCTE.22-2.2002'],
+  ['SCTE Data Standards Subcommittee, "DOCSIS 1.1 Part 3: Operations Support System Interface ANSI/SCTE 23-3 2005", 2005.', 'SCTE.23-3.2005'],
+  ['American National Standards Institute/Society of Cable and Telecommunications Engineers (ANSI/SCTE) 67 2010, "Recommended Practice for SCTE 35 Digital Program Insertion Cueing Message for Cable", 2010.', 'SCTE.67.2010'],
+  ['Society of Cable Telecommunications Engineers (SCTE), ANSI/SCTE 35 2023r1, "Digital Program Insertion Cueing Message."', 'SCTE.35.2023'],
+  ['SCTE 127-2007', 'SCTE.127.2007'],
+  ['European Telecommunications Standard Institute, "ETSI Standard EN 300 429, Version 1.2.1: Digital Video Broadcasting (DVB), Framing structure", April 1998.', 'ETSI.EN-300-429.1998'],
+  ['EN 300 001 V1.5.1 (1998-10):"European Standard (Telecommunications series) Attachments to Public Switched Telephone Network (PSTN)"', 'ETSI.EN-300-001.1998'],
+  ['ANSI X3.106, "American National Standard for Information Systems-Data Link Encryption", American National Standards Institute, 1983.', 'ANSI.X3.106.1983'],
+  ['American National Standards Institute, "Coded Character Set - 7-bit American Standard Code for Information Interchange", ANSI X3.4, 1986.', 'INCITS.X3.4.1986'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }

@@ -1641,6 +1641,13 @@ function parseRefId(text, href = '', opts = {}) {
   {
     // xml2rfc prints the year after a comma: "ANSI X3.106, 1983".
     const m = String(text || '').match(/\bANSI\s+([A-Z]{1,4}\d{0,3})\.(\d+(?:\.\d+)?[A-Za-z]?)(?:,\s*|[\s‐-―-]+)(\d{4})/i);
+    // Designator first, year after the title: "ANSI X3.106, \"<title>\", American National
+    // Standards Institute, 1983."
+    const lead = !m && String(text || '').match(/^\s*ANSI\s+([A-Z]{1,4}\d{1,3})\.(\d+(?:\.\d+)?),\s*["“][^"”]+["”][^\n]*?\b((?:19|20)\d{2})\b/);
+    if (lead) {
+      const refId = `ANSI.${lead[1].toUpperCase()}.${lead[2]}.${lead[3]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator-lead' } } : refId;
+    }
     // Undated after the spelled-out lead-in: "American National Standards Institute (ANSI) X9.62."
     const undated = !m && String(text || '').match(/\(ANSI\)\s+([A-Z]{1,4}\d{1,3})\.(\d+(?:\.\d+)?)\.?(?=\s|$)/);
     if (undated) {
@@ -1657,7 +1664,8 @@ function parseRefId(text, href = '', opts = {}) {
   //   "ANSI/SCTE 127 2007" → SCTE.127.2007    "ANSI/ASTM D638M-91" → ASTM.D638M.1991
   //   "ANSI/ASME B1.1-1989" → ASME.B1.1.1989  "ANSI/AIIM MS34-1990" → AIIM.MS34.1990
   {
-    const m = String(text || '').match(/\bANSI[\/\s]([A-Z]{2,6})\s+([A-Z]{0,4}\d[\w.]*?)[\s‐-―-]+((?:19|20)?\d{2})\b/i);
+    // part numbers too: "ANSI/SCTE 23-3 2005" → SCTE.23-3.2005; "(ANSI/SCTE) 67 2010" → SCTE.67.2010
+    const m = String(text || '').match(/\bANSI[\/\s]([A-Z]{2,6})\)?\s+([A-Z]{0,4}\d[\w.]*?(?:-(?!(?:19|20)\d{2}\b)\d+)*)[\s‐-―-]+((?:19|20)?\d{2})\b/i);
     if (m && m[1].toUpperCase() !== 'SMPTE') { // ANSI/SMPTE belongs to the legacy-SMPTE block
       const yr = m[3].length === 2 ? `19${m[3]}` : m[3];
       const refId = `${m[1].toUpperCase()}.${m[2].toUpperCase()}.${yr}`;
@@ -1731,13 +1739,31 @@ function parseRefId(text, href = '', opts = {}) {
   }
 
   // ETSI: "ETSI TS 101 154", "ETSI ETS-300706", "ETSI EN 300 743" → ETSI.TS-101-154[.year]
+  //   also "ETSI Standard EN 300 429", and a citation that opens with an ETSI EN number
+  //   and no "ETSI": "EN 300 001 V1.5.1 (1998-10)", "EN 300 659-1" (RFC4682)
   {
-    const m = String(text || '').match(/\bETSI\s+(TS|TR|EN|ES|ETS|ETR)[\s‐-―-]+(\d[\d\s‐-―-]*\d)/i);
+    const src = String(text || '');
+    const m = src.match(/\bETSI\s+(?:Standard\s+)?(TS|TR|EN|ES|ETS|ETR)[\s‐-―-]+(\d[\d\s‐-―-]*\d)/i)
+      || src.match(/^\s*(EN)\s+(3\d\d[\s‐-―-]\d{3}(?:-\d+)?)\b/);
     if (m) {
       const num = m[2].replace(/[\s‐-―-]+/g, '-');
       const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
       const refId = `ETSI.${m[1].toUpperCase()}-${num}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'etsi-designator' } } : refId;
+    }
+  }
+
+  // SCTE standards outside the "ANSI/SCTE" form: "… Specification SCTE 22-2 2002",
+  // "… SCTE 22-1\", 2002." → SCTE.22-2.2002 (year inline, else the first year after it)
+  {
+    const src = String(text || '');
+    // a year is never a part number: "SCTE 127-2007" → SCTE.127.2007
+    // "2023r1" (revision 1 of the 2023 edition) keeps the edition year: SCTE.35.2023
+    const m = src.match(/\bSCTE\s+(\d+(?:-(?!(?:19|20)\d{2}\b)\d+)*)\b(?:[\s:-]+((?:19|20)\d{2})(?:r\d+)?\b)?/);
+    if (m) {
+      const y = m[2] || (src.slice(m.index + m[0].length).match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `SCTE.${m[1]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'scte-designator' } } : refId;
     }
   }
 
