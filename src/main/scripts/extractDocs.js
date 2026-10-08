@@ -67,6 +67,7 @@ const keywordRules = loadKeywordRules();
 //                                       on the next line and is captured separately
 //   "[**] Editor's Note: …", "<4> It might be suggested…"
 //                                       footnotes inside an old reference list
+//   "Latest version available at <…>"   a citation's wrapped tail (RFC7303)
 // Citation text without its reference-list label: "[DH] Diffie, W. …", "DH ] Diffie, W. …"
 // and "[12] …" all become "Diffie, W. …". Orphans are keyed on this text, so the
 // labelled and unlabelled captures of one citation (two parser passes) are one orphan,
@@ -76,6 +77,7 @@ function citeWithoutLabel(raw) {
     .replace(/\s+/g, ' ')
     .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
     .replace(/^\d{1,4}\s*\]\s*/u, '')
+    .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')                 // old numbered list: "3. Pickens, J., …"
     .replace(/^\[\s*[A-Za-z][A-Za-z0-9_.:+-]{0,31}\s*\]\s*(?=\S)/u, '')
     .replace(/^[A-Za-z][A-Za-z0-9_.:+-]{0,31}\s*\]\s*(?=\S)/u, '')
     .replace(/\s*\[\s*$/u, '')
@@ -88,6 +90,8 @@ function isNonCitationLine(cite) {
   if (/^\d+\.\s+The\s+CoAP\s+client\b/i.test(c)) return true;
   if (/^\d{1,3}\s*\]\s*[^"“,;:]{1,40}$/.test(c) && c.split(/\s+/).length <= 6) return true;
   if (/^(?:\[\*+\]|&lt;\d+&gt;|<\d+>)\s/.test(c)) return true;
+  // The wrapped tail of the previous citation (RFC7303), not a citation of its own.
+  if (/^Latest version available at\b/i.test(c)) return true;
   return false;
 }
 const { loadAllDocs, saveDoc } = require('../lib/registry');
@@ -243,7 +247,18 @@ const providerKey = providerArg.toLowerCase().trim();
       //      orphan. Without this, the post-extract MRI prune would drop the
       //      orphan because the source doc has no references[] entry pointing
       //      at it.
+      // A wrapped author line that looks like a new entry ("Kohlweiss, M., Pan, J., …"
+      // inside RFC8446's [BDFKPPRSZZ16]) is captured as the tail of the full citation;
+      // drop any citation that is the tail of a longer one from the same doc.
+      const citeOf = (r) => citeWithoutLabel(String((r && r.refText) || (r && r.cite) || '').trim());
+      const allCites = refs.map((r) => ({ docId: String((r && r.docId) || '').trim(), cite: citeOf(r) }));
+      const isTailOfAnother = (r) => {
+        const c = citeOf(r);
+        const d = String((r && r.docId) || '').trim();
+        return c.length >= 40 && allCites.some((o) => o.docId === d && o.cite.length > c.length && o.cite.endsWith(c));
+      };
       for (const r of refs) {
+        if (isTailOfAnother(r)) continue;
         const entry = { ...r, orphanStatus: 'unrecorded' };
         badRefs.push(entry);
         const docId = String((r && r.docId) || '').trim();
