@@ -11,32 +11,52 @@
   },
   "authors": [
     {
-      "name": "Carsten Bormann"
+      "name": "C. Bormann"
     },
     {
-      "name": "Simon Lemay"
+      "name": "S. Lemay"
     },
     {
-      "name": "Hannes Tschofenig"
+      "name": "H. Tschofenig"
     },
     {
-      "name": "Klaus Hartke"
+      "name": "K. Hartke"
     },
     {
-      "name": "Bill Silverajan"
+      "name": "B. Silverajan"
     },
     {
-      "name": "Brian Raymor"
+      "name": "B. Raymor"
     }
   ],
   "authors$meta": {
     "confidence": "high",
-    "note": "Object form (schema 2.3.0) migrated from string form via migrateAuthorsToObjectForm.js",
-    "originalValue": null,
+    "note": "Parsed from Datatracker doc.json authors",
+    "originalValue": [
+      {
+        "name": "Carsten Bormann"
+      },
+      {
+        "name": "Simon Lemay"
+      },
+      {
+        "name": "Hannes Tschofenig"
+      },
+      {
+        "name": "Klaus Hartke"
+      },
+      {
+        "name": "Bill Silverajan"
+      },
+      {
+        "name": "Brian Raymor"
+      }
+    ],
+    "overridden": true,
     "source": "parsed",
     "sourceUrl": "https://www.rfc-editor.org/info/rfc8323/",
-    "updated": "2026-06-23T00:04:25.562Z",
-    "version": "authors-migrate-object-form@v1"
+    "updated": "2026-10-08T14:59:51.714Z",
+    "version": "extractDocs.js@commit:2f59ef37a164"
   },
   "docId": "RFC8323",
   "docId$meta": {
@@ -123,24 +143,26 @@
     "Constrained Application Protocol",
     "REST",
     "IoT",
+    "Internet Of Things",
     "NAT Traversal",
-    "CoAP in Browsers"
+    "CoAP In Browsers"
   ],
   "keywords$meta": {
     "confidence": "high",
-    "note": "Scrubbed against src/main/config/site.json controlledKeywords (auto-fix renames + drop noise)",
+    "note": "Parsed from RFC index XML keywords",
     "originalValue": [
-      "Coap",
+      "CoAP",
       "Constrained Application Protocol",
-      "Rest",
-      "Iot",
-      "Internet Of Things",
-      "Nat Traversal",
-      "Coap In Browsers"
+      "REST",
+      "IoT",
+      "NAT Traversal",
+      "CoAP in Browsers"
     ],
+    "overridden": true,
     "source": "parsed",
-    "updated": "2026-06-17T17:31:02.591Z",
-    "version": "kw-scrub@v1"
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8323/",
+    "updated": "2026-10-08T14:59:51.714Z",
+    "version": "extractDocs.js@commit:2f59ef37a164"
   },
   "pages": "54",
   "pages$meta": {
@@ -190,21 +212,24 @@
       "RFC7540",
       "IAB.IETF-SAD.20110214",
       "IETF.96P-QUIC.201607",
-      "IETF.draft-ietf-lwig-tcp-constrained-node-networks-01"
+      "IETF.draft-ietf-lwig-tcp-constrained-node-networks-01",
+      "orphan/RFC8323/h:41d321d7",
+      "orphan/RFC8323/h:3216197c"
     ],
     "bibliographic$meta": {
       "confidence": "medium",
-      "note": "Parsed from RFC HTML references/informative sections | Manual review completed 2026-03-11",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=35 proseBlocks=48 skippedAnchorBlocks=39",
+      "note": "Parsed from RFC HTML references/informative sections",
       "originalValue": [
-        "IETF.draft-byrne-opsec-udp",
+        "IETF.draft-byrne-opsec-udp-advisory-00",
         "IETF.draft-silverajan-core-coap-alternative-transports-10",
         "IETF.draft-ietf-core-cocoa-02",
         "10.48550-arXiv.1612.07816",
         "10.1145-1879141.1879174",
         "IANA.URI",
         "OMA.TS-LightweightM2M.V1_0.20170208",
-        "IETF.draft-thaler-appsawg-multi-transport",
-        "IETF.draft-ietf-core-object",
+        "IETF.draft-thaler-appsawg-multi-transport-uris-01",
+        "IETF.draft-ietf-core-object-security-08",
         "RFC768",
         "RFC6335",
         "RFC6347",
@@ -212,14 +237,14 @@
         "RFC7540",
         "IAB.IETF-SAD.20110214",
         "IETF.96P-QUIC.201607",
-        "IETF.draft-ietf-lwig-tcp-constrained-node"
+        "IETF.draft-ietf-lwig-tcp-constrained-node-networks-01"
       ],
       "overridden": true,
-      "reviewRequired": false,
+      "reviewRequired": true,
       "source": "parsed",
       "sourceUrl": "https://www.rfc-editor.org/info/rfc8323/",
-      "updated": "2026-03-11T20:20:57.536Z",
-      "version": "extractDocs.js@commit:0621de96b5e3"
+      "updated": "2026-10-08T14:59:51.714Z",
+      "version": "extractDocs.js@commit:2f59ef37a164"
     },
     "normative": [
       "RFC793",
@@ -252,15 +277,16 @@
       "version": "extractDocs.js@commit:0621de96b5e3"
     }
   },
-  "resolvedHref": "https://www.rfc-editor.org/info/rfc8323",
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8323/",
   "resolvedHref$meta": {
     "confidence": "high",
     "note": "Final URL resolved via URL redirect verification",
-    "originalValue": null,
+    "originalValue": "https://www.rfc-editor.org/info/rfc8323",
+    "overridden": true,
     "source": "resolved",
     "sourceUrl": "https://www.rfc-editor.org/info/rfc8323/",
-    "updated": "2026-03-11T19:03:44.507Z",
-    "version": "extractDocs.js@commit:0621de96b5e3"
+    "updated": "2026-10-08T14:59:51.715Z",
+    "version": "extractDocs.js@commit:2f59ef37a164"
   },
   "status": {
     "active": true,
