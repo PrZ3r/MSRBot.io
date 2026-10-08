@@ -30,6 +30,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 const fs = require('fs');
 const path = require('path');
 const { splitAndNormalizeKeywords } = require('../utils/keyword.normalize');
+const { loadKeywordDecisions } = require('../../lib/keywordConform');
 
 // XMLDSig/XMLENC element names that show up as keywords in the RFC index XML.
 // Kept here (not in the global ACRONYM_MAP) because they're IETF-corpus jargon —
@@ -182,8 +183,22 @@ function createIetfParser(deps) {
     return s || '';
   }
 
+  // The shared keyword folds (keywordDecisions.json) apply to IETF terms too, so the
+  // index's "internet of things" lands on the controlled "IoT" like SMPTE's does.
+  let keywordFolds = null;
+  function foldKeyword(kw) {
+    if (!keywordFolds) {
+      try {
+        keywordFolds = new Map(Object.entries(loadKeywordDecisions().folds || {}).map(([k, v]) => [k.toLowerCase(), v]));
+      } catch {
+        keywordFolds = new Map();
+      }
+    }
+    return keywordFolds.get(String(kw).toLowerCase()) || kw;
+  }
+
   function splitKeywordValues(values = []) {
-    return splitAndNormalizeKeywords(values, IETF_ACRONYMS);
+    return unique(splitAndNormalizeKeywords(values, IETF_ACRONYMS).map(foldKeyword));
   }
 
   function buildReferences(normative = [], bibliographic = []) {

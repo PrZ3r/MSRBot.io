@@ -57,7 +57,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **IETF relations from the RFC index only.** `amends`, `amendedBy`, `supersedes` and `supersededBy` came from the RFC index merged with the RFC info page. The redesigned info page leaked stray IDs (RFC1035 "amended" the RFCs it obsoletes; RFC9190 "amended" RFC2119). The index is now the only source when it has the RFC, and the info page is a fallback.
 - **Dated ITU-T references lost their year.** "ITU-T Recommendation X.660, July 2011" resolved to undated `T-REC-X.660` instead of `T-REC-X.660.2011` after #2380's lead-in rewrite. That rewrite now applies to ITU-R only.
 - **Non-citation lines minted as orphan references.** The RFC8323 WebSocket example steps ("2. The CoAP client establishes …") were already filtered from the bad-refs report, but they still became orphan refs. The filter now runs before minting.
-- **IETF keyword casing.** "NNTP" stays all caps, and "of"/"in" stay lowercase inside index keywords ("Internet of Things").
+- **IETF keywords follow the shared rules.** IETF index keywords now go through the `folds` in `keywordDecisions.json`, like SMPTE's, so "internet of things" becomes the controlled `IoT` instead of re-adding a term the June keyword scrub removed. "NNTP" stays all caps, and "of"/"in" stay lowercase inside index keywords.
 
 ## [v2.9.0] - 2026-10-06
 
