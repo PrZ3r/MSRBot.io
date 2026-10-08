@@ -1495,8 +1495,9 @@ function parseRefId(text, href = '', opts = {}) {
   }
   // FIPS references that don't include contiguous "NIST FIPS" tokens, e.g.:
   // "National Institute ... (NIST). FIPS PUB 46-2: ..."
-  if (/\bFIPS[\s-]+(?:PUB[\s-]+)?(\d+)(-\d+)?\b/i.test(text)) {
-    const [, num, rev] = text.match(/\bFIPS[\s-]+(?:PUB[\s-]+)?(\d+)(-\d+)?\b/i);
+  // also "Federal Information Processing Standard (FIPS) 180-2", "FIPS Publication 180-3"
+  if (/\bFIPS\)?[\s-]+(?:PUB(?:LICATION)?\.?[\s-]+)?(\d+)(-\d+)?\b/i.test(text)) {
+    const [, num, rev] = text.match(/\bFIPS\)?[\s-]+(?:PUB(?:LICATION)?\.?[\s-]+)?(\d+)(-\d+)?\b/i);
     { const refId = `NIST.FIPS.${num}${rev || ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fips-generic' } } : refId; }
   }
   // FIPS structure in hrefs .../fips/186/2/...
@@ -1640,6 +1641,12 @@ function parseRefId(text, href = '', opts = {}) {
   {
     // xml2rfc prints the year after a comma: "ANSI X3.106, 1983".
     const m = String(text || '').match(/\bANSI\s+([A-Z]{1,4}\d{0,3})\.(\d+(?:\.\d+)?[A-Za-z]?)(?:,\s*|[\s‐-―-]+)(\d{4})/i);
+    // Undated after the spelled-out lead-in: "American National Standards Institute (ANSI) X9.62."
+    const undated = !m && String(text || '').match(/\(ANSI\)\s+([A-Z]{1,4}\d{1,3})\.(\d+(?:\.\d+)?)\.?(?=\s|$)/);
+    if (undated) {
+      const refId = `ANSI.${undated[1].toUpperCase()}.${undated[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator-undated' } } : refId;
+    }
     if (m) {
       const refId = `ANSI.${m[1].toUpperCase()}.${m[2].toUpperCase()}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator' } } : refId;
@@ -2385,10 +2392,21 @@ function extractRefs($, currentDocId, opts = {}) {
       const unindentedHeadingAfter = (start, end) => {
         const headingLineEnd = raw.indexOf('\n', start);
         if (headingLineEnd < 0 || headingLineEnd >= end) return end;
-        const re = /\n([A-Z][A-Za-z0-9'’ ,()&:-]{2,90})[ \t]*(?=\n)/g;
-        re.lastIndex = headingLineEnd;
-        const m = re.exec(raw);
-        return m && m.index < end ? m.index + 1 : end;
+        // Judge the line without its tags: "Appendix: Changes from <a …>RFC 4634</a>" (RFC6234).
+        // A heading follows a blank line and has no period; some old RFCs (RFC2060) print
+        // reference entries unindented, so a wrapped line like "Work in Progress." must
+        // not end the block.
+        const re = /\n[ \t]*\n([A-Z][^\n]{2,240})(?=\n)/g;
+        re.lastIndex = Math.max(0, headingLineEnd - 1);
+        let m;
+        while ((m = re.exec(raw)) !== null) {
+          const lineStart = raw.indexOf(m[1], m.index);
+          if (lineStart >= end) break;
+          const text = m[1].replace(/<[^>]+>/g, '').replace(/[ \t]+$/, '');
+          if (/^[A-Z][A-Za-z0-9'’ ,()&:-]{2,90}$/.test(text)) return lineStart;
+          re.lastIndex = lineStart;
+        }
+        return end;
       };
       const boundEndAt = (i) => {
         const start = bounds[i].pos;

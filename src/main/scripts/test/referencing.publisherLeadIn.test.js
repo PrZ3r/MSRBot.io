@@ -76,6 +76,9 @@ const cases = [
   ['IEEE, "IEEE Trial-Use Recommended Practice for Multi- Vendor Access Point Interoperability", IEEE 802 Std 802.11F(TM)-2003, 2003.', 'IEEE.STD802.11F.2003'],
   ['IEEE and The Open Group, "Portable Operating System Interface (POSIX)", The Open Group Base Specifications Issue 7, IEEE 1003.1, 2013 Edition.', 'IEEE.STD1003.1.2013'],
   ['IEEE, "IEEE Standard for Floating-Point Arithmetic", IEEE 754.', 'IEEE.STD754'],
+  ['U.S. National Institute of Standards and Technology, "SECURE HASH STANDARD", Federal Information Processing Standard (FIPS) 180-2, August 2002.', 'NIST.FIPS.180-2'],
+  ['National Institute of Standards and Technology (NIST), FIPS Publication 180-3: Secure Hash Standard, October 2008.', 'NIST.FIPS.180-3'],
+  ['"Public Key Cryptography for the Financial Services Industry: The Elliptic Curve Digital Signature Algorithm (ECDSA)", American National Standards Institute (ANSI) X9.62.', 'ANSI.X9.62'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }

@@ -82,4 +82,29 @@ assert.ok(!bad.some((t) => /K_send|WAIT_|maskLen|Page 85/.test(t)), `appendix te
 // Unnumbered sections are unindented text in htmlized RFCs and end the block too.
 assert.ok(!bad.some((t) => /Acknowledgments|Ralph Holz/.test(t)), `unnumbered section leaked: ${JSON.stringify(bad)}`); n++;
 
+// Old RFCs (RFC2060) print entries unindented: a wrapped "Work in Progress." line is not a
+// heading. A tagged unindented heading (RFC6234) still ends the block.
+{
+  const html2 = `<html><body><pre>
+<span class="h2"><a class="selflink" id="appendix-A" href="#appendix-A">A</a>.      References</span>
+
+[<a id="ref-ACAP">ACAP</a>] Myers, J. "ACAP -- Application Configuration Access Protocol",
+Work in Progress.
+
+[<a id="ref-CHARSET">CHARSET</a>] Reynolds, J., and J. Postel, "Assigned Numbers", STD 2,
+<a href="./rfc1700">RFC 1700</a>, USC/Information Sciences Institute, October 1994.
+
+Appendix: Changes from <a href="./rfc4634">RFC 4634</a>
+
+   4. Replace MIT version of getopt with new code to satisfy IETF
+      incoming and outgoing license restrictions.
+</pre></body></html>`;
+  const $2 = cheerio.load(html2);
+  const r2 = extractRefs($2, 'RFC9998', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html2 });
+  const all2 = [...(r2.references.normative || []), ...(r2.references.bibliographic || [])];
+  assert.ok(all2.includes('RFC1700'), `entry after a wrapped line lost: ${JSON.stringify(all2)}`); n++;
+  const bad2 = (r2.badRefs || []).map((b) => String(b.refText || b.cite || ''));
+  assert.ok(!bad2.some((t) => /getopt/.test(t)), `change-log line leaked: ${JSON.stringify(bad2)}`); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);
