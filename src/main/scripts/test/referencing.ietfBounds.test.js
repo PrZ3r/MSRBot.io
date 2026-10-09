@@ -107,4 +107,37 @@ Appendix: Changes from <a href="./rfc4634">RFC 4634</a>
   assert.ok(!bad2.some((t) => /getopt/.test(t)), `change-log line leaked: ${JSON.stringify(bad2)}`); n++;
 }
 
+// Unnumbered, unanchored "Normative References" / "Informative References" headings
+// (RFC5246, RFC2898): the block must not end at its own heading (blank lines before it),
+// and does end at the next unindented heading ("Contact Information & About PKCS").
+{
+  const html3 = `<html><body><pre>
+<span class="h2"><a class="selflink" id="section-9" href="#section-9">9</a>.  Security Considerations</span>
+
+   Nothing here.
+
+
+Normative References
+
+   [<a id="ref-RFC2119">RFC2119</a>]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+Informative References
+
+   [<a id="ref-RFC5246">RFC5246</a>]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.2", RFC 5246, August 2008.
+
+Contact Information &amp; About PKCS
+
+   The Public-Key Cryptography Standards are specifications produced by
+   RSA Laboratories in cooperation with secure systems developers.
+</pre></body></html>`;
+  const $3 = cheerio.load(html3);
+  const r3 = extractRefs($3, 'RFC9997', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html3 });
+  assert.deepStrictEqual(r3.references.normative, ['RFC2119']); n++;
+  assert.deepStrictEqual(r3.references.bibliographic, ['RFC5246']); n++;
+  const bad3 = (r3.badRefs || []).map((b) => String(b.refText || b.cite || ''));
+  assert.ok(!bad3.some((t) => /Public-Key Cryptography Standards are/.test(t)), `contact section leaked: ${JSON.stringify(bad3)}`); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

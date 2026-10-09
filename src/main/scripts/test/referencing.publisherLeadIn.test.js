@@ -107,6 +107,7 @@ const cases = [
   ['TR15, Unicode Normalization Forms. M. Davis, M. Durst. Revision 18: November 1999. http://www.unicode.org/unicode/reports/tr15/ tr15-18.html .', 'UNICODE.STD.TR15-18'],
   ['IEEE 1363: Standard Specifications for Public Key Cryptography. August 2000.', 'IEEE.STD1363.2000'],
   ['Adobe Developers Association, TIFF (TM) Revision 6.0 - Final, June 3, 1992.', 'TIFF.r6.19920603'],
+  ['World Wide Web Consortium, "Extensible Markup Language (XML) 1.0", W3C XML, February 1998.', 'W3C.xml.19980210'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }

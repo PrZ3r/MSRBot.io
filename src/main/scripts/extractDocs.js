@@ -83,9 +83,17 @@ function citeWithoutLabel(raw) {
     // "11-05-0822-03-000u-tgu-requirements" (RFC5113/RFC5281)
     .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')   // "[ISO/IEC-18033-2]"
     .replace(/^[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')
+    .replace(/\s*\[[a-z]{1,4}\d{2,4}\]?$/u, '')                // RFC2616 editor marker "… [jg647"
     .replace(/\s*\[\s*$/u, '')
     .replace(/\s*\]\s*$/u, '')
     .trim();
+}
+
+// A citation's URL wrapped onto its own line with no label ("[http://csrc.nist.gov/…",
+// RFC4055). Checked on the raw text only: "[5] http://metalab.unc.edu/xml/" is a real
+// reference whose citation is just a URL (RFC2629).
+function isWrappedUrlLine(raw) {
+  return /^[\[<]?\s*(?:&lt;)?\s*https?:\/\/\S+\s*(?:&gt;)?[\]>]?\.?$/i.test(String(raw || '').trim());
 }
 
 function isNonCitationLine(cite) {
@@ -97,10 +105,10 @@ function isNonCitationLine(cite) {
   if (/^Latest version available at\b/i.test(c)) return true;
   // Copyright notice after the reference list (RFC5246).
   if (/^Copyright \(C\)/i.test(c)) return true;
-  // An author's contact block (RFC4086), or a citation's URL wrapped onto its own
-  // line ("[http://csrc.nist.gov/…", RFC4055).
+  // An author's contact block (RFC4086).
   if (/^(?:Phone|Tel|Fax|E-?Mail)\s*:/i.test(c)) return true;
-  if (/^[\[<]?\s*(?:&lt;)?\s*https?:\/\/\S+\s*(?:&gt;)?[\]>]?\.?$/i.test(c)) return true;
+  // Editors' change markers in RFC2616's reference list ("[jg639").
+  if (/^\[?[a-z]{1,4}\d{2,4}\]?$/.test(c)) return true;
   return false;
 }
 const { loadAllDocs, saveDoc } = require('../lib/registry');
@@ -277,7 +285,7 @@ const providerKey = providerArg.toLowerCase().trim();
         const cite = citeWithoutLabel(rawCite);
         const href = String((r && r.href) || '').trim();
         const type = String((r && r.type) || 'bibliographic').trim();
-        if (isNonCitationLine(rawCite) || isNonCitationLine(cite)) { entry.orphanStatus = 'non-citation'; continue; }
+        if (isNonCitationLine(rawCite) || isNonCitationLine(cite) || isWrappedUrlLine(rawCite)) { entry.orphanStatus = 'non-citation'; continue; }
         if (!docId || (!cite && !href)) continue;
         // The provider tried the labelled text ("Zhenqing2012 ] Zhenqing, S., …"); without
         // the label it may resolve (parser or refMap). Then cite the ID, not an orphan.

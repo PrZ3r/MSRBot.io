@@ -2477,7 +2477,12 @@ function extractRefs($, currentDocId, opts = {}) {
       // column 0 in htmlized RFCs, where entries and body text are indented; the first
       // such line after the References heading ends the block too.
       const unindentedHeadingAfter = (start, end) => {
-        const headingLineEnd = raw.indexOf('\n', start);
+        // start can sit on the blank lines before a plain-text heading ("\n\nNormative
+        // References"): skip them, or the heading itself reads as the next one and the block
+        // is empty.
+        let headingStart = start;
+        while (headingStart < raw.length && /\s/.test(raw[headingStart])) headingStart++;
+        const headingLineEnd = raw.indexOf('\n', headingStart);
         if (headingLineEnd < 0 || headingLineEnd >= end) return end;
         // Judge the line without its tags: "Appendix: Changes from <a …>RFC 4634</a>" (RFC6234).
         // A heading follows a blank line and has no period; some old RFCs (RFC2060) print
@@ -2489,7 +2494,7 @@ function extractRefs($, currentDocId, opts = {}) {
         while ((m = re.exec(raw)) !== null) {
           const lineStart = raw.indexOf(m[1], m.index);
           if (lineStart >= end) break;
-          const text = m[1].replace(/<[^>]+>/g, '').replace(/[ \t]+$/, '');
+          const text = m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/[ \t]+$/, '');
           if (/^[A-Z][A-Za-z0-9'’ ,()&:-]{2,90}$/.test(text)) return lineStart;
           re.lastIndex = lineStart;
         }
@@ -2499,7 +2504,9 @@ function extractRefs($, currentDocId, opts = {}) {
         const start = bounds[i].pos;
         const nextBound = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
         const own = sectionHeadings.find((h) => h.pos === start);
-        if (!own) return nextBound;
+        // An unnumbered "References" heading has no section anchor (RFC2629, RFC2898): still
+        // stop at the next unindented heading ("Author's Address", "Contact Information").
+        if (!own) return unindentedHeadingAfter(start, nextBound);
         const out = sectionHeadings.find((h) => h.pos > start && h.top !== own.top);
         const end = out ? Math.min(out.pos, nextBound) : nextBound;
         return unindentedHeadingAfter(start, end);
