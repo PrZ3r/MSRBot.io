@@ -1,0 +1,247 @@
+{
+  "abstract": "This document describes a set of state machines for Extensible Authentication Protocol (EAP) peer, EAP stand-alone authenticator (non-pass-through), EAP backend authenticator (for use on Authentication, Authorization, and Accounting (AAA) servers), and EAP full authenticator (for both local and pass-through). This set of state machines shows how EAP can be implemented to support deployment in either a peer/authenticator or peer/authenticator/AAA Server environment. The peer and stand-alone authenticator machines are illustrative of how the EAP protocol defined in RFC 3748 may be implemented. The backend and full/pass-through authenticators illustrate how EAP/AAA protocol support defined in RFC 3579 may be implemented. Where there are differences, RFC 3748 and RFC 3579 are authoritative. The state machines are based on the EAP \"Switch\" model. This model includes events and actions for the interaction between the EAP Switch and EAP methods. A brief description of the EAP \"Switch\" model is given in the Introduction section. The state machine and associated model are informative only. Implementations may achieve the same results using different methods. This memo provides information for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "authors": [
+    {
+      "name": "John Vollbrecht"
+    },
+    {
+      "name": "Pasi Eronen"
+    },
+    {
+      "name": "Nick L. Petroni"
+    },
+    {
+      "name": "Yoshihiro Ohba"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "docId": "RFC4137",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "docLabel": "IETF RFC 4137",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "docNumber": "4137",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "docTitle": "State Machines for Extensible Authentication Protocol (EAP) Peer and Authenticator",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "doi": "10.17487/RFC4137",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "href": "https://doi.org/10.17487/RFC4137",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "keywords": [
+    "EAP Authenticator"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "EAP Stand-alone Authenticator",
+      "EAP Backend Authenticator",
+      "EAP Full Authenticator"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T16:03:23.024Z",
+    "version": "extractDocs.js@commit:8432189beb5c"
+  },
+  "pages": "51",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "publicationDate": "2005-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "references": {
+    "bibliographic": [
+      "IEEE.STD802.1X.2004",
+      "orphan/RFC4137/h:c93b4ae0"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=5 proseBlocks=8 skippedAnchorBlocks=6",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+      "updated": "2026-10-09T15:38:45.268Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3579",
+      "RFC3748"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+      "updated": "2026-10-09T15:38:45.268Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4137/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+    "updated": "2026-10-09T15:38:45.268Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+      "updated": "2026-10-09T15:38:45.268Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+      "updated": "2026-10-09T15:38:45.268Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+      "updated": "2026-10-09T15:38:45.268Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+      "updated": "2026-10-09T15:38:45.268Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4137/",
+      "updated": "2026-10-09T15:38:45.268Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    }
+  }
+}
