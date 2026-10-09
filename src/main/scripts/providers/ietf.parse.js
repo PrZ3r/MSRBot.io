@@ -31,6 +31,7 @@ const fs = require('fs');
 const path = require('path');
 const { splitAndNormalizeKeywords } = require('../utils/keyword.normalize');
 const { loadKeywordDecisions } = require('../../lib/keywordConform');
+const { joinPhrases } = require('../utils/reconcileIncoming');
 
 // XMLDSig/XMLENC element names that show up as keywords in the RFC index XML.
 // Kept here (not in the global ACRONYM_MAP) because they're IETF-corpus jargon —
@@ -247,7 +248,9 @@ function createIetfParser(deps) {
     }
     // "Authentication Integrity" → Authentication, Integrity (keywordDecisions splits)
     const splitTerms = (kw) => keywordDecisions().splits.get(String(kw).toLowerCase()) || [kw];
-    return unique(splitAndNormalizeKeywords(cleaned, acronyms).flatMap(splitTerms).filter((kw) => !isDroppedKeyword(kw)).map(foldKeyword));
+    // The index sometimes lists a phrase as one-word keywords; rejoin known phrases first.
+    const joined = joinPhrases(splitAndNormalizeKeywords(cleaned, acronyms), keywordDecisions());
+    return unique(joined.flatMap(splitTerms).filter((kw) => !isDroppedKeyword(kw)).map(foldKeyword));
   }
 
   function buildReferences(normative = [], bibliographic = []) {

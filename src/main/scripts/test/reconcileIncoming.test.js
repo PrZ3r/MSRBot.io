@@ -37,7 +37,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const assert = require('assert');
 const path = require('path');
-const { reconcileIncoming, authorsEquivalent, mergeKeywords, conformHeld } = require(path.join(__dirname, '..', 'utils', 'reconcileIncoming.js'));
+const { reconcileIncoming, authorsEquivalent, mergeKeywords, conformHeld, joinPhrases } = require(path.join(__dirname, '..', 'utils', 'reconcileIncoming.js'));
 
 const A = (...names) => names.map((name) => ({ name }));
 let n = 0;
@@ -102,6 +102,19 @@ assert.deepStrictEqual(mergeKeywords(['Security'], []), ['Security']); n++;
   reconcileIncoming({ keywords: ['Values'] }, inc3, { keywordRules: rules });
   assert.strictEqual(inc3.keywords, undefined); n++;
   assert.strictEqual(inc3.__clearKeywords, true); n++;
+}
+
+// A phrase the source split into one-word keywords is rejoined when the phrase is known.
+{
+  const rules = {
+    vocab: new Map(['FIPS', 'XML', 'Security'].map((k) => [k.toLowerCase(), k])),
+    folds: new Map([['federal information processing standard', 'FIPS'], ['extensible markup language', 'XML']]),
+    drops: new Set(),
+  };
+  assert.deepStrictEqual(joinPhrases(['FIPS', 'Federal', 'Information', 'Processing', 'Standard'], rules), ['FIPS', 'FIPS']); n++;
+  assert.deepStrictEqual(conformHeld(['Extensible', 'Markup', 'Language'], rules), ['XML']); n++;
+  const plain = ['Security', 'Markup'];
+  assert.strictEqual(joinPhrases(plain, rules), plain, 'unknown phrase: unchanged'); n++;
 }
 
 // Whole doc: trailing slash, whitespace, list order are kept; real updates pass through.

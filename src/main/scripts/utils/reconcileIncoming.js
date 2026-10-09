@@ -122,6 +122,26 @@ function keywordVariant(a, b) {
   return Math.min(x.length, y.length) >= 6 && editDistance(x, y) <= 1;
 }
 
+// A source that lists a phrase as one-word keywords ("federal", "information",
+// "processing", "standard"): rejoin consecutive entries, longest first, when the joined
+// phrase is a fold key or a controlled term. Only known phrases join, so an ordinary
+// keyword list is unchanged.
+function joinPhrases(list, rules) {
+  if (!rules || !Array.isArray(list) || list.length < 2) return list;
+  const { vocab = new Map(), folds = new Map() } = rules;
+  const out = [];
+  let i = 0;
+  while (i < list.length) {
+    let joined = null;
+    for (let n = Math.min(5, list.length - i); n >= 2 && !joined; n--) {
+      const phrase = list.slice(i, i + n).map((w) => String(w).trim()).join(' ').toLowerCase();
+      if (folds.has(phrase) || vocab.has(phrase)) joined = { term: folds.get(phrase) || vocab.get(phrase), n };
+    }
+    if (joined) { out.push(joined.term); i += joined.n; } else { out.push(list[i]); i += 1; }
+  }
+  return out.length === list.length ? list : out;
+}
+
 // Held keywords outside the controlled vocabulary go through the shared rules:
 // dropped terms go, and a term whose fold or case-insensitive match is controlled
 // becomes that term ("Aaa" → "AAA", "Transport Layer Security" → "TLS").
@@ -130,7 +150,7 @@ function conformHeld(held, rules) {
   if (!rules || !Array.isArray(held)) return held;
   const { vocab = new Map(), folds = new Map(), drops = new Set(), splits = new Map() } = rules;
   const out = [];
-  for (const raw of held.flatMap((kw) => splits.get(String(kw).toLowerCase()) || [kw])) {
+  for (const raw of joinPhrases(held, rules).flatMap((kw) => splits.get(String(kw).toLowerCase()) || [kw])) {
     if (vocab.get(String(raw).toLowerCase()) === raw) { out.push(raw); continue; }
     // Same cleanup the IETF parser now does: a list tail stored as "and URN".
     const kw = String(raw).replace(/^(?:and|or)\s+/i, '');
@@ -225,4 +245,4 @@ function reconcileIncoming(held, incoming, { keywordRules = null } = {}) {
   return kept;
 }
 
-module.exports = { reconcileIncoming, authorsEquivalent, mergeKeywords, conformHeld };
+module.exports = { reconcileIncoming, authorsEquivalent, mergeKeywords, conformHeld, joinPhrases };
