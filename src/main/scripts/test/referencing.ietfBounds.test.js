@@ -173,4 +173,19 @@ PEOPLE
   assert.ok(!bad4.some((t) => /Page 117|Assigned Numbers\s+October/.test(t)), `page footer/header leaked: ${JSON.stringify(bad4)}`); n++;
 }
 
+// RFC1052's 1988 "DRAFT-SMI" letter codes are not Internet-Drafts.
+{
+  const html5 = `<html><body><pre>
+REFERENCES
+
+      (6) Lee LaBarre, "Structure and Identification of Management
+      Information for the Internet", DRAFT-SMI, February 1988.
+
+      (7) Postel, J., "Internet Protocol", <a href="./rfc791">RFC 791</a>, September 1981.
+</pre></body></html>`;
+  const r5 = extractRefs(cheerio.load(html5), 'RFC9995', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html5 });
+  const all5 = [...(r5.references.normative || []), ...(r5.references.bibliographic || [])];
+  assert.ok(!all5.some((x) => /^IETF\.draft-smi$/i.test(x)), `letter code read as a draft: ${JSON.stringify(all5)}`); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

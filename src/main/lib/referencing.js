@@ -2148,6 +2148,10 @@ function extractRefs($, currentDocId, opts = {}) {
           const src = String(v || '').replace(/\s*-\s*/g, '-');
           const m = src.match(/\b(draft-[A-Za-z0-9._-]+)\b/i);
           if (!m?.[1]) continue;
+          // An Internet-Draft name is lowercase with at least two parts after "draft-"
+          // (draft-<source>-<topic>…). RFC1052's 1988 "DRAFT-SMI" / "DRAFT-AAAA" are
+          // temporary letter codes, not drafts.
+          if (/^DRAFT-/.test(m[1])) continue;
           const token = String(m[1] || '')
             .replace(/[)\],.;:]+$/g, '')
             .replace(/\.(?:txt|xml|html?|pdf)$/i, '')
@@ -2155,7 +2159,7 @@ function extractRefs($, currentDocId, opts = {}) {
           // Reject false positives from generic filenames such as
           // "...preliminary-draft-4.pdf".
           if (/^draft-\d+(?:\.\d+)?$/.test(token)) continue;
-          if (!/^draft-[a-z0-9]/i.test(token)) continue;
+          if (!/^draft-[a-z0-9]+-[a-z0-9]/i.test(token)) continue;
           out.push(token);
         }
         return out;
