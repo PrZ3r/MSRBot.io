@@ -1100,12 +1100,27 @@ function parseCiteDesignator(cite, { isRegistryDoc = () => false } = {}) {
   return fromTail;
 }
 
+function urlFromCiteText(text) {
+  const joined = String(text || '')
+    .replace(/&lt;|&gt;/g, ' ')
+    .replace(/(https?:\/\/[^\s<>"]*[\/-])\s+(?=[A-Za-z0-9])/g, '$1');
+  // The first URL printed, bare "www." ones included: VSF TR-11 gives its PDF as
+  // "www.vsf.tv/…" before a GitHub link, and the PDF is the document cited.
+  const m = joined.match(/(?:https?:\/\/|\bwww\.)[^\s<>"]+/i);
+  if (!m) return '';
+  const url = m[0].replace(/[.,;:)\]]+$/, '');
+  return /^www\./i.test(url) ? `https://${url}` : url;
+}
+
 function parseRefId(text, href = '', opts = {}) {
   const wantDiag = !!opts.wantDiag;
   // allow explicit cite→refId normalization via refMap.json
   const diag = mapRefByCiteDiag(text);
   if (diag.refId) return wantDiag ? { refId: diag.refId, diag } : diag.refId;
   text = normalizePublisherLeadIn(normalizeCiteTypography(text));
+  // No link: use a URL printed in the citation (old RFCs), rejoining one wrapped
+  // across lines ("…/TR/2000/WD-xsl- 20000327/xslspec.html", RFC3075).
+  if (!href) href = urlFromCiteText(text);
 
   // --- ALLPARTS hinting from cite text ---
   // Some sources explicitly cite a standard as "(all parts)". Preserve that intent
@@ -1140,8 +1155,10 @@ function parseRefId(text, href = '', opts = {}) {
   // - .../TR/2017/REC-foo-20170101
   // - .../TR/2017/CR-referrer-policy-20170126
   // - .../TR/2016/WD-CSP3-20160913
-  if (/w3\.org\/TR\/\d{4}\/([A-Za-z]+)-([^\/?#]+)-(\d{8})(?:\/)?(?:[?#].*)?$/i.test(href)) {
-    const [, stageRaw, shortnameRaw, yyyymmdd] = href.match(/w3\.org\/TR\/\d{4}\/([A-Za-z]+)-([^\/?#]+)-(\d{8})/i);
+  //   also the older /YYYY/MM/ layout (…/1999/07/WD-xlink-19990726) and a page after the
+  //   date (…/WD-xsl-20000327/xslspec.html)
+  if (/w3\.org\/(?:TR\/\d{4}|\d{4}\/\d{2})\/([A-Za-z]+)-([^\/?#]+)-(\d{8})(?:\.html?)?(?:\/[^?#\s]*)?(?:[?#].*)?$/i.test(href)) {
+    const [, stageRaw, shortnameRaw, yyyymmdd] = href.match(/w3\.org\/(?:TR\/\d{4}|\d{4}\/\d{2})\/([A-Za-z]+)-([^\/?#]+)-(\d{8})/i);
     const stage = String(stageRaw || '').toUpperCase();
     const shortname = String(shortnameRaw || '').toLowerCase();
     const refId = stage === 'REC'
@@ -1426,6 +1443,14 @@ function parseRefId(text, href = '', opts = {}) {
   if (/unicode\.org\/reports\/tr(\d+)\/tr\1-(\d+)(?:\.html?)?/i.test(href)) {
     const [, tr, rev] = href.match(/unicode\.org\/reports\/tr(\d+)\/tr\1-(\d+)(?:\.html?)?/i);
     { const refId = `UNICODE.STD.TR${tr}-${rev}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'unicode:tr-url' } } : refId; }
+  }
+  // Text form without a usable link: "TR15, Unicode Normalization Forms. … Revision 18"
+  {
+    const m = String(text || '').match(/\b(?:Unicode\s+(?:Technical\s+Report|Standard\s+Annex)\s*#?\s*|UTR\s*#?\s*|UAX\s*#?\s*|TR\s*)(\d{1,3})\b[^\n]{0,120}?\bRevision\s+(\d+)\b/i);
+    if (m && /unicode/i.test(String(text || '') + ' ' + href)) {
+      const refId = `UNICODE.STD.TR${m[1]}-${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'unicode:tr-revision' } } : refId;
+    }
   }
   if (/unicode\.org\/faq\/utf_bom(?:\.html?)?/i.test(href)) {
     { const refId = 'UNICODE.UTF.BOM'; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'unicode:utf-bom-url' } } : refId; }
@@ -1717,6 +1742,15 @@ function parseRefId(text, href = '', opts = {}) {
       const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
       const refId = `CIE.${num}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'cie-designator' } } : refId;
+    }
+  }
+
+  // "IEEE 1363: Standard Specifications for Public Key Cryptography. August 2000." (RFC3075)
+  {
+    const m = String(text || '').match(/\bIEEE\s+(\d{3,4}(?:\.\d+)?):\s[^\n]{0,160}?\b((?:19|20)\d{2})\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1]}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-colon-title' } } : refId;
     }
   }
 

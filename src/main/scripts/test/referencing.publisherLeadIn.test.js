@@ -99,9 +99,19 @@ const cases = [
   ['European Telecommunications Standards Institute, "GSM Technical Specification GSM 03.20 (ETS 300 534): "Digital cellular telecommunication system (Phase 2)", August 1997.', 'ETSI.ETS-300-534.1997'],
   ['3rd Generation Partnership Project, "Security Architecture (Release 4)", TS 33.102, December 2001.', '3GPP.TS-33.102.200112'],
   ['Standards for Efficient Cryptography Group, SEC 1: Elliptic Curve Cryptography, Version 1.0, September 2000. http://www.secg.org', 'SECG.SEC1.v1.2000-09'],
+  // batch 10: URL printed in the citation (wrapped across lines), W3C /YYYY/MM/ layout,
+  // Unicode TR revision, "IEEE 1363: <title>. <date>", TIFF 6.0 (refMap)
+  ['Canonical XML Version 1.0, W3C Working Draft. T. Bray, J. Clark, J. Tauber, and J. Cowan. January 19, 2000. http://www.w3.org/TR/2000/WD-xml-c14n- 20000119.html .', 'W3C.WD-xml-c14n.20000119'],
+  ['XML Linking Language. Working Draft. S. DeRose, D. Orchard, B. Trafford. July 1999. http://www.w3.org/1999/07/WD-xlink-19990726', 'W3C.WD-xlink.19990726'],
+  ['Extensible Stylesheet Language (XSL) Working Draft. S. Adler, J. Richman, S. Zilles. March 2000. http://www.w3.org/TR/2000/WD-xsl- 20000327/xslspec.html', 'W3C.WD-xsl.20000327'],
+  ['TR15, Unicode Normalization Forms. M. Davis, M. Durst. Revision 18: November 1999. http://www.unicode.org/unicode/reports/tr15/ tr15-18.html .', 'UNICODE.STD.TR15-18'],
+  ['IEEE 1363: Standard Specifications for Public Key Cryptography. August 2000.', 'IEEE.STD1363.2000'],
+  ['Adobe Developers Association, TIFF (TM) Revision 6.0 - Final, June 3, 1992.', 'TIFF.r6.19920603'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }
+// The first URL printed wins, bare "www." included: VSF TR-11's PDF, not the GitHub repo after it.
+assert.strictEqual(parseRefId('VSF TR-11 - Signal Transport and Timing Considerations . www.vsf.tv/download/technicalrecommendations/VSFTR-112024-02-21-draft.pdf https://github.com/vsf-tv/gccg-api .'), null); n++;
 
 // Left alone: W3C author-date needs its long form; "CEA-608-E (ANSI)" is a designator, not a name.
 for (const s of ['World Wide Web Consortium (W3C) (2004, October 28). XML Schema Part 1: Structures', 'CEA-608-E (ANSI) (2008)', 'SMPTE ST 2110-20:2017']) {
