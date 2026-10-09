@@ -145,9 +145,21 @@ function joinPhrases(list, rules) {
 // Held keywords outside the controlled vocabulary go through the shared rules:
 // dropped terms go, and a term whose fold or case-insensitive match is controlled
 // becomes that term ("Aaa" → "AAA", "Transport Layer Security" → "TLS").
-// Controlled terms are never touched.
+// Controlled terms are never touched. Repeats until nothing changes: a fold can make
+// a new joinable pair ("Internet Protocol" → IP, then "IP" "Security" → IPSEC), and a
+// list that conforms in one pass but not the next reorders on every re-extract.
 function conformHeld(held, rules) {
   if (!rules || !Array.isArray(held)) return held;
+  let cur = held;
+  for (let pass = 0; pass < 5; pass++) {
+    const next = conformOnce(cur, rules);
+    if (JSON.stringify(next) === JSON.stringify(cur)) break;
+    cur = next;
+  }
+  return JSON.stringify(cur) === JSON.stringify(held) ? held : cur;
+}
+
+function conformOnce(held, rules) {
   const { vocab = new Map(), folds = new Map(), drops = new Set(), splits = new Map() } = rules;
   const out = [];
   for (const raw of joinPhrases(held, rules).flatMap((kw) => splits.get(String(kw).toLowerCase()) || [kw])) {
@@ -159,8 +171,7 @@ function conformHeld(held, rules) {
     const folded = folds.get(lower) || kw;
     out.push(vocab.get(String(folded).toLowerCase()) || kw);
   }
-  const deduped = [...new Set(out)];
-  return JSON.stringify(deduped) === JSON.stringify(held) ? held : deduped;
+  return [...new Set(out)];
 }
 
 function mergeKeywords(held, incoming, rules = null) {

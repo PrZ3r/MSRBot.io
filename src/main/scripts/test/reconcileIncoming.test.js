@@ -86,6 +86,13 @@ assert.deepStrictEqual(mergeKeywords(['Security'], []), ['Security']); n++;
   assert.strictEqual(conformHeld(clean, rules), clean, 'controlled terms untouched'); n++;
   assert.deepStrictEqual(conformHeld(['Some Uncontrolled Term'], rules), ['Some Uncontrolled Term'], 'no rule, no change'); n++;
   assert.deepStrictEqual(conformHeld(['SNMP', 'and AAA'], rules), ['SNMP', 'AAA'], 'stored list tail'); n++;
+  // A fold that makes a new joinable pair settles in one call (RFC2104 re-ran reordered).
+  {
+    const r = { ...rules, folds: new Map([['internet protocol', 'IP'], ['ip security', 'IPSEC']]) };
+    const once = conformHeld(['IPSEC', 'Internet', 'Protocol', 'Security', 'Encryption'], r);
+    assert.deepStrictEqual(once, ['IPSEC', 'Encryption']); n++;
+    assert.strictEqual(conformHeld(once, r), once, 'idempotent'); n++;
+  }
   // Batch-2 re-run: held "Aaa"/"Accounting", incoming "AAA" → AAA, not a second copy.
   assert.deepStrictEqual(mergeKeywords(['SNMP', 'Aaa', 'Values'], ['SNMP', 'AAA'], rules), ['SNMP', 'AAA']); n++;
   // Index typo against a controlled held term still loses.
