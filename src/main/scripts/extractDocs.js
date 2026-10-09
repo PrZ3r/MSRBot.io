@@ -105,8 +105,10 @@ function isNonCitationLine(cite) {
   if (/^Latest version available at\b/i.test(c)) return true;
   // Copyright notice after the reference list (RFC5246).
   if (/^Copyright \(C\)/i.test(c)) return true;
-  // An author's contact block (RFC4086).
+  // An author's contact block (RFC4086), or a "reference" that is only contact details
+  // (RFC2246 [RSADSI] "Contact RSA Data Security, Inc., Tel: 415-595-8782").
   if (/^(?:Phone|Tel|Fax|E-?Mail)\s*:/i.test(c)) return true;
+  if (/^Contact\b[^"“]{0,120}\b(?:Tel|Phone|E-?Mail)\s*:/i.test(c)) return true;
   // Editors' change markers in RFC2616's reference list ("[jg639").
   if (/^\[?[a-z]{1,4}\d{2,4}\]?$/.test(c)) return true;
   return false;

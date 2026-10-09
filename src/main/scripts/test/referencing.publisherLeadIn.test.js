@@ -108,9 +108,21 @@ const cases = [
   ['IEEE 1363: Standard Specifications for Public Key Cryptography. August 2000.', 'IEEE.STD1363.2000'],
   ['Adobe Developers Association, TIFF (TM) Revision 6.0 - Final, June 3, 1992.', 'TIFF.r6.19920603'],
   ['World Wide Web Consortium, "Extensible Markup Language (XML) 1.0", W3C XML, February 1998.', 'W3C.xml.19980210'],
+  // batch 12: RSA Laboratories PKCS (registry form RSA.PKCSn.vX.YYYY), NIST SP 500 series,
+  // UCS Part 1 1993 and US-ASCII 1968 (refMap)
+  ['RSA Laboratories, "PKCS #7: RSA Cryptographic Message Syntax Standard," version 1.5, November 1993.', 'RSA.PKCS7.v1.5.1993'],
+  ['RSA Laboratories. PKCS #1 v2.0: RSA Encryption Standard. October 1998.', 'RSA.PKCS1.v2.0.1998'],
+  ['PKCS #1: RSA Encryption Standard, RSA Data Security, Inc., 3 June 1991, Version 1.4.', 'RSA.PKCS1.v1.4.1991'],
+  ['NIST. Special Publication 500-202: Stable Implementation Agreements for Open Systems Interconnection Protocols. Version 5, Edition 1, Part 12. December 1995.', 'NIST.SP.500-202'],
+  ['ISO/IEC, Information Technology - Universal Multiple-Octet Coded Character Set (UCS) - Part 1: Architecture and Basic Multilingual Plane, May 1993, with amendments.', 'ISO.10646-1.1993'],
+  ['"USA Standard Code for Information Interchange," X3.4. American National Standards Institute: New York (1968).', 'INCITS.X3.4.1968'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }
+// PKCS only with RSA as publisher: papers about PKCS #1 are not the standard.
+assert.strictEqual(parseRefId('J. Manger. A Chosen Ciphertext Attack on RSA Optimal Asymmetric Encryption Padding (OAEP) as Standardized in PKCS #1 v2.0. In J. Kilian, editor, Advances in Cryptology - Crypto 2001.'), null); n++;
+// Same UCS title as China's GB 13000.1, which must not map to ISO 10646-1.
+assert.strictEqual(parseRefId('"Information Technology: Universal Multiple-Octet Coded Character Set(UCS) Part 1: Architecture and Basic Multilingual Plane", GB13000.1'), null); n++;
 // The first URL printed wins, bare "www." included: VSF TR-11's PDF, not the GitHub repo after it.
 assert.strictEqual(parseRefId('VSF TR-11 - Signal Transport and Timing Considerations . www.vsf.tv/download/technicalrecommendations/VSFTR-112024-02-21-draft.pdf https://github.com/vsf-tv/gccg-api .'), null); n++;
 

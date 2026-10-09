@@ -1557,7 +1557,8 @@ function parseRefId(text, href = '', opts = {}) {
   // - "NIST SP 800-56A Rev. 3"
   {
     const src = String(text || '');
-    const m = src.match(/\bNIST\b[\s\S]{0,120}?\b(?:SP|Special\s+Publication)?\s*(800-[0-9A-Za-z-]+)\b/i);
+    // 500 series too: "NIST. Special Publication 500-202" (RFC2315)
+    const m = src.match(/\bNIST\b[\s\S]{0,120}?\b(?:SP|Special\s+Publication)?\s*((?:800|500)-[0-9A-Za-z-]+)\b/i);
     if (m?.[1]) {
       // NIST writes the revision lowercase ("800-56Ar3", from a DOI in the cite text);
       // uppercasing it would split one SP into two ids (NIST.SP.800-56AR3).
@@ -1809,6 +1810,22 @@ function parseRefId(text, href = '', opts = {}) {
       const y = m[2] || (src.slice(m.index + m[0].length).match(/\b(?:19|20)\d{2}\b/) || [])[0];
       const refId = `SCTE.${m[1]}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'scte-designator' } } : refId;
+    }
+  }
+
+  // RSA Laboratories PKCS: "RSA Laboratories, \"PKCS #7: …,\" version 1.5, November 1993",
+  //   "RSA Laboratories. PKCS #1 v2.0: RSA Encryption Standard. October 1998" → RSA.PKCS7.v1.5.1993
+  //   (registry form, as RSA.PKCS5.v1.5.1993). Only with RSA as publisher: a paper titled
+  //   "…as Standardized in PKCS #1 v2.0" (Manger) is not the standard.
+  {
+    const src = String(text || '');
+    const pub = /\bRSA\s+(?:Laboratories|Data\s+Security)\b/i.test(src);
+    const n = pub && src.match(/\bPKCS\s*#\s*(\d{1,2})\b/i);
+    const ver = n && (src.match(/\bversion\s+(\d+(?:\.\d+)?)\b/i) || src.match(/\bPKCS\s*#\s*\d{1,2}\s+v(\d+(?:\.\d+)?)\b/i));
+    const y = ver && src.match(/\b((?:19|20)\d{2})\b/);
+    if (n && ver && y) {
+      const refId = `RSA.PKCS${n[1]}.v${ver[1]}.${y[1]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rsa-pkcs' } } : refId;
     }
   }
 
