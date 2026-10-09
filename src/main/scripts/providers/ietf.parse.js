@@ -148,7 +148,10 @@ function createIetfParser(deps) {
   })();
 
   function extractRfcNumber(value) {
-    const m = String(value || '').match(/rfc[-\s\/]?(\d{3,5})/i);
+    // A draft's name can contain an RFC number ("draft-ietf-netmod-rfc8022bis-11",
+    // "draft-ietf-tls-rfc8446bis-03"): that is the draft, not the RFC.
+    if (/(?:^|\/)draft-/i.test(String(value || ''))) return null;
+    const m = String(value || '').match(/rfc[-\s\/]?(\d{3,5})(?![a-z0-9])/i);
     return m ? m[1] : null;
   }
 

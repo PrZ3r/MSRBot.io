@@ -121,6 +121,9 @@ const cases = [
   ['Federal Information Processing Standards Publication (FIPS PUB) 81, DES Modes of Operation, 1980 December 2.', 'NIST.FIPS.81'],
   ['Federal Information Processing Standards Publication (FIPS PUB) 46-1, Data Encryption Standard, Reaffirmed 1988 January 22.', 'NIST.FIPS.46-1'],
   ['Code for the representation of names of languages. 1988 version.', 'ISO.639.1988'],
+  // batch 16: Internet-Draft anchors (xml2rfc bibxml includes) and draft names in citations
+  ['I-D.ietf-core-coap-tcp-tls', 'IETF.draft-ietf-core-coap-tcp-tls'],
+  ['Rescorla, E., "The Datagram Transport Layer Security (DTLS) Protocol Version 1.3", Work in Progress, Internet-Draft, draft-ietf-tls-dtls13-39, 2 November 2020.', 'IETF.draft-ietf-tls-dtls13-39'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }

@@ -1571,6 +1571,23 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // Internet-Drafts: an xml2rfc reference anchor ("I-D.ietf-core-coap-tcp-tls", the only text
+  // an included bibxml reference leaves) or a draft name with its version printed in the
+  // citation ("…, Work in Progress, Internet-Draft, draft-ietf-tls-dtls13-39, …").
+  {
+    const src = String(text || '').trim();
+    const anchor = src.match(/^I-D\.([a-z0-9]+(?:-[a-z0-9]+)+)$/i);
+    if (anchor) {
+      const refId = `IETF.draft-${anchor[1].toLowerCase()}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ietf-draft-anchor' } } : refId;
+    }
+    const named = src.match(/\bdraft-([a-z0-9]+(?:-[a-z0-9]+)*?-\d{2})\b/i);
+    if (named) {
+      const refId = `IETF.draft-${named[1].toLowerCase()}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ietf-draft-name' } } : refId;
+    }
+  }
+
   // Generic DOI normalization fallback.
   // Keep this after RFC/NIST-specific logic so canonical RFC/NIST mappings win.
   {
