@@ -91,6 +91,12 @@ function citeWithoutLabel(raw) {
     // "11-05-0822-03-000u-tgu-requirements" (RFC5113/RFC5281)
     .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')   // "[ISO/IEC-18033-2]"
     .replace(/^[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')
+    // numbered again after a label: "DDN-NEWS:….TXT ] 2. Defense Communications …" (RFC1032,
+    // where an entry's bracketed FTP path is read as the next entry's label)
+    .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')
+    .replace(/\s+\S{2,40}\s+\[Page\s+\d+\]?\s*$/u, '')          // page footer "… Sirbu [Page 8" (RFC1049)
+    // RFC1032's retrieval note after each entry: "[ DDN-NEWS:DDN-MGT-BULLETIN-32.TXT ]", "[ Not online ]"
+    .replace(/\s*\[\s*(?:[A-Z0-9-]+:[^\]\s]+|Not\s+online)\s*\]?\s*$/iu, '')
     .replace(/\s*\[[a-z]{1,4}\d{2,4}\]?$/u, '')                // RFC2616 editor marker "… [jg647"
     .replace(/\s*\[\s*$/u, '')
     .replace(/\s*\]\s*$/u, '')
