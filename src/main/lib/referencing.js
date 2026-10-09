@@ -2566,6 +2566,13 @@ function extractRefs($, currentDocId, opts = {}) {
         }
         return best >= 0 ? best : raw.length;
       };
+      // A page break inside a reference entry (footer "[Page 117]", the NewPage divider and
+      // the next page's running header) is layout, not the end of the entry: RFC1700's
+      // [RFC1468] continues "Keio University, Panda Programming, June 1993." on the next page.
+      const pageBreakBlockRe = /\n*[ \t]*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[^<]*\[Page\s+\d+\][^<]*<\/span>\s*<\/pre>\s*<hr[^>]*>\s*<!--\s*NewPage\s*-->\s*<pre[^>]*>\s*(?:<span[^>]*\bid=["']page-\d+["'][^>]*>\s*<\/span>)?\s*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>[ \t]*\n*/g;
+      const stripPageBreaks = (s) => String(s || '').replace(pageBreakBlockRe, '\n');
+      const consumedEntryTexts = [];
+      const normalizeForContainment = (t) => String(t || '').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
       const nextLineRefMarkerPos = (pos) => {
         // Find next bracketed ref marker at line start (plain or anchor), e.g.:
         // [Dyer 87] ...  or  [<a id="ref-IEN-116">IEN-116</a>] ...
@@ -2617,9 +2624,8 @@ function extractRefs($, currentDocId, opts = {}) {
         const nextBracketMarker = nextLineRefMarkerPos(anchors[i].end);
         const sectionEnd = boundEndForPos(pos);
         const headingEnd = nextSectionHeadingPos(pos);
-        const pageBreakEnd = nextPageBreakPos(pos);
-        const chunkEnd = Math.min(nextStart, nextBracketMarker, sectionEnd, headingEnd, pageBreakEnd);
-        const chunk = raw.slice(anchors[i].index, chunkEnd);
+        const chunkEnd = Math.min(nextStart, nextBracketMarker, sectionEnd, headingEnd);
+        const chunk = stripPageBreaks(raw.slice(anchors[i].index, chunkEnd));
         // Treat each anchored marker as a single reference block. If multiple
         // prose references follow without markers, only parse the first paragraph
         // here; remaining blocks are handled by prose fallback below.
@@ -2632,6 +2638,7 @@ function extractRefs($, currentDocId, opts = {}) {
           .replace(/\s+/g, ' ')
           .trim();
         const cleanedChunkText = trimRfcRefTail(chunkText);
+        consumedEntryTexts.push(normalizeForContainment(cleanedChunkText || chunkText));
         const markerText = marker.replace(/[_-]+/g, ' ').trim();
         const markerIsOrdinal = isOrdinalMarker(marker);
         const markerIsRfc = isRfcMarker(marker);
@@ -2705,11 +2712,10 @@ function extractRefs($, currentDocId, opts = {}) {
           const nextMarkerStart = nextLineRefMarkerPos(absPos);
           const sectionEnd = boundEndForPos(absPos);
           const headingEnd = nextSectionHeadingPos(absPos);
-          const pageBreakEnd = nextPageBreakPos(absPos);
-          const chunkEnd = Math.min(nextMarkerStart, sectionEnd, headingEnd, pageBreakEnd);
+          const chunkEnd = Math.min(nextMarkerStart, sectionEnd, headingEnd);
           if (chunkEnd <= absPos) continue;
 
-          const chunk = raw.slice(absPos, chunkEnd);
+          const chunk = stripPageBreaks(raw.slice(absPos, chunkEnd));
           const hrefs = sanitizeRfcHtmlHrefs([...chunk.matchAll(/href=["']([^"']+)["']/ig)]
             .map(hm => String(hm[1] || '').trim())
           );
@@ -2718,6 +2724,7 @@ function extractRefs($, currentDocId, opts = {}) {
             .replace(/\s+/g, ' ')
             .trim();
           const cleanedChunkText = trimRfcRefTail(chunkText);
+          consumedEntryTexts.push(normalizeForContainment(cleanedChunkText || chunkText));
 
           const refId = resolveXmlRefId([cleanedChunkText || chunkText, markerText], hrefs);
           if (refId) {
@@ -2866,6 +2873,12 @@ function extractRefs($, currentDocId, opts = {}) {
             .replace(/\s+/g, ' ')
             .trim();
           const cleanedChunkText = trimRfcRefTail(chunkText);
+          // A paragraph that is part of an entry a marker pass already read (its tail after a
+          // page break, RFC1700 "Keio University, Panda Programming, June 1993.") is not a new citation.
+          {
+            const norm = normalizeForContainment(cleanedChunkText);
+            if (norm.length >= 20 && consumedEntryTexts.some((t) => t.length > norm.length && t.includes(norm))) continue;
+          }
           if (!cleanedChunkText || cleanedChunkText.length < 28) continue;
           if (/^references?(?:\s+and\s+(?:bibliography|citations))?$/i.test(cleanedChunkText)) continue;
 

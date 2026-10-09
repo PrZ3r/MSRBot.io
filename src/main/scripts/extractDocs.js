@@ -74,6 +74,13 @@ const keywordRules = loadKeywordRules();
 // labelled and unlabelled captures of one citation (two parser passes) are one orphan,
 // and doc pages show the citation, not "DH ] …".
 function citeWithoutLabel(raw) {
+  // A bracketed label with spaces ("[GB 2312]") is dropped only when the citation repeats
+  // its designator ("… GB 2312-80"); "[ECMA TR/53]" is the only place that one appears.
+  const spaced = String(raw || '').trim().match(/^\[([A-Za-z][A-Za-z0-9 .\/-]{1,38}[A-Za-z0-9])\]\s+(\S[\s\S]*)$/);
+  if (spaced && /\s/.test(spaced[1])) {
+    const key = (t) => t.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (key(spaced[2]).includes(key(spaced[1]))) raw = spaced[2];
+  }
   return String(raw || '')
     .replace(/\s+/g, ' ')
     .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
@@ -103,6 +110,11 @@ function isNonCitationLine(cite) {
   if (/^(?:\[\*+\]|&lt;\d+&gt;|<\d+>)\s/.test(c)) return true;
   // The wrapped tail of the previous citation (RFC7303), not a citation of its own.
   if (/^Latest version available at\b/i.test(c)) return true;
+  // An empty reference entry: a lone label ("[Ullmann IPv7]", "ANSI-X12" in RFC1700),
+  // or nothing but "Work in Progress.".
+  if (/^\[[^\]"“,]{1,40}\]?$/.test(c)) return true;
+  if (/^[A-Za-z][A-Za-z0-9.\/-]{1,24}\s*\]?$/.test(c) && !/:\/\//.test(c)) return true;
+  if (/^work\s+in\s+progress\.?$/i.test(c)) return true;
   // Copyright notice after the reference list (RFC5246).
   if (/^Copyright \(C\)/i.test(c)) return true;
   // An author's contact block (RFC4086), or a "reference" that is only contact details

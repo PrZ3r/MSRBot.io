@@ -140,4 +140,37 @@ Contact Information &amp; About PKCS
   assert.ok(!bad3.some((t) => /Public-Key Cryptography Standards are/.test(t)), `contact section leaked: ${JSON.stringify(bad3)}`); n++;
 }
 
+// A reference entry continues across a page break (RFC1700): the footer "[Page 117]",
+// the NewPage divider and the running header are layout, and the continuation is not
+// read again as a citation of its own.
+{
+  const html4 = `<html><body><pre>
+REFERENCES
+
+[<a id="ref-BBN1822">BBN1822</a>] BBN, "Specifications for the Interconnection of a Host and
+
+
+
+<span class="grey">Reynolds &amp; Postel                                             [Page 117]</span></pre>
+<hr class='noprint'/><!--NewPage--><pre class='newpage'><span id="page-118" ></span>
+<span class="grey"><a href="./rfc1700">RFC 1700</a>                    Assigned Numbers                October 1994</span>
+
+
+           an IMP", Report 1822, Bolt Beranek and Newman, Cambridge,
+           Massachusetts, revised, December 1981.
+
+[<a id="ref-COHEN">COHEN</a>] Cohen, D., "On Holy Wars and a Plea for Peace", IEEE Computer
+           Magazine, October 1981.
+
+
+PEOPLE
+</pre></body></html>`;
+  const $4 = cheerio.load(html4);
+  const r4 = extractRefs($4, 'RFC9996', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html4 });
+  const bad4 = (r4.badRefs || []).map((b) => String(b.refText || b.cite || ''));
+  assert.ok(bad4.some((t) => /Host and an IMP", Report 1822/.test(t)), `entry not joined across the page break: ${JSON.stringify(bad4)}`); n++;
+  assert.ok(!bad4.some((t) => /^an IMP"/.test(t)), `page-break tail read as its own citation: ${JSON.stringify(bad4)}`); n++;
+  assert.ok(!bad4.some((t) => /Page 117|Assigned Numbers\s+October/.test(t)), `page footer/header leaked: ${JSON.stringify(bad4)}`); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);
