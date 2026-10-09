@@ -1521,9 +1521,10 @@ function parseRefId(text, href = '', opts = {}) {
   }
   // FIPS references that don't include contiguous "NIST FIPS" tokens, e.g.:
   // "National Institute ... (NIST). FIPS PUB 46-2: ..."
-  // spelled out with no "FIPS" token: "Federal Information Processing Standards Publication 197"
+  // spelled out with no "FIPS" token: "Federal Information Processing Standards Publication 197",
+  //   or with it in parentheses: "… Standards Publication (FIPS PUB) 81" (RFC1423)
   {
-    const m = String(text || '').match(/\bFederal\s+Information\s+Processing\s+Standards?\s+(?:Publication|Pub\.?|PUB)\s+(\d+)(-\d+)?\b/i);
+    const m = String(text || '').match(/\bFederal\s+Information\s+Processing\s+Standards?\s+(?:Publication|Pub\.?|PUB)\s+(?:\(FIPS\s+PUB\)\s+)?(\d+)(-\d+)?\b/i);
     if (m) {
       const refId = `NIST.FIPS.${m[1]}${m[2] || ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fips-spelled' } } : refId;
@@ -2004,6 +2005,17 @@ function parseRefId(text, href = '', opts = {}) {
       const year = m[2] || m[3];
       const refId = `ISO.${m[1]}${year ? `.${year}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-standard-xml2rfc' } } : refId;
+    }
+  }
+  // "International Organization for Standardization, International Standard 8824, December
+  // 1987" (RFC1098): the number follows "International Standard", the year comes after it.
+  {
+    const src = String(text || '');
+    const m = /\bInternational\s+Organi[sz]ation\s+for\s+Standardi[sz]ation\b/i.test(src)
+      && src.match(/\bInternational\s+Standard\s+(\d{3,5}(?:-\d+)*)\b(?:[,:\s]+(?:[A-Z][a-z]+\s+)?((?:19|20)\d{2})\b)?/);
+    if (m) {
+      const refId = `ISO.${m[1]}${m[2] ? `.${m[2]}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-international-standard' } } : refId;
     }
   }
   {

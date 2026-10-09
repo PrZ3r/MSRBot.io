@@ -86,6 +86,7 @@ function citeWithoutLabel(raw) {
     .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
     .replace(/^\d{1,4}\s*\]\s*/u, '')
     .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')                 // old numbered list: "3. Pickens, J., …"
+    .replace(/^\(\d{1,3}\)\s+(?=\S)/u, '')                   // parenthesized: "(4) IBM National …" (RFC1345)
     // labels may start with a digit and run long: "802.1X", "3GPP-SA3-030736",
     // "11-05-0822-03-000u-tgu-requirements" (RFC5113/RFC5281)
     .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')   // "[ISO/IEC-18033-2]"

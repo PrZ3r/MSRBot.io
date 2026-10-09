@@ -116,6 +116,11 @@ const cases = [
   ['NIST. Special Publication 500-202: Stable Implementation Agreements for Open Systems Interconnection Protocols. Version 5, Edition 1, Part 12. December 1995.', 'NIST.SP.500-202'],
   ['ISO/IEC, Information Technology - Universal Multiple-Octet Coded Character Set (UCS) - Part 1: Architecture and Basic Multilingual Plane, May 1993, with amendments.', 'ISO.10646-1.1993'],
   ['"USA Standard Code for Information Interchange," X3.4. American National Standards Institute: New York (1968).', 'INCITS.X3.4.1968'],
+  // batch 14: ISO "International Standard NNNN", FIPS PUB in parentheses, RFC1502's titles (refMap)
+  ['Information processing systems - Open Systems Interconnection, "Specification of Abstract Syntax Notation One (ASN.1)", International Organization for Standardization, International Standard 8824, December 1987.', 'ISO.8824.1987'],
+  ['Federal Information Processing Standards Publication (FIPS PUB) 81, DES Modes of Operation, 1980 December 2.', 'NIST.FIPS.81'],
+  ['Federal Information Processing Standards Publication (FIPS PUB) 46-1, Data Encryption Standard, Reaffirmed 1988 January 22.', 'NIST.FIPS.46-1'],
+  ['Code for the representation of names of languages. 1988 version.', 'ISO.639.1988'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }
