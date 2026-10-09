@@ -2429,14 +2429,14 @@ function extractRefs($, currentDocId, opts = {}) {
         return pos;
       };
       // Prefer true RFC heading markup (span.h2/h3 + section selflink) over text fallbacks.
-      const normHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Normative\s+References(?:\s|&nbsp;)*<\/span>/ig;
-      const infoHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Informative\s+References(?:\s|&nbsp;)*<\/span>/ig;
-      const refsHeadingRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>(?:\s|&nbsp;|<a[^>]*>[^<]*<\/a>)*\.?(?:\s*(?:--|[-–—:])\s*)?(?:\s|&nbsp;)*References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
+      const normHeadingRe = /(?:<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>|<h[23][^>]*>)\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Normative\s+References(?:\s|&nbsp;)*<\/(?:span|h[23])>/ig;
+      const infoHeadingRe = /(?:<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>|<h[23][^>]*>)\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*Informative\s+References(?:\s|&nbsp;)*<\/(?:span|h[23])>/ig;
+      const refsHeadingRe = /(?:<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>|<h[23][^>]*>)\s*<a[^>]*\bid=["']section-[^"']+["'][^>]*>[^<]*<\/a>(?:\s|&nbsp;|<a[^>]*>[^<]*<\/a>)*\.?(?:\s*(?:--|[-–—:])\s*)?(?:\s|&nbsp;)*References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/(?:span|h[23])>/ig;
       // Appendix-style reference headings are common in older RFC HTML renderings.
-      const refsHeadingAppendixRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Appendix(?:es)?(?:\s+[A-Z0-9]+)?(?:\s*(?:--|[-–—:])\s*)?)?References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/span>/ig;
+      const refsHeadingAppendixRe = /(?:<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>|<h[23][^>]*>)\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Appendix(?:es)?(?:\s+[A-Z0-9]+)?(?:\s*(?:--|[-–—:])\s*)?)?References(?:\s+and\s+(?:Bibliography|Citations))?(?:\s|&nbsp;)*<\/(?:span|h[23])>/ig;
       // Some RFCs place citations under appendix headings such as
       // "Appendix E: Recommended reading".
-      const recommendedReadingAppendixRe = /<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Appendix(?:es)?(?:\s+[A-Z0-9]+)?(?:\s*(?:--|[-–—:])\s*)?)?Recommended\s+reading(?:\s|&nbsp;)*<\/span>/ig;
+      const recommendedReadingAppendixRe = /(?:<span[^>]*class=["'][^"']*\bh[23]\b[^"']*["'][^>]*>|<h[23][^>]*>)\s*<a[^>]*\bid=["']appendix-[^"']+["'][^>]*>[^<]*<\/a>\.?(?:\s|&nbsp;)*(?:Appendix(?:es)?(?:\s+[A-Z0-9]+)?(?:\s*(?:--|[-–—:])\s*)?)?Recommended\s+reading(?:\s|&nbsp;)*<\/(?:span|h[23])>/ig;
       // Plain-text heading fallbacks (line-start only). These are strict to avoid
       // matching prose mentions of "references" elsewhere in the document body.
       const normHeadingLineRe = /(?:^|\n)\s*(?:\d+(?:\.\d+)?)?\.?\s*Normative\s+References\s*(?=\n|$)/ig;
@@ -2491,7 +2491,8 @@ function extractRefs($, currentDocId, opts = {}) {
       const allSectionHeadingPositions = [];
       const sectionHeadings = [];
       {
-        const sectionHeadingRe = /<span[^>]*>\s*<a[^>]*\bid=["'](section|appendix)-([^"'.]+)[^"']*["'][^>]*>/ig;
+        // rfc-editor.org htmlized RFCs use <span class="h2">; Datatracker's draft pages use <h2>.
+        const sectionHeadingRe = /<(?:span|h[1-6])[^>]*>\s*<a[^>]*\bid=["'](section|appendix)-([^"'.]+)[^"']*["'][^>]*>/ig;
         let hm;
         while ((hm = sectionHeadingRe.exec(raw)) !== null) {
           allSectionHeadingPositions.push(hm.index);
@@ -2529,9 +2530,18 @@ function extractRefs($, currentDocId, opts = {}) {
         }
         return end;
       };
+      // Datatracker draft pages end the document text at "</pre></div>"; what follows is site
+      // chrome (logo, buttons, the version list) and must not be read as references.
+      // rfc-editor.org RFC pages have no such marker.
+      const docTextEnd = (() => {
+        const re = /<\/pre>\s*<\/div>/ig;
+        re.lastIndex = Math.max(0, firstRefSectionPos);
+        const m = re.exec(raw);
+        return m ? m.index : raw.length;
+      })();
       const boundEndAt = (i) => {
         const start = bounds[i].pos;
-        const nextBound = i + 1 < bounds.length ? bounds[i + 1].pos : raw.length;
+        const nextBound = i + 1 < bounds.length ? bounds[i + 1].pos : docTextEnd;
         const own = sectionHeadings.find((h) => h.pos === start);
         // An unnumbered "References" heading has no section anchor (RFC2629, RFC2898): still
         // stop at the next unindented heading ("Author's Address", "Contact Information").
@@ -2581,7 +2591,10 @@ function extractRefs($, currentDocId, opts = {}) {
       // A page break inside a reference entry (footer "[Page 117]", the NewPage divider and
       // the next page's running header) is layout, not the end of the entry: RFC1700's
       // [RFC1468] continues "Keio University, Panda Programming, June 1993." on the next page.
-      const pageBreakBlockRe = /\n*[ \t]*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[^<]*\[Page\s+\d+\][^<]*<\/span>\s*<\/pre>\s*<hr[^>]*>\s*<!--\s*NewPage\s*-->\s*<pre[^>]*>\s*(?:<span[^>]*\bid=["']page-\d+["'][^>]*>\s*<\/span>)?\s*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>[ \t]*\n*/g;
+      // Two layouts: rfc-editor.org ("…</span></pre><hr class='noprint'/><!--NewPage--><pre
+      // class='newpage'>…") and Datatracker drafts ("…</span></pre><pre class="newpage"><hr
+      // class="noprint" id="page-8">…").
+      const pageBreakBlockRe = /\n*[ \t]*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[^<]*\[Page\s+\d+\][^<]*<\/span>\s*<\/pre>\s*(?:<hr[^>]*>\s*)?(?:<!--\s*NewPage\s*-->\s*)?<pre[^>]*>\s*(?:<hr[^>]*>\s*)?(?:<span[^>]*\bid=["']page-\d+["'][^>]*>\s*<\/span>)?\s*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>[ \t]*\n*/g;
       const stripPageBreaks = (s) => String(s || '').replace(pageBreakBlockRe, '\n');
       const consumedEntryTexts = [];
       const normalizeForContainment = (t) => String(t || '').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim().toLowerCase();

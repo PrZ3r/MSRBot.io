@@ -1472,6 +1472,22 @@ function createIetfParser(deps) {
         bibliographic: (parsed.references && parsed.references.bibliographic) || []
       };
     }
+    // No archive XML (a text-only submission, or an old draft): read the references from
+    // the Datatracker page, which uses the same text layout as RFC pages.
+    let xmlRefSource = 'archive XML';
+    if (!xmlBundle && $seed) {
+      const parsed = extractRefs($seed, docId, {
+        mode: 'ietf-rfc-html',
+        htmlRaw: $seed.html(),
+        recordSightings: true
+      });
+      pendingXmlBadRefs = Array.isArray(parsed.badRefs) ? parsed.badRefs : [];
+      xmlRefs = {
+        normative: (parsed.references && parsed.references.normative) || [],
+        bibliographic: (parsed.references && parsed.references.bibliographic) || []
+      };
+      xmlRefSource = 'Datatracker HTML';
+    }
     if (pendingXmlBadRefs.length && typeof onBadRefs === 'function') {
       onBadRefs(pendingXmlBadRefs.map((r) => ({ ...r, docId })));
     }
@@ -1480,8 +1496,8 @@ function createIetfParser(deps) {
       (xmlRefs.normative || []).filter(id => id !== docId),
       (xmlRefs.bibliographic || []).filter(id => id !== docId)
     );
-    if (Array.isArray(refs.normative) && refs.normative.length) metaNotes['references.normative'] = 'Parsed from archive XML references (Normative References)';
-    if (Array.isArray(refs.bibliographic) && refs.bibliographic.length) metaNotes['references.bibliographic'] = 'Parsed from archive XML references (Informative/Bibliographic References)';
+    if (Array.isArray(refs.normative) && refs.normative.length) metaNotes['references.normative'] = `Parsed from ${xmlRefSource} references (Normative References)`;
+    if (Array.isArray(refs.bibliographic) && refs.bibliographic.length) metaNotes['references.bibliographic'] = `Parsed from ${xmlRefSource} references (Informative/Bibliographic References)`;
 
     const classified = stdLevel
       ? classifyIetfFromStdLevel(stdLevel, { isDraft })
