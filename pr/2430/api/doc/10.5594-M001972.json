@@ -1,0 +1,261 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-07T20:50:36.410Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "10.5594-M001972",
+  "document": {
+    "abstract": "GPU-based video processing applications that composite rendered graphics with live video require synchronization of the GPU processing to the video essence stream timebase to prevent visual artifacts caused by temporal misalignment. One such application is in-camera visual effects (ICVFX) in virtual production, the technique of capturing GPU-rendered visual effects composited with live action in-camera within an LED volume. As the media industry continues to move from an SDI to a ST 2110 infrastructure, virtual production environments for ICVFX utilize ST 2059-2 PTP locked Network Interface Controllers (NICs) or Data Processing Units (DPUs) for accurate packet pacing of the media essence streams according to the ST 2110-21 specifications. — GPU processing of video frames is typically performed at the display refresh frequency with updates aligned to frame boundaries. This paper describes a solution for synchronizing GPU display updates with a ST 2059-2 PTP locked NIC, where the PTP Hardware Clock (PHC) is disciplined by the PTP stack running on the NIC/DPU. The NIC generates a Transistor-Transistor-Logic (TTL) signal at the required frequency which is then used to align the GPU's display engine frame boundaries with those of the PTP synchronized ST 2110-20 video essence streams to within nanosecond accuracy. Application Programming Interfaces (APIs) allow GPU-based video processing applications to align the generation and processing of frames across multiple GPUs, as well as perfectly synchronizing updates across all displays. — The ability to leverage the ST 2059-2 PTP profile used to synchronize the ST 2110 essence streams to additionally synchronize displays attached to GPUs, significantly simplifies the overall infrastructure deployment and management relative to traditional means of synchronizing displays using a Sync Pulse Generator (SPG) over coax infrastructure.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "authors": [
+      {
+        "affiliation": "NVIDIA",
+        "name": "Thomas Kernen"
+      },
+      {
+        "affiliation": "NVIDIA",
+        "name": "Thomas True"
+      },
+      {
+        "affiliation": "NVIDIA",
+        "name": "Ian Williams"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "contentType": "orig-research",
+    "contentType$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "copyright": {
+      "holder": "Society of Motion Picture and Television Engineers, Inc.",
+      "holder$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      },
+      "year": "2022",
+      "year$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "copyright$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docId": "10.5594-M001972",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docLabel": "SMPTE Meetings and Conferences ( October 2022)",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docTitle": "PTP Driven Frame Sync for Multi-GPU Workflows",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docType": "Conference Paper",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "doi": "10.5594/M001972",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "href": "https://doi.org/10.5594/M001972",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "isbn": {
+      "print": "978-1-61482-963-8",
+      "print$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "isbn$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "keywords": [
+      "PTP",
+      "GPU",
+      "Data Processing Unit (DPU)",
+      "NIC",
+      "ST 2110",
+      "Time & Sync",
+      "Timing",
+      "Virtual Production"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "number": "10",
+    "number$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "pages": "1–16",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "publicationDate": "2022-10-24",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "publisher": "SMPTE",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "publisherLocation": {
+      "city": "White Plains, NY",
+      "city$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      },
+      "country": "USA",
+      "country$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "publisherLocation$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "references": {
+      "bibliographic": [
+        "SMPTE.OV2110-0.2018",
+        "orphan/10.5594-M001972/h:0630fea1",
+        "SMPTE.ST2059-2.2020",
+        "orphan/10.5594-M001972/h:91009a00",
+        "orphan/10.5594-M001972/h:80bcbcd7",
+        "orphan/10.5594-M001972/h:9b4644f3",
+        "10.5594-M001823",
+        "SMPTE.ST2110-10.2017",
+        "orphan/10.5594-M001972/h:9ab3dc62",
+        "orphan/10.5594-M001972/h:9c041bf8",
+        "10.5594-M001948",
+        "SMPTE.ST2110-21.2017",
+        "orphan/10.5594-M001972/h:84f8700d",
+        "orphan/10.5594-M001972/h:f031c186",
+        "SMPTE.ST2110-20.2017",
+        "SMPTE.ST2110-22.2022",
+        "orphan/10.5594-M001972/h:b7d04abe",
+        "orphan/10.5594-M001972/h:eb0cce76"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "PDF reference count (18) differs from Crossref (0); check the parse against the PDF",
+        "note": "References parsed from the published PDF (Conference Repository/Conference Papers/2022/10012556/10012557/10012596.pdf). SMPTE's library delivery has no reference file or full text for this paper (src/main/reports/smpte-upstream/referenceFilesTruthTable.md). Cross-check: Crossref lists 0 reference(s) for this DOI; 18 parsed from the PDF.",
+        "originalValue": [],
+        "overridden": true,
+        "reviewRequired": true,
+        "source": "parsed",
+        "updated": "2026-10-07T20:50:36.410Z",
+        "version": "extractDocs.js@commit:d25f34130540"
+      }
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "volume": "2022",
+    "volume$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012596.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  }
+}

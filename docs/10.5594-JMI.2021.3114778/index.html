@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="Something We Can All Agree On: Recommendations and Best Practices for Dailies QC">
+  <link rel="canonical" href="https://msrbot.io/docs/10.5594-JMI.2021.3114778/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="Something We Can All Agree On: Recommendations and Best Practices for Dailies QC — MSRBot.io">
+  <meta property="og:description" content="">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/docs/10.5594-JMI.2021.3114778/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+
+  <link rel="alternate" type="application/json" href="../../api/doc/10.5594-JMI.2021.3114778.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
+  <title>MSRBot.io | Something We Can All Agree On: Recommendations and Best Practices for Dailies QC</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
+  <script src="../../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Something We Can All Agree On: Recommendations and Best Practices for Dailies QC - MSRBot.io",
+    "url": "https://msrbot.io/docs/10.5594-JMI.2021.3114778/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../../"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents
+        </li>
+      </ul>
+
+      <strong>Build-data JSON</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
+            docs/_data/documents.json
+          </a>
+          &mdash; assembled monolith used by site templates
+        </li>
+        <li>
+          <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
+            groups.json
+          </a>
+          &mdash; normalized groups registry
+        </li>
+        <li>
+          <a href="../../projects/_data/projects.json" target="_blank" rel="noopener">
+            projects.json
+          </a>
+          &mdash; project registry with lookups
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
+          <a href="https://www.smpte.org/" target="_blank" rel="noopener"><img src="../../resources/logos/smpte-logo.png" alt="SMPTE logo" height="25" class="align-text-bottom me-1 publisher-logo" loading="lazy" data-logo-light="../../resources/logos/smpte-logo.png" data-logo-dark="../../resources/logos/smpte-logo_white.svg"></a>
+        <code class="docid-doclabel me-1 fs-6 text-wrap">SMPTE Motion Imaging Journal ( Volume: 130, Issue: 10, 2021)</code>
+      </div>
+      <div class="status-badges ms-auto d-inline-flex flex-wrap gap-1">
+
+        
+        
+        
+        
+        
+            <span class="label badge text-bg-success">[ACTIVE]</span>
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <h1 class="h5 mb-1">
+        <a class="text-decoration-none" href="https://doi.org/10.5594/JMI.2021.3114778" target="_blank" rel="noopener">Something We Can All Agree On: Recommendations and Best Practices for Dailies QC</a>
+    </h1>
+    
+  </header>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h2 class="h5 card-title">Metadata</h2>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
+            <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
+            <dt class="col-sm-4">Content Type</dt><dd class="col-sm-8"><a class="" href="../?f.contentType=orig-research">Original Research</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>SMPTE Mot. Imag. J</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">130, No. 10, pp. 42–49</dd>
+            
+            
+            
+            <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">A group of professionals working in dailies around the world have identified a need for consistency across the industry, forming a working group to create open databases and references. Dailies are a part of the production process that may be done in one or more regions, often utilizing freelance talent and requiring a significant amount of time and resources for specialized training. Therefore, streamlining this part of a workflow has major cost-saving potential. Focusing initially on Dailies Quality Control (QC), the working group has identified and built a database of taxonomy and definitions as well as determined best practices and recommendations that are consistent and applicable to all projects regardless of studio, type, location, or scale.</dd>
+            
+            
+            <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2021-11-01</dd>
+            
+            
+            
+            
+            
+            
+            
+            <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2021.3114778" target="_blank" rel="noopener"><code>10.5594/JMI.2021.3114778</code></a></dd>
+            
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>1545-0279</code> <span class="text-muted">|</span> Electronic: <code>2160-2492</code></dd>
+            <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2021.3114778" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/JMI.2021.3114778</a></dd>
+            
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-2"><div class="d-flex justify-content-between align-items-center gap-2"><span>Isaac Spedding</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Isaac Spedding is a New Zealand dailies colorist who works with The Rebel Fleet and is passionate about production workflow, technology, and the development of the industry with 14 years of production experience around the globe. He also consults for production companies to train skilled crew and develop future focused workflows. He supports gender equality, and tries to incorporate Tikanga in the aspects of his work. Notable productions include The Lord of The Rings Series for Amazon Prime, Netflix’s KATE, Disney’s Mulan, Wellington Paranormal, The World Economic Forum, and TEDx Scott Base.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>David Hall</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">David Hall is part of the production workflow team at Netflix, focusing on guidance and information about the real-world implementation of technology on productions, while also acting as an advocate for innovation. Prior to joining Netflix, he spent a number of years at a post-production facility providing workflow oversight for dailies teams both in-facility and remote. In that capacity, he had the privilege to dig into creative workflow for projects such as Tenet, Dune, The Mandalorian, Westworld, and El Camino: A Breaking Bad Movie. He holds degrees in sociology and communications from Tulane University, New Orleans, LA.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Katie Hinsen</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Katie Hinsen is an award-winning production technology executive with an extensive background as a finishing artist, engineer, editor, visual effects artist, and colorist. She is a passionate mentor and advocate for emerging talent, and the co-founder of Blue Collar Post Collective. As director of technology for Marvel Studios, she is deeply engaged in the technical innovations that are transforming the entertainment industry and dedicated to supporting the teams of talent who dare to challenge what is possible.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>James Elliston</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">James Elliston is a freelance dailies colorist and digital imaging technician in Auckland, New Zealand. His credits include The Wilds, Sweet Tooth, and No Exit</div></details></div></dd>
+            
+
+            <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Dailies">Dailies</a>, <a class="" href="../?f.keywords=Quality Control">Quality Control</a>, <a class="" href="../?f.keywords=Taxonomy">Taxonomy</a>, <a class="" href="../?f.keywords=Workflow">Workflow</a></dd>
+            
+            
+            
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2021 SMPTE</span></dd>
+          </dl>
+        </div>
+      </div>
+      
+
+      
+
+
+
+
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col col-lg-6">
+              <h2 class="h6">Bibliographic Reference(s)</h2>
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item">
+                    <cite><a href="https://netflixtechblog.com/production-media-management-transforming-media-workflows-by-leveraging-the-cloud-1174699e4a08" rel="noopener">Margoline et al., “Production Media Management: Transforming Media Workflows by Leveraging the Cloud,” Netflix Tech Blog, 2021. [Online]. Available: https://netflixtechblog.com/production-media-management-transforming-media-workflows-by-leveraging-the-cloud-1174699e4a08</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.postmagazine.com/Publications/Post-Magazine/2012/December-1-2012/On-Set-Dailies.aspx" rel="noopener">Mark Loftus, “On-Set Dailies,” Post Magazine, 2021. Accessed: Aug. 28, 2021. [Online]. Available: https://www.postmagazine.com/Publications/Post-Magazine/2012/December-1-2012/On-Set-Dailies.aspx</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://movielabs.com/prodtech/ML_2030_Vision.pdf" rel="noopener">Movie Labs, “Movie Labs: A Ten Year Vision for the Future of Media Production, Post, and Creative Technologies,” Motion Picture Laboratories, 2019. Accessed: Sep. 5, 2021. [Online]. Available: https://movielabs.com/prodtech/ML_2030_Vision.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.vfxvoice.com/lost-in-space-2018-undergoes-a-radical-transformation/" rel="noopener">Chris McGowan, “Lost In Space 2018 Undergoes a Radical Transformation,” VFX Voice Magazine, 2018. Accessed: Sep. 5, 2021. [Online]. Available: https://www.vfxvoice.com/lost-in-space-2018-undergoes-a-radical-transformation/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.ibc.org/trends/behind-the-scenes-gemini-man/4533.articleexample" rel="noopener">Pennington, “Behind the Scenes: Gemini Man,” IBC 365, 2019. [Online]. Available: https://www.ibc.org/trends/behind-the-scenes-gemini-man/4533.articleexample, instead of “focus bad,” operators could use “focus varies.” This removes the subjective nature of the reporting and helps focus on the issue at hand rather than pointing fingers at people who may have caused it. Another example could be “operator cuts mid shot.” Instead, you could say “camera cuts mid shot,” effectively making the reporting about the issue, not the operator. The issue may have been caused by a battery running out or many other variables of on-set production. QC needs to balance subjectivity and objectivity, and this methodology takes some of that stress off the operators and helps maintain clear communication. Conclusion The efforts of the Dailies QC Working Group are a first step toward implementing a consistent, sustainable dailies QC workflow that is collaboratively defined by a broad group of industry professionals. Universal adoption of this terminology, taxonomy, best practice, and general framework means that more software can be developed to automate basic tracking and QC work. Additionally, the people who need to know about things going wrong get the right information more efficiently, and productions can easily outsource work to freelancers and global networks who all understand the core structure and responsibilities of the tasks. The Dailies QC Working Group is the beginning of a conversation about how we can build a solid foundation for the future of dailies as an aspect of filmmaking. Globally, dailies are becoming a crucial part of the future of the screen industry, with timeand cost-saving opportunities to be realized across the sector. As both big studios and independent companies develop their own version of a more automated workf low, we aim to open up the lines of communication, break down the silos of innovation, and allow more people to harness the collaborative efforts of the dailies teams and their work to benefit future productions. With these automation and standardization efforts happening within different studios, now is a great time to start communicating between these groups to develop more consistent workf lows. There is still a great amount of collaborative work to be done to realize a standard within dailies processes. We believe that this is the first step outside of any particular company that aims to future-proof key components of the dailies workf low, save money and time, and allow us all to work smarter rather than harder. The taxonomy described in this paper is a living document and a reference resource that productions, technologists, and studios can use when developing their own workflows and tools. To see the taxonomy document and the other work of the Dailies Round Table, visit https://sites.google.com/view/drtqc.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www2.deloitte.com/content/dam/Deloitte/us/Documents/alliances/us-whitepaper-intelli-gent-automation-in-the-cloud.pdf" rel="noopener">Douglas Williams, Evan Kruger, and Michael Manta, “Automation Anywhere,” Deloitte, 2021. Accessed: Sep. 5, 2021. [Online]. Available: https://www2.deloitte.com/content/dam/Deloitte/us/Documents/alliances/us-whitepaper-intelli-gent-automation-in-the-cloud.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://theasc.com/magazine/april04/sub/index.html" rel="noopener">Fisher, “The Case for Film Dailies,” American Cinematographer Magazine, 2004. [Online]. Available: https://theasc.com/magazine/april04/sub/index.html</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.atlasofwonders.com/2018/07/mission-impossible-fallout-where-filmed.html" rel="noopener">Moon, “Filming Locations Guide: Where Was Mission: Impossible Fallout Filmed?,” Filming Locations, 2019. [Online]. Available: https://www.atlasofwonders.com/2018/07/mission-impossible-fallout-where-filmed.html</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.sohonet.com/our-resources/blogs/remote-review-and-approvals/" rel="noopener">Broadley, “Solving the Logistical Challenges of Remote Review and Approval,” Sohonet Blog, 2020. [Online]. Available: https://www.sohonet.com/our-resources/blogs/remote-review-and-approvals/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://cast.ai/blog/cloud-automation-in-2021-the-new-normal-in-the-tech-industry/" rel="noopener">Gil, “Cloud Automation in 2021: The New Normal in the Tech Industry,” Cast Blog, 2021. [Online]. Available: https://cast.ai/blog/cloud-automation-in-2021-the-new-normal-in-the-tech-industry/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.ibm.com/blogs/cloud-computing/2018/08/14/future-automating-work/" rel="noopener">Craine, “The Future of Automating All Types of Work,” IBM, 2018. [Online]. Available: https://www.ibm.com/blogs/cloud-computing/2018/08/14/future-automating-work/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <!-- Source data / JSON view -->
+      <div class="card mb-3 mt-3">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Source Data (JSON)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary py-0 px-2"
+            id="source-data-toggle"
+            data-docid="10.5594-JMI.2021.3114778"
+          >
+            View source JSON
+          </button>
+        </div>
+        <div class="card-body small">
+          <p class="mb-0 small">
+            Full registry record with provenance metadata.
+            Open directly:
+            <a href="../../api/doc/10.5594-JMI.2021.3114778.json" target="_blank" rel="noopener">/api/doc/10.5594-JMI.2021.3114778.json</a>
+          </p>
+          <pre
+            id="source-data-json"
+            class="mt-2 border rounded p-2 bg-body-secondary small"
+            style="max-height: 16rem; overflow:auto; display:none;"
+          ></pre>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const btn = document.getElementById('source-data-toggle');
+        const box = document.getElementById('source-data-json');
+        if (!btn || !box) return;
+
+        let loaded = false;
+        let visible = false;
+
+        async function toggleSource() {
+          visible = !visible;
+          if (!visible) {
+            box.style.display = 'none';
+            btn.textContent = 'View source JSON';
+            return;
+          }
+
+          box.style.display = 'block';
+          btn.textContent = 'Hide source JSON';
+
+          if (loaded) return;
+
+          const docId = btn.getAttribute('data-docid') || '';
+          const encoded = encodeURIComponent(docId);
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
+
+          box.textContent = 'Loading…';
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const data = await res.json();
+            box.textContent = JSON.stringify(data, null, 2);
+            loaded = true;
+          } catch (e) {
+            const msg = (e && e.message) ? e.message : String(e || 'Unknown error');
+            box.textContent = 'Failed to load source JSON: ' + msg;
+          }
+        }
+
+        btn.addEventListener('click', function(ev){
+          ev.preventDefault();
+          toggleSource();
+        }, { passive: false });
+      })();
+      </script>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">Reference Tree</h2>
+          <p class="mb-2 text-muted">
+            Explore all references and references to this document, as a navigable tree.
+          </p>
+          <a class="btn btn-outline-secondary btn-sm" href="../../reftree/10.5594-JMI.2021.3114778/">Open Reference Tree</a>
+        </div>
+      </div>
+
+      <!-- Use this document as a reference -->
+      <div class="card mb-3">
+        <div class="card-header fw-semibold">Reference this Doc</div>
+        <div class="card-body small">
+          <!-- Plain text -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">Plain text (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-text-10.5594-JMI.2021.3114778">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Isaac Spedding, David Hall, Katie Hinsen, and James Elliston; Something We Can All Agree On: Recommendations and Best Practices for Dailies QC, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 10, 2021); SMPTE, 2021. Available at https://doi.org/10.5594/JMI.2021.3114778</div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-text-10.5594-JMI.2021.3114778" class=" border rounded p-2 mb-0 snippet">Isaac Spedding, David Hall, Katie Hinsen, and James Elliston; Something We Can All Agree On: Recommendations and Best Practices for Dailies QC, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 10, 2021); SMPTE, 2021. Available at https://doi.org/10.5594/JMI.2021.3114778</pre>
+            
+          </div>
+          
+          <!-- HTML (generic) -->
+          <div class="mb-3 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">HTML (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-generic-10.5594-JMI.2021.3114778">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><span class="citation">Isaac Spedding, David Hall, Katie Hinsen, and James Elliston; <cite>Something We Can All Agree On: Recommendations and Best Practices for Dailies QC</cite>, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 10, 2021); SMPTE, 2021. Available at <a href="https://doi.org/10.5594/JMI.2021.3114778" target="_blank" rel="noopener">https://doi.org/10.5594/JMI.2021.3114778</a></span></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-generic-10.5594-JMI.2021.3114778" class=" border rounded p-2 mb-0 snippet">&lt;span class=&quot;citation&quot;&gt;Isaac Spedding, David Hall, Katie Hinsen, and James Elliston; &lt;cite&gt;Something We Can All Agree On: Recommendations and Best Practices for Dailies QC&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 10, 2021); SMPTE, 2021. Available at &lt;a href=&quot;https://doi.org/10.5594/JMI.2021.3114778&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doi.org/10.5594/JMI.2021.3114778&lt;/a&gt;&lt;/span&gt;</pre>
+            
+          </div>
+
+          <!-- HTML (SMPTE) -->
+          <div class="mb-1 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0"><img src="../../resources/logos/smpte-icon.png" alt="SMPTE Icon" width="24" class=" icon d-inline-block align-text-middle"> SMPTE's <a href="../SMPTE.AG26/" title="Something We Can All Agree On: Recommendations and Best Practices for Dailies QC">HTML Pub</a></h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-smpte-10.5594-JMI.2021.3114778">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Isaac Spedding, David Hall, Katie Hinsen, and James Elliston; <cite id="bib-10-5594-jmi-2021-3114778">Something We Can All Agree On: Recommendations and Best Practices for Dailies QC</cite>, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 10, 2021); SMPTE, 2021<br>doi:&nbsp;<span class="doi">10.5594/JMI.2021.3114778</span><br>url:&nbsp;<a href="https://doi.org/10.5594/JMI.2021.3114778" class="ext-ref">https://doi.org/10.5594/JMI.2021.3114778</a></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-smpte-10.5594-JMI.2021.3114778" class=" border rounded p-2 mb-0 snippet">&lt;li&gt;
+Isaac Spedding, David Hall, Katie Hinsen, and James Elliston; &lt;cite id=&quot;bib-10-5594-jmi-2021-3114778&quot;&gt;Something We Can All Agree On: Recommendations and Best Practices for Dailies QC&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 10, 2021); SMPTE, 2021
+&lt;span class=&quot;doi&quot;&gt;10.5594/JMI.2021.3114778&lt;/span&gt;
+&lt;/li&gt;</pre>
+            
+          </div>
+        </div>
+      </div>
+
+      <script>
+      // Lightweight copy buttons for the three snippets on this page
+      (function(){
+        function copyFrom(targetSel){
+          try{
+            // Support targets passed as "#id" or "id"
+            let id = targetSel || '';
+            if (id.startsWith('#')) id = id.slice(1);
+
+            // Prefer getElementById to avoid CSS selector escaping issues with dots in IDs (e.g., SMPTE.ST96.2004)
+            const el = document.getElementById(id) || document.querySelector(targetSel);
+            if (!el) return;
+
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
+            navigator.clipboard.writeText(text);
+          } catch (e) {
+            console.error('[copy] failed:', e);
+          }
+        }
+        document.addEventListener('click', function(ev){
+          const btn = ev.target.closest('[data-copy-target]');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-copy-target');
+          copyFrom(sel);
+          // quick visual feedback
+          btn.disabled = true;
+          const prev = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.disabled = false; btn.innerText = prev; }, 900);
+        }, { passive: true });
+      })();
+      </script>
+      
+    </div>
+  </section>
+
+  <nav class="mt-3">
+    <a class="btn btn-outline-secondary btn-sm" href="../#10.5594-JMI.2021.3114778">← Back to Docs</a>
+  </nav>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="2026-10-07T23:27:42.204Z"><code>2026-10-07T23:27:42.204Z</code></time>
+            </p>
+                      </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

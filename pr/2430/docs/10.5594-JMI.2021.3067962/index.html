@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="V-PCC Performance Evaluation of the First MPEG Point Codec">
+  <link rel="canonical" href="https://msrbot.io/docs/10.5594-JMI.2021.3067962/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="V-PCC Performance Evaluation of the First MPEG Point Codec — MSRBot.io">
+  <meta property="og:description" content="">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/docs/10.5594-JMI.2021.3067962/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+
+  <link rel="alternate" type="application/json" href="../../api/doc/10.5594-JMI.2021.3067962.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
+  <title>MSRBot.io | V-PCC Performance Evaluation of the First MPEG Point Codec</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
+  <script src="../../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "V-PCC Performance Evaluation of the First MPEG Point Codec - MSRBot.io",
+    "url": "https://msrbot.io/docs/10.5594-JMI.2021.3067962/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../../index.html"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../index.html"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/index.html"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/index.html"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/index.html"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/index.html"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/index.html"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents
+        </li>
+      </ul>
+
+      <strong>Build-data JSON</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
+            docs/_data/documents.json
+          </a>
+          &mdash; assembled monolith used by site templates
+        </li>
+        <li>
+          <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
+            groups.json
+          </a>
+          &mdash; normalized groups registry
+        </li>
+        <li>
+          <a href="../../projects/_data/projects.json" target="_blank" rel="noopener">
+            projects.json
+          </a>
+          &mdash; project registry with lookups
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
+          <a href="https://www.smpte.org/" target="_blank" rel="noopener"><img src="../../resources/logos/smpte-logo.png" alt="SMPTE logo" height="25" class="align-text-bottom me-1 publisher-logo" loading="lazy" data-logo-light="../../resources/logos/smpte-logo.png" data-logo-dark="../../resources/logos/smpte-logo_white.svg"></a>
+        <code class="docid-doclabel me-1 fs-6 text-wrap">SMPTE Motion Imaging Journal ( Volume: 130, Issue: 4, May 2021)</code>
+      </div>
+      <div class="status-badges ms-auto d-inline-flex flex-wrap gap-1">
+
+        
+        
+        
+        
+        
+            <span class="label badge text-bg-success">[ACTIVE]</span>
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <h1 class="h5 mb-1">
+        <a class="text-decoration-none" href="https://doi.org/10.5594/JMI.2021.3067962" target="_blank" rel="noopener">V-PCC Performance Evaluation of the First MPEG Point Codec</a>
+    </h1>
+    
+  </header>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h2 class="h5 card-title">Metadata</h2>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
+            <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
+            <dt class="col-sm-4">Content Type</dt><dd class="col-sm-8"><a class="" href="../?f.contentType=orig-research">Original Research</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>SMPTE Mot. Imag. J</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">130, No. 4, pp. 36–52</dd>
+            
+            
+            
+            <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">Representation of 3D scenes has become increasingly important in several industries using virtual and augmented reality technologies. The point cloud format is well suited for such representations. Indeed, point clouds can be created with a simple capture process and modest processing, enabling a realtime, end-to-end point cloud distribution chain. However, point cloud compression is required to obtain data rates and file sizes that could be economically viable for the industry. Standardization is required to ensure interoperability. In 2021, the International Organization for Standardization (ISO) Moving Picture Experts Group (MPEG) plans to publish a standard for its first point cloud codec, MPEG-I Part 5: Visual Volumetric Video-based Coding (V3C) and Video-based Point Cloud Compression (V-PCC). This standard enables a world of new services and applications, including cultural heritage, telepresence, and new forms of entertainment. In this paper, we review the principal use cases targeted by the V-PCC standard. We present the architecture of the V-PCC codec and describe its main tools, by giving insights into complexity at the encoder and decoder levels and explaining profiles and conformance points in V-PCC. We then present the methodology established, as a collaboration between industry and academics, for the evaluation of the V-PCC codec performance and the methodology’s origins. This methodology was applied to the MPEG point cloud compression test model software (named TMC2) to consistently evaluate technologies proposed during the standardization process. Finally, we compare the performance of the main V-PCC tools available for lossy and lossless compression. Finally, the conclusion provides elements in favor of a near-term deployment of V-PCC in the media industry.</dd>
+            
+            
+            <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2021-05-01</dd>
+            
+            
+            
+            
+            
+            
+            
+            <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2021.3067962" target="_blank" rel="noopener"><code>10.5594/JMI.2021.3067962</code></a></dd>
+            
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>1545-0279</code> <span class="text-muted">|</span> Electronic: <code>2160-2492</code></dd>
+            <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2021.3067962" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/JMI.2021.3067962</a></dd>
+            
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-2"><div class="d-flex justify-content-between align-items-center gap-2"><span>Céline Guede</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Céline Guede received an engineering degree from the Polytech Orleans School, Orleans, France, in 1998, and immediately joined Technicolor as an R&amp;D engineer. After gaining specialization in software development, she joined the Advanced Television Systems Committee (ATSC) 3.0 standardization group on next-generation broadcast in 2013, where she contributed to the evaluation and selection of scalable high efficiency video coding (SHVC)/HEVC video encoding and Moving Picture Experts Group (MPEG) MMT transport technologies. She shifted her focus to point cloud compression at the end of 2016, actively contributing several technology proposals to the emerging MPEG Point Cloud Compression standard [Video-based Point Cloud Compression (V-PCC), known as MPEG-I Part 5]. Since 2019, she has been an architect at InterDigital where she continues to actively contribute on the V-PCC standard evolution. She is currently working on the dissemination of the V-PCC technology through realtime codec demonstrations and the adoption in future TV broadcast standards such as Sistema Brasileiro de Televisão Digital (SBTVD).</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Pierre Andrivon</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Pierre Andrivon received an advanced master’s degree in signal and image processing from Télécom Paris, Paris, France, in 2006. As a research engineer at Vitec, Paris, France, he developed H.264/AVC encoders and contributed to collaborative projects on realtime video processing. In 2011, he joined Technicolor, where he successively participated in the standardization of H.265/HEVC and SHVC video codecs, and the single layer high dynamic range (SL-HDR) technology jointly developed with Philips. He was a co-editor of the European Telecommunications Standards Institute Technical Specification (ETSI TS) 103 433 multipart standard. Since 2019, as a principal scientist for InterDigital, he leads the effort on point cloud and mesh compression. He contributed to the standardization of the MPEG V-PCC standard as a co-editor of the specification. He has been involved in several video standardization committees: MPEG, digital video broadcasting (DVB), ETSI, Blu-ray Disc Association (BDA), SMPTE, high definition multimedia interface (HDMI), and Consumer Technology Association (CTA). He filed more than 100 patent applications and holds +20 issued patents, mainly on video processing, video coding, and color management.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Jean-Eudes Marvie</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Jean-Eudes Marvie is a principal scientist at InterDigital. He received a PhD degree from the University of Rennes, Rennes, France, in 2004. His research interests are realtime rendering, large model’s visualization and generation, procedural modeling and rendering, and mixed reality. He previously applied these techniques to the field of live broadcast, interactive previsualization for cinema production, and immersive experiences in home ecosystems such as telepresence.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Julien Ricard</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Julien Ricard is an architect on the point cloud compression team at InterDigital, Rennes, France. He participated in the development of the response to the MPEG call for proposals on the compression of point clouds and his response took second place on nine answers. Since then, he has co-authored several important proposals accepted in the MPEG V-PCC standard. For the past three years, he has been the MPEG-3 DG-PCC software coordinator for the candidate video point cloud compression test model and the official MPEG-3 DG point cloud rendering engine. In this position, he coordinates the integration of new proposals from MPEG promoters into the test model and guarantees the conformity and the quality of the source codes. To promote and evangelize around the point cloud format and the compression of this data, he participated in the creation of several demonstrations on mobile devices to show the ability to render, decode, and stream this type of data in realtime. He holds a doctorate in computer science and a master’s degree in computer engineering from the University of Lyon, Lyon, France.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Bill Redmann</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Bill Redmann’s career has always mixed technology and entertainment. While earning his master’s degree in engineering from the University of California, Los Angeles (UCLA), he built practical props for Battlestar Galactica and Buck Rogers at Universal Studios, Los Angeles. As the director of technology for Disney Imagineering and Virtual World Entertainment, he researched, developed, and fielded simulator ride systems and virtual reality attractions. At Technicolor, Rennes, France, an interest in standards in the context of digital cinema led him to join SMPTE, where he eventually became a SMPTE Fellow. Now as an InterDigital’s Director of Standards for Immersive Media Technologies, he contributes to next-generation television systems. He holds 71 issued U.S. patents relating to digital cinema, virtual and augmented reality, media production, distributed network streaming, interactive systems, displays, online communities, mobile content distribution, exercise tracking, travel planning, and electric vehicle infrastructure. His two favorites—a roller coaster you design then ride, and a keyboard for dolphins to communicate with people—both really worked.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Jean-Claude Chevet</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Jean-Claude Chevet joined Thomson, Rennes, France, in 1983 as an electronic technician at the TV R&amp;D plant, after graduating from the Institut Universitaire de Technologie of Angers, France, in electrical engineering domain. He worked on micro-controller programming for advanced devices development in consumer electronic domain. In 1987, he worked on home automation systems, then on video processing for the HD TV and plasma TVs. In 1997, he received an engineer diploma from Institut des Techniques d’Ingénieur de l’Industrie, Auxerre, France, after three years of education at Ecole Nationale Supérieure de Physique de Strasbourg (ENSPS). He then worked as a research engineer in the video compression lab, at an MPEG-4 player development company in Rennes, France, and then in the network area (5 GHz, 802.11a). Chevet also worked on embedded systems for an H264 professional encoding equipment for the Grass-Valley company (formerly Harmonics), Rennes, France. He also worked in the human perception area (visual attention model and reframing) to develop demonstrators based on this technology and then joined the image editing and enhancement area (image processing). In 2015, he joined the ATSC 3.0 project at Technicolor as a developer of technical demonstrators integrating SHVC/HEVC video encoding. Since 2017, he has worked in the field of compression of volumetric video, notably he participated in several contributions for the new MPEG standard, in particular, for the 3DG Ad hoc Group on V-PCC.</div></details></div></dd>
+            
+
+            <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Immersive Video Coding">Immersive Video Coding</a>, <a class="" href="../?f.keywords=Performance Evaluation">Performance Evaluation</a>, <a class="" href="../?f.keywords=Point Cloud Compression">Point Cloud Compression</a></dd>
+            
+            
+            
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2021 SMPTE</span></dd>
+          </dl>
+        </div>
+      </div>
+      
+
+      
+
+
+
+
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col col-lg-6">
+              <h2 class="h6">Bibliographic Reference(s)</h2>
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29/WG11, “[VPCC-TM] New Contribution on Duplicate Point Avoidance in TMC2,” Macao, China, m44784, Oct. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Cao, Y. Xu, Y. Lu, and Z. Wen, “Owlii Dynamic Human Mesh Sequence Dataset,” ISO/IEC JTC1/SC29/WG11 m42816, 122th MPEG Meeting, San Diego, CA, USA, Apr. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29/WG11, “[V-PCC] On Attribute Smoothing,” Geneva, Switzerland, m51003, 2019, Oct. 2019.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://doi.org/10.1109/ICIP.2017.8296925" rel="noopener">D. Tian, H. Ochimizu, C. Feng, R. Cohen, and A. Vetro, “Geometric Distortion Metrics for Point Cloud Compression,” Proc. IEEE Int. Conf. Image Process. (ICIP), Beijing, China, pp. 3460–3464, 2017, doi: 10.1109/ICIP.2017.8296925.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://mpeg" rel="noopener">Git Reference for Test Model v10. Jun. 3, 2020. [Online]. Available: http://mpeg x.int- ev r y.f r/sof t ware/M PEG/ PCC/ TM /mpegpcc-tmc2/commit/1018e5467ea0d18b879272bcba8c060e1cfd97a9</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “PCC TMC2 Geometry Coding Improvements,” Gwangju, South Korea, m42111, Jan. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29/WG11, “[V-PCC] Report on Core Experiment CE 2.18 on Lossy Additional Points Patch for Improved Visual Quality,” Marrakech, Morocco, m45946, Jan. 2017.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. d’Eon, B. Harrison, T. Myers, and P. A. Chou, “8i Voxelized Full Bodies, Version 2—A Voxelized Point Cloud Dataset,” ISO/IEC JTC1/SC29 Joint WG11/WG1 (MPEG/ JPEG) Input Document m40059/M74006, Geneva, Switzerland, Jan. 2017.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Schwarz, M. Pesonen, and IBC 2019, “Real-Time Decoding and AR Playback of the Emerging MPEG Video-Based Point Cloud Compression Standard,” Sep. 2019.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “PCC Requirements,” Gwangju, South Korea, w17353, Jan. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29/WG11, “PCC TMC2 With Additional Projection Plane,” Ljubljana, Slovenia, m43494, Jul. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.interdigital.com/videos/v--pcc-the-first-mpeg-codec-for-point-cloud-compression" rel="noopener">C. Guede, R. Schaefer, and IBC 2019, Sep. 2019. [Online]. Available: https://www.interdigital.com/videos/v--pcc-the-first-mpeg-codec-for-point-cloud-compression</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://wg11.sc29.org/doc_end_user/documents/130_" rel="noopener">International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “Container for V-PCC Editing,” Alpbach, Austria, m53943, Apr. 2020. [Online]. Available: http://wg11.sc29.org/doc_end_user/documents/130_ Alpbach/comments/comment-566 -V-PCC _ DIS_d90.zip</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29/WG11, “[V-PCC][New Proposal] Generalized Enhanced Occupancy Map for Depth,” Geneva, Switzerland, m47895, Oct. 2019.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “[PCC] TMC2 Pixel Interleaving in Geometry and Texture Layers,” Ljubljana, Slovenia, m43723, Jul. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “V-PCC Test Model v10,” Alpbach, Austria, w19325, Apr. 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “[VPCC][software] mpeg-pcc-renderer Software v5.0,” Alpbach, Austria, m53592, Apr. 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://hevc.hhi.fraunhofer.de/svn/svn_HEVCSoftware/tags/" rel="noopener">High Efficiency Video Coding, Feb. 1, 2018. [Online]. Available: https://hevc.hhi.fraunhofer.de/svn/svn_HEVCSoftware/tags/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “Common Test Conditions for PCC,” Alpbach, Austria, w19324, Apr. 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29/WG11, “[V-PCC][specification] Patch Border Filtering Specification,” Geneva, Switzerland, m51501, Oct. 2019.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://doi.org/10.1109/VCIP.2017.8305132" rel="noopener">R. Mekuria, S. Laserre, and C. Tulvan, “Performance Assessment of Point Cloud Compression,” IEEE Visual Comm. Image Process. (VCIP), St. Petersburg, FL, pp. 1–4, 2017, doi: 10.1109/VCIP.2017.8305132.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “V-PCC Codec Description,” Alpbach, Austria, w19332, Apr. 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “V-PCC Performance Evaluation and Anchor Results,” Alpbach, Austria, w19327, Apr. 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “Use Cases for Point Cloud Compression,” Genova, Switzerland, w16331, Jun. 2016.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “OpenV3C—Multiplatform Open Source Implementation of V-PCC,” Alpbach, Austria, w19375, Apr. 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29/WG11, “PCC TMC2 Low Complexity Geometry Smoothing,” Ljubljana, Slovenia, m43501, Jul. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) JTC1/SC29 WG11, “PCC Requirements Status Update,” Alpbach, Austria, m53595, Apr. 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <!-- Source data / JSON view -->
+      <div class="card mb-3 mt-3">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Source Data (JSON)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary py-0 px-2"
+            id="source-data-toggle"
+            data-docid="10.5594-JMI.2021.3067962"
+          >
+            View source JSON
+          </button>
+        </div>
+        <div class="card-body small">
+          <p class="mb-0 small">
+            Full registry record with provenance metadata.
+            Open directly:
+            <a href="../../api/doc/10.5594-JMI.2021.3067962.json" target="_blank" rel="noopener">/api/doc/10.5594-JMI.2021.3067962.json</a>
+          </p>
+          <pre
+            id="source-data-json"
+            class="mt-2 border rounded p-2 bg-body-secondary small"
+            style="max-height: 16rem; overflow:auto; display:none;"
+          ></pre>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const btn = document.getElementById('source-data-toggle');
+        const box = document.getElementById('source-data-json');
+        if (!btn || !box) return;
+
+        let loaded = false;
+        let visible = false;
+
+        async function toggleSource() {
+          visible = !visible;
+          if (!visible) {
+            box.style.display = 'none';
+            btn.textContent = 'View source JSON';
+            return;
+          }
+
+          box.style.display = 'block';
+          btn.textContent = 'Hide source JSON';
+
+          if (loaded) return;
+
+          const docId = btn.getAttribute('data-docid') || '';
+          const encoded = encodeURIComponent(docId);
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
+
+          box.textContent = 'Loading…';
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const data = await res.json();
+            box.textContent = JSON.stringify(data, null, 2);
+            loaded = true;
+          } catch (e) {
+            const msg = (e && e.message) ? e.message : String(e || 'Unknown error');
+            box.textContent = 'Failed to load source JSON: ' + msg;
+          }
+        }
+
+        btn.addEventListener('click', function(ev){
+          ev.preventDefault();
+          toggleSource();
+        }, { passive: false });
+      })();
+      </script>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">Reference Tree</h2>
+          <p class="mb-2 text-muted">
+            Explore all references and references to this document, as a navigable tree.
+          </p>
+          <a class="btn btn-outline-secondary btn-sm" href="../../reftree/10.5594-JMI.2021.3067962/">Open Reference Tree</a>
+        </div>
+      </div>
+
+      <!-- Use this document as a reference -->
+      <div class="card mb-3">
+        <div class="card-header fw-semibold">Reference this Doc</div>
+        <div class="card-body small">
+          <!-- Plain text -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">Plain text (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-text-10.5594-JMI.2021.3067962">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Céline Guede, Pierre Andrivon, Jean-Eudes Marvie, Julien Ricard, Bill Redmann, and Jean-Claude Chevet; V-PCC Performance Evaluation of the First MPEG Point Codec, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 4, May 2021); SMPTE, 2021. Available at https://doi.org/10.5594/JMI.2021.3067962</div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-text-10.5594-JMI.2021.3067962" class=" border rounded p-2 mb-0 snippet">Céline Guede, Pierre Andrivon, Jean-Eudes Marvie, Julien Ricard, Bill Redmann, and Jean-Claude Chevet; V-PCC Performance Evaluation of the First MPEG Point Codec, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 4, May 2021); SMPTE, 2021. Available at https://doi.org/10.5594/JMI.2021.3067962</pre>
+            
+          </div>
+          
+          <!-- HTML (generic) -->
+          <div class="mb-3 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">HTML (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-generic-10.5594-JMI.2021.3067962">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><span class="citation">Céline Guede, Pierre Andrivon, Jean-Eudes Marvie, Julien Ricard, Bill Redmann, and Jean-Claude Chevet; <cite>V-PCC Performance Evaluation of the First MPEG Point Codec</cite>, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 4, May 2021); SMPTE, 2021. Available at <a href="https://doi.org/10.5594/JMI.2021.3067962" target="_blank" rel="noopener">https://doi.org/10.5594/JMI.2021.3067962</a></span></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-generic-10.5594-JMI.2021.3067962" class=" border rounded p-2 mb-0 snippet">&lt;span class=&quot;citation&quot;&gt;Céline Guede, Pierre Andrivon, Jean-Eudes Marvie, Julien Ricard, Bill Redmann, and Jean-Claude Chevet; &lt;cite&gt;V-PCC Performance Evaluation of the First MPEG Point Codec&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 4, May 2021); SMPTE, 2021. Available at &lt;a href=&quot;https://doi.org/10.5594/JMI.2021.3067962&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doi.org/10.5594/JMI.2021.3067962&lt;/a&gt;&lt;/span&gt;</pre>
+            
+          </div>
+
+          <!-- HTML (SMPTE) -->
+          <div class="mb-1 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0"><img src="../../resources/logos/smpte-icon.png" alt="SMPTE Icon" width="24" class=" icon d-inline-block align-text-middle"> SMPTE's <a href="../SMPTE.AG26/" title="V-PCC Performance Evaluation of the First MPEG Point Codec">HTML Pub</a></h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-smpte-10.5594-JMI.2021.3067962">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Céline Guede, Pierre Andrivon, Jean-Eudes Marvie, Julien Ricard, Bill Redmann, and Jean-Claude Chevet; <cite id="bib-10-5594-jmi-2021-3067962">V-PCC Performance Evaluation of the First MPEG Point Codec</cite>, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 4, May 2021); SMPTE, 2021<br>doi:&nbsp;<span class="doi">10.5594/JMI.2021.3067962</span><br>url:&nbsp;<a href="https://doi.org/10.5594/JMI.2021.3067962" class="ext-ref">https://doi.org/10.5594/JMI.2021.3067962</a></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-smpte-10.5594-JMI.2021.3067962" class=" border rounded p-2 mb-0 snippet">&lt;li&gt;
+Céline Guede, Pierre Andrivon, Jean-Eudes Marvie, Julien Ricard, Bill Redmann, and Jean-Claude Chevet; &lt;cite id=&quot;bib-10-5594-jmi-2021-3067962&quot;&gt;V-PCC Performance Evaluation of the First MPEG Point Codec&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 4, May 2021); SMPTE, 2021
+&lt;span class=&quot;doi&quot;&gt;10.5594/JMI.2021.3067962&lt;/span&gt;
+&lt;/li&gt;</pre>
+            
+          </div>
+        </div>
+      </div>
+
+      <script>
+      // Lightweight copy buttons for the three snippets on this page
+      (function(){
+        function copyFrom(targetSel){
+          try{
+            // Support targets passed as "#id" or "id"
+            let id = targetSel || '';
+            if (id.startsWith('#')) id = id.slice(1);
+
+            // Prefer getElementById to avoid CSS selector escaping issues with dots in IDs (e.g., SMPTE.ST96.2004)
+            const el = document.getElementById(id) || document.querySelector(targetSel);
+            if (!el) return;
+
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
+            navigator.clipboard.writeText(text);
+          } catch (e) {
+            console.error('[copy] failed:', e);
+          }
+        }
+        document.addEventListener('click', function(ev){
+          const btn = ev.target.closest('[data-copy-target]');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-copy-target');
+          copyFrom(sel);
+          // quick visual feedback
+          btn.disabled = true;
+          const prev = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.disabled = false; btn.innerText = prev; }, 900);
+        }, { passive: true });
+      })();
+      </script>
+      
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h6">Referenced By</h2>
+          <ul class="list-group list-group-flush small">
+            <li class="list-group-item">
+              <a href="../10.5594-JMI.2024-IXTK5404/">MPEG-I Standards for Volumetric Video and a Real-Time Implementation</a> [Active] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="mt-3">
+    <a class="btn btn-outline-secondary btn-sm" href="../#10.5594-JMI.2021.3067962">← Back to Docs</a>
+  </nav>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="2026-10-07T20:50:36.647Z"><code>2026-10-07T20:50:36.647Z</code></time>
+            </p>
+                      </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

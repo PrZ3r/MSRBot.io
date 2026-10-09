@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices">
+  <link rel="canonical" href="https://msrbot.io/docs/10.5594-JMI.2023.3285245/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices — MSRBot.io">
+  <meta property="og:description" content="">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/docs/10.5594-JMI.2023.3285245/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+
+  <link rel="alternate" type="application/json" href="../../api/doc/10.5594-JMI.2023.3285245.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
+  <title>MSRBot.io | Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
+  <script src="../../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices - MSRBot.io",
+    "url": "https://msrbot.io/docs/10.5594-JMI.2023.3285245/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../../"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents
+        </li>
+      </ul>
+
+      <strong>Build-data JSON</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
+            docs/_data/documents.json
+          </a>
+          &mdash; assembled monolith used by site templates
+        </li>
+        <li>
+          <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
+            groups.json
+          </a>
+          &mdash; normalized groups registry
+        </li>
+        <li>
+          <a href="../../projects/_data/projects.json" target="_blank" rel="noopener">
+            projects.json
+          </a>
+          &mdash; project registry with lookups
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
+          <a href="https://www.smpte.org/" target="_blank" rel="noopener"><img src="../../resources/logos/smpte-logo.png" alt="SMPTE logo" height="25" class="align-text-bottom me-1 publisher-logo" loading="lazy" data-logo-light="../../resources/logos/smpte-logo.png" data-logo-dark="../../resources/logos/smpte-logo_white.svg"></a>
+        <code class="docid-doclabel me-1 fs-6 text-wrap">SMPTE Motion Imaging Journal ( Volume: 132, Issue: 7, August 2023)</code>
+      </div>
+      <div class="status-badges ms-auto d-inline-flex flex-wrap gap-1">
+
+        
+        
+        
+        
+        
+            <span class="label badge text-bg-success">[ACTIVE]</span>
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <h1 class="h5 mb-1">
+        <a class="text-decoration-none" href="https://doi.org/10.5594/JMI.2023.3285245" target="_blank" rel="noopener">Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices</a>
+    </h1>
+    
+  </header>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h2 class="h5 card-title">Metadata</h2>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
+            <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
+            <dt class="col-sm-4">Content Type</dt><dd class="col-sm-8"><a class="" href="../?f.contentType=orig-research">Original Research</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>SMPTE Mot. Imag. J</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">132, No. 7, pp. 10–19</dd>
+            
+            
+            
+            <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">The media and entertainment industry consumes a significant amount of energy to create, distribute, and present video content to consumers. A large proportion of this energy is used by display devices, notably by the 1.9+ billion displays installed in consumers’ homes globally. The production of light within a display is the main reason for this energy use, independent of display technology. Reducing the global energy use of display devices by any means possible is, therefore, a topic of prime concern. Due to the very large number of displays currently in use, even small reductions per display may end up globally saving enormous amounts of energy. In this spirit, we present a video processing technique that can reduce energy requirements without altering the visual quality of the displayed material. For use cases whereby a viewer would accept a certain loss of visual quality, a user parameter could be exposed that further reduces display energy requirements.</dd>
+            
+            
+            <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2023-08-01</dd>
+            
+            
+            
+            
+            
+            
+            
+            <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2023.3285245" target="_blank" rel="noopener"><code>10.5594/JMI.2023.3285245</code></a></dd>
+            
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>1545-0279</code> <span class="text-muted">|</span> Electronic: <code>2160-2492</code></dd>
+            <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2023.3285245" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/JMI.2023.3285245</a></dd>
+            
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-2"><div class="d-flex justify-content-between align-items-center gap-2"><span>Erik Reinhard</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Erik Reinhard is a distinguished scientist at InterDigital Cesson-Sévigné, France, since June 2019. Before that, he held the same position at Technicolor R&amp;I Cesson-Sevigné, starting in July 2013 and before that he held various academic positions at universities and research institutes in Europe and North America. He was the founder and editor-in-chief of ACM Transactions on Applied Perception and authored books on high dynamic range (HDR) imaging, color imaging, computer graphics, and natural image statistics. He has published more than 100 papers and was a member of more than 50 program committees. He was a program co-chair of six conferences and workshops, including the Eurographics Symposium on Rendering 2011. He delivered keynotes at Eurographics 2010, the Computational Color Imaging Workshop 2011, the IS&amp;T European Conference on Color in Graphics, Imaging, and Vision 2012, the IS&amp;T Color Imaging Conference 2022, and the ACM/SIGGRAPH Conference on Visual Media Processing 2022. He is the co-chair of the Rapporteur Group on Energy Aware Broadcasting at ITU-R and co-lead of the Study Mission on Energy Aware Service Delivery and Consumption at DVB. Finally, he won a test of time award for his color transfer paper in IEEE Computer Graphics and Applications</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Claire-Hélène Demarty</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Claire-Hélène Demarty is a senior scientist at InterDigital Cesson-Sévigné, France. She graduated from Telecom ParisTech, Paris, France, in 1994 and received a PhD degree in computer science and mathematical morphology, from Mines ParisTech, Paris, in 2000. She joined InterDigital Research &amp; Innovation Center in 2019 as a senior scientist. Before InterDigital, she worked at Technicolor Cesson-Sevigné (2004–2018), LTUTechnologies, Paris (2002–2004), and INRIA Rennes—IRISA, Rennes, France (2003–2004), as a researcher in image analysis and computer vision technologies. Her research focuses on multimedia indexing technologies and perceptual understanding of content, through the use of machine learning, and more recently energy-aware media. She is the author or coauthor of more than 30 papers and holds several patents.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Laurent Blondé</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Laurent Blondé is a seasoned principal scientist at InterDigital Cesson-Sévigné, France. He graduated from Institut d’Optique Graduate School Palaiseau, France, in 1985 and received a PhD degree in signal and image processing from Rennes University, Rennes, France. His career has focused in part on various applications of image analysis, synthesis, depth, and color vision, mainly for TV and cinema applications. He has also focused on optics, light propagation understanding, light-matter interaction at wavelength scale, and metasurfaces. In his toolbox, he has image processing, mathematics, teamwork experience, and, mostly, creative thinking. He likes working in an international environment and enjoys interacting with diverse people from various cultures and fields of expertise. He is the author and co-author of papers and patents.</div></details></div></dd>
+            
+
+            <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Display">Display</a>, <a class="" href="../?f.keywords=Energy Consumption">Energy Consumption</a>, <a class="" href="../?f.keywords=Image Processing">Image Processing</a>, <a class="" href="../?f.keywords=Visual Perception">Visual Perception</a></dd>
+            
+            
+            
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2023 SMPTE</span></dd>
+          </dl>
+        </div>
+      </div>
+      
+
+      
+
+
+
+
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col col-lg-6">
+              <h2 class="h6">Bibliographic Reference(s)</h2>
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item">
+                    <a href="../10.5594-j18290/" title="Perceptual Signal Coding for More Efficient Usage of Bit Codes">
+                        Perceptual Signal Coding for More Efficient Usage of Bit Codes
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Chondro and S.-J. Ruan, “Perceptually Hue-Oriented Power-Saving Scheme With Overexposure Corrector for AMOLED Displays,” J. Display Technol., 12(8):791–800, 2016.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Iranli and M. Pedram, “DTM: Dynamic Tone Mapping for Backlight Scaling,” Proc. of the 42nd Annu. Des. Autom. Conf., pp. 612–617, 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>O. Le Meur, C.-H. Demarty, E. Reinhard, F. Aumont, and</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Park and M. Song, “Saving Power in Video Playback on OLED Displays by Acceptable Changes to Perceived Brightness,” J. Display Technol., 12(5):483–490, 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. K. Wee and R. K. Balan, “Adaptive Display Power Management for OLED Displays,” Proc. of the First ACM Int. Workshop on Mobile Gaming, pp. 25–30, 2012.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. K. Wee, T. Okoshi, A. Misra, and R. K. Balan, “FOCUS: A Usable &amp; Effective Approach to OLED Display Power Management,” Proc. of the 2013 ACM Int. Joint Conf. on Pervasive and Ubiquitous Comput., pp. 573–582, 2013.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Hirai, N. Tsumura, T. Nakaguchi, and Y. Miyake, “Measurement and Modeling of Viewing-Condition-Dependent a stronger reduction of energy before the results were to become noticeable. For viewers who would accept a certain degradation of the visual quality in return for a reduction of energy use, we note that as the parameter f is increased further, the visual quality reduces in a graceful and predictable manner.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://com-mission.europa.eu/strategy-and-policy/priorities-2019-2024/european-green-deal_en" rel="noopener">European Union, “A European Green Deal: Striving to be the First Climate-Neutral Continent,” Dec. 2019. Accessed: Jun. 23, 2023. [Online]. Available: https://com-mission.europa.eu/strategy-and-policy/priorities-2019-2024/european-green-deal_en</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. G. J. Barten, Contrast Sensitivity of the Human Eye and Its Effects on Image Quality, SPIE Press, 1999.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Malmodin, “The Power Consumption of Mobile and Fixed Network Data Services—The Case of Streaming Video and Downloading Large Files,” Electronics Goes Green 2020+, pp. 87–96, 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Chondro, Z.-R. Yao, and S.-J. Ruan, “Depth-Based Dynamic Lightness adjustment Power-Saving Algorithm for AMOLED in Head-Mounted Display,” Opt. Express, 26(25):33158–33165, 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Jegou, M. Douze, and C. Schmid, “Hamming Embedding and Weak Geometry Consistency for Large Scale Image Search— Extended Version,” INRIA, Tech. Rep. 6709, 2008.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H.-Y. Lin, P.-C. Hsiu, and T.-W. Kuo, “ShiftMask: Dynamic OLED Power Shifting Based on Visual Acuity for Interactive Mobile Applications,” 2017 IEEE/ACM Int. Symp. on Low Power Electron. and Des. (ISLPED), IEEE, pp. 1–6, 2017.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Schien, P. Shabajee, J. Chandaria, D. Williams, C. Preist, and C. Fletcher, “Using Behavioural Data to Assess the Environmental Impact of Electricity Consumption of Alternate Television Service Distribution Platforms,” BBC Research, Tech. Rep., WHP 372, 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>The Carbon Trust, “Carbon Impact of Video Streaming,” The Carbon Trust, Tech. Rep., 2021.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Ricker, “Wavelet Functions and Their Polynomials,” Geophysics, 9(3):314–323, 1944.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. A. Movshon and L. Kiorpes, “Analysis of the Development of Spatial Contrast Sensitivity in Monkey and Human Infants,” J. Opt. Soc. America A, 5(12):2166–2172, 1988.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. G. Robson, “Spatial and Temporal Contrast-Sensitivity Functions of the Visual System,” JOSA, 56(8):1141–1142, 1966.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T.-C. Chang, S. S.-D. Xu, and S.-F. Su, “SSIM-Based Qualityon-Demand Energy-Saving Schemes for OLED Displays,” IEEE Trans. Syst. Man Cybern. Syst., 46(5):623–635, 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Iranli, H. Fatemi, and M. Pedram, “HEBS: Histogram Equalization for Backlight Scaling,” Design, Autom. and Test in Europe, IEEE, pp. 346–351, 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Y. Wang, “Frequencies of the Ricker Wavelet,” Geophysics, 80(2):A31–A37, 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Malmodin and D. Lunde, “The Energy and Carbon Footprint of the Global ICT and E&amp;M Sectors 2010–2015,” Sustainability, 10(9):3027, 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C.-H. Lin, C.-K. Kang, and P.-C. Hsiu, “CURA: A Framework for Quality-Retaining Power Saving on Mobile OLED Displays,” ACM Trans. Embedded Comput. Syst. (TECS), 15(4):1–25, 2016.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.un.org/sustainabledevelopment/" rel="noopener">United Nations, “Sustainable Development Goals,” 2022. Accessed: Jun. 23, 2023. [Online]. Available: https://www.un.org/sustainabledevelopment/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L.-M. Jan, F.-C. Cheng, C.-H. Chang, S.-J. Ruan, and C.-A. Shen, “A Power-Saving Histogram Adjustment Algorithm for OLED-Oriented Contrast Enhancement,” J. Display Technol., 12(4):368–375, 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Hort, M. Kechagia, F. Sarro, and M. Harman, “A Survey of Performance Optimization for Mobile Applications,” IEEE Trans. Softw. Eng., 48:2879–2904, 2021.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. H. Kelly, “Theory of Flicker and Transient Responses, I. Uniform fields,” J. Opt. Soc. America A, 61(4):537–546, 1971.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C.-H. Yeh, K. S.-H. Lo, and W. Lin, “Visual-Attention-Based Pixel Dimming Technique for OLED Displays of Mobile Devices,” IEEE Trans. Ind. Electron., 66(9):7159–7167, 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>X. Chen, K. W. Nixon, H. Zhou, Y. Liu, and Y. Chen, “Fingershadow: An OLED Power Optimization Based on Smartphone Touch Interactions,” 6th Workshop on Power-Aware Comput. and Syst. (HotPower 14), 2014.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. H. Kelly, “Motion and Vision. I. Stabilized Images of Stationary Gratings,” J. Opt. Soc. America A, 69(9):1266–1274, 1979.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. J. Daly, “Visible Differences Predictor: An Algorithm for the Assessment of Image Fidelity,” Human Vision, Visual Processing, and Digital Display III, International Society for Optics and Photonics, vol. 1666, pp. 2–15, 1992.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Pasricha, R. Ayoub, M. Kishinevsky, S. K. Mandal, and U. Y. Ogras, “A Survey on Energy Management for Mobile and IOT Devices,” IEEE Des. Test, 37(5):7–24, 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. H. Kelly, “Motion and Vision. II. Stabilized Spatio-Temporal Threshold Surface,” J. Opt. Soc. America A, 69(10):1340–1349, 1979.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. De Groot and J. Gebhard, “Pupil Size as Determined by Adapting Luminance,” J. Opt. Soc. America, 42(7):492–495, 1952.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P.-C. Tsai, P. Chondro, and S.-J. Ruan, “Depth-Guided Pixel Dimming With Saliency-Oriented Power-Saving Transformation for Stereoscope AMOLED Displays,” IEEE Trans. Circuits Syst. Video Technol., 30(9):3095–3105, 2019.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Iranli, W. Lee, and M. Pedram, “HVS-Aware Dynamic Backlight Scaling in TFT-LCDs,” IEEE Trans. VLSI Syst., 14(10):1103–1116, 2006.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. K. Choubey, A. K. Singh, R. B. Bankapur, P. Vaisakh, and M. Prabhu, “Content Aware Targeted Image Manipulation to Reduce Power Consumption in OLED Panels,” 2015 Eighth Int. Conf. on Contemporary Comput. (IC3), IEEE, pp. 467–471, 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Li, B. Guo, Y. Shen, J. Li, and Y. Huang, “Making Image More Energy Efficient for OLED Smart Devices,” Mobile Inf. Syst., 2016:1–8, 2016.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.cisco.com/c/dam/m/en_us/solutions/service-provider/vni-forecast-highlights/pdf/Global_2022_Forecast_Highlights.pdf" rel="noopener">Cisco, “VNI Complete Forecast Highlights,” 2018. Accessed: Jun. 23, 2023. [Online]. Available: https://www.cisco.com/c/dam/m/en_us/solutions/service-provider/vni-forecast-highlights/pdf/Global_2022_Forecast_Highlights.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Dong, Y.-S. K. Choi, and L. Zhong, “Power-Saving Color Transformation of Mobile Graphical User Interfaces on OLED-Based Displays,” Proc. of the 2009 ACM/IEEE Int. Symp. on Low Power Electron. and Des., pp. 339–342, 2009.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Wang and C. Lu, “Two-Dimensional Continuous Wavelet Analysis and its Application to Meteorological Data,” J. Atmos. Ocean. Technol., 27(4):652–666, 2009.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Z. Wang, A. C. Bovik, H. R. Sheikh, and E. P. Simoncelli, “Image Quality Assessment: From Error Visibility to Structural Similarity,” IEEE Trans. Image Process., 13(4):600–612, 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Laird, M. Rosen, J. Pelz, E. Montag, and S. Daly, “Spatio-Velocity CSF as a Function of Retinal Velocity Using Unstabilized Stimuli,” Human Vision and Electron. Imag. XI, International Society for Optics and Photonics, vol. 6057, p. 605705, 2006.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="../R-REC-BT.2100-2.201807/" title="ITU-R BT.2100-2:2018-07">
+                        ITU-R BT.2100-2
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <cite>R-REC-BT.2521-0 — International Telecommunication Union—Radiocommunication (ITU-R), Recommendation BT.2521-0, “Practical Examples of Actions to Realize Energy Aware Broadcasting,” International Telecommunication Union, Tech. Rep., 2023. About the authors Erik Reinhard is a distinguished scientist at InterDigital Cesson-Sévigné, France, since June 2019. Before that, he held the same position at Technicolor R&amp;I Cesson-Sevigné, starting in July 2013 and before that he held various academic positions at universities and research institutes in Europe and North America. He was the founder and editor-in-chief of ACM Transactions on Applied Perception and authored books on high dynamic range (HDR) imaging, color imaging, computer graphics, and natural image statistics. He has published more than 100 papers and was a member of more than 50 program committees. He was a program co-chair of six conferences and workshops, including the Eurographics Symposium on Rendering 2011. He delivered keynotes at Eurographics 2010, the Computational Color Imaging Workshop 2011, the IS&amp;T European Conference on Color in Graphics, Imaging, and Vision 2012, the IS&amp;T Color Imaging Conference 2022, and the ACM/SIGGRAPH Conference on Visual Media Processing 2022. He is the co-chair of the Rapporteur Group on Energy Aware Broadcasting at ITU-R and co-lead of the Study Mission on Energy Aware Service Delivery and Consumption at DVB. Finally, he won a test of time award for his color transfer paper in IEEE Computer Graphics and Applications. A contribution received April 2023. Copyright © 2023 by SMPTE.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <!-- Source data / JSON view -->
+      <div class="card mb-3 mt-3">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Source Data (JSON)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary py-0 px-2"
+            id="source-data-toggle"
+            data-docid="10.5594-JMI.2023.3285245"
+          >
+            View source JSON
+          </button>
+        </div>
+        <div class="card-body small">
+          <p class="mb-0 small">
+            Full registry record with provenance metadata.
+            Open directly:
+            <a href="../../api/doc/10.5594-JMI.2023.3285245.json" target="_blank" rel="noopener">/api/doc/10.5594-JMI.2023.3285245.json</a>
+          </p>
+          <pre
+            id="source-data-json"
+            class="mt-2 border rounded p-2 bg-body-secondary small"
+            style="max-height: 16rem; overflow:auto; display:none;"
+          ></pre>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const btn = document.getElementById('source-data-toggle');
+        const box = document.getElementById('source-data-json');
+        if (!btn || !box) return;
+
+        let loaded = false;
+        let visible = false;
+
+        async function toggleSource() {
+          visible = !visible;
+          if (!visible) {
+            box.style.display = 'none';
+            btn.textContent = 'View source JSON';
+            return;
+          }
+
+          box.style.display = 'block';
+          btn.textContent = 'Hide source JSON';
+
+          if (loaded) return;
+
+          const docId = btn.getAttribute('data-docid') || '';
+          const encoded = encodeURIComponent(docId);
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
+
+          box.textContent = 'Loading…';
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const data = await res.json();
+            box.textContent = JSON.stringify(data, null, 2);
+            loaded = true;
+          } catch (e) {
+            const msg = (e && e.message) ? e.message : String(e || 'Unknown error');
+            box.textContent = 'Failed to load source JSON: ' + msg;
+          }
+        }
+
+        btn.addEventListener('click', function(ev){
+          ev.preventDefault();
+          toggleSource();
+        }, { passive: false });
+      })();
+      </script>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">Reference Tree</h2>
+          <p class="mb-2 text-muted">
+            Explore all references and references to this document, as a navigable tree.
+          </p>
+          <a class="btn btn-outline-secondary btn-sm" href="../../reftree/10.5594-JMI.2023.3285245/">Open Reference Tree</a>
+        </div>
+      </div>
+
+      <!-- Use this document as a reference -->
+      <div class="card mb-3">
+        <div class="card-header fw-semibold">Reference this Doc</div>
+        <div class="card-body small">
+          <!-- Plain text -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">Plain text (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-text-10.5594-JMI.2023.3285245">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Erik Reinhard, Claire-Hélène Demarty, and Laurent Blondé; Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices, SMPTE Motion Imaging Journal ( Volume: 132, Issue: 7, August 2023); SMPTE, 2023. Available at https://doi.org/10.5594/JMI.2023.3285245</div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-text-10.5594-JMI.2023.3285245" class=" border rounded p-2 mb-0 snippet">Erik Reinhard, Claire-Hélène Demarty, and Laurent Blondé; Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices, SMPTE Motion Imaging Journal ( Volume: 132, Issue: 7, August 2023); SMPTE, 2023. Available at https://doi.org/10.5594/JMI.2023.3285245</pre>
+            
+          </div>
+          
+          <!-- HTML (generic) -->
+          <div class="mb-3 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">HTML (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-generic-10.5594-JMI.2023.3285245">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><span class="citation">Erik Reinhard, Claire-Hélène Demarty, and Laurent Blondé; <cite>Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices</cite>, SMPTE Motion Imaging Journal ( Volume: 132, Issue: 7, August 2023); SMPTE, 2023. Available at <a href="https://doi.org/10.5594/JMI.2023.3285245" target="_blank" rel="noopener">https://doi.org/10.5594/JMI.2023.3285245</a></span></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-generic-10.5594-JMI.2023.3285245" class=" border rounded p-2 mb-0 snippet">&lt;span class=&quot;citation&quot;&gt;Erik Reinhard, Claire-Hélène Demarty, and Laurent Blondé; &lt;cite&gt;Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 132, Issue: 7, August 2023); SMPTE, 2023. Available at &lt;a href=&quot;https://doi.org/10.5594/JMI.2023.3285245&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doi.org/10.5594/JMI.2023.3285245&lt;/a&gt;&lt;/span&gt;</pre>
+            
+          </div>
+
+          <!-- HTML (SMPTE) -->
+          <div class="mb-1 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0"><img src="../../resources/logos/smpte-icon.png" alt="SMPTE Icon" width="24" class=" icon d-inline-block align-text-middle"> SMPTE's <a href="../SMPTE.AG26/" title="Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices">HTML Pub</a></h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-smpte-10.5594-JMI.2023.3285245">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Erik Reinhard, Claire-Hélène Demarty, and Laurent Blondé; <cite id="bib-10-5594-jmi-2023-3285245">Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices</cite>, SMPTE Motion Imaging Journal ( Volume: 132, Issue: 7, August 2023); SMPTE, 2023<br>doi:&nbsp;<span class="doi">10.5594/JMI.2023.3285245</span><br>url:&nbsp;<a href="https://doi.org/10.5594/JMI.2023.3285245" class="ext-ref">https://doi.org/10.5594/JMI.2023.3285245</a></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-smpte-10.5594-JMI.2023.3285245" class=" border rounded p-2 mb-0 snippet">&lt;li&gt;
+Erik Reinhard, Claire-Hélène Demarty, and Laurent Blondé; &lt;cite id=&quot;bib-10-5594-jmi-2023-3285245&quot;&gt;Pixel Value Adjustment to Reduce the Energy Requirements of Display Devices&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 132, Issue: 7, August 2023); SMPTE, 2023
+&lt;span class=&quot;doi&quot;&gt;10.5594/JMI.2023.3285245&lt;/span&gt;
+&lt;/li&gt;</pre>
+            
+          </div>
+        </div>
+      </div>
+
+      <script>
+      // Lightweight copy buttons for the three snippets on this page
+      (function(){
+        function copyFrom(targetSel){
+          try{
+            // Support targets passed as "#id" or "id"
+            let id = targetSel || '';
+            if (id.startsWith('#')) id = id.slice(1);
+
+            // Prefer getElementById to avoid CSS selector escaping issues with dots in IDs (e.g., SMPTE.ST96.2004)
+            const el = document.getElementById(id) || document.querySelector(targetSel);
+            if (!el) return;
+
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
+            navigator.clipboard.writeText(text);
+          } catch (e) {
+            console.error('[copy] failed:', e);
+          }
+        }
+        document.addEventListener('click', function(ev){
+          const btn = ev.target.closest('[data-copy-target]');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-copy-target');
+          copyFrom(sel);
+          // quick visual feedback
+          btn.disabled = true;
+          const prev = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.disabled = false; btn.innerText = prev; }, 900);
+        }, { passive: true });
+      })();
+      </script>
+      
+    </div>
+  </section>
+
+  <nav class="mt-3">
+    <a class="btn btn-outline-secondary btn-sm" href="../#10.5594-JMI.2023.3285245">← Back to Docs</a>
+  </nav>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="2026-10-07T20:50:36.729Z"><code>2026-10-07T20:50:36.729Z</code></time>
+            </p>
+                      </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

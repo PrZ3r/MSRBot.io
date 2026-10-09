@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="Transitioning Broadcast to Cloud">
+  <link rel="canonical" href="https://msrbot.io/docs/10.5594-JMI.2021.3106162/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="Transitioning Broadcast to Cloud — MSRBot.io">
+  <meta property="og:description" content="">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/docs/10.5594-JMI.2021.3106162/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+
+  <link rel="alternate" type="application/json" href="../../api/doc/10.5594-JMI.2021.3106162.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
+  <title>MSRBot.io | Transitioning Broadcast to Cloud</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
+  <script src="../../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Transitioning Broadcast to Cloud - MSRBot.io",
+    "url": "https://msrbot.io/docs/10.5594-JMI.2021.3106162/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../../"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents
+        </li>
+      </ul>
+
+      <strong>Build-data JSON</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
+            docs/_data/documents.json
+          </a>
+          &mdash; assembled monolith used by site templates
+        </li>
+        <li>
+          <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
+            groups.json
+          </a>
+          &mdash; normalized groups registry
+        </li>
+        <li>
+          <a href="../../projects/_data/projects.json" target="_blank" rel="noopener">
+            projects.json
+          </a>
+          &mdash; project registry with lookups
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
+          <a href="https://www.smpte.org/" target="_blank" rel="noopener"><img src="../../resources/logos/smpte-logo.png" alt="SMPTE logo" height="25" class="align-text-bottom me-1 publisher-logo" loading="lazy" data-logo-light="../../resources/logos/smpte-logo.png" data-logo-dark="../../resources/logos/smpte-logo_white.svg"></a>
+        <code class="docid-doclabel me-1 fs-6 text-wrap">SMPTE Motion Imaging Journal ( Volume: 130, Issue: 9, October 2021)</code>
+      </div>
+      <div class="status-badges ms-auto d-inline-flex flex-wrap gap-1">
+
+        
+        
+        
+        
+        
+            <span class="label badge text-bg-success">[ACTIVE]</span>
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <h1 class="h5 mb-1">
+        <a class="text-decoration-none" href="https://doi.org/10.5594/JMI.2021.3106162" target="_blank" rel="noopener">Transitioning Broadcast to Cloud</a>
+    </h1>
+    
+  </header>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h2 class="h5 card-title">Metadata</h2>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
+            <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
+            <dt class="col-sm-4">Content Type</dt><dd class="col-sm-8"><a class="" href="../?f.contentType=orig-research">Original Research</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>SMPTE Mot. Imag. J</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">130, No. 9, pp. 18–32</dd>
+            
+            
+            
+            <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">We analyze the differences between on-premise broadcast and cloud-based online video delivery workflows and identify means needed for bridging the gaps between them. Specifically, we note differences in the ingest protocols, media formats, signal-processing chains, codec constraints, metadata, transport formats, delays, and means for implementing operations such as ad-splicing, redundancy, and synchronization. To bridge the gaps, we suggest specific improvements in cloud ingest, signal processing, and transcoding stacks. Cloud playout is also identified as a critically needed technology for convergence. Finally, based on all such considerations, we offer sketches of several possible hybrid architectures, with varying degrees of offloading of processing in the cloud, which are likely to emerge in the future.</dd>
+            
+            
+            <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2021-10-01</dd>
+            
+            
+            
+            
+            
+            
+            
+            <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2021.3106162" target="_blank" rel="noopener"><code>10.5594/JMI.2021.3106162</code></a></dd>
+            
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>1545-0279</code> <span class="text-muted">|</span> Electronic: <code>2160-2492</code></dd>
+            <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2021.3106162" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/JMI.2021.3106162</a></dd>
+            
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-2"><div class="d-flex justify-content-between align-items-center gap-2"><span>Yuriy Reznik</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Yuriy Reznik is a technology fellow and the vice president of research at Brightcove, Inc., Boston, MA. Previously, he held engineering and management positions at InterDigital, San Diego, CA, from 2011 to 2016, Qualcomm, San Diego, from 2005 to 2011, and RealNetworks, Seattle, WA, from 1998 to 2005. In 2008, he was a visiting scholar at Stanford University, Stanford, CA. Since 2001, he has also been involved in the work of the ITU-T SG16 and MPEG standards committees and has made contributions to several multimedia coding and delivery standards, including ITU-T H.264/MPEG-4 AVC, MPEG-4 ALS, ITU-T G.718, ITU-T H.265/MPEG HEVC, and MPEG-DASH. Several technologies, standards, and products that he has helped to develop (RealAudio/RealVideo, ITU-T H.264/MPEG-4 AVC, Zencoder, and Brightcove CAE) have been recognized by the NATAS Technology &amp; Engineering Emmy Awards. He holds a PhD degree in computer science from Kyiv University, Kyiv, Ukraine. He is a senior member of IEEE and SPIE and a member of the ACM, AES, and SMPTE. He is a co-author of over 120 conference and journal papers and co-inventor of over 70 granted US patents.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Jordi Cenzano</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Jordi Cenzano is an engineer specializing in broadcast and online media. He is currently working on the live ingest pipeline optimization at Facebook. He previously worked as a director of engineering at Brightcove, Inc., Boston, MA, and was a principal architect of Brightcove Live streaming workflow. For over 20 years, he has been working in the media space, starting on the broadcast side, and moving to the online media. He holds an MS degree in information and communication technologies and a BS degree in telecommunications from Universitat Politécnica de Catalunya, Catalunya, Spain, in 2013 and 1997, respectively.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Bo Zhang</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Bo Zhang is a video systems engineer at the Brightcove Research team. He works on researching video delivery and playback technologies and building high-quality, smooth, scalable, and low-latency video streaming software. He has published several research papers in the domains of video streaming and wireless communications. He has a PhD degree from George Mason University, Fairfax, VA, an MS degree from the University of Cincinnati, Cincinnati, OH, and a BS degree from Huazhong University of Science and Technology, Wuhan, China, all in computer science. He was the recipient of the best paper award from ACM MSWiM 2011.</div></details></div></dd>
+            
+
+            <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Broadcast">Broadcast</a>, <a class="" href="../?f.keywords=Cloud-based Video Streaming">Cloud-based Video Streaming</a>, <a class="" href="../?f.keywords=Cloud Playout">Cloud Playout</a>, <a class="" href="../?f.keywords=Internet Media Streaming">Internet Media Streaming</a>, <a class="" href="../?f.keywords=OTT">OTT</a>, <a class="" href="../?f.keywords=Video Coding">Video Coding</a></dd>
+            
+            
+            
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2021 SMPTE</span></dd>
+          </dl>
+        </div>
+      </div>
+      
+
+      
+
+
+
+
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col col-lg-6">
+              <h2 class="h6">Bibliographic Reference(s)</h2>
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item">
+                    <a href="../10.5594-J16412/" title="Saving Bits—The Impact of MCTF Enhanced Noise Reduction">
+                        Saving Bits—The Impact of MCTF Enhanced Noise Reduction
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../10.5594-J17232/" title="Statistical Multiplexing of Multiple MPEG-2 Video Programs in a Single Channel">
+                        Statistical Multiplexing of Multiple MPEG-2 Video Programs in a Single Channel
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../10.5594-JMI.2020.3024080/" title="Cloud Technology Drives Superior Video Encoding">
+                        Cloud Technology Drives Superior Video Encoding
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://cdn.cta.tech/cta/media/media/resources/standards/pdfs/cta-5001-final_v2_pdf.pdf" rel="noopener">CTA.5001 — Consumer Technology Association (CTA) 5001, “Web Application Video Ecosystem—Content Specification,” CTA WAVE, Apr. 2018. [Online]. Available: https://cdn.cta.tech/cta/media/media/resources/standards/pdfs/cta-5001-final_v2_pdf.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="../ETSI.TS-101-154.2009/" title="ETSI TS 101 154 V1.9.1">
+                        ETSI TS 101 154 V1.9.1
+                    </a>
+                      <span class="ms-1">[Superseded]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <cite>ETSI.TS-102-796 — European Telecommunications Standards Institute (ETSI), TS 102 796, “Hybrid Broadcast Broadband TV—Version 1.4.1,” Aug. 2016.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.etsi.org/deliver/etsi_ts/103200_103299/103285/01.03.01_60/ts_103285v010301p.pdf" rel="noopener">ETSI.TS-103-285 — ETSI TS 103 285 v1.2.1, “Digital Video Broadcasting (DVB); MPEG-DASH Profile for Transport of ISO BMFF Based DVB Services Over IP Based Networks,” Feb. 2020. [Online]. Available: https://www.etsi.org/deliver/etsi_ts/103200_103299/103285/01.03.01_60/ts_103285v010301p.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="../IEC.61966-2-1.1999/" title="IEC 61966-2-1:1999">
+                        IEC 61966-2-1:1999
+                    </a>
+                      <span class="ms-1">[Active, Amended]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../ISO.13818-1.2019/" title="ISO/IEC 13818-1:2019">
+                        ISO/IEC 13818-1:2019
+                    </a>
+                      <span class="ms-1">[Withdrawn]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../ISO.13818-2.2013/" title="ISO 13818-2:2013">
+                        ISO 13818-2:2013
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../ISO.14496-10.2020/" title="ISO/IEC 14496-10:2020">
+                        ISO/IEC 14496-10
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <cite>ISO.14496-12.2015 — International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) 14496-12:2015, “Information Technology—Coding of Audio–Visual Objects—Part 12: ISO Base Media File Format,” 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>ISO.23000-19.2018 — International Organization for Standardization/International Electrotechnical Commission (ISO/IEC) 23000-19:2018, “Information Technology—Coding of Audio–Visual Objects— Part 19: Common Media Application Format (CMAF) for Segmented Media,” Jan. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="../ISO.23008-2.2020/" title="ISO/IEC 23008-2:2020">
+                        ISO/IEC 23008-2
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <cite>ISO.23009-1.2014 — ISO/IEC 23009-1:2014, Information Technology-Dynamic Adaptive Streaming Over HTTP (DASH)-Part 1: Media Presentation Description and Segment Formats.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>OC-SP-EP-I01-130118, “Encoder Boundary Point Specification,” Cable Television Laboratories, Inc., Jan. 2013.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Luther and A. Inglis, Video Engineering, 3rd ed., McGraw-Hill: New York, 1999, 549p.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://store.frost.com/analysis-of-the-global-online-video-platforms-market.html" rel="noopener">Frost &amp; Sullivan, “Analysis of the Global Online Video Platforms Market,” Frost &amp; Sullivan, Jun. 2014. [Online]. Available: https://store.frost.com/analysis-of-the-global-online-video-platforms-market.html. See also: [Online]. Available: https://www.eweek.com/small-business/online-video-platform-market-to-top-800-million-by-2019 ■ This includes implementation of the statmux capability, generation, and insertion of all related program and system information, possible addition of datacast service capability, and so on. This architecture is indeed an extreme example, where pretty much all data- and processing-intensive operations are migrated to the cloud. It is most technically challenging to implement, but is also most promising, as it enables the best utilization of the cloud and all the benefits it brings. Conclusion In this paper, we studied the differences between onpremise broadcast and cloud-based online video delivery workflows and identified the means needed to bridge the gaps between them. These include improvements in cloud ingest, signal processing stacks, transcoder capabilities, and most importantly, a broadcast-grade cloud playout system. To implement a cloud playout system, we have suggested an architecture employing intra-only mezzanine format and associated processing blocks that can be easily replicated and operated in a fault-tolerant fashion. We finally considered possible evolutions of broadcast and cloud-based video systems and suggested several possible hybrid architectures, with different degrees of offloading of processing in the cloud, which are likely to emerge in the future.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Advanced Television Systems Committee (ATSC) A/72 Part 2:2014, “AVC Video Transport Subsystem Characteristics,” ATSC, Feb. 18, 2014.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Stockhammer et al., “Dash in ATSC 3.0: Bridging the Gap Between OTT and Broadcast,” IET Conf. Proc., pp. 24–24, 2016.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.id3.org/id3v2.3.0" rel="noopener">ID3 Tagging System. [Online]. Available: http://www.id3.org/id3v2.3.0</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://developer.apple.com/streaming/fps/" rel="noopener">FairPlay Streaming. [Online]. Available: https://developer.apple.com/streaming/fps/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Wu et al., “Streaming Video Over the Internet: Approaches and Directions,” IEEE Trans. Circuits Syst. Video Technol., 11(3):282–300, Mar. 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>American National Standards Institute/Society of Cable and Telecommunications Engineers (ANSI/SCTE) 35 2007, “Digital Program Insertion Cueing Message for Cable,” SCTE, 2007.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Advanced Television Systems Committee (ATSC) A/53 Part 4:2009, “ATSC Digital Television Standard: Part 4—MPEG-2 Video System Characteristics,” ATSC, Aug. 7, 2009.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://developer.apple.com/documentation/http_live_streaming/protocol_extension_for_low-latency_hls_preliminary_specification" rel="noopener">Apple, “Protocol Extension for Low-Latency HLS (Preliminary Specification),” Apple Inc., Feb. 2020. [Online]. Available: https://developer.apple.com/documentation/http_live_streaming/protocol_extension_for_low-latency_hls_preliminary_specification</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Advanced Television Systems Committee (ATSC) A/65B, “Program and System Information Protocol for Terrestrial Broadcast and Cable (PSIP),” ATSC, Mar. 18, 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Boroczky, A. Y. Ngai, and E. F. Westermann, “Statistical Multiplexing Using MPEG-2 Video Encoders,” IBM J. Res. Dev., 43(4):511–520, Jul. 1999.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://github.com/Haivision/srt" rel="noopener">Haivision, “Secure Reliable Transport (SRT),” Sep. 2019. [Online]. Available: https://github.com/Haivision/srt</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.iis.net/downloads/microsoft/smooth-streaming" rel="noopener">Microsoft Smooth Streaming. [Online]. Available: https://www.iis.net/downloads/microsoft/smooth-streaming</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dvcs.w3.org/hg/ttml/raw-file/tip/ttml-ww-pro-33" rel="noopener">Worldwide Web Consortium (W3C) IMSC1, “TTML Profiles for Internet Media Subtitles and Captions 1.0,” W3C, Aug. 2015. [Online]. Available: https://dvcs.w3.org/hg/ttml/raw-file/tip/ttml-ww-pro-33 files/ttml-ww-profiles.html</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>OpenCableSpecifications(OC-SP-)MEZZANINE-C01-161026, “Mezzanine Encoding Specification,” Cable Television Laboratories, Inc., Oct. 26, 2016.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Advanced Television Systems Committee (ATSC) A/331:2020, “Signaling, Delivery, Synchronization, and Error Protection,” ATSC, Jan. 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Y. Reznik et al., “Optimal Design of Encoding Profiles for ABR Streaming,” Proc. Packet Video Workshop, Amsterdam, The Netherlands, Jun. 12, 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Pizzi and G. Jones, A Broadcast Engineering Tutorial for Non-Engineers, 4th ed., National Association Broadcasters (NAB), Focal Press, Taylor &amp; Francis Group: New York and London, 2014, 354p.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>SMPTE, 2016-1, “Standard for Television—Format for Active Format Description and Bar Data,” SMPTE, 2007.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Advanced Television Systems Committee (ATSC) A/72 Part 1:2015, “Video System Characteristics of AVC in the ATSC Digital Television System,” ATSC, May 19, 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf" rel="noopener">AOM AV1, “AV1 Bitstream &amp; Decoding Process Specification, v1.0.0,” Alliance for Open Media, Jan. 2019. [Online]. Available: https://aomediacodec.github.io/av1-spec/av1-spec.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Evens, “Co-Opetition of TV Broadcasters in Online Video Markets: A Winning Strategy?,” Int. J. Digital Television, 5(1):61– 74(14), Mar. 2014.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dashif.org/docs/DASH-IF-IOP-v4.3.pdf" rel="noopener">Dynamic Adaptive Streaming over HTTP-Industry Forum (DASH-IF), “DASH-IF Interoperability Points, v4.3,” Nov. 2018. [Online]. Available: https://dashif.org/docs/DASH-IF-IOP-v4.3.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>American National Standards Institute/Society of Cable and Telecommunications Engineers (ANSI/SCTE) 30 2017, “Digital Program Insertion Splicing API,” SCTE, 2017.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.akamai.com/us/en/multimedia/documents/white-paper/low-latency-streaming-cmaf-whitepaper.pdf" rel="noopener">W. Law, “Ultra Low Latency with CMAF.” [Online]. Available: https://www.akamai.com/us/en/multimedia/documents/white-paper/low-latency-streaming-cmaf-whitepaper.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.elemental.com/resources/white-papers/e-book-video-processing-delivery-moves-cloud/" rel="noopener">Amazon Web Services (AWS) Elemental, “Video Processing and Delivery Moves to the Cloud,” e-book, 2018. [Online]. Available: https://www.elemental.com/resources/white-papers/e-book-video-processing-delivery-moves-cloud/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.widevine.com/solutions/widevine-drm" rel="noopener">Widevine. [Online]. Available: https://www.widevine.com/solutions/widevine-drm</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Advanced Television Systems Committee (ATSC) A/54A, “Recommended Practice: Guide to the Use of the ATSC Digital Television Standard,” ATSC, Dec. 4, 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://aws.amazon.com/directconnect/" rel="noopener">Amazon Web Services (AWS) Direct Connect. [Online]. Available: https://aws.amazon.com/directconnect/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Advanced Television Systems Committee (ATSC) A/53 Part 1: 2009, “ATSC Digital Television Standard: Part 1—Digital Television System,” ATSC, 7 Aug. 2009.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.zixi.com/PDFs/Adaptive-Bit-Rate-Streaming-and-Final.aspx" rel="noopener">Zixi, LLC, “Streaming Video Over the Internet and Zixi,” May 2015. [Online]. Available: http://www.zixi.com/PDFs/Adaptive-Bit-Rate-Streaming-and-Final.aspx</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.adobe.com/devnet/rtmp.html" rel="noopener">Adobe Systems, “Real-Time Messaging Protocol (RTMP) Specification. Version 1.0,” Dec. 2012. [Online]. Available: https://www.adobe.com/devnet/rtmp.html</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.streamingmedia.com/Articles/ReadArticle.aspx?ArticleID=88179&amp;fb_comment_id=220580544752826_937649" rel="noopener">J.Ozer,“Encoding for Multiple Devices,”Streaming Media Magazine, Mar. 2013. [Online]. Available: http://www.streamingmedia.com/Articles/ReadArticle.aspx?ArticleID=88179&amp;fb_comment_id=220580544752826_937649</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Consumer Electronics Association (CEA)-608-B, “Line 21 Data Services,” Consumer Electronics Association, Apr. 1, 4, 2008.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://developer.apple.com/documentation/http_live_streaming/hls_authoring_specification_for_apple_devices" rel="noopener">Apple,“HLSAuthoring Specification forApple Devices,”Jun.2019. [Online]. Available: https://developer.apple.com/documentation/http_live_streaming/hls_authoring_specification_for_apple_devices</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>American National Standards Institute/Society of Cable and Telecommunications Engineers (ANSI/SCTE) 43 2015, “Digital Video Systems Characteristics Standard for Cable Television,” SCTE, 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.grassvalley.com/products/kudospro/" rel="noopener">Grass Valley KudosPro Converters. [Online]. Available: https://www.grassvalley.com/products/kudospro/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://vsf.tv/down-load/technical_recommendations/VSF_TR-06-1_2018_10_17.pdf" rel="noopener">Video Services Forum (VSF) TR-06-1, “Reliable Internet Stream Transport (RIST) Protocol Specification—Simple Profile,” Video Services Forum, Oct. 2018. [Online]. Available: http://vsf.tv/down-load/technical_recommendations/VSF_TR-06-1_2018_10_17.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Vanam and Y. Reznik, &quot;Frame Rate Up-Conversion Using Bi-Directional Optical Flows With Dual Regularization,&quot; Proc. 2020 IEEE Int. Conf. Image Processing (ICIP), 2020, pp. 558–562.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Open Cable Specifications (OC-SP)-CEP3.0-I05-151104, “Content Encoding Profiles 3.0 Specification,” Cable Television Laboratories, Inc., Nov. 4, 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.blackmagicdesign.com/products/teranex" rel="noopener">Teranex Standards Converters. [Online]. Available: https://www.blackmagicdesign.com/products/teranex</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://ffmpeg.org/ffmpeg-filters.html" rel="noopener">FFMPEG filter documentation. [Online]. Available: https://ffmpeg.org/ffmpeg-filters.html</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Y. Reznik et al., “Optimizing Mass-Scale Multi-Screen Video Delivery,” Proc. 2019 NAB Broadcast Engineering and Information Technology Conference, Las Vegas, NV, Apr. 6–11, 2019.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. J. Lechner et al., “The ATSC Transport Layer, Including Program and System Information (PSIP),” Proc. IEEE, 94(1):77– 101, Jan. 2006.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://dev.w3.org/html5/webvtt/" rel="noopener">Worldwide Web Consortium (W3C) WebVTT, “The Web Video Text Tracks,” W3C, Mar. 2018. [Online]. Available: http://dev.w3.org/html5/webvtt/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Consumer Electronics Association (CEA) CEB16, “Active Format Description (AFD) &amp; Bar Data Recommended Practice,” CEA, Jul. 31, 2006.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dashif.org/docs/DASH-IF-IOP-for-ATSC3-0-v1.1.pdf" rel="noopener">Dynamic Adaptive Streaming over HTTP-Industry Forum (DASH-IF), “DASH-IF ATSC3.0 IOP,” Jun. 2012. [Online]. Available: https://dashif.org/docs/DASH-IF-IOP-for-ATSC3-0-v1.1.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.microsoft.com/playready/overview/" rel="noopener">PlayReady. [Online]. Available: https://www.microsoft.com/playready/overview/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.nielsen.com/us/en/client-learning/tv/nielsen-total-audience-report-february-2020/" rel="noopener">Nielsen Holdings plc, “Total Audience Report,” Feb. 2020. [Online]. Available: https://www.nielsen.com/us/en/client-learning/tv/nielsen-total-audience-report-february-2020/. See also [Online]. Available: https://techcrunch.com/2020/02/11/nielsen-streaming-wars-total-audience-report/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. J. Conklin et al., “Video Coding for Streaming Media Delivery on the Internet,” IEEE Trans. Circuits Syst. Video Technol., 11(3):269–281, Mar. 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>American National Standards Institute/Society of Cable and Telecommunications Engineers (ANSI/SCTE) 172 2011, “Constraints on AVC Video Coding for Digital Program Insertion,” SCTE, 2011.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://azure.microsoft.com/en-us/services/expressroute/" rel="noopener">Azure ExpressRoute. [Online]. Available: https://azure.microsoft.com/en-us/services/expressroute/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Consumer Electronics Association (CEA)-708-B, “Digital Television (DTV) Closed Captioning,” Consumer Electronics Association, Aug. 1, 2008.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.brightcove.com/en/online-video-platform" rel="noopener">Brightcove VideoCloud System. [Online]. Available: https://www.brightcove.com/en/online-video-platform.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://developer.apple.com/documentation/http_live_s" rel="noopener">Apple, “Incorporating Ads into a Playlist.” [Online]. Available: https://developer.apple.com/documentation/http_live_s t r e a m i n g /e x a mple _ pl ay l i s t s _ for _ ht t p_ l i ve _ s t r e a m i n g / incorporating_ads_into_a_playlist</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. A. Davidson et al., “ATSC Video and Audio Coding,” Proc. IEEE, 94(1):60–76, Jan. 2006.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>American National Standards Institute/Society of Cable and Telecommunications Engineers (ANSI/SCTE) 128 2010-a, “AVC Video Systems and Transport Constraints for Cable Television,” SCTE, 2010.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>European Broadcasting Union (EBU) Tech. 3213-E, “E.B.U. Standard for Chromaticity Tolerances for Studio Monitors,” EBU, 1975.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.sandvine.com/hubfs/Sandvine_Redesign_2019/Downloads/Internet%20Phenomena/Internet%20Phenomena%20Report%20Q32019%2020190910.pdf" rel="noopener">Sandvine, “The Global Internet Phenomena Report,” Sep. 2019. [Online]. Available: https://www.sandvine.com/hubfs/Sandvine_Redesign_2019/Downloads/Internet%20Phenomena/Internet%20Phenomena%20Report%20Q32019%2020190910.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.streamingmediablog.com/wp-content/uploads/2013/07/2013SMEast-Workshop-Encoding.pdf" rel="noopener">J. Ozer, “Encoding for Multiple-Screen Delivery,” Streaming Media East, 2013. [Online]. Available: https://www.streamingmediablog.com/wp-content/uploads/2013/07/2013SMEast-Workshop-Encoding.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>American National Standards Institute/Society of Cable and Telecommunications Engineers (ANSI/SCTE) 67 2010, “Recommended Practice for SCTE 35 Digital Program Insertion Cueing Message for Cable,” SCTE, 2010.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.w3.org/TR/2018/REC-ttml1-20181108/" rel="noopener">Worldwide Web Consortium (W3C)TTML1, “Timed Text Markup Language 1,” W3C, Nov. 2019. [Online]. Available: https://www.w3.org/TR/2018/REC-ttml1-20181108/</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="../R-REC-BT.601-7.201103/" title="ITU-R BT.601.7:2011-03">
+                        ITU-R BT.601.7
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../R-REC-BT.709-6.201506/" title="ITU-R BT.709.6:2015-06">
+                        ITU-R BT.709.6
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      
+                      
+                </li>
+                <li class="list-group-item">
+                    <cite>RFC1889 — H. Schulzrinne et al., “RTP: A Transport Protocol for Real-Time Applications,” RFC 1889, IETF, Jan. 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://tools.ietf.org/html/rfc8216" rel="noopener">RFC8216 — R. Pantos and W. May, “HTTP Live Streaming, RFC 8216,” IETF, Aug. 2017. Accessed: Sept. 8, 2021. [Online]. Available: https://tools.ietf.org/html/rfc8216</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="../SMPTE.RP145.2004/" title="SMPTE RP 145:2004">
+                        SMPTE RP 145
+                    </a>
+                      <span class="ms-1">[Active, Stabilized]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../SMPTE.ST170.2004/" title="SMPTE ST 170:2004">
+                        SMPTE ST 170
+                    </a>
+                      <span class="ms-1">[Active, Stabilized]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../SMPTE.ST259.2008/" title="SMPTE ST 259:2008">
+                        SMPTE ST 259:2008
+                    </a>
+                      <span class="ms-1">[Active, Stabilized]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../SMPTE.ST292-1.2018/" title="SMPTE ST 292-1:2018">
+                        SMPTE ST 292-1:2018
+                    </a>
+                      <span class="ms-1">[Active, Stabilized]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../SMPTE.ST2022-1.2007/" title="SMPTE ST 2022-1:2007">
+                        SMPTE ST 2022-1:2007
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../SMPTE.ST2022-2.2007/" title="SMPTE ST 2022-2:2007">
+                        SMPTE ST 2022-2:2007
+                    </a>
+                      <span class="ms-1">[Active]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../SMPTE.ST2110-20.2017/" title="SMPTE ST 2110-20:2017">
+                        SMPTE ST 2110-20:2017
+                    </a>
+                      <span class="ms-1">[Superseded]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <!-- Source data / JSON view -->
+      <div class="card mb-3 mt-3">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Source Data (JSON)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary py-0 px-2"
+            id="source-data-toggle"
+            data-docid="10.5594-JMI.2021.3106162"
+          >
+            View source JSON
+          </button>
+        </div>
+        <div class="card-body small">
+          <p class="mb-0 small">
+            Full registry record with provenance metadata.
+            Open directly:
+            <a href="../../api/doc/10.5594-JMI.2021.3106162.json" target="_blank" rel="noopener">/api/doc/10.5594-JMI.2021.3106162.json</a>
+          </p>
+          <pre
+            id="source-data-json"
+            class="mt-2 border rounded p-2 bg-body-secondary small"
+            style="max-height: 16rem; overflow:auto; display:none;"
+          ></pre>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const btn = document.getElementById('source-data-toggle');
+        const box = document.getElementById('source-data-json');
+        if (!btn || !box) return;
+
+        let loaded = false;
+        let visible = false;
+
+        async function toggleSource() {
+          visible = !visible;
+          if (!visible) {
+            box.style.display = 'none';
+            btn.textContent = 'View source JSON';
+            return;
+          }
+
+          box.style.display = 'block';
+          btn.textContent = 'Hide source JSON';
+
+          if (loaded) return;
+
+          const docId = btn.getAttribute('data-docid') || '';
+          const encoded = encodeURIComponent(docId);
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
+
+          box.textContent = 'Loading…';
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const data = await res.json();
+            box.textContent = JSON.stringify(data, null, 2);
+            loaded = true;
+          } catch (e) {
+            const msg = (e && e.message) ? e.message : String(e || 'Unknown error');
+            box.textContent = 'Failed to load source JSON: ' + msg;
+          }
+        }
+
+        btn.addEventListener('click', function(ev){
+          ev.preventDefault();
+          toggleSource();
+        }, { passive: false });
+      })();
+      </script>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">Reference Tree</h2>
+          <p class="mb-2 text-muted">
+            Explore all references and references to this document, as a navigable tree.
+          </p>
+          <a class="btn btn-outline-secondary btn-sm" href="../../reftree/10.5594-JMI.2021.3106162/">Open Reference Tree</a>
+        </div>
+      </div>
+
+      <!-- Use this document as a reference -->
+      <div class="card mb-3">
+        <div class="card-header fw-semibold">Reference this Doc</div>
+        <div class="card-body small">
+          <!-- Plain text -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">Plain text (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-text-10.5594-JMI.2021.3106162">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Yuriy Reznik, Jordi Cenzano, and Bo Zhang; Transitioning Broadcast to Cloud, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 9, October 2021); SMPTE, 2021. Available at https://doi.org/10.5594/JMI.2021.3106162</div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-text-10.5594-JMI.2021.3106162" class=" border rounded p-2 mb-0 snippet">Yuriy Reznik, Jordi Cenzano, and Bo Zhang; Transitioning Broadcast to Cloud, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 9, October 2021); SMPTE, 2021. Available at https://doi.org/10.5594/JMI.2021.3106162</pre>
+            
+          </div>
+          
+          <!-- HTML (generic) -->
+          <div class="mb-3 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">HTML (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-generic-10.5594-JMI.2021.3106162">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><span class="citation">Yuriy Reznik, Jordi Cenzano, and Bo Zhang; <cite>Transitioning Broadcast to Cloud</cite>, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 9, October 2021); SMPTE, 2021. Available at <a href="https://doi.org/10.5594/JMI.2021.3106162" target="_blank" rel="noopener">https://doi.org/10.5594/JMI.2021.3106162</a></span></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-generic-10.5594-JMI.2021.3106162" class=" border rounded p-2 mb-0 snippet">&lt;span class=&quot;citation&quot;&gt;Yuriy Reznik, Jordi Cenzano, and Bo Zhang; &lt;cite&gt;Transitioning Broadcast to Cloud&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 9, October 2021); SMPTE, 2021. Available at &lt;a href=&quot;https://doi.org/10.5594/JMI.2021.3106162&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doi.org/10.5594/JMI.2021.3106162&lt;/a&gt;&lt;/span&gt;</pre>
+            
+          </div>
+
+          <!-- HTML (SMPTE) -->
+          <div class="mb-1 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0"><img src="../../resources/logos/smpte-icon.png" alt="SMPTE Icon" width="24" class=" icon d-inline-block align-text-middle"> SMPTE's <a href="../SMPTE.AG26/" title="Transitioning Broadcast to Cloud">HTML Pub</a></h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-smpte-10.5594-JMI.2021.3106162">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Yuriy Reznik, Jordi Cenzano, and Bo Zhang; <cite id="bib-10-5594-jmi-2021-3106162">Transitioning Broadcast to Cloud</cite>, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 9, October 2021); SMPTE, 2021<br>doi:&nbsp;<span class="doi">10.5594/JMI.2021.3106162</span><br>url:&nbsp;<a href="https://doi.org/10.5594/JMI.2021.3106162" class="ext-ref">https://doi.org/10.5594/JMI.2021.3106162</a></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-smpte-10.5594-JMI.2021.3106162" class=" border rounded p-2 mb-0 snippet">&lt;li&gt;
+Yuriy Reznik, Jordi Cenzano, and Bo Zhang; &lt;cite id=&quot;bib-10-5594-jmi-2021-3106162&quot;&gt;Transitioning Broadcast to Cloud&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 130, Issue: 9, October 2021); SMPTE, 2021
+&lt;span class=&quot;doi&quot;&gt;10.5594/JMI.2021.3106162&lt;/span&gt;
+&lt;/li&gt;</pre>
+            
+          </div>
+        </div>
+      </div>
+
+      <script>
+      // Lightweight copy buttons for the three snippets on this page
+      (function(){
+        function copyFrom(targetSel){
+          try{
+            // Support targets passed as "#id" or "id"
+            let id = targetSel || '';
+            if (id.startsWith('#')) id = id.slice(1);
+
+            // Prefer getElementById to avoid CSS selector escaping issues with dots in IDs (e.g., SMPTE.ST96.2004)
+            const el = document.getElementById(id) || document.querySelector(targetSel);
+            if (!el) return;
+
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
+            navigator.clipboard.writeText(text);
+          } catch (e) {
+            console.error('[copy] failed:', e);
+          }
+        }
+        document.addEventListener('click', function(ev){
+          const btn = ev.target.closest('[data-copy-target]');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-copy-target');
+          copyFrom(sel);
+          // quick visual feedback
+          btn.disabled = true;
+          const prev = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.disabled = false; btn.innerText = prev; }, 900);
+        }, { passive: true });
+      })();
+      </script>
+      
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h6">Referenced By</h2>
+          <ul class="list-group list-group-flush small">
+            <li class="list-group-item">
+              <a href="../10.5594-JMI.2024-WSSG3140/">Using Single-Pass Look-Ahead in Modern Codecs for Optimized Transcoding Deployment</a> [Active] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../10.5594-M002015/">Improving Context-Aware Encoding by Adaptation to “True Resolution” of the Content</a> [Active] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="mt-3">
+    <a class="btn btn-outline-secondary btn-sm" href="../#10.5594-JMI.2021.3106162">← Back to Docs</a>
+  </nav>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="2026-10-07T20:50:36.665Z"><code>2026-10-07T20:50:36.665Z</code></time>
+            </p>
+                      </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

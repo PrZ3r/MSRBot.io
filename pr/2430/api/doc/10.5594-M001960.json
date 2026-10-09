@@ -1,0 +1,258 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-07T20:50:36.405Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "10.5594-M001960",
+  "document": {
+    "abstract": "A smooth playback behavior is critical for any OTT service. Viewers naturally like not to experience rebuffering events, but less frequent and shorter ones are preferred when they cannot be avoided. However, ensuring smoother playback becomes more challenging as more demanding services such as low-latency live and 4K streaming become more widely available. — It has been shown many times that adaptive streaming clients compete with each other for the available bandwidth and server capacity. The server's priority in responding to the individual requests sent by these clients should be based on clients' time-varying playback buffer conditions. Previously, we presented that the server could wisely allocate its output capacity among the incoming requests and largely mitigate the rebufferings suffered by the clients, provided that the clients informed the server about their buffer statuses using the Common Media Client Data (CMCD) standard. In a more recent study, we developed an alternative solution to the same problem using the Common Media Server Data (CMSD) standard, which is still a work-in-progress in the CTA. In this solution, the server's response to a request that indicated a sufficient buffer level was delayed until the requests that indicated an insufficient buffer level were handled. The server attached a new CMSD parameter to the eventual response disclosing how long the delay was. This parameter avoided misinterpretation and the subsequent incorrect decision by the client's rate-adaptation logic. Our experiments (for which we offer the source code) showed that the proposed CMSD parameter eliminated unnecessary rate-shifting to lower bitrates while reducing the rebuffering rate as well as the rebuffering duration. — This paper summarizes these findings and illustrates other envisioned use cases for the CMSD standard.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "authors": [
+      {
+        "affiliation": "PhD, Comcast (US) and Ozyegin University (Turkey)",
+        "name": "Ali C. Begen"
+      },
+      {
+        "affiliation": "PhD, Comcast (US)",
+        "name": "Yasser Syed"
+      },
+      {
+        "affiliation": "Comcast (US)",
+        "name": "Alex Giladi"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "contentType": "orig-research",
+    "contentType$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "copyright": {
+      "holder": "Society of Motion Picture and Television Engineers, Inc.",
+      "holder$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      },
+      "year": "2022",
+      "year$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "copyright$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docId": "10.5594-M001960",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docLabel": "SMPTE Meetings and Conferences ( October 2022)",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docTitle": "Upgrading Performance of Your Streaming Services Using Server Hints",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docType": "Conference Paper",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "doi": "10.5594/M001960",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "href": "https://doi.org/10.5594/M001960",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "isbn": {
+      "print": "978-1-61482-963-8",
+      "print$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "isbn$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "keywords": [
+      "Adaptive Bitrate Streaming",
+      "OTT",
+      "Content Delivery Network",
+      "DASH",
+      "HLS",
+      "Common Media Server Data (CMSD)",
+      "Common Media Client Data (CMCD)",
+      "SAND"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "number": "10",
+    "number$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "pages": "1–8",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "publicationDate": "2022-10-24",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "publisher": "SMPTE",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "publisherLocation": {
+      "city": "White Plains, NY",
+      "city$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      },
+      "country": "USA",
+      "country$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "publisherLocation$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "references": {
+      "bibliographic": [
+        "orphan/10.5594-M001960/h:8012da26",
+        "orphan/10.5594-M001960/h:2558109e",
+        "orphan/10.5594-M001960/h:dd7c3e51",
+        "orphan/10.5594-M001960/h:d98d5b0f",
+        "ISO.23009-5.2017",
+        "CTA.5004.2020",
+        "orphan/10.5594-M001960/h:2818c91f",
+        "orphan/10.5594-M001960/h:bac65460",
+        "orphan/10.5594-M001960/h:d7ef926b",
+        "orphan/10.5594-M001960/h:d061d196",
+        "orphan/10.5594-M001960/h:fb5a3ba3",
+        "orphan/10.5594-M001960/h:fec911a1",
+        "orphan/10.5594-M001960/h:5e719754",
+        "orphan/10.5594-M001960/h:7dedb95a",
+        "orphan/10.5594-M001960/h:3703a27a"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "PDF reference count (15) differs from Crossref (0); check the parse against the PDF",
+        "note": "References parsed from the published PDF (Conference Repository/Conference Papers/2022/10012556/10012557/10012564.pdf). SMPTE's library delivery has no reference file or full text for this paper (src/main/reports/smpte-upstream/referenceFilesTruthTable.md). Cross-check: Crossref lists 0 reference(s) for this DOI; 15 parsed from the PDF.",
+        "originalValue": [],
+        "overridden": true,
+        "reviewRequired": true,
+        "source": "parsed",
+        "updated": "2026-10-07T20:50:36.405Z",
+        "version": "extractDocs.js@commit:d25f34130540"
+      }
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "volume": "2022",
+    "volume$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2022/10012556/10012557/10012564.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  }
+}

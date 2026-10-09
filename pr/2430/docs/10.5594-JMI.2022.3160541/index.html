@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="AI-Based Saliency-Aware Video Coding">
+  <link rel="canonical" href="https://msrbot.io/docs/10.5594-JMI.2022.3160541/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="AI-Based Saliency-Aware Video Coding — MSRBot.io">
+  <meta property="og:description" content="">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/docs/10.5594-JMI.2022.3160541/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+
+  <link rel="alternate" type="application/json" href="../../api/doc/10.5594-JMI.2022.3160541.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
+  <title>MSRBot.io | AI-Based Saliency-Aware Video Coding</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
+  <script src="../../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "AI-Based Saliency-Aware Video Coding - MSRBot.io",
+    "url": "https://msrbot.io/docs/10.5594-JMI.2022.3160541/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../../index.html"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../index.html"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/index.html"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/index.html"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/index.html"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/index.html"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/index.html"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents
+        </li>
+      </ul>
+
+      <strong>Build-data JSON</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../docs/_data/documents.json" target="_blank" rel="noopener">
+            docs/_data/documents.json
+          </a>
+          &mdash; assembled monolith used by site templates
+        </li>
+        <li>
+          <a href="../../groups/_data/groups.json" target="_blank" rel="noopener">
+            groups.json
+          </a>
+          &mdash; normalized groups registry
+        </li>
+        <li>
+          <a href="../../projects/_data/projects.json" target="_blank" rel="noopener">
+            projects.json
+          </a>
+          &mdash; project registry with lookups
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
+          <a href="https://www.smpte.org/" target="_blank" rel="noopener"><img src="../../resources/logos/smpte-logo.png" alt="SMPTE logo" height="25" class="align-text-bottom me-1 publisher-logo" loading="lazy" data-logo-light="../../resources/logos/smpte-logo.png" data-logo-dark="../../resources/logos/smpte-logo_white.svg"></a>
+        <code class="docid-doclabel me-1 fs-6 text-wrap">SMPTE Motion Imaging Journal ( Volume: 131, Issue: 4, May 2022)</code>
+      </div>
+      <div class="status-badges ms-auto d-inline-flex flex-wrap gap-1">
+
+        
+        
+        
+        
+        
+            <span class="label badge text-bg-success">[ACTIVE]</span>
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <h1 class="h5 mb-1">
+        <a class="text-decoration-none" href="https://doi.org/10.5594/JMI.2022.3160541" target="_blank" rel="noopener">AI-Based Saliency-Aware Video Coding</a>
+    </h1>
+    
+  </header>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h2 class="h5 card-title">Metadata</h2>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=SMPTE">SMPTE</a> <span class="text-muted">— White Plains, NY, USA</span></dd>
+            <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Journal Article">Journal Article</a></dd>
+            <dt class="col-sm-4">Content Type</dt><dd class="col-sm-8"><a class="" href="../?f.contentType=orig-research">Original Research</a></dd>
+            <dt class="col-sm-4">Abbreviated Title</dt><dd class="col-sm-8"><em>SMPTE Mot. Imag. J</em></dd>
+            <dt class="col-sm-4">Volume</dt><dd class="col-sm-8">131, No. 4, pp. 21–29</dd>
+            
+            
+            
+            <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">The demand for video through over-the-top (OTT) has been constantly increasing in recent years. During the COVID-19 pandemic, demand skyrocketed, hence leading to the need for better video compression. The human visual system (HVS) can quickly select visually important regions in its visual field. These regions are captured at high resolution, while other peripheral regions receive little attention. Saliency maps are a way to imitate the HVS attention mechanism. Recently, deep learning-based saliency models have achieved tremendous improvements. This article leverages state-of-the-art deep learning-based saliency models to improve video coding efficiency. First, a saliency-based rate control scheme is integrated in a high-efficiency video encoder (HEVC). Then, a saliency-guided preprocessing filtering step is introduced. Finally, the two approaches are combined. Objective and subjective evaluations show that it can lower the bitrate from 6% to almost 30% while maintaining the same visual quality.</dd>
+            
+            
+            <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2022-05-01</dd>
+            
+            
+            
+            
+            
+            
+            
+            <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2022.3160541" target="_blank" rel="noopener"><code>10.5594/JMI.2022.3160541</code></a></dd>
+            
+            <dt class="col-sm-4">ISSN</dt><dd class="col-sm-8">Print: <code>1545-0279</code> <span class="text-muted">|</span> Electronic: <code>2160-2492</code></dd>
+            <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.5594/JMI.2022.3160541" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.5594/JMI.2022.3160541</a></dd>
+            
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-2"><div class="d-flex justify-content-between align-items-center gap-2"><span>Sébastien Pelurson</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Sébastien Pelurson received a PhD degree in computer science from the University of Grenoble Alpes, Grenoble, France, in 2016. From 2016 to 2019, he worked in the field of augmented reality, and more specifically on the use of deep learning models to improve 3D tracking algorithms on mobile devices. He joined Ateme, Rennes, France, in 2020. His research interests include video coding optimization based on machine learning technology.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Josselin Cozanet</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Josselin Cozanet received an engineering diploma from École nationale supérieure d’ingénieurs de Caen &amp; Centre de Recherche (ENSICAEN) National Graduate School of Engineering, Caen, Rennes, France, in 2019. He started working at Ateme, Rennes, in 2019, for an internship in the innovation team on artificial intelligence used to improve encoding latency. He is still working on various topics at Ateme, including artificial intelligence applied to video compression and content delivery network intercommunication with open caching.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Thomas Guionnet</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Thomas Guionnet is a fellow research engineer at Ateme, Rennes, France, where he currently leads the Innovation team’s research on artificial intelligence applied to video compression. Beyond his work for Ateme, he has also contributed to the International Standards Organization/Motion Picture Experts Group (ISO/MPEG) - International Telecommunication Union-Telecommunication/Video Coding Experts Group (ITU-T/VCEG) - Versatile Video Coding (VVC), HEVC, and HEVC-3D standardization process; he teaches video compression at the ESIR engineering school in Rennes; and he has authored numerous publications including patents, international conference papers, and journal papers. Prior to joining Ateme, he spent ten years at Envivio conducting research on realtime encoding, video preprocessing, and video quality assessment. He holds a PhD from University of Rennes 1, Rennes.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Mohsen Abdoli</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Mohsen Abdoli received a master of engineering degree from Sharif University of Technology, Tehran, Iran, in 2013, and a PhD jointly from Université Paris-Saclay and CentraleSupélec, Paris, France, in 2018. In 2015, he joined Orange Labs, Rennes, France, where he actively contributed to the development of several video compression techniques, targeting the VVC standard by JVET, particularly in the domain of intraprediction and residual coding of natural/screen content. In 2018, he joined Ateme, Rennes, where he contributed to the world-first implementation of realtime VVC transcoder for video-on-demand and live streaming applications. He is currently with IRT b&lt;&gt; com, Rennes, holding the position of standardization engineer. His research interests include areas of signal processing, encoder optimization, machine learning, and quality assessment.</div></details></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Thibaud Biatek</span></div><details class="mt-1"><summary class="small text-muted">bio</summary><div class="small mt-1 ps-3 border-start">Thibaud Biatek received a PhD degree in signal and image processing from the Institut National des Sciences Appliquées, Rennes, France, in 2016. From 2013 to 2017, he was a doctoral and post-doctoral fellow with TDF, Cesson-Sévigné, France. From 2017 to 2019, he was a video coding expert with TDF, where he was involved in MPEG and DVB standardization activities. In 2019, he was a senior engineer with Qualcomm, San Diego, CA, working on VVC standardization. Since 2020, he has been director of technology and standards at Ateme, working on partnership projects and multimedia standards, contributing to MPEG, DVB, and 3GPP groups. His research interests include compression, processing, and delivery of audiovisual signals over broadcast and broadband networks.</div></details></div></dd>
+            
+
+            <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Artificial Intelligence">Artificial Intelligence</a>, <a class="" href="../?f.keywords=Saliency">Saliency</a>, <a class="" href="../?f.keywords=Video Coding">Video Coding</a></dd>
+            
+            
+            
+            
+            <dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© 2022 SMPTE</span></dd>
+          </dl>
+        </div>
+      </div>
+      
+
+      
+
+
+
+
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col col-lg-6">
+              <h2 class="h6">Bibliographic Reference(s)</h2>
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item">
+                    <cite>L. Zhang et al., “SUN: A Bayesian Framework for Saliency Using Natural Statistics,” J. Vision, 8(7):32, Dec. 2008.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Qin et al., “Integration of the Saliency-Based Seed Extraction and Random Walks for Image Segmentation,” Neurocomputing, Elsevier: Amsterdam, The Netherlands, 129:378–391, Apr. 2014.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Pan et al., “Salgan: Visual Saliency Prediction With Generative Adversarial Networks,” arXiv preprint arXiv:1701.01081.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Z. Sun et al., “Real-Time Video Saliency Prediction via 3D Residual Convolutional Neural Network,” IEEE Access, 7:147743–147754, Oct. 2019.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Xu et al., “Show, Attend and Tell: Neural Image Caption Generation With Visual Attention,” Proc. Intl. Conf. Mach. Learn. (PMLR), pp. 2048–2057, 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Polakovi˘c et al., “An Approach to Video Compression Using Saliency Based Foveation,” Proc. 2018 Intl. Symp. ELMAR, pp. 169–172, Sep. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Itti, “Automatic Foveation for Video Compression Using a Neurobiological Model of Visual Attention,” IEEE Trans. Image Processing, 13(10):1304–1318, Oct. 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Gupta et al., “A Scheme for Attentional Video Compression,” Intl. Conf. Pattern Recognit. Mach. Intelligence, Springer: Berlin, Heidelberg, pp. 458–465, 2011.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.itu.int/rec/T-REC-H.266" rel="noopener">International Telecommunication Union-Telecommunication (ITU-T), “H.266: Versatile Video Coding,” [Online]. Available: https://www.itu.int/rec/T-REC-H.266</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>International Telcommunication Union-Radiocommunication (ITU-R), “Methodologies for the Subjective Assessment of Quality of Television Images.”</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Kruthiventi et al., “Deepfix: A Fully Convolutional Neural Network for Predicting Human Eye Fixations,” IEEE Trans. Image Process., 26(9):4446–4456, Jun. 2017.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Judd et al., “A Benchmark of Computational Models of Saliency to Predict Human Fixations,” MIT Tech Report, 2012.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Fu et al., “Object-Based Multiple Foreground Segmentation in RGBD Video,” IEEE Trans. Image Process., 26(3):1418–1427, Jan. 2017.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Y. Fang et al., “A Video Saliency Detection Model in Compressed Domain,” IEEE Trans. Circuits Systems Video Technol., 24(1):27–38, Jan. 2014.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Simonyan et al., Very Deep Convolutional Networks for Large-Scale Image Recognition,” arXiv preprint arXiv:1409.1556.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Judd et al., “Learning to Predict Where Humans Look,” Proc. IEEE 12th Intl. Conf. Comput. Vision, pp. 2106–2113, 2009.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Koch et al., “Shifts in Selective Visual Attention: Towards the Underlying Neural Circuitry,” in Matters of Intelligence, Springer: Dordrecht, The Netherlands, pp. 115–141, 1997.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Kroner et al., “Contextual Encoder–Decoder Network for Visual Saliency Prediction,” Neural Networks, 129:261–270.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Gao et al., “Discriminant Saliency for Visual Recognition From Cluttered Scenes,” Advances in Neural Information Processing Systems, 17, 481–488, Jan 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Ma et al., “A Saliency Prior Context Model for Real-Time Object Tracking,” IEEE Trans. Multimedia, 19(11):2415–2424, Apr. 2017.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dvb.org/?standard=adaptive-media-streaming-over-ip-multicast" rel="noopener">Digital Video Broadcasting-Multi Adaptive Bit Rate (DVB -MABR), “DVB-MABR: Adpative Media Streaming over IP Multicast,” [Online]. Available: https://dvb.org/?standard=adaptive-media-streaming-over-ip-multicast</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Harel et al., “Graph-Based Visual Saliency,” Advances in Neural Information Processing Systems, 19, 2006.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Vig et al., “Large-Scale Optimization of Hierarchical Features For Saliency Prediction in Natural Images,” Proc. IEEE Conf. Comput. Vision Pattern Recognit., pp. 2798–2805, Jun. 2014.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Wei et al., “Visual Saliency Based Perceptual Video Coding in HEVC,” 2016 IEEE Intl. Symp. Circuits Syst. (ISCAS), pp. 2547–2550, May 2016.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Liu et al., “Learning to Predict Eye Fixations via Multiresolution Convolutional Neural Networks,” IEEE Trans. Neural Netw. Learn. Syst., 29(2):392–404, Nov. 2016.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Bruce et al., “Saliency, Attention, and Visual Search: An Information Theoretic Approach,” J. Vision, 9(3):5, Mar. 2009.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.cisco.com/c/dam/m/en_us/solutions/service-provider/vni-fore-cast-highlights/pdf/Global_2021_Forecast_Highlights.pdf" rel="noopener">Cisco, “VNI Report 2021,” [Online]. Available: https://www.cisco.com/c/dam/m/en_us/solutions/service-provider/vni-fore-cast-highlights/pdf/Global_2021_Forecast_Highlights.pdf</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf" rel="noopener">Alliance for Open Media, “AV1 Bitstream &amp; Decoding ProcessSpecification,” Jan. 2019. [Online]. Available: https://aomediacodec.github.io/av1-spec/av1-spec.pdf.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Bak et al., “Spatio-Temporal Saliency Networks for Dynamic Saliency Prediction,” IEEE Trans. Multimedia, 20(7):1688–1698, Jul. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Wennersten et al., “GOP-Based Temporal Filter Improvements,” Joint Video Experts Team (JVET), 22nd Meeting, by Teleconference, 20–28 Apr. 2021, JVET-V0056.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>V. Lyudvichenko et al. “Improving Video Compression With Deep Visual-Attention Models,” Proc. 2019 Intl Conf. Intelligent Medicine Image Process., pp. 88–94, Apr. 2019.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Tangemann, M. Kümmerer, T. S. Wallis, and M. Bethge, “Measuring the Importance of Temporal Features in Video Saliency,” European Conf. Computer Vision, Springer: Cham, Switzerland, pp. 667–684, Aug. 2020.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Lee et al., “Salient Region-Based Online Object Tracking,” Proc. 2018 IEEE Winter Conf. Appl. Comput. Vision (WACV), pp. 1170–1177, Mar. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Zhu et al., “Spatiotemporal Visual Saliency Guided Perceptual High Efficiency Video Coding With Neural Network,” Neurocomputing, 275:511–522, Jan. 2018.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Borji and L. Itti, “State-of-the-Art in Visual Attention Modeling,” IEEE Trans. Pattern Analysis Mach. Intelligence, 35(1):185–207, Apr. 2012.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Y. Li et al., “The Secrets of Salient Object Segmentation,” Proc. 2014 IEEE Conf. Comput. Vision Pattern Recognit., pp. 280– 287, Jun. 2014.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Itti et al., “A Model of Saliency-Based Visual Attention for Rapid Scene Analysis,” IEEE Trans. Pattern Analysis Mach. Intelligence, 20(11): 1254–1259, Nov. 1998.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Z. Li et al., “Visual Attention Guided Bit Allocation in Video Compression,” Image and Vision Computing, 29(1):1–14, Jan. 2011.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://netflixtechblog.com/toward-a-practical-perceptual-video-quality-metric-653f208b9652" rel="noopener">Netflix, “Toward A Practical Perceptual VideoQuality Metric,” [Online]. Available: https://netflixtechblog.com/toward-a-practical-perceptual-video-quality-metric-653f208b9652</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>X. Huang et al., “Salicon: Reducing the semantic gap in saliency prediction by adapting deep neural networks,” Proc. IEEE Intl. Conf. Comput. Vision, pp. 262–270, Dec. 2015.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <!-- Source data / JSON view -->
+      <div class="card mb-3 mt-3">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Source Data (JSON)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary py-0 px-2"
+            id="source-data-toggle"
+            data-docid="10.5594-JMI.2022.3160541"
+          >
+            View source JSON
+          </button>
+        </div>
+        <div class="card-body small">
+          <p class="mb-0 small">
+            Full registry record with provenance metadata.
+            Open directly:
+            <a href="../../api/doc/10.5594-JMI.2022.3160541.json" target="_blank" rel="noopener">/api/doc/10.5594-JMI.2022.3160541.json</a>
+          </p>
+          <pre
+            id="source-data-json"
+            class="mt-2 border rounded p-2 bg-body-secondary small"
+            style="max-height: 16rem; overflow:auto; display:none;"
+          ></pre>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const btn = document.getElementById('source-data-toggle');
+        const box = document.getElementById('source-data-json');
+        if (!btn || !box) return;
+
+        let loaded = false;
+        let visible = false;
+
+        async function toggleSource() {
+          visible = !visible;
+          if (!visible) {
+            box.style.display = 'none';
+            btn.textContent = 'View source JSON';
+            return;
+          }
+
+          box.style.display = 'block';
+          btn.textContent = 'Hide source JSON';
+
+          if (loaded) return;
+
+          const docId = btn.getAttribute('data-docid') || '';
+          const encoded = encodeURIComponent(docId);
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
+
+          box.textContent = 'Loading…';
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const data = await res.json();
+            box.textContent = JSON.stringify(data, null, 2);
+            loaded = true;
+          } catch (e) {
+            const msg = (e && e.message) ? e.message : String(e || 'Unknown error');
+            box.textContent = 'Failed to load source JSON: ' + msg;
+          }
+        }
+
+        btn.addEventListener('click', function(ev){
+          ev.preventDefault();
+          toggleSource();
+        }, { passive: false });
+      })();
+      </script>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">Reference Tree</h2>
+          <p class="mb-2 text-muted">
+            Explore all references and references to this document, as a navigable tree.
+          </p>
+          <a class="btn btn-outline-secondary btn-sm" href="../../reftree/10.5594-JMI.2022.3160541/">Open Reference Tree</a>
+        </div>
+      </div>
+
+      <!-- Use this document as a reference -->
+      <div class="card mb-3">
+        <div class="card-header fw-semibold">Reference this Doc</div>
+        <div class="card-body small">
+          <!-- Plain text -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">Plain text (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-text-10.5594-JMI.2022.3160541">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Sébastien Pelurson, Josselin Cozanet, Thomas Guionnet, Mohsen Abdoli, and Thibaud Biatek; AI-Based Saliency-Aware Video Coding, SMPTE Motion Imaging Journal ( Volume: 131, Issue: 4, May 2022); SMPTE, 2022. Available at https://doi.org/10.5594/JMI.2022.3160541</div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-text-10.5594-JMI.2022.3160541" class=" border rounded p-2 mb-0 snippet">Sébastien Pelurson, Josselin Cozanet, Thomas Guionnet, Mohsen Abdoli, and Thibaud Biatek; AI-Based Saliency-Aware Video Coding, SMPTE Motion Imaging Journal ( Volume: 131, Issue: 4, May 2022); SMPTE, 2022. Available at https://doi.org/10.5594/JMI.2022.3160541</pre>
+            
+          </div>
+          
+          <!-- HTML (generic) -->
+          <div class="mb-3 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">HTML (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-generic-10.5594-JMI.2022.3160541">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><span class="citation">Sébastien Pelurson, Josselin Cozanet, Thomas Guionnet, Mohsen Abdoli, and Thibaud Biatek; <cite>AI-Based Saliency-Aware Video Coding</cite>, SMPTE Motion Imaging Journal ( Volume: 131, Issue: 4, May 2022); SMPTE, 2022. Available at <a href="https://doi.org/10.5594/JMI.2022.3160541" target="_blank" rel="noopener">https://doi.org/10.5594/JMI.2022.3160541</a></span></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-generic-10.5594-JMI.2022.3160541" class=" border rounded p-2 mb-0 snippet">&lt;span class=&quot;citation&quot;&gt;Sébastien Pelurson, Josselin Cozanet, Thomas Guionnet, Mohsen Abdoli, and Thibaud Biatek; &lt;cite&gt;AI-Based Saliency-Aware Video Coding&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 131, Issue: 4, May 2022); SMPTE, 2022. Available at &lt;a href=&quot;https://doi.org/10.5594/JMI.2022.3160541&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doi.org/10.5594/JMI.2022.3160541&lt;/a&gt;&lt;/span&gt;</pre>
+            
+          </div>
+
+          <!-- HTML (SMPTE) -->
+          <div class="mb-1 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0"><img src="../../resources/logos/smpte-icon.png" alt="SMPTE Icon" width="24" class=" icon d-inline-block align-text-middle"> SMPTE's <a href="../SMPTE.AG26/" title="AI-Based Saliency-Aware Video Coding">HTML Pub</a></h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-smpte-10.5594-JMI.2022.3160541">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">Sébastien Pelurson, Josselin Cozanet, Thomas Guionnet, Mohsen Abdoli, and Thibaud Biatek; <cite id="bib-10-5594-jmi-2022-3160541">AI-Based Saliency-Aware Video Coding</cite>, SMPTE Motion Imaging Journal ( Volume: 131, Issue: 4, May 2022); SMPTE, 2022<br>doi:&nbsp;<span class="doi">10.5594/JMI.2022.3160541</span><br>url:&nbsp;<a href="https://doi.org/10.5594/JMI.2022.3160541" class="ext-ref">https://doi.org/10.5594/JMI.2022.3160541</a></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-smpte-10.5594-JMI.2022.3160541" class=" border rounded p-2 mb-0 snippet">&lt;li&gt;
+Sébastien Pelurson, Josselin Cozanet, Thomas Guionnet, Mohsen Abdoli, and Thibaud Biatek; &lt;cite id=&quot;bib-10-5594-jmi-2022-3160541&quot;&gt;AI-Based Saliency-Aware Video Coding&lt;/cite&gt;, SMPTE Motion Imaging Journal ( Volume: 131, Issue: 4, May 2022); SMPTE, 2022
+&lt;span class=&quot;doi&quot;&gt;10.5594/JMI.2022.3160541&lt;/span&gt;
+&lt;/li&gt;</pre>
+            
+          </div>
+        </div>
+      </div>
+
+      <script>
+      // Lightweight copy buttons for the three snippets on this page
+      (function(){
+        function copyFrom(targetSel){
+          try{
+            // Support targets passed as "#id" or "id"
+            let id = targetSel || '';
+            if (id.startsWith('#')) id = id.slice(1);
+
+            // Prefer getElementById to avoid CSS selector escaping issues with dots in IDs (e.g., SMPTE.ST96.2004)
+            const el = document.getElementById(id) || document.querySelector(targetSel);
+            if (!el) return;
+
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
+            navigator.clipboard.writeText(text);
+          } catch (e) {
+            console.error('[copy] failed:', e);
+          }
+        }
+        document.addEventListener('click', function(ev){
+          const btn = ev.target.closest('[data-copy-target]');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-copy-target');
+          copyFrom(sel);
+          // quick visual feedback
+          btn.disabled = true;
+          const prev = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.disabled = false; btn.innerText = prev; }, 900);
+        }, { passive: true });
+      })();
+      </script>
+      
+    </div>
+  </section>
+
+  <nav class="mt-3">
+    <a class="btn btn-outline-secondary btn-sm" href="../#10.5594-JMI.2022.3160541">← Back to Docs</a>
+  </nav>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="2026-10-07T20:50:36.678Z"><code>2026-10-07T20:50:36.678Z</code></time>
+            </p>
+                      </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

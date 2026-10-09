@@ -1,0 +1,292 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-09T16:03:15.605Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC3684",
+  "document": {
+    "abstract": "Topology Dissemination Based on Reverse-Path Forwarding (TBRPF) is a proactive, link-state routing protocol designed for mobile ad-hoc networks, which provides hop-by-hop routing along shortest paths to each destination. Each node running TBRPF computes a source tree (providing paths to all reachable nodes) based on partial topology information stored in its topology table, using a modification of Dijkstra's algorithm. To minimize overhead, each node reports only *part* of its source tree to neighbors. TBRPF uses a combination of periodic and differential updates to keep all neighbors informed of the reported part of its source tree. Each node also has the option to report additional topology information (up to the full topology), to provide improved robustness in highly mobile networks. TBRPF performs neighbor discovery using \"differential\" HELLO messages which report only *changes* in the status of neighbors. This results in HELLO messages that are much smaller than those of other link-state routing protocols such as OSPF. This memo defines an Experimental Protocol for the Internet community.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "authors": [
+      {
+        "name": "Richard Ogier"
+      },
+      {
+        "name": "Fred L. Templin"
+      },
+      {
+        "name": "Mark S. Lewis"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "docId": "RFC3684",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "docLabel": "IETF RFC 3684",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "docNumber": "3684",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "docTitle": "Topology Dissemination Based on Reverse-Path Forwarding (TBRPF)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "docType": "Experimental",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "doi": "10.17487/RFC3684",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.845Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "href": "https://doi.org/10.17487/RFC3684",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "keywords": [
+      "TBRPF",
+      "Proactive Routing",
+      "MANET",
+      "Neighbor Discovery",
+      "Link-state Routing",
+      "Packet Radio Network",
+      "Wireless Communications"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "TBRPF",
+        "Topology Dissemination Based On Reverse-Path Forwarding",
+        "Proactive Routing",
+        "Ad-hoc Networks",
+        "Neighbor Discovery",
+        "Link-state Routing",
+        "Mobile Ad-hoc Network",
+        "Mobile Mesh Network",
+        "Packet Radio Network",
+        "Wireless Communications"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T16:03:15.605Z",
+      "version": "extractDocs.js@commit:8432189beb5c"
+    },
+    "pages": "46",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "publicationDate": "2004-02-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.844Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2328",
+        "RFC3626",
+        "RFC826",
+        "RFC2461",
+        "RFC3344",
+        "RFC2740",
+        "RFC2401",
+        "RFC2402",
+        "RFC2406",
+        "orphan/RFC3684/h:2bbf25f0",
+        "orphan/RFC3684/h:6af3585c",
+        "orphan/RFC3684/h:7a9b89a7",
+        "orphan/RFC3684/h:d53f9871",
+        "orphan/RFC3684/h:9542462b",
+        "orphan/RFC3684/h:eb2aee08",
+        "orphan/RFC3684/h:4a893ccb",
+        "orphan/RFC3684/h:77a90ca2",
+        "orphan/RFC3684/h:3af5bc96"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=23 proseBlocks=28 skippedAnchorBlocks=26",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+        "updated": "2026-10-09T15:38:36.845Z",
+        "version": "extractDocs.js@commit:12c59e0e1847"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC2460",
+        "RFC791",
+        "RFC1122",
+        "RFC1812"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+        "updated": "2026-10-09T15:38:36.845Z",
+        "version": "extractDocs.js@commit:12c59e0e1847"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc3684/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+      "updated": "2026-10-09T15:38:36.845Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+        "updated": "2026-10-09T15:38:36.845Z",
+        "version": "extractDocs.js@commit:12c59e0e1847"
+      },
+      "amendedBy": [
+        "RFC9141"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+        "updated": "2026-10-09T15:38:36.845Z",
+        "version": "extractDocs.js@commit:12c59e0e1847"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+        "updated": "2026-10-09T15:38:36.845Z",
+        "version": "extractDocs.js@commit:12c59e0e1847"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+        "updated": "2026-10-09T15:38:36.845Z",
+        "version": "extractDocs.js@commit:12c59e0e1847"
+      },
+      "statusNote": "Experimental",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+        "updated": "2026-10-09T15:38:36.845Z",
+        "version": "extractDocs.js@commit:12c59e0e1847"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3684/",
+        "updated": "2026-10-09T15:38:36.845Z",
+        "version": "extractDocs.js@commit:12c59e0e1847"
+      }
+    }
+  }
+}

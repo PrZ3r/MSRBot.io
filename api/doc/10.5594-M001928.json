@@ -1,0 +1,261 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-07T20:50:36.381Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "10.5594-M001928",
+  "document": {
+    "abstract": "The potential audience for streaming media services is massive, but satisfying that kind of demand poses a huge technical challenge. Even if existing Content Delivery Networks were capable of distributing such loads, the costs at that scale would remain beyond the monetary capabilities of any broadcaster. By reducing transmission costs associated with content delivery at scale, broadcasters would pay less to the CDNs, making the content cheaper to the end user. — In traditional broadcasting technologies, a majority of commercially available content distribution architectures are based on a paradigm rooted in linear broadcast services, having a very simple unified service composition focusing and delivery interpretable on compatible TV sets with builtin tuners. Whilst this helped transform the industry by facilitating the transition from analogue to digital broadcast content distribution, it now leaves content providers and broadcast network operators wondering how they can remain relevant in the age of Web and Internet streaming. — This article will take its point of departure in evolved content distribution systems and the resulting system architectures for a next generation broadcast OTT live and on-demand streaming. It will focus on a solution for efficient and secure transport of well-known low latency streaming protocols by employing QUIC as a primary transport protocol for the industry leading IP Multicast architectures supporting multicast-assisted adaptive bitrate (mABR) streaming, enabled by novel HTTP/3 Server Push techniques. At scale, the solution could significantly reduce the amount of open streaming sessions, improving the scalability of existing audio-video streaming architectures, and reducing the wastage of scarce bandwidth. Placing physical gateway boxes within users' home network that fully support QUIC and Multicast content reception can reduce the prevalent lack of user agent support for reception of Multicast QUIC content. The report includes state-of-the-art research behind elements of Multicast QUIC featuring Multicast Gateway authorization using OAuth 2.0 with Proof Key for Code Exchange (PKCE) flow, followed by its design, requirements specification and proof-of-concept implementation written in Golang. — This new model with the core transport protocol based on QUIC will be the foundation for unified content distribution architectures, spanning Internet streaming, IPTV, 5G, and the latest ATSC and DVB physical layers allowing for an efficient, IP-based delivery of linear content to thin clients.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "authors": [
+      {
+        "affiliation": "M.Sc. in Engineering Student, Aalborg University Copenhagen",
+        "name": "Aleksander Nowak"
+      },
+      {
+        "affiliation": "M.Sc. in Engineering Student, Aalborg University Copenhagen",
+        "name": "Jonas Hansen"
+      },
+      {
+        "affiliation": "COO and Co-Founder, mediathand Copenhagen",
+        "name": "Allan Hammershoj"
+      },
+      {
+        "affiliation": "Associate Professor, Aalborg University Copenhagen",
+        "name": "Cedomir Stefanovic"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "contentType": "orig-research",
+    "contentType$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "copyright": {
+      "holder": "Society of Motion Picture and Television Engineers, Inc.",
+      "holder$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      },
+      "year": "2020",
+      "year$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "copyright$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docId": "10.5594-M001928",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docLabel": "SMPTE Meetings and Conferences ( November 2020)",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docTitle": "Next Generation OTT Distribution Architecture Supporting Multicast-Assisted ABR (mABR) and HTTP/3 over QUIC",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "docType": "Conference Paper",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "doi": "10.5594/M001928",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "href": "https://doi.org/10.5594/M001928",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "keywords": [
+      "Multicast Adaptive Bitrate (MABR)",
+      "QUIC",
+      "Multicast",
+      "Low-latency Streaming",
+      "HTTP/3",
+      "TLS 1.3",
+      "OAuth 2.0",
+      "PKCE",
+      "ATSC 3.0",
+      "DVB-GSE",
+      "OTT-B",
+      "ROUTE",
+      "Golang",
+      "5G",
+      "IPTV"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "number": "11",
+    "number$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "pages": "1–12",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "publicationDate": "2020-11-10",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "publisher": "SMPTE",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "publisherLocation": {
+      "city": "White Plains, NY",
+      "city$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      },
+      "country": "USA",
+      "country$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "publisherLocation$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    },
+    "references": {
+      "bibliographic": [
+        "orphan/10.5594-M001928/h:f721e1fb",
+        "orphan/10.5594-M001928/h:dccbd440",
+        "orphan/10.5594-M001928/h:55ff3fe9",
+        "orphan/10.5594-M001928/h:0a80592d",
+        "orphan/10.5594-M001928/h:ba5c2efe",
+        "orphan/10.5594-M001928/h:0b7c19a8",
+        "orphan/10.5594-M001928/h:14e0b82c",
+        "orphan/10.5594-M001928/h:dddfafc3",
+        "orphan/10.5594-M001928/h:96879e53",
+        "orphan/10.5594-M001928/h:fcf8bb80",
+        "orphan/10.5594-M001928/h:937af6eb",
+        "orphan/10.5594-M001928/h:9120eb0d",
+        "orphan/10.5594-M001928/h:5e7556cd",
+        "orphan/10.5594-M001928/h:28c0c186",
+        "ETSI.TS-102-606",
+        "orphan/10.5594-M001928/h:33457856",
+        "orphan/10.5594-M001928/h:ae9eb2a4",
+        "orphan/10.5594-M001928/h:07f01118",
+        "ISO.23008-1",
+        "orphan/10.5594-M001928/h:1a2371f8",
+        "RFC6749",
+        "orphan/10.5594-M001928/h:7f32b5c1",
+        "RFC7761",
+        "RFC4604",
+        "RFC7636",
+        "orphan/10.5594-M001928/h:c4a0d70e"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "note": "References parsed from the published PDF (Conference Repository/Conference Papers/2020/9490948/9490949/09490977.pdf). SMPTE's library delivery has no reference file or full text for this paper (src/main/reports/smpte-upstream/referenceFilesTruthTable.md). Cross-check: Crossref lists 27 reference(s) for this DOI; 27 parsed from the PDF.",
+        "originalValue": [],
+        "overridden": true,
+        "source": "parsed",
+        "updated": "2026-10-07T20:50:36.381Z",
+        "version": "extractDocs.js@commit:d25f34130540"
+      }
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+        "source": "parsed",
+        "updated": "2026-10-07T17:09:33.718Z",
+        "version": "smpte-idams-publication@v1"
+      }
+    },
+    "volume": "2020",
+    "volume$meta": {
+      "confidence": "high",
+      "note": "Ingested from SMPTE IDAMS <publication> (_source/SMPTE/Conference Repository/Conference Papers/2020/9490948/9490949/09490977.xml) via idamsIngest.js",
+      "source": "parsed",
+      "updated": "2026-10-07T17:09:33.718Z",
+      "version": "smpte-idams-publication@v1"
+    }
+  }
+}
