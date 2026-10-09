@@ -1,4 +1,28 @@
 {
+  "abstract": "This specification establishes two parameters (Format and DelSP) to be used with the Text/Plain media type. In the presence of these parameters, trailing whitespace is used to indicate flowed lines and a canonical quote indicator is used to indicate quoted lines. This results in an encoding which appears as normal Text/Plain in older implementations, since it is in fact normal Text/Plain, yet provides for superior wrapping/flowing, and quoting. This document supersedes the one specified in RFC 2646, \"The Text/Plain Format Parameter\", and adds the DelSp parameter to accommodate languages/coded character sets in which ASCII spaces are not used or appear rarely. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+    "updated": "2026-10-09T16:06:13.162Z",
+    "version": "extractDocs.js@commit:c8bcebbb058c"
+  },
+  "authors": [
+    {
+      "name": "Randall Gellens"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+    "updated": "2026-10-09T16:06:13.162Z",
+    "version": "extractDocs.js@commit:c8bcebbb058c"
+  },
   "docId": "RFC3676",
   "docId$meta": {
     "confidence": "high",
@@ -10,6 +34,16 @@
     "confidence": "medium",
     "source": "manual",
     "updated": "2025-07-01T00:00:00Z"
+  },
+  "docNumber": "3676",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+    "updated": "2026-10-09T16:06:13.162Z",
+    "version": "extractDocs.js@commit:c8bcebbb058c"
   },
   "docTitle": "The Text/Plain Format and DelSp Parameters",
   "docTitle$meta": {
@@ -23,11 +57,57 @@
     "source": "manual",
     "updated": "2025-07-01T00:00:00Z"
   },
-  "href": "https://www.rfc-editor.org/info/rfc3676",
+  "doi": "10.17487/RFC3676",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+    "updated": "2026-10-09T16:06:13.162Z",
+    "version": "extractDocs.js@commit:c8bcebbb058c"
+  },
+  "href": "https://doi.org/10.17487/RFC3676",
   "href$meta": {
-    "confidence": "medium",
-    "source": "manual",
-    "updated": "2025-07-01T00:00:00Z"
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": "https://www.rfc-editor.org/info/rfc3676",
+    "overridden": true,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+    "updated": "2026-10-09T16:06:13.162Z",
+    "version": "extractDocs.js@commit:c8bcebbb058c"
+  },
+  "keywords": [
+    "Media Type",
+    "MIME"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Media Type",
+      "MIME",
+      "Multipurpose",
+      "Internet",
+      "Mail",
+      "Extension"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+    "updated": "2026-10-09T18:55:07.417Z",
+    "version": "extractDocs.js@commit:74ccac08aeb3"
+  },
+  "pages": "20",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+    "updated": "2026-10-09T16:06:13.162Z",
+    "version": "extractDocs.js@commit:c8bcebbb058c"
   },
   "publicationDate": "2004-02-01",
   "publicationDate$meta": {
@@ -41,13 +121,58 @@
     "source": "manual",
     "updated": "2025-07-01T00:00:00Z"
   },
-  "resolvedHref": "https://datatracker.ietf.org/doc/html/rfc3676",
+  "references": {
+    "bibliographic": [
+      "RFC2822",
+      "RFC2440",
+      "RFC2015",
+      "RFC1896",
+      "RFC2821",
+      "RFC3156",
+      "RFC2646",
+      "orphan/RFC3676/h:5432e438"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=11 proseBlocks=15 skippedAnchorBlocks=12",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "overridden": true,
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+      "updated": "2026-10-09T16:06:13.162Z",
+      "version": "extractDocs.js@commit:c8bcebbb058c"
+    },
+    "normative": [
+      "RFC2234",
+      "RFC2119",
+      "RFC2046",
+      "RFC2045"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+      "updated": "2026-10-09T16:06:13.162Z",
+      "version": "extractDocs.js@commit:c8bcebbb058c"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3676/",
   "resolvedHref$meta": {
     "confidence": "high",
-    "note": "Backfilled from url.validate report #resolvedHref",
-    "originalValue": null,
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": "https://datatracker.ietf.org/doc/html/rfc3676",
+    "overridden": true,
     "source": "resolved",
-    "updated": "2025-10-09T06:44:21.852Z"
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+    "updated": "2026-10-09T16:06:13.163Z",
+    "version": "extractDocs.js@commit:c8bcebbb058c"
   },
   "status": {
     "active": true,
@@ -55,6 +180,60 @@
       "confidence": "medium",
       "source": "manual",
       "updated": "2025-07-01T00:00:00Z"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+      "updated": "2026-10-09T16:06:13.163Z",
+      "version": "extractDocs.js@commit:c8bcebbb058c"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+      "updated": "2026-10-09T16:06:13.163Z",
+      "version": "extractDocs.js@commit:c8bcebbb058c"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+      "updated": "2026-10-09T16:06:13.163Z",
+      "version": "extractDocs.js@commit:c8bcebbb058c"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+      "updated": "2026-10-09T16:06:13.163Z",
+      "version": "extractDocs.js@commit:c8bcebbb058c"
+    },
+    "supersedes": [
+      "RFC2646"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3676/",
+      "updated": "2026-10-09T16:06:13.163Z",
+      "version": "extractDocs.js@commit:c8bcebbb058c"
     }
   }
 }

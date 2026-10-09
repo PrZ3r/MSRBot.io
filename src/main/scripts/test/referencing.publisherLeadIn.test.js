@@ -65,9 +65,74 @@ const cases = [
   // ITU-T keeps "Recommendation" so the cited edition year survives (RFC9231)
   ['ITU-T, "Information technology - Procedures for the operation of object identifier registration authorities", ITU-T Recommendation X.660, July 2011, <https://www.itu.int/rec/T-REC-X.660>.', 'T-REC-X.660.2011'],
   ['ITU-T, "Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation", ITU-T Recommendation X.680, February 2021, <https://www.itu.int/rec/T-REC-X.680>.', 'T-REC-X.680.2021'],
+  // NIST SP revision stays lowercase, as NIST writes it (RFC8446 cites the DOI in text)
+  ['Barker, E., "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography", National Institute of Standards and Technology, DOI 10.6028/NIST.SP.800-56Ar3, April 2018.', 'NIST.SP.800-56Ar3'],
+  ['NIST SP 800-52 Rev. 2', 'NIST.SP.800-52r2'],
+  // xml2rfc's printed forms in RFC reference lists
+  ['International Organization for Standardization, "Information Technology - Universal Multiple-Octet Coded Character Set (UCS)", ISO Standard 10646:2014, 2014.', 'ISO.10646.2014'],
+  ['International Organization for Standardization, "Information and documentation - Digital object identifier system", ISO Standard 26324, 2012.', 'ISO.26324.2012'],
+  ['American National Standards Institute, "American National Standard for Information Systems-Data Link Encryption", ANSI X3.106, 1983.', 'ANSI.X3.106.1983'],
+  ['IEEE 802, "IEEE Standard for Local and Metropolitan Area Networks: Overview and Architecture", IEEE 802 Std 802(TM)-2014, 2014.', 'IEEE.STD802.2014'],
+  ['IEEE, "IEEE Trial-Use Recommended Practice for Multi- Vendor Access Point Interoperability", IEEE 802 Std 802.11F(TM)-2003, 2003.', 'IEEE.STD802.11F.2003'],
+  ['IEEE and The Open Group, "Portable Operating System Interface (POSIX)", The Open Group Base Specifications Issue 7, IEEE 1003.1, 2013 Edition.', 'IEEE.STD1003.1.2013'],
+  ['IEEE, "IEEE Standard for Floating-Point Arithmetic", IEEE 754.', 'IEEE.STD754'],
+  ['U.S. National Institute of Standards and Technology, "SECURE HASH STANDARD", Federal Information Processing Standard (FIPS) 180-2, August 2002.', 'NIST.FIPS.180-2'],
+  ['National Institute of Standards and Technology (NIST), FIPS Publication 180-3: Secure Hash Standard, October 2008.', 'NIST.FIPS.180-3'],
+  ['"Public Key Cryptography for the Financial Services Industry: The Elliptic Curve Digital Signature Algorithm (ECDSA)", American National Standards Institute (ANSI) X9.62.', 'ANSI.X9.62'],
+  ['Institute of Electrical and Electronics Engineers, "Local and Metropolitan Area Networks: Port-Based Network Access Control", IEEE Standard 802.1X-2004, December 2004.', 'IEEE.STD802.1X.2004'],
+  ['"Local and Metropolitan Area Networks: Port-Based Network Access Control", IEEE Standard 802.1X, December 2004.', 'IEEE.STD802.1X.2004'],
+  ['IEEE, "Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications", IEEE Standard 802.11, 2003.', 'IEEE.STD802.11.2003'],
+  // batch 8: SCTE, ETSI EN, ANSI designator-first, US-ASCII → INCITS (refMap)
+  ['SCTE Data Standards Subcommittee, "Data-Over-Cable Service Interface Specifications: DOCSIS 1.0 Baseline Privacy Interface Specification SCTE 22-2 2002", 2002.', 'SCTE.22-2.2002'],
+  ['SCTE Data Standards Subcommittee, "DOCSIS 1.1 Part 3: Operations Support System Interface ANSI/SCTE 23-3 2005", 2005.', 'SCTE.23-3.2005'],
+  ['American National Standards Institute/Society of Cable and Telecommunications Engineers (ANSI/SCTE) 67 2010, "Recommended Practice for SCTE 35 Digital Program Insertion Cueing Message for Cable", 2010.', 'SCTE.67.2010'],
+  ['Society of Cable Telecommunications Engineers (SCTE), ANSI/SCTE 35 2023r1, "Digital Program Insertion Cueing Message."', 'SCTE.35.2023'],
+  ['SCTE 127-2007', 'SCTE.127.2007'],
+  ['European Telecommunications Standard Institute, "ETSI Standard EN 300 429, Version 1.2.1: Digital Video Broadcasting (DVB), Framing structure", April 1998.', 'ETSI.EN-300-429.1998'],
+  ['EN 300 001 V1.5.1 (1998-10):"European Standard (Telecommunications series) Attachments to Public Switched Telephone Network (PSTN)"', 'ETSI.EN-300-001.1998'],
+  ['ANSI X3.106, "American National Standard for Information Systems-Data Link Encryption", American National Standards Institute, 1983.', 'ANSI.X3.106.1983'],
+  ['American National Standards Institute, "Coded Character Set - 7-bit American Standard Code for Information Interchange", ANSI X3.4, 1986.', 'INCITS.X3.4.1986'],
+  // batch 9: spelled-out FIPS, "(IEEE) Standard", ETS in parentheses, spelled-out 3GPP, SECG
+  ['National Institute of Standards and Technology, U.S. Department of Commerce, "Advanced Encryption Standard", Federal Information Processing Standards Publication 197, Washington, DC, November 2001.', 'NIST.FIPS.197'],
+  ['Institute for Electrical and Electronics Engineers (IEEE) Standard 1363-2000, Standard Specifications for Public Key Cryptography, January 2000.', 'IEEE.STD1363.2000'],
+  ['Institute of Electrical and Electronics Engineers (IEEE) Standard 1588-2019 (Revision of IEEE Standard 1588-2008), "Precision Clock Synchronization Protocol".', 'IEEE.STD1588.2019'],
+  ['European Telecommunications Standards Institute, "GSM Technical Specification GSM 03.20 (ETS 300 534): "Digital cellular telecommunication system (Phase 2)", August 1997.', 'ETSI.ETS-300-534.1997'],
+  ['3rd Generation Partnership Project, "Security Architecture (Release 4)", TS 33.102, December 2001.', '3GPP.TS-33.102.200112'],
+  ['Standards for Efficient Cryptography Group, SEC 1: Elliptic Curve Cryptography, Version 1.0, September 2000. http://www.secg.org', 'SECG.SEC1.v1.2000-09'],
+  // batch 10: URL printed in the citation (wrapped across lines), W3C /YYYY/MM/ layout,
+  // Unicode TR revision, "IEEE 1363: <title>. <date>", TIFF 6.0 (refMap)
+  ['Canonical XML Version 1.0, W3C Working Draft. T. Bray, J. Clark, J. Tauber, and J. Cowan. January 19, 2000. http://www.w3.org/TR/2000/WD-xml-c14n- 20000119.html .', 'W3C.WD-xml-c14n.20000119'],
+  ['XML Linking Language. Working Draft. S. DeRose, D. Orchard, B. Trafford. July 1999. http://www.w3.org/1999/07/WD-xlink-19990726', 'W3C.WD-xlink.19990726'],
+  ['Extensible Stylesheet Language (XSL) Working Draft. S. Adler, J. Richman, S. Zilles. March 2000. http://www.w3.org/TR/2000/WD-xsl- 20000327/xslspec.html', 'W3C.WD-xsl.20000327'],
+  ['TR15, Unicode Normalization Forms. M. Davis, M. Durst. Revision 18: November 1999. http://www.unicode.org/unicode/reports/tr15/ tr15-18.html .', 'UNICODE.STD.TR15-18'],
+  ['IEEE 1363: Standard Specifications for Public Key Cryptography. August 2000.', 'IEEE.STD1363.2000'],
+  ['Adobe Developers Association, TIFF (TM) Revision 6.0 - Final, June 3, 1992.', 'TIFF.r6.19920603'],
+  ['World Wide Web Consortium, "Extensible Markup Language (XML) 1.0", W3C XML, February 1998.', 'W3C.xml.19980210'],
+  // batch 12: RSA Laboratories PKCS (registry form RSA.PKCSn.vX.YYYY), NIST SP 500 series,
+  // UCS Part 1 1993 and US-ASCII 1968 (refMap)
+  ['RSA Laboratories, "PKCS #7: RSA Cryptographic Message Syntax Standard," version 1.5, November 1993.', 'RSA.PKCS7.v1.5.1993'],
+  ['RSA Laboratories. PKCS #1 v2.0: RSA Encryption Standard. October 1998.', 'RSA.PKCS1.v2.0.1998'],
+  ['PKCS #1: RSA Encryption Standard, RSA Data Security, Inc., 3 June 1991, Version 1.4.', 'RSA.PKCS1.v1.4.1991'],
+  ['NIST. Special Publication 500-202: Stable Implementation Agreements for Open Systems Interconnection Protocols. Version 5, Edition 1, Part 12. December 1995.', 'NIST.SP.500-202'],
+  ['ISO/IEC, Information Technology - Universal Multiple-Octet Coded Character Set (UCS) - Part 1: Architecture and Basic Multilingual Plane, May 1993, with amendments.', 'ISO.10646-1.1993'],
+  ['"USA Standard Code for Information Interchange," X3.4. American National Standards Institute: New York (1968).', 'INCITS.X3.4.1968'],
+  // batch 14: ISO "International Standard NNNN", FIPS PUB in parentheses, RFC1502's titles (refMap)
+  ['Information processing systems - Open Systems Interconnection, "Specification of Abstract Syntax Notation One (ASN.1)", International Organization for Standardization, International Standard 8824, December 1987.', 'ISO.8824.1987'],
+  ['Federal Information Processing Standards Publication (FIPS PUB) 81, DES Modes of Operation, 1980 December 2.', 'NIST.FIPS.81'],
+  ['Federal Information Processing Standards Publication (FIPS PUB) 46-1, Data Encryption Standard, Reaffirmed 1988 January 22.', 'NIST.FIPS.46-1'],
+  ['Code for the representation of names of languages. 1988 version.', 'ISO.639.1988'],
+  // batch 16: Internet-Draft anchors (xml2rfc bibxml includes) and draft names in citations
+  ['I-D.ietf-core-coap-tcp-tls', 'IETF.draft-ietf-core-coap-tcp-tls'],
+  ['Rescorla, E., "The Datagram Transport Layer Security (DTLS) Protocol Version 1.3", Work in Progress, Internet-Draft, draft-ietf-tls-dtls13-39, 2 November 2020.', 'IETF.draft-ietf-tls-dtls13-39'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }
+// PKCS only with RSA as publisher: papers about PKCS #1 are not the standard.
+assert.strictEqual(parseRefId('J. Manger. A Chosen Ciphertext Attack on RSA Optimal Asymmetric Encryption Padding (OAEP) as Standardized in PKCS #1 v2.0. In J. Kilian, editor, Advances in Cryptology - Crypto 2001.'), null); n++;
+// Same UCS title as China's GB 13000.1, which must not map to ISO 10646-1.
+assert.strictEqual(parseRefId('"Information Technology: Universal Multiple-Octet Coded Character Set(UCS) Part 1: Architecture and Basic Multilingual Plane", GB13000.1'), null); n++;
+// The first URL printed wins, bare "www." included: VSF TR-11's PDF, not the GitHub repo after it.
+assert.strictEqual(parseRefId('VSF TR-11 - Signal Transport and Timing Considerations . www.vsf.tv/download/technicalrecommendations/VSFTR-112024-02-21-draft.pdf https://github.com/vsf-tv/gccg-api .'), null); n++;
 
 // Left alone: W3C author-date needs its long form; "CEA-608-E (ANSI)" is a designator, not a name.
 for (const s of ['World Wide Web Consortium (W3C) (2004, October 28). XML Schema Part 1: Structures', 'CEA-608-E (ANSI) (2008)', 'SMPTE ST 2110-20:2017']) {

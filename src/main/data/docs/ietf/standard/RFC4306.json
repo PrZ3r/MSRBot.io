@@ -1,0 +1,384 @@
+{
+  "abstract": "This document describes version 2 of the Internet Key Exchange (IKE) protocol. IKE is a component of IPsec used for performing mutual authentication and establishing and maintaining security associations (SAs). This version of the IKE specification combines the contents of what were previously separate documents, including Internet Security Association and Key Management Protocol (ISAKMP, RFC 2408), IKE (RFC 2409), the Internet Domain of Interpretation (DOI, RFC 2407), Network Address Translation (NAT) Traversal, Legacy authentication, and remote address acquisition. Version 2 of IKE does not interoperate with version 1, but it has enough of the header format in common that both versions can unambiguously run over the same UDP port. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "authors": [
+    {
+      "name": "Charlie Kaufman"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "docId": "RFC4306",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "docLabel": "IETF RFC 4306",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "docNumber": "4306",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "docTitle": "Internet Key Exchange (IKEv2) Protocol",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "doi": "10.17487/RFC4306",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "href": "https://doi.org/10.17487/RFC4306",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "keywords": [
+    "IPSEC",
+    "Cryptography",
+    "Authentication",
+    "IKE",
+    "Oakley",
+    "ISAKMP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "IPSEC",
+      "Cryptography",
+      "Authentication",
+      "IKE",
+      "Oakley",
+      "ISAKMP",
+      "IP",
+      "Security"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-09T21:41:14.375Z",
+    "version": "extractDocs.js@commit:04daa550bbc9"
+  },
+  "pages": "99",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "publicationDate": "2005-12-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2131",
+      "NIST.FIPS.186",
+      "RFC2409",
+      "RFC3173",
+      "RFC2104",
+      "RFC2251",
+      "RFC1321",
+      "RFC2408",
+      "RFC2412",
+      "RFC2367",
+      "RFC3447",
+      "RFC2407",
+      "RFC2865",
+      "RFC4086",
+      "RFC1958",
+      "RFC2401",
+      "RFC2474",
+      "RFC2475",
+      "RFC2522",
+      "RFC2775",
+      "RFC2983",
+      "RFC3439",
+      "RFC3715",
+      "RFC4302",
+      "RFC4303",
+      "NIST.FIPS.180-1",
+      "T-REC-X.501.1993",
+      "T-REC-X.509.1997",
+      "ANSI.X3.106.1983",
+      "orphan/RFC4306/h:c8306c76",
+      "orphan/RFC4306/h:64ddb3a0",
+      "orphan/RFC4306/h:4e05120c",
+      "orphan/RFC4306/h:3261a5f4",
+      "orphan/RFC4306/h:98c256a0",
+      "orphan/RFC4306/h:42f66841",
+      "orphan/RFC4306/h:619f8e84",
+      "orphan/RFC4306/h:3c6566a8"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=47 proseBlocks=54 skippedAnchorBlocks=52",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+        "RFC2131",
+        "NIST.FIPS.186",
+        "RFC2409",
+        "RFC3173",
+        "RFC2104",
+        "RFC2251",
+        "RFC1321",
+        "RFC2408",
+        "RFC2412",
+        "RFC2367",
+        "RFC3447",
+        "RFC2407",
+        "RFC2865",
+        "RFC4086",
+        "RFC1958",
+        "RFC2401",
+        "RFC2474",
+        "RFC2475",
+        "RFC2522",
+        "RFC2775",
+        "RFC2983",
+        "RFC3439",
+        "RFC3715",
+        "RFC4302",
+        "RFC4303",
+        "NIST.FIPS.180-1",
+        "T-REC-X.501.1993",
+        "T-REC-X.509.1997",
+        "orphan/RFC4306/h:65066386",
+        "orphan/RFC4306/h:c8306c76",
+        "orphan/RFC4306/h:64ddb3a0",
+        "orphan/RFC4306/h:4e05120c",
+        "orphan/RFC4306/h:3261a5f4",
+        "orphan/RFC4306/h:98c256a0",
+        "orphan/RFC4306/h:42f66841",
+        "orphan/RFC4306/h:619f8e84",
+        "orphan/RFC4306/h:3c6566a8"
+      ],
+      "overridden": true,
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:23:45.748Z",
+      "version": "extractDocs.js@commit:431913ef390e"
+    },
+    "normative": [
+      "RFC3526",
+      "RFC3513",
+      "RFC2119",
+      "RFC3748",
+      "RFC2451",
+      "RFC3948",
+      "RFC2434",
+      "RFC3168",
+      "RFC3280",
+      "RFC4301"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4306/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+    "updated": "2026-10-08T23:05:20.766Z",
+    "version": "extractDocs.js@commit:e421a1aa72eb"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    },
+    "amendedBy": [
+      "RFC5282"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc4306",
+      "https://www.rfc-editor.org/errata_search.php?rfc=4306",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc4306.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    },
+    "supersededBy": [
+      "RFC5996"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    },
+    "supersedes": [
+      "RFC2407",
+      "RFC2408",
+      "RFC2409"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4306/",
+      "updated": "2026-10-08T23:05:20.766Z",
+      "version": "extractDocs.js@commit:e421a1aa72eb"
+    }
+  }
+}

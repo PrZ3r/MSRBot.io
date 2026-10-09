@@ -555,12 +555,14 @@
       "ASCII American National Standards Institute, \"Coded character set -- 7-bit American national standard code for information interchange\", ANSI X3.4-1968",
       "\"Coded character set -- 7-bit American national standard code for information interchange\", ANSI X3.4-1968",
       "/\\bANSI\\s+X3\\.4-1968\\b/i",
+      "/\\bUSA\\s+(?:Standard\\s+)?Code\\s+for\\s+Information\\s+Interchange\\b[^\\n]*\\bX3\\.4\\b[^\\n]*\\b1968\\b/i",
       "/\\bCoded\\s+character\\s+set\\s*--\\s*7-bit\\s+American\\s+national\\s+standard\\s+code\\s+for\\s+information\\s+interchange\\b/i"
     ],
     "INCITS.X3.4.1986": [
       "/\\bUS-ASCII\\b.*\\bANSI\\s+X3\\.4-1986\\b/i",
       "/\\bANSI\\s+X3\\.4-1986\\b/i",
       "/\\bANSI\\s+X3\\.4:1986\\b/i",
+      "/\\bANSI\\s+X3\\.4,\\s*1986\\b/i",
       "/\\bCoded\\s+Character\\s+Set\\s*--\\s*7-Bit\\s+American\\s+Standard\\s+Code\\s+for\\s+Information\\s+Interchange\\b/i"
     ],
     "INTERCEPT.great-sim-heist.2015-02": [
@@ -710,12 +712,21 @@
       "ISO/IEC International Standard 10021, Information technology - Text Communication - Message-Oriented Text Interchange Systems (MOTIS) (Parts 1 to 8).",
       "/\\bISO\\/IEC\\b.*\\b10021\\b.*\\bMOTIS\\b.*\\bParts?\\s+1\\s+to\\s+8\\b/i"
     ],
+    "ISO.10646-1.1993": [
+      "/\\bISO\\b[^\\n]*\\bUniversal\\s+Multiple-Octet\\s+Coded\\s+Character\\s+Set\\s*\\(UCS\\)\\s*[-:]?\\s*Part\\s*1\\b[^\\n]*\\b1993\\b/i"
+    ],
     "ISO.2022.1996": [
       "ISO2022 International Organization for Standardization (ISO), \"Information processing -- ISO 7-bit and 8-bit coded character sets -- Code extension techniques\", International Standard, 1986, Ref. No. ISO 2022-1986 (E)",
       "International Organization for Standardization (ISO), \"Information processing -- ISO 7-bit and 8-bit coded character sets -- Code extension techniques\", International Standard, 1986, Ref. No. ISO 2022-1986 (E)",
       "/\\bISO2022\\b/i",
       "/\\bInformation\\s+processing\\s*--\\s*ISO\\s*7-bit\\s+and\\s+8-bit\\s+coded\\s+character\\s+sets\\s*--\\s*Code\\s+extension\\s+techniques\\b/i",
       "/\\bRef\\.\\s*No\\.\\s*ISO\\s*2022-1986\\s*\\(E\\)\\b/i"
+    ],
+    "ISO.639.1988": [
+      "/^\\s*Code\\s+for\\s+the\\s+representation\\s+of\\s+names\\s+of\\s+languages\\.?\\s+1988\\b/i"
+    ],
+    "ISO.6937": [
+      "/^\\s*Information\\s+technology\\s*-\\s*Coded\\s+graphic\\s+character\\s+set\\s+for\\s+text\\s+communication\\s*\\(parts\\s+1\\s+and\\s+2/i"
     ],
     "ISO.Dir-P2.2011": [
       "iso/iec directives, part 2",
@@ -1064,6 +1075,9 @@
       "/\\bCCITT\\b.*\\bData\\s+Communication\\s+Networks\\b.*\\bMessage\\s+Handling\\s+Systems\\b.*\\bRecommendations\\s+X\\.400\\s*[-–—]\\s*X\\.420\\b.*\\b1988\\b/i",
       "/\\bRecommendations\\s+X\\.400\\s*[-–—]\\s*X\\.420\\b.*\\b1988\\b/i"
     ],
+    "TIFF.r6.19920603": [
+      "/\\bTIFF\\b.*\\bRevision\\s+6\\.0\\b/i"
+    ],
     "TMC.DocIDs.1991": [
       "Kahle, B., \"Document Identifiers, or International Standard Book Numbers for the Electronic Age\", 1991.",
       "Document Identifiers, or International Standard Book Numbers for the Electronic Age",
@@ -1165,6 +1179,9 @@
     ],
     "W3C.wsdl.20010315": [
       "W3C Web Services Description Language (WSDL) 1.1"
+    ],
+    "W3C.xml.19980210": [
+      "/\\bExtensible\\s+Markup\\s+Language\\s+\\(XML\\)\\s+1\\.0\\b(?![^\\n]*\\b(?:Second|Third|Fourth|Fifth)\\s+Edition)[^\\n]*\\bFebruary\\s+1998\\b/i"
     ],
     "W3C.xptr-reg-policy": [
       "XPtrRegPolicy",

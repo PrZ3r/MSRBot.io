@@ -1,0 +1,354 @@
+{
+  "abstract": "This document defines the Tunnel Extensible Authentication Protocol (TEAP) version 1. TEAP is a tunnel-based EAP method that enables secure communication between a peer and a server by using the Transport Layer Security (TLS) protocol to establish a mutually authenticated tunnel. Within the tunnel, TLV objects are used to convey authentication-related data between the EAP peer and the EAP server.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "authors": [
+    {
+      "name": "Hao Zhou"
+    },
+    {
+      "name": "Nancy Cam-Winget"
+    },
+    {
+      "name": "Joseph A. Salowey"
+    },
+    {
+      "name": "Steve Hanna"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "docId": "RFC7170",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "docLabel": "IETF RFC 7170",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "docNumber": "7170",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "docTitle": "Tunnel Extensible Authentication Protocol (TEAP) Version 1",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "doi": "10.17487/RFC7170",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "href": "https://doi.org/10.17487/RFC7170",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "keywords": [
+    "EAP",
+    "Tunnel"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "pages": "101",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "publicationDate": "2014-05-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "references": {
+    "bibliographic": [
+      "IEEE.STD802.1X.2013",
+      "NIST.SP.800-57",
+      "RFC2315",
+      "RFC2985",
+      "RFC2986",
+      "RFC3579",
+      "RFC3629",
+      "RFC3766",
+      "RFC4017",
+      "RFC4072",
+      "RFC4086",
+      "RFC4282",
+      "RFC4648",
+      "RFC4851",
+      "RFC4945",
+      "RFC4962",
+      "RFC5247",
+      "RFC5272",
+      "RFC5280",
+      "RFC5281",
+      "RFC5421",
+      "RFC5652",
+      "RFC5931",
+      "RFC6066",
+      "RFC6124",
+      "RFC6678",
+      "RFC6960",
+      "RFC6961",
+      "RFC7029",
+      "RFC7030",
+      "T-REC-X.690.2008",
+      "orphan/RFC7170/h:ab4d60fa"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=43 proseBlocks=50 skippedAnchorBlocks=46",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+        "NIST.SP.800-57",
+        "RFC2315",
+        "RFC2985",
+        "RFC2986",
+        "RFC3579",
+        "RFC3629",
+        "RFC3766",
+        "RFC4017",
+        "RFC4072",
+        "RFC4086",
+        "RFC4282",
+        "RFC4648",
+        "RFC4851",
+        "RFC4945",
+        "RFC4962",
+        "RFC5247",
+        "RFC5272",
+        "RFC5280",
+        "RFC5281",
+        "RFC5421",
+        "RFC5652",
+        "RFC5931",
+        "RFC6066",
+        "RFC6124",
+        "RFC6678",
+        "RFC6960",
+        "RFC6961",
+        "RFC7029",
+        "RFC7030",
+        "T-REC-X.690.2008",
+        "orphan/RFC7170/h:844b9d2f",
+        "orphan/RFC7170/h:ab4d60fa"
+      ],
+      "overridden": true,
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-09T21:04:54.324Z",
+      "version": "extractDocs.js@commit:01cb8ce286c5"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3748",
+      "RFC5077",
+      "RFC5226",
+      "RFC5246",
+      "RFC5295",
+      "RFC5705",
+      "RFC5746",
+      "RFC5929",
+      "RFC6677"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-08T22:25:55.813Z",
+      "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7170/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+    "updated": "2026-10-08T22:25:55.813Z",
+    "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-08T22:25:55.813Z",
+      "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+    },
+    "amendedBy": [
+      "RFC9427"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-08T22:25:55.813Z",
+      "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-08T22:25:55.813Z",
+      "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc7170",
+      "https://www.rfc-editor.org/errata_search.php?rfc=7170",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc7170.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-08T22:25:55.813Z",
+      "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-08T22:25:55.813Z",
+      "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-08T22:25:55.813Z",
+      "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-08T22:25:55.813Z",
+      "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+    },
+    "supersededBy": [
+      "RFC9930"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7170/",
+      "updated": "2026-10-08T22:25:55.813Z",
+      "version": "extractDocs.js@commit:4f1b9ee4b0ee"
+    }
+  }
+}

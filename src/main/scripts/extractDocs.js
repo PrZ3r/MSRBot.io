@@ -40,12 +40,97 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const { getProvider, listProviders } = require('./providers');
 const { reconcileIncoming } = require('./utils/reconcileIncoming');
+const { loadKeywordDecisions } = require('../lib/keywordConform');
 
-// Procedural appendix example lines that leak from legacy RFC HTML fallback parsing
-// (RFC8323 "2. The CoAP client establishes…"). Not citations: never report them and
-// never mint them as orphan refs.
+// The shared keyword rules, so a re-run conforms keywords an earlier run stored.
+function loadKeywordRules() {
+  try {
+    const d = loadKeywordDecisions();
+    const site = JSON.parse(require('fs').readFileSync(require('path').resolve(process.cwd(), 'src/main/config/site.json'), 'utf8'));
+    return {
+      vocab: new Map((site.controlledKeywords || []).map((k) => [String(k).toLowerCase(), k])),
+      folds: new Map(Object.entries(d.folds || {}).map(([k, v]) => [k.toLowerCase(), v])),
+      drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase())),
+      splits: new Map(Object.entries(d.splits || {}).map(([k, v]) => [k.toLowerCase(), v]))
+    };
+  } catch (e) {
+    console.warn(`⚠️ Keyword rules not loaded (${e.message}); held keywords won't be conformed.`);
+    return null;
+  }
+}
+const keywordRules = loadKeywordRules();
+
+// Lines the legacy RFC HTML fallback picks up that aren't citations: never report them
+// and never mint them as orphan refs.
+//   "2. The CoAP client establishes…"   RFC8323 procedural example step
+//   "1 ] ASCII", "5 ] Initial Connection Protocol"
+//                                       RFC821-style key line; the citation itself is
+//                                       on the next line and is captured separately
+//   "[**] Editor's Note: …", "<4> It might be suggested…"
+//                                       footnotes inside an old reference list
+//   "Latest version available at <…>"   a citation's wrapped tail (RFC7303)
+// Citation text without its reference-list label: "[DH] Diffie, W. …", "DH ] Diffie, W. …"
+// and "[12] …" all become "Diffie, W. …". Orphans are keyed on this text, so the
+// labelled and unlabelled captures of one citation (two parser passes) are one orphan,
+// and doc pages show the citation, not "DH ] …".
+function citeWithoutLabel(raw) {
+  // A bracketed label with spaces ("[GB 2312]") is dropped only when the citation repeats
+  // its designator ("… GB 2312-80"); "[ECMA TR/53]" is the only place that one appears.
+  const spaced = String(raw || '').trim().match(/^\[([A-Za-z][A-Za-z0-9 .\/-]{1,38}[A-Za-z0-9])\]\s+(\S[\s\S]*)$/);
+  if (spaced && /\s/.test(spaced[1])) {
+    const key = (t) => t.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (key(spaced[2]).includes(key(spaced[1]))) raw = spaced[2];
+  }
+  return String(raw || '')
+    .replace(/\s+/g, ' ')
+    .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
+    .replace(/^\d{1,4}\s*\]\s*/u, '')
+    .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')                 // old numbered list: "3. Pickens, J., …"
+    .replace(/^\(\d{1,3}\)\s+(?=\S)/u, '')                   // parenthesized: "(4) IBM National …" (RFC1345)
+    // labels may start with a digit and run long: "802.1X", "3GPP-SA3-030736",
+    // "11-05-0822-03-000u-tgu-requirements" (RFC5113/RFC5281)
+    .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')   // "[ISO/IEC-18033-2]"
+    .replace(/^[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')
+    // numbered again after a label: "DDN-NEWS:….TXT ] 2. Defense Communications …" (RFC1032,
+    // where an entry's bracketed FTP path is read as the next entry's label)
+    .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')
+    .replace(/\s+\S{2,40}\s+\[Page\s+\d+\]?\s*$/u, '')          // page footer "… Sirbu [Page 8" (RFC1049)
+    // RFC1032's retrieval note after each entry: "[ DDN-NEWS:DDN-MGT-BULLETIN-32.TXT ]", "[ Not online ]"
+    .replace(/\s*\[\s*(?:[A-Z0-9-]+:[^\]\s]+|Not\s+online)\s*\]?\s*$/iu, '')
+    .replace(/\s*\[[a-z]{1,4}\d{2,4}\]?$/u, '')                // RFC2616 editor marker "… [jg647"
+    .replace(/\s*\[\s*$/u, '')
+    .replace(/\s*\]\s*$/u, '')
+    .trim();
+}
+
+// A citation's URL wrapped onto its own line with no label ("[http://csrc.nist.gov/…",
+// RFC4055). Checked on the raw text only: "[5] http://metalab.unc.edu/xml/" is a real
+// reference whose citation is just a URL (RFC2629).
+function isWrappedUrlLine(raw) {
+  return /^[\[<]?\s*(?:&lt;)?\s*https?:\/\/\S+\s*(?:&gt;)?[\]>]?\.?$/i.test(String(raw || '').trim());
+}
+
 function isNonCitationLine(cite) {
-  return /^\d+\.\s+The\s+CoAP\s+client\b/i.test(String(cite || ''));
+  const c = String(cite || '').trim();
+  if (/^\d+\.\s+The\s+CoAP\s+client\b/i.test(c)) return true;
+  if (/^\d{1,3}\s*\]\s*[^"“,;:]{1,40}$/.test(c) && c.split(/\s+/).length <= 6) return true;
+  if (/^(?:\[\*+\]|&lt;\d+&gt;|<\d+>)\s/.test(c)) return true;
+  // The wrapped tail of the previous citation (RFC7303), not a citation of its own.
+  if (/^Latest version available at\b/i.test(c)) return true;
+  // An empty reference entry: a lone label ("[Ullmann IPv7]", "ANSI-X12" in RFC1700),
+  // or nothing but "Work in Progress.".
+  if (/^\[[^\]"“,]{1,40}\]?$/.test(c)) return true;
+  if (/^[A-Za-z][A-Za-z0-9.\/-]{1,24}\s*\]?$/.test(c) && !/:\/\//.test(c)) return true;
+  if (/^work\s+in\s+progress\.?$/i.test(c)) return true;
+  // Copyright notice after the reference list (RFC5246).
+  if (/^Copyright \(C\)/i.test(c)) return true;
+  // An author's contact block (RFC4086), or a "reference" that is only contact details
+  // (RFC2246 [RSADSI] "Contact RSA Data Security, Inc., Tel: 415-595-8782").
+  if (/^(?:Phone|Tel|Fax|E-?Mail)\s*:/i.test(c)) return true;
+  if (/^Contact\b[^"“]{0,120}\b(?:Tel|Phone|E-?Mail)\s*:/i.test(c)) return true;
+  // Editors' change markers in RFC2616's reference list ("[jg639").
+  if (/^\[?[a-z]{1,4}\d{2,4}\]?$/.test(c)) return true;
+  return false;
 }
 const { loadAllDocs, saveDoc } = require('../lib/registry');
 
@@ -186,8 +271,9 @@ const providerKey = providerArg.toLowerCase().trim();
     onBadRefs: (refs) => {
       if (!Array.isArray(refs) || !refs.length) return;
       // Three-step routing:
-      //   1. Console summary buffer (`badRefs`) — used at end of run to print
-      //      "🚫 Unparseable References Found:" so devs see what failed.
+      //   1. Run-log buffer (`badRefs`), tagged with the orphan outcome: the log
+      //      lists orphans this run created, counts ones already in the MRI, and
+      //      lists as unparseable only citations that couldn't be recorded.
       //   2. MRI — each ref lands as a source-anchored orphan slug via
       //      `mriRecordSighting` (mint path picks a stable content-hash
       //      suffix when no `<ref id>` is available), so the citation info is
@@ -199,14 +285,43 @@ const providerKey = providerArg.toLowerCase().trim();
       //      orphan. Without this, the post-extract MRI prune would drop the
       //      orphan because the source doc has no references[] entry pointing
       //      at it.
+      // A wrapped author line that looks like a new entry ("Kohlweiss, M., Pan, J., …"
+      // inside RFC8446's [BDFKPPRSZZ16]) is captured as the tail of the full citation;
+      // drop any citation that is the tail of a longer one from the same doc.
+      const citeOf = (r) => citeWithoutLabel(String((r && r.refText) || (r && r.cite) || '').trim());
+      const allCites = refs.map((r) => ({ docId: String((r && r.docId) || '').trim(), cite: citeOf(r) }));
+      const isTailOfAnother = (r) => {
+        const c = citeOf(r);
+        const d = String((r && r.docId) || '').trim();
+        return c.length >= 40 && allCites.some((o) => o.docId === d && o.cite.length > c.length && o.cite.endsWith(c));
+      };
       for (const r of refs) {
-        badRefs.push(r);
+        if (isTailOfAnother(r)) continue;
+        const entry = { ...r, orphanStatus: 'unrecorded' };
+        badRefs.push(entry);
         const docId = String((r && r.docId) || '').trim();
-        const cite = String((r && r.refText) || (r && r.cite) || '').trim();
+        // Key line checks run on the raw text ("1 ] ASCII"); the orphan stores the
+        // citation without its label.
+        const rawCite = String((r && r.refText) || (r && r.cite) || '').trim();
+        const cite = citeWithoutLabel(rawCite);
         const href = String((r && r.href) || '').trim();
         const type = String((r && r.type) || 'bibliographic').trim();
+        if (isNonCitationLine(rawCite) || isNonCitationLine(cite) || isWrappedUrlLine(rawCite)) { entry.orphanStatus = 'non-citation'; continue; }
         if (!docId || (!cite && !href)) continue;
-        if (isNonCitationLine(cite)) continue;
+        // The provider tried the labelled text ("Zhenqing2012 ] Zhenqing, S., …"); without
+        // the label it may resolve (parser or refMap). Then cite the ID, not an orphan.
+        let resolvedId = null;
+        try { resolvedId = parseRefId(cite, href) || mapRefByCite(cite) || null; } catch {}
+        if (resolvedId && resolvedId !== docId) {
+          try {
+            mriRecordSighting({ docId, type, refId: resolvedId, cite, href, rawRef: (r && r.rawRef) || null, mapSource: `extractDocs:${providerKey}`, mapDetail: 'onBadRefs-unlabelled' });
+            orphanSlugApplyQueue.push({ docId, slug: resolvedId, type });
+            entry.orphanStatus = 'resolved';
+          } catch (e) {
+            console.warn(`[mri] failed to record resolved sighting for ${docId}: ${e && e.message ? e.message : e}`);
+          }
+          continue;
+        }
         try {
           const result = mriRecordSighting({
             docId,
@@ -219,7 +334,11 @@ const providerKey = providerArg.toLowerCase().trim();
             mapDetail: 'onBadRefs',
           });
           const slug = result && result.mintedSlug;
-          if (slug) orphanSlugApplyQueue.push({ docId, slug, type });
+          if (slug) {
+            orphanSlugApplyQueue.push({ docId, slug, type });
+            entry.orphanStatus = result.created ? 'new' : 'existing';
+            entry.slug = slug;
+          }
         } catch (e) {
           console.warn(`[mri] failed to record bad-ref sighting for ${docId}: ${e && e.message ? e.message : e}`);
         }
@@ -536,6 +655,33 @@ function injectMetaForDoc(doc, source, mode, changedFieldsMap = {}) {
 
 const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
 
+// --only <ids|urls|file.json>: process just these seeds (doc IDs like RFC7595 or seed
+// URLs, comma-separated, or a JSON array file), even ones on the filter list. For
+// working through a backlog in batches without re-extracting everything.
+function parseOnlyArg() {
+  const raw = cliArgValue('--only', null);
+  if (!raw) return null;
+  let items = [];
+  if (fs.existsSync(raw)) {
+    try { items = JSON.parse(fs.readFileSync(raw, 'utf8')); } catch (e) { console.error(`❌ --only: cannot read ${raw}: ${e.message}`); process.exit(1); }
+  } else {
+    items = raw.split(',');
+  }
+  const out = (Array.isArray(items) ? items : []).map((v) => String(v || '').trim()).filter(Boolean);
+  if (!out.length) { console.error('❌ --only: no doc IDs or URLs given.'); process.exit(1); }
+  return out;
+}
+const onlyList = parseOnlyArg();
+const onlyMatchesOne = (item, url) => {
+  const u = String(url || '').toLowerCase().replace(/\/+$/, '');
+  const it = String(item || '').toLowerCase().replace(/\/+$/, '');
+  if (/^https?:\/\//.test(it)) return u === it;
+  const rfc = it.match(/^rfc\s*0*(\d+)$/);
+  if (rfc) return new RegExp(`/rfc${rfc[1]}$`).test(u);
+  return u.endsWith(`/${it}`);
+};
+const onlyMatches = (url) => onlyList.some((item) => onlyMatchesOne(item, url));
+
 // Main async block
 (async () => {
   //const urls = require('../input/urls.json');
@@ -551,7 +697,8 @@ const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
         for (const raw of rawSeeds) {
           const seed = normalizeSeedUrl(raw);
           if (!seed) continue;
-          if (shouldFilterUrl(seed)) {
+          if (onlyList && !onlyMatches(seed)) continue;
+          if (!onlyList && shouldFilterUrl(seed)) {
             seedsSkipped++;
             continue;
           }
@@ -565,6 +712,12 @@ const { extractFromSeedDoc, extractFromUrl } = activeProvider.parser;
     } catch (e) {
       console.warn(`⚠️ Failed to read/parse ${seedPath}: ${e.message}`);
     }
+  }
+  if (onlyList) {
+    urls = urls.filter(onlyMatches);
+    console.log(`🎯 --only: ${urls.length} of ${onlyList.length} requested seed(s) found (filter list bypassed).`);
+    const unmatched = onlyList.filter((item) => !urls.some((u) => onlyMatchesOne(item, u)));
+    if (unmatched.length) console.warn(`⚠️ --only: not in ${seedPath}: ${unmatched.join(', ')}`);
   }
   console.log(`\n📂 Processing ${urls.length} ${activeProvider.label} URLs... (seeds added: ${seedsAdded}, seeds skipped: ${seedsSkipped})`);
   
@@ -689,7 +842,7 @@ for (const doc of results) {
       const existingDoc = existingDocs[index];
       // Upstream re-renders of values we already hold (initials-form authors, trailing
       // slash, whitespace, reordered lists) are not updates.
-      const keptFields = reconcileIncoming(existingDoc, doc);
+      const keptFields = reconcileIncoming(existingDoc, doc, { keywordRules });
       if (keptFields.length) logSmart(`   = ${doc.docId}: kept existing ${keptFields.join(', ')}`);
       attachMetaSourceUrl(existingDoc, doc.__sourceUrl);
       attachMetaNotes(existingDoc, doc.__metaNotes || {});
@@ -708,6 +861,13 @@ for (const doc of results) {
       let changedFields = [];
       const oldValues = { ...existingDoc, status: { ...(existingDoc.status || {}) } };
       const newValues = { ...doc, status: { ...(doc.status || {}) } };
+      // (after oldValues, so the PR log shows what was removed)
+      // Every held keyword conformed away (all on the drop list): remove the field.
+      if (doc.__clearKeywords && Array.isArray(existingDoc.keywords)) {
+        delete existingDoc.keywords;
+        delete existingDoc['keywords$meta'];
+        changedFields.push('keywords');
+      }
 
       const oldRefs = {
         normative: (existingDoc.references && existingDoc.references.normative) || [],
@@ -1039,9 +1199,23 @@ for (const doc of results) {
       orphanCitationsAdded += 1;
       orphanForceTouched.add(docId);
     }
+    // A list made only of these (RFC678: two orphans, nothing resolved) has no $meta
+    // from the merge; write it here rather than leave canonicalize to inject a
+    // "manual" default.
+    if (!doc.references[`${bucket}$meta`]) {
+      doc.references[`${bucket}$meta`] = {
+        confidence: 'medium',
+        note: 'Citations without a standard ID, kept as MRI orphan refs (or resolved once the reference label was stripped)',
+        originalValue: null,
+        source: 'parsed',
+        sourceUrl: doc.__sourceUrl || doc.resolvedHref || doc.href || null,
+        updated: new Date().toISOString(),
+        version: SCRIPT_VERSION
+      };
+    }
   }
   if (orphanCitationsAdded > 0) {
-    console.log(`🔗 Cited ${orphanCitationsAdded} new MRI orphan slug(s) from ${orphanForceTouched.size} source doc(s).`);
+    console.log(`🔗 Cited ${orphanCitationsAdded} reference(s) recovered from unparsed citations (orphan slugs, or IDs that resolved once the label was stripped) in ${orphanForceTouched.size} source doc(s).`);
   }
 
   // Persist only the docs this run touched, each to its own shard file.
@@ -1091,28 +1265,22 @@ for (const doc of results) {
     console.warn(`⚠️ MRI prune during extract failed: ${e.message}`);
   }
 
-  const formatBadRefText = (raw) => String(raw || '')
-    .replace(/\s+/g, ' ')
-    .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
-    .replace(/^\d{1,4}\s*\]\s*/u, '')
-    .replace(/^\[\s*([A-Za-z][A-Za-z0-9_.:-]{0,31})\s*\]\s*/u, '$1 ')
-    .replace(/^([A-Za-z][A-Za-z0-9_.:-]{0,31})\s*\]\s*/u, '$1 ')
-    .replace(/\s*\[\s*$/u, '')
-    .replace(/\s*\]\s*$/u, '')
-    .trim();
+  const formatBadRefText = (raw) => citeWithoutLabel(raw);
 
   const toBadRefItem = (ref) => ({
     provider: providerKey,
     docId: String(ref.docId || '').trim(),
     type: String(ref.type || '').trim(),
     cite: formatBadRefText(ref.refText),
-    href: String(ref.href || '').trim()
+    href: String(ref.href || '').trim(),
+    orphanStatus: ref.orphanStatus || 'unrecorded',
+    slug: ref.slug || null
   });
   const shouldKeepBadRefItem = (item) => {
     const cite = String(item.cite || '').trim();
     const href = String(item.href || '').trim();
     if (!cite && !href) return false;
-    if (isNonCitationLine(cite)) return false;
+    if (item.orphanStatus === 'non-citation' || isNonCitationLine(cite)) return false;
     // Final guard: if a citation is now resolvable (by parser or refMap mapping),
     // do not emit/persist it as unparseable.
     try {
@@ -1124,15 +1292,42 @@ for (const doc of results) {
     return true;
   };
   const filteredBadRefItems = badRefs.map(toBadRefItem).filter(shouldKeepBadRefItem);
+  // A citation without a standard ID is an orphan ref, not a failure. Report the orphans
+  // this run created; count the ones already in the MRI; "unparseable" is only what
+  // couldn't be recorded at all.
+  const dedupeBySlug = (items) => {
+    const seen = new Set();
+    return items.filter((i) => { const k = i.slug || `${i.docId}|${i.cite}`; if (seen.has(k)) return false; seen.add(k); return true; });
+  };
+  const newOrphanItems = dedupeBySlug(filteredBadRefItems.filter((i) => i.orphanStatus === 'new'));
+  const existingOrphanCount = dedupeBySlug(filteredBadRefItems.filter((i) => i.orphanStatus === 'existing')).length;
+  const unrecordedItems = filteredBadRefItems.filter((i) => i.orphanStatus === 'unrecorded');
+  const refItemLines = (ref) => [
+    `- From ${ref.docId} (${ref.type})${ref.slug ? ` → \`${ref.slug}\`` : ''}:`,
+    `  - cite: ${ref.cite}`,
+    ...(ref.href ? [`  - href: ${ref.href}`] : [])
+  ];
+  const orphanReportLines = (cap = Infinity) => {
+    const lines = [];
+    if (newOrphanItems.length) {
+      lines.push(`### 🆕 New orphan refs (${newOrphanItems.length}) — citations without a standard ID:\n`);
+      newOrphanItems.slice(0, cap).forEach((ref) => lines.push(...refItemLines(ref)));
+      if (newOrphanItems.length > cap) lines.push(`…and ${newOrphanItems.length - cap} more — [full list here](${DETAILS_DIFF_TOKEN})`);
+      lines.push('');
+    }
+    if (existingOrphanCount) {
+      lines.push(`ℹ️ ${existingOrphanCount} orphan ref(s) already in the MRI were seen again (not listed).`);
+      lines.push('');
+    }
+    if (unrecordedItems.length) {
+      lines.push(`### 🚫 Unparseable references (${unrecordedItems.length}) — not recorded:\n`);
+      unrecordedItems.forEach((ref) => lines.push(...refItemLines(ref)));
+      lines.push('');
+    }
+    return lines;
+  };
 
-  if (filteredBadRefItems.length > 0) {
-    console.log('🚫 Unparseable References Found (also written to MRI as orphan slugs):');
-    filteredBadRefItems.forEach((ref) => {
-      console.log(`- From ${ref.docId} (${ref.type}):`);
-      console.log(`  - cite: ${ref.cite}`);
-      if (ref.href) console.log(`  - href: ${ref.href}`);
-    });
-  }
+  for (const line of orphanReportLines()) console.log(line);
   // The legacy `src/main/reports/badRefs.latest.json` persistence is gone.
   // Unparseable refs are now first-class entries in MRI keyed by source-
   // anchored slugs (`orphan/<docId>/<suffix>`), populated via the
@@ -1271,16 +1466,7 @@ for (const doc of results) {
     fullDetailsLines.push(`- ${docId}`);
   });
   fullDetailsLines.push('');
-  // Add unparseable refs if any
-  if (filteredBadRefItems.length > 0) {
-    fullDetailsLines.push('### 🚫 Unparseable References Found:\n');
-    filteredBadRefItems.forEach((ref) => {
-      fullDetailsLines.push(`- From ${ref.docId} (${ref.type}):`);
-      fullDetailsLines.push(`  - cite: ${ref.cite}`);
-      if (ref.href) fullDetailsLines.push(`  - href: ${ref.href}`);
-    });
-    fullDetailsLines.push('');
-  }
+  fullDetailsLines.push(...orphanReportLines());
 
   // Write full details file
   fs.mkdirSync('src/main/logs/extract-runs', { recursive: true });
@@ -1309,16 +1495,7 @@ for (const doc of results) {
   prLines.push('');
   prLines.push(`### ⚠️ Skipped ${skippedDocs.length} duplicate(s)`);
   prLines.push('');
-  // Add unparseable refs summary to PR log if present
-  if (filteredBadRefItems.length > 0) {
-    prLines.push('### 🚫 Unparseable References Found:\n');
-    filteredBadRefItems.forEach((ref) => {
-      prLines.push(`- From ${ref.docId} (${ref.type}):`);
-      prLines.push(`  - cite: ${ref.cite}`);
-      if (ref.href) prLines.push(`  - href: ${ref.href}`);
-    });
-    prLines.push('');
-  }
+  prLines.push(...orphanReportLines(MAX_SUMMARY));
 
   fs.writeFileSync(prLogPath, prLines.join('\n'));
   console.log(`\n📄 PR log updated: ${prLogPath}`);

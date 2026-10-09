@@ -1,4 +1,31 @@
 {
+  "abstract": "This memo defines a MIME content-type that may be used by a mail user agent (MUA) or electronic mail gateway to report the disposition of a message after it has been successfully delivered to a recipient. This content-type is intended to be machine-processable. Additional message headers are also defined to permit Message Disposition Notifications (MDNs) to be requested by the sender of a message. The purpose is to extend Internet Mail to support functionality often found in other messaging systems, such as X.400 and the proprietary \"LAN-based\" systems, and often referred to as \"read receipts,\" \"acknowledgements\", or \"receipt notifications.\" The intention is to do this while respecting privacy concerns, which have often been expressed when such functions have been discussed in the past. Because many messages are sent between the Internet and other messaging systems (such as X.400 or the proprietary \"LAN-based\" systems), the MDN protocol is designed to be useful in a multi-protocol messaging environment. To this end, the protocol described in this memo provides for the carriage of \"foreign\" addresses, in addition to those normally used in Internet Mail. Additional attributes may also be defined to support \"tunneling\" of foreign notifications through Internet Mail. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+    "updated": "2026-10-09T15:38:39.692Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "authors": [
+    {
+      "name": "Tony Hansen"
+    },
+    {
+      "name": "Gregory Vaudreuil"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+    "updated": "2026-10-09T15:38:39.692Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
   "docId": "RFC3798",
   "docId$meta": {
     "confidence": "high",
@@ -10,6 +37,16 @@
     "confidence": "medium",
     "source": "manual",
     "updated": "2025-07-01T00:00:00Z"
+  },
+  "docNumber": "3798",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+    "updated": "2026-10-09T15:38:39.692Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
   },
   "docTitle": "Message Disposition Notification",
   "docTitle$meta": {
@@ -23,11 +60,60 @@
     "source": "manual",
     "updated": "2025-07-01T00:00:00Z"
   },
-  "href": "https://www.rfc-editor.org/info/rfc3798",
+  "doi": "10.17487/RFC3798",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+    "updated": "2026-10-09T15:38:39.692Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "href": "https://doi.org/10.17487/RFC3798",
   "href$meta": {
-    "confidence": "medium",
-    "source": "manual",
-    "updated": "2025-07-01T00:00:00Z"
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": "https://www.rfc-editor.org/info/rfc3798",
+    "overridden": true,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+    "updated": "2026-10-09T15:38:39.692Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
+  },
+  "keywords": [
+    "Message Disposition Notifications",
+    "MDN",
+    "Media Type",
+    "MIME",
+    "Multipurpose Internet Mail Extensions"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "EMF-MDN",
+      "MDN",
+      "Message Disposition Notifications",
+      "Media-type",
+      "MIME",
+      "Multipurpose Internet Mail Extensions"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+    "updated": "2026-10-09T16:03:17.130Z",
+    "version": "extractDocs.js@commit:8432189beb5c"
+  },
+  "pages": "30",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+    "updated": "2026-10-09T15:38:39.692Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
   },
   "publicationDate": "2004-05-01",
   "publicationDate$meta": {
@@ -41,13 +127,57 @@
     "source": "manual",
     "updated": "2025-07-01T00:00:00Z"
   },
-  "resolvedHref": "https://datatracker.ietf.org/doc/html/rfc3798",
+  "references": {
+    "bibliographic": [
+      "RFC2634",
+      "RFC2298"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=11 proseBlocks=14 skippedAnchorBlocks=12",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "overridden": true,
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+      "updated": "2026-10-09T15:38:39.691Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "normative": [
+      "RFC2821",
+      "RFC2822",
+      "RFC2045",
+      "RFC2046",
+      "RFC2047",
+      "RFC3462",
+      "RFC3461",
+      "RFC3464",
+      "RFC2119"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+      "updated": "2026-10-09T15:38:39.691Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3798/",
   "resolvedHref$meta": {
     "confidence": "high",
-    "note": "Backfilled from url.validate report #resolvedHref",
-    "originalValue": null,
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": "https://datatracker.ietf.org/doc/html/rfc3798",
+    "overridden": true,
     "source": "resolved",
-    "updated": "2025-10-09T06:44:21.852Z"
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+    "updated": "2026-10-09T15:38:39.693Z",
+    "version": "extractDocs.js@commit:12c59e0e1847"
   },
   "status": {
     "active": false,
@@ -55,6 +185,82 @@
       "confidence": "medium",
       "source": "manual",
       "updated": "2025-07-01T00:00:00Z"
+    },
+    "amendedBy": [
+      "RFC5337",
+      "RFC6533"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+      "updated": "2026-10-09T15:38:39.692Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "amends": [
+      "RFC2046",
+      "RFC3461"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+      "updated": "2026-10-09T15:38:39.693Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+      "updated": "2026-10-09T15:38:39.692Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc3798",
+      "https://www.rfc-editor.org/errata_search.php?rfc=3798",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc3798.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+      "updated": "2026-10-09T15:38:39.693Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+      "updated": "2026-10-09T15:38:39.692Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
+    },
+    "statusNote": "Draft Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+      "updated": "2026-10-09T15:38:39.692Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
     },
     "superseded": true,
     "superseded$meta": {
@@ -69,6 +275,20 @@
       "confidence": "medium",
       "source": "manual",
       "updated": "2025-07-01T00:00:00Z"
+    },
+    "supersedes": [
+      "RFC2298"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3798/",
+      "updated": "2026-10-09T15:38:39.693Z",
+      "version": "extractDocs.js@commit:12c59e0e1847"
     }
   }
 }

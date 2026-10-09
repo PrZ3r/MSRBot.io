@@ -71,6 +71,8 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `npm run extract-ietf`
   - Runs: `node src/main/scripts/extractDocs.js --provider ietf`
   - Action: Extracts/updates IETF-seeded docs, references, and provenance metadata.
+  - `--only <ids|urls|file.json>`: process just these seeds, even ones on the filter list, e.g. `npm run extract-ietf -- --only RFC7595,RFC7615`. Takes doc IDs, seed URLs or draft names (comma-separated), or a JSON array file. For working through a backlog in batches without re-extracting every unfiltered seed.
+  - Requests to each host are paced (400 ms apart by default; set `MSRBOT_REQUEST_GAP_MS` to change it). 403/429/5xx responses are retried up to 3 times with backoff (honouring `Retry-After`).
 
 - `npm run extract-manual -- --input <records.json>`
   - Runs: `node src/main/scripts/extractDocs.js --provider manual --input <records.json>`

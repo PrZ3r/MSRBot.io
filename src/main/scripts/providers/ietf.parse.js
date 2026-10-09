@@ -31,6 +31,7 @@ const fs = require('fs');
 const path = require('path');
 const { splitAndNormalizeKeywords } = require('../utils/keyword.normalize');
 const { loadKeywordDecisions } = require('../../lib/keywordConform');
+const { joinPhrases, conformHeld } = require('../utils/reconcileIncoming');
 
 // XMLDSig/XMLENC element names that show up as keywords in the RFC index XML.
 // Kept here (not in the global ACRONYM_MAP) because they're IETF-corpus jargon —
@@ -44,6 +45,15 @@ const IETF_ACRONYMS = new Map([
   ['keyderivationmethod', 'KeyDerivationMethod'],
   ['keyinfo', 'KeyInfo'],
   ['nntp', 'NNTP'],
+  ['tls', 'TLS'],
+  ['dtls', 'DTLS'],
+  ['ecn', 'ECN'],
+  ['idn', 'IDN'],
+  ['idna', 'IDNA'],
+  ['rsa', 'RSA'],
+  ['subjectpublickeyinfo', 'SubjectPublicKeyInfo'],
+  ['ws', 'WS'],
+  ['wss', 'WSS'],
   // Lowercase joiners inside multi-word index keywords ("Internet of Things", "CoAP in Browsers")
   ['of', 'of'],
   ['in', 'in'],
@@ -138,7 +148,10 @@ function createIetfParser(deps) {
   })();
 
   function extractRfcNumber(value) {
-    const m = String(value || '').match(/rfc[-\s\/]?(\d{3,5})/i);
+    // A draft's name can contain an RFC number ("draft-ietf-netmod-rfc8022bis-11",
+    // "draft-ietf-tls-rfc8446bis-03"): that is the draft, not the RFC.
+    if (/(?:^|\/)draft-/i.test(String(value || ''))) return null;
+    const m = String(value || '').match(/rfc[-\s\/]?(\d{3,5})(?![a-z0-9])/i);
     return m ? m[1] : null;
   }
 
@@ -183,22 +196,67 @@ function createIetfParser(deps) {
     return s || '';
   }
 
-  // The shared keyword folds (keywordDecisions.json) apply to IETF terms too, so the
-  // index's "internet of things" lands on the controlled "IoT" like SMPTE's does.
-  let keywordFolds = null;
-  function foldKeyword(kw) {
-    if (!keywordFolds) {
+  // The shared keyword folds and drops (keywordDecisions.json) apply to IETF terms too,
+  // so the index's "internet of things" lands on the controlled "IoT" like SMPTE's does,
+  // and contentless index words ("values", "implementations") are left out.
+  let keywordRules = null;
+  function keywordDecisions() {
+    if (!keywordRules) {
       try {
-        keywordFolds = new Map(Object.entries(loadKeywordDecisions().folds || {}).map(([k, v]) => [k.toLowerCase(), v]));
+        const d = loadKeywordDecisions();
+        keywordRules = {
+          folds: new Map(Object.entries(d.folds || {}).map(([k, v]) => [k.toLowerCase(), v])),
+          drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase())),
+          splits: new Map(Object.entries(d.splits || {}).map(([k, v]) => [k.toLowerCase(), v])),
+          vocab: new Map()
+        };
+        // A term already in controlledKeywords takes that casing ("MAIL" → "Mail").
+        try {
+          const site = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'src/main/config/site.json'), 'utf8'));
+          for (const k of site.controlledKeywords || []) keywordRules.vocab.set(String(k).toLowerCase(), k);
+        } catch {}
       } catch {
-        keywordFolds = new Map();
+        keywordRules = { folds: new Map(), drops: new Set(), splits: new Map(), vocab: new Map() };
       }
     }
-    return keywordFolds.get(String(kw).toLowerCase()) || kw;
+    return keywordRules;
   }
 
+  function foldKeyword(kw) {
+    const { folds, vocab } = keywordDecisions();
+    const folded = folds.get(String(kw).toLowerCase()) || kw;
+    return vocab.get(String(folded).toLowerCase()) || folded;
+  }
+
+  function isDroppedKeyword(kw) {
+    return keywordDecisions().drops.has(String(kw).toLowerCase());
+  }
+
+  // The index's own casing is deliberate when a word has capitals past its first
+  // letter (BOOTP, TLSv1.0, IPv6, WebSocket, PKIX) or is a version ("PKCS #1 v1.5");
+  // the normalizer would title-case them ("Bootp", "Ipv6", "V1.5"). Keep those words
+  // as written. "(MTU)" listed on its own loses the parentheses.
   function splitKeywordValues(values = []) {
-    return unique(splitAndNormalizeKeywords(values, IETF_ACRONYMS).map(foldKeyword));
+    const acronyms = new Map(IETF_ACRONYMS);
+    // A list tail the index kept as its own keyword ("and URN") loses the conjunction.
+    const cleaned = values.map((v) => String(v || '').trim()
+      .replace(/^\((.+)\)$/, '$1')
+      .replace(/^(?:and|or)\s+/i, ''));
+    for (const v of cleaned) {
+      for (const word of v.split(/[\s;,]+/)) {
+        // Capitals past the first letter (BOOTP, IPv6), or a version token ("v1.5").
+        const keep = /[A-Z]/.test(word.slice(1)) || /^v\d+(?:\.\d+)*$/.test(word);
+        if (keep && !acronyms.has(word.toLowerCase())) acronyms.set(word.toLowerCase(), word);
+      }
+    }
+    // "Authentication Integrity" → Authentication, Integrity (keywordDecisions splits)
+    const splitTerms = (kw) => keywordDecisions().splits.get(String(kw).toLowerCase()) || [kw];
+    // The index sometimes lists a phrase as one-word keywords; rejoin known phrases first.
+    const joined = joinPhrases(splitAndNormalizeKeywords(cleaned, acronyms), keywordDecisions());
+    const out = unique(joined.flatMap(splitTerms).filter((kw) => !isDroppedKeyword(kw)).map(foldKeyword));
+    // Settle the list the way a held list is conformed on the next run, so it doesn't
+    // re-shuffle then ("Internet" "Protocol" "Security" → IP, Security → IPSEC).
+    return conformHeld(out, keywordDecisions());
   }
 
   function buildReferences(normative = [], bibliographic = []) {
@@ -453,18 +511,49 @@ function createIetfParser(deps) {
     return parseRfcRefsFromText(raw.join('\n'));
   }
 
+  // Per-host pacing and retry, so a batch doesn't trip rate limits: Datatracker answers
+  // bursts with 403/429. Requests to one host start at least REQUEST_GAP_MS apart
+  // (MSRBOT_REQUEST_GAP_MS overrides); 403/429/5xx retry up to 3 times, honouring
+  // Retry-After, else after 5s / 15s / 45s. Other errors (404) fail at once.
+  const REQUEST_GAP_MS = Number(process.env.MSRBOT_REQUEST_GAP_MS || 400);
+  const RETRY_STATUSES = new Set([403, 429, 502, 503, 504]);
+  const RETRY_WAITS_MS = [5000, 15000, 45000];
+  const nextSlotByHost = new Map();
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  async function politeGet(url, config) {
+    let host = '';
+    try { host = new URL(url).host; } catch {}
+    for (let attempt = 0; ; attempt++) {
+      const now = Date.now();
+      const slot = Math.max(now, nextSlotByHost.get(host) || 0);
+      nextSlotByHost.set(host, slot + REQUEST_GAP_MS);
+      if (slot > now) await sleep(slot - now);
+      try {
+        return await axios.get(url, config);
+      } catch (e) {
+        const status = e && e.response && e.response.status;
+        if (!RETRY_STATUSES.has(status) || attempt >= RETRY_WAITS_MS.length) throw e;
+        const retryAfter = Number(e.response.headers && e.response.headers['retry-after']);
+        const wait = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : RETRY_WAITS_MS[attempt];
+        console.warn(`⏳ ${status} from ${host}; retry ${attempt + 1}/${RETRY_WAITS_MS.length} in ${Math.round(wait / 1000)}s: ${url}`);
+        nextSlotByHost.set(host, Date.now() + wait + REQUEST_GAP_MS);
+        await sleep(wait);
+      }
+    }
+  }
+
   async function fetchHtml(url) {
-    const res = await axios.get(withNoCache(url), { headers: NO_CACHE_HEADERS });
+    const res = await politeGet(withNoCache(url), { headers: NO_CACHE_HEADERS });
     return cheerio.load(res.data);
   }
 
   async function fetchJson(url) {
-    const res = await axios.get(withNoCache(url), { headers: NO_CACHE_HEADERS });
+    const res = await politeGet(withNoCache(url), { headers: NO_CACHE_HEADERS });
     return res?.data && typeof res.data === 'object' ? res.data : null;
   }
 
   async function fetchXml(url) {
-    const res = await axios.get(withNoCache(url), { headers: NO_CACHE_HEADERS });
+    const res = await politeGet(withNoCache(url), { headers: NO_CACHE_HEADERS });
     const raw = String(res.data || '');
     return {
       raw,
@@ -602,7 +691,7 @@ function createIetfParser(deps) {
     rfcIndexMapPromise = (async () => {
       // Primary source: live RFC Editor index.
       try {
-        const res = await axios.get(withNoCache(RFC_INDEX_URL), { headers: NO_CACHE_HEADERS, responseType: 'text' });
+        const res = await politeGet(withNoCache(RFC_INDEX_URL), { headers: NO_CACHE_HEADERS, responseType: 'text' });
         const map = parseRfcIndexMap(res.data);
         if (map.size) {
           rfcIndexLiveXml = typeof res.data === 'string' ? res.data : null;
@@ -1041,6 +1130,8 @@ function createIetfParser(deps) {
       const trackerJsonAuthors = normalizeAuthorNames(trackerJson?.authors);
       const trackerFullAuthors = $tracker
         ? $tracker('meta[property="article:author"]').map((_, el) => ($tracker(el).attr('content') || '').trim()).get().filter(Boolean)
+          // A profile typo that doubles the surname ("Jeff Downs Downs", RFC6597).
+          .map((name) => name.replace(/^(\S.*?\s)(\S+)\s+\2$/u, '$1$2'))
         : [];
       const fullNamesAlign = trackerFullAuthors.length > 0 &&
         (!trackerJsonAuthors.length || trackerFullAuthors.length === trackerJsonAuthors.length);
@@ -1387,6 +1478,22 @@ function createIetfParser(deps) {
         bibliographic: (parsed.references && parsed.references.bibliographic) || []
       };
     }
+    // No archive XML (a text-only submission, or an old draft): read the references from
+    // the Datatracker page, which uses the same text layout as RFC pages.
+    let xmlRefSource = 'archive XML';
+    if (!xmlBundle && $seed) {
+      const parsed = extractRefs($seed, docId, {
+        mode: 'ietf-rfc-html',
+        htmlRaw: $seed.html(),
+        recordSightings: true
+      });
+      pendingXmlBadRefs = Array.isArray(parsed.badRefs) ? parsed.badRefs : [];
+      xmlRefs = {
+        normative: (parsed.references && parsed.references.normative) || [],
+        bibliographic: (parsed.references && parsed.references.bibliographic) || []
+      };
+      xmlRefSource = 'Datatracker HTML';
+    }
     if (pendingXmlBadRefs.length && typeof onBadRefs === 'function') {
       onBadRefs(pendingXmlBadRefs.map((r) => ({ ...r, docId })));
     }
@@ -1395,8 +1502,8 @@ function createIetfParser(deps) {
       (xmlRefs.normative || []).filter(id => id !== docId),
       (xmlRefs.bibliographic || []).filter(id => id !== docId)
     );
-    if (Array.isArray(refs.normative) && refs.normative.length) metaNotes['references.normative'] = 'Parsed from archive XML references (Normative References)';
-    if (Array.isArray(refs.bibliographic) && refs.bibliographic.length) metaNotes['references.bibliographic'] = 'Parsed from archive XML references (Informative/Bibliographic References)';
+    if (Array.isArray(refs.normative) && refs.normative.length) metaNotes['references.normative'] = `Parsed from ${xmlRefSource} references (Normative References)`;
+    if (Array.isArray(refs.bibliographic) && refs.bibliographic.length) metaNotes['references.bibliographic'] = `Parsed from ${xmlRefSource} references (Informative/Bibliographic References)`;
 
     const classified = stdLevel
       ? classifyIetfFromStdLevel(stdLevel, { isDraft })

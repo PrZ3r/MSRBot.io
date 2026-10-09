@@ -1,0 +1,329 @@
+{
+  "abstract": "This document is a specification of the basic protocol for Internet electronic mail transport. It consolidates, updates, and clarifies several previous documents, making all or parts of most of them obsolete. It covers the SMTP extension mechanisms and best practices for the contemporary Internet, but does not provide details about particular extensions. Although SMTP was designed as a mail transport and delivery protocol, this specification also contains information that is important to its use as a \"mail submission\" protocol for \"split-UA\" (User Agent) mail reading systems and mobile environments. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "authors": [
+    {
+      "name": "Dr. John C. Klensin"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "docId": "RFC5321",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.646Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "docLabel": "IETF RFC 5321",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "docNumber": "5321",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "docTitle": "Simple Mail Transfer Protocol",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "doi": "10.17487/RFC5321",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "href": "https://doi.org/10.17487/RFC5321",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "keywords": [
+    "SMTP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "pages": "95",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "publicationDate": "2008-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC974",
+      "RFC1869",
+      "RFC2821",
+      "RFC937",
+      "RFC1939",
+      "RFC3501",
+      "RFC4409",
+      "RFC2920",
+      "RFC3030",
+      "RFC2045",
+      "RFC1652",
+      "RFC2047",
+      "RFC2231",
+      "RFC3463",
+      "RFC5248",
+      "RFC2979",
+      "RFC822",
+      "RFC4408",
+      "RFC4686",
+      "RFC4871",
+      "RFC3461",
+      "RFC3464",
+      "RFC959",
+      "RFC1985",
+      "RFC3798",
+      "RFC2181",
+      "RFC3974",
+      "RFC1047",
+      "RFC1176",
+      "RFC1056",
+      "RFC1847",
+      "RFC4880",
+      "RFC3851",
+      "RFC2156",
+      "orphan/RFC5321/h:96d92dc8",
+      "orphan/RFC5321/h:981cc00e"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=47 proseBlocks=54 skippedAnchorBlocks=51",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    },
+    "normative": [
+      "RFC821",
+      "RFC1035",
+      "RFC1123",
+      "RFC5322",
+      "RFC2119",
+      "INCITS.X3.4.1968",
+      "RFC5234",
+      "RFC4291",
+      "RFC3848",
+      "RFC1870",
+      "RFC3864"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5321/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+    "updated": "2026-10-08T22:51:40.647Z",
+    "version": "extractDocs.js@commit:d34e949207a2"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    },
+    "amendedBy": [
+      "RFC7504"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    },
+    "amends": [
+      "RFC1123"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5321",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5321",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc5321.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    },
+    "statusNote": "Draft Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    },
+    "supersedes": [
+      "RFC2821"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5321/",
+      "updated": "2026-10-08T22:51:40.647Z",
+      "version": "extractDocs.js@commit:d34e949207a2"
+    }
+  }
+}

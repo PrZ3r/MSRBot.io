@@ -1,0 +1,287 @@
+{
+  "abstract": "The Constrained Application Protocol (CoAP) is a RESTful transfer protocol for constrained nodes and networks. Basic CoAP messages work well for small payloads from sensors and actuators; however, applications will need to transfer larger payloads occasionally -- for instance, for firmware updates. In contrast to HTTP, where TCP does the grunt work of segmenting and resequencing, CoAP is based on datagram transports such as UDP or Datagram Transport Layer Security (DTLS). These transports only offer fragmentation, which is even more problematic in constrained nodes and networks, limiting the maximum size of resource representations that can practically be transferred. Instead of relying on IP fragmentation, this specification extends basic CoAP with a pair of \"Block\" options for transferring multiple blocks of information from a resource representation in multiple request-response pairs. In many important cases, the Block options enable a server to be truly stateless: the server can handle each block transfer separately, with no need for a connection setup or other server-side memory of previous block transfers. Essentially, the Block options provide a minimal way to transfer larger representations in a block-wise fashion. A CoAP implementation that does not support these options generally is limited in the size of the representations that can be exchanged, so there is an expectation that the Block options will be widely used in CoAP implementations. Therefore, this specification updates RFC 7252.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "authors": [
+    {
+      "name": "Carsten Bormann"
+    },
+    {
+      "name": "Zach Shelby"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "docId": "RFC7959",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "docLabel": "IETF RFC 7959",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "docNumber": "7959",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "docTitle": "Block-Wise Transfers in the Constrained Application Protocol (CoAP)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "doi": "10.17487/RFC7959",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "href": "https://doi.org/10.17487/RFC7959",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "keywords": [
+    "CoAP",
+    "Constrained Application Protocol",
+    "REST",
+    "IoT",
+    "Smart Object",
+    "Constrained Node"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "pages": "37",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "publicationDate": "2016-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4919",
+      "RFC4944",
+      "RFC6690",
+      "RFC7228",
+      "RFC7230",
+      "RFC7233",
+      "orphan/RFC7959/h:6f38b22c"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=11 proseBlocks=14 skippedAnchorBlocks=12",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC7252",
+      "RFC7641"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7959/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+    "updated": "2026-10-08T22:12:17.477Z",
+    "version": "extractDocs.js@commit:f45caa90bf60"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "amendedBy": [
+      "RFC8323"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "amends": [
+      "RFC7252"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc7959",
+      "https://www.rfc-editor.org/errata_search.php?rfc=7959",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc7959.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7959/",
+      "updated": "2026-10-08T22:12:17.477Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    }
+  }
+}

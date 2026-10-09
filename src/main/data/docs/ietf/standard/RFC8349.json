@@ -1,0 +1,277 @@
+{
+  "abstract": "This document specifies three YANG modules and one submodule. Together, they form the core routing data model that serves as a framework for configuring and managing a routing subsystem. It is expected that these modules will be augmented by additional YANG modules defining data models for control-plane protocols, route filters, and other functions. The core routing data model provides common building blocks for such extensions -- routes, Routing Information Bases (RIBs), and control-plane protocols. The YANG modules in this document conform to the Network Management Datastore Architecture (NMDA). This document obsoletes RFC 8022.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "authors": [
+    {
+      "name": "Ladislav Lhotka"
+    },
+    {
+      "name": "Acee Lindem"
+    },
+    {
+      "name": "Yingzhen Qu"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "docId": "RFC8349",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "docLabel": "IETF RFC 8349",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "docNumber": "8349",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "docTitle": "A YANG Data Model for Routing Management (NMDA Version)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "doi": "10.17487/RFC8349",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "href": "https://doi.org/10.17487/RFC8349",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "keywords": [
+    "Configuration",
+    "IPv6 Router Advertisements",
+    "NETCONF RESTCONF"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Configuration",
+      "IPv6 Router Advertisements",
+      "NETCONF",
+      "RESTCONF"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-09T21:05:26.519Z",
+    "version": "extractDocs.js@commit:01cb8ce286c5"
+  },
+  "pages": "80",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "publicationDate": "2018-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC7224",
+      "RFC7895",
+      "RFC7951",
+      "RFC8340",
+      "IETF.draft-ietf-netmod-rfc6087bis-20"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=24 proseBlocks=29 skippedAnchorBlocks=25",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+      "updated": "2026-10-08T22:02:57.764Z",
+      "version": "extractDocs.js@commit:edeb4ba56735"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3688",
+      "RFC4861",
+      "RFC5246",
+      "RFC6020",
+      "RFC6241",
+      "RFC6242",
+      "RFC6991",
+      "RFC7950",
+      "RFC8022",
+      "RFC8040",
+      "RFC8174",
+      "RFC8341",
+      "RFC8342",
+      "RFC8343",
+      "RFC8344",
+      "W3C.xml.20081126"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+      "updated": "2026-10-08T22:02:57.764Z",
+      "version": "extractDocs.js@commit:edeb4ba56735"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8349/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+    "updated": "2026-10-08T22:02:57.764Z",
+    "version": "extractDocs.js@commit:edeb4ba56735"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+      "updated": "2026-10-08T22:02:57.764Z",
+      "version": "extractDocs.js@commit:edeb4ba56735"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+      "updated": "2026-10-08T22:02:57.764Z",
+      "version": "extractDocs.js@commit:edeb4ba56735"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+      "updated": "2026-10-08T22:02:57.764Z",
+      "version": "extractDocs.js@commit:edeb4ba56735"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+      "updated": "2026-10-08T22:02:57.764Z",
+      "version": "extractDocs.js@commit:edeb4ba56735"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+      "updated": "2026-10-08T22:02:57.764Z",
+      "version": "extractDocs.js@commit:edeb4ba56735"
+    },
+    "supersedes": [
+      "RFC8022"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8349/",
+      "updated": "2026-10-08T22:02:57.764Z",
+      "version": "extractDocs.js@commit:edeb4ba56735"
+    }
+  }
+}

@@ -37,7 +37,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const assert = require('assert');
 const path = require('path');
-const { reconcileIncoming, authorsEquivalent, mergeKeywords } = require(path.join(__dirname, '..', 'utils', 'reconcileIncoming.js'));
+const { reconcileIncoming, authorsEquivalent, mergeKeywords, conformHeld, joinPhrases } = require(path.join(__dirname, '..', 'utils', 'reconcileIncoming.js'));
 
 const A = (...names) => names.map((name) => ({ name }));
 let n = 0;
@@ -72,6 +72,57 @@ assert.strictEqual(mergeKeywords(['W-OTS', 'W-OTS+'], ['WOTS', 'WOTS+']).length,
 assert.deepStrictEqual(mergeKeywords(['CoAP', 'IoT'], ['CoAP', 'Internet of Things']), ['CoAP', 'IoT', 'Internet of Things']); n++;
 assert.deepStrictEqual(mergeKeywords(undefined, ['NNTP']), ['NNTP']); n++;
 assert.deepStrictEqual(mergeKeywords(['Security'], []), ['Security']); n++;
+
+// Re-runs conform held keywords to the shared rules; controlled terms are never touched.
+{
+  const rules = {
+    vocab: new Map(['AAA', 'TLS', 'Encryption', 'Security', 'SNMP'].map((k) => [k.toLowerCase(), k])),
+    folds: new Map([['transport layer security', 'TLS']]),
+    drops: new Set(['values']),
+  };
+  assert.deepStrictEqual(conformHeld(['Aaa', 'Transport Layer Security', 'Values', 'Security'], rules), ['AAA', 'TLS', 'Security']); n++;
+  assert.deepStrictEqual(conformHeld(['TLS', 'Transport Layer Security'], rules), ['TLS'], 'fold onto a held term dedupes'); n++;
+  const clean = ['Security', 'Encryption'];
+  assert.strictEqual(conformHeld(clean, rules), clean, 'controlled terms untouched'); n++;
+  assert.deepStrictEqual(conformHeld(['Some Uncontrolled Term'], rules), ['Some Uncontrolled Term'], 'no rule, no change'); n++;
+  assert.deepStrictEqual(conformHeld(['SNMP', 'and AAA'], rules), ['SNMP', 'AAA'], 'stored list tail'); n++;
+  // A fold that makes a new joinable pair settles in one call (RFC2104 re-ran reordered).
+  {
+    const r = { ...rules, folds: new Map([['internet protocol', 'IP'], ['ip security', 'IPSEC']]) };
+    const once = conformHeld(['IPSEC', 'Internet', 'Protocol', 'Security', 'Encryption'], r);
+    assert.deepStrictEqual(once, ['IPSEC', 'Encryption']); n++;
+    assert.strictEqual(conformHeld(once, r), once, 'idempotent'); n++;
+  }
+  // Batch-2 re-run: held "Aaa"/"Accounting", incoming "AAA" → AAA, not a second copy.
+  assert.deepStrictEqual(mergeKeywords(['SNMP', 'Aaa', 'Values'], ['SNMP', 'AAA'], rules), ['SNMP', 'AAA']); n++;
+  // Index typo against a controlled held term still loses.
+  assert.deepStrictEqual(mergeKeywords(['Security', 'Encryption'], ['Security', 'Eneryption'], rules), ['Security', 'Encryption']); n++;
+  const doc = { keywords: ['Aaa'] };
+  const inc = { keywords: ['AAA'] };
+  assert.deepStrictEqual(reconcileIncoming(doc, inc, { keywordRules: rules }), [], 'a conformed list is an update, not "kept"'); n++;
+  assert.deepStrictEqual(inc.keywords, ['AAA']); n++;
+  // Source gave no keywords: held ones are still conformed; all-dropped → flagged for removal.
+  const inc2 = {};
+  reconcileIncoming({ keywords: ['Aaa', 'Values'] }, inc2, { keywordRules: rules });
+  assert.deepStrictEqual(inc2.keywords, ['AAA']); n++;
+  const inc3 = {};
+  reconcileIncoming({ keywords: ['Values'] }, inc3, { keywordRules: rules });
+  assert.strictEqual(inc3.keywords, undefined); n++;
+  assert.strictEqual(inc3.__clearKeywords, true); n++;
+}
+
+// A phrase the source split into one-word keywords is rejoined when the phrase is known.
+{
+  const rules = {
+    vocab: new Map(['FIPS', 'XML', 'Security'].map((k) => [k.toLowerCase(), k])),
+    folds: new Map([['federal information processing standard', 'FIPS'], ['extensible markup language', 'XML']]),
+    drops: new Set(),
+  };
+  assert.deepStrictEqual(joinPhrases(['FIPS', 'Federal', 'Information', 'Processing', 'Standard'], rules), ['FIPS', 'FIPS']); n++;
+  assert.deepStrictEqual(conformHeld(['Extensible', 'Markup', 'Language'], rules), ['XML']); n++;
+  const plain = ['Security', 'Markup'];
+  assert.strictEqual(joinPhrases(plain, rules), plain, 'unknown phrase: unchanged'); n++;
+}
 
 // Whole doc: trailing slash, whitespace, list order are kept; real updates pass through.
 {

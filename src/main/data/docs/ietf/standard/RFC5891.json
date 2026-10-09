@@ -1,0 +1,298 @@
+{
+  "abstract": "This document is the revised protocol definition for Internationalized Domain Names (IDNs). The rationale for changes, the relationship to the older specification, and important terminology are provided in other documents. This document specifies the protocol mechanism, called Internationalized Domain Names in Applications (IDNA), for registering and looking up IDNs in a way that does not require changes to the DNS itself. IDNA is only meant for processing domain names, not free text. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "authors": [
+    {
+      "name": "Dr. John C. Klensin"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "docId": "RFC5891",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.734Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "docLabel": "IETF RFC 5891",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.734Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "docNumber": "5891",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "docTitle": "Internationalized Domain Names in Applications (IDNA): Protocol",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "doi": "10.17487/RFC5891",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "href": "https://doi.org/10.17487/RFC5891",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "keywords": [
+    "IDNA2008",
+    "IDN",
+    "ASCII",
+    "Characters"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "IDNA2008",
+      "Idn",
+      "ASCII",
+      "Characters",
+      "Idna Applications"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:49:12.760Z",
+    "version": "extractDocs.js@commit:2c3fb02c87f9"
+  },
+  "pages": "17",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "publicationDate": "2010-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "references": {
+    "bibliographic": [
+      "INCITS.X3.4.1968",
+      "RFC2671",
+      "RFC3490",
+      "RFC3491",
+      "RFC3986",
+      "RFC3987",
+      "RFC4690",
+      "RFC4952",
+      "RFC5894",
+      "UNICODE.STD.5.0",
+      "orphan/RFC5891/h:a0e03df1"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=19 proseBlocks=25 skippedAnchorBlocks=22",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "normative": [
+      "RFC1034",
+      "RFC1035",
+      "RFC2119",
+      "RFC3492",
+      "RFC5890",
+      "RFC5892",
+      "RFC5893",
+      "orphan/RFC5891/h:ef5d6233"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5891/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+    "updated": "2026-10-08T22:36:36.735Z",
+    "version": "extractDocs.js@commit:73d31737e622"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "amends": [
+      "RFC3492"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5891",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5891"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "supersedes": [
+      "RFC3490",
+      "RFC3491"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5891/",
+      "updated": "2026-10-08T22:36:36.735Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    }
+  }
+}
