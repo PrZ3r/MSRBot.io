@@ -92,6 +92,13 @@ const cases = [
   ['EN 300 001 V1.5.1 (1998-10):"European Standard (Telecommunications series) Attachments to Public Switched Telephone Network (PSTN)"', 'ETSI.EN-300-001.1998'],
   ['ANSI X3.106, "American National Standard for Information Systems-Data Link Encryption", American National Standards Institute, 1983.', 'ANSI.X3.106.1983'],
   ['American National Standards Institute, "Coded Character Set - 7-bit American Standard Code for Information Interchange", ANSI X3.4, 1986.', 'INCITS.X3.4.1986'],
+  // batch 9: spelled-out FIPS, "(IEEE) Standard", ETS in parentheses, spelled-out 3GPP, SECG
+  ['National Institute of Standards and Technology, U.S. Department of Commerce, "Advanced Encryption Standard", Federal Information Processing Standards Publication 197, Washington, DC, November 2001.', 'NIST.FIPS.197'],
+  ['Institute for Electrical and Electronics Engineers (IEEE) Standard 1363-2000, Standard Specifications for Public Key Cryptography, January 2000.', 'IEEE.STD1363.2000'],
+  ['Institute of Electrical and Electronics Engineers (IEEE) Standard 1588-2019 (Revision of IEEE Standard 1588-2008), "Precision Clock Synchronization Protocol".', 'IEEE.STD1588.2019'],
+  ['European Telecommunications Standards Institute, "GSM Technical Specification GSM 03.20 (ETS 300 534): "Digital cellular telecommunication system (Phase 2)", August 1997.', 'ETSI.ETS-300-534.1997'],
+  ['3rd Generation Partnership Project, "Security Architecture (Release 4)", TS 33.102, December 2001.', '3GPP.TS-33.102.200112'],
+  ['Standards for Efficient Cryptography Group, SEC 1: Elliptic Curve Cryptography, Version 1.0, September 2000. http://www.secg.org', 'SECG.SEC1.v1.2000-09'],
 ];
 let n = 0;
 for (const [cite, want] of cases) { assert.strictEqual(parseRefId(cite), want, cite); n++; }

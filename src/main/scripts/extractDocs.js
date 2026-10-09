@@ -81,8 +81,8 @@ function citeWithoutLabel(raw) {
     .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')                 // old numbered list: "3. Pickens, J., …"
     // labels may start with a digit and run long: "802.1X", "3GPP-SA3-030736",
     // "11-05-0822-03-000u-tgu-requirements" (RFC5113/RFC5281)
-    .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+-]{0,63}\s*\]\s*(?=\S)/u, '')
-    .replace(/^[A-Za-z0-9][A-Za-z0-9_.:+-]{0,63}\s*\]\s*(?=\S)/u, '')
+    .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')   // "[ISO/IEC-18033-2]"
+    .replace(/^[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')
     .replace(/\s*\[\s*$/u, '')
     .replace(/\s*\]\s*$/u, '')
     .trim();
@@ -97,6 +97,10 @@ function isNonCitationLine(cite) {
   if (/^Latest version available at\b/i.test(c)) return true;
   // Copyright notice after the reference list (RFC5246).
   if (/^Copyright \(C\)/i.test(c)) return true;
+  // An author's contact block (RFC4086), or a citation's URL wrapped onto its own
+  // line ("[http://csrc.nist.gov/…", RFC4055).
+  if (/^(?:Phone|Tel|Fax|E-?Mail)\s*:/i.test(c)) return true;
+  if (/^[\[<]?\s*(?:&lt;)?\s*https?:\/\/\S+\s*(?:&gt;)?[\]>]?\.?$/i.test(c)) return true;
   return false;
 }
 const { loadAllDocs, saveDoc } = require('../lib/registry');

@@ -1381,7 +1381,8 @@ function parseRefId(text, href = '', opts = {}) {
   // - "3GPP TS 33.501, September 2024."
   {
     const src = String(text || '');
-    const has3gpp = /\b3GPP\b/i.test(src);
+    // spelled out too, but not "… Project 2" (3GPP2, a different body): RFC4169
+    const has3gpp = /\b3GPP\b/i.test(src) || /\b3rd\s+Generation\s+Partnership\s+Project\b(?!\s*2)/i.test(src);
     // Direct form: "3GPP TS 33.501" or "3GPP Technical Specification 33.501"
     const direct = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{3})\b/i);
     // Split form: "3GPP, ... TS 33.501, ..." (3GPP appears earlier, TS appears later)
@@ -1495,6 +1496,14 @@ function parseRefId(text, href = '', opts = {}) {
   }
   // FIPS references that don't include contiguous "NIST FIPS" tokens, e.g.:
   // "National Institute ... (NIST). FIPS PUB 46-2: ..."
+  // spelled out with no "FIPS" token: "Federal Information Processing Standards Publication 197"
+  {
+    const m = String(text || '').match(/\bFederal\s+Information\s+Processing\s+Standards?\s+(?:Publication|Pub\.?|PUB)\s+(\d+)(-\d+)?\b/i);
+    if (m) {
+      const refId = `NIST.FIPS.${m[1]}${m[2] || ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fips-spelled' } } : refId;
+    }
+  }
   // also "Federal Information Processing Standard (FIPS) 180-2", "FIPS Publication 180-3"
   if (/\bFIPS\)?[\s-]+(?:PUB(?:LICATION)?\.?[\s-]+)?(\d+)(-\d+)?\b/i.test(text)) {
     const [, num, rev] = text.match(/\bFIPS\)?[\s-]+(?:PUB(?:LICATION)?\.?[\s-]+)?(\d+)(-\d+)?\b/i);
@@ -1731,7 +1740,7 @@ function parseRefId(text, href = '', opts = {}) {
   {
     // also a letter suffix and a comma before the year (xml2rfc): "IEEE Standard 802.1X-2004",
     // "IEEE Standard 802.11, 2003", "IEEE Standard 802.1X, December 2004"
-    const m = String(text || '').match(/\bIEEE\s+(?:Std\.?\s+|Standard\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+[A-Z]{0,3}))?(?:,\s*(?:[A-Z][a-z]+\.?\s+)?|[\s‐-―-]+)((?:19|20)\d{2})\b/i);
+    const m = String(text || '').match(/\bIEEE\)?\s+(?:Std\.?\s+|Standard\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+[A-Z]{0,3}))?(?:,\s*(?:[A-Z][a-z]+\.?\s+)?|[\s‐-―-]+)((?:19|20)\d{2})\b/i);
     if (m) {
       const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2].toUpperCase()}` : ''}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-designator' } } : refId;
@@ -1744,7 +1753,9 @@ function parseRefId(text, href = '', opts = {}) {
   {
     const src = String(text || '');
     const m = src.match(/\bETSI\s+(?:Standard\s+)?(TS|TR|EN|ES|ETS|ETR)[\s‐-―-]+(\d[\d\s‐-―-]*\d)/i)
-      || src.match(/^\s*(EN)\s+(3\d\d[\s‐-―-]\d{3}(?:-\d+)?)\b/);
+      || src.match(/^\s*(EN)\s+(3\d\d[\s‐-―-]\d{3}(?:-\d+)?)\b/)
+      // "GSM 03.20 (ETS 300 534)" (RFC4186)
+      || src.match(/\((ETS)\s+(3\d\d\s\d{3})\)/);
     if (m) {
       const num = m[2].replace(/[\s‐-―-]+/g, '-');
       const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
@@ -1764,6 +1775,20 @@ function parseRefId(text, href = '', opts = {}) {
       const y = m[2] || (src.slice(m.index + m[0].length).match(/\b(?:19|20)\d{2}\b/) || [])[0];
       const refId = `SCTE.${m[1]}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'scte-designator' } } : refId;
+    }
+  }
+
+  // SECG: "Standards for Efficient Cryptography Group, SEC 1: …, Version 1.0, September 2000"
+  //   → SECG.SEC1.v1.2000-09 (registry form: SECG.SEC1.v2.2009-05)
+  {
+    const src = String(text || '');
+    const m = /\bStandards\s+for\s+Efficient\s+Cryptography\b/i.test(src) && src.match(/\bSEC\s*(\d)\b/);
+    const v = m && src.match(/\bVersion\s+(\d+)(?:\.\d+)?\b/i);
+    const d = m && src.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+((?:19|20)\d{2})\b/i);
+    if (m && v && d) {
+      const mm = String(['january','february','march','april','may','june','july','august','september','october','november','december'].indexOf(d[1].toLowerCase()) + 1).padStart(2, '0');
+      const refId = `SECG.SEC${m[1]}.v${v[1]}.${d[2]}-${mm}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'secg' } } : refId;
     }
   }
 
