@@ -360,4 +360,17 @@ References
   assert.deepStrictEqual(r13.badRefs || [], [], JSON.stringify(r13.badRefs)); n++;
 }
 
+// Prefixes left on orphan text: an unbracketed label before the author (RFC1392), ": " (RFC2025).
+{
+  const html14 = `<html><body><pre>
+References
+
+   COMER Comer, D., "Internetworking with TCP/IP: Principles, Protocols and Architecture", 1991.
+
+   : D. W. Davies and W. L. Price, "Security for Computer Networks", Second Edition, 1989.
+</pre></body></html>`;
+  const r14 = extractRefs(cheerio.load(html14), 'RFC9985', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html14 });
+  assert.deepStrictEqual((r14.badRefs || []).map((b) => b.refText.slice(0, 22)), ['Comer, D., "Internetwo', 'D. W. Davies and W. L.']); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

@@ -3242,6 +3242,11 @@ function extractRefs($, currentDocId, opts = {}) {
       b.refText = b.refText
         .replace(/^References?\s+(?=\d)/i, '')                  // heading glued on (RFC635)
         .replace(/^[A-Z][A-Z0-9-]{1,15}:\d{1,3}\.?\s+(?=\S)/, '')    // "FORWARD:3." on its own line (RFC1812)
+        .replace(/^[:\-\u2013]\s+(?=\S)/, '')                      // ": D. W. Davies" (RFC2025), "- Network Security" (RFC2065, RFC1750)
+        // An unbracketed label before the citation: "COMER Comer, D., …", "ZEN Kehoe, B., …",
+        // "BIG-LAN "BIG-LAN Frequently …"" (RFC1392), "SAX SAX: The Simple API for XML" (RFC2376).
+        .replace(/^([A-Z][A-Z0-9-]{1,15})\s+(?=[A-Z][A-Za-z'-]+,\s+[A-Z]\.)/, '')
+        .replace(/^([A-Z][A-Z0-9-]{1,15})\s+(?=["“]?\1\b)/i, (m0, l) => (l === l.toUpperCase() ? '' : m0))
         .replace(/^\d{1,3}\s*\.\s*(?=[A-Z"“'])/, '')
         .replace(/^\d{1,3}\)\s+/, '')                            // "4) a system of …" (RFC333)
         .replace(/^[A-Z]{2,}\d{2}[A-Z]?\s+(?=[A-Z]\.)/, '')
