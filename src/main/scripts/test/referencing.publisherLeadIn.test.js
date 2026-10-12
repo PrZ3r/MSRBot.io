@@ -175,4 +175,11 @@ assert.strictEqual(parseRefId('ISO International Standard (IS) 3309, "Data Commu
 assert.strictEqual(parseRefId('International Organization for Standardization, "ISO Information Processing Systems - Data Communication High-Level Data Link Control Procedure - Frame Structure", IS 3309, October 1984, 3rd Edition.'), 'ISO.3309.1984'); n++;
 assert.strictEqual(parseRefId('ISO IS 9595 1989: DAD1: "CMIS Add/Remove Addendum".'), null); n++;
 
+// "International Standard NNNN" with ISO elsewhere in the cite (RFC935); a part after an en dash
+// (SMPTE journal); "IEEE Standards 802-1990" (RFC1490); a draft stays unresolved.
+assert.strictEqual(parseRefId('International Standard 7809, "Data Communication - High-level data link control procedures - Consolidation of classes of procedures", ISO, 1984.'), 'ISO.7809.1984'); n++;
+assert.strictEqual(parseRefId('Information Technology, "Generic Coding of Moving Pictures and Associated Audio Information: Systems," ISO/IEC International Standard 13818\u20131, Second ed., Dec. 2000.'), 'ISO.13818-1.2000'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Local and Metropolitan Area Networks: Overview and architecture", IEEE Standards 802-1990.'), 'IEEE.STD802.1990'); n++;
+assert.strictEqual(parseRefId('Draft International Standard 8802.2, "Local Area Network Standards, Logical Link Control", ISO, 1984 (draft).'), null); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

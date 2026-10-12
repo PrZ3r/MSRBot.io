@@ -1807,7 +1807,7 @@ function parseRefId(text, href = '', opts = {}) {
   {
     // also a letter suffix and a comma before the year (xml2rfc): "IEEE Standard 802.1X-2004",
     // "IEEE Standard 802.11, 2003", "IEEE Standard 802.1X, December 2004"
-    const m = String(text || '').match(/\bIEEE\)?\s+(?:Std\.?\s+|Standard\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+[A-Z]{0,3}))?(?:,\s*(?:[A-Z][a-z]+\.?\s+)?|[\s‐-―-]+)((?:19|20)\d{2})\b/i);
+    const m = String(text || '').match(/\bIEEE\)?\s+(?:Std\.?\s+|Standards?\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+[A-Z]{0,3}))?(?:,\s*(?:[A-Z][a-z]+\.?\s+)?|[\s‐-―-]+)((?:19|20)\d{2})\b/i);
     if (m) {
       const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2].toUpperCase()}` : ''}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-designator' } } : refId;
@@ -2066,9 +2066,13 @@ function parseRefId(text, href = '', opts = {}) {
     const src = String(text || '');
     if ((/\bInternational\s+Organi[sz]ation\s+for\s+Standardi[sz]ation\b/i.test(src) || /\bISO\b/.test(src))
       && !/\b(?:P?DAD\d*|DAM\d*|Addendum|Amendment)\b/i.test(src)) {
-      const m = src.match(/\b(?:International\s+Standard\s+\(IS\)|IS)\s+(\d{3,5}(?:-\d+)*)\b(?:[^\n]{0,240}?\b((?:19|20)\d{2})\b)?/);
+      // also "International Standard 7809, "…", ISO, 1984" (RFC935), but not a draft
+      // ("Draft International Standard 8802.2", "Draft Proposed …").
+      // A part after an en dash, also as an entity: "International Standard 13818&#x2013;1".
+      const m = src.match(/(?<!\b(?:Draft|Proposed)\s+)\b(?:International\s+Standard(?:\s+\(IS\))?|IS)\s+(\d{3,5}(?:(?:-|[\u2010-\u2015]|&#x201[0-5];|&ndash;)\d+)*)\b(?![.\/]\d)(?:[^\n]{0,240}?\b((?:19|20)\d{2})\b)?/);
       if (m) {
-        const refId = `ISO.${m[1]}${m[2] ? `.${m[2]}` : ''}`;
+        const num = m[1].replace(/&#x201[0-5];|&ndash;|[\u2010-\u2015]/gi, '-');
+        const refId = `ISO.${num}${m[2] ? `.${m[2]}` : ''}`;
         return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-is-stage' } } : refId;
       }
     }
@@ -3229,6 +3233,7 @@ function extractRefs($, currentDocId, opts = {}) {
       if (typeof b.refText !== 'string') continue;
       b.refText = b.refText
         .replace(/^References?\s+(?=\d)/i, '')                  // heading glued on (RFC635)
+        .replace(/^[A-Z][A-Z0-9-]{1,15}:\d{1,3}\.?\s+(?=\S)/, '')    // "FORWARD:3." on its own line (RFC1812)
         .replace(/^\d{1,3}\s*\.\s*(?=[A-Z"“'])/, '')
         .replace(/^\d{1,3}\)\s+/, '')                            // "4) a system of …" (RFC333)
         .replace(/^[A-Z]{2,}\d{2}[A-Z]?\s+(?=[A-Z]\.)/, '')
