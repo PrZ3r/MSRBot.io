@@ -144,11 +144,11 @@ This is the canonical CLI reference for local scripts in `package.json`.
 
 - `npm run seed-backfill-ietf`
   - Runs: `node src/main/scripts/utils/seedBackfill.ietf.js`
-  - Action: Compares `src/main/reports/mri_presence_audit.json` missing IETF refs (`RFC####` and `IETF.draft-*`) against `src/main/input/seedUrls.ietf.json` and reports missing seeds.
+  - Action: Finds IETF documents we don't hold and aren't seeded: missing refs in `src/main/reports/mri_presence_audit.json` (`RFC####` and `IETF.draft-*`), and RFCs named by the RFC-index relations on IETF docs we hold (`status.supersededBy`, `amendedBy`, `supersedes`, `amends`, the lineage edges the MSI uses). A superseding RFC nothing cites yet is found this way.
   - Modes:
     - Dry-run (default): prints missing draft + RFC seed URLs.
     - Apply + canonicalize: `npm run seed-backfill-ietf -- --write` (appends missing draft + RFC URLs, de-duplicates, and canonical-orders the full seed list).
-    - Batch: `npm run seed-backfill-ietf -- --limit 100 --out /tmp/ietf-batch.json --write` adds only the first 100 missing seeds (RFCs in number order, then drafts) and writes them to the `--out` file. Extract just that batch with `node src/main/scripts/extractDocs.js --provider ietf --only /tmp/ietf-batch.json`. Each batch's new docs bring new missing refs, so the next dry run includes them.
+    - Batch: `npm run seed-backfill-ietf -- --limit 100 --out /tmp/ietf-batch.json --write` adds only the first 100 missing seeds (RFCs that supersede or update one we hold, then cited RFCs, then older editions ours supersede or update, each in number order, then drafts) and writes them to the `--out` file. Extract just that batch with `node src/main/scripts/extractDocs.js --provider ietf --only /tmp/ietf-batch.json`. Each batch's new docs bring new missing refs, so the next dry run includes them.
 
 ### Validation and Normalization
 
