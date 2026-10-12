@@ -1881,7 +1881,8 @@ function parseRefId(text, href = '', opts = {}) {
     const src = String(text || '');
     const pub = /\bRSA\s+(?:Laboratories|Data\s+Security)\b/i.test(src);
     const n = pub && src.match(/\bPKCS\s*#\s*(\d{1,2})\b/i);
-    const ver = n && (src.match(/\bversion\s+(\d+(?:\.\d+)?)\b/i) || src.match(/\bPKCS\s*#\s*\d{1,2}\s+v(\d+(?:\.\d+)?)\b/i));
+    // also "ver. 1.5" (RFC2828)
+    const ver = n && (src.match(/\b(?:version|ver\.)\s*(\d+(?:\.\d+)?)\b/i) || src.match(/\bPKCS\s*#\s*\d{1,2}\s+v(\d+(?:\.\d+)?)\b/i));
     const y = ver && src.match(/\b((?:19|20)\d{2})\b/);
     if (n && ver && y) {
       const refId = `RSA.PKCS${n[1]}.v${ver[1]}.${y[1]}`;
@@ -2338,8 +2339,11 @@ function extractRefs($, currentDocId, opts = {}) {
         const markerText = marker.replace(/[_-]+/g, ' ').trim();
         const markerIsOrdinal = isOrdinalMarker(marker);
         const markerIsRfc = isRfcMarker(marker);
+        // RFC2828 labels RFCs "R1591"; its R1591 entry names neither the RFC number nor the right authors.
+        const rLabel = /^R(\d{3,5})$/.exec(marker);
         const refId = markerIsRfc
           ? normalizeMarker(marker)
+          : rLabel ? `RFC${parseInt(rLabel[1], 10)}`
           : resolveXmlRefId(
             [
               ctxText,
@@ -2842,8 +2846,11 @@ function extractRefs($, currentDocId, opts = {}) {
         const markerText = marker.replace(/[_-]+/g, ' ').trim();
         const markerIsOrdinal = isOrdinalMarker(marker);
         const markerIsRfc = isRfcMarker(marker);
+        // RFC2828 labels RFCs "R1591"; its R1591 entry names neither the RFC number nor the right authors.
+        const rLabel = /^R(\d{3,5})$/.exec(marker);
         const refId = markerIsRfc
           ? normalizeMarker(marker)
+          : rLabel ? `RFC${parseInt(rLabel[1], 10)}`
           : resolveXmlRefId(
             [
               cleanedChunkText || chunkText,

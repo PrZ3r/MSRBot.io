@@ -187,5 +187,6 @@ assert.strictEqual(parseRefId('Pato, J., "Using Pre-Authentication to Avoid Pass
 
 // "American National Standards Institute" spelled out with a bare X-series designator (RFC2828).
 assert.strictEqual(parseRefId('American National Standards Institute, "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985.'), 'ANSI.X9.17.1985'); n++;
+assert.strictEqual(parseRefId('RSA Laboratories, "PKCS #7: Cryptographic Message Syntax Standard", ver. 1.5, RSA Laboratories Technical Note, 1 Nov 1993.'), 'RSA.PKCS7.v1.5.1993'); n++;
 
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

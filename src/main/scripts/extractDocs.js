@@ -100,7 +100,7 @@ function citeWithoutLabel(raw) {
     // "[1]: D. W. Davies …" (RFC2025) and "- Network Security …" (RFC2065, RFC1750)
     .replace(/^[:\-\u2013]\s+(?=\S)/u, '')
     // A ditto for the previous entry's author: "---, "Financial Institution Key Management …"" (RFC2828)
-    .replace(/^-{2,3},\s*/u, '')
+    .replace(/^(?:-{2,3},\s*)+/u, '')
     // A key and colon before the authors: "ARM: Armijo, M., …" (RFC2782)
     .replace(/^[A-Z][A-Za-z0-9-]{1,15}:\s+(?=[A-Z][A-Za-z'-]+,\s+[A-Z]\.)/u, '')
     .replace(/\s+\S{2,40}\s+\[Page\s+\d+\]?\s*$/u, '')          // page footer "… Sirbu [Page 8" (RFC1049)
