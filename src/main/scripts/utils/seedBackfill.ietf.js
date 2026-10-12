@@ -11,6 +11,8 @@ Usage:
 --limit N takes the first N missing seeds: RFCs that supersede or update one we hold (the current
 editions, which the weekly extract keeps current), then cited RFCs, then RFCs ours supersede or
 update, each in number order, then drafts.
+--cited seeds only the citation backlog (cited RFCs in number order, then drafts), leaving the
+relation targets for a later --relations run.
 --relations seeds only the RFCs named by those relations (no citation backlog, no drafts). The
 weekly extract runs it first, so an RFC that newly obsoletes or updates one we hold is pulled in.
 --out <file> writes the chosen URLs as a JSON list, ready for
@@ -145,6 +147,11 @@ function main() {
   }
   const outPath = argValue('--out');
   const relationsOnly = process.argv.includes('--relations');
+  const citedOnly = process.argv.includes('--cited');
+  if (relationsOnly && citedOnly) {
+    console.error('--relations and --cited are alternatives; pass one.');
+    process.exit(1);
+  }
   if (!fs.existsSync(AUDIT_PATH)) {
     console.error(`Missing file: ${AUDIT_PATH}`);
     process.exit(1);
@@ -183,7 +190,9 @@ function main() {
   const backwardNums = [...backward].filter((n) => unseeded(n) && !citedSet.has(n)).sort(byNum);
   const missingSeedUrls = relationsOnly
     ? [...forwardNums, ...[...backward].filter(unseeded).sort(byNum)].map((n) => toRfcUrl(n))
-    : [...forwardNums, ...citedNums, ...backwardNums].map((n) => toRfcUrl(n));
+    : citedOnly
+      ? rfcNums.filter(unseeded).map((n) => toRfcUrl(n))
+      : [...forwardNums, ...citedNums, ...backwardNums].map((n) => toRfcUrl(n));
   const missingDraftNames = relationsOnly ? [] : draftNames.filter((name) => !seedSet.has(toDraftUrl(name).toLowerCase()));
   const missingDraftUrls = missingDraftNames.map((name) => toDraftUrl(name));
   const missingAll = [...missingDraftUrls, ...missingSeedUrls];
