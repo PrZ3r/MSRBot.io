@@ -885,7 +885,9 @@ for (const doc of results) {
         bibliographic: withPending(doc.references && doc.references.bibliographic, 'bibliographic')
       };
 
-      if (doc.references) {
+      // A list made only of orphans (RFC635: nothing resolves) has no doc.references from the
+      // parser; compare it all the same, or stale orphans are never replaced and new ones pile on.
+      if (doc.references || newRefs.normative.length || newRefs.bibliographic.length) {
         addedRefs = {
           normative: newRefs.normative.filter(ref => !oldRefs.normative.includes(ref)),
           bibliographic: newRefs.bibliographic.filter(ref => !oldRefs.bibliographic.includes(ref))
