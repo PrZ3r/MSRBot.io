@@ -79,7 +79,10 @@ function citeWithoutLabel(raw) {
   const spaced = String(raw || '').trim().match(/^\[([A-Za-z][A-Za-z0-9 .\/-]{1,38}[A-Za-z0-9])\]\s+(\S[\s\S]*)$/);
   if (spaced && /\s/.test(spaced[1])) {
     const key = (t) => t.toLowerCase().replace(/[^a-z0-9]/g, '');
-    if (key(spaced[2]).includes(key(spaced[1]))) raw = spaced[2];
+    // Also an author-year key followed by the authors: "[Dyer 1987] Dyer, S., …" (RFC2929),
+    // "[Moon 1981] D. Moon, …", "[SSM ARCH] Holbrook, H. …" (RFC3306).
+    const authorFirst = /^(?:[A-Z][A-Za-z'-]+,\s+[A-Z]\.|(?:[A-Z]\.\s*){1,3}[A-Z][a-z])/.test(spaced[2]);
+    if (key(spaced[2]).includes(key(spaced[1])) || authorFirst) raw = spaced[2];
   }
   return String(raw || '')
     .replace(/\s+/g, ' ')
@@ -96,6 +99,10 @@ function citeWithoutLabel(raw) {
     .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')
     // "[1]: D. W. Davies …" (RFC2025) and "- Network Security …" (RFC2065, RFC1750)
     .replace(/^[:\-\u2013]\s+(?=\S)/u, '')
+    // A ditto for the previous entry's author: "---, "Financial Institution Key Management …"" (RFC2828)
+    .replace(/^-{2,3},\s*/u, '')
+    // A key and colon before the authors: "ARM: Armijo, M., …" (RFC2782)
+    .replace(/^[A-Z][A-Za-z0-9-]{1,15}:\s+(?=[A-Z][A-Za-z'-]+,\s+[A-Z]\.)/u, '')
     .replace(/\s+\S{2,40}\s+\[Page\s+\d+\]?\s*$/u, '')          // page footer "… Sirbu [Page 8" (RFC1049)
     // RFC1032's retrieval note after each entry: "[ DDN-NEWS:DDN-MGT-BULLETIN-32.TXT ]", "[ Not online ]"
     .replace(/\s*\[\s*(?:[A-Z0-9-]+:[^\]\s]+|Not\s+online)\s*\]?\s*$/iu, '')
@@ -130,6 +137,10 @@ function isNonCitationLine(cite) {
   // (RFC2246 [RSADSI] "Contact RSA Data Security, Inc., Tel: 415-595-8782").
   if (/^(?:Phone|Tel|Fax|E-?Mail)\s*:/i.test(c)) return true;
   if (/^Contact\b[^"“]{0,120}\b(?:Tel|Phone|E-?Mail)\s*:/i.test(c)) return true;
+  // A licensing note in the reference list, not a citation (RFC2433, RFC2548, RFC2759).
+  if (/^RC4 is a proprietary encryption algorithm\b/i.test(c)) return true;
+  // An item this memo itself registers (RFC3297: "'Content-alternative' header (this memo, section 4)").
+  if (/\(this memo,?\s+section\s+[\d.]+\s*\)\.?$/i.test(c)) return true;
   // Editors' change markers in RFC2616's reference list ("[jg639").
   if (/^\[?[a-z]{1,4}\d{2,4}\]?$/.test(c)) return true;
   return false;
