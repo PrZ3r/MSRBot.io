@@ -1112,6 +1112,11 @@ function urlFromCiteText(text) {
   return /^www\./i.test(url) ? `https://${url}` : url;
 }
 
+// Another body's "Request for Comments" series (OSF DCE RFCs), not the IETF's.
+function otherSeriesRfc(text) {
+  return /\b(?:DCE|OSF|Open\s+Software\s+Foundation)\s+(?:Request\s+for\s+Comments?|RFC)\b/i.test(String(text || ''));
+}
+
 function parseRefId(text, href = '', opts = {}) {
   const wantDiag = !!opts.wantDiag;
   // allow explicit cite→refId normalization via refMap.json
@@ -1476,10 +1481,13 @@ function parseRefId(text, href = '', opts = {}) {
   // RFC, also spelled out or with "#" as old RFCs print it: "Request For Comments 870"
   // (RFC878), "[RFC#635, INWG Note # ***]" (RFC675).
   {
-    const sm = text.match(/\bRequest\s+for\s+Comments?\s*(?:No\.?\s*|#\s*)?(\d{1,5})\b/i) || text.match(/\bRFC\s*#\s*(\d{1,5})\b/i);
+    // Not another body's series of the same name: "Open Software Foundation DCE Request for
+    // Comments 26" (RFC1510) is OSF's, and IETF RFC26 was never issued.
+    const otherSeries = /\b(?:DCE|OSF|Open\s+Software\s+Foundation)\s+(?:Request\s+for\s+Comments?|RFC)\b/i.test(text);
+    const sm = otherSeries ? null : (text.match(/\bRequest\s+for\s+Comments?\s*(?:No\.?\s*|#\s*)?(\d{1,5})\b/i) || text.match(/\bRFC\s*#\s*(\d{1,5})\b/i));
     if (sm) { const refId = `RFC${parseInt(sm[1], 10)}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rfc-number' } } : refId; }
   }
-  if (/RFC\s*(\d+)/i.test(text)) {
+  if (!otherSeriesRfc(text) && /RFC\s*(\d+)/i.test(text)) {
     { const refId = `RFC${parseInt(text.match(/RFC\s*(\d+)/i)[1], 10)}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rfc-number' } } : refId; }
   }
 

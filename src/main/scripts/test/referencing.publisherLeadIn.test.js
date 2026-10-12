@@ -182,4 +182,7 @@ assert.strictEqual(parseRefId('Information Technology, "Generic Coding of Moving
 assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Local and Metropolitan Area Networks: Overview and architecture", IEEE Standards 802-1990.'), 'IEEE.STD802.1990'); n++;
 assert.strictEqual(parseRefId('Draft International Standard 8802.2, "Local Area Network Standards, Logical Link Control", ISO, 1984 (draft).'), null); n++;
 
+// OSF's DCE "Request for Comments" series is not the IETF's (RFC1510; IETF RFC26 was never issued).
+assert.strictEqual(parseRefId('Pato, J., "Using Pre-Authentication to Avoid Password Guessing Attacks", Open Software Foundation DCE Request for Comments 26, December 1992.'), null); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

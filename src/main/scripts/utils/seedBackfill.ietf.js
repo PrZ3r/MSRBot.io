@@ -36,6 +36,14 @@ function walkJson(dir, out = []) {
 
 // RFCs named by status relations on the IETF docs we hold, split by direction, minus the ones
 // already in the registry (any publisher; per-doc files are named <docId>.json).
+// Numbers the RFC index lists as never issued (RFC26): nothing to fetch, so never seed them.
+function notIssuedRfcs() {
+  const p = path.resolve(process.cwd(), 'src/main/input/sources/ietf/rfc-index.xml');
+  if (!fs.existsSync(p)) return new Set();
+  const xml = fs.readFileSync(p, 'utf8');
+  return new Set([...xml.matchAll(/<rfc-not-issued-entry>\s*<doc-id>RFC0*(\d+)<\/doc-id>/g)].map((m) => Number(m[1])));
+}
+
 function relationTargets() {
   const held = new Set(walkJson(DOCS_DIR).map((p) => path.basename(p, '.json')));
   const forward = new Set();
@@ -165,7 +173,8 @@ function main() {
   )].sort((a, b) => a.localeCompare(b));
 
   const seedSet = new Set(seeds.map((s) => String(s).toLowerCase()));
-  const unseeded = (n) => !seedSet.has(toRfcUrl(n).toLowerCase());
+  const notIssued = notIssuedRfcs();
+  const unseeded = (n) => !notIssued.has(n) && !seedSet.has(toRfcUrl(n).toLowerCase());
   const byNum = (a, b) => a - b;
   const { forward, backward } = relationTargets();
   const citedSet = new Set(rfcNums);
