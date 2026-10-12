@@ -165,4 +165,7 @@ assert.strictEqual(parseRefId('J. Reynolds and J. Postel, "Assigned Numbers", Re
 assert.strictEqual(parseRefId('V. Cerf, "An Assessment of ARPANET Protocols," July l974 [RFC#635, INWG Note # ***].'), 'RFC635'); n++;
 assert.strictEqual(parseRefId('Cerf, V., "ASCII format for Network Interchange", STD 80, RFC 20, October 1969.'), 'RFC20'); n++;
 
+// A bit rate is not a year: "2048 kbit/s" (RFC1406).
+assert.strictEqual(parseRefId('CCITT Specifications Volume III, Recommendation G.732, Characteristics Of Primary PCM Multiplex Equipment Operating at 2048 kbit/s, July 1988.'), 'T-REC-G.732.1988'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

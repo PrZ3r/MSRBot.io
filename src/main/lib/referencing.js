@@ -1655,8 +1655,17 @@ function parseRefId(text, href = '', opts = {}) {
   // - "Fascicle III.4 - Recommendation G.711 ... 1972"
   // - "Recommendations X.400 - X.420 (1988 version)"
   {
-    const yearMatch = String(text || '').match(/\b(19|20)\d{2}\b/);
-    const year = yearMatch ? yearMatch[0] : '';
+    // The first 19xx/20xx that is a year: not a rate or size ("2048 kbit/s", RFC1406's O.162
+    // and G.732 became `.2048`), and not past next year.
+    let year = '';
+    {
+      const maxYear = new Date().getUTCFullYear() + 1;
+      const yre = /\b(19|20)\d{2}\b(?!\s*(?:[kKMG]?(?:bit|bps|b\/s|Hz|baud|byte|octet)|x\d))/g;
+      let ym;
+      while ((ym = yre.exec(String(text || ''))) !== null) {
+        if (Number(ym[0]) <= maxYear) { year = ym[0]; break; }
+      }
+    }
 
     const range = String(text || '').match(/\bRecommendations?\s+([A-Z])\.(\d{1,4})\s*[-\u2013\u2014]\s*\1\.(\d{1,4})\b/i);
     if (range) {
