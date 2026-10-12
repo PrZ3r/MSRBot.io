@@ -188,4 +188,92 @@ REFERENCES
   assert.ok(!all5.some((x) => /^IETF\.draft-smi$/i.test(x)), `letter code read as a draft: ${JSON.stringify(all5)}`); n++;
 }
 
+// Every line indented, headings included (RFC905): a numbered References heading ends at the
+// next numbered heading at its own indent, not at the end of the document.
+{
+  const html6 = `<html><body><pre>
+     2  REFERENCES
+   
+     ISO 7498  Information   processing   systems   -   Open   systems
+               interconnection - Basic Reference Model
+   
+   
+     3  DEFINITIONS
+   
+     [Figures 3 and 4 are omitted from this copy.] General procedures, 1983,
+     "a quoted phrase that looks like a title" applies here.
+</pre></body></html>`;
+  const r6 = extractRefs(cheerio.load(html6), 'RFC9994', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html6 });
+  assert.deepStrictEqual(r6.references.bibliographic, ['ISO.7498']); n++;
+  assert.ok(!(r6.badRefs || []).some((b) => /Figures/.test(b.refText)), `body text read as a citation: ${JSON.stringify(r6.badRefs)}`); n++;
+}
+
+// Double-spaced pages (RFC878): a wrapped entry stays one entry.
+{
+  const filler = Array.from({ length: 220 }, (_, i) => `     Body text line ${i}.\n     `).join('\n');
+  const html7 = `<html><body><pre>
+${filler}
+     4  REFERENCES
+     
+     
+     [<a id="ref-1">1</a>]  J. Postel, "Address Mappings",  Request  for  Comments
+     
+          796, September 1981.
+     
+     
+     
+                                APPENDIX A
+</pre></body></html>`;
+  const r7 = extractRefs(cheerio.load(html7), 'RFC9993', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html7 });
+  assert.deepStrictEqual(r7.references.bibliographic, ['RFC796']); n++;
+}
+
+// RFC675's numbered list: "3.CESU74" without a space, and a bracket that opens a wrapped line
+// ("[RFC#635, …]") is part of the entry above, not a new one.
+{
+  const html8 = `<html><body><pre>
+7.  REFERENCES
+
+   2. CERF74
+
+      V. Cerf, "An Assessment of ARPANET Protocols," in Proceedings of
+      the Jerusalem Conference on Information Technology, July l974
+      [RFC#635, INWG Note # ***].
+
+   3.CESU74
+
+      V. Cerf and C. Sunshine, "Protocols and Gateways for the
+      Interconnection of Packet Switching Networks," January 1974.
+</pre></body></html>`;
+  const r8 = extractRefs(cheerio.load(html8), 'RFC9992', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html8 });
+  assert.deepStrictEqual(r8.references.bibliographic, ['RFC635']); n++;
+  const bad8 = (r8.badRefs || []).map((b) => b.refText);
+  assert.deepStrictEqual(bad8.length, 1, JSON.stringify(bad8)); n++;
+  assert.ok(/^V\. Cerf and C\. Sunshine/.test(bad8[0]), `label left on the citation: ${bad8[0]}`); n++;
+}
+
+// A running header split over two lines at a page break ("January 1980" in the grey header,
+// the title on the next line, RFC761) is not part of the entry.
+{
+  const html9 = `<html><body><pre>
+References
+
+[<a id="ref-4">4</a>]  Dalal, Y. and C. Sunshine, "Connection Management in Transport
+     Protocols," Computer Networks, Vol. 2, No. 6, pp. 454-473,
+     December 1978.
+
+
+<span class="grey">                                                               [Page 83]</span></pre>
+<hr class='noprint'/><!--NewPage--><pre class='newpage'><span id="page-84" ></span>
+<span class="grey">                                                            January 1980</span>
+Transmission Control Protocol
+
+
+[Page 84]
+</pre></body></html>`;
+  const r9 = extractRefs(cheerio.load(html9), 'RFC9991', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html9 });
+  const bad9 = (r9.badRefs || []).map((b) => b.refText);
+  assert.ok(bad9.length === 1 && /December 1978\.$/.test(bad9[0]), `page header in the entry: ${JSON.stringify(bad9)}`); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

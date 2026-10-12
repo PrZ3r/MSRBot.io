@@ -160,4 +160,9 @@ assert.strictEqual(citeHref('<ref><mixed-citation>Available: <uri>https://www.fa
 assert.strictEqual(citeHref('<ref><mixed-citation><pub-id pub-id-type="doi">10.1017/atsip.2019.23</pub-id></mixed-citation></ref>'), 'https://doi.org/10.1017/atsip.2019.23'); n++;
 assert.strictEqual(citeHref('<ref><mixed-citation>R. Xu, “Survey,” 2005.</mixed-citation></ref>'), ''); n++;
 
+// Old RFCs spell the series out or use "#": RFC878, RFC675; RFCs below 100 too.
+assert.strictEqual(parseRefId('J. Reynolds and J. Postel, "Assigned Numbers", Request For Comments 870, October 1983.'), 'RFC870'); n++;
+assert.strictEqual(parseRefId('V. Cerf, "An Assessment of ARPANET Protocols," July l974 [RFC#635, INWG Note # ***].'), 'RFC635'); n++;
+assert.strictEqual(parseRefId('Cerf, V., "ASCII format for Network Interchange", STD 80, RFC 20, October 1969.'), 'RFC20'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

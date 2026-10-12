@@ -49,6 +49,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **Old RFC layouts (IETF seed backfill, batch 1).** RFCs below 100 were treated as drafts (RFC20 became `IETF.RFC20`): the IETF provider, the URL rules and the RFC-number resolver required 3 to 5 digits. `parseRefId` reads the series spelled out or with "#" ("Request For Comments 870", "[RFC#635, …]"). The RFC page parser handles more pre-1990 layouts:
+  - every line indented, headings too (RFC905): a numbered References heading ends at the next numbered heading at its indent, so the spec body is no longer read as citations;
+  - double-spaced pages (RFC878): wrapped entries stay whole;
+  - "3.CESU74" with no space after the number, a label-only line ("BELS74"), and a bracket that opens a wrapped line ("[RFC#635, …]", RFC675) no longer merge or split entries;
+  - a running header split over two lines at a page break (RFC761's "January 1980" / "Transmission Control Protocol");
+  - list numbers and labels are left off orphan citations ("1 . L. G. Roberts", RFC756; "CEKA74 V. Cerf", RFC675), and ISO draft entries ("DP 8072 …", RFC905) are kept as orphans.
+
+  Across 211 RFC pages, nothing real is lost: RFC635, RFC791 and RFC870 newly resolve, and the only dropped IDs are RFC905's body-text matches and RFC2459's "[Supersedes FIPS PUB 180 …]" note. MRI replay (67,267 citations): 4 newly resolve, none changed.
 - **ISBN showed "[object Object]" on 419 conference papers.** The schema allows `isbn` as a string or `{ print, electronic }`, like `issn`, but the doc template and citations printed it raw. The doc page now shows Print / Electronic like ISSN, and citations use one value.
 - **Journal (FTXML) references, 2024–2026.** The #1248 extraction put the ref-list heading into each paper's first citation ("References 1. R. Xu …"), kept the reference number, and added spaces around punctuation ("Xu , “ Survey ,” 16 ( 3 )"). `extractFtxmlRefs.js --refresh` re-parses all 176 FTXML papers and replaces their citation text. Standards citations now link to the standard: 352 references resolve, up from 54.
 - **IETF re-extracts rewrote data that hadn't changed.** The 2026-10-08 IETF run updated 40 RFCs when only two had real changes. The rest came from sources that changed on the RFC Editor and Datatracker side. A re-extract now keeps the stored value when the incoming one says the same thing in another form (`utils/reconcileIncoming.js`, run by `extractDocs.js` for every provider):

@@ -1145,7 +1145,7 @@ function parseRefId(text, href = '', opts = {}) {
     const src = String(text || '');
     const h = String(href || '');
     if ((/\bBCP\s*[\u2010-\u2015-]?\s*0*47\b/i.test(src) || /\bbcp\/?0*47\b/i.test(h))
-      && !/\bRFC\s*[-\/]?\s*\d{3,5}\b/i.test(src) && !/rfc\.?\d{3,5}/i.test(h)) {
+      && !/\bRFC\s*[-\/]?\s*\d{1,5}\b/i.test(src) && !/rfc\.?\d{1,5}/i.test(h)) {
       const refId = 'BCP47';
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'bcp47-set' } } : refId;
     }
@@ -1473,7 +1473,12 @@ function parseRefId(text, href = '', opts = {}) {
     }
   } catch {}
 
-  // RFC
+  // RFC, also spelled out or with "#" as old RFCs print it: "Request For Comments 870"
+  // (RFC878), "[RFC#635, INWG Note # ***]" (RFC675).
+  {
+    const sm = text.match(/\bRequest\s+for\s+Comments?\s*(?:No\.?\s*|#\s*)?(\d{1,5})\b/i) || text.match(/\bRFC\s*#\s*(\d{1,5})\b/i);
+    if (sm) { const refId = `RFC${parseInt(sm[1], 10)}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rfc-number' } } : refId; }
+  }
   if (/RFC\s*(\d+)/i.test(text)) {
     { const refId = `RFC${parseInt(text.match(/RFC\s*(\d+)/i)[1], 10)}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rfc-number' } } : refId; }
   }
@@ -2197,11 +2202,11 @@ function extractRefs($, currentDocId, opts = {}) {
 
     // 3) direct RFC token shortcuts (fallback)
     for (const c of conciseCites) {
-      const m = c.match(/^RFC(\d{3,5})$/i) || c.match(/\bRFC\s*[-\/\s]?(\d{3,5})\b/i);
+      const m = c.match(/^RFC(\d{1,5})$/i) || c.match(/\bRFC\s*[-\/\s]?(\d{1,5})\b/i);
       if (m?.[1]) return `RFC${parseInt(m[1], 10)}`;
     }
     for (const h of hrefs) {
-      const m = h.match(/reference\.RFC\.(\d{3,5})\.xml/i) || h.match(/\/rfc(\d{3,5})\b/i);
+      const m = h.match(/reference\.RFC\.(\d{1,5})\.xml/i) || h.match(/\/rfc(\d{1,5})\b/i);
       if (m?.[1]) return `RFC${parseInt(m[1], 10)}`;
     }
 
@@ -2442,7 +2447,27 @@ function extractRefs($, currentDocId, opts = {}) {
     // Fallback for classic RFC HTML layout (preformatted refs with ref-* anchors).
     // Run even when structured parsing found some refs, to pick up markers split by page breaks.
     {
-      const raw = String(opts.htmlRaw || $.html() || '');
+      let raw = String(opts.htmlRaw || $.html() || '');
+      // Some old RFCs are double-spaced: every text line is followed by a spacer line
+      // (RFC878). Wrapped reference entries then read as one paragraph per line. Collapse
+      // the single spacers; a run of two or more still separates paragraphs.
+      {
+        // Count text lines only (no markup): page chrome and headers run together in any RFC.
+        // Text lines followed by another text line: ~0.2 double-spaced (RFC878, RFC783),
+        // 0.5+ otherwise.
+        const lines = raw.split('\n');
+        const isText = (l) => /\S/.test(l) && !/[<>]/.test(l);
+        let nonBlank = 0;
+        let pairs = 0;
+        for (let i = 0; i < lines.length; i++) {
+          if (!isText(lines[i])) continue;
+          nonBlank++;
+          if (i + 1 < lines.length && isText(lines[i + 1])) pairs++;
+        }
+        if (nonBlank > 200 && pairs / nonBlank < 0.25) {
+          raw = raw.replace(/([^\n]*\S[^\n]*)\n[ \t]*\n(?=[ \t]*\S)/g, '$1\n');
+        }
+      }
       const findHeadingPositions = (re) => {
         const pos = [];
         let m;
@@ -2535,6 +2560,27 @@ function extractRefs($, currentDocId, opts = {}) {
         while (headingStart < raw.length && /\s/.test(raw[headingStart])) headingStart++;
         const headingLineEnd = raw.indexOf('\n', headingStart);
         if (headingLineEnd < 0 || headingLineEnd >= end) return end;
+        // Some RFCs indent every line, headings included (RFC905's "     2  REFERENCES",
+        // RFC878): no heading sits at column 0. A numbered References heading ends at the
+        // next numbered heading at its own indent with a higher number ("     3  DEFINITIONS").
+        {
+          const lineStart = raw.lastIndexOf('\n', headingStart) + 1;
+          const hm = /^([ \t]*)(\d+)(?:\.\d+)*\.?[ \t]+\S/.exec(raw.slice(lineStart, headingLineEnd).replace(/<[^>]+>/g, ''));
+          if (hm) {
+            const indent = hm[1].replace(/\t/g, '        ').length;
+            const num = Number(hm[2]);
+            const nre = /\n([ \t]*)(\d+)(?:\.\d+)*\.?[ \t]{1,4}([A-Z][A-Za-z0-9 ,'()&\/-]{2,80})[ \t]*(?=\n)/g;
+            nre.lastIndex = headingLineEnd;
+            let nm;
+            while ((nm = nre.exec(raw)) !== null) {
+              if (nm.index >= end) break;
+              if (nm[1].replace(/\t/g, '        ').length === indent && Number(nm[2]) > num) {
+                end = nm.index + 1;
+                break;
+              }
+            }
+          }
+        }
         // Judge the line without its tags: "Appendix: Changes from <a …>RFC 4634</a>" (RFC6234).
         // A heading follows a blank line and has no period; some old RFCs (RFC2060) print
         // reference entries unindented, so a wrapped line like "Work in Progress." must
@@ -2615,7 +2661,7 @@ function extractRefs($, currentDocId, opts = {}) {
       // Two layouts: rfc-editor.org ("…</span></pre><hr class='noprint'/><!--NewPage--><pre
       // class='newpage'>…") and Datatracker drafts ("…</span></pre><pre class="newpage"><hr
       // class="noprint" id="page-8">…").
-      const pageBreakBlockRe = /\n*[ \t]*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[^<]*\[Page\s+\d+\][^<]*<\/span>\s*<\/pre>\s*(?:<hr[^>]*>\s*)?(?:<!--\s*NewPage\s*-->\s*)?<pre[^>]*>\s*(?:<hr[^>]*>\s*)?(?:<span[^>]*\bid=["']page-\d+["'][^>]*>\s*<\/span>)?\s*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>[ \t]*\n*/g;
+      const pageBreakBlockRe = /\n*[ \t]*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[^<]*\[Page\s+\d+\][^<]*<\/span>\s*<\/pre>\s*(?:<hr[^>]*>\s*)?(?:<!--\s*NewPage\s*-->\s*)?<pre[^>]*>\s*(?:<hr[^>]*>\s*)?(?:<span[^>]*\bid=["']page-\d+["'][^>]*>\s*<\/span>)?\s*(?:<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>\s*(?:[A-Z][a-z]+\s+)?\d{4}\s*<\/span>[ \t]*\n[^\n<]{1,80}(?=\n|$)|<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>)[ \t]*\n*/g;
       const stripPageBreaks = (s) => String(s || '').replace(pageBreakBlockRe, '\n');
       const consumedEntryTexts = [];
       const normalizeForContainment = (t) => String(t || '').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
@@ -2746,6 +2792,17 @@ function extractRefs($, currentDocId, opts = {}) {
           if (/^\d+(?:\.\d+)?$/.test(markerText)) continue;
           // Page footers ("[Page 85]") look like markers in old text RFCs.
           if (/^Page\s+\d+$/i.test(markerText)) continue;
+          // A bracket that opens a wrapped line of the entry above is not a new entry:
+          // RFC675's "…July l974\n      [RFC#635, INWG Note # ***]." The line before is text,
+          // indented no less, and is not itself a bracketed entry.
+          {
+            const lineStart = raw.lastIndexOf('\n', absPos - 1) + 1;
+            const indent = absPos - lineStart;
+            const prevEnd = lineStart - 1;
+            const prevLine = prevEnd > 0 ? raw.slice(raw.lastIndexOf('\n', prevEnd - 1) + 1, prevEnd).replace(/<[^>]+>/g, '') : '';
+            const indentOf = (l) => (/^[ \t]*/.exec(l)[0] || '').length;
+            if (/\S/.test(prevLine) && !/^\s*\[/.test(prevLine) && indentOf(prevLine) <= indent) continue;
+          }
 
           const key = classifyPosByBounds(absPos);
           if (!key) continue;
@@ -2806,7 +2863,9 @@ function extractRefs($, currentDocId, opts = {}) {
         if (end <= start) continue;
         const key = bounds[b].key;
         const sectionSlice = raw.slice(start, end);
-        const numberedRe = /(?:^|\n)\s{0,8}(\d{1,3})\.\s{1,6}([\s\S]*?)(?=(?:\n\s{0,8}\d{1,3}\.\s{1,6})|$)/g;
+        // "3.CESU74" (RFC675) has no space after the number. An entry also ends at a line
+        // holding only a citation label ("BELS74", whose number RFC675 left out).
+        const numberedRe = /(?:^|\n)\s{0,8}(\d{1,3})\.(?:\s{1,6}|(?=[A-Z]))([\s\S]*?)(?=(?:\n\s{0,8}\d{1,3}\.(?:\s{1,6}|(?=[A-Z])))|(?:\n[ \t]*\n[ \t]{0,8}[A-Z]{2,}\d{2}[A-Z]?[ \t]*\n)|$)/g;
         let nm;
         while ((nm = numberedRe.exec(sectionSlice)) !== null) {
           const markerNo = String(nm[1] || '').trim();
@@ -2822,6 +2881,7 @@ function extractRefs($, currentDocId, opts = {}) {
             .trim();
           const cleanedChunkText = trimRfcRefTail(chunkText);
           if (!cleanedChunkText) continue;
+          consumedEntryTexts.push(normalizeForContainment(cleanedChunkText));
 
           const refId = resolveXmlRefId([cleanedChunkText], hrefs);
           if (refId) {
@@ -2841,7 +2901,7 @@ function extractRefs($, currentDocId, opts = {}) {
             // Only emit as badRef when numbered text looks citation-like;
             // this avoids appendix/procedure step leakage (e.g., examples).
             const looksCitationLike = /\b(19|20)\d{2}\b/.test(cleanedChunkText)
-              || /\bRFC\s*[0-9]{3,5}\b/i.test(cleanedChunkText)
+              || /\bRFC\s*[0-9]{1,5}\b/i.test(cleanedChunkText)
               || /\b(?:ISO|IEC|IEEE|STD|IETF|draft-ietf)\b/i.test(cleanedChunkText)
               || /["“][^"”]{8,}["”]/.test(cleanedChunkText)
               || /\b[A-Z][A-Za-z'`.-]+,\s*[A-Z]\./.test(cleanedChunkText);
@@ -2908,7 +2968,7 @@ function extractRefs($, currentDocId, opts = {}) {
             parserDiag.proseBlocksSkippedForAnchor += 1;
             continue;
           }
-          if (/(?:^|\n)\s{0,8}\d{1,3}\.\s{1,6}/.test(block)) continue;
+          if (/(?:^|\n)\s{0,8}\d{1,3}\.(?:\s{1,6}|(?=[A-Z]))/.test(block)) continue;
 
           const hrefs = sanitizeRfcHtmlHrefs([...block.matchAll(/href=["']([^"']+)["']/ig)]
             .map((hm) => String(hm[1] || '').trim())
@@ -2949,8 +3009,10 @@ function extractRefs($, currentDocId, opts = {}) {
           } else {
             // Only emit as badRef when it looks citation-like to limit noise.
             const looksCitationLike = /\b(19|20)\d{2}\b/.test(cleanedChunkText)
-              || /\bRFC\s*[0-9]{3,5}\b/i.test(cleanedChunkText)
+              || /\bRFC\s*[0-9]{1,5}\b/i.test(cleanedChunkText)
               || /\b(?:ISO|IEC|IEEE|STD)\b/i.test(cleanedChunkText)
+              // An ISO draft by its stage and number: "DP 8072 Information processing systems …" (RFC905)
+              || /^(?:DP|DIS)\s+\d{3,5}\b/.test(cleanedChunkText)
               || /["“][^"”]{8,}["”]/.test(cleanedChunkText);
             if (looksCitationLike) {
               out.badRefs.push({
@@ -3077,6 +3139,16 @@ function extractRefs($, currentDocId, opts = {}) {
       if (/^[a-z0-9._-]+\s*\]?\s+see\s+\[\s*[a-z0-9._-]+\s*\]?$/i.test(normalized)) return false;
       return true;
     });
+    // Old RFC list numbering and labels left on an unresolved entry's text: "1 . L. G.
+    // Roberts" (the htmlizer made RFC756's "1." a section link), "3.CESU74 V. Cerf" and
+    // "CEKA74 V. Cerf" (RFC675's labels), "(1974)._" (a stray underline).
+    for (const b of out.badRefs) {
+      if (typeof b.refText !== 'string') continue;
+      b.refText = b.refText
+        .replace(/^\d{1,3}\s*\.\s*(?=[A-Z])/, '')
+        .replace(/^[A-Z]{2,}\d{2}[A-Z]?\s+(?=[A-Z]\.)/, '')
+        .replace(/(\.)_+$/, '$1');
+    }
     suppressResolvableBadRefs();
     return out;
   }
