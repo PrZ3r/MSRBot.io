@@ -340,4 +340,24 @@ E] Formulae: On page six I have replaced symbols of the form "B subscript digit"
   assert.deepStrictEqual(r12.badRefs || [], []); n++;
 }
 
+// An unanchored References heading ends at the next real section heading (RFC1583's appendices),
+// but not at an htmlized entry that became a section link (RFC756: reused number, "J. Postel,").
+{
+  const html13 = `<html><body><pre>
+<span class="h2"><a class="selflink" id="section-1" href="#section-1">1</a>. Introduction</span>
+
+References
+
+    [<a id="ref-1">1</a>] Postel, J., "Internet Protocol", <a href="./rfc791">RFC 791</a>, September 1981.
+
+<span class="h2"><a class="selflink" id="appendix-A" href="#appendix-A">A</a>. OSPF data formats</span>
+
+            [IP address, mask]
+                    Describes the collection of IP addresses contained in the range, 1994 "quoted text".
+</pre></body></html>`;
+  const r13 = extractRefs(cheerio.load(html13), 'RFC9987', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html13 });
+  assert.deepStrictEqual(r13.references.bibliographic, ['RFC791']); n++;
+  assert.deepStrictEqual(r13.badRefs || [], [], JSON.stringify(r13.badRefs)); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

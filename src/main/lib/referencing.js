@@ -1814,6 +1814,16 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // A quoted title between the designator and the date: "IEEE Standard 802.6, "Distributed
+  // Queue Dual Bus (DQDB) Subnetwork of a …", December 1990." (RFC1209) → IEEE.STD802.6.1990
+  {
+    const m = String(text || '').match(/\bIEEE\s+(?:Std\.?|Standard)\s+P?(\d{2,4})(?:\.(\d+[A-Z]{0,3}))?,\s*["“][^"”]{3,240}["”],?\s*(?:[A-Z][a-z]+\.?\s+)?(?:\d{1,2},?\s+)?((?:19|20)\d{2})\b/i);
+    if (m) {
+      const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2].toUpperCase()}` : ''}.${m[3]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-quoted-title' } } : refId;
+    }
+  }
+
   // ETSI: "ETSI TS 101 154", "ETSI ETS-300706", "ETSI EN 300 743" → ETSI.TS-101-154[.year]
   //   also "ETSI Standard EN 300 429", and a citation that opens with an ETSI EN number
   //   and no "ETSI": "EN 300 001 V1.5.1 (1998-10)", "EN 300 659-1" (RFC4682)
@@ -2047,6 +2057,20 @@ function parseRefId(text, href = '', opts = {}) {
     if (m) {
       const refId = `ISO.${m[1]}${m[2] ? `.${m[2]}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-international-standard' } } : refId;
+    }
+  }
+  // The stage written out: "ISO International Standard (IS) 3309, "…", 1979." and "International
+  // Organization for Standardization, "ISO …", IS 3309, October 1984" (RFC1547, RFC1510). An
+  // addendum ("ISO IS 9595 1989: DAD1", RFC1189) cites the amendment, not the standard.
+  {
+    const src = String(text || '');
+    if ((/\bInternational\s+Organi[sz]ation\s+for\s+Standardi[sz]ation\b/i.test(src) || /\bISO\b/.test(src))
+      && !/\b(?:P?DAD\d*|DAM\d*|Addendum|Amendment)\b/i.test(src)) {
+      const m = src.match(/\b(?:International\s+Standard\s+\(IS\)|IS)\s+(\d{3,5}(?:-\d+)*)\b(?:[^\n]{0,240}?\b((?:19|20)\d{2})\b)?/);
+      if (m) {
+        const refId = `ISO.${m[1]}${m[2] ? `.${m[2]}` : ''}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-is-stage' } } : refId;
+      }
     }
   }
   {
@@ -2642,7 +2666,23 @@ function extractRefs($, currentDocId, opts = {}) {
         const own = sectionHeadings.find((h) => h.pos === start);
         // An unnumbered "References" heading has no section anchor (RFC2629, RFC2898): still
         // stop at the next unindented heading ("Author's Address", "Contact Information").
-        if (!own) return unindentedHeadingAfter(start, nextBound);
+        // An unanchored References heading (plain text, RFC1583) still ends at the next real
+        // section or appendix heading: RFC1583's appendices A-G followed it and their bracketed
+        // lines ("[IP address, mask]") were read as citations. Old RFCs whose htmlized entries
+        // became section links ("1.    L. G. Roberts and B. D. Wessler, \"Computer Network",
+        // RFC756) don't count: such an anchor reuses a section number already taken, or reads as
+        // a citation (quotes, "Surname, X." or "J. Postel," authors).
+        if (!own) {
+          const realHeading = sectionHeadings.find((h, idx) => {
+            if (h.pos <= start || h.pos >= nextBound) return false;
+            if (sectionHeadings.slice(0, idx).some((e) => e.top === h.top)) return false;
+            const close = raw.indexOf('</', raw.indexOf('</a>', h.pos) + 4);
+            const text = raw.slice(h.pos, close < 0 ? h.pos + 300 : close).replace(/<[^>]+>/g, '').replace(/&[a-z]+;/gi, ' ');
+            return !/["“”]/.test(text) && !/\b[A-Z][A-Za-z'-]+,\s+[A-Z]\./.test(text)
+              && !/^[^A-Za-z]*(?:[A-Z]\.\s*){1,3}[A-Z][A-Za-z'-]+,/.test(text.replace(/^\s*\d+\.?/, '')) && text.length < 120;
+          });
+          return unindentedHeadingAfter(start, realHeading ? realHeading.pos : nextBound);
+        }
         const out = sectionHeadings.find((h) => h.pos > start && h.top !== own.top);
         const end = out ? Math.min(out.pos, nextBound) : nextBound;
         return unindentedHeadingAfter(start, end);

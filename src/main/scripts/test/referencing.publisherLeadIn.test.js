@@ -168,4 +168,11 @@ assert.strictEqual(parseRefId('Cerf, V., "ASCII format for Network Interchange",
 // A bit rate is not a year: "2048 kbit/s" (RFC1406).
 assert.strictEqual(parseRefId('CCITT Specifications Volume III, Recommendation G.732, Characteristics Of Primary PCM Multiplex Equipment Operating at 2048 kbit/s, July 1988.'), 'T-REC-G.732.1988'); n++;
 
+// A quoted title between an IEEE designator and the date (RFC1209); ISO's stage written out (RFC1547,
+// RFC1510); an addendum is not the standard (RFC1189).
+assert.strictEqual(parseRefId('Institute of Electrical & Electronic Engineers, Inc. IEEE Standard 802.6, "Distributed Queue Dual Bus (DQDB) Subnetwork of a Metropolitan Area Network (MAN) Standard", December 1990.'), 'IEEE.STD802.6.1990'); n++;
+assert.strictEqual(parseRefId('ISO International Standard (IS) 3309, "Data Communications - High-level Data Link Control Procedures - Frame Structure", 1979.'), 'ISO.3309.1979'); n++;
+assert.strictEqual(parseRefId('International Organization for Standardization, "ISO Information Processing Systems - Data Communication High-Level Data Link Control Procedure - Frame Structure", IS 3309, October 1984, 3rd Edition.'), 'ISO.3309.1984'); n++;
+assert.strictEqual(parseRefId('ISO IS 9595 1989: DAD1: "CMIS Add/Remove Addendum".'), null); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
