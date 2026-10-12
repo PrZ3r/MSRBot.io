@@ -189,4 +189,9 @@ assert.strictEqual(parseRefId('Pato, J., "Using Pre-Authentication to Avoid Pass
 assert.strictEqual(parseRefId('American National Standards Institute, "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985.'), 'ANSI.X9.17.1985'); n++;
 assert.strictEqual(parseRefId('RSA Laboratories, "PKCS #7: Cryptographic Message Syntax Standard", ver. 1.5, RSA Laboratories Technical Note, 1 Nov 1993.'), 'RSA.PKCS7.v1.5.1993'); n++;
 
+// A bare "ITU" lead-in with no "Recommendation" (RFC3108); the year comes after the designator.
+assert.strictEqual(parseRefId('ITU Q.931, Digital Subscriber Signaling System No. 1: Network Layer.'), 'T-REC-Q.931'); n++;
+assert.strictEqual(parseRefId('ITU Q.1901, Bearer Independent Call Control Protocol.'), 'T-REC-Q.1901'); n++;
+assert.strictEqual(parseRefId('ITU E.164 - The International Public Telecommunication Numbering Plan E.164/I.331 (May 1997)'), 'T-REC-E.164.1997'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

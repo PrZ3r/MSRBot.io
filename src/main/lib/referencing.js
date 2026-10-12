@@ -1683,6 +1683,19 @@ function parseRefId(text, href = '', opts = {}) {
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-range' } } : refId;
     }
 
+    // also a bare "ITU" (or "ITU-T") lead-in with no "Recommendation": "ITU Q.931, Digital Subscriber
+    // Signaling System No. 1", "ITU Q. 2965.1, …", "ITU E.164 - … (May 1997)" (RFC3108, RFC2764)
+    // ("ITU-T …" is left to the rules below, which keep it undated.)
+    const bare = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?ITU\s+([A-Z])\.\s?(\d{1,4}(?:\.\d{1,2})?)(?:-(\d+))?(?=[\s,.:;)-]|$)/);
+    if (bare) {
+      const series = bare[1].toUpperCase();
+      const part = bare[3] ? `-${parseInt(bare[3], 10)}` : '';
+      // The year comes after the designator, so "ITU Q.1901" isn't dated 1901.
+      const after = String(text || '').slice(bare.index + bare[0].length);
+      const by = (after.match(/\b((?:19|20)\d{2})\b(?!\s*(?:[kKMG]?(?:bit|bps|b\/s|Hz)))/) || [])[1] || '';
+      const refId = `T-REC-${series}.${bare[2]}${part}${by && Number(by) <= new Date().getUTCFullYear() + 1 ? `.${by}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-bare' } } : refId;
+    }
     const rec = String(text || '').match(/\b(?:CCITT|ITU-?T)?[^\n\r]{0,80}?\bRecommendation(?:s)?\s+([A-Z])\.(\d{1,4})(?:-(\d+))?\b/i)
       || String(text || '').match(/\b([A-Z])\.(\d{1,4})(?:-(\d+))?\b(?=[^\n\r]{0,80}\bRecommendation\b)/i);
     if (rec) {
