@@ -276,4 +276,47 @@ Transmission Control Protocol
   assert.ok(bad9.length === 1 && /December 1978\.$/.test(bad9[0]), `page header in the entry: ${JSON.stringify(bad9)}`); n++;
 }
 
+// Annotated list (RFC740): the note under an entry is not part of the citation, and the list
+// number goes even when the entry opens with a quote.
+{
+  const html10 = `<html><body><pre>
+                               REFERENCES
+
+   2. "NETRJS Remote Operator Commands", R. T. Braden.  NIC #7182,
+   August 9, 1971
+
+      This document together with References 3 and 8 define the remote
+      operator (i.e. user) command language for NETRJS.
+
+   5. "Using Network Remote Job Entry", E. F. Harslem.  RFC #307:  NIC
+   #9258, February 24, 1972.
+</pre></body></html>`;
+  const r10 = extractRefs(cheerio.load(html10), 'RFC9990', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html10 });
+  assert.deepStrictEqual(r10.references.bibliographic, ['RFC307']); n++;
+  assert.deepStrictEqual((r10.badRefs || []).map((b) => b.refText), ['"NETRJS Remote Operator Commands", R. T. Braden. NIC #7182, August 9, 1971']); n++;
+}
+
+// The archive transcriber's note after the list is not a citation (RFC635), and NIC documents
+// with no year are kept as orphans, without their "1)" (RFC333).
+{
+  const html11 = `<html><body><pre>
+REFERENCES
+
+      1) NIC document 8246, HOST/HOST PROTOCOL FOR THE ARPA NETWORK
+
+      4) a system of interprocess communication in a resource sharing
+         computer network, CACM, April, 1972.
+
+       [ This RFC was put into machine readable form for entry ]
+       [ into the online RFC archives by Roger D. Moore, with  ]
+
+E] Formulae: On page six I have replaced symbols of the form "B subscript digit"
+</pre></body></html>`;
+  const r11 = extractRefs(cheerio.load(html11), 'RFC9989', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html11 });
+  assert.deepStrictEqual((r11.badRefs || []).map((b) => b.refText), [
+    'NIC document 8246, HOST/HOST PROTOCOL FOR THE ARPA NETWORK',
+    'a system of interprocess communication in a resource sharing computer network, CACM, April, 1972.',
+  ]); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

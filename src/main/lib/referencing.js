@@ -2556,6 +2556,12 @@ function extractRefs($, currentDocId, opts = {}) {
         // start can sit on the blank lines before a plain-text heading ("\n\nNormative
         // References"): skip them, or the heading itself reads as the next one and the block
         // is empty.
+        // The RFC archive's transcriber note ("[ This RFC was put into machine readable form for
+        // entry ]", then "Notes by …" on the formatting) follows the list in many old RFCs (RFC635).
+        {
+          const tn = /\n[ \t]*\[\s*This RFC was put into machine readable form/i.exec(raw.slice(start, end));
+          if (tn) end = start + tn.index + 1;
+        }
         let headingStart = start;
         while (headingStart < raw.length && /\s/.test(raw[headingStart])) headingStart++;
         const headingLineEnd = raw.indexOf('\n', headingStart);
@@ -2869,8 +2875,19 @@ function extractRefs($, currentDocId, opts = {}) {
         let nm;
         while ((nm = numberedRe.exec(sectionSlice)) !== null) {
           const markerNo = String(nm[1] || '').trim();
-          const chunk = String(nm[0] || '').trim();
+          let chunk = String(nm[0] || '').trim();
           if (!chunk) continue;
+          // An annotated list puts a note under each entry after a blank line (RFC740: "This
+          // document together with References 3 and 8 define …"). Keep the citation only. A
+          // short first paragraph is just a label ("1. CEKA74", RFC675) and keeps what follows.
+          {
+            // Page breaks first: an entry wrapped onto the next page has blank lines before the
+            // footer, and the next page's running header links the RFC itself, which made RFC1032's
+            // entry 10 resolve to RFC1032 (a self-reference, dropped).
+            chunk = stripPageBreaks(chunk).trim();
+            const parts = chunk.split(/\n[ \t]*\n/);
+            if (parts.length > 1 && parts[0].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().length >= 40) chunk = parts[0];
+          }
           parserDiag.numberedItems += 1;
           const hrefs = sanitizeRfcHtmlHrefs([...chunk.matchAll(/href=["']([^"']+)["']/ig)]
             .map((hm) => String(hm[1] || '').trim())
@@ -3013,6 +3030,8 @@ function extractRefs($, currentDocId, opts = {}) {
               || /\b(?:ISO|IEC|IEEE|STD)\b/i.test(cleanedChunkText)
               // An ISO draft by its stage and number: "DP 8072 Information processing systems …" (RFC905)
               || /^(?:DP|DIS)\s+\d{3,5}\b/.test(cleanedChunkText)
+              // ARPANET Network Information Center documents: "NIC document 8246, …" (RFC333)
+              || /\bNIC\s*(?:document\s*)?#?\s*\d{3,5}\b/i.test(cleanedChunkText)
               || /["“][^"”]{8,}["”]/.test(cleanedChunkText);
             if (looksCitationLike) {
               out.badRefs.push({
@@ -3145,7 +3164,9 @@ function extractRefs($, currentDocId, opts = {}) {
     for (const b of out.badRefs) {
       if (typeof b.refText !== 'string') continue;
       b.refText = b.refText
-        .replace(/^\d{1,3}\s*\.\s*(?=[A-Z])/, '')
+        .replace(/^References?\s+(?=\d)/i, '')                  // heading glued on (RFC635)
+        .replace(/^\d{1,3}\s*\.\s*(?=[A-Z"“'])/, '')
+        .replace(/^\d{1,3}\)\s+/, '')                            // "4) a system of …" (RFC333)
         .replace(/^[A-Z]{2,}\d{2}[A-Z]?\s+(?=[A-Z]\.)/, '')
         .replace(/(\.)_+$/, '$1');
     }
