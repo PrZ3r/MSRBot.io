@@ -319,4 +319,25 @@ E] Formulae: On page six I have replaced symbols of the form "B subscript digit"
   ]); n++;
 }
 
+// A glossary entry named "References" is not the references section (RFC767's field list).
+{
+  const html12 = `<html><body><pre>
+  Protocol
+
+    The name of the coding scheme used for a medium.
+
+  References
+
+    The message identifiers of other messages.  Represented by a list of
+    text elements, e.g. proplist:( name:"TEXT", text:"a quoted body text" )endlist 1980.
+
+                               REFERENCES
+
+[<a id="ref-1">1</a>]   Postel, J., "Internet Message Protocol," <a href="./rfc759">RFC 759</a>, August 1980.
+</pre></body></html>`;
+  const r12 = extractRefs(cheerio.load(html12), 'RFC9988', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html12 });
+  assert.deepStrictEqual(r12.references.bibliographic, ['RFC759']); n++;
+  assert.deepStrictEqual(r12.badRefs || [], []); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

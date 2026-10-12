@@ -2503,7 +2503,22 @@ function extractRefs($, currentDocId, opts = {}) {
       refsPositions = refsPositions.concat(findHeadingPositions(recommendedReadingAppendixRe));
       if (!normPositions.length) normPositions = findHeadingPositions(normHeadingLineRe);
       if (!infoPositions.length) infoPositions = findHeadingPositions(infoHeadingLineRe);
-      if (!refsPositions.length) refsPositions = findHeadingPositions(refsHeadingLineRe);
+      // A glossary entry named "References" is not the section (RFC767's field list: "  References"
+      // indented two, then "    The message identifiers of other messages."). A section heading
+      // sits at column 0, is centered, numbered or in capitals; a term indented a little with a
+      // more-indented paragraph under it is a definition.
+      const isGlossaryTerm = (pos) => {
+        let ts = pos;
+        while (ts < raw.length && /\s/.test(raw[ts])) ts++;
+        const ls = raw.lastIndexOf('\n', ts - 1) + 1;
+        const le = raw.indexOf('\n', ts);
+        const line = raw.slice(ts, le < 0 ? raw.length : le).trim();
+        const indent = ts - ls;
+        if (indent < 1 || indent > 8 || /^\d/.test(line) || line === line.toUpperCase()) return false;
+        const next = /\n([ \t]*)\S/.exec(raw.slice(le < 0 ? raw.length : le));
+        return !!next && next[1].length > indent;
+      };
+      if (!refsPositions.length) refsPositions = findHeadingPositions(refsHeadingLineRe).filter((p) => !isGlossaryTerm(p));
       refsPositions = refsPositions.concat(findHeadingPositions(refsHeadingAppendixLineRe));
       refsPositions = refsPositions.concat(findHeadingPositions(recommendedReadingAppendixLineRe));
       refsPositions = refsPositions.concat(bibliographyPrePositions);
