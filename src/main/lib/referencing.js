@@ -1729,6 +1729,16 @@ function parseRefId(text, href = '', opts = {}) {
       const refId = `ANSI.${undated[1].toUpperCase()}.${undated[2]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator-undated' } } : refId;
     }
+    // Spelled out with a bare X-series designator: "American National Standards Institute,
+    // "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985." (RFC2828)
+    const spelled = !m && /\bAmerican\s+National\s+Standards\s+Institute\b/.test(String(text || ''))
+      && String(text || '').match(/(?<![\w.\/])(X\d{1,2})\.(\d{1,3})\b(?![.\/]\d)(?:[^\n]{0,80}?\b((?:19|20)\d{2})\b)?/);
+    if (spelled) {
+      // US-ASCII (X3.4) is filed under INCITS, as refMap does for "ANSI X3.4, 1986".
+      const pub = spelled[1] === 'X3' && spelled[2] === '4' ? 'INCITS' : 'ANSI';
+      const refId = `${pub}.${spelled[1]}.${spelled[2]}${spelled[3] ? `.${spelled[3]}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-spelled-x-series' } } : refId;
+    }
     if (m) {
       const refId = `ANSI.${m[1].toUpperCase()}.${m[2].toUpperCase()}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator' } } : refId;
@@ -2768,6 +2778,10 @@ function extractRefs($, currentDocId, opts = {}) {
       }
       parserDiag.anchoredMarkers += anchors.length;
       const anchoredResolvedRanges = [];
+      // A ditto ("---,") stands for the previous entry's author: RFC2828's "[A9017] ---,
+      // "Financial Institution Key Management (Wholesale)", X9.17" follows "[A3092] American
+      // National Standards Institute, …". Substitute it so the entry resolves like its neighbour.
+      let lastEntryAuthor = '';
       for (let i = 0; i < anchors.length; i++) {
         const marker = anchors[i].marker;
         if (!marker) continue;
@@ -2807,10 +2821,22 @@ function extractRefs($, currentDocId, opts = {}) {
         const hrefs = sanitizeRfcHtmlHrefs([...anchorChunk.matchAll(/href=["']([^"']+)["']/ig)]
           .map(hm => String(hm[1] || '').trim())
         );
-        const chunkText = anchorChunk
+        let chunkText = anchorChunk
           .replace(/<[^>]+>/g, ' ')
           .replace(/\s+/g, ' ')
           .trim();
+        {
+          const lead = chunkText.match(/^(\S{1,40}\s*\]\s*)([\s\S]*)$/);
+          if (lead) {
+            const body = lead[2];
+            if (/^-{2,3},\s*/.test(body)) {
+              if (lastEntryAuthor) chunkText = `${lead[1]}${lastEntryAuthor}, ${body.replace(/^-{2,3},\s*/, '')}`;
+            } else {
+              const au = body.match(/^([^,"“]{2,80}),/);
+              lastEntryAuthor = au ? au[1].trim() : '';
+            }
+          }
+        }
         const cleanedChunkText = trimRfcRefTail(chunkText);
         consumedEntryTexts.push(normalizeForContainment(cleanedChunkText || chunkText));
         const markerText = marker.replace(/[_-]+/g, ' ').trim();

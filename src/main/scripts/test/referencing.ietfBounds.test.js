@@ -373,4 +373,19 @@ References
   assert.deepStrictEqual((r14.badRefs || []).map((b) => b.refText.slice(0, 22)), ['Comer, D., "Internetwo', 'D. W. Davies and W. L.']); n++;
 }
 
+// A ditto ("---,") takes the previous entry's author (RFC2828).
+{
+  const html15 = `<html><body><pre>
+References
+
+   [<a id="ref-A3092">A3092</a>]  American National Standards Institute, "American National
+            Standard Data Encryption Algorithm", ANSI X3.92-1981, 30 Dec 1980.
+
+   [<a id="ref-A9017">A9017</a>]  ---, "Financial Institution Key Management (Wholesale)",
+            X9.17, 4 Apr 1985.
+</pre></body></html>`;
+  const r15 = extractRefs(cheerio.load(html15), 'RFC9984', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html15 });
+  assert.ok((r15.references.bibliographic || []).includes('ANSI.X9.17.1985'), JSON.stringify(r15.references)); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

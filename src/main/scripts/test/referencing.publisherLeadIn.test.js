@@ -185,4 +185,7 @@ assert.strictEqual(parseRefId('Draft International Standard 8802.2, "Local Area 
 // OSF's DCE "Request for Comments" series is not the IETF's (RFC1510; IETF RFC26 was never issued).
 assert.strictEqual(parseRefId('Pato, J., "Using Pre-Authentication to Avoid Password Guessing Attacks", Open Software Foundation DCE Request for Comments 26, December 1992.'), null); n++;
 
+// "American National Standards Institute" spelled out with a bare X-series designator (RFC2828).
+assert.strictEqual(parseRefId('American National Standards Institute, "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985.'), 'ANSI.X9.17.1985'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
