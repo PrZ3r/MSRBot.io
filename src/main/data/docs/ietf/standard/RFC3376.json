@@ -1,0 +1,316 @@
+{
+  "abstract": "This document specifies Version 3 of the Internet Group Management Protocol, IGMPv3. IGMP is the protocol used by IPv4 systems to report their IP multicast group memberships to neighboring multicast routers. Version 3 of IGMP adds support for 'source filtering', that is, the ability for a system to report interest in receiving packets *only* from specific source addresses, or from *all but* specific source addresses, sent to a particular multicast address. That information may be used by multicast routing protocols to avoid delivering multicast packets from specific sources to networks where there are no interested receivers. This document obsoletes RFC 2236.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "authors": [
+    {
+      "name": "Bradley Cain"
+    },
+    {
+      "name": "Dr. Steve E. Deering"
+    },
+    {
+      "name": "Isidor Kouvelas"
+    },
+    {
+      "name": "Bill Fenner"
+    },
+    {
+      "name": "Ajit Thyagarajan"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docId": "RFC3376",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docLabel": "IETF RFC 3376",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docNumber": "3376",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docTitle": "Internet Group Management Protocol, Version 3",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "doi": "10.17487/RFC3376",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "href": "https://doi.org/10.17487/RFC3376",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "keywords": [
+    "IGMP",
+    "Multicast",
+    "Routing",
+    "IP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "IGMP",
+      "Internet Group Management Protocol",
+      "Multicast",
+      "Routing",
+      "IP"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:47:32.958Z",
+    "version": "extractDocs.js@commit:158b95d12c23"
+  },
+  "pages": "53",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "publicationDate": "2002-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1071",
+      "RFC2710",
+      "orphan/RFC3376/h:28ca0591",
+      "orphan/RFC3376/h:6804c440",
+      "orphan/RFC3376/h:8341f0a9"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=12 proseBlocks=16 skippedAnchorBlocks=14",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "normative": [
+      "RFC2402",
+      "RFC1112",
+      "RFC2113",
+      "RFC2119",
+      "RFC2236",
+      "RFC3228",
+      "orphan/RFC3376/h:094c086c"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3376/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+    "updated": "2026-10-12T20:12:57.802Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "amendedBy": [
+      "RFC4604"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "amends": [
+      "RFC2236"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc3376",
+      "https://www.rfc-editor.org/errata_search.php?rfc=3376",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc3376.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "supersededBy": [
+      "RFC9776"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3376/",
+      "updated": "2026-10-12T20:12:57.802Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    }
+  }
+}
