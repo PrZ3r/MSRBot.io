@@ -148,6 +148,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Modes:
     - Dry-run (default): prints missing draft + RFC seed URLs.
     - Apply + canonicalize: `npm run seed-backfill-ietf -- --write` (appends missing draft + RFC URLs, de-duplicates, and canonical-orders the full seed list).
+    - Batch: `npm run seed-backfill-ietf -- --limit 100 --out /tmp/ietf-batch.json --write` adds only the first 100 missing seeds (RFCs in number order, then drafts) and writes them to the `--out` file. Extract just that batch with `node src/main/scripts/extractDocs.js --provider ietf --only /tmp/ietf-batch.json`. Each batch's new docs bring new missing refs, so the next dry run includes them.
 
 ### Validation and Normalization
 

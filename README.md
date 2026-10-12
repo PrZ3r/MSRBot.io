@@ -193,7 +193,7 @@ Quick reference:
 - `extract-smpte-journal`: SMPTE journal/conference papers from a local copy of the SMPTE journal library (maintainer only; does nothing without the local XML).
 - `build-msi`: build Master Suite Index (lineages/suites metadata).
 - `build-mri`: build Master Reference Index (cross-doc reference map).
-- `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit (`--write` to apply + canonicalize).
+- `seed-backfill-ietf`: backfill missing IETF seeds (RFC + `IETF.draft-*`) from MRI presence-audit (`--write` to apply + canonicalize; `--limit N --out <file>` for a batch to extract with `--only`).
 - `validate`: schema + registry validation (`--warn` for keyword warn-only mode).
 - `docs-sort`: sort `documents.json` by `docId` (validator-compatible order).
 - `docs-validate`: run document validation flow.

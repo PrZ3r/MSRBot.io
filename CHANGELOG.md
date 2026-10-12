@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **IETF seed backfill in batches.** `npm run seed-backfill-ietf -- --limit N` takes only the first N missing seeds (RFCs in number order, then drafts), and `--out <file>` writes them as a list for `extractDocs.js --only`. The remaining backlog (1,260 refs: 1,173 RFCs, 87 drafts) can now be run and reviewed 100 at a time.
 - **`npm run extract-smpte-journal`: SMPTE journal and conference papers from a local library (#2381).** New SMPTE Motion Imaging Journal issues and conferences reach MSRBot one way: the maintainer downloads them from SMPTE's AWS library. They can't be fetched on a schedule or from the web. The new `smpte-journal` provider reads that local copy and runs it through the same `extractDocs.js` pipeline as the other extractors. It reads each paper's `content_batch` file (metadata, keywords, authors) and its `FTXML/` full text (references).
   - **How it updates:** new papers are added, unchanged ones skipped, and a field SMPTE changed in a re-download is updated with its old value kept. Fields locked with `excludeChanges` stay as they are.
   - **It never deletes.** Hand-added keywords and authors' bios, affiliations and ORCIDs are kept. A paper's reference list replaces the stored one as a unit.

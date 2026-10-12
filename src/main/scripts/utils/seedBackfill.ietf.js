@@ -4,6 +4,11 @@ Backfill IETF seed URLs (RFC + IETF drafts) from MRI presence-audit missing refs
 Usage:
   node src/main/scripts/utils/seedBackfill.ietf.js
   node src/main/scripts/utils/seedBackfill.ietf.js --write
+  node src/main/scripts/utils/seedBackfill.ietf.js --limit 100 --out batch.json --write
+
+--limit N takes the first N missing seeds, RFCs in number order and then drafts.
+--out <file> writes the chosen URLs as a JSON list, ready for
+`extractDocs.js --provider ietf --only <file>`.
 */
 
 const fs = require('fs');
@@ -79,8 +84,20 @@ function canonicalizeSeeds(list) {
   return [...drafts, ...rfcs, ...others];
 }
 
+function argValue(name) {
+  const i = process.argv.indexOf(name);
+  return i >= 0 ? process.argv[i + 1] : null;
+}
+
 function main() {
   const doWrite = process.argv.includes('--write');
+  const limitRaw = argValue('--limit');
+  const limit = limitRaw == null ? null : Number(limitRaw);
+  if (limitRaw != null && !(Number.isInteger(limit) && limit > 0)) {
+    console.error(`--limit needs a positive whole number (got ${limitRaw})`);
+    process.exit(1);
+  }
+  const outPath = argValue('--out');
   if (!fs.existsSync(AUDIT_PATH)) {
     console.error(`Missing file: ${AUDIT_PATH}`);
     process.exit(1);
@@ -114,6 +131,9 @@ function main() {
   const missingDraftNames = draftNames.filter((name) => !seedSet.has(toDraftUrl(name).toLowerCase()));
   const missingDraftUrls = missingDraftNames.map((name) => toDraftUrl(name));
   const missingAll = [...missingDraftUrls, ...missingSeedUrls];
+  // A batch takes RFCs in number order first, then drafts (they need the most review).
+  const batch = limit ? [...missingSeedUrls, ...missingDraftUrls].slice(0, limit) : missingAll;
+  const batchDrafts = batch.filter((u) => classifySeed(u) === 'draft').length;
 
   console.log(`MRI missing refs: ${missingRows.length}`);
   console.log(`MRI missing RFC refs: ${rfcNums.length}`);
@@ -122,8 +142,14 @@ function main() {
   console.log(`RFC refs not in seedUrls.ietf.json: ${missingSeedUrls.length}`);
   console.log(`Total refs to backfill into seedUrls.ietf.json: ${missingAll.length}`);
   if (!missingAll.length) return;
+  if (limit) console.log(`Batch (--limit ${limit}): ${batch.length} (${batch.length - batchDrafts} RFC, ${batchDrafts} draft); ${missingAll.length - batch.length} left after it`);
 
-  for (const u of missingAll) console.log(`- ${u}`);
+  for (const u of batch) console.log(`- ${u}`);
+
+  if (outPath) {
+    saveJson(path.resolve(process.cwd(), outPath), batch);
+    console.log(`\nWrote ${batch.length} URL(s) to ${outPath} (for --only).`);
+  }
 
   if (!doWrite) {
     console.log('\nDry run only. Re-run with --write to append these seeds.');
@@ -131,9 +157,9 @@ function main() {
   }
 
   const out = [...seeds];
-  for (const u of missingAll) out.push(u);
+  for (const u of batch) out.push(u);
   saveJson(SEED_PATH, canonicalizeSeeds(out));
-  console.log(`\nUpdated ${SEED_PATH} (+${missingAll.length} seed URL(s): ${missingDraftUrls.length} draft, ${missingSeedUrls.length} RFC).`);
+  console.log(`\nUpdated ${SEED_PATH} (+${batch.length} seed URL(s): ${batchDrafts} draft, ${batch.length - batchDrafts} RFC).`);
 }
 
 main();
