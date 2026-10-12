@@ -1,0 +1,188 @@
+{
+  "abstract": "This RFC describes an alternate approach of dealing with reassembly which reduces the bookkeeping problem to a minimum, and requires only one buffer for storage equal in size to the final datagram being reassembled, which can reassemble a datagram from any number of fragments arriving in any order with any possible pattern of overlap and duplication, and which is appropriate for almost any sort of operating system.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "authors": [
+    {
+      "name": "Dr. David D. Clark"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docId": "RFC815",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docLabel": "IETF RFC 815",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docNumber": "815",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docTitle": "IP datagram reassembly algorithms",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docType": "Specification",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "doi": "10.17487/RFC815",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "href": "https://doi.org/10.17487/RFC815",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "pages": "8",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "publicationDate": "1982-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc815/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+    "updated": "2026-10-12T17:30:05.327Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+      "updated": "2026-10-12T17:30:05.327Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+      "updated": "2026-10-12T17:30:05.327Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+      "updated": "2026-10-12T17:30:05.327Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    },
+    "statusNote": "Unknown",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+      "updated": "2026-10-12T17:30:05.327Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc815/",
+      "updated": "2026-10-12T17:30:05.327Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    }
+  }
+}
