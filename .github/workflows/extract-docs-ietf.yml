@@ -37,6 +37,11 @@ jobs:
       - name: Install dependencies
         run: npm install axios cheerio dayjs
 
+      # An RFC that obsoletes or updates one we hold is seeded first, so the weekly run brings in
+      # the new edition, not just the changed status on the old one (lineage edges the MSI uses).
+      - name: Seed RFCs named by supersededBy / amendedBy / supersedes / amends
+        run: node src/main/scripts/utils/seedBackfill.ietf.js --relations --write
+
       - name: Run extraction
         env:
           IS_PR_RUN: true
@@ -182,6 +187,7 @@ jobs:
             src/main/data/docs
             src/main/reports/mri
             src/main/input/sources/ietf
+            src/main/input/seedUrls.ietf.json
           base: main
 
       # NEW: rewrite the PR body to use the PR Files diff anchor (not the raw URL)

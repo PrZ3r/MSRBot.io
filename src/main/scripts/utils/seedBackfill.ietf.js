@@ -11,6 +11,8 @@ Usage:
 --limit N takes the first N missing seeds: RFCs that supersede or update one we hold (the current
 editions, which the weekly extract keeps current), then cited RFCs, then RFCs ours supersede or
 update, each in number order, then drafts.
+--relations seeds only the RFCs named by those relations (no citation backlog, no drafts). The
+weekly extract runs it first, so an RFC that newly obsoletes or updates one we hold is pulled in.
 --out <file> writes the chosen URLs as a JSON list, ready for
 `extractDocs.js --provider ietf --only <file>`.
 */
@@ -134,6 +136,7 @@ function main() {
     process.exit(1);
   }
   const outPath = argValue('--out');
+  const relationsOnly = process.argv.includes('--relations');
   if (!fs.existsSync(AUDIT_PATH)) {
     console.error(`Missing file: ${AUDIT_PATH}`);
     process.exit(1);
@@ -169,8 +172,10 @@ function main() {
   const forwardNums = [...forward].filter(unseeded).sort(byNum);
   const citedNums = rfcNums.filter((n) => unseeded(n) && !forward.has(n));
   const backwardNums = [...backward].filter((n) => unseeded(n) && !citedSet.has(n)).sort(byNum);
-  const missingSeedUrls = [...forwardNums, ...citedNums, ...backwardNums].map((n) => toRfcUrl(n));
-  const missingDraftNames = draftNames.filter((name) => !seedSet.has(toDraftUrl(name).toLowerCase()));
+  const missingSeedUrls = relationsOnly
+    ? [...forwardNums, ...[...backward].filter(unseeded).sort(byNum)].map((n) => toRfcUrl(n))
+    : [...forwardNums, ...citedNums, ...backwardNums].map((n) => toRfcUrl(n));
+  const missingDraftNames = relationsOnly ? [] : draftNames.filter((name) => !seedSet.has(toDraftUrl(name).toLowerCase()));
   const missingDraftUrls = missingDraftNames.map((name) => toDraftUrl(name));
   const missingAll = [...missingDraftUrls, ...missingSeedUrls];
   // A batch takes the newer editions first, then cited RFCs, then older editions, then drafts
