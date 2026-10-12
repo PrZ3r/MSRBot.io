@@ -94,6 +94,8 @@ function citeWithoutLabel(raw) {
     // numbered again after a label: "DDN-NEWS:….TXT ] 2. Defense Communications …" (RFC1032,
     // where an entry's bracketed FTP path is read as the next entry's label)
     .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')
+    // "[1]: D. W. Davies …" (RFC2025) and "- Network Security …" (RFC2065, RFC1750)
+    .replace(/^[:\-\u2013]\s+(?=\S)/u, '')
     .replace(/\s+\S{2,40}\s+\[Page\s+\d+\]?\s*$/u, '')          // page footer "… Sirbu [Page 8" (RFC1049)
     // RFC1032's retrieval note after each entry: "[ DDN-NEWS:DDN-MGT-BULLETIN-32.TXT ]", "[ Not online ]"
     .replace(/\s*\[\s*(?:[A-Z0-9-]+:[^\]\s]+|Not\s+online)\s*\]?\s*$/iu, '')
