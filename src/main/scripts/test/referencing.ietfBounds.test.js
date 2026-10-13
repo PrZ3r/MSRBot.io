@@ -403,4 +403,20 @@ References
   assert.deepStrictEqual(r16.references.bibliographic, ['NIST.FIPS.186-2', 'IETF.draft-ietf-codec-ambisonics-00']); n++;
 }
 
+// A lettered annex heading ends the references (RFC6460's "Annex B.  Changes since RFC 5430").
+{
+  const html17 = `<html><body><pre>
+References
+
+   [<a id="ref-RFC5430">RFC5430</a>] Salter, M., "Suite B Profile for TLS", <a href="./rfc5430">RFC 5430</a>, March 2009.
+
+Annex B.  Changes since RFC 5430
+
+    - A system desiring to negotiate a Suite B TLS connection at a minimum level of
+      security of 128 bits MUST generate a "Supported Elliptic Curves Extension", 2012.
+</pre></body></html>`;
+  const r17 = extractRefs(cheerio.load(html17), 'RFC9982', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html17 });
+  assert.deepStrictEqual(r17.badRefs || [], [], JSON.stringify(r17.badRefs)); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

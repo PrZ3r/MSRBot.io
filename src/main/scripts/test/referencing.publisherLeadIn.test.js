@@ -218,4 +218,11 @@ assert.strictEqual(parseRefId('X509-4th ITU-T Recommendation X.509 (2000) | ISO/
 assert.strictEqual(parseRefId('MPEG-2 Specification: ISO/IEC 13818-Parts 1, 2, 3.'), 'ISO.13818'); n++;
 assert.strictEqual(parseRefId('Danish Standard DS 2089, Application of ISO 7-bit coded character set, February 1974.'), null); n++;
 
+// ITU-T lead-in, title, then the number (RFC3672, RFC2128); IEEE catalogue titles (RFC7273).
+assert.strictEqual(parseRefId('ITU-T, "The Directory -- Models," X.501, 1993.'), 'T-REC-X.501.1993'); n++;
+assert.strictEqual(parseRefId('ITU-T Recommendation "Digital subscriber Signalling System No. 1 (DSS 1) - ISDN user-network interface layer 3 specification for basic call control", Rec. Q.931(I.451), May 1998.'), 'T-REC-Q.931.1998'); n++;
+assert.strictEqual(parseRefId('IEEE, "1588-2008 - IEEE Standard for a Precision Clock Synchronization Protocol", July 2008.'), 'IEEE.STD1588.2008'); n++;
+assert.strictEqual(parseRefId('IEEE, "802.1AS-2011 - IEEE Standard for Local and Metropolitan Area Networks - Timing", 2011.'), 'IEEE.STD802.1AS.2011'); n++;
+assert.strictEqual(parseRefId('IEEE Standards Association, "IEEE 802.1AR Secure Device Identifier", December 2009.'), 'IEEE.STD802.1AR.2009'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

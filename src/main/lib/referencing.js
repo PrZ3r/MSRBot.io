@@ -1699,6 +1699,16 @@ function parseRefId(text, href = '', opts = {}) {
         return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-spelled-paren-year' } } : refId;
       }
     }
+    // "ITU-T, "The Directory -- Models," X.501, 1993." and "ITU-T Recommendation "…", Rec. Q.931"
+    // (RFC4510-era lists): the lead-in, a quoted title, then the number.
+    {
+      const src = String(text || '');
+      const tq = src.match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?ITU-T(?:\s+Recommendation)?,?\s*["“][^"”]{4,200}["”],?\s*(?:Rec\.\s*)?([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\b(?:[^\n]{0,40}?\b((?:19|20)\d{2})\b)?/);
+      if (tq) {
+        const refId = `T-REC-${tq[1]}.${tq[2]}${tq[3] ? `.${tq[3]}` : ''}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-title-then-number' } } : refId;
+      }
+    }
     // ("ITU-T …" is left to the rules below, which keep it undated.)
     const bare = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?ITU\s+([A-Z])\.\s?(\d{1,4}(?:\.\d{1,2})?)(?:-(\d+))?(?=[\s,.:;)-]|$)/);
     if (bare) {
@@ -1870,6 +1880,24 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // IEEE's own catalogue titles start with the number: IEEE, "1588-2008 - IEEE Standard for a
+  // Precision Clock …", "802.1AS-2011 - IEEE Standard for …" (RFC8169-era lists).
+  {
+    const m = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?IEEE(?:\s+Standards\s+Association)?,\s*["“](802(?:\.\d+)?[A-Z]{0,3}|\d{3,4}(?:\.\d+)?[A-Z]?)-((?:19|20)\d{2})\s+-\s+IEEE\b/i);
+    if (m) {
+      const refId = `IEEE.STD${m[1].toUpperCase()}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-catalogue-title' } } : refId;
+    }
+  }
+  // "IEEE802.1ab Station and Media Access Control", December 2004 / "IEEE 802.1AR Secure Device
+  // Identifier", December 2009: an 802 designator in the title, the year after it.
+  {
+    const m = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?IEEE(?:\s+Standards\s+Association)?,\s*["“]IEEE\s?(802\.\d+[A-Za-z]{0,3})\b[^"”]{2,160}["”],?\s*(?:[A-Z][a-z]+\.?\s+)?(?:\d{1,2},?\s+)?((?:19|20)\d{2})\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1].toUpperCase()}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-in-title' } } : refId;
+    }
+  }
   // An undated IEEE 802 standard leading the citation: "IEEE 802.3 CSMA/CD Access Method.",
   // "IEEE 802.11 Wireless LAN standard.", "IEEE, 802.1p, Standard for Local and Metropolitan …"
   // (RFC3819). Not a project or draft ("IEEE P802.1Q/D10", "802.16e/D8").
@@ -2744,6 +2772,8 @@ function extractRefs($, currentDocId, opts = {}) {
           if (lineStart >= end) break;
           const text = m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/[ \t]+$/, '');
           if (/^[A-Z][A-Za-z0-9'’ ,()&:-]{2,90}$/.test(text)) return lineStart;
+          // A lettered annex or appendix heading: "Annex B.  Changes since RFC 5430" (RFC6460).
+          if (/^(?:Annex|Appendix)\s+[A-Z0-9]{1,3}\.?\s{1,3}[A-Z][^\n]{2,100}$/.test(text) && !/\b(?:19|20)\d{2}\b/.test(text)) return lineStart;
           re.lastIndex = lineStart;
         }
         return end;
