@@ -27,7 +27,7 @@ Fields not named are `parsed` from `sourceUrl`. The table says which source to u
 | `hrefAlternates` | Other language editions of the **same** document: `[{ "language": "fr", "href": "<PDF>" }]`, plus `"translatedBy": "contributor"` on an edition an outside contributor translated (absent = publisher; category only, no translator names). `href` is the primary link, the English edition when one exists. With an official English edition, English title/abstract come from it (`parsed`, no `reviewRequired`). The `href` edition's language is never stated: English with `translatedBy: "publisher"`, else `language` (English if absent) | parsed | high | listing page |
 | `docNumber`, `docPart` | As printed (`028`) | parsed | high | PDF |
 | `docType` | From the schema enum, matching how the publisher names it (Recommendation, Standard, Specification, Guideline…) | parsed | high | listing page |
-| `publisher` | Registry publisher string (`CST`); must match `site.json` keys | parsed | high | listing page |
+| `publisher` | Registry publisher string (`CST`); must match a `src/main/config/publishers.json` entry or one of its `aliases` | parsed | high | listing page |
 | `publicationDate` | Always a full `YYYY-MM-DD` (the schema requires it). Printed date first; else announcement `datePublished`. If only a year or month is known, pad it (`2007-01-01`) and note "Month/day absent in source — padded to 01-01" (registry convention). Explain the source in `note` | parsed | high / medium | PDF or announcement |
 | `href` | Direct PDF/download URL from the publisher | parsed | high | listing page |
 | `docId` | See below | inferred | medium | — |
@@ -55,4 +55,4 @@ Leave out anything you don't have. Don't copy empty template fields.
 
 ## Publisher setup (first document only)
 
-`site.json` needs the publisher in three maps: abbreviation (full name → short), logo (`resources/logos/<file>`), and link (homepage). Ask the user for the logo file; don't scrape one.
+`src/main/config/publishers.json` needs one entry for the publisher, under its short name: `url` (homepage), `logo` (`resources/logos/<file>`, plus `logoDark` if there's a dark-theme variant) and `aliases` (full names and other spellings docs use). Add `"dateless": true` if its documents carry no edition date. Ask the user for the logo file; don't scrape one.

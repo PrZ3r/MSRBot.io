@@ -45,7 +45,7 @@ Mixed cases (several PDFs per document, language editions, annexes, consultation
 - **Scope is media.** Propose only documents within MSRBot's media scope (picture, sound, cinema, broadcast, files, archive, accessibility, immersive…). List out-of-scope ones (e.g. safety, building or HR rules) in the PR under "Not extracted (and why)" rather than silently skipping them.
 - **Fill reference gaps recursively, within scope.** When an audit finds a document that records you have (or are adding) cite, propose it too, and follow its citations the same way. Stop at the first non-media reference, such as fire-safety regulations; those stay "not in registry" or orphans.
 - **Language editions of one document are one record:** `href` = the English edition when one exists, the others in `hrefAlternates` (`references/fields.md`).
-- New publisher: it needs keying (`src/main/lib/keying.js` `keyFromDocId`, else the MSI files an UNKEYED issue), a parser family if others cite it, and `site.json` abbreviation/logo/link (ask the user for the logo).
+- New publisher: it needs keying (`src/main/lib/keying.js` `keyFromDocId`, else the MSI files an UNKEYED issue), a parser family if others cite it, and an entry in `src/main/config/publishers.json` with its link, logo and aliases (ask the user for the logo).
 - Flag anything that isn't one-doc-one-PDF (separate language editions, annexes, consultations, near-duplicates) and ask how to model it.
 
 ### 2. Read each document
