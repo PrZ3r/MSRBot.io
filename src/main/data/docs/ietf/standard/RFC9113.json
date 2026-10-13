@@ -1,0 +1,293 @@
+{
+  "abstract": "This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP), referred to as HTTP version 2 (HTTP/2). HTTP/2 enables a more efficient use of network resources and a reduced latency by introducing field compression and allowing multiple concurrent exchanges on the same connection. This document obsoletes RFCs 7540 and 8740.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Martin Thomson"
+    },
+    {
+      "name": "Cory Benfield"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC9113",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 9113",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "9113",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "HTTP/2",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC9113",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC9113",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "HTTP",
+    "SPDY",
+    "Web"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "78",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2022-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC7838",
+      "RFC8499",
+      "RFC9218",
+      "RFC9112",
+      "RFC6973",
+      "RFC1122",
+      "RFC3749",
+      "RFC6125",
+      "RFC6585",
+      "RFC7323",
+      "RFC7540",
+      "RFC8441",
+      "RFC8740",
+      "orphan/RFC9113/h:708f98bf",
+      "orphan/RFC9113/h:900ec7e3",
+      "orphan/RFC9113/h:52cc807f"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+      "updated": "2026-10-13T18:25:20.774Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC9111",
+      "RFC7541",
+      "RFC6265",
+      "RFC9110",
+      "RFC9000",
+      "RFC2119",
+      "RFC3986",
+      "RFC8174",
+      "RFC8422",
+      "RFC8470",
+      "RFC793",
+      "RFC7301",
+      "RFC5289",
+      "RFC6066",
+      "RFC5246",
+      "RFC8446",
+      "RFC7525"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+      "updated": "2026-10-13T18:25:20.774Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9113/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+    "updated": "2026-10-13T18:25:20.774Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+      "updated": "2026-10-13T18:25:20.774Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+      "updated": "2026-10-13T18:25:20.774Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc9113",
+      "https://www.rfc-editor.org/errata_search.php?rfc=9113",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc9113.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+      "updated": "2026-10-13T18:25:20.774Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+      "updated": "2026-10-13T18:25:20.774Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+      "updated": "2026-10-13T18:25:20.774Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+      "updated": "2026-10-13T18:25:20.774Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersedes": [
+      "RFC7540",
+      "RFC8740"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9113/",
+      "updated": "2026-10-13T18:25:20.774Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

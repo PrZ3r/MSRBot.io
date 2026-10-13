@@ -1,0 +1,271 @@
+{
+  "abstract": "This memo defines the Virtual Router Redundancy Protocol (VRRP). VRRP specifies an election protocol that dynamically assigns responsibility for a virtual router to one of the VRRP routers on a LAN. The VRRP router controlling the IP address(es) associated with a virtual router is called the Master, and forwards packets sent to these IP addresses. The election process provides dynamic fail over in the forwarding responsibility should the Master become unavailable. This allows any of the virtual router IP addresses on the LAN to be used as the default first hop router by end-hosts. The advantage gained from using VRRP is a higher availability default path without requiring configuration of dynamic routing or router discovery protocols on every end-host. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Bob Hinden"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC3768",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 3768",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "3768",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "Virtual Router Redundancy Protocol (VRRP)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC3768",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC3768",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "VRRP",
+    "LAN",
+    "IP"
+  ],
+  "keywords$meta": {
+    "source": "parsed",
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "updated": "2026-10-13T18:58:16.075Z",
+    "originalValue": [
+      "VRRP",
+      "Virtual Router Redundancy Protocol",
+      "LAN",
+      "IP"
+    ],
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "version": "extractDocs.js@commit:8ad844f404e0",
+    "overridden": true
+  },
+  "pages": "27",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2004-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1256",
+      "RFC2131",
+      "RFC2328",
+      "RFC2453"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=13 proseBlocks=16 skippedAnchorBlocks=14",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+      "updated": "2026-10-13T18:20:44.651Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "IEEE.STD802.1D.1993",
+      "RFC1071",
+      "RFC2281",
+      "RFC1469",
+      "RFC2119",
+      "RFC2338",
+      "orphan/RFC3768/h:f0e412b8",
+      "orphan/RFC3768/h:1ff71ef0",
+      "orphan/RFC3768/h:9934e84a"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+      "updated": "2026-10-13T18:20:44.651Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3768/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+    "updated": "2026-10-13T18:20:44.651Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+      "updated": "2026-10-13T18:20:44.651Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+      "updated": "2026-10-13T18:20:44.651Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+      "updated": "2026-10-13T18:20:44.651Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Draft Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+      "updated": "2026-10-13T18:20:44.651Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+      "updated": "2026-10-13T18:20:44.651Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersededBy": [
+      "RFC5798"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+      "updated": "2026-10-13T18:20:44.651Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersedes": [
+      "RFC2338"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3768/",
+      "updated": "2026-10-13T18:20:44.651Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

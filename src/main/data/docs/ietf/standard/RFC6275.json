@@ -1,0 +1,307 @@
+{
+  "abstract": "This document specifies Mobile IPv6, a protocol that allows nodes to remain reachable while moving around in the IPv6 Internet. Each mobile node is always identified by its home address, regardless of its current point of attachment to the Internet. While situated away from its home, a mobile node is also associated with a care-of address, which provides information about the mobile node's current location. IPv6 packets addressed to a mobile node's home address are transparently routed to its care-of address. The protocol enables IPv6 nodes to cache the binding of a mobile node's home address with its care-of address, and to then send any packets destined for the mobile node directly to it at this care-of address. To support this operation, Mobile IPv6 defines a new IPv6 protocol and a new destination option. All IPv6 nodes, whether mobile or stationary, can communicate with mobile nodes. This document obsoletes RFC 3775. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Charles E. Perkins"
+    },
+    {
+      "name": "David B. Johnson"
+    },
+    {
+      "name": "Jari Arkko"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC6275",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 6275",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "6275",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "Mobility Support in IPv6",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC6275",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC6275",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "MIPv6",
+    "Mobility",
+    "IPv6",
+    "IP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "169",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2011-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "updated": "2026-10-13T18:23:32.104Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2003",
+      "RFC2004",
+      "RFC2827",
+      "RFC1700",
+      "RFC3315",
+      "RFC5944",
+      "RFC3484",
+      "RFC3627",
+      "RFC6194",
+      "RFC3753",
+      "RFC3810",
+      "RFC4107",
+      "RFC4225",
+      "RFC5014",
+      "RFC5095",
+      "RFC3232",
+      "orphan/RFC6275/h:bc9ebb3c",
+      "orphan/RFC6275/h:1280f37b",
+      "orphan/RFC6275/h:6162d3d9",
+      "orphan/RFC6275/h:99f3ac37",
+      "orphan/RFC6275/h:fe7bfcc4",
+      "orphan/RFC6275/h:d6b9ab63"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=45 proseBlocks=51 skippedAnchorBlocks=49",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+      "updated": "2026-10-13T18:23:32.104Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC2104",
+      "RFC2119",
+      "RFC4301",
+      "RFC4302",
+      "RFC4303",
+      "RFC2460",
+      "RFC2473",
+      "RFC2526",
+      "RFC2710",
+      "RFC2782",
+      "NIST.FIPS.180-1",
+      "RFC3776",
+      "RFC4033",
+      "RFC4086",
+      "RFC4193",
+      "RFC4291",
+      "RFC4443",
+      "RFC4861",
+      "RFC4862",
+      "RFC4877",
+      "RFC4941",
+      "RFC5026",
+      "RFC5226",
+      "RFC5996"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+      "updated": "2026-10-13T18:23:32.104Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+      "updated": "2026-10-13T18:23:32.104Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+      "updated": "2026-10-13T18:23:32.104Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc6275",
+      "https://www.rfc-editor.org/errata_search.php?rfc=6275",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc6275.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+      "updated": "2026-10-13T18:23:32.104Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+      "updated": "2026-10-13T18:23:32.104Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+      "updated": "2026-10-13T18:23:32.104Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+      "updated": "2026-10-13T18:23:32.104Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersedes": [
+      "RFC3775"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+      "updated": "2026-10-13T18:23:32.104Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6275/",
+  "resolvedHref$meta": {
+    "source": "resolved",
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "updated": "2026-10-13T19:02:18.983Z",
+    "originalValue": null,
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6275/",
+    "version": "extractDocs.js@commit:8ad844f404e0"
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "abstract": "This document describes the key chain YANG data model. Key chains are commonly used for routing protocol authentication and other applications requiring symmetric keys. A key chain is a list containing one or more elements containing a Key ID, key string, send/accept lifetimes, and the associated authentication or encryption algorithm. By properly overlapping the send and accept lifetimes of multiple key chain elements, key strings and algorithms may be gracefully updated. By representing them in a YANG data model, key distribution can be automated.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Acee Lindem"
+    },
+    {
+      "name": "Yingzhen Qu"
+    },
+    {
+      "name": "Derek M. Yeung"
+    },
+    {
+      "name": "Ing-Wher (Helen) Chen"
+    },
+    {
+      "name": "Zhaohui (Jeffrey) Zhang"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC8177",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 8177",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "8177",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "YANG Data Model for Key Chains",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC8177",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC8177",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "25",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2017-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC5649",
+      "RFC5880",
+      "RFC7210",
+      "RSA.crypto.v2n2.1996",
+      "RFC4948",
+      "IETF.draft-ietf-netmod-revised-datastores-02",
+      "RFC5905",
+      "RFC7166",
+      "RFC6194",
+      "RFC5925",
+      "RFC5926",
+      "IETF.draft-chen-rtg-key-table-yang-00",
+      "orphan/RFC8177/h:d0c60b18"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=23 proseBlocks=44 skippedAnchorBlocks=26",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+      "updated": "2026-10-13T18:25:12.650Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC6241",
+      "RFC6536",
+      "RFC6242",
+      "RFC8040",
+      "RFC5246",
+      "RFC3688",
+      "RFC6020",
+      "RFC7950",
+      "RFC8174"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+      "updated": "2026-10-13T18:25:12.650Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8177/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+    "updated": "2026-10-13T18:25:12.650Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+      "updated": "2026-10-13T18:25:12.650Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+      "updated": "2026-10-13T18:25:12.650Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+      "updated": "2026-10-13T18:25:12.650Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+      "updated": "2026-10-13T18:25:12.650Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8177/",
+      "updated": "2026-10-13T18:25:12.650Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "abstract": "This document provides reference information for implementing a cross-protocol network proxy that performs translation from the HTTP protocol to the Constrained Application Protocol (CoAP). This will enable an HTTP client to access resources on a CoAP server through the proxy. This document describes how an HTTP request is mapped to a CoAP request and how a CoAP response is mapped back to an HTTP response. This includes guidelines for status code, URI, and media type mappings, as well as additional interworking advice.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Angelo P. Castellani"
+    },
+    {
+      "name": "Salvatore Loreto"
+    },
+    {
+      "name": "Akbar Rahman"
+    },
+    {
+      "name": "Thomas Fossati"
+    },
+    {
+      "name": "Esko Dijk"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC8075",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 8075",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "8075",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "Guidelines for Mapping Implementations: HTTP to the Constrained Application Protocol (CoAP)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC8075",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC8075",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "CoAP",
+    "HTTP-CoAP Mapping",
+    "HTTP-CoAP Translation",
+    "Proxy Implementation"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "40",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2017-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-core-links-json-06",
+      "IETF.draft-ietf-core-resource-directory-09",
+      "ISBN.0599871180",
+      "RFC2616",
+      "RFC2663",
+      "RFC3040",
+      "RFC4732",
+      "RFC6454",
+      "RFC7049",
+      "RFC7228",
+      "RFC7390",
+      "RFC7925",
+      "W3C.html5.20141028",
+      "orphan/RFC8075/h:db69cd55"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=28 proseBlocks=38 skippedAnchorBlocks=32",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+      "updated": "2026-10-13T18:25:05.584Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3986",
+      "RFC4279",
+      "RFC5234",
+      "RFC5246",
+      "RFC6570",
+      "RFC6690",
+      "RFC7230",
+      "RFC7231",
+      "RFC7232",
+      "RFC7235",
+      "RFC7252",
+      "RFC7641",
+      "RFC7959"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+      "updated": "2026-10-13T18:25:05.584Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8075/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+    "updated": "2026-10-13T18:25:05.584Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+      "updated": "2026-10-13T18:25:05.584Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+      "updated": "2026-10-13T18:25:05.584Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+      "updated": "2026-10-13T18:25:05.584Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+      "updated": "2026-10-13T18:25:05.584Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8075/",
+      "updated": "2026-10-13T18:25:05.584Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

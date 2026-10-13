@@ -1,0 +1,315 @@
+{
+  "abstract": "This document describes key exchange algorithms based on Elliptic Curve Cryptography (ECC) for the Transport Layer Security (TLS) protocol. In particular, it specifies the use of Ephemeral Elliptic Curve Diffie-Hellman (ECDHE) key agreement in a TLS handshake and the use of the Elliptic Curve Digital Signature Algorithm (ECDSA) and Edwards-curve Digital Signature Algorithm (EdDSA) as authentication mechanisms. This document obsoletes RFC 4492.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Yoav Nir"
+    },
+    {
+      "name": "Simon Josefsson"
+    },
+    {
+      "name": "Manuel Pégourié-Gonnard"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC8422",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 8422",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "8422",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS) Versions 1.2 and Earlier",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC8422",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC8422",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "ECDSA",
+    "EdDSA"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "34",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2018-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "NIST.FIPS.180-4",
+      "IEEE.STD1363",
+      "ISBN.9780471117094",
+      "RFC4492",
+      "RFC7919",
+      "IETF.draft-ietf-tls-tls13-28"
+    ],
+    "bibliographic$meta": {
+      "source": "parsed",
+      "confidence": "medium",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "updated": "2026-10-13T19:04:49.429Z",
+      "originalValue": [
+        "NIST.FIPS.180-4",
+        "ISBN.9780471117094",
+        "RFC4492",
+        "RFC7919",
+        "IETF.draft-ietf-tls-tls13-28",
+        "orphan/RFC8422/h:f2493309"
+      ],
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "version": "extractDocs.js@commit:8ad844f404e0",
+      "reviewRequired": true,
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=23 proseBlocks=28 skippedAnchorBlocks=26",
+      "overridden": true
+    },
+    "normative": [
+      "ANSI.X9.62.2005",
+      "NIST.FIPS.186-4",
+      "RFC2119",
+      "RFC2246",
+      "RFC3279",
+      "RFC4346",
+      "RFC4366",
+      "RFC5246",
+      "RFC5289",
+      "RFC7748",
+      "RFC8017",
+      "RFC8032",
+      "RFC8174",
+      "RFC8410",
+      "SECG.SEC2.v2.2010-01",
+      "T-REC-X.680.2015",
+      "T-REC-X.690.2015"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8422/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+    "updated": "2026-10-13T18:25:17.311Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "amendedBy": [
+      "RFC8996",
+      "RFC10015"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8422",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8422",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8422.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersededBy": [
+      "RFC9846"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersedes": [
+      "RFC4492"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8422/",
+      "updated": "2026-10-13T18:25:17.311Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

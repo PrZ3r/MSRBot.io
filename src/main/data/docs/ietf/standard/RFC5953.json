@@ -1,0 +1,295 @@
+{
+  "abstract": "This document describes a Transport Model for the Simple Network Management Protocol (SNMP), that uses either the Transport Layer Security protocol or the Datagram Transport Layer Security (DTLS) protocol. The TLS and DTLS protocols provide authentication and privacy services for SNMP applications. This document describes how the TLS Transport Model (TLSTM) implements the needed features of a SNMP Transport Subsystem to make this protection possible in an interoperable way. This Transport Model is designed to meet the security and operational needs of network administrators. It supports the sending of SNMP messages over TLS/TCP and DTLS/UDP. The TLS mode can make use of TCP's improved support for larger packet sizes and the DTLS mode provides potentially superior operation in environments where a connectionless (e.g., UDP) transport is preferred. Both TLS and DTLS integrate well into existing public keying infrastructures. This document also defines a portion of the Management Information Base (MIB) for use with network management protocols. In particular, it defines objects for managing the TLS Transport Model for SNMP. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Wes Hardaker"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC5953",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 5953",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "5953",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "Transport Layer Security (TLS) Transport Model for the Simple Network Management Protocol (SNMP)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC5953",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC5953",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "DTLS",
+    "TLS Transport Model",
+    "SNMP-TLS-TM-MIB"
+  ],
+  "keywords$meta": {
+    "source": "parsed",
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "updated": "2026-10-13T19:01:30.501Z",
+    "originalValue": [
+      "DTLS",
+      "Datagram Transport Layer Security",
+      "TLS Transport Model",
+      "Tlstm",
+      "SNMP-TLS-TM-MIB"
+    ],
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "version": "extractDocs.js@commit:8ad844f404e0",
+    "overridden": true
+  },
+  "pages": "65",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2010-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3410",
+      "RFC5343",
+      "RFC5592",
+      "orphan/RFC5953/h:e2603685"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=24 proseBlocks=29 skippedAnchorBlocks=26",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC1033",
+      "RFC2119",
+      "RFC2578",
+      "RFC2579",
+      "RFC2580",
+      "RFC3411",
+      "RFC3413",
+      "RFC3414",
+      "RFC3415",
+      "RFC3418",
+      "RFC3490",
+      "RFC3584",
+      "RFC4347",
+      "RFC4366",
+      "RFC5246",
+      "RFC5280",
+      "RFC5590",
+      "RFC5591",
+      "RFC5952"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5953/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+    "updated": "2026-10-13T18:23:07.073Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "amendedBy": [
+      "RFC8996"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5953",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5953"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersededBy": [
+      "RFC6353"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5953/",
+      "updated": "2026-10-13T18:23:07.073Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

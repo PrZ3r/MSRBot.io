@@ -1,0 +1,259 @@
+{
+  "abstract": "This document provides an applicability statement for the use of UDP transport checksums with IPv6. It defines recommendations and requirements for the use of IPv6 UDP datagrams with a zero UDP checksum. It describes the issues and design principles that need to be considered when UDP is used with IPv6 to support tunnel encapsulations, and it examines the role of the IPv6 UDP transport checksum. The document also identifies issues and constraints for deployment on network paths that include middleboxes. An appendix presents a summary of the trade-offs that were considered in evaluating the safety of the update to RFC 2460 that changes the use of the UDP checksum with IPv6.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Gorry Fairhurst"
+    },
+    {
+      "name": "Magnus Westerlund"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC6936",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 6936",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "6936",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "Applicability Statement for the Use of IPv6 UDP Datagrams with Zero Checksums",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC6936",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC6936",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "40",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2013-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC793",
+      "RFC1071",
+      "RFC1141",
+      "RFC1624",
+      "RFC2827",
+      "RFC3550",
+      "RFC3819",
+      "RFC3828",
+      "RFC4443",
+      "RFC4963",
+      "RFC5097",
+      "RFC5405",
+      "RFC5415",
+      "RFC5722",
+      "RFC6437",
+      "RFC6438",
+      "RFC6830",
+      "orphan/RFC6936/h:8cefda90",
+      "orphan/RFC6936/h:c30afd43",
+      "orphan/RFC6936/h:daf3592d",
+      "orphan/RFC6936/h:2948e984"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=26 proseBlocks=32 skippedAnchorBlocks=29",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+      "updated": "2026-10-13T18:24:15.122Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC768",
+      "RFC791",
+      "RFC2119",
+      "RFC2460",
+      "RFC6935"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+      "updated": "2026-10-13T18:24:15.122Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6936/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+    "updated": "2026-10-13T18:24:15.122Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+      "updated": "2026-10-13T18:24:15.122Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+      "updated": "2026-10-13T18:24:15.122Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc6936",
+      "https://www.rfc-editor.org/errata_search.php?rfc=6936"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+      "updated": "2026-10-13T18:24:15.122Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+      "updated": "2026-10-13T18:24:15.122Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+      "updated": "2026-10-13T18:24:15.122Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6936/",
+      "updated": "2026-10-13T18:24:15.122Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

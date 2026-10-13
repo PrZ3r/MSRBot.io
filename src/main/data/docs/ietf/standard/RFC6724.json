@@ -1,0 +1,277 @@
+{
+  "abstract": "This document describes two algorithms, one for source address selection and one for destination address selection. The algorithms specify default behavior for all Internet Protocol version 6 (IPv6) implementations. They do not override choices made by applications or upper-layer protocols, nor do they preclude the development of more advanced mechanisms for address selection. The two algorithms share a common context, including an optional mechanism for allowing administrators to provide policy that can override the default behavior. In dual-stack implementations, the destination address selection algorithm can consider both IPv4 and IPv6 addresses -- depending on the available source addresses, the algorithm might prefer IPv6 addresses over IPv4 addresses, or vice versa. Default address selection as defined in this specification applies to all IPv6 nodes, including both hosts and routers. This document obsoletes RFC 3484. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Dave Thaler"
+    },
+    {
+      "name": "Richard P. Draves"
+    },
+    {
+      "name": "Arifumi Matsumoto"
+    },
+    {
+      "name": "Tim Chown"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC6724",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 6724",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "6724",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "Default Address Selection for Internet Protocol Version 6 (IPv6)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC6724",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC6724",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "32",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2012-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1794",
+      "RFC1812",
+      "RFC1918",
+      "RFC2827",
+      "RFC3484",
+      "RFC3493",
+      "RFC3701",
+      "RFC3927",
+      "RFC4007",
+      "RFC4191",
+      "RFC4213",
+      "RFC4861",
+      "RFC5014",
+      "RFC5214",
+      "RFC5220",
+      "RFC5969",
+      "RFC6275",
+      "RFC6598",
+      "orphan/RFC6724/h:8785480c"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=28 proseBlocks=33 skippedAnchorBlocks=31",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+      "updated": "2026-10-13T18:24:05.333Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3056",
+      "RFC3879",
+      "RFC4193",
+      "RFC4291",
+      "RFC4380",
+      "RFC4862",
+      "RFC4941",
+      "RFC6145"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+      "updated": "2026-10-13T18:24:05.333Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6724/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+    "updated": "2026-10-13T18:24:05.333Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+      "updated": "2026-10-13T18:24:05.333Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+      "updated": "2026-10-13T18:24:05.333Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc6724",
+      "https://www.rfc-editor.org/errata_search.php?rfc=6724",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc6724.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+      "updated": "2026-10-13T18:24:05.333Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+      "updated": "2026-10-13T18:24:05.333Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+      "updated": "2026-10-13T18:24:05.333Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+      "updated": "2026-10-13T18:24:05.333Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersedes": [
+      "RFC3484"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6724/",
+      "updated": "2026-10-13T18:24:05.333Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "abstract": "The Presence Information Data Format Location Object (PIDF-LO) specification provides a flexible and versatile means to represent location information. There are, however, circumstances that arise when information needs to be constrained in how it is represented. In these circumstances, the range of options that need to be implemented are reduced. There is growing interest in being able to use location information contained in a PIDF-LO for routing applications. To allow successful interoperability between applications, location information needs to be normative and more tightly constrained than is currently specified in RFC 4119 (PIDF-LO). This document makes recommendations on how to constrain, represent, and interpret locations in a PIDF-LO. It further recommends a subset of Geography Markup Language (GML) 3.1.1 that is mandatory to implement by applications involved in location-based routing. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "James Winterbottom"
+    },
+    {
+      "name": "Martin Thomson"
+    },
+    {
+      "name": "Hannes Tschofenig"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC5491",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 5491",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "5491",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "GEOPRIV Presence Information Data Format Location Object (PIDF-LO) Usage Clarification, Considerations, and Recommendations",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC5491",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC5491",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "PIDF-LO",
+    "Civic Address",
+    "Geodetic",
+    "GeoShape"
+  ],
+  "keywords$meta": {
+    "source": "parsed",
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "updated": "2026-10-13T19:00:31.640Z",
+    "originalValue": [
+      "PIDF-LO",
+      "Civic",
+      "Geodetic",
+      "Well-formed",
+      "GeoShape"
+    ],
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "version": "extractDocs.js@commit:8ad844f404e0",
+    "overridden": true
+  },
+  "pages": "28",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2009-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "3GPP.TS-23.032.200501",
+      "RFC3693",
+      "RFC4776",
+      "orphan/RFC5491/h:a8a23cb6",
+      "orphan/RFC5491/h:00fad06d"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=12 proseBlocks=18 skippedAnchorBlocks=14",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4119",
+      "RFC4479",
+      "RFC5139",
+      "W3C.xmlschema-2.20041028",
+      "orphan/RFC5491/h:7fedd7e9",
+      "orphan/RFC5491/h:3b5a0855"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5491/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+    "updated": "2026-10-13T18:22:29.147Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "amendedBy": [
+      "RFC7459"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "amends": [
+      "RFC4119"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5491",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5491",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc5491.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5491/",
+      "updated": "2026-10-13T18:22:29.147Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}
