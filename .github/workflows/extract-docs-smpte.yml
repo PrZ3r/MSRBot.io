@@ -82,10 +82,10 @@ jobs:
           [ -f "$PRLOG" ] || touch "$PRLOG"
 
           KW_BLOCK="$(awk '
-            /Unknown keywords not in src\/main\/config\/site.json#controlledKeywords:/ { in_block=1; print; next }
+            /Unknown keywords not in / { in_block=1; print; next }
             in_block {
               print
-              if ($0 ~ /registry has keywords outside controlledKeywords in src\/main\/config\/site.json/) {
+              if ($0 ~ /registry has keywords outside /) {
                 in_block=0
                 exit
               }

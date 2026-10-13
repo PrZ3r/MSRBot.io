@@ -29,6 +29,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // canonicalize-json.js
 const fs = require('fs');
+const { loadControlledKeywords, saveControlledKeywords } = require('../../lib/keywordConform');
 
 function sortObj(v) {
   if (Array.isArray(v)) return v.map(sortObj);
@@ -54,3 +55,6 @@ function canonicalize(path) {
 canonicalize('src/main/config/site.json')
 // refMap.json: keys alphabetical so entries are findable; pattern order inside each entry is kept
 canonicalize('src/main/input/refMap.json')
+// controlledKeywords.json: terms alphabetical (localeCompare), one per line, so the list scans in order
+saveControlledKeywords(loadControlledKeywords())
+console.log('Canonicalized: src/main/config/controlledKeywords.json')

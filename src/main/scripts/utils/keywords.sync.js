@@ -27,38 +27,27 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-const fs = require("fs");
 const path = require("path");
 const { normalizeKeyword } = require("./keyword.normalize");
 const { loadAllDocs } = require("../../lib/registry");
+const {
+  CONTROLLED_PATH,
+  loadControlledKeywords,
+  saveControlledKeywords,
+  sortKeywords,
+} = require("../../lib/keywordConform");
 
-const SITE_PATH = path.resolve("src/main/config/site.json");
-
-function sortedUnique(values) {
-  return Array.from(new Set(values.filter(Boolean))).sort((a, b) => a.localeCompare(b));
-}
-
-function readJson(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, "utf8"));
-}
+const CONTROLLED_REL = path.relative(process.cwd(), CONTROLLED_PATH);
 
 function main() {
   const write = process.argv.includes("--write");
 
-  if (!fs.existsSync(SITE_PATH)) {
-    throw new Error(`Missing site config: ${SITE_PATH}`);
-  }
-
-  const site = readJson(SITE_PATH);
   const documents = loadAllDocs();
   if (!Array.isArray(documents)) {
     throw new Error("Expected the document registry to produce an array");
   }
 
-  const current = sortedUnique(
-    (Array.isArray(site.controlledKeywords) ? site.controlledKeywords : [])
-      .map((kw) => normalizeKeyword(kw))
-  );
+  const current = sortKeywords(loadControlledKeywords().map((kw) => normalizeKeyword(kw)));
   const currentSet = new Set(current);
 
   const found = new Set();
@@ -70,23 +59,22 @@ function main() {
     }
   }
 
-  const missing = sortedUnique(Array.from(found).filter((kw) => !currentSet.has(kw)));
+  const missing = sortKeywords(Array.from(found).filter((kw) => !currentSet.has(kw)));
   if (!missing.length) {
-    console.log("No new keywords to add. controlledKeywords is up to date.");
+    console.log(`No new keywords to add. ${CONTROLLED_REL} is up to date.`);
     return;
   }
 
-  console.log(`Found ${missing.length} keyword(s) missing from controlledKeywords:`);
+  console.log(`Found ${missing.length} keyword(s) missing from ${CONTROLLED_REL}:`);
   for (const kw of missing) console.log(`- ${kw}`);
 
   if (!write) {
-    console.log("\nDry run only. Re-run with --write to update src/main/config/site.json.");
+    console.log(`\nDry run only. Re-run with --write to update ${CONTROLLED_REL}.`);
     return;
   }
 
-  site.controlledKeywords = sortedUnique([...current, ...missing]);
-  fs.writeFileSync(SITE_PATH, `${JSON.stringify(site, null, 2)}\n`);
-  console.log(`\nUpdated src/main/config/site.json (controlledKeywords: ${site.controlledKeywords.length}).`);
+  const terms = saveControlledKeywords([...current, ...missing]);
+  console.log(`\nUpdated ${CONTROLLED_REL} (${terms.length} terms).`);
 }
 
 try {

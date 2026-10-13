@@ -41,6 +41,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const { loadAllDocs } = require('../lib/registry');
 const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
+const { tokenContains } = require('../lib/keywordConform');
 
 /** Page gate config — gated contentTypes are excluded from the browse/search
  *  index (and facets), matching the per-doc page gate in build.js. */
@@ -55,8 +56,8 @@ try {
 
 /* Keyword chips for the doc-list facet rail.
  *
- * site.json `controlledKeywords` is the INDEXED vocabulary — every searchable
- * term (~990). Rendering one chip per term would be unusable, so the chip rail
+ * controlledKeywords.json is the INDEXED vocabulary — every searchable
+ * term (~4,500). Rendering one chip per term would be unusable, so the chip rail
  * is a curated subset, DERIVED HERE ON EVERY BUILD from three inputs:
  *
  *   1. count  — terms carried by >= curation.minDocs docs
@@ -87,27 +88,6 @@ function portalKeywords() {
   return out;
 }
 
-/* True when `needle` appears in `hay` on whole-token boundaries. Deliberately
- * not a substring test: "AI" must match "Generative AI" and "AI-Driven Media"
- * but not "Chain", "Domain" or "Training". Hand-rolled rather than a \b regex so
- * chips containing regex metacharacters ("Test & Measurement", "Media Exchange
- * Layer (MXL)") need no escaping. MUST stay in sync with the same-named helper
- * in src/site/js/docList.js — this computes the counts, that applies the filter. */
-function tokenContains(hay, needle) {
-  const h = String(hay == null ? '' : hay).toLowerCase();
-  const n = String(needle == null ? '' : needle).toLowerCase();
-  if (!h || !n) return false;
-  const isWord = (c) => /[a-z0-9]/.test(c);
-  let i = 0;
-  while ((i = h.indexOf(n, i)) !== -1) {
-    const before = i === 0 ? '' : h[i - 1];
-    const after = (i + n.length >= h.length) ? '' : h[i + n.length];
-    if ((!before || !isWord(before)) && (!after || !isWord(after))) return true;
-    i += 1;
-  }
-  return false;
-}
-
 /* Derive the chip list from the finished index rows. */
 function deriveChips(rows) {
   const exact = new Map();
@@ -126,26 +106,6 @@ function deriveChips(rows) {
     if (!rows.some((r) => (r.keywords || []).some((k) => tokenContains(k, c)))) chips.delete(c);
   }
   return [...chips].sort((a, b) => a.localeCompare(b));
-}
-
-/* True when `needle` appears in `hay` on whole-token boundaries. Deliberately
- * not a substring test: "AI" must match "Generative AI" and "AI-driven Media"
- * but not "Chain", "Domain" or "Training". Hand-rolled rather than a \b regex so
- * chips containing regex metacharacters ("Test & Measurement", "Media Exchange
- * Layer (MXL)") need no escaping. */
-function tokenContains(hay, needle) {
-  const h = String(hay == null ? '' : hay).toLowerCase();
-  const n = String(needle == null ? '' : needle).toLowerCase();
-  if (!h || !n) return false;
-  const isWord = (c) => /[a-z0-9]/.test(c);
-  let i = 0;
-  while ((i = h.indexOf(n, i)) !== -1) {
-    const before = i === 0 ? '' : h[i - 1];
-    const after = (i + n.length >= h.length) ? '' : h[i + n.length];
-    if ((!before || !isWord(before)) && (!after || !isWord(after))) return true;
-    i += 1;
-  }
-  return false;
 }
 
 const GROUPS = path.join('src','main','data','groups.json');

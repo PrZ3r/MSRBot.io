@@ -30,7 +30,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 const fs = require('fs');
 const path = require('path');
 const { splitAndNormalizeKeywords } = require('../utils/keyword.normalize');
-const { loadKeywordDecisions } = require('../../lib/keywordConform');
+const { loadKeywordDecisions, loadControlledKeywords } = require('../../lib/keywordConform');
 const { joinPhrases, conformHeld } = require('../utils/reconcileIncoming');
 
 // XMLDSig/XMLENC element names that show up as keywords in the RFC index XML.
@@ -212,10 +212,9 @@ function createIetfParser(deps) {
         };
         // IETF's own folds win over the shared ones ("IAB" → Internet Architecture Board).
         for (const [k, v] of Object.entries((d.publisherFolds || {}).IETF || {})) keywordRules.folds.set(k.toLowerCase(), v);
-        // A term already in controlledKeywords takes that casing ("MAIL" → "Mail").
+        // A term already in controlledKeywords.json takes that casing ("MAIL" → "Mail").
         try {
-          const site = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'src/main/config/site.json'), 'utf8'));
-          for (const k of site.controlledKeywords || []) keywordRules.vocab.set(String(k).toLowerCase(), k);
+          for (const k of loadControlledKeywords()) keywordRules.vocab.set(String(k).toLowerCase(), k);
         } catch {}
       } catch {
         keywordRules = { folds: new Map(), drops: new Set(), splits: new Map(), vocab: new Map() };

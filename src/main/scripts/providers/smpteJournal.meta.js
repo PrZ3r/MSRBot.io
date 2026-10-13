@@ -33,7 +33,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const smpteJournalMetaConfig = {
   parsed: {
-    keywords: { confidence: 'high', note: 'SMPTE index_terms, conformed to controlledKeywords (src/main/lib/keywordConform.js)' },
+    keywords: { confidence: 'high', note: 'SMPTE index_terms, conformed to src/main/config/controlledKeywords.json (src/main/lib/keywordConform.js)' },
     bibliographic: { confidence: 'medium', note: "References from the paper's FTXML <ref-list>" },
     default: { confidence: 'high', note: "Read from SMPTE's journal library delivery (content_batch)" },
   },

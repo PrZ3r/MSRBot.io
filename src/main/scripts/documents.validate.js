@@ -30,24 +30,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 const fs = require("fs");
 const path = require("path");
 
-const SITE_CONFIG_PATH = path.resolve("src/main/config/site.json");
+const { CONTROLLED_PATH, loadControlledKeywords, tokenContains } = require("../lib/keywordConform");
 
-function readControlledKeywords() {
-  try {
-    if (!fs.existsSync(SITE_CONFIG_PATH)) return [];
-    const siteConfig = JSON.parse(fs.readFileSync(SITE_CONFIG_PATH, "utf8"));
-    if (!Array.isArray(siteConfig?.controlledKeywords)) return [];
-    return Array.from(
-      new Set(
-        siteConfig.controlledKeywords
-          .map((value) => String(value || "").trim())
-          .filter(Boolean)
-      )
-    );
-  } catch {
-    return [];
-  }
-}
+const SITE_CONFIG_PATH = path.resolve("src/main/config/site.json");
+const CONTROLLED_REL = path.relative(process.cwd(), CONTROLLED_PATH);
 
 module.exports = (registry, name) => {
   const keywordValidationMode = String(process.env.KEYWORD_VALIDATION_MODE || "error").trim().toLowerCase();
@@ -73,35 +59,49 @@ module.exports = (registry, name) => {
     }
   }
 
-  /* Ensure keywords conform to controlled list in site config */
-  const controlledKeywords = readControlledKeywords();
-  if (controlledKeywords.length) {
-    const allowed = new Set(controlledKeywords);
-    const unknownMap = new Map();
+  /* Ensure keywords conform to the controlled list (controlledKeywords.json) */
+  const allowed = new Set(loadControlledKeywords().map((value) => String(value || "").trim()).filter(Boolean));
+  const unknownMap = new Map();
 
-    registry.forEach((doc) => {
-      if (!doc || !Array.isArray(doc.keywords)) return;
-      const docId = String(doc.docId || "(unknown)");
-      doc.keywords.forEach((kw) => {
-        const value = String(kw || "").trim();
-        if (!value || allowed.has(value)) return;
-        if (!unknownMap.has(value)) unknownMap.set(value, new Set());
-        unknownMap.get(value).add(docId);
-      });
+  registry.forEach((doc) => {
+    if (!doc || !Array.isArray(doc.keywords)) return;
+    const docId = String(doc.docId || "(unknown)");
+    doc.keywords.forEach((kw) => {
+      const value = String(kw || "").trim();
+      if (!value || allowed.has(value)) return;
+      if (!unknownMap.has(value)) unknownMap.set(value, new Set());
+      unknownMap.get(value).add(docId);
     });
+  });
 
-    if (unknownMap.size) {
-      console.warn("\n⚠️ Unknown keywords not in src/main/config/site.json#controlledKeywords:");
-      for (const keyword of Array.from(unknownMap.keys()).sort((a, b) => a.localeCompare(b))) {
-        const docIds = Array.from(unknownMap.get(keyword)).sort((a, b) => a.localeCompare(b));
-        console.warn(`- ${keyword}: ${docIds.join(", ")}`);
-      }
-      const msg = `${name} registry has keywords outside controlledKeywords in src/main/config/site.json`;
-      if (keywordWarnOnly) {
-        console.warn(`${msg} (warning only; KEYWORD_VALIDATION_MODE=warn)`);
-      } else {
-        throw msg;
-      }
+  // The extract workflows' "Unknown Keywords" PR block matches these two
+  // messages by "Unknown keywords not in" and "registry has keywords outside".
+  if (unknownMap.size) {
+    console.warn(`\n⚠️ Unknown keywords not in ${CONTROLLED_REL}:`);
+    for (const keyword of Array.from(unknownMap.keys()).sort((a, b) => a.localeCompare(b))) {
+      const docIds = Array.from(unknownMap.get(keyword)).sort((a, b) => a.localeCompare(b));
+      console.warn(`- ${keyword}: ${docIds.join(", ")}`);
+    }
+    const msg = `${name} registry has keywords outside ${CONTROLLED_REL}`;
+    if (keywordWarnOnly) {
+      console.warn(`${msg} (warning only; KEYWORD_VALIDATION_MODE=warn)`);
+    } else {
+      throw msg;
+    }
+  }
+
+  /* Hand-added facet chips (site.json facetKeywordCuration.add) need not be
+     controlled terms ("AI" is folded away), but each must token-match some
+     doc keyword, or the build silently drops the chip. */
+  const curationAdd = JSON.parse(fs.readFileSync(SITE_CONFIG_PATH, "utf8"))?.facetKeywordCuration?.add || [];
+  const docKeywords = new Set(registry.flatMap((doc) => (doc && Array.isArray(doc.keywords) ? doc.keywords : [])));
+  const deadChips = curationAdd.filter((chip) => ![...docKeywords].some((kw) => tokenContains(kw, chip)));
+  if (deadChips.length) {
+    const msg = `src/main/config/site.json facetKeywordCuration.add has chips matching no doc keyword: ${deadChips.join(", ")}`;
+    if (keywordWarnOnly) {
+      console.warn(`⚠️ ${msg} (warning only; KEYWORD_VALIDATION_MODE=warn)`);
+    } else {
+      throw msg;
     }
   }
 
