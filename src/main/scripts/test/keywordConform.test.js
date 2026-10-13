@@ -87,7 +87,9 @@ eq(assigned.get(0).startsWith('Yvonne Thomas'), true, 'bio swapped back to its a
   const site = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'config', 'site.json'), 'utf8'));
   const vocab = new Set((site.controlledKeywords || []).map((k) => String(k).toLowerCase()));
   const rawFolds = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'config', 'keywordDecisions.json'), 'utf8')).folds || {};
-  const dangling = Object.entries(rawFolds).filter(([, v]) => !vocab.has(String(v).toLowerCase())).map(([k, v]) => `${k} → ${v}`);
+  const pubFolds = Object.values(JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'config', 'keywordDecisions.json'), 'utf8')).publisherFolds || {})
+    .flatMap((m) => Object.entries(m));
+  const dangling = [...Object.entries(rawFolds), ...pubFolds].filter(([, v]) => !vocab.has(String(v).toLowerCase())).map(([k, v]) => `${k} → ${v}`);
   eq(dangling, [], 'fold targets missing from controlledKeywords');
 }
 

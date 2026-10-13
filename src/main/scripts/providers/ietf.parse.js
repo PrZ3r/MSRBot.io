@@ -210,6 +210,8 @@ function createIetfParser(deps) {
           splits: new Map(Object.entries(d.splits || {}).map(([k, v]) => [k.toLowerCase(), v])),
           vocab: new Map()
         };
+        // IETF's own folds win over the shared ones ("IAB" → Internet Architecture Board).
+        for (const [k, v] of Object.entries((d.publisherFolds || {}).IETF || {})) keywordRules.folds.set(k.toLowerCase(), v);
         // A term already in controlledKeywords takes that casing ("MAIL" → "Mail").
         try {
           const site = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'src/main/config/site.json'), 'utf8'));

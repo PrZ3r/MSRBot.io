@@ -59,6 +59,21 @@ function loadKeywordRules() {
   }
 }
 const keywordRules = loadKeywordRules();
+// The shared rules plus the publisher's own folds (keywordDecisions.publisherFolds): IETF's
+// "IAB" is the Internet Architecture Board, not media's Immersive Audio Bitstream.
+const publisherRulesCache = new Map();
+function keywordRulesFor(publisher) {
+  if (!keywordRules) return keywordRules;
+  const key = String(publisher || '');
+  if (publisherRulesCache.has(key)) return publisherRulesCache.get(key);
+  let own = {};
+  try { own = (loadKeywordDecisions().publisherFolds || {})[key] || {}; } catch {}
+  const rules = Object.keys(own).length
+    ? { ...keywordRules, folds: new Map([...keywordRules.folds, ...Object.entries(own).map(([k, v]) => [k.toLowerCase(), v])]) }
+    : keywordRules;
+  publisherRulesCache.set(key, rules);
+  return rules;
+}
 
 // Lines the legacy RFC HTML fallback picks up that aren't citations: never report them
 // and never mint them as orphan refs.
@@ -860,7 +875,7 @@ for (const doc of results) {
       const existingDoc = existingDocs[index];
       // Upstream re-renders of values we already hold (initials-form authors, trailing
       // slash, whitespace, reordered lists) are not updates.
-      const keptFields = reconcileIncoming(existingDoc, doc, { keywordRules });
+      const keptFields = reconcileIncoming(existingDoc, doc, { keywordRules: keywordRulesFor(existingDoc.publisher || doc.publisher) });
       if (keptFields.length) logSmart(`   = ${doc.docId}: kept existing ${keptFields.join(', ')}`);
       attachMetaSourceUrl(existingDoc, doc.__sourceUrl);
       attachMetaNotes(existingDoc, doc.__metaNotes || {});

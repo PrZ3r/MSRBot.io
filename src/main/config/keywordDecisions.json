@@ -1,5 +1,5 @@
 {
-  "_about": "Keyword decisions for every extractor that conforms source keywords (src/main/lib/keywordConform.js). Keys are lowercase terms — a source spelling or the spelling a cluster lands on. folds: same concept → one term (spelling, acronym/expansion, typos, 'ABBR- Long Name' forms). drops: non-topics (prose fragments, boilerplate, publisher category labels, contentless words). splits: run-together terms. acronyms: casing for acronym tokens a title-casing normalizer would lower ('vmaf' → 'VMAF'). adds: vocabulary terms approved ahead of use. Merged 2026-10 from the SMPTE canonical-audit passes (keywordVocabDecisions, keywordLongTailApply, keywordIdamsDecisions); context-specific folds stay on the docs they were applied to.",
+  "_about": "Keyword decisions for every extractor that conforms source keywords (src/main/lib/keywordConform.js). Keys are lowercase terms — a source spelling or the spelling a cluster lands on. folds: same concept → one term (spelling, acronym/expansion, typos, 'ABBR- Long Name' forms). drops: non-topics (prose fragments, boilerplate, publisher category labels, contentless words). splits: run-together terms. acronyms: casing for acronym tokens a title-casing normalizer would lower ('vmaf' → 'VMAF'). adds: vocabulary terms approved ahead of use. publisherFolds: folds that apply only to one publisher's keywords, for an acronym another publisher uses differently ('IAB' is the Internet Architecture Board in IETF keywords, the Immersive Audio Bitstream in media). Merged 2026-10 from the SMPTE canonical-audit passes (keywordVocabDecisions, keywordLongTailApply, keywordIdamsDecisions); context-specific folds stay on the docs they were applied to.",
   "folds": {
     "100 gigabit ethernet interface (100gbe)": "100GbE",
     "12 bits": "12-bit",
@@ -83,7 +83,7 @@
     "applications": "Application",
     "april fools": "April Fools",
     "ar graphics": "Augmented Reality",
-    "architechure board": "IAB",
+    "architechure board": "Internet Architecture Board",
     "archival": "Archive",
     "archival storage": "Archive",
     "archive storage": "Archive",
@@ -547,7 +547,7 @@
     "internationalized resource identifier": "IRI",
     "interne": "Internet",
     "internet address": "IP Address",
-    "internet architecture board": "IAB",
+    "internet architecture board": "Internet Architecture Board",
     "internet assigned numbers authority": "IANA",
     "internet control message protocol": "ICMP",
     "internet engineering steering group": "IESG",
@@ -1177,6 +1177,11 @@
     "x.509 v2": "X.509",
     "x.509 v3": "X.509",
     "zero-trust": "Zero Trust Architecture"
+  },
+  "publisherFolds": {
+    "IETF": {
+      "iab": "Internet Architecture Board"
+    }
   },
   "drops": [
     "(the smpte disclaimer is on a footer on this page, and will show in print preview or page layout view.)",
