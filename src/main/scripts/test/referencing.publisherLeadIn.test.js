@@ -225,4 +225,12 @@ assert.strictEqual(parseRefId('IEEE, "1588-2008 - IEEE Standard for a Precision 
 assert.strictEqual(parseRefId('IEEE, "802.1AS-2011 - IEEE Standard for Local and Metropolitan Area Networks - Timing", 2011.'), 'IEEE.STD802.1AS.2011'); n++;
 assert.strictEqual(parseRefId('IEEE Standards Association, "IEEE 802.1AR Secure Device Identifier", December 2009.'), 'IEEE.STD802.1AR.2009'); n++;
 
+// Batch 11 review: INCITS.NNN:YYYY (RFC3821), FIPS singular (RFC5091), bare SP after NIST (RFC5289),
+// a wrapped W3C TR name (RFC5122), an IEEE project number (RFC8422).
+assert.strictEqual(parseRefId('Fibre Channel Backbone (FC-BB), ANSI INCITS.342:2001, December 12, 2001.'), 'INCITS.342.2001'); n++;
+assert.strictEqual(parseRefId('National Institute of Standards and Technology, "Digital Signature Standard," Federal Information Processing Standard 186-2, August 2002.'), 'NIST.FIPS.186-2'); n++;
+assert.strictEqual(parseRefId('National Institute of Standards and Technology, "Recommendation for Block Cipher Modes of Operation", SP 800-38A, December 2001.'), 'NIST.SP.800-38A'); n++;
+assert.strictEqual(parseRefId('Raggett, D., "HTML 4.0 Specification", W3C REC REC- html40-19980424, April 1998.'), 'W3C.html40.19980424'); n++;
+assert.strictEqual(parseRefId('IEEE, "Standard Specifications for Public Key Cryptography", IEEE Std P1363.'), 'IEEE.STD1363'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

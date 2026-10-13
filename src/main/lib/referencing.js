@@ -1123,6 +1123,10 @@ function parseRefId(text, href = '', opts = {}) {
   const diag = mapRefByCiteDiag(text);
   if (diag.refId) return wantDiag ? { refId: diag.refId, diag } : diag.refId;
   text = normalizePublisherLeadIn(normalizeCiteTypography(text));
+  // "ANSI INCITS.342:2001" (RFC3821) → "INCITS 342-2001"; a W3C TR name wrapped after its stage
+  // ("W3C REC REC- html40-19980424", RFC5122) is rejoined.
+  text = String(text || '').replace(/\bINCITS\.(\d{2,4})(?::|-)((?:19|20)\d{2})\b/g, 'INCITS $1-$2')
+    .replace(/\b(REC|WD|CR|PR|NOTE)-\s+([a-z][\w.-]*-(?:19|20)\d{6})\b/g, '$1-$2');
   // A part number wrapped onto the next line: "ISO/IEC 9594- 8:2001" (RFC3546, RFC4510) gave "ISO.9594-".
   text = String(text || '').replace(/(\bISO(?:\s*\/\s*(?:IEC|DIS|FDIS|CD))?\s+\d{3,5})-\s+(\d)/g, '$1-$2');
   // No link: use a URL printed in the citation (old RFCs), rejoining one wrapped
@@ -1539,7 +1543,8 @@ function parseRefId(text, href = '', opts = {}) {
   // spelled out with no "FIPS" token: "Federal Information Processing Standards Publication 197",
   //   or with it in parentheses: "… Standards Publication (FIPS PUB) 81" (RFC1423)
   {
-    const m = String(text || '').match(/\bFederal\s+Information\s+Processing\s+Standards?\s+(?:Publication|Pub\.?|PUB)\s+(?:\(FIPS\s+PUB\)\s+)?(\d+)(-\d+)?\b/i);
+    // also the bare singular: "…, Federal Information Processing Standard 186-2, August 2002" (RFC5091)
+    const m = String(text || '').match(/\bFederal\s+Information\s+Processing\s+Standards?\s+(?:(?:Publication|Pub\.?|PUB)\s+)?(?:\(FIPS\s+PUB\)\s+)?(\d+)(-\d+)?\b/i);
     if (m) {
       const refId = `NIST.FIPS.${m[1]}${m[2] || ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fips-spelled' } } : refId;
@@ -1556,6 +1561,16 @@ function parseRefId(text, href = '', opts = {}) {
     const num = m[1];
     const rev = m[2] ? `-${m[2]}` : '';
     { const refId = `NIST.FIPS.${num}${rev}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-fips-path' } } : refId; }
+  }
+  // "National Institute of Standards and Technology, "Recommendation for Block Cipher Modes …",
+  // SP 800-38A, December 2001" (RFC5289): a bare "SP" after the spelled-out NIST.
+  {
+    const src = String(text || '');
+    const m = /\bNational\s+Institute\s+of\s+Standards\s+and\s+Technology\b/i.test(src) && src.match(/\bSP\s+(\d{3,4}-\d+[A-Za-z]?)\b/);
+    if (m) {
+      const refId = `NIST.SP.${m[1]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'nist-sp-spelled' } } : refId;
+    }
   }
   // NIST Special Publications in CSRC paths, e.g.:
   // - https://csrc.nist.gov/publications/detail/sp/800-67/rev-2/final
@@ -1643,7 +1658,8 @@ function parseRefId(text, href = '', opts = {}) {
   // - "IEEE 754:2008"
   {
     const src = String(text || '');
-    const stdMatch = src.match(/\bIEEE\s+Std\.?\s*([0-9]{2,5}(?:\.[0-9A-Za-z]+)?[A-Za-z]?)(?:\s*[-:]\s*(\d{4})(?:\/[A-Za-z0-9.-]+)?)?/i);
+    // also a project number: "IEEE Std P1363" (RFC8422) → IEEE.STD1363
+    const stdMatch = src.match(/\bIEEE\s+Std\.?\s*P?([0-9]{2,5}(?:\.[0-9A-Za-z]+)?[A-Za-z]?)(?:\s*[-:]\s*(\d{4})(?:\/[A-Za-z0-9.-]+)?)?/i);
     const genericMatch = src.match(/\bIEEE\s+([0-9]{2,5}(?:\.[0-9A-Za-z]+)?[A-Za-z]?)\s*[:\-]\s*(\d{4})\b/i);
     const m = stdMatch || genericMatch;
     if (m?.[1]) {
@@ -2689,6 +2705,14 @@ function extractRefs($, currentDocId, opts = {}) {
         if (!refsPositions.length) refsPositions = [firstBibPos];
       }
       refsPositions = Array.from(new Set(refsPositions)).sort((a, b) => a - b);
+      // A "Normative References" section that discusses references (RFC3967 §1.1) has a twin
+      // under the document's own "References" heading (§6.1): keep the twin only.
+      if (refsPositions.length) {
+        const mainRefs = Math.min(...refsPositions);
+        const dropEarly = (arr) => (arr.some((p) => p > mainRefs) ? arr.filter((p) => p > mainRefs) : arr);
+        normPositions = dropEarly(normPositions);
+        infoPositions = dropEarly(infoPositions);
+      }
       const hasNorm = normPositions.length > 0;
       const hasInfo = infoPositions.length > 0;
       const hasRefs = refsPositions.length > 0;

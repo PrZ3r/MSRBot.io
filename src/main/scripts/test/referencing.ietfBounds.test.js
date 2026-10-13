@@ -419,4 +419,27 @@ Annex B.  Changes since RFC 5430
   assert.deepStrictEqual(r17.badRefs || [], [], JSON.stringify(r17.badRefs)); n++;
 }
 
+// A "Normative References" section that discusses references (RFC3967 §1.1) is not the list; its
+// twin under the document's "References" heading is.
+{
+  const html18 = `<html><body><pre>
+<span class="h3"><a class="selflink" id="section-1.1" href="#section-1.1">1.1</a>.  Normative References</span>
+
+   Within an RFC, references to other documents fall into two general
+   categories: "normative" and "informative", 2004.
+
+<span class="h2"><a class="selflink" id="section-6" href="#section-6">6</a>.  References</span>
+
+<span class="h3"><a class="selflink" id="section-6.1" href="#section-6.1">6.1</a>.  Normative References</span>
+
+   [<a id="ref-RFC2026">RFC2026</a>]  Bradner, S., "The Internet Standards Process", <a href="./rfc2026">RFC 2026</a>, October 1996.
+
+<span class="h3"><a class="selflink" id="section-6.2" href="#section-6.2">6.2</a>.  Informative References</span>
+
+   [<a id="ref-RFC1321">RFC1321</a>]  Rivest, R., "The MD5 Message-Digest Algorithm", <a href="./rfc1321">RFC 1321</a>, April 1992.
+</pre></body></html>`;
+  const r18 = extractRefs(cheerio.load(html18), 'RFC9981', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html18 });
+  assert.deepStrictEqual([r18.references.normative, r18.references.bibliographic, (r18.badRefs || []).length], [['RFC2026'], ['RFC1321'], 0]); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);
