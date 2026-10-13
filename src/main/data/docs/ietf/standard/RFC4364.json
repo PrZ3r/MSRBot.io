@@ -1,0 +1,309 @@
+{
+  "abstract": "This document describes a method by which a Service Provider may use an IP backbone to provide IP Virtual Private Networks (VPNs) for its customers. This method uses a \"peer model\", in which the customers' edge routers (CE routers) send their routes to the Service Provider's edge routers (PE routers); there is no \"overlay\" visible to the customer's routing algorithm, and CE routers at different sites do not peer with each other. Data packets are tunneled through the backbone, so that the core routers do not need to know the VPN routes. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "authors": [
+    {
+      "name": "Eric C. Rosen"
+    },
+    {
+      "name": "Yakov Rekhter"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docId": "RFC4364",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docLabel": "IETF RFC 4364",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docNumber": "4364",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docTitle": "BGP/MPLS IP Virtual Private Networks (VPNs)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "doi": "10.17487/RFC4364",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "href": "https://doi.org/10.17487/RFC4364",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "keywords": [
+    "Service Provider",
+    "CE Router",
+    "PE Router",
+    "BGP",
+    "MPLS",
+    "Architecture",
+    "VPN"
+  ],
+  "keywords$meta": {
+    "source": "parsed",
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "updated": "2026-10-13T17:52:45.813Z",
+    "originalValue": [
+      "Service Provider",
+      "IP Backbone",
+      "Ce Router",
+      "Pe Router",
+      "BGP",
+      "MPLS",
+      "Architecture",
+      "VPN"
+    ],
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "version": "extractDocs.js@commit:25936397c06b",
+    "overridden": true
+  },
+  "pages": "47",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "publicationDate": "2006-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2918",
+      "RFC2796",
+      "RFC2434",
+      "RFC3035",
+      "RFC3034",
+      "RFC4023",
+      "RFC3036",
+      "RFC3209",
+      "RFC2328",
+      "RFC2430",
+      "RFC2453",
+      "RFC2385",
+      "orphan/RFC4364/h:48adb174",
+      "orphan/RFC4364/h:eed0b8c0",
+      "orphan/RFC4364/h:1d88fefa",
+      "orphan/RFC4364/h:49daa5c1",
+      "orphan/RFC4364/h:7b0e5d29",
+      "orphan/RFC4364/h:41f594ff"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=23 proseBlocks=31 skippedAnchorBlocks=26",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "normative": [
+      "RFC4271",
+      "RFC2858",
+      "RFC4360",
+      "RFC3031",
+      "RFC3107",
+      "RFC3032"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4364/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+    "updated": "2026-10-13T17:22:58.789Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "amendedBy": [
+      "RFC4577",
+      "RFC4684",
+      "RFC5462"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc4364",
+      "https://www.rfc-editor.org/errata_search.php?rfc=4364",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc4364.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "supersedes": [
+      "RFC2547"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4364/",
+      "updated": "2026-10-13T17:22:58.789Z",
+      "version": "extractDocs.js@commit:996495349225"
+    }
+  }
+}

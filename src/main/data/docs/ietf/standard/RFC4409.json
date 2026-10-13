@@ -1,0 +1,297 @@
+{
+  "abstract": "This memo splits message submission from message relay, allowing each service to operate according to its own rules (for security, policy, etc.), and specifies what actions are to be taken by a submission server. Message relay and final delivery are unaffected, and continue to use SMTP over port 25. When conforming to this document, message submission uses the protocol specified here, normally over port 587. This separation of function offers a number of benefits, including the ability to apply specific security or policy requirements. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "authors": [
+    {
+      "name": "Randall Gellens"
+    },
+    {
+      "name": "Dr. John C. Klensin"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docId": "RFC4409",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docLabel": "IETF RFC 4409",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docNumber": "4409",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docTitle": "Message Submission for Mail",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "doi": "10.17487/RFC4409",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "href": "https://doi.org/10.17487/RFC4409",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "keywords": [
+    "SMTP",
+    "User Agent"
+  ],
+  "keywords$meta": {
+    "source": "parsed",
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "updated": "2026-10-13T17:52:48.214Z",
+    "originalValue": [
+      "SMTP",
+      "Simle Mail Transfer Protocol",
+      "User Agent"
+    ],
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "version": "extractDocs.js@commit:25936397c06b",
+    "overridden": true
+  },
+  "pages": "17",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "publicationDate": "2006-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1846",
+      "RFC1652",
+      "RFC1845",
+      "RFC3030",
+      "RFC2034",
+      "RFC3461",
+      "RFC1985",
+      "RFC3501",
+      "RFC2401",
+      "RFC822",
+      "RFC3885",
+      "RFC2920",
+      "RFC1939",
+      "RFC1870",
+      "RFC2554",
+      "RFC3463",
+      "RFC3207",
+      "RFC2822"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=22 proseBlocks=29 skippedAnchorBlocks=22",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "normative": [
+      "RFC1869",
+      "RFC2119",
+      "RFC821",
+      "RFC974",
+      "RFC1123",
+      "RFC2821"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4409/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+    "updated": "2026-10-13T17:23:00.825Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc4409",
+      "https://www.rfc-editor.org/errata_search.php?rfc=4409",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc4409.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "statusNote": "Draft Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "supersededBy": [
+      "RFC6409"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "supersedes": [
+      "RFC2476"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4409/",
+      "updated": "2026-10-13T17:23:00.825Z",
+      "version": "extractDocs.js@commit:996495349225"
+    }
+  }
+}
