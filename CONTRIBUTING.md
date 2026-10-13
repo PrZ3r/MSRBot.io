@@ -84,12 +84,12 @@ When contributing or editing document metadata:
   - When the publisher issues the same document in more than one language, `href` is the primary link (the **English** edition when one exists) and `hrefAlternates` lists the other editions as `{ "language": "fr", "href": "…" }` (schema 2.6.0); the doc page lists each edition's URL in the Link row, followed by "(French edition)"-style labels, and links the original-language title to its edition. With `translatedBy: "publisher"`, the English title and abstract are read from the English edition (`parsed`, no review flag). No field states the `href` edition's language; it is derived: English when `translatedBy` is `"publisher"`, otherwise `language` (English when absent). The page lists every edition language from that plus `hrefAlternates`, so English appears only when an English edition exists.
   - Mark translated fields `source: "inferred"`, with a `note`, and `reviewRequired: true` until someone has reviewed them.
 - Avoid manual edits to `resolvedHref` — these are maintained by automation.
-- Keywords are controlled via `src/main/config/site.json` (`controlledKeywords`), not a schema enum.
+- Keywords are controlled via `src/main/config/controlledKeywords.json` (`terms`), not a schema enum.
 - Keyword validation modes:
   - Strict (default): `npm run validate` (or `npm run validate -- --error`)
   - Warn-only for unknown keywords: `npm run validate -- --warn`
 - Extraction workflows intentionally use warn mode for unknown keywords so extraction PRs are not blocked by newly observed terms.
-- Run `npm run keywords-sync` to see newly observed keywords; run `npm run keywords-sync -- --write` to append normalized values to `controlledKeywords`.
+- Run `npm run keywords-sync` to see newly observed keywords; run `npm run keywords-sync -- --write` to add normalized values to `controlledKeywords.json` (it keeps the terms sorted).
 - For references:
   - Add deterministic parser rules in `src/main/lib/referencing.js` for stable URL/citation patterns.
   - Use `src/main/input/refMap.json` for curated/manual mappings and aliases.

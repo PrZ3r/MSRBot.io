@@ -235,13 +235,14 @@ For the full command and flag reference (including `build-mri`, `build-msi`, `au
 - Prefer href-based normalization rules in `parseRefId` for stable web patterns (for example, Unicode versions, Bugzilla issue links) and use `src/main/input/refMap.json` for curated/manual edge mappings.
 
 #### Keyword Governance
-- Source of truth for allowed keywords is `src/main/config/site.json` under `controlledKeywords`.
+- Source of truth for allowed keywords is `src/main/config/controlledKeywords.json` (`terms`, sorted alphabetically). The rules that fold, drop and split source keywords onto those terms are in `src/main/config/keywordDecisions.json`.
 - `src/main/schemas/documents.schema.json` intentionally does not enforce a hard keyword enum.
 - Keyword conformance is validated in `src/main/scripts/documents.validate.js` during `npm run validate`.
 - Ingested IETF keywords are normalized to project style (Title Case with preserved acronyms/common forms such as `JSON`, `URN`, `B-Chain`, `DCinema`, `DCP*`, `SHA-1`).
 - Validation mode can be selected at runtime:
   - Strict (default): `npm run validate` or `npm run validate -- --error`
   - Warn-only for unknown keywords: `npm run validate -- --warn`
+- Hand-added facet chips (`site.json` `facetKeywordCuration.add`) need not be controlled terms, but validate checks that each one token-matches some doc keyword (the build drops a chip that matches nothing).
 - Extract workflows (`extract-docs-smpte.yml`, `extract-docs-ietf.yml`) run validation in warn mode for unknown keywords (`KEYWORD_VALIDATION_MODE=warn`), while build/local defaults remain strict unless overridden.
 - Use keyword sync to review and optionally add new observed keywords:
   - Dry run: `npm run keywords-sync`

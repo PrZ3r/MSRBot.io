@@ -32,7 +32,7 @@ Fields not named are `parsed` from `sourceUrl`. The table says which source to u
 | `href` | Direct PDF/download URL from the publisher | parsed | high | listing page |
 | `docId` | See below | inferred | medium | — |
 | `details` | Your short English summary | inferred | medium | PDF |
-| `keywords` | Only values in `site.json` `controlledKeywords` (validate fails otherwise). Reuse common ones (`DCinema`, `Subtitles`, `Cinema Sound`…) | inferred | medium | — |
+| `keywords` | Only values in `src/main/config/controlledKeywords.json` (validate fails otherwise). Reuse common ones (`DCinema`, `Subtitles`, `Cinema Sound`…) | inferred | medium | — |
 | `group` | Authoring committee/department if printed and the registry has a group for it; otherwise put it in `details` | parsed | high | PDF |
 | `status.active`, `status.latestVersion` | `true` for the current edition on the publisher's list | inferred | medium | listing page |
 | `references.normative` / `.bibliographic` | See `mri.md` | parsed | high | PDF |

@@ -20,8 +20,8 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `normalize-url`: apply URL normalization/backfill from URL audit.
 - `canonicalize`: canonicalize the per-doc registry files (key-sort, inject `$meta`, re-home strays).
 - `assemble`: emit per-publisher/docType registry slices under `build/`.
-- `keywords-sync`: detect (or `--write` append) controlled keyword updates.
-- `config-sort`: canonicalize/sort key ordering of `src/main/config/site.json` and `src/main/input/refMap.json`.
+- `keywords-sync`: detect (or `--write` append) controlled keyword updates in `src/main/config/controlledKeywords.json`.
+- `config-sort`: canonicalize/sort key ordering of `src/main/config/site.json` and `src/main/input/refMap.json`, and sort the terms in `src/main/config/controlledKeywords.json`.
 - `build-index`: build search index artifacts.
 - `build-stats`: regenerate the API/site stats artifact standalone (also run automatically by `build`).
 - `build`: build full static site output.
@@ -238,14 +238,14 @@ This is the canonical CLI reference for local scripts in `package.json`.
 
 - `npm run keywords-sync`
   - Runs: `node src/main/scripts/utils/keywords.sync.js`
-  - Action: Compares observed document keywords against controlled list and optionally writes updates.
+  - Action: Compares observed document keywords against the controlled list (`src/main/config/controlledKeywords.json`) and optionally writes updates, keeping the terms sorted.
   - Modes:
     - Dry-run (default): `npm run keywords-sync`
     - Apply updates: `npm run keywords-sync -- --write`
 
 - `npm run config-sort`
   - Runs: `node src/main/scripts/utils/configSort.js`
-  - Action: Canonicalizes and key-sorts `src/main/config/site.json` and `src/main/input/refMap.json` (refIds alphabetical; pattern order inside each entry is kept) for stable diffs and easy lookup.
+  - Action: Canonicalizes and key-sorts `src/main/config/site.json` and `src/main/input/refMap.json` (refIds alphabetical; pattern order inside each entry is kept), and sorts the terms in `src/main/config/controlledKeywords.json` (`localeCompare`, one per line), for stable diffs and easy lookup.
 
 ## Runtime Environment Variables
 
