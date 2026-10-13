@@ -1124,7 +1124,7 @@ function parseRefId(text, href = '', opts = {}) {
   if (diag.refId) return wantDiag ? { refId: diag.refId, diag } : diag.refId;
   text = normalizePublisherLeadIn(normalizeCiteTypography(text));
   // A part number wrapped onto the next line: "ISO/IEC 9594- 8:2001" (RFC3546, RFC4510) gave "ISO.9594-".
-  text = String(text || '').replace(/(\bISO(?:\s*\/\s*IEC)?\s+\d{3,5})-\s+(\d)/g, '$1-$2');
+  text = String(text || '').replace(/(\bISO(?:\s*\/\s*(?:IEC|DIS|FDIS|CD))?\s+\d{3,5})-\s+(\d)/g, '$1-$2');
   // No link: use a URL printed in the citation (old RFCs), rejoining one wrapped
   // across lines ("…/TR/2000/WD-xsl- 20000327/xslspec.html", RFC3075).
   if (!href) href = urlFromCiteText(text);
@@ -2092,8 +2092,11 @@ function parseRefId(text, href = '', opts = {}) {
   const pickBestStdMatch = (re) => {
     const matches = [...String(text || '').matchAll(re)];
     if (!matches.length) return null;
-    const scored = matches.map((m) => {
-      const base = String(m[1] || '').trim();
+    // Not "ISO 7-bit coded character set" (RFC1345), and never an ID ending in a hyphen
+    // ("ISO/IEC 13818-Parts 1, 2, 3" gave ISO.13818-).
+    const scored = matches.filter((m) => !/^\d{1,2}-$/.test(m[1] || '') || !/^bit\b/i.test(String(text || '').slice(m.index + m[0].length)))
+      .map((m) => {
+      const base = String(m[1] || '').trim().replace(/-+$/, '');
       const suffix = String(m[2] || '');
       const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map((ym) => parseInt(ym[1], 10)) : [];
       const year = years.length ? Math.max(...years) : null;

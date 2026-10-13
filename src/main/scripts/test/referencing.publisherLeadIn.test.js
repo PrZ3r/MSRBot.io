@@ -214,4 +214,8 @@ assert.strictEqual(parseRefId('IEEE 802.3/ISO 8802-3 Information processing syst
 assert.strictEqual(parseRefId('International Telecommunication Union - Telecommunication Standardization Sector, "The Directory: Authentication Framework", X.509(2000).'), 'T-REC-X.509.2000'); n++;
 assert.strictEqual(parseRefId('X509-4th ITU-T Recommendation X.509 (2000) | ISO/IEC 9594- 8:2001, "The Directory".'), 'ISO.9594-8.2001'); n++;
 
+// Never an ID ending in a hyphen, and "ISO 7-bit" is not ISO 7 (RFC1345, RFC1502).
+assert.strictEqual(parseRefId('MPEG-2 Specification: ISO/IEC 13818-Parts 1, 2, 3.'), 'ISO.13818'); n++;
+assert.strictEqual(parseRefId('Danish Standard DS 2089, Application of ISO 7-bit coded character set, February 1974.'), null); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
