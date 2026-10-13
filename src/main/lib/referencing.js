@@ -2280,7 +2280,10 @@ function extractRefs($, currentDocId, opts = {}) {
           // An Internet-Draft name is lowercase with at least two parts after "draft-"
           // (draft-<source>-<topic>…). RFC1052's 1988 "DRAFT-SMI" / "DRAFT-AAAA" are
           // temporary letter codes, not drafts.
-          if (/^DRAFT-/.test(m[1])) continue;
+          // Nor a capitalized file name: NIST's ".../drafts/fips_186-3/Draft-FIPS-186-3_March2006.pdf"
+          // (RFC4880) became "IETF.draft-fips-186-3". A real Internet-Draft name is lowercase after
+          // "draft-", even when a sentence capitalizes the D ("Draft-ietf-codec-ambisonics-00").
+          if (/[A-Z]/.test(m[1].slice(6))) continue;
           const token = String(m[1] || '')
             .replace(/[)\],.;:]+$/g, '')
             .replace(/\.(?:txt|xml|html?|pdf)$/i, '')

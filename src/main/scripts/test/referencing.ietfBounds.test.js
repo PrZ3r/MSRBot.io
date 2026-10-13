@@ -388,4 +388,19 @@ References
   assert.ok((r15.references.bibliographic || []).includes('ANSI.X9.17.1985'), JSON.stringify(r15.references)); n++;
 }
 
+// A capitalized file name in a NIST link is not an Internet-Draft (RFC4880); a sentence-capitalized
+// real draft name still is.
+{
+  const html16 = `<html><body><pre>
+References
+
+   [<a id="ref-FIPS186">FIPS186</a>] Digital Signature Standard (DSS) (FIPS PUB 186-2). The latest draft is at:
+              &lt; <a href="http://csrc.nist.gov/publications/drafts/fips_186-3/Draft-FIPS-186-3%20_March2006.pdf">http://csrc.nist.gov/publications/drafts/fips_186-3/Draft-FIPS-186-3%20_March2006.pdf</a> &gt;.
+
+   [<a id="ref-AMB">AMB</a>]   Skoglund, J., "Ambisonics in an Ogg Opus Container", Draft-ietf-codec-ambisonics-00, 2016.
+</pre></body></html>`;
+  const r16 = extractRefs(cheerio.load(html16), 'RFC9983', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html16 });
+  assert.deepStrictEqual(r16.references.bibliographic, ['NIST.FIPS.186-2', 'IETF.draft-ietf-codec-ambisonics-00']); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);
