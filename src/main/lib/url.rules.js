@@ -85,10 +85,10 @@ const ruleWHATWG = {
 const ruleIETF = {
   name: 'IETF',
   when: ({ url, publisher, docId }) => (
-    hasHost('ietf.org', url) || hasHost('rfc-editor.org', url) || hasHost('datatracker.ietf.org', url) || /ietf/i.test(publisher || '') || /RFC[-.]?\d{3,5}/i.test(String(docId || ''))
+    hasHost('ietf.org', url) || hasHost('rfc-editor.org', url) || hasHost('datatracker.ietf.org', url) || /ietf/i.test(publisher || '') || /RFC[-.]?\d{1,5}/i.test(String(docId || ''))
   ),
   resolve: ({ url, docId }) => {
-    const m = String(docId || '').match(/RFC[-.]?(\d{3,5})/i);
+    const m = String(docId || '').match(/RFC[-.]?(\d{1,5})/i);
     if (m) return `https://www.rfc-editor.org/rfc/rfc${m[1]}`;
     return baselineNormalize(url);
   }

@@ -59,6 +59,21 @@ function loadKeywordRules() {
   }
 }
 const keywordRules = loadKeywordRules();
+// The shared rules plus the publisher's own folds (keywordDecisions.publisherFolds): IETF's
+// "IAB" is the Internet Architecture Board, not media's Immersive Audio Bitstream.
+const publisherRulesCache = new Map();
+function keywordRulesFor(publisher) {
+  if (!keywordRules) return keywordRules;
+  const key = String(publisher || '');
+  if (publisherRulesCache.has(key)) return publisherRulesCache.get(key);
+  let own = {};
+  try { own = (loadKeywordDecisions().publisherFolds || {})[key] || {}; } catch {}
+  const rules = Object.keys(own).length
+    ? { ...keywordRules, folds: new Map([...keywordRules.folds, ...Object.entries(own).map(([k, v]) => [k.toLowerCase(), v])]) }
+    : keywordRules;
+  publisherRulesCache.set(key, rules);
+  return rules;
+}
 
 // Lines the legacy RFC HTML fallback picks up that aren't citations: never report them
 // and never mint them as orphan refs.
@@ -79,8 +94,14 @@ function citeWithoutLabel(raw) {
   const spaced = String(raw || '').trim().match(/^\[([A-Za-z][A-Za-z0-9 .\/-]{1,38}[A-Za-z0-9])\]\s+(\S[\s\S]*)$/);
   if (spaced && /\s/.test(spaced[1])) {
     const key = (t) => t.toLowerCase().replace(/[^a-z0-9]/g, '');
-    if (key(spaced[2]).includes(key(spaced[1]))) raw = spaced[2];
+    // Also an author-year key followed by the authors: "[Dyer 1987] Dyer, S., …" (RFC2929),
+    // "[Moon 1981] D. Moon, …", "[SSM ARCH] Holbrook, H. …" (RFC3306).
+    const authorFirst = /^(?:[A-Z][A-Za-z'-]+,\s+[A-Z]\.|(?:[A-Z]\.\s*){1,3}[A-Z][a-z])/.test(spaced[2]);
+    if (key(spaced[2]).includes(key(spaced[1])) || authorFirst) raw = spaced[2];
   }
+  // An author-year key with a comma: "[Bellovin, 1992] S. Bellovin, …", "[ABA, 1989] American Bar
+  // Association, …" (RFC2196).
+  raw = String(raw || '').trim().replace(/^\[[A-Z][^\]\n]{0,40},\s*(?:19|20)\d{2}[a-z]?\]\s+(?=\S)/u, '');
   return String(raw || '')
     .replace(/\s+/g, ' ')
     .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
@@ -94,6 +115,12 @@ function citeWithoutLabel(raw) {
     // numbered again after a label: "DDN-NEWS:….TXT ] 2. Defense Communications …" (RFC1032,
     // where an entry's bracketed FTP path is read as the next entry's label)
     .replace(/^\d{1,3}\.\s+(?=[A-Z])/u, '')
+    // "[1]: D. W. Davies …" (RFC2025) and "- Network Security …" (RFC2065, RFC1750)
+    .replace(/^[:\-\u2013]\s+(?=\S)/u, '')
+    // A ditto for the previous entry's author: "---, "Financial Institution Key Management …"" (RFC2828)
+    .replace(/^(?:-{2,3},\s*)+/u, '')
+    // A key and colon before the authors: "ARM: Armijo, M., …" (RFC2782)
+    .replace(/^[A-Z][A-Za-z0-9-]{1,15}:\s+(?=[A-Z][A-Za-z'-]+,\s+[A-Z]\.)/u, '')
     .replace(/\s+\S{2,40}\s+\[Page\s+\d+\]?\s*$/u, '')          // page footer "… Sirbu [Page 8" (RFC1049)
     // RFC1032's retrieval note after each entry: "[ DDN-NEWS:DDN-MGT-BULLETIN-32.TXT ]", "[ Not online ]"
     .replace(/\s*\[\s*(?:[A-Z0-9-]+:[^\]\s]+|Not\s+online)\s*\]?\s*$/iu, '')
@@ -128,6 +155,12 @@ function isNonCitationLine(cite) {
   // (RFC2246 [RSADSI] "Contact RSA Data Security, Inc., Tel: 415-595-8782").
   if (/^(?:Phone|Tel|Fax|E-?Mail)\s*:/i.test(c)) return true;
   if (/^Contact\b[^"“]{0,120}\b(?:Tel|Phone|E-?Mail)\s*:/i.test(c)) return true;
+  // An ASCII table in the reference section (RFC3250's change log: "+----+---------+").
+  if (/^\+-{2,}/.test(c)) return true;
+  // A licensing note in the reference list, not a citation (RFC2433, RFC2548, RFC2759).
+  if (/^RC4 is a proprietary encryption algorithm\b/i.test(c)) return true;
+  // An item this memo itself registers (RFC3297: "'Content-alternative' header (this memo, section 4)").
+  if (/\(this memo,?\s+section\s+[\d.]+\s*\)\.?$/i.test(c)) return true;
   // Editors' change markers in RFC2616's reference list ("[jg639").
   if (/^\[?[a-z]{1,4}\d{2,4}\]?$/.test(c)) return true;
   return false;
@@ -842,7 +875,7 @@ for (const doc of results) {
       const existingDoc = existingDocs[index];
       // Upstream re-renders of values we already hold (initials-form authors, trailing
       // slash, whitespace, reordered lists) are not updates.
-      const keptFields = reconcileIncoming(existingDoc, doc, { keywordRules });
+      const keptFields = reconcileIncoming(existingDoc, doc, { keywordRules: keywordRulesFor(existingDoc.publisher || doc.publisher) });
       if (keptFields.length) logSmart(`   = ${doc.docId}: kept existing ${keptFields.join(', ')}`);
       attachMetaSourceUrl(existingDoc, doc.__sourceUrl);
       attachMetaNotes(existingDoc, doc.__metaNotes || {});
@@ -885,7 +918,9 @@ for (const doc of results) {
         bibliographic: withPending(doc.references && doc.references.bibliographic, 'bibliographic')
       };
 
-      if (doc.references) {
+      // A list made only of orphans (RFC635: nothing resolves) has no doc.references from the
+      // parser; compare it all the same, or stale orphans are never replaced and new ones pile on.
+      if (doc.references || newRefs.normative.length || newRefs.bibliographic.length) {
         addedRefs = {
           normative: newRefs.normative.filter(ref => !oldRefs.normative.includes(ref)),
           bibliographic: newRefs.bibliographic.filter(ref => !oldRefs.bibliographic.includes(ref))

@@ -151,7 +151,7 @@ function createIetfParser(deps) {
     // A draft's name can contain an RFC number ("draft-ietf-netmod-rfc8022bis-11",
     // "draft-ietf-tls-rfc8446bis-03"): that is the draft, not the RFC.
     if (/(?:^|\/)draft-/i.test(String(value || ''))) return null;
-    const m = String(value || '').match(/rfc[-\s\/]?(\d{3,5})(?![a-z0-9])/i);
+    const m = String(value || '').match(/rfc[-\s\/]?(\d{1,5})(?![a-z0-9])/i);
     return m ? m[1] : null;
   }
 
@@ -210,6 +210,8 @@ function createIetfParser(deps) {
           splits: new Map(Object.entries(d.splits || {}).map(([k, v]) => [k.toLowerCase(), v])),
           vocab: new Map()
         };
+        // IETF's own folds win over the shared ones ("IAB" → Internet Architecture Board).
+        for (const [k, v] of Object.entries((d.publisherFolds || {}).IETF || {})) keywordRules.folds.set(k.toLowerCase(), v);
         // A term already in controlledKeywords takes that casing ("MAIL" → "Mail").
         try {
           const site = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'src/main/config/site.json'), 'utf8'));
@@ -403,7 +405,7 @@ function createIetfParser(deps) {
 
       const fromLinks = $dd.find('a').map((__, a) => {
         const href = ($(a).attr('href') || '').trim();
-        const m = href.match(/\/info\/rfc(\d{3,5})/i) || href.match(/rfc[-\/]?(\d{3,5})/i);
+        const m = href.match(/\/info\/rfc(\d{1,5})/i) || href.match(/rfc[-\/]?(\d{1,5})/i);
         return m ? `RFC${m[1]}` : null;
       }).get().filter(Boolean);
       const fromText = parseRfcRefsFromText($dd.text() || '');
@@ -452,7 +454,7 @@ function createIetfParser(deps) {
         let lm;
         while ((lm = linkRe.exec(block)) !== null) {
           const href = String(lm[2] || '');
-          const r = href.match(/\/info\/rfc(\d{3,5})/i) || href.match(/rfc[-\/]?(\d{3,5})/i);
+          const r = href.match(/\/info\/rfc(\d{1,5})/i) || href.match(/rfc[-\/]?(\d{1,5})/i);
           if (r) fromInfoLinks.push(`RFC${r[1]}`);
         }
         refs.push(...fromInfoLinks, ...parseRfcRefsFromText(block));
@@ -503,7 +505,7 @@ function createIetfParser(deps) {
         raw.push($el.text());
         $el.find('a').each((__, a) => {
           const href = $(a).attr('href') || '';
-          const m = href.match(/rfc[-\/]?(\d{3,5})/i);
+          const m = href.match(/rfc[-\/]?(\d{1,5})/i);
           if (m) raw.push(`RFC ${m[1]}`);
         });
       });
@@ -585,7 +587,7 @@ function createIetfParser(deps) {
     $('rfc-entry').each((_, el) => {
       const $entry = $(el);
       const docId = ($entry.find('doc-id').first().text() || '').trim().toUpperCase();
-      const m = docId.match(/^RFC(\d{3,5})$/i);
+      const m = docId.match(/^RFC(\d{1,5})$/i);
       if (!m) return;
       const rfcNum = m[1];
 
@@ -621,7 +623,7 @@ function createIetfParser(deps) {
         $entry.find(sel)
           .map((__, n) => {
             const t = ($(n).text() || '').trim().toUpperCase();
-            const rm = t.match(/^RFC(\d{3,5})$/);
+            const rm = t.match(/^RFC(\d{1,5})$/);
             return rm ? `RFC${rm[1]}` : '';
           })
           .get()

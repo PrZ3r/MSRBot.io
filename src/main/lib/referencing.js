@@ -1112,12 +1112,23 @@ function urlFromCiteText(text) {
   return /^www\./i.test(url) ? `https://${url}` : url;
 }
 
+// Another body's "Request for Comments" series (OSF DCE RFCs), not the IETF's.
+function otherSeriesRfc(text) {
+  return /\b(?:DCE|OSF|Open\s+Software\s+Foundation)\s+(?:Request\s+for\s+Comments?|RFC)\b/i.test(String(text || ''));
+}
+
 function parseRefId(text, href = '', opts = {}) {
   const wantDiag = !!opts.wantDiag;
   // allow explicit cite→refId normalization via refMap.json
   const diag = mapRefByCiteDiag(text);
   if (diag.refId) return wantDiag ? { refId: diag.refId, diag } : diag.refId;
   text = normalizePublisherLeadIn(normalizeCiteTypography(text));
+  // "ANSI INCITS.342:2001" (RFC3821) → "INCITS 342-2001"; a W3C TR name wrapped after its stage
+  // ("W3C REC REC- html40-19980424", RFC5122) is rejoined.
+  text = String(text || '').replace(/\bINCITS\.(\d{2,4})(?::|-)((?:19|20)\d{2})\b/g, 'INCITS $1-$2')
+    .replace(/\b(REC|WD|CR|PR|NOTE)-\s+([a-z][\w.-]*-(?:19|20)\d{6})\b/g, '$1-$2');
+  // A part number wrapped onto the next line: "ISO/IEC 9594- 8:2001" (RFC3546, RFC4510) gave "ISO.9594-".
+  text = String(text || '').replace(/(\bISO(?:\s*\/\s*(?:IEC|DIS|FDIS|CD))?\s+\d{3,5})-\s+(\d)/g, '$1-$2');
   // No link: use a URL printed in the citation (old RFCs), rejoining one wrapped
   // across lines ("…/TR/2000/WD-xsl- 20000327/xslspec.html", RFC3075).
   if (!href) href = urlFromCiteText(text);
@@ -1145,7 +1156,7 @@ function parseRefId(text, href = '', opts = {}) {
     const src = String(text || '');
     const h = String(href || '');
     if ((/\bBCP\s*[\u2010-\u2015-]?\s*0*47\b/i.test(src) || /\bbcp\/?0*47\b/i.test(h))
-      && !/\bRFC\s*[-\/]?\s*\d{3,5}\b/i.test(src) && !/rfc\.?\d{3,5}/i.test(h)) {
+      && !/\bRFC\s*[-\/]?\s*\d{1,5}\b/i.test(src) && !/rfc\.?\d{1,5}/i.test(h)) {
       const refId = 'BCP47';
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'bcp47-set' } } : refId;
     }
@@ -1473,8 +1484,16 @@ function parseRefId(text, href = '', opts = {}) {
     }
   } catch {}
 
-  // RFC
-  if (/RFC\s*(\d+)/i.test(text)) {
+  // RFC, also spelled out or with "#" as old RFCs print it: "Request For Comments 870"
+  // (RFC878), "[RFC#635, INWG Note # ***]" (RFC675).
+  {
+    // Not another body's series of the same name: "Open Software Foundation DCE Request for
+    // Comments 26" (RFC1510) is OSF's, and IETF RFC26 was never issued.
+    const otherSeries = /\b(?:DCE|OSF|Open\s+Software\s+Foundation)\s+(?:Request\s+for\s+Comments?|RFC)\b/i.test(text);
+    const sm = otherSeries ? null : (text.match(/\bRequest\s+for\s+Comments?\s*(?:No\.?\s*|#\s*)?(\d{1,5})\b/i) || text.match(/\bRFC\s*#\s*(\d{1,5})\b/i));
+    if (sm) { const refId = `RFC${parseInt(sm[1], 10)}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rfc-number' } } : refId; }
+  }
+  if (!otherSeriesRfc(text) && /RFC\s*(\d+)/i.test(text)) {
     { const refId = `RFC${parseInt(text.match(/RFC\s*(\d+)/i)[1], 10)}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rfc-number' } } : refId; }
   }
 
@@ -1524,7 +1543,8 @@ function parseRefId(text, href = '', opts = {}) {
   // spelled out with no "FIPS" token: "Federal Information Processing Standards Publication 197",
   //   or with it in parentheses: "… Standards Publication (FIPS PUB) 81" (RFC1423)
   {
-    const m = String(text || '').match(/\bFederal\s+Information\s+Processing\s+Standards?\s+(?:Publication|Pub\.?|PUB)\s+(?:\(FIPS\s+PUB\)\s+)?(\d+)(-\d+)?\b/i);
+    // also the bare singular: "…, Federal Information Processing Standard 186-2, August 2002" (RFC5091)
+    const m = String(text || '').match(/\bFederal\s+Information\s+Processing\s+Standards?\s+(?:(?:Publication|Pub\.?|PUB)\s+)?(?:\(FIPS\s+PUB\)\s+)?(\d+)(-\d+)?\b/i);
     if (m) {
       const refId = `NIST.FIPS.${m[1]}${m[2] || ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fips-spelled' } } : refId;
@@ -1541,6 +1561,16 @@ function parseRefId(text, href = '', opts = {}) {
     const num = m[1];
     const rev = m[2] ? `-${m[2]}` : '';
     { const refId = `NIST.FIPS.${num}${rev}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-fips-path' } } : refId; }
+  }
+  // "National Institute of Standards and Technology, "Recommendation for Block Cipher Modes …",
+  // SP 800-38A, December 2001" (RFC5289): a bare "SP" after the spelled-out NIST.
+  {
+    const src = String(text || '');
+    const m = /\bNational\s+Institute\s+of\s+Standards\s+and\s+Technology\b/i.test(src) && src.match(/\bSP\s+(\d{3,4}-\d+[A-Za-z]?)\b/);
+    if (m) {
+      const refId = `NIST.SP.${m[1]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'nist-sp-spelled' } } : refId;
+    }
   }
   // NIST Special Publications in CSRC paths, e.g.:
   // - https://csrc.nist.gov/publications/detail/sp/800-67/rev-2/final
@@ -1628,7 +1658,8 @@ function parseRefId(text, href = '', opts = {}) {
   // - "IEEE 754:2008"
   {
     const src = String(text || '');
-    const stdMatch = src.match(/\bIEEE\s+Std\.?\s*([0-9]{2,5}(?:\.[0-9A-Za-z]+)?[A-Za-z]?)(?:\s*[-:]\s*(\d{4})(?:\/[A-Za-z0-9.-]+)?)?/i);
+    // also a project number: "IEEE Std P1363" (RFC8422) → IEEE.STD1363
+    const stdMatch = src.match(/\bIEEE\s+Std\.?\s*P?([0-9]{2,5}(?:\.[0-9A-Za-z]+)?[A-Za-z]?)(?:\s*[-:]\s*(\d{4})(?:\/[A-Za-z0-9.-]+)?)?/i);
     const genericMatch = src.match(/\bIEEE\s+([0-9]{2,5}(?:\.[0-9A-Za-z]+)?[A-Za-z]?)\s*[:\-]\s*(\d{4})\b/i);
     const m = stdMatch || genericMatch;
     if (m?.[1]) {
@@ -1650,8 +1681,17 @@ function parseRefId(text, href = '', opts = {}) {
   // - "Fascicle III.4 - Recommendation G.711 ... 1972"
   // - "Recommendations X.400 - X.420 (1988 version)"
   {
-    const yearMatch = String(text || '').match(/\b(19|20)\d{2}\b/);
-    const year = yearMatch ? yearMatch[0] : '';
+    // The first 19xx/20xx that is a year: not a rate or size ("2048 kbit/s", RFC1406's O.162
+    // and G.732 became `.2048`), and not past next year.
+    let year = '';
+    {
+      const maxYear = new Date().getUTCFullYear() + 1;
+      const yre = /\b(19|20)\d{2}\b(?!\s*(?:[kKMG]?(?:bit|bps|b\/s|Hz|baud|byte|octet)|x\d))/g;
+      let ym;
+      while ((ym = yre.exec(String(text || ''))) !== null) {
+        if (Number(ym[0]) <= maxYear) { year = ym[0]; break; }
+      }
+    }
 
     const range = String(text || '').match(/\bRecommendations?\s+([A-Z])\.(\d{1,4})\s*[-\u2013\u2014]\s*\1\.(\d{1,4})\b/i);
     if (range) {
@@ -1661,6 +1701,41 @@ function parseRefId(text, href = '', opts = {}) {
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-range' } } : refId;
     }
 
+    // also a bare "ITU" (or "ITU-T") lead-in with no "Recommendation": "ITU Q.931, Digital Subscriber
+    // Signaling System No. 1", "ITU Q. 2965.1, …", "ITU E.164 - … (May 1997)" (RFC3108, RFC2764)
+    // ITU-T spelled out, the year in parentheses after the number: "International Telecommunication
+    // Union - Telecommunication Standardization Sector, "The Directory: …", X.509(2000)" (RFC4523).
+    {
+      const src = String(text || '');
+      // (Not a co-publication with ISO: "X.680 … ISO/IEC 8824-1" stays with the ISO rules.)
+      const sp = /\bInternational\s+Telecommunications?\s+Union\s*[-–—]\s*Telecommunications?\s+Standardi[sz]ation\s+Sector\b/i.test(src) && !/\bISO\b/.test(src)
+        && src.match(/(?<![\w.])([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s*\(\s*((?:19|20)\d{2})\s*\)/);
+      if (sp) {
+        const refId = `T-REC-${sp[1]}.${sp[2]}.${sp[3]}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-spelled-paren-year' } } : refId;
+      }
+    }
+    // "ITU-T, "The Directory -- Models," X.501, 1993." and "ITU-T Recommendation "…", Rec. Q.931"
+    // (RFC4510-era lists): the lead-in, a quoted title, then the number.
+    {
+      const src = String(text || '');
+      const tq = src.match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?ITU-T(?:\s+Recommendation)?,?\s*["“][^"”]{4,200}["”],?\s*(?:Rec\.\s*)?([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\b(?:[^\n]{0,40}?\b((?:19|20)\d{2})\b)?/);
+      if (tq) {
+        const refId = `T-REC-${tq[1]}.${tq[2]}${tq[3] ? `.${tq[3]}` : ''}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-title-then-number' } } : refId;
+      }
+    }
+    // ("ITU-T …" is left to the rules below, which keep it undated.)
+    const bare = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?ITU\s+([A-Z])\.\s?(\d{1,4}(?:\.\d{1,2})?)(?:-(\d+))?(?=[\s,.:;)-]|$)/);
+    if (bare) {
+      const series = bare[1].toUpperCase();
+      const part = bare[3] ? `-${parseInt(bare[3], 10)}` : '';
+      // The year comes after the designator, so "ITU Q.1901" isn't dated 1901.
+      const after = String(text || '').slice(bare.index + bare[0].length);
+      const by = (after.match(/\b((?:19|20)\d{2})\b(?!\s*(?:[kKMG]?(?:bit|bps|b\/s|Hz)))/) || [])[1] || '';
+      const refId = `T-REC-${series}.${bare[2]}${part}${by && Number(by) <= new Date().getUTCFullYear() + 1 ? `.${by}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-bare' } } : refId;
+    }
     const rec = String(text || '').match(/\b(?:CCITT|ITU-?T)?[^\n\r]{0,80}?\bRecommendation(?:s)?\s+([A-Z])\.(\d{1,4})(?:-(\d+))?\b/i)
       || String(text || '').match(/\b([A-Z])\.(\d{1,4})(?:-(\d+))?\b(?=[^\n\r]{0,80}\bRecommendation\b)/i);
     if (rec) {
@@ -1706,6 +1781,27 @@ function parseRefId(text, href = '', opts = {}) {
     if (undated) {
       const refId = `ANSI.${undated[1].toUpperCase()}.${undated[2]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator-undated' } } : refId;
+    }
+    // "ANSI X12.6 Applications Control Structures for Electronic Data Interchange, Washington
+    // D.C.: DISA" (RFC1767): an X-series designator with no year; a year after it dates it.
+    // A placeholder year ("ANSI X9.57-199x", not yet published) leaves it undated.
+    const bareX = !m && String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?ANSI\s+(X\d{1,2})\.(\d{1,3})\b(?![.\/]\d)/);
+    if (bareX) {
+      const tail = String(text || '').slice(bareX.index + bareX[0].length);
+      const yx = /^\s*-\s*\d{2,3}x/i.test(tail) ? null : (tail.match(/\b((?:19|20)\d{2})\b/) || [])[1];
+      const pub = bareX[1] === 'X3' && bareX[2] === '4' ? 'INCITS' : 'ANSI';
+      const refId = `${pub}.${bareX[1]}.${bareX[2]}${yx ? `.${yx}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-x-series-bare' } } : refId;
+    }
+    // Spelled out with a bare X-series designator: "American National Standards Institute,
+    // "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985." (RFC2828)
+    const spelled = !m && /\bAmerican\s+National\s+Standards\s+Institute\b/.test(String(text || ''))
+      && String(text || '').match(/(?<![\w.\/])(X\d{1,2})\.(\d{1,3})\b(?![.\/]\d)(?:[^\n]{0,80}?\b((?:19|20)\d{2})\b)?/);
+    if (spelled) {
+      // US-ASCII (X3.4) is filed under INCITS, as refMap does for "ANSI X3.4, 1986".
+      const pub = spelled[1] === 'X3' && spelled[2] === '4' ? 'INCITS' : 'ANSI';
+      const refId = `${pub}.${spelled[1]}.${spelled[2]}${spelled[3] ? `.${spelled[3]}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-spelled-x-series' } } : refId;
     }
     if (m) {
       const refId = `ANSI.${m[1].toUpperCase()}.${m[2].toUpperCase()}.${m[3]}`;
@@ -1793,10 +1889,49 @@ function parseRefId(text, href = '', opts = {}) {
   {
     // also a letter suffix and a comma before the year (xml2rfc): "IEEE Standard 802.1X-2004",
     // "IEEE Standard 802.11, 2003", "IEEE Standard 802.1X, December 2004"
-    const m = String(text || '').match(/\bIEEE\)?\s+(?:Std\.?\s+|Standard\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+[A-Z]{0,3}))?(?:,\s*(?:[A-Z][a-z]+\.?\s+)?|[\s‐-―-]+)((?:19|20)\d{2})\b/i);
+    const m = String(text || '').match(/\bIEEE\)?\s+(?:Std\.?\s+|Standards?\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+(?:\.\d+)?[A-Z]{0,3}))?(?:,\s*(?:[A-Z][a-z]+\.?\s+)?|[\s‐-―-]+)((?:19|20)\d{2})\b/i);
     if (m) {
       const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2].toUpperCase()}` : ''}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-designator' } } : refId;
+    }
+  }
+
+  // IEEE's own catalogue titles start with the number: IEEE, "1588-2008 - IEEE Standard for a
+  // Precision Clock …", "802.1AS-2011 - IEEE Standard for …" (RFC8169-era lists).
+  {
+    const m = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?IEEE(?:\s+Standards\s+Association)?,\s*["“](802(?:\.\d+)?[A-Z]{0,3}|\d{3,4}(?:\.\d+)?[A-Z]?)-((?:19|20)\d{2})\s+-\s+IEEE\b/i);
+    if (m) {
+      const refId = `IEEE.STD${m[1].toUpperCase()}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-catalogue-title' } } : refId;
+    }
+  }
+  // "IEEE802.1ab Station and Media Access Control", December 2004 / "IEEE 802.1AR Secure Device
+  // Identifier", December 2009: an 802 designator in the title, the year after it.
+  {
+    const m = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?IEEE(?:\s+Standards\s+Association)?,\s*["“]IEEE\s?(802\.\d+[A-Za-z]{0,3})\b[^"”]{2,160}["”],?\s*(?:[A-Z][a-z]+\.?\s+)?(?:\d{1,2},?\s+)?((?:19|20)\d{2})\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1].toUpperCase()}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-in-title' } } : refId;
+    }
+  }
+  // An undated IEEE 802 standard leading the citation: "IEEE 802.3 CSMA/CD Access Method.",
+  // "IEEE 802.11 Wireless LAN standard.", "IEEE, 802.1p, Standard for Local and Metropolitan …"
+  // (RFC3819). Not a project or draft ("IEEE P802.1Q/D10", "802.16e/D8").
+  {
+    // ("IEEE 802.3/ISO 8802-3" is a co-designation the ISO rules already resolve.)
+    const m = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?IEEE,?\s+(802(?:\.\d+(?:\.\d+)?)?)([A-Za-z]{0,3})(?![\w.])(?!\s*\/\s*ISO)(?![\/.\-]?\s*D\d)(?![^\n]{0,40}\bDraft\b)/);
+    if (m && !/(?:19|20)\d{2}/.test(String(text || '').slice(m.index + m[0].length, m.index + m[0].length + 200))) {
+      const refId = `IEEE.STD${m[1]}${m[2] ? m[2].toUpperCase() : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-undated' } } : refId;
+    }
+  }
+  // A quoted title between the designator and the date: "IEEE Standard 802.6, "Distributed
+  // Queue Dual Bus (DQDB) Subnetwork of a …", December 1990." (RFC1209) → IEEE.STD802.6.1990
+  {
+    const m = String(text || '').match(/\bIEEE\s+(?:Std\.?|Standard)\s+P?(\d{2,4})(?:\.(\d+[A-Z]{0,3}))?,\s*["“][^"”]{3,240}["”],?\s*(?:[A-Z][a-z]+\.?\s+)?(?:\d{1,2},?\s+)?((?:19|20)\d{2})\b/i);
+    if (m) {
+      const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2].toUpperCase()}` : ''}.${m[3]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-quoted-title' } } : refId;
     }
   }
 
@@ -1839,7 +1974,8 @@ function parseRefId(text, href = '', opts = {}) {
     const src = String(text || '');
     const pub = /\bRSA\s+(?:Laboratories|Data\s+Security)\b/i.test(src);
     const n = pub && src.match(/\bPKCS\s*#\s*(\d{1,2})\b/i);
-    const ver = n && (src.match(/\bversion\s+(\d+(?:\.\d+)?)\b/i) || src.match(/\bPKCS\s*#\s*\d{1,2}\s+v(\d+(?:\.\d+)?)\b/i));
+    // also "ver. 1.5" (RFC2828)
+    const ver = n && (src.match(/\b(?:version|ver\.)\s*(\d+(?:\.\d+)?)\b/i) || src.match(/\bPKCS\s*#\s*\d{1,2}\s+v(\d+(?:\.\d+)?)\b/i));
     const y = ver && src.match(/\b((?:19|20)\d{2})\b/);
     if (n && ver && y) {
       const refId = `RSA.PKCS${n[1]}.v${ver[1]}.${y[1]}`;
@@ -2000,8 +2136,11 @@ function parseRefId(text, href = '', opts = {}) {
   const pickBestStdMatch = (re) => {
     const matches = [...String(text || '').matchAll(re)];
     if (!matches.length) return null;
-    const scored = matches.map((m) => {
-      const base = String(m[1] || '').trim();
+    // Not "ISO 7-bit coded character set" (RFC1345), and never an ID ending in a hyphen
+    // ("ISO/IEC 13818-Parts 1, 2, 3" gave ISO.13818-).
+    const scored = matches.filter((m) => !/^\d{1,2}-$/.test(m[1] || '') || !/^bit\b/i.test(String(text || '').slice(m.index + m[0].length)))
+      .map((m) => {
+      const base = String(m[1] || '').trim().replace(/-+$/, '');
       const suffix = String(m[2] || '');
       const years = suffix ? [...suffix.matchAll(/(\d{4})/g)].map((ym) => parseInt(ym[1], 10)) : [];
       const year = years.length ? Math.max(...years) : null;
@@ -2033,6 +2172,40 @@ function parseRefId(text, href = '', opts = {}) {
     if (m) {
       const refId = `ISO.${m[1]}${m[2] ? `.${m[2]}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-international-standard' } } : refId;
+    }
+  }
+  // ISO/IEC Technical Reports keep "TR" in the ID, apart from a standard of the same number:
+  // "ISO/IEC TR 9577:1990(E)" → ISO.TR9577.1990 (iso.org labels it "ISO/IEC TR 9577:1990");
+  // also "Technical Report 9575" in an ISO citation (RFC1629). A draft (PDTR/DTR) is not the report.
+  {
+    const src = String(text || '');
+    const tr = !/\b(?:Working\s+)?Draft\s+ISO\b/i.test(src) && src.match(/\bISO(?:\s*\/\s*IEC)?\s+TR\s+(\d{3,5}(?:-\d+)*)\b(?:\s*:\s*((?:19|20)\d{2}))?/)
+      || ((/\bISO\b/.test(src) || /\bInternational\s+Organi[sz]ation\s+for\s+Standardi[sz]ation\b/i.test(src))
+        && src.match(/(?<!\b(?:Draft|Proposed|PD|D)\s*)\bTechnical\s+Report\s+(\d{4,5}(?:-\d+)*)\b/));
+    if (tr) {
+      const y = tr[2] || (src.slice(tr.index + tr[0].length).match(/\b((?:19|20)\d{2})\b/) || [])[1];
+      const refId = `ISO.TR${tr[1]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-technical-report' } } : refId;
+    }
+  }
+  // The stage written out: "ISO International Standard (IS) 3309, "…", 1979." and "International
+  // Organization for Standardization, "ISO …", IS 3309, October 1984" (RFC1547, RFC1510). An
+  // addendum ("ISO IS 9595 1989: DAD1", RFC1189) cites the amendment, not the standard.
+  {
+    const src = String(text || '');
+    // also misnamed "International Standards Organization" (RFC2030)
+    if ((/\bInternational\s+Organi[sz]ation\s+for\s+Standardi[sz]ation\b/i.test(src) || /\bISO\b/.test(src)
+      || /\bInternational\s+Standards?\s+Organi[sz]ation\b/i.test(src))
+      && !/\b(?:P?DAD\d*|DAM\d*|Addendum|Amendment)\b/i.test(src)) {
+      // also "International Standard 7809, "…", ISO, 1984" (RFC935), but not a draft
+      // ("Draft International Standard 8802.2", "Draft Proposed …").
+      // A part after an en dash, also as an entity: "International Standard 13818&#x2013;1".
+      const m = src.match(/(?<!\b(?:Draft|Proposed)\s+)\b(?:International\s+Standards?(?:\s+\(IS\))?|IS)\s+(\d{3,5}(?:(?:-|[\u2010-\u2015]|&#x201[0-5];|&ndash;)\d+)*)\b(?![.\/]\d)(?:[^\n]{0,240}?\b((?:19|20)\d{2})\b)?/);
+      if (m) {
+        const num = m[1].replace(/&#x201[0-5];|&ndash;|[\u2010-\u2015]/gi, '-');
+        const refId = `ISO.${num}${m[2] ? `.${m[2]}` : ''}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-is-stage' } } : refId;
+      }
     }
   }
   {
@@ -2151,7 +2324,10 @@ function extractRefs($, currentDocId, opts = {}) {
           // An Internet-Draft name is lowercase with at least two parts after "draft-"
           // (draft-<source>-<topic>…). RFC1052's 1988 "DRAFT-SMI" / "DRAFT-AAAA" are
           // temporary letter codes, not drafts.
-          if (/^DRAFT-/.test(m[1])) continue;
+          // Nor a capitalized file name: NIST's ".../drafts/fips_186-3/Draft-FIPS-186-3_March2006.pdf"
+          // (RFC4880) became "IETF.draft-fips-186-3". A real Internet-Draft name is lowercase after
+          // "draft-", even when a sentence capitalizes the D ("Draft-ietf-codec-ambisonics-00").
+          if (/[A-Z]/.test(m[1].slice(6))) continue;
           const token = String(m[1] || '')
             .replace(/[)\],.;:]+$/g, '')
             .replace(/\.(?:txt|xml|html?|pdf)$/i, '')
@@ -2197,11 +2373,11 @@ function extractRefs($, currentDocId, opts = {}) {
 
     // 3) direct RFC token shortcuts (fallback)
     for (const c of conciseCites) {
-      const m = c.match(/^RFC(\d{3,5})$/i) || c.match(/\bRFC\s*[-\/\s]?(\d{3,5})\b/i);
+      const m = c.match(/^RFC(\d{1,5})$/i) || c.match(/\bRFC\s*[-\/\s]?(\d{1,5})\b/i);
       if (m?.[1]) return `RFC${parseInt(m[1], 10)}`;
     }
     for (const h of hrefs) {
-      const m = h.match(/reference\.RFC\.(\d{3,5})\.xml/i) || h.match(/\/rfc(\d{3,5})\b/i);
+      const m = h.match(/reference\.RFC\.(\d{1,5})\.xml/i) || h.match(/\/rfc(\d{1,5})\b/i);
       if (m?.[1]) return `RFC${parseInt(m[1], 10)}`;
     }
 
@@ -2278,8 +2454,11 @@ function extractRefs($, currentDocId, opts = {}) {
         const markerText = marker.replace(/[_-]+/g, ' ').trim();
         const markerIsOrdinal = isOrdinalMarker(marker);
         const markerIsRfc = isRfcMarker(marker);
+        // RFC2828 labels RFCs "R1591"; its R1591 entry names neither the RFC number nor the right authors.
+        const rLabel = /^R(\d{3,5})$/.exec(marker);
         const refId = markerIsRfc
           ? normalizeMarker(marker)
+          : rLabel ? `RFC${parseInt(rLabel[1], 10)}`
           : resolveXmlRefId(
             [
               ctxText,
@@ -2442,7 +2621,27 @@ function extractRefs($, currentDocId, opts = {}) {
     // Fallback for classic RFC HTML layout (preformatted refs with ref-* anchors).
     // Run even when structured parsing found some refs, to pick up markers split by page breaks.
     {
-      const raw = String(opts.htmlRaw || $.html() || '');
+      let raw = String(opts.htmlRaw || $.html() || '');
+      // Some old RFCs are double-spaced: every text line is followed by a spacer line
+      // (RFC878). Wrapped reference entries then read as one paragraph per line. Collapse
+      // the single spacers; a run of two or more still separates paragraphs.
+      {
+        // Count text lines only (no markup): page chrome and headers run together in any RFC.
+        // Text lines followed by another text line: ~0.2 double-spaced (RFC878, RFC783),
+        // 0.5+ otherwise.
+        const lines = raw.split('\n');
+        const isText = (l) => /\S/.test(l) && !/[<>]/.test(l);
+        let nonBlank = 0;
+        let pairs = 0;
+        for (let i = 0; i < lines.length; i++) {
+          if (!isText(lines[i])) continue;
+          nonBlank++;
+          if (i + 1 < lines.length && isText(lines[i + 1])) pairs++;
+        }
+        if (nonBlank > 200 && pairs / nonBlank < 0.25) {
+          raw = raw.replace(/([^\n]*\S[^\n]*)\n[ \t]*\n(?=[ \t]*\S)/g, '$1\n');
+        }
+      }
       const findHeadingPositions = (re) => {
         const pos = [];
         let m;
@@ -2478,7 +2677,22 @@ function extractRefs($, currentDocId, opts = {}) {
       refsPositions = refsPositions.concat(findHeadingPositions(recommendedReadingAppendixRe));
       if (!normPositions.length) normPositions = findHeadingPositions(normHeadingLineRe);
       if (!infoPositions.length) infoPositions = findHeadingPositions(infoHeadingLineRe);
-      if (!refsPositions.length) refsPositions = findHeadingPositions(refsHeadingLineRe);
+      // A glossary entry named "References" is not the section (RFC767's field list: "  References"
+      // indented two, then "    The message identifiers of other messages."). A section heading
+      // sits at column 0, is centered, numbered or in capitals; a term indented a little with a
+      // more-indented paragraph under it is a definition.
+      const isGlossaryTerm = (pos) => {
+        let ts = pos;
+        while (ts < raw.length && /\s/.test(raw[ts])) ts++;
+        const ls = raw.lastIndexOf('\n', ts - 1) + 1;
+        const le = raw.indexOf('\n', ts);
+        const line = raw.slice(ts, le < 0 ? raw.length : le).trim();
+        const indent = ts - ls;
+        if (indent < 1 || indent > 8 || /^\d/.test(line) || line === line.toUpperCase()) return false;
+        const next = /\n([ \t]*)\S/.exec(raw.slice(le < 0 ? raw.length : le));
+        return !!next && next[1].length > indent;
+      };
+      if (!refsPositions.length) refsPositions = findHeadingPositions(refsHeadingLineRe).filter((p) => !isGlossaryTerm(p));
       refsPositions = refsPositions.concat(findHeadingPositions(refsHeadingAppendixLineRe));
       refsPositions = refsPositions.concat(findHeadingPositions(recommendedReadingAppendixLineRe));
       refsPositions = refsPositions.concat(bibliographyPrePositions);
@@ -2491,6 +2705,14 @@ function extractRefs($, currentDocId, opts = {}) {
         if (!refsPositions.length) refsPositions = [firstBibPos];
       }
       refsPositions = Array.from(new Set(refsPositions)).sort((a, b) => a - b);
+      // A "Normative References" section that discusses references (RFC3967 §1.1) has a twin
+      // under the document's own "References" heading (§6.1): keep the twin only.
+      if (refsPositions.length) {
+        const mainRefs = Math.min(...refsPositions);
+        const dropEarly = (arr) => (arr.some((p) => p > mainRefs) ? arr.filter((p) => p > mainRefs) : arr);
+        normPositions = dropEarly(normPositions);
+        infoPositions = dropEarly(infoPositions);
+      }
       const hasNorm = normPositions.length > 0;
       const hasInfo = infoPositions.length > 0;
       const hasRefs = refsPositions.length > 0;
@@ -2531,10 +2753,37 @@ function extractRefs($, currentDocId, opts = {}) {
         // start can sit on the blank lines before a plain-text heading ("\n\nNormative
         // References"): skip them, or the heading itself reads as the next one and the block
         // is empty.
+        // The RFC archive's transcriber note ("[ This RFC was put into machine readable form for
+        // entry ]", then "Notes by …" on the formatting) follows the list in many old RFCs (RFC635).
+        {
+          const tn = /\n[ \t]*\[\s*This RFC was put into machine readable form/i.exec(raw.slice(start, end));
+          if (tn) end = start + tn.index + 1;
+        }
         let headingStart = start;
         while (headingStart < raw.length && /\s/.test(raw[headingStart])) headingStart++;
         const headingLineEnd = raw.indexOf('\n', headingStart);
         if (headingLineEnd < 0 || headingLineEnd >= end) return end;
+        // Some RFCs indent every line, headings included (RFC905's "     2  REFERENCES",
+        // RFC878): no heading sits at column 0. A numbered References heading ends at the
+        // next numbered heading at its own indent with a higher number ("     3  DEFINITIONS").
+        {
+          const lineStart = raw.lastIndexOf('\n', headingStart) + 1;
+          const hm = /^([ \t]*)(\d+)(?:\.\d+)*\.?[ \t]+\S/.exec(raw.slice(lineStart, headingLineEnd).replace(/<[^>]+>/g, ''));
+          if (hm) {
+            const indent = hm[1].replace(/\t/g, '        ').length;
+            const num = Number(hm[2]);
+            const nre = /\n([ \t]*)(\d+)(?:\.\d+)*\.?[ \t]{1,4}([A-Z][A-Za-z0-9 ,'()&\/-]{2,80})[ \t]*(?=\n)/g;
+            nre.lastIndex = headingLineEnd;
+            let nm;
+            while ((nm = nre.exec(raw)) !== null) {
+              if (nm.index >= end) break;
+              if (nm[1].replace(/\t/g, '        ').length === indent && Number(nm[2]) > num) {
+                end = nm.index + 1;
+                break;
+              }
+            }
+          }
+        }
         // Judge the line without its tags: "Appendix: Changes from <a …>RFC 4634</a>" (RFC6234).
         // A heading follows a blank line and has no period; some old RFCs (RFC2060) print
         // reference entries unindented, so a wrapped line like "Work in Progress." must
@@ -2547,6 +2796,8 @@ function extractRefs($, currentDocId, opts = {}) {
           if (lineStart >= end) break;
           const text = m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/[ \t]+$/, '');
           if (/^[A-Z][A-Za-z0-9'’ ,()&:-]{2,90}$/.test(text)) return lineStart;
+          // A lettered annex or appendix heading: "Annex B.  Changes since RFC 5430" (RFC6460).
+          if (/^(?:Annex|Appendix)\s+[A-Z0-9]{1,3}\.?\s{1,3}[A-Z][^\n]{2,100}$/.test(text) && !/\b(?:19|20)\d{2}\b/.test(text)) return lineStart;
           re.lastIndex = lineStart;
         }
         return end;
@@ -2566,7 +2817,23 @@ function extractRefs($, currentDocId, opts = {}) {
         const own = sectionHeadings.find((h) => h.pos === start);
         // An unnumbered "References" heading has no section anchor (RFC2629, RFC2898): still
         // stop at the next unindented heading ("Author's Address", "Contact Information").
-        if (!own) return unindentedHeadingAfter(start, nextBound);
+        // An unanchored References heading (plain text, RFC1583) still ends at the next real
+        // section or appendix heading: RFC1583's appendices A-G followed it and their bracketed
+        // lines ("[IP address, mask]") were read as citations. Old RFCs whose htmlized entries
+        // became section links ("1.    L. G. Roberts and B. D. Wessler, \"Computer Network",
+        // RFC756) don't count: such an anchor reuses a section number already taken, or reads as
+        // a citation (quotes, "Surname, X." or "J. Postel," authors).
+        if (!own) {
+          const realHeading = sectionHeadings.find((h, idx) => {
+            if (h.pos <= start || h.pos >= nextBound) return false;
+            if (sectionHeadings.slice(0, idx).some((e) => e.top === h.top)) return false;
+            const close = raw.indexOf('</', raw.indexOf('</a>', h.pos) + 4);
+            const text = raw.slice(h.pos, close < 0 ? h.pos + 300 : close).replace(/<[^>]+>/g, '').replace(/&[a-z]+;/gi, ' ');
+            return !/["“”]/.test(text) && !/\b[A-Z][A-Za-z'-]+,\s+[A-Z]\./.test(text)
+              && !/^[^A-Za-z]*(?:[A-Z]\.\s*){1,3}[A-Z][A-Za-z'-]+,/.test(text.replace(/^\s*\d+\.?/, '')) && text.length < 120;
+          });
+          return unindentedHeadingAfter(start, realHeading ? realHeading.pos : nextBound);
+        }
         const out = sectionHeadings.find((h) => h.pos > start && h.top !== own.top);
         const end = out ? Math.min(out.pos, nextBound) : nextBound;
         return unindentedHeadingAfter(start, end);
@@ -2615,7 +2882,7 @@ function extractRefs($, currentDocId, opts = {}) {
       // Two layouts: rfc-editor.org ("…</span></pre><hr class='noprint'/><!--NewPage--><pre
       // class='newpage'>…") and Datatracker drafts ("…</span></pre><pre class="newpage"><hr
       // class="noprint" id="page-8">…").
-      const pageBreakBlockRe = /\n*[ \t]*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[^<]*\[Page\s+\d+\][^<]*<\/span>\s*<\/pre>\s*(?:<hr[^>]*>\s*)?(?:<!--\s*NewPage\s*-->\s*)?<pre[^>]*>\s*(?:<hr[^>]*>\s*)?(?:<span[^>]*\bid=["']page-\d+["'][^>]*>\s*<\/span>)?\s*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>[ \t]*\n*/g;
+      const pageBreakBlockRe = /\n*[ \t]*<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[^<]*\[Page\s+\d+\][^<]*<\/span>\s*<\/pre>\s*(?:<hr[^>]*>\s*)?(?:<!--\s*NewPage\s*-->\s*)?<pre[^>]*>\s*(?:<hr[^>]*>\s*)?(?:<span[^>]*\bid=["']page-\d+["'][^>]*>\s*<\/span>)?\s*(?:<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>\s*(?:[A-Z][a-z]+\s+)?\d{4}\s*<\/span>[ \t]*\n[^\n<]{1,80}(?=\n|$)|<span[^>]*class=["'][^"']*\bgrey\b[^"']*["'][^>]*>[\s\S]*?<\/span>)[ \t]*\n*/g;
       const stripPageBreaks = (s) => String(s || '').replace(pageBreakBlockRe, '\n');
       const consumedEntryTexts = [];
       const normalizeForContainment = (t) => String(t || '').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
@@ -2640,6 +2907,10 @@ function extractRefs($, currentDocId, opts = {}) {
       }
       parserDiag.anchoredMarkers += anchors.length;
       const anchoredResolvedRanges = [];
+      // A ditto ("---,") stands for the previous entry's author: RFC2828's "[A9017] ---,
+      // "Financial Institution Key Management (Wholesale)", X9.17" follows "[A3092] American
+      // National Standards Institute, …". Substitute it so the entry resolves like its neighbour.
+      let lastEntryAuthor = '';
       for (let i = 0; i < anchors.length; i++) {
         const marker = anchors[i].marker;
         if (!marker) continue;
@@ -2679,17 +2950,32 @@ function extractRefs($, currentDocId, opts = {}) {
         const hrefs = sanitizeRfcHtmlHrefs([...anchorChunk.matchAll(/href=["']([^"']+)["']/ig)]
           .map(hm => String(hm[1] || '').trim())
         );
-        const chunkText = anchorChunk
+        let chunkText = anchorChunk
           .replace(/<[^>]+>/g, ' ')
           .replace(/\s+/g, ' ')
           .trim();
+        {
+          const lead = chunkText.match(/^(\S{1,40}\s*\]\s*)([\s\S]*)$/);
+          if (lead) {
+            const body = lead[2];
+            if (/^-{2,3},\s*/.test(body)) {
+              if (lastEntryAuthor) chunkText = `${lead[1]}${lastEntryAuthor}, ${body.replace(/^-{2,3},\s*/, '')}`;
+            } else {
+              const au = body.match(/^([^,"“]{2,80}),/);
+              lastEntryAuthor = au ? au[1].trim() : '';
+            }
+          }
+        }
         const cleanedChunkText = trimRfcRefTail(chunkText);
         consumedEntryTexts.push(normalizeForContainment(cleanedChunkText || chunkText));
         const markerText = marker.replace(/[_-]+/g, ' ').trim();
         const markerIsOrdinal = isOrdinalMarker(marker);
         const markerIsRfc = isRfcMarker(marker);
+        // RFC2828 labels RFCs "R1591"; its R1591 entry names neither the RFC number nor the right authors.
+        const rLabel = /^R(\d{3,5})$/.exec(marker);
         const refId = markerIsRfc
           ? normalizeMarker(marker)
+          : rLabel ? `RFC${parseInt(rLabel[1], 10)}`
           : resolveXmlRefId(
             [
               cleanedChunkText || chunkText,
@@ -2746,6 +3032,17 @@ function extractRefs($, currentDocId, opts = {}) {
           if (/^\d+(?:\.\d+)?$/.test(markerText)) continue;
           // Page footers ("[Page 85]") look like markers in old text RFCs.
           if (/^Page\s+\d+$/i.test(markerText)) continue;
+          // A bracket that opens a wrapped line of the entry above is not a new entry:
+          // RFC675's "…July l974\n      [RFC#635, INWG Note # ***]." The line before is text,
+          // indented no less, and is not itself a bracketed entry.
+          {
+            const lineStart = raw.lastIndexOf('\n', absPos - 1) + 1;
+            const indent = absPos - lineStart;
+            const prevEnd = lineStart - 1;
+            const prevLine = prevEnd > 0 ? raw.slice(raw.lastIndexOf('\n', prevEnd - 1) + 1, prevEnd).replace(/<[^>]+>/g, '') : '';
+            const indentOf = (l) => (/^[ \t]*/.exec(l)[0] || '').length;
+            if (/\S/.test(prevLine) && !/^\s*\[/.test(prevLine) && indentOf(prevLine) <= indent) continue;
+          }
 
           const key = classifyPosByBounds(absPos);
           if (!key) continue;
@@ -2806,12 +3103,25 @@ function extractRefs($, currentDocId, opts = {}) {
         if (end <= start) continue;
         const key = bounds[b].key;
         const sectionSlice = raw.slice(start, end);
-        const numberedRe = /(?:^|\n)\s{0,8}(\d{1,3})\.\s{1,6}([\s\S]*?)(?=(?:\n\s{0,8}\d{1,3}\.\s{1,6})|$)/g;
+        // "3.CESU74" (RFC675) has no space after the number. An entry also ends at a line
+        // holding only a citation label ("BELS74", whose number RFC675 left out).
+        const numberedRe = /(?:^|\n)\s{0,8}(\d{1,3})\.(?:\s{1,6}|(?=[A-Z]))([\s\S]*?)(?=(?:\n\s{0,8}\d{1,3}\.(?:\s{1,6}|(?=[A-Z])))|(?:\n[ \t]*\n[ \t]{0,8}[A-Z]{2,}\d{2}[A-Z]?[ \t]*\n)|$)/g;
         let nm;
         while ((nm = numberedRe.exec(sectionSlice)) !== null) {
           const markerNo = String(nm[1] || '').trim();
-          const chunk = String(nm[0] || '').trim();
+          let chunk = String(nm[0] || '').trim();
           if (!chunk) continue;
+          // An annotated list puts a note under each entry after a blank line (RFC740: "This
+          // document together with References 3 and 8 define …"). Keep the citation only. A
+          // short first paragraph is just a label ("1. CEKA74", RFC675) and keeps what follows.
+          {
+            // Page breaks first: an entry wrapped onto the next page has blank lines before the
+            // footer, and the next page's running header links the RFC itself, which made RFC1032's
+            // entry 10 resolve to RFC1032 (a self-reference, dropped).
+            chunk = stripPageBreaks(chunk).trim();
+            const parts = chunk.split(/\n[ \t]*\n/);
+            if (parts.length > 1 && parts[0].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().length >= 40) chunk = parts[0];
+          }
           parserDiag.numberedItems += 1;
           const hrefs = sanitizeRfcHtmlHrefs([...chunk.matchAll(/href=["']([^"']+)["']/ig)]
             .map((hm) => String(hm[1] || '').trim())
@@ -2822,6 +3132,7 @@ function extractRefs($, currentDocId, opts = {}) {
             .trim();
           const cleanedChunkText = trimRfcRefTail(chunkText);
           if (!cleanedChunkText) continue;
+          consumedEntryTexts.push(normalizeForContainment(cleanedChunkText));
 
           const refId = resolveXmlRefId([cleanedChunkText], hrefs);
           if (refId) {
@@ -2841,7 +3152,7 @@ function extractRefs($, currentDocId, opts = {}) {
             // Only emit as badRef when numbered text looks citation-like;
             // this avoids appendix/procedure step leakage (e.g., examples).
             const looksCitationLike = /\b(19|20)\d{2}\b/.test(cleanedChunkText)
-              || /\bRFC\s*[0-9]{3,5}\b/i.test(cleanedChunkText)
+              || /\bRFC\s*[0-9]{1,5}\b/i.test(cleanedChunkText)
               || /\b(?:ISO|IEC|IEEE|STD|IETF|draft-ietf)\b/i.test(cleanedChunkText)
               || /["“][^"”]{8,}["”]/.test(cleanedChunkText)
               || /\b[A-Z][A-Za-z'`.-]+,\s*[A-Z]\./.test(cleanedChunkText);
@@ -2908,7 +3219,7 @@ function extractRefs($, currentDocId, opts = {}) {
             parserDiag.proseBlocksSkippedForAnchor += 1;
             continue;
           }
-          if (/(?:^|\n)\s{0,8}\d{1,3}\.\s{1,6}/.test(block)) continue;
+          if (/(?:^|\n)\s{0,8}\d{1,3}\.(?:\s{1,6}|(?=[A-Z]))/.test(block)) continue;
 
           const hrefs = sanitizeRfcHtmlHrefs([...block.matchAll(/href=["']([^"']+)["']/ig)]
             .map((hm) => String(hm[1] || '').trim())
@@ -2949,8 +3260,12 @@ function extractRefs($, currentDocId, opts = {}) {
           } else {
             // Only emit as badRef when it looks citation-like to limit noise.
             const looksCitationLike = /\b(19|20)\d{2}\b/.test(cleanedChunkText)
-              || /\bRFC\s*[0-9]{3,5}\b/i.test(cleanedChunkText)
+              || /\bRFC\s*[0-9]{1,5}\b/i.test(cleanedChunkText)
               || /\b(?:ISO|IEC|IEEE|STD)\b/i.test(cleanedChunkText)
+              // An ISO draft by its stage and number: "DP 8072 Information processing systems …" (RFC905)
+              || /^(?:DP|DIS)\s+\d{3,5}\b/.test(cleanedChunkText)
+              // ARPANET Network Information Center documents: "NIC document 8246, …" (RFC333)
+              || /\bNIC\s*(?:document\s*)?#?\s*\d{3,5}\b/i.test(cleanedChunkText)
               || /["“][^"”]{8,}["”]/.test(cleanedChunkText);
             if (looksCitationLike) {
               out.badRefs.push({
@@ -3077,6 +3392,24 @@ function extractRefs($, currentDocId, opts = {}) {
       if (/^[a-z0-9._-]+\s*\]?\s+see\s+\[\s*[a-z0-9._-]+\s*\]?$/i.test(normalized)) return false;
       return true;
     });
+    // Old RFC list numbering and labels left on an unresolved entry's text: "1 . L. G.
+    // Roberts" (the htmlizer made RFC756's "1." a section link), "3.CESU74 V. Cerf" and
+    // "CEKA74 V. Cerf" (RFC675's labels), "(1974)._" (a stray underline).
+    for (const b of out.badRefs) {
+      if (typeof b.refText !== 'string') continue;
+      b.refText = b.refText
+        .replace(/^References?\s+(?=\d)/i, '')                  // heading glued on (RFC635)
+        .replace(/^[A-Z][A-Z0-9-]{1,15}:\d{1,3}\.?\s+(?=\S)/, '')    // "FORWARD:3." on its own line (RFC1812)
+        .replace(/^[:\-\u2013]\s+(?=\S)/, '')                      // ": D. W. Davies" (RFC2025), "- Network Security" (RFC2065, RFC1750)
+        // An unbracketed label before the citation: "COMER Comer, D., …", "ZEN Kehoe, B., …",
+        // "BIG-LAN "BIG-LAN Frequently …"" (RFC1392), "SAX SAX: The Simple API for XML" (RFC2376).
+        .replace(/^([A-Z][A-Z0-9-]{1,15})\s+(?=[A-Z][A-Za-z'-]+,\s+[A-Z]\.)/, '')
+        .replace(/^([A-Z][A-Z0-9-]{1,15})\s+(?=["“]?\1\b)/i, (m0, l) => (l === l.toUpperCase() ? '' : m0))
+        .replace(/^\d{1,3}\s*\.\s*(?=[A-Z"“'])/, '')
+        .replace(/^\d{1,3}\)\s+/, '')                            // "4) a system of …" (RFC333)
+        .replace(/^[A-Z]{2,}\d{2}[A-Z]?\s+(?=[A-Z]\.)/, '')
+        .replace(/(\.)_+$/, '$1');
+    }
     suppressResolvableBadRefs();
     return out;
   }

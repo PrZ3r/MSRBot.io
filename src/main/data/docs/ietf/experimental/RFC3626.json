@@ -1,0 +1,265 @@
+{
+  "abstract": "This document describes the Optimized Link State Routing (OLSR) protocol for mobile ad hoc networks. The protocol is an optimization of the classical link state algorithm tailored to the requirements of a mobile wireless LAN. The key concept used in the protocol is that of multipoint relays (MPRs). MPRs are selected nodes which forward broadcast messages during the flooding process. This technique substantially reduces the message overhead as compared to a classical flooding mechanism, where every node retransmits each message when it receives the first copy of the message. In OLSR, link state information is generated only by nodes elected as MPRs. Thus, a second optimization is achieved by minimizing the number of control messages flooded in the network. As a third optimization, an MPR node may chose to report only links between itself and its MPR selectors. Hence, as contrary to the classic link state algorithm, partial link state information is distributed in the network. This information is then used for route calculation. OLSR provides optimal routes (in terms of number of hops). The protocol is particularly suitable for large and dense networks as the technique of MPRs works well in this context.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "authors": [
+    {
+      "name": "Thomas H. Clausen"
+    },
+    {
+      "name": "Philippe Jacquet"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docId": "RFC3626",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docLabel": "IETF RFC 3626",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docNumber": "3626",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docTitle": "Optimized Link State Routing Protocol (OLSR)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "doi": "10.17487/RFC3626",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "href": "https://doi.org/10.17487/RFC3626",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "keywords": [
+    "OLSR",
+    "Mobile Ad Hoc Networks",
+    "Multipoint Relays"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "OLSR",
+      "Optimized Link State Routing",
+      "Mobile Ad Hoc",
+      "Wireless Multipoint Relays",
+      "Mpr",
+      "Mprs"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:48:30.423Z",
+    "version": "extractDocs.js@commit:158b95d12c23"
+  },
+  "pages": "75",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "publicationDate": "2003-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2434",
+      "RFC1991",
+      "orphan/RFC3626/h:d926f953",
+      "orphan/RFC3626/h:c7258134",
+      "orphan/RFC3626/h:b158c02d",
+      "orphan/RFC3626/h:570cc25b",
+      "orphan/RFC3626/h:0ed79f67",
+      "orphan/RFC3626/h:0693b3f3"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=10 proseBlocks=13 skippedAnchorBlocks=11",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+      "updated": "2026-10-12T20:14:05.299Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "normative": [
+      "RFC2119",
+      "orphan/RFC3626/h:b2c2b005"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+      "updated": "2026-10-12T20:14:05.299Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3626/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+    "updated": "2026-10-12T20:14:05.299Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+      "updated": "2026-10-12T20:14:05.299Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+      "updated": "2026-10-12T20:14:05.299Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc3626",
+      "https://www.rfc-editor.org/errata_search.php?rfc=3626"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+      "updated": "2026-10-12T20:14:05.299Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+      "updated": "2026-10-12T20:14:05.299Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+      "updated": "2026-10-12T20:14:05.299Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3626/",
+      "updated": "2026-10-12T20:14:05.299Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    }
+  }
+}

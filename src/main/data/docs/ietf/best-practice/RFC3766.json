@@ -1,0 +1,239 @@
+{
+  "abstract": "Implementors of systems that use public key cryptography to exchange symmetric keys need to make the public keys resistant to some predetermined level of attack. That level of attack resistance is the strength of the system, and the symmetric keys that are exchanged must be at least as strong as the system strength requirements. The three quantities, system strength, symmetric key strength, and public key strength, must be consistently matched for any network protocol usage. While it is fairly easy to express the system strength requirements in terms of a symmetric key length and to choose a cipher that has a key length equal to or exceeding that requirement, it is harder to choose a public key that has a cryptographic strength meeting a symmetric key strength requirement. This document explains how to determine the length of an asymmetric key as a function of a symmetric key strength requirement. Some rules of thumb for estimating equivalent resistance to large-scale attacks on various algorithms are given. The document also addresses how changing the sizes of the underlying large integers (moduli, group sizes, exponents, and so on) changes the time to use the algorithms for key exchange. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "authors": [
+    {
+      "name": "Hilarie Orman"
+    },
+    {
+      "name": "Paul E. Hoffman"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docId": "RFC3766",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docLabel": "IETF RFC 3766",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docNumber": "3766",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docTitle": "Determining Strengths For Public Keys Used For Exchanging Symmetric Keys",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docType": "Best Practice",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "doi": "10.17487/RFC3766",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "href": "https://doi.org/10.17487/RFC3766",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "keywords": [
+    "Security",
+    "Cryptography"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Security",
+      "Cryptography Algorithms",
+      "Integers"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:48:41.875Z",
+    "version": "extractDocs.js@commit:158b95d12c23"
+  },
+  "pages": "23",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "publicationDate": "2004-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1750",
+      "ISBN.1565925203",
+      "RFC2409",
+      "orphan/RFC3766/h:cc6082df",
+      "orphan/RFC3766/h:cac47e3e",
+      "orphan/RFC3766/h:9f154b78",
+      "orphan/RFC3766/h:d0952826",
+      "orphan/RFC3766/h:488e206a",
+      "orphan/RFC3766/h:25b80fc2",
+      "orphan/RFC3766/h:5545d071",
+      "orphan/RFC3766/h:54e27c7a",
+      "orphan/RFC3766/h:921d40d2",
+      "orphan/RFC3766/h:705e67d6",
+      "orphan/RFC3766/h:93c0d864"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=14 proseBlocks=18 skippedAnchorBlocks=16",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+      "updated": "2026-10-12T20:14:16.944Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3766/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+    "updated": "2026-10-12T20:14:16.944Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+      "updated": "2026-10-12T20:14:16.944Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+      "updated": "2026-10-12T20:14:16.944Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+      "updated": "2026-10-12T20:14:16.944Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "statusNote": "Best Current Practice",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+      "updated": "2026-10-12T20:14:16.944Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3766/",
+      "updated": "2026-10-12T20:14:16.944Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    }
+  }
+}

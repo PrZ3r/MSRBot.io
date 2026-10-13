@@ -1,0 +1,378 @@
+{
+  "abstract": "The Extensible Messaging and Presence Protocol (XMPP) is an application profile of the Extensible Markup Language (XML) that enables the near-real-time exchange of structured yet extensible data between any two or more network entities. This document defines XMPP's core protocol methods: setup and teardown of XML streams, channel encryption, authentication, error handling, and communication primitives for messaging, network availability (\"presence\"), and request-response interactions. This document obsoletes RFC 3920. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Peter Saint-Andre"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC6120",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 6120",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "6120",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "Extensible Messaging and Presence Protocol (XMPP): Core",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC6120",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC6120",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "XMPP",
+    "Jabber",
+    "Instant Messaging",
+    "Presence",
+    "XML"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "211",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2011-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4962",
+      "RFC5234",
+      "RFC2244",
+      "RFC4505",
+      "T-REC-X.208.1988",
+      "RFC2831",
+      "RFC4033",
+      "RFC1464",
+      "RFC4732",
+      "RFC5598",
+      "IEEE.STD802.3.1998",
+      "RFC2743",
+      "RFC4270",
+      "RFC2616",
+      "RFC5226",
+      "RFC3501",
+      "RFC2779",
+      "RFC2810",
+      "RFC3987",
+      "RFC4510",
+      "RFC3927",
+      "RFC2142",
+      "RFC1939",
+      "RFC2026",
+      "RFC5657",
+      "RFC3920",
+      "RFC3921",
+      "RFC4013",
+      "RFC4949",
+      "RFC5321",
+      "RFC3552",
+      "RFC6066",
+      "RFC5077",
+      "RFC3061",
+      "RFC2595",
+      "RFC4122",
+      "W3C.CR-xml-fragment.20010212",
+      "RFC3688",
+      "W3C.xmlschema-1.20041028",
+      "RFC5122",
+      "RFC2222",
+      "orphan/RFC6120/h:25d02777",
+      "orphan/RFC6120/h:9c84e534",
+      "orphan/RFC6120/h:4e17a528",
+      "orphan/RFC6120/h:0abaf8fb",
+      "orphan/RFC6120/h:4743a35d",
+      "orphan/RFC6120/h:9a36950c",
+      "orphan/RFC6120/h:015a5195",
+      "orphan/RFC6120/h:c6f0e410",
+      "orphan/RFC6120/h:2258f017",
+      "orphan/RFC6120/h:c40a17d8",
+      "orphan/RFC6120/h:5341a670",
+      "orphan/RFC6120/h:5604e3e0",
+      "orphan/RFC6120/h:f0491184",
+      "orphan/RFC6120/h:5b0848cd",
+      "orphan/RFC6120/h:a01b9dce",
+      "orphan/RFC6120/h:ef5c87ad",
+      "orphan/RFC6120/h:4ca7e399",
+      "orphan/RFC6120/h:636f6445",
+      "orphan/RFC6120/h:fb266895",
+      "orphan/RFC6120/h:ad17fee1",
+      "orphan/RFC6120/h:1d62f892",
+      "orphan/RFC6120/h:c7fff3be",
+      "orphan/RFC6120/h:59666386",
+      "orphan/RFC6120/h:2ea0f85d",
+      "orphan/RFC6120/h:bf86cc76",
+      "orphan/RFC6120/h:5e91c6f6",
+      "orphan/RFC6120/h:632c42a6",
+      "orphan/RFC6120/h:b2f95bb9",
+      "orphan/RFC6120/h:970c5e03"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=107 proseBlocks=117 skippedAnchorBlocks=113",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC4648",
+      "RFC5056",
+      "RFC5929",
+      "RFC2277",
+      "RFC1034",
+      "RFC2782",
+      "RFC5952",
+      "RFC2119",
+      "RFC4647",
+      "RFC5646",
+      "RFC2560",
+      "RFC5280",
+      "RFC3447",
+      "RFC4985",
+      "RFC4616",
+      "RFC4086",
+      "RFC4422",
+      "RFC5802",
+      "RFC3365",
+      "RFC793",
+      "RFC5246",
+      "RFC6125",
+      "RFC5746",
+      "RFC6176",
+      "ISO.10646-1",
+      "UNICODE.STD.6.0.0",
+      "RFC3629",
+      "RFC3986",
+      "T-REC-X.509.2000",
+      "W3C.xml.20081126",
+      "RFC3470",
+      "RFC3023",
+      "W3C.xml-names.20091208",
+      "RFC6122",
+      "RFC6121"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6120/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+    "updated": "2026-10-13T18:23:16.389Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "amendedBy": [
+      "RFC7590",
+      "RFC8553"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc6120",
+      "https://www.rfc-editor.org/errata_search.php?rfc=6120"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersedes": [
+      "RFC3920"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6120/",
+      "updated": "2026-10-13T18:23:16.389Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

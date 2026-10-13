@@ -1,0 +1,237 @@
+{
+  "abstract": "IPsec can secure the links of a multihop network to protect communication between trusted components, e.g., for a secure virtual network (VN), overlay, or virtual private network (VPN). Virtual links established by IPsec tunnel mode can conflict with routing and forwarding inside VNs because IP routing depends on references to interfaces and next-hop IP addresses. The IPsec tunnel mode specification is ambiguous on this issue, so even compliant implementations cannot be trusted to avoid conflicts. An alternative to tunnel mode uses non-IPsec IPIP encapsulation together with IPsec transport mode, which we call IIPtran. IPIP encapsulation occurs as a separate initial step, as the result of a forwarding lookup of the VN packet. IPsec transport mode processes the resulting (tunneled) IP packet with an SA determined through a security association database (SAD) match on the tunnel header. IIPtran supports dynamic routing inside the VN without changes to the current IPsec architecture. IIPtran demonstrates how to configure any compliant IPsec implementation to avoid the aforementioned conflicts. IIPtran is also compared to several alternative mechanisms for VN routing and their respective impact on IPsec, routing, policy enforcement, and interactions with the Internet Key Exchange (IKE). This memo provides information for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "authors": [
+    {
+      "name": "Dr. Joseph D. Touch"
+    },
+    {
+      "name": "Lars Eggert"
+    },
+    {
+      "name": "Yu-Shun Wang"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docId": "RFC3884",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docLabel": "IETF RFC 3884",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docNumber": "3884",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docTitle": "Use of IPsec Transport Mode for Dynamic Routing",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "doi": "10.17487/RFC3884",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "href": "https://doi.org/10.17487/RFC3884",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "pages": "25",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "publicationDate": "2004-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2409",
+      "RFC1191",
+      "RFC2923",
+      "orphan/RFC3884/h:4a0aadaa",
+      "orphan/RFC3884/h:47ad7534",
+      "orphan/RFC3884/h:93585540",
+      "orphan/RFC3884/h:8738e76b"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=15 proseBlocks=19 skippedAnchorBlocks=17",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+      "updated": "2026-10-12T20:14:37.255Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "normative": [
+      "RFC2401",
+      "RFC2003",
+      "RFC2402",
+      "RFC2406",
+      "RFC1122",
+      "RFC2107",
+      "orphan/RFC3884/h:7933ab2b",
+      "orphan/RFC3884/h:463626b1"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+      "updated": "2026-10-12T20:14:37.255Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3884/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+    "updated": "2026-10-12T20:14:37.255Z",
+    "version": "extractDocs.js@commit:00855ca34fe0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+      "updated": "2026-10-12T20:14:37.255Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+      "updated": "2026-10-12T20:14:37.255Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+      "updated": "2026-10-12T20:14:37.255Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+      "updated": "2026-10-12T20:14:37.255Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3884/",
+      "updated": "2026-10-12T20:14:37.255Z",
+      "version": "extractDocs.js@commit:00855ca34fe0"
+    }
+  }
+}

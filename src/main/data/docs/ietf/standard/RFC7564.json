@@ -1,0 +1,311 @@
+{
+  "abstract": "Application protocols using Unicode characters in protocol strings need to properly handle such strings in order to enforce internationalization rules for strings placed in various protocol slots (such as addresses and identifiers) and to perform valid comparison operations (e.g., for purposes of authentication or authorization). This document defines a framework enabling application protocols to perform the preparation, enforcement, and comparison of internationalized strings (\"PRECIS\") in a way that depends on the properties of Unicode characters and thus is agile with respect to versions of Unicode. As a result, this framework provides a more sustainable approach to the handling of internationalized strings than the previous framework, known as Stringprep (RFC 3454). This document obsoletes RFC 3454.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Peter Saint-Andre"
+    },
+    {
+      "name": "Marc Blanchet"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC7564",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 7564",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "7564",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "PRECIS Framework: Preparation, Enforcement, and Comparison of Internationalized Strings in Application Protocols",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC7564",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC7564",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "Internationalization",
+    "Stringprep"
+  ],
+  "keywords$meta": {
+    "source": "parsed",
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "updated": "2026-10-13T19:04:23.446Z",
+    "originalValue": [
+      "Internationalization",
+      "I18n",
+      "Stringprep"
+    ],
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "version": "extractDocs.js@commit:8ad844f404e0",
+    "overridden": true
+  },
+  "pages": "40",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2015-05-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-klensin-idna-5892upd-unicode70-04",
+      "IETF.draft-ietf-precis-mappings-10",
+      "IETF.draft-ietf-precis-nickname-17",
+      "IETF.draft-ietf-precis-saslprepbis-17",
+      "RFC2865",
+      "RFC3454",
+      "RFC3490",
+      "RFC3491",
+      "RFC3629",
+      "RFC4422",
+      "RFC4510",
+      "RFC4690",
+      "RFC5226",
+      "RFC5234",
+      "RFC5246",
+      "RFC5890",
+      "RFC5891",
+      "RFC5892",
+      "RFC5893",
+      "RFC5894",
+      "RFC5895",
+      "RFC6452",
+      "RFC6885",
+      "RFC6943",
+      "IETF.draft-ietf-xmpp-6122bis-22",
+      "orphan/RFC7564/h:a8d49b89",
+      "orphan/RFC7564/h:6d5f2234",
+      "orphan/RFC7564/h:bc7874bb",
+      "orphan/RFC7564/h:746ec352",
+      "orphan/RFC7564/h:aa8f25c3",
+      "orphan/RFC7564/h:6f076ea7",
+      "orphan/RFC7564/h:6a3ea87f",
+      "orphan/RFC7564/h:3b1dfa87"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=39 proseBlocks=51 skippedAnchorBlocks=44",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC20",
+      "RFC2119",
+      "RFC5198",
+      "RFC6365",
+      "UNICODE.STD.7.0.0",
+      "orphan/RFC7564/h:5e501bdd"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7564/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+    "updated": "2026-10-13T18:24:53.473Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc7564",
+      "https://www.rfc-editor.org/errata_search.php?rfc=7564"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersededBy": [
+      "RFC8264"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "supersedes": [
+      "RFC3454"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7564/",
+      "updated": "2026-10-13T18:24:53.473Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

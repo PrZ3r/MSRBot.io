@@ -1,0 +1,280 @@
+{
+  "abstract": "This document specifies protocol stacks for the routing and transport of per-flow signalling messages along the path taken by that flow through the network. The design uses existing transport and security protocols under a common messaging layer, the General Internet Signalling Transport (GIST), which provides a common service for diverse signalling applications. GIST does not handle signalling application state itself, but manages its own internal state and the configuration of the underlying transport and security protocols to enable the transfer of messages in both directions along the flow path. The combination of GIST and the lower layer transport and security protocols provides a solution for the base protocol component of the \"Next Steps in Signalling\" (NSIS) framework. This document defines an Experimental Protocol for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Henning Schulzrinne"
+    },
+    {
+      "name": "Robert Hancock"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC5971",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 5971",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "5971",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "GIST: General Internet Signalling Transport",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC5971",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC5971",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "NSIS",
+    "Next Steps in Signaling"
+  ],
+  "keywords$meta": {
+    "source": "parsed",
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "updated": "2026-10-13T19:01:32.117Z",
+    "originalValue": [
+      "Nsis",
+      "Next Steps in Signaling"
+    ],
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "version": "extractDocs.js@commit:8ad844f404e0",
+    "overridden": true
+  },
+  "pages": "154",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2010-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2113",
+      "RFC2205",
+      "RFC2246",
+      "RFC2328",
+      "RFC2711",
+      "RFC2746",
+      "RFC3056",
+      "RFC3068",
+      "RFC3175",
+      "RFC3209",
+      "RFC3212",
+      "RFC3260",
+      "RFC3329",
+      "RFC5389",
+      "RFC5766",
+      "RFC5652",
+      "RFC4080",
+      "RFC4081",
+      "RFC4086",
+      "RFC4279",
+      "RFC4443",
+      "RFC4213",
+      "RFC4301",
+      "RFC4225",
+      "RFC4787",
+      "RFC4960",
+      "RFC4966",
+      "RFC5082",
+      "orphan/RFC5971/h:029ee75c",
+      "orphan/RFC5971/h:05b63633",
+      "orphan/RFC5971/h:ef56a122",
+      "orphan/RFC5971/h:915a0054",
+      "orphan/RFC5971/h:63ad9b03",
+      "orphan/RFC5971/h:bb75be8a"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=53 proseBlocks=54 skippedAnchorBlocks=50",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+      "updated": "2026-10-13T18:23:08.127Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC1122",
+      "RFC1812",
+      "RFC2119",
+      "RFC5226",
+      "RFC2460",
+      "RFC2474",
+      "RFC2765",
+      "RFC5280",
+      "RFC3692",
+      "RFC5246",
+      "RFC5234",
+      "RFC5978"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+      "updated": "2026-10-13T18:23:08.127Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5971/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+    "updated": "2026-10-13T18:23:08.127Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+      "updated": "2026-10-13T18:23:08.127Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+      "updated": "2026-10-13T18:23:08.127Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+      "updated": "2026-10-13T18:23:08.127Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+      "updated": "2026-10-13T18:23:08.127Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5971/",
+      "updated": "2026-10-13T18:23:08.127Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

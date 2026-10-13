@@ -188,4 +188,258 @@ REFERENCES
   assert.ok(!all5.some((x) => /^IETF\.draft-smi$/i.test(x)), `letter code read as a draft: ${JSON.stringify(all5)}`); n++;
 }
 
+// Every line indented, headings included (RFC905): a numbered References heading ends at the
+// next numbered heading at its own indent, not at the end of the document.
+{
+  const html6 = `<html><body><pre>
+     2  REFERENCES
+   
+     ISO 7498  Information   processing   systems   -   Open   systems
+               interconnection - Basic Reference Model
+   
+   
+     3  DEFINITIONS
+   
+     [Figures 3 and 4 are omitted from this copy.] General procedures, 1983,
+     "a quoted phrase that looks like a title" applies here.
+</pre></body></html>`;
+  const r6 = extractRefs(cheerio.load(html6), 'RFC9994', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html6 });
+  assert.deepStrictEqual(r6.references.bibliographic, ['ISO.7498']); n++;
+  assert.ok(!(r6.badRefs || []).some((b) => /Figures/.test(b.refText)), `body text read as a citation: ${JSON.stringify(r6.badRefs)}`); n++;
+}
+
+// Double-spaced pages (RFC878): a wrapped entry stays one entry.
+{
+  const filler = Array.from({ length: 220 }, (_, i) => `     Body text line ${i}.\n     `).join('\n');
+  const html7 = `<html><body><pre>
+${filler}
+     4  REFERENCES
+     
+     
+     [<a id="ref-1">1</a>]  J. Postel, "Address Mappings",  Request  for  Comments
+     
+          796, September 1981.
+     
+     
+     
+                                APPENDIX A
+</pre></body></html>`;
+  const r7 = extractRefs(cheerio.load(html7), 'RFC9993', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html7 });
+  assert.deepStrictEqual(r7.references.bibliographic, ['RFC796']); n++;
+}
+
+// RFC675's numbered list: "3.CESU74" without a space, and a bracket that opens a wrapped line
+// ("[RFC#635, …]") is part of the entry above, not a new one.
+{
+  const html8 = `<html><body><pre>
+7.  REFERENCES
+
+   2. CERF74
+
+      V. Cerf, "An Assessment of ARPANET Protocols," in Proceedings of
+      the Jerusalem Conference on Information Technology, July l974
+      [RFC#635, INWG Note # ***].
+
+   3.CESU74
+
+      V. Cerf and C. Sunshine, "Protocols and Gateways for the
+      Interconnection of Packet Switching Networks," January 1974.
+</pre></body></html>`;
+  const r8 = extractRefs(cheerio.load(html8), 'RFC9992', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html8 });
+  assert.deepStrictEqual(r8.references.bibliographic, ['RFC635']); n++;
+  const bad8 = (r8.badRefs || []).map((b) => b.refText);
+  assert.deepStrictEqual(bad8.length, 1, JSON.stringify(bad8)); n++;
+  assert.ok(/^V\. Cerf and C\. Sunshine/.test(bad8[0]), `label left on the citation: ${bad8[0]}`); n++;
+}
+
+// A running header split over two lines at a page break ("January 1980" in the grey header,
+// the title on the next line, RFC761) is not part of the entry.
+{
+  const html9 = `<html><body><pre>
+References
+
+[<a id="ref-4">4</a>]  Dalal, Y. and C. Sunshine, "Connection Management in Transport
+     Protocols," Computer Networks, Vol. 2, No. 6, pp. 454-473,
+     December 1978.
+
+
+<span class="grey">                                                               [Page 83]</span></pre>
+<hr class='noprint'/><!--NewPage--><pre class='newpage'><span id="page-84" ></span>
+<span class="grey">                                                            January 1980</span>
+Transmission Control Protocol
+
+
+[Page 84]
+</pre></body></html>`;
+  const r9 = extractRefs(cheerio.load(html9), 'RFC9991', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html9 });
+  const bad9 = (r9.badRefs || []).map((b) => b.refText);
+  assert.ok(bad9.length === 1 && /December 1978\.$/.test(bad9[0]), `page header in the entry: ${JSON.stringify(bad9)}`); n++;
+}
+
+// Annotated list (RFC740): the note under an entry is not part of the citation, and the list
+// number goes even when the entry opens with a quote.
+{
+  const html10 = `<html><body><pre>
+                               REFERENCES
+
+   2. "NETRJS Remote Operator Commands", R. T. Braden.  NIC #7182,
+   August 9, 1971
+
+      This document together with References 3 and 8 define the remote
+      operator (i.e. user) command language for NETRJS.
+
+   5. "Using Network Remote Job Entry", E. F. Harslem.  RFC #307:  NIC
+   #9258, February 24, 1972.
+</pre></body></html>`;
+  const r10 = extractRefs(cheerio.load(html10), 'RFC9990', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html10 });
+  assert.deepStrictEqual(r10.references.bibliographic, ['RFC307']); n++;
+  assert.deepStrictEqual((r10.badRefs || []).map((b) => b.refText), ['"NETRJS Remote Operator Commands", R. T. Braden. NIC #7182, August 9, 1971']); n++;
+}
+
+// The archive transcriber's note after the list is not a citation (RFC635), and NIC documents
+// with no year are kept as orphans, without their "1)" (RFC333).
+{
+  const html11 = `<html><body><pre>
+REFERENCES
+
+      1) NIC document 8246, HOST/HOST PROTOCOL FOR THE ARPA NETWORK
+
+      4) a system of interprocess communication in a resource sharing
+         computer network, CACM, April, 1972.
+
+       [ This RFC was put into machine readable form for entry ]
+       [ into the online RFC archives by Roger D. Moore, with  ]
+
+E] Formulae: On page six I have replaced symbols of the form "B subscript digit"
+</pre></body></html>`;
+  const r11 = extractRefs(cheerio.load(html11), 'RFC9989', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html11 });
+  assert.deepStrictEqual((r11.badRefs || []).map((b) => b.refText), [
+    'NIC document 8246, HOST/HOST PROTOCOL FOR THE ARPA NETWORK',
+    'a system of interprocess communication in a resource sharing computer network, CACM, April, 1972.',
+  ]); n++;
+}
+
+// A glossary entry named "References" is not the references section (RFC767's field list).
+{
+  const html12 = `<html><body><pre>
+  Protocol
+
+    The name of the coding scheme used for a medium.
+
+  References
+
+    The message identifiers of other messages.  Represented by a list of
+    text elements, e.g. proplist:( name:"TEXT", text:"a quoted body text" )endlist 1980.
+
+                               REFERENCES
+
+[<a id="ref-1">1</a>]   Postel, J., "Internet Message Protocol," <a href="./rfc759">RFC 759</a>, August 1980.
+</pre></body></html>`;
+  const r12 = extractRefs(cheerio.load(html12), 'RFC9988', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html12 });
+  assert.deepStrictEqual(r12.references.bibliographic, ['RFC759']); n++;
+  assert.deepStrictEqual(r12.badRefs || [], []); n++;
+}
+
+// An unanchored References heading ends at the next real section heading (RFC1583's appendices),
+// but not at an htmlized entry that became a section link (RFC756: reused number, "J. Postel,").
+{
+  const html13 = `<html><body><pre>
+<span class="h2"><a class="selflink" id="section-1" href="#section-1">1</a>. Introduction</span>
+
+References
+
+    [<a id="ref-1">1</a>] Postel, J., "Internet Protocol", <a href="./rfc791">RFC 791</a>, September 1981.
+
+<span class="h2"><a class="selflink" id="appendix-A" href="#appendix-A">A</a>. OSPF data formats</span>
+
+            [IP address, mask]
+                    Describes the collection of IP addresses contained in the range, 1994 "quoted text".
+</pre></body></html>`;
+  const r13 = extractRefs(cheerio.load(html13), 'RFC9987', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html13 });
+  assert.deepStrictEqual(r13.references.bibliographic, ['RFC791']); n++;
+  assert.deepStrictEqual(r13.badRefs || [], [], JSON.stringify(r13.badRefs)); n++;
+}
+
+// Prefixes left on orphan text: an unbracketed label before the author (RFC1392), ": " (RFC2025).
+{
+  const html14 = `<html><body><pre>
+References
+
+   COMER Comer, D., "Internetworking with TCP/IP: Principles, Protocols and Architecture", 1991.
+
+   : D. W. Davies and W. L. Price, "Security for Computer Networks", Second Edition, 1989.
+</pre></body></html>`;
+  const r14 = extractRefs(cheerio.load(html14), 'RFC9985', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html14 });
+  assert.deepStrictEqual((r14.badRefs || []).map((b) => b.refText.slice(0, 22)), ['Comer, D., "Internetwo', 'D. W. Davies and W. L.']); n++;
+}
+
+// A ditto ("---,") takes the previous entry's author (RFC2828).
+{
+  const html15 = `<html><body><pre>
+References
+
+   [<a id="ref-A3092">A3092</a>]  American National Standards Institute, "American National
+            Standard Data Encryption Algorithm", ANSI X3.92-1981, 30 Dec 1980.
+
+   [<a id="ref-A9017">A9017</a>]  ---, "Financial Institution Key Management (Wholesale)",
+            X9.17, 4 Apr 1985.
+</pre></body></html>`;
+  const r15 = extractRefs(cheerio.load(html15), 'RFC9984', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html15 });
+  assert.ok((r15.references.bibliographic || []).includes('ANSI.X9.17.1985'), JSON.stringify(r15.references)); n++;
+}
+
+// A capitalized file name in a NIST link is not an Internet-Draft (RFC4880); a sentence-capitalized
+// real draft name still is.
+{
+  const html16 = `<html><body><pre>
+References
+
+   [<a id="ref-FIPS186">FIPS186</a>] Digital Signature Standard (DSS) (FIPS PUB 186-2). The latest draft is at:
+              &lt; <a href="http://csrc.nist.gov/publications/drafts/fips_186-3/Draft-FIPS-186-3%20_March2006.pdf">http://csrc.nist.gov/publications/drafts/fips_186-3/Draft-FIPS-186-3%20_March2006.pdf</a> &gt;.
+
+   [<a id="ref-AMB">AMB</a>]   Skoglund, J., "Ambisonics in an Ogg Opus Container", Draft-ietf-codec-ambisonics-00, 2016.
+</pre></body></html>`;
+  const r16 = extractRefs(cheerio.load(html16), 'RFC9983', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html16 });
+  assert.deepStrictEqual(r16.references.bibliographic, ['NIST.FIPS.186-2', 'IETF.draft-ietf-codec-ambisonics-00']); n++;
+}
+
+// A lettered annex heading ends the references (RFC6460's "Annex B.  Changes since RFC 5430").
+{
+  const html17 = `<html><body><pre>
+References
+
+   [<a id="ref-RFC5430">RFC5430</a>] Salter, M., "Suite B Profile for TLS", <a href="./rfc5430">RFC 5430</a>, March 2009.
+
+Annex B.  Changes since RFC 5430
+
+    - A system desiring to negotiate a Suite B TLS connection at a minimum level of
+      security of 128 bits MUST generate a "Supported Elliptic Curves Extension", 2012.
+</pre></body></html>`;
+  const r17 = extractRefs(cheerio.load(html17), 'RFC9982', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html17 });
+  assert.deepStrictEqual(r17.badRefs || [], [], JSON.stringify(r17.badRefs)); n++;
+}
+
+// A "Normative References" section that discusses references (RFC3967 §1.1) is not the list; its
+// twin under the document's "References" heading is.
+{
+  const html18 = `<html><body><pre>
+<span class="h3"><a class="selflink" id="section-1.1" href="#section-1.1">1.1</a>.  Normative References</span>
+
+   Within an RFC, references to other documents fall into two general
+   categories: "normative" and "informative", 2004.
+
+<span class="h2"><a class="selflink" id="section-6" href="#section-6">6</a>.  References</span>
+
+<span class="h3"><a class="selflink" id="section-6.1" href="#section-6.1">6.1</a>.  Normative References</span>
+
+   [<a id="ref-RFC2026">RFC2026</a>]  Bradner, S., "The Internet Standards Process", <a href="./rfc2026">RFC 2026</a>, October 1996.
+
+<span class="h3"><a class="selflink" id="section-6.2" href="#section-6.2">6.2</a>.  Informative References</span>
+
+   [<a id="ref-RFC1321">RFC1321</a>]  Rivest, R., "The MD5 Message-Digest Algorithm", <a href="./rfc1321">RFC 1321</a>, April 1992.
+</pre></body></html>`;
+  const r18 = extractRefs(cheerio.load(html18), 'RFC9981', { mode: 'ietf-rfc-html', recordSightings: false, htmlRaw: html18 });
+  assert.deepStrictEqual([r18.references.normative, r18.references.bibliographic, (r18.badRefs || []).length], [['RFC2026'], ['RFC1321'], 0]); n++;
+}
+
 console.log(`referencing.ietfBounds.test.js — ${n} cases passed`);

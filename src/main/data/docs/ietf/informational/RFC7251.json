@@ -1,0 +1,254 @@
+{
+  "abstract": "This memo describes the use of the Advanced Encryption Standard (AES) in the Counter and CBC-MAC Mode (CCM) of operation within Transport Layer Security (TLS) to provide confidentiality and data-origin authentication. The AES-CCM algorithm is amenable to compact implementations, making it suitable for constrained environments, while at the same time providing a high level of security. The cipher suites defined in this document use Elliptic Curve Cryptography (ECC) and are advantageous in networks with limited bandwidth.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "David McGrew"
+    },
+    {
+      "name": "Daniel Bailey"
+    },
+    {
+      "name": "Matthew Campagna"
+    },
+    {
+      "name": "Robert Dugal"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC7251",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 7251",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "7251",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "AES-CCM Elliptic Curve Cryptography (ECC) Cipher Suites for TLS",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC7251",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC7251",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "10",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2014-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "IEEE.STD802.15.4.2006",
+      "RSA.PKCS11.v2.20.2004",
+      "RFC4309"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=16 proseBlocks=20 skippedAnchorBlocks=18",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+      "updated": "2026-10-13T18:24:39.722Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "NIST.FIPS.197",
+      "NIST.SP.800-38C",
+      "RFC2119",
+      "RFC4492",
+      "RFC5116",
+      "RFC5246",
+      "RFC5288",
+      "RFC5639",
+      "RFC6066",
+      "RFC6090",
+      "RFC6347",
+      "RFC6655",
+      "NIST.SP.800-57"
+    ],
+    "normative$meta": {
+      "source": "parsed",
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "updated": "2026-10-13T19:04:05.178Z",
+      "originalValue": [
+        "NIST.FIPS.197",
+        "RFC2119",
+        "RFC4492",
+        "RFC5116",
+        "RFC5246",
+        "RFC5288",
+        "RFC5639",
+        "RFC6066",
+        "RFC6090",
+        "RFC6347",
+        "RFC6655",
+        "orphan/RFC7251/h:9338b1b8",
+        "orphan/RFC7251/h:3ef52eee"
+      ],
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+      "version": "extractDocs.js@commit:8ad844f404e0",
+      "overridden": true
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7251/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+    "updated": "2026-10-13T18:24:39.722Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+      "updated": "2026-10-13T18:24:39.722Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+      "updated": "2026-10-13T18:24:39.722Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+      "updated": "2026-10-13T18:24:39.722Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+      "updated": "2026-10-13T18:24:39.722Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7251/",
+      "updated": "2026-10-13T18:24:39.722Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

@@ -160,4 +160,77 @@ assert.strictEqual(citeHref('<ref><mixed-citation>Available: <uri>https://www.fa
 assert.strictEqual(citeHref('<ref><mixed-citation><pub-id pub-id-type="doi">10.1017/atsip.2019.23</pub-id></mixed-citation></ref>'), 'https://doi.org/10.1017/atsip.2019.23'); n++;
 assert.strictEqual(citeHref('<ref><mixed-citation>R. Xu, “Survey,” 2005.</mixed-citation></ref>'), ''); n++;
 
+// Old RFCs spell the series out or use "#": RFC878, RFC675; RFCs below 100 too.
+assert.strictEqual(parseRefId('J. Reynolds and J. Postel, "Assigned Numbers", Request For Comments 870, October 1983.'), 'RFC870'); n++;
+assert.strictEqual(parseRefId('V. Cerf, "An Assessment of ARPANET Protocols," July l974 [RFC#635, INWG Note # ***].'), 'RFC635'); n++;
+assert.strictEqual(parseRefId('Cerf, V., "ASCII format for Network Interchange", STD 80, RFC 20, October 1969.'), 'RFC20'); n++;
+
+// A bit rate is not a year: "2048 kbit/s" (RFC1406).
+assert.strictEqual(parseRefId('CCITT Specifications Volume III, Recommendation G.732, Characteristics Of Primary PCM Multiplex Equipment Operating at 2048 kbit/s, July 1988.'), 'T-REC-G.732.1988'); n++;
+
+// A quoted title between an IEEE designator and the date (RFC1209); ISO's stage written out (RFC1547,
+// RFC1510); an addendum is not the standard (RFC1189).
+assert.strictEqual(parseRefId('Institute of Electrical & Electronic Engineers, Inc. IEEE Standard 802.6, "Distributed Queue Dual Bus (DQDB) Subnetwork of a Metropolitan Area Network (MAN) Standard", December 1990.'), 'IEEE.STD802.6.1990'); n++;
+assert.strictEqual(parseRefId('ISO International Standard (IS) 3309, "Data Communications - High-level Data Link Control Procedures - Frame Structure", 1979.'), 'ISO.3309.1979'); n++;
+assert.strictEqual(parseRefId('International Organization for Standardization, "ISO Information Processing Systems - Data Communication High-Level Data Link Control Procedure - Frame Structure", IS 3309, October 1984, 3rd Edition.'), 'ISO.3309.1984'); n++;
+assert.strictEqual(parseRefId('ISO IS 9595 1989: DAD1: "CMIS Add/Remove Addendum".'), null); n++;
+
+// "International Standard NNNN" with ISO elsewhere in the cite (RFC935); a part after an en dash
+// (SMPTE journal); "IEEE Standards 802-1990" (RFC1490); a draft stays unresolved.
+assert.strictEqual(parseRefId('International Standard 7809, "Data Communication - High-level data link control procedures - Consolidation of classes of procedures", ISO, 1984.'), 'ISO.7809.1984'); n++;
+assert.strictEqual(parseRefId('Information Technology, "Generic Coding of Moving Pictures and Associated Audio Information: Systems," ISO/IEC International Standard 13818\u20131, Second ed., Dec. 2000.'), 'ISO.13818-1.2000'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Local and Metropolitan Area Networks: Overview and architecture", IEEE Standards 802-1990.'), 'IEEE.STD802.1990'); n++;
+assert.strictEqual(parseRefId('Draft International Standard 8802.2, "Local Area Network Standards, Logical Link Control", ISO, 1984 (draft).'), null); n++;
+
+// OSF's DCE "Request for Comments" series is not the IETF's (RFC1510; IETF RFC26 was never issued).
+assert.strictEqual(parseRefId('Pato, J., "Using Pre-Authentication to Avoid Password Guessing Attacks", Open Software Foundation DCE Request for Comments 26, December 1992.'), null); n++;
+
+// "American National Standards Institute" spelled out with a bare X-series designator (RFC2828).
+assert.strictEqual(parseRefId('American National Standards Institute, "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985.'), 'ANSI.X9.17.1985'); n++;
+assert.strictEqual(parseRefId('RSA Laboratories, "PKCS #7: Cryptographic Message Syntax Standard", ver. 1.5, RSA Laboratories Technical Note, 1 Nov 1993.'), 'RSA.PKCS7.v1.5.1993'); n++;
+
+// A bare "ITU" lead-in with no "Recommendation" (RFC3108); the year comes after the designator.
+assert.strictEqual(parseRefId('ITU Q.931, Digital Subscriber Signaling System No. 1: Network Layer.'), 'T-REC-Q.931'); n++;
+assert.strictEqual(parseRefId('ITU Q.1901, Bearer Independent Call Control Protocol.'), 'T-REC-Q.1901'); n++;
+assert.strictEqual(parseRefId('ITU E.164 - The International Public Telecommunication Numbering Plan E.164/I.331 (May 1997)'), 'T-REC-E.164.1997'); n++;
+
+// ANSI X-series with no year (RFC1767), a placeholder year (RFC2459), and "International
+// Standards … International Standards Organization" (RFC2030).
+assert.strictEqual(parseRefId('ANSI X12.6 Applications Control Structures for Electronic Data Interchange, Washington D.C.: DISA'), 'ANSI.X12.6'); n++;
+assert.strictEqual(parseRefId('ANSI X9.57-199x, Public Key Cryptography For The Financial Services Industry: Certificate Management, Working Draft, June 1996.'), 'ANSI.X9.57'); n++;
+assert.strictEqual(parseRefId('International Standards 8602 - Information Processing Systems - OSI: Connectionless Transport Protocol Specification. International Standards Organization, December 1986.'), 'ISO.8602.1986'); n++;
+
+// ISO/IEC Technical Reports keep TR in the ID (iso.org: "ISO/IEC TR 9577:1990"); a draft doesn't resolve.
+assert.strictEqual(parseRefId('ISO/IEC TR 9577:1990(E), "Information technology - Protocol Identification in the network layer", 1990-10-15.'), 'ISO.TR9577.1990'); n++;
+assert.strictEqual(parseRefId('ISO/IEC, "Information Technology - OSI Routeing Framework", Technical Report 9575, ISO/IEC JTC 1, Switzerland, 1989.'), 'ISO.TR9575.1989'); n++;
+assert.strictEqual(parseRefId('J. Samuelsson, Working Draft ISO/IEC TR 23008-14 Conversion and Coding Practices for HDR/WCG, 2016.'), null); n++;
+
+// Undated IEEE 802 lead-ins (RFC3819) and a two-level designator (RFC4067); a co-designation stays ISO.
+assert.strictEqual(parseRefId('IEEE 802.11 Wireless LAN standard. http://standards.ieee.org/'), 'IEEE.STD802.11'); n++;
+assert.strictEqual(parseRefId('IEEE 802.1AB, "Station and Media Access Control Connectivity Discovery"'), 'IEEE.STD802.1AB'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for information technology - LAN/MAN - Part 15.1: WPANs", IEEE Standard 802.15.1, 2002.'), 'IEEE.STD802.15.1.2002'); n++;
+assert.strictEqual(parseRefId('IEEE 802.3/ISO 8802-3 Information processing systems - Local area networks - Part 3'), 'ISO.8802-3'); n++;
+// ITU-T spelled out with "X.509(2000)" (RFC4523); a wrapped ISO part number (RFC4510).
+assert.strictEqual(parseRefId('International Telecommunication Union - Telecommunication Standardization Sector, "The Directory: Authentication Framework", X.509(2000).'), 'T-REC-X.509.2000'); n++;
+assert.strictEqual(parseRefId('X509-4th ITU-T Recommendation X.509 (2000) | ISO/IEC 9594- 8:2001, "The Directory".'), 'ISO.9594-8.2001'); n++;
+
+// Never an ID ending in a hyphen, and "ISO 7-bit" is not ISO 7 (RFC1345, RFC1502).
+assert.strictEqual(parseRefId('MPEG-2 Specification: ISO/IEC 13818-Parts 1, 2, 3.'), 'ISO.13818'); n++;
+assert.strictEqual(parseRefId('Danish Standard DS 2089, Application of ISO 7-bit coded character set, February 1974.'), null); n++;
+
+// ITU-T lead-in, title, then the number (RFC3672, RFC2128); IEEE catalogue titles (RFC7273).
+assert.strictEqual(parseRefId('ITU-T, "The Directory -- Models," X.501, 1993.'), 'T-REC-X.501.1993'); n++;
+assert.strictEqual(parseRefId('ITU-T Recommendation "Digital subscriber Signalling System No. 1 (DSS 1) - ISDN user-network interface layer 3 specification for basic call control", Rec. Q.931(I.451), May 1998.'), 'T-REC-Q.931.1998'); n++;
+assert.strictEqual(parseRefId('IEEE, "1588-2008 - IEEE Standard for a Precision Clock Synchronization Protocol", July 2008.'), 'IEEE.STD1588.2008'); n++;
+assert.strictEqual(parseRefId('IEEE, "802.1AS-2011 - IEEE Standard for Local and Metropolitan Area Networks - Timing", 2011.'), 'IEEE.STD802.1AS.2011'); n++;
+assert.strictEqual(parseRefId('IEEE Standards Association, "IEEE 802.1AR Secure Device Identifier", December 2009.'), 'IEEE.STD802.1AR.2009'); n++;
+
+// Batch 11 review: INCITS.NNN:YYYY (RFC3821), FIPS singular (RFC5091), bare SP after NIST (RFC5289),
+// a wrapped W3C TR name (RFC5122), an IEEE project number (RFC8422).
+assert.strictEqual(parseRefId('Fibre Channel Backbone (FC-BB), ANSI INCITS.342:2001, December 12, 2001.'), 'INCITS.342.2001'); n++;
+assert.strictEqual(parseRefId('National Institute of Standards and Technology, "Digital Signature Standard," Federal Information Processing Standard 186-2, August 2002.'), 'NIST.FIPS.186-2'); n++;
+assert.strictEqual(parseRefId('National Institute of Standards and Technology, "Recommendation for Block Cipher Modes of Operation", SP 800-38A, December 2001.'), 'NIST.SP.800-38A'); n++;
+assert.strictEqual(parseRefId('Raggett, D., "HTML 4.0 Specification", W3C REC REC- html40-19980424, April 1998.'), 'W3C.html40.19980424'); n++;
+assert.strictEqual(parseRefId('IEEE, "Standard Specifications for Public Key Cryptography", IEEE Std P1363.'), 'IEEE.STD1363'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

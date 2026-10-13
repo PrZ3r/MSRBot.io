@@ -1,0 +1,281 @@
+{
+  "abstract": "This memo presents operational considerations and issues with IPv6 Domain Name System (DNS), including a summary of special IPv6 addresses, documentation of known DNS implementation misbehavior, recommendations and considerations on how to perform DNS naming for service provisioning and for DNS resolver IPv6 support, considerations for DNS updates for both the forward and reverse trees, and miscellaneous issues. This memo is aimed to include a summary of information about IPv6 DNS considerations for those who have experience with IPv4 DNS. This memo provides information for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.787Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "authors": [
+    {
+      "name": "Alain Durand"
+    },
+    {
+      "name": "Johan Stenstam"
+    },
+    {
+      "name": "Pekka Savola"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.787Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docId": "RFC4472",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.786Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docLabel": "IETF RFC 4472",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.786Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docNumber": "4472",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.786Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docTitle": "Operational Considerations and Issues with IPv6 DNS",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.786Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.786Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "doi": "10.17487/RFC4472",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.787Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "href": "https://doi.org/10.17487/RFC4472",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.787Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "keywords": [
+    "DNS",
+    "IPv6"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.787Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "pages": "29",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.787Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publicationDate": "2006-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.786Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.787Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2766",
+      "RFC2782",
+      "RFC2826",
+      "RFC3704",
+      "RFC3972",
+      "RFC4025",
+      "RFC4213",
+      "RFC4215",
+      "RFC4380",
+      "orphan/RFC4472/h:a08ee1eb",
+      "orphan/RFC4472/h:bf115970",
+      "orphan/RFC4472/h:107fa7f4",
+      "orphan/RFC4472/h:84e9d024",
+      "orphan/RFC4472/h:fd5b34ee",
+      "orphan/RFC4472/h:404a15d1",
+      "orphan/RFC4472/h:24064cae",
+      "orphan/RFC4472/h:3595972a",
+      "orphan/RFC4472/h:60f3274f",
+      "orphan/RFC4472/h:5b2ee9f5",
+      "orphan/RFC4472/h:6f0c8c0f",
+      "orphan/RFC4472/h:b2699e68"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=48 proseBlocks=53 skippedAnchorBlocks=51",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+      "updated": "2026-10-13T18:21:36.787Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "normative": [
+      "RFC1034",
+      "RFC2136",
+      "RFC2181",
+      "RFC2182",
+      "RFC2462",
+      "RFC2671",
+      "RFC2821",
+      "RFC3007",
+      "RFC3041",
+      "RFC3056",
+      "RFC3152",
+      "RFC3315",
+      "RFC3363",
+      "RFC3364",
+      "RFC3596",
+      "RFC3646",
+      "RFC3736",
+      "RFC3879",
+      "RFC3901",
+      "RFC4038",
+      "RFC4074",
+      "RFC4192",
+      "RFC4193",
+      "RFC4291",
+      "RFC4339"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+      "updated": "2026-10-13T18:21:36.787Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4472/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+    "updated": "2026-10-13T18:21:36.787Z",
+    "version": "extractDocs.js@commit:6d30695438dd"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+      "updated": "2026-10-13T18:21:36.787Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+      "updated": "2026-10-13T18:21:36.787Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+      "updated": "2026-10-13T18:21:36.787Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+      "updated": "2026-10-13T18:21:36.787Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4472/",
+      "updated": "2026-10-13T18:21:36.787Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    }
+  }
+}

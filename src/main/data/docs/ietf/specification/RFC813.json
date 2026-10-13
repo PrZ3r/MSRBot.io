@@ -1,0 +1,201 @@
+{
+  "abstract": "This RFC describes implementation strategies to deal with two mechanisms in TCP, the window and the acknowledgement. It also presents a particular set of algorithms which have received testing in the field, and which appear to work properly with each other. With more experience, these algorithms may become part of the formal specification, until such time their use is recommended.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "authors": [
+    {
+      "name": "Dr. David D. Clark"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docId": "RFC813",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docLabel": "IETF RFC 813",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docNumber": "813",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docTitle": "Window and Acknowledgement Strategy in TCP",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "docType": "Specification",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "doi": "10.17487/RFC813",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "href": "https://doi.org/10.17487/RFC813",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "pages": "21",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "publicationDate": "1982-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc813/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+    "updated": "2026-10-12T17:30:02.762Z",
+    "version": "extractDocs.js@commit:688fcdda1db9"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+      "updated": "2026-10-12T17:30:02.762Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+      "updated": "2026-10-12T17:30:02.762Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+      "updated": "2026-10-12T17:30:02.762Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    },
+    "statusNote": "Historic",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+      "updated": "2026-10-12T17:30:02.762Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+      "updated": "2026-10-12T17:30:02.762Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    },
+    "supersededBy": [
+      "RFC7805"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc813/",
+      "updated": "2026-10-12T17:30:02.762Z",
+      "version": "extractDocs.js@commit:688fcdda1db9"
+    }
+  }
+}

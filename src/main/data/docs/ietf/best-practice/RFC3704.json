@@ -1,0 +1,264 @@
+{
+  "abstract": "BCP 38, RFC 2827, is designed to limit the impact of distributed denial of service attacks, by denying traffic with spoofed addresses access to the network, and to help ensure that traffic is traceable to its correct source network. As a side effect of protecting the Internet against such attacks, the network implementing the solution also protects itself from this and other attacks, such as spoofed management access to networking equipment. There are cases when this may create problems, e.g., with multihoming. This document describes the current ingress filtering operational mechanisms, examines generic issues related to ingress filtering, and delves into the effects on multihoming in particular. This memo updates RFC 2827. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "authors": [
+    {
+      "name": "Fred Baker"
+    },
+    {
+      "name": "Pekka Savola"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docId": "RFC3704",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docLabel": "IETF RFC 3704",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docNumber": "3704",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docTitle": "Ingress Filtering for Multihomed Networks",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "docType": "Best Practice",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "doi": "10.17487/RFC3704",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "href": "https://doi.org/10.17487/RFC3704",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "keywords": [
+    "ISP",
+    "IP",
+    "DoS"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "pages": "16",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "publicationDate": "2004-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1997",
+      "RFC3330",
+      "RFC2260",
+      "RFC3178"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=5 proseBlocks=8 skippedAnchorBlocks=6",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+      "updated": "2026-10-13T17:21:28.499Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "normative": [
+      "RFC2827"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+      "updated": "2026-10-13T17:21:28.499Z",
+      "version": "extractDocs.js@commit:996495349225"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3704/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+    "updated": "2026-10-13T17:21:28.499Z",
+    "version": "extractDocs.js@commit:996495349225"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+      "updated": "2026-10-13T17:21:28.499Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "amendedBy": [
+      "RFC8704"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+      "updated": "2026-10-13T17:21:28.499Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "amends": [
+      "RFC2827"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+      "updated": "2026-10-13T17:21:28.499Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+      "updated": "2026-10-13T17:21:28.499Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+      "updated": "2026-10-13T17:21:28.499Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "statusNote": "Best Current Practice",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+      "updated": "2026-10-13T17:21:28.499Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3704/",
+      "updated": "2026-10-13T17:21:28.499Z",
+      "version": "extractDocs.js@commit:996495349225"
+    }
+  }
+}

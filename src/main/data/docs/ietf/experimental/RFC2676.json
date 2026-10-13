@@ -1,0 +1,274 @@
+{
+  "abstract": "This memo describes extensions to the OSPF protocol to support QoS routes. The focus of this document is on the algorithms used to compute QoS routes and on the necessary modifications to OSPF to support this function, e.g., the information needed, its format, how it is distributed, and how it is used by the QoS path selection process. This memo defines an Experimental Protocol for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "authors": [
+    {
+      "name": "George Apostolopoulos"
+    },
+    {
+      "name": "Sanjay Kamat"
+    },
+    {
+      "name": "Doug Williams"
+    },
+    {
+      "name": "Dr. Roch Guerin"
+    },
+    {
+      "name": "Ariel Orda"
+    },
+    {
+      "name": "Tony Przygienda"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docId": "RFC2676",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docLabel": "IETF RFC 2676",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docNumber": "2676",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docTitle": "QoS Routing Mechanisms and OSPF Extensions",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "doi": "10.17487/RFC2676",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "href": "https://doi.org/10.17487/RFC2676",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "keywords": [
+    "QoS",
+    "Quality Of Service",
+    "OSPF",
+    "Routing"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "pages": "50",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publicationDate": "1999-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1349",
+      "ISBN.0198596227",
+      "RFC2474",
+      "RFC1583",
+      "RFC2328",
+      "RFC2212",
+      "RFC2205",
+      "orphan/RFC2676/h:bbccdfa3",
+      "orphan/RFC2676/h:70d78145",
+      "orphan/RFC2676/h:c7e3cd45",
+      "orphan/RFC2676/h:5a1a3070",
+      "orphan/RFC2676/h:bbb65f77",
+      "orphan/RFC2676/h:8e5ed4b1",
+      "orphan/RFC2676/h:13ccc541",
+      "orphan/RFC2676/h:444abe5a",
+      "orphan/RFC2676/h:59dd9627",
+      "orphan/RFC2676/h:41a43a85",
+      "orphan/RFC2676/h:b45ca4f9",
+      "orphan/RFC2676/h:67182e8d",
+      "orphan/RFC2676/h:5de6b884",
+      "orphan/RFC2676/h:8e1c6216",
+      "orphan/RFC2676/h:912c687c",
+      "orphan/RFC2676/h:39588f14",
+      "orphan/RFC2676/h:33845e27",
+      "orphan/RFC2676/h:bdeaae55"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=22 proseBlocks=29 skippedAnchorBlocks=27",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+      "updated": "2026-10-12T21:10:43.079Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc2676/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+    "updated": "2026-10-12T21:10:43.079Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+      "updated": "2026-10-12T21:10:43.079Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+      "updated": "2026-10-12T21:10:43.079Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc2676",
+      "https://www.rfc-editor.org/errata_search.php?rfc=2676",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc2676.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+      "updated": "2026-10-12T21:10:43.079Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+      "updated": "2026-10-12T21:10:43.079Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+      "updated": "2026-10-12T21:10:43.079Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2676/",
+      "updated": "2026-10-12T21:10:43.079Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  }
+}
