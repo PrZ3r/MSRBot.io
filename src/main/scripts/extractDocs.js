@@ -84,6 +84,9 @@ function citeWithoutLabel(raw) {
     const authorFirst = /^(?:[A-Z][A-Za-z'-]+,\s+[A-Z]\.|(?:[A-Z]\.\s*){1,3}[A-Z][a-z])/.test(spaced[2]);
     if (key(spaced[2]).includes(key(spaced[1])) || authorFirst) raw = spaced[2];
   }
+  // An author-year key with a comma: "[Bellovin, 1992] S. Bellovin, …", "[ABA, 1989] American Bar
+  // Association, …" (RFC2196).
+  raw = String(raw || '').trim().replace(/^\[[A-Z][^\]\n]{0,40},\s*(?:19|20)\d{2}[a-z]?\]\s+(?=\S)/u, '');
   return String(raw || '')
     .replace(/\s+/g, ' ')
     .replace(/^\[\s*\d{1,4}\s*\]\s*/u, '')
@@ -137,6 +140,8 @@ function isNonCitationLine(cite) {
   // (RFC2246 [RSADSI] "Contact RSA Data Security, Inc., Tel: 415-595-8782").
   if (/^(?:Phone|Tel|Fax|E-?Mail)\s*:/i.test(c)) return true;
   if (/^Contact\b[^"“]{0,120}\b(?:Tel|Phone|E-?Mail)\s*:/i.test(c)) return true;
+  // An ASCII table in the reference section (RFC3250's change log: "+----+---------+").
+  if (/^\+-{2,}/.test(c)) return true;
   // A licensing note in the reference list, not a citation (RFC2433, RFC2548, RFC2759).
   if (/^RC4 is a proprietary encryption algorithm\b/i.test(c)) return true;
   // An item this memo itself registers (RFC3297: "'Content-alternative' header (this memo, section 4)").

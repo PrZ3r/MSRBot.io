@@ -1742,6 +1742,17 @@ function parseRefId(text, href = '', opts = {}) {
       const refId = `ANSI.${undated[1].toUpperCase()}.${undated[2]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-designator-undated' } } : refId;
     }
+    // "ANSI X12.6 Applications Control Structures for Electronic Data Interchange, Washington
+    // D.C.: DISA" (RFC1767): an X-series designator with no year; a year after it dates it.
+    // A placeholder year ("ANSI X9.57-199x", not yet published) leaves it undated.
+    const bareX = !m && String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?ANSI\s+(X\d{1,2})\.(\d{1,3})\b(?![.\/]\d)/);
+    if (bareX) {
+      const tail = String(text || '').slice(bareX.index + bareX[0].length);
+      const yx = /^\s*-\s*\d{2,3}x/i.test(tail) ? null : (tail.match(/\b((?:19|20)\d{2})\b/) || [])[1];
+      const pub = bareX[1] === 'X3' && bareX[2] === '4' ? 'INCITS' : 'ANSI';
+      const refId = `${pub}.${bareX[1]}.${bareX[2]}${yx ? `.${yx}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ansi-x-series-bare' } } : refId;
+    }
     // Spelled out with a bare X-series designator: "American National Standards Institute,
     // "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985." (RFC2828)
     const spelled = !m && /\bAmerican\s+National\s+Standards\s+Institute\b/.test(String(text || ''))
@@ -2096,12 +2107,14 @@ function parseRefId(text, href = '', opts = {}) {
   // addendum ("ISO IS 9595 1989: DAD1", RFC1189) cites the amendment, not the standard.
   {
     const src = String(text || '');
-    if ((/\bInternational\s+Organi[sz]ation\s+for\s+Standardi[sz]ation\b/i.test(src) || /\bISO\b/.test(src))
+    // also misnamed "International Standards Organization" (RFC2030)
+    if ((/\bInternational\s+Organi[sz]ation\s+for\s+Standardi[sz]ation\b/i.test(src) || /\bISO\b/.test(src)
+      || /\bInternational\s+Standards?\s+Organi[sz]ation\b/i.test(src))
       && !/\b(?:P?DAD\d*|DAM\d*|Addendum|Amendment)\b/i.test(src)) {
       // also "International Standard 7809, "…", ISO, 1984" (RFC935), but not a draft
       // ("Draft International Standard 8802.2", "Draft Proposed …").
       // A part after an en dash, also as an entity: "International Standard 13818&#x2013;1".
-      const m = src.match(/(?<!\b(?:Draft|Proposed)\s+)\b(?:International\s+Standard(?:\s+\(IS\))?|IS)\s+(\d{3,5}(?:(?:-|[\u2010-\u2015]|&#x201[0-5];|&ndash;)\d+)*)\b(?![.\/]\d)(?:[^\n]{0,240}?\b((?:19|20)\d{2})\b)?/);
+      const m = src.match(/(?<!\b(?:Draft|Proposed)\s+)\b(?:International\s+Standards?(?:\s+\(IS\))?|IS)\s+(\d{3,5}(?:(?:-|[\u2010-\u2015]|&#x201[0-5];|&ndash;)\d+)*)\b(?![.\/]\d)(?:[^\n]{0,240}?\b((?:19|20)\d{2})\b)?/);
       if (m) {
         const num = m[1].replace(/&#x201[0-5];|&ndash;|[\u2010-\u2015]/gi, '-');
         const refId = `ISO.${num}${m[2] ? `.${m[2]}` : ''}`;

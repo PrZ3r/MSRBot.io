@@ -194,4 +194,10 @@ assert.strictEqual(parseRefId('ITU Q.931, Digital Subscriber Signaling System No
 assert.strictEqual(parseRefId('ITU Q.1901, Bearer Independent Call Control Protocol.'), 'T-REC-Q.1901'); n++;
 assert.strictEqual(parseRefId('ITU E.164 - The International Public Telecommunication Numbering Plan E.164/I.331 (May 1997)'), 'T-REC-E.164.1997'); n++;
 
+// ANSI X-series with no year (RFC1767), a placeholder year (RFC2459), and "International
+// Standards … International Standards Organization" (RFC2030).
+assert.strictEqual(parseRefId('ANSI X12.6 Applications Control Structures for Electronic Data Interchange, Washington D.C.: DISA'), 'ANSI.X12.6'); n++;
+assert.strictEqual(parseRefId('ANSI X9.57-199x, Public Key Cryptography For The Financial Services Industry: Certificate Management, Working Draft, June 1996.'), 'ANSI.X9.57'); n++;
+assert.strictEqual(parseRefId('International Standards 8602 - Information Processing Systems - OSI: Connectionless Transport Protocol Specification. International Standards Organization, December 1986.'), 'ISO.8602.1986'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
