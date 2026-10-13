@@ -1123,6 +1123,8 @@ function parseRefId(text, href = '', opts = {}) {
   const diag = mapRefByCiteDiag(text);
   if (diag.refId) return wantDiag ? { refId: diag.refId, diag } : diag.refId;
   text = normalizePublisherLeadIn(normalizeCiteTypography(text));
+  // A part number wrapped onto the next line: "ISO/IEC 9594- 8:2001" (RFC3546, RFC4510) gave "ISO.9594-".
+  text = String(text || '').replace(/(\bISO(?:\s*\/\s*IEC)?\s+\d{3,5})-\s+(\d)/g, '$1-$2');
   // No link: use a URL printed in the citation (old RFCs), rejoining one wrapped
   // across lines ("…/TR/2000/WD-xsl- 20000327/xslspec.html", RFC3075).
   if (!href) href = urlFromCiteText(text);
@@ -1685,6 +1687,18 @@ function parseRefId(text, href = '', opts = {}) {
 
     // also a bare "ITU" (or "ITU-T") lead-in with no "Recommendation": "ITU Q.931, Digital Subscriber
     // Signaling System No. 1", "ITU Q. 2965.1, …", "ITU E.164 - … (May 1997)" (RFC3108, RFC2764)
+    // ITU-T spelled out, the year in parentheses after the number: "International Telecommunication
+    // Union - Telecommunication Standardization Sector, "The Directory: …", X.509(2000)" (RFC4523).
+    {
+      const src = String(text || '');
+      // (Not a co-publication with ISO: "X.680 … ISO/IEC 8824-1" stays with the ISO rules.)
+      const sp = /\bInternational\s+Telecommunications?\s+Union\s*[-–—]\s*Telecommunications?\s+Standardi[sz]ation\s+Sector\b/i.test(src) && !/\bISO\b/.test(src)
+        && src.match(/(?<![\w.])([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s*\(\s*((?:19|20)\d{2})\s*\)/);
+      if (sp) {
+        const refId = `T-REC-${sp[1]}.${sp[2]}.${sp[3]}`;
+        return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-spelled-paren-year' } } : refId;
+      }
+    }
     // ("ITU-T …" is left to the rules below, which keep it undated.)
     const bare = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?ITU\s+([A-Z])\.\s?(\d{1,4}(?:\.\d{1,2})?)(?:-(\d+))?(?=[\s,.:;)-]|$)/);
     if (bare) {
@@ -1849,13 +1863,24 @@ function parseRefId(text, href = '', opts = {}) {
   {
     // also a letter suffix and a comma before the year (xml2rfc): "IEEE Standard 802.1X-2004",
     // "IEEE Standard 802.11, 2003", "IEEE Standard 802.1X, December 2004"
-    const m = String(text || '').match(/\bIEEE\)?\s+(?:Std\.?\s+|Standards?\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+[A-Z]{0,3}))?(?:,\s*(?:[A-Z][a-z]+\.?\s+)?|[\s‐-―-]+)((?:19|20)\d{2})\b/i);
+    const m = String(text || '').match(/\bIEEE\)?\s+(?:Std\.?\s+|Standards?\s+(?:for\s+[^\n]{0,40}?)?)?P?(\d{2,4})(?:\.(\d+(?:\.\d+)?[A-Z]{0,3}))?(?:,\s*(?:[A-Z][a-z]+\.?\s+)?|[\s‐-―-]+)((?:19|20)\d{2})\b/i);
     if (m) {
       const refId = `IEEE.STD${m[1]}${m[2] ? `.${m[2].toUpperCase()}` : ''}.${m[3]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-designator' } } : refId;
     }
   }
 
+  // An undated IEEE 802 standard leading the citation: "IEEE 802.3 CSMA/CD Access Method.",
+  // "IEEE 802.11 Wireless LAN standard.", "IEEE, 802.1p, Standard for Local and Metropolitan …"
+  // (RFC3819). Not a project or draft ("IEEE P802.1Q/D10", "802.16e/D8").
+  {
+    // ("IEEE 802.3/ISO 8802-3" is a co-designation the ISO rules already resolve.)
+    const m = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?IEEE,?\s+(802(?:\.\d+(?:\.\d+)?)?)([A-Za-z]{0,3})(?![\w.])(?!\s*\/\s*ISO)(?![\/.\-]?\s*D\d)(?![^\n]{0,40}\bDraft\b)/);
+    if (m && !/(?:19|20)\d{2}/.test(String(text || '').slice(m.index + m[0].length, m.index + m[0].length + 200))) {
+      const refId = `IEEE.STD${m[1]}${m[2] ? m[2].toUpperCase() : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-undated' } } : refId;
+    }
+  }
   // A quoted title between the designator and the date: "IEEE Standard 802.6, "Distributed
   // Queue Dual Bus (DQDB) Subnetwork of a …", December 1990." (RFC1209) → IEEE.STD802.6.1990
   {

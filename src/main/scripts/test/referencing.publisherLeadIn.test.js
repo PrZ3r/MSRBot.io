@@ -205,4 +205,13 @@ assert.strictEqual(parseRefId('ISO/IEC TR 9577:1990(E), "Information technology 
 assert.strictEqual(parseRefId('ISO/IEC, "Information Technology - OSI Routeing Framework", Technical Report 9575, ISO/IEC JTC 1, Switzerland, 1989.'), 'ISO.TR9575.1989'); n++;
 assert.strictEqual(parseRefId('J. Samuelsson, Working Draft ISO/IEC TR 23008-14 Conversion and Coding Practices for HDR/WCG, 2016.'), null); n++;
 
+// Undated IEEE 802 lead-ins (RFC3819) and a two-level designator (RFC4067); a co-designation stays ISO.
+assert.strictEqual(parseRefId('IEEE 802.11 Wireless LAN standard. http://standards.ieee.org/'), 'IEEE.STD802.11'); n++;
+assert.strictEqual(parseRefId('IEEE 802.1AB, "Station and Media Access Control Connectivity Discovery"'), 'IEEE.STD802.1AB'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for information technology - LAN/MAN - Part 15.1: WPANs", IEEE Standard 802.15.1, 2002.'), 'IEEE.STD802.15.1.2002'); n++;
+assert.strictEqual(parseRefId('IEEE 802.3/ISO 8802-3 Information processing systems - Local area networks - Part 3'), 'ISO.8802-3'); n++;
+// ITU-T spelled out with "X.509(2000)" (RFC4523); a wrapped ISO part number (RFC4510).
+assert.strictEqual(parseRefId('International Telecommunication Union - Telecommunication Standardization Sector, "The Directory: Authentication Framework", X.509(2000).'), 'T-REC-X.509.2000'); n++;
+assert.strictEqual(parseRefId('X509-4th ITU-T Recommendation X.509 (2000) | ISO/IEC 9594- 8:2001, "The Directory".'), 'ISO.9594-8.2001'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
