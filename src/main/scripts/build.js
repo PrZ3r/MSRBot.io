@@ -281,6 +281,7 @@ hb.registerHelper('refHref', function (refId) {
 const keying = require('../lib/keying');
 const { loadAllDocs } = require('../lib/registry');
 const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
+const { loadPublisherConfig } = require('../lib/publishers');
 const { assembleSlices } = require('./build.assemble-registry');
 const { emitSearchApi } = require('./build.search-api');
 const buildStats = require('./utils/buildStats');
@@ -341,6 +342,8 @@ const BUILD_PATH = "build";
 
 // --- Site config used for meta and structured data (single source of truth: src/main/config/site.json)
 let siteConfig = null;
+// Publisher urls / logos / aliases / dateless (src/main/config/publishers.json), as flat maps
+const publisherConfig = loadPublisherConfig();
 async function loadSiteConfig() {
   try {
     const cfgRaw = await fs.readFile(path.join('src','main','config','site.json'), 'utf8');
@@ -1250,7 +1253,7 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
         continue;
       }
       if (t === 'publishersdateless') {
-        addList(cfg && Array.isArray(cfg.publishersDateless) ? cfg.publishersDateless : []);
+        addList(publisherConfig.dateless);
         continue;
       }
       // literal compare value
@@ -2578,15 +2581,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     if (!raw) return '';
 
     // Resolve config maps (light + dark + aliases)
-    const logos = (siteConfig && siteConfig.publisherLogos && typeof siteConfig.publisherLogos === 'object')
-      ? siteConfig.publisherLogos
-      : {};
-    const logosDark = (siteConfig && siteConfig.publisherLogosDark && typeof siteConfig.publisherLogosDark === 'object')
-      ? siteConfig.publisherLogosDark
-      : {};
-    const aliases = (siteConfig && siteConfig.publisherLogoAliases && typeof siteConfig.publisherLogoAliases === 'object')
-      ? siteConfig.publisherLogoAliases
-      : {};
+    const { logos, logosDark, aliases } = publisherConfig;
 
     const relLight = resolvePublisherLogoFromMapNode(logos, aliases, raw);
     if (!relLight) return '';
@@ -2597,14 +2592,12 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     const root = (opts && opts.data && opts.data.root) ? opts.data.root : {};
     const assetPrefix = (typeof root.assetPrefix === 'string') ? root.assetPrefix : '';
 
-    // Height precedence: explicit hash height > root.publisherLogoHeight > siteConfig.publisherLogoHeight > 25
-    let h = 25;
+    // Height precedence: explicit hash height > root.publisherLogoHeight > publishers.json logoHeight
+    let h = publisherConfig.logoHeight;
     if (opts && opts.hash && opts.hash.height != null && !Number.isNaN(Number(opts.hash.height))) {
       h = Number(opts.hash.height);
     } else if (typeof root.publisherLogoHeight === 'number') {
       h = root.publisherLogoHeight;
-    } else if (siteConfig && typeof siteConfig.publisherLogoHeight === 'number') {
-      h = siteConfig.publisherLogoHeight;
     }
 
     // Build URLs relative to assetPrefix
@@ -2635,18 +2628,10 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     );
   });
   
-  // Publisher link resolver: resolves publisher to URL using siteConfig.publisherUrls and optional aliases
+  // Publisher link resolver: resolves publisher to URL using publishers.json urls and aliases
   hb.registerHelper('publisherLink', function (pub) {
     if (!pub || typeof pub !== 'string') return '';
-    const urlMap = (siteConfig && siteConfig.publisherUrls && typeof siteConfig.publisherUrls === 'object')
-      ? siteConfig.publisherUrls
-      : null;
-    if (!urlMap) return '';
-
-    // Normalize basic alias mapping reusing publisherLogoAliases when present
-    const aliases = (siteConfig && siteConfig.publisherLogoAliases && typeof siteConfig.publisherLogoAliases === 'object')
-      ? siteConfig.publisherLogoAliases
-      : {};
+    const { urls: urlMap, aliases } = publisherConfig;
 
     const raw = String(pub).trim();
     // 1) Exact
@@ -2764,7 +2749,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             ogImageAlt: siteConfig.ogImageAlt,
             assetPrefix: '../../',
             htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
-            publisherUrls: siteConfig.publisherUrls,
+            publisherUrls: publisherConfig.urls,
             titleLabelDocTypes: Array.isArray(siteConfig?.titleLabelDocTypes) ? siteConfig.titleLabelDocTypes : [],
           });
 
@@ -2824,7 +2809,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
         ogImageAlt: siteConfig.ogImageAlt,
         assetPrefix: '../',
-        publisherUrls: siteConfig.publisherUrls,
+        publisherUrls: publisherConfig.urls,
       });
 
       await writeFileSafe(path.join(refTreeIndexRoot, 'index.html'), refTreeIndexHtml, 'utf8');
@@ -2906,7 +2891,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
               ogImageAlt: siteConfig.ogImageAlt,
               assetPrefix: '../../',
               htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
-              publisherUrls: siteConfig.publisherUrls,
+              publisherUrls: publisherConfig.urls,
             };
 
             const suiteHtml = suitesTpl({
@@ -2931,7 +2916,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
               ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
               ogImageAlt: siteConfig.ogImageAlt,
               assetPrefix: '../../',
-              publisherUrls: siteConfig.publisherUrls,
+              publisherUrls: publisherConfig.urls,
               // data
               suite: suiteCtx,
               suites
@@ -2988,7 +2973,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
             ogImageAlt: siteConfig.ogImageAlt,
             assetPrefix: '../',
-            publisherUrls: siteConfig.publisherUrls,
+            publisherUrls: publisherConfig.urls,
             // data
             suites
           });
@@ -3016,38 +3001,32 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     // Emit publisher logos + optional aliases for client-side docList.js
     try {
       const logosOut = {};
-      if (siteConfig && siteConfig.publisherLogos && typeof siteConfig.publisherLogos === 'object') {
-        for (const [k, v] of Object.entries(siteConfig.publisherLogos)) {
-          if (!v) continue;
-          const rel = String(v).trim();
-          // Normalize to root-absolute so client doesn't need per-page assetPrefix
-          logosOut[String(k).trim()] = rel.startsWith('/') ? rel : '/' + rel;
-        }
+      for (const [k, v] of Object.entries(publisherConfig.logos)) {
+        if (!v) continue;
+        const rel = String(v).trim();
+        // Normalize to root-absolute so client doesn't need per-page assetPrefix
+        logosOut[String(k).trim()] = rel.startsWith('/') ? rel : '/' + rel;
       }
 
       // Optional dark-logo map (only for publishers that define a dark variant)
       const logosDarkOut = {};
-      if (siteConfig && siteConfig.publisherLogosDark && typeof siteConfig.publisherLogosDark === 'object') {
-        for (const [k, v] of Object.entries(siteConfig.publisherLogosDark)) {
-          if (!v) continue;
-          const rel = String(v).trim();
-          logosDarkOut[String(k).trim()] = rel.startsWith('/') ? rel : '/' + rel;
-        }
+      for (const [k, v] of Object.entries(publisherConfig.logosDark)) {
+        if (!v) continue;
+        const rel = String(v).trim();
+        logosDarkOut[String(k).trim()] = rel.startsWith('/') ? rel : '/' + rel;
       }
 
       // Optional alias map: { "smpte": "SMPTE", "SMPTE – Society of Motion Picture…": "SMPTE" }
       const aliasesOut = {};
-      if (siteConfig && siteConfig.publisherLogoAliases && typeof siteConfig.publisherLogoAliases === 'object') {
-        for (const [alias, canon] of Object.entries(siteConfig.publisherLogoAliases)) {
-          if (!alias || !canon) continue;
-          aliasesOut[String(alias).trim()] = String(canon).trim();
-        }
+      for (const [alias, canon] of Object.entries(publisherConfig.aliases)) {
+        if (!alias || !canon) continue;
+        aliasesOut[String(alias).trim()] = String(canon).trim();
       }
 
       const logosPayload = {
         logos: logosOut,
         logosDark: logosDarkOut,
-        height: (typeof siteConfig.publisherLogoHeight === 'number' ? siteConfig.publisherLogoHeight : 25),
+        height: publisherConfig.logoHeight,
         aliases: aliasesOut
       };
 
@@ -3063,18 +3042,14 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     // Emit publisher URLs (for client-side cards)
     try {
       const urlsOut = {};
-      if (siteConfig && siteConfig.publisherUrls && typeof siteConfig.publisherUrls === 'object') {
-        for (const [k, v] of Object.entries(siteConfig.publisherUrls)) {
-          if (!v) continue;
-          urlsOut[String(k).trim()] = String(v).trim();
-        }
+      for (const [k, v] of Object.entries(publisherConfig.urls)) {
+        if (!v) continue;
+        urlsOut[String(k).trim()] = String(v).trim();
       }
       const urlAliasesOut = {};
-      if (siteConfig && siteConfig.publisherLogoAliases && typeof siteConfig.publisherLogoAliases === 'object') {
-        for (const [alias, canon] of Object.entries(siteConfig.publisherLogoAliases)) {
-          if (!alias || !canon) continue;
-          urlAliasesOut[String(alias).trim()] = String(canon).trim();
-        }
+      for (const [alias, canon] of Object.entries(publisherConfig.aliases)) {
+        if (!alias || !canon) continue;
+        urlAliasesOut[String(alias).trim()] = String(canon).trim();
       }
       const urlsPayload = {
         urls: urlsOut,
@@ -3136,7 +3111,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       "ogImage": ogImage,
       "ogImageAlt": ogImageAlt,
       "assetPrefix": assetPrefix,
-      "publisherUrls": siteConfig.publisherUrls,
+      "publisherUrls": publisherConfig.urls,
     });
   }
 
@@ -3309,8 +3284,8 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           ogImageAlt: siteConfig.ogImageAlt,
           assetPrefix: '../../',
           htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
-          publisherLogoHeight: 25,
-          publisherUrls: siteConfig.publisherUrls,
+          publisherLogoHeight: publisherConfig.logoHeight,
+          publisherUrls: publisherConfig.urls,
           alternateJson: `api/doc/${encodeURIComponent(id)}.json`,
           schemaUrl: 'api/schemas/documents.schema.json',
         });
@@ -3572,10 +3547,10 @@ void (async () => {
     ogImage: docsOgImage,
     ogImageAlt: docsOgImageAlt,
     assetPrefix: docsAssetPrefix,
-    publisherLogos: siteConfig.publisherLogos,
-    publisherLogosJson: JSON.stringify(siteConfig.publisherLogos || {}),
-    publisherLogoHeight: 25,
-    publisherUrls: siteConfig.publisherUrls,
+    publisherLogos: publisherConfig.logos,
+    publisherLogosJson: JSON.stringify(publisherConfig.logos),
+    publisherLogoHeight: publisherConfig.logoHeight,
+    publisherUrls: publisherConfig.urls,
     robotsMeta: 'noindex,nofollow'
   }), 'utf8');
 
@@ -3613,7 +3588,7 @@ void (async () => {
     ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
     ogImageAlt: siteConfig.ogImageAlt,
     assetPrefix: '',
-    publisherUrls: siteConfig.publisherUrls,
+    publisherUrls: publisherConfig.urls,
   });
   await writeFileSafe(path.join(BUILD_PATH, 'index.html'), homeHtml, 'utf8');
   console.log('[build] Wrote build/index.html');
@@ -3644,7 +3619,7 @@ void (async () => {
     ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
     ogImageAlt: siteConfig.ogImageAlt,
     assetPrefix: '../',
-    publisherUrls: siteConfig.publisherUrls,
+    publisherUrls: publisherConfig.urls,
     alternateJson: 'api/documents.json',
     schemaUrl: 'api/schemas/documents.schema.json',
   });
@@ -3685,7 +3660,7 @@ void (async () => {
       ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
       ogImageAlt: siteConfig.ogImageAlt,
       assetPrefix: '../',
-      publisherUrls: siteConfig.publisherUrls,
+      publisherUrls: publisherConfig.urls,
       skillZipUrl: 'https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip',
       promptText: promptMatch[1].trimEnd(),
     });
@@ -3861,7 +3836,7 @@ void (async () => {
       ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
       ogImageAlt: siteConfig.ogImageAlt,
       assetPrefix: '../',
-      publisherUrls: siteConfig.publisherUrls,
+      publisherUrls: publisherConfig.urls,
       preambleHtml: parsed.preambleHtml,
       releases: parsed.releases,
     });
@@ -3900,7 +3875,7 @@ void (async () => {
       ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
       ogImageAlt: siteConfig.ogImageAlt,
       assetPrefix: '../../',
-      publisherUrls: siteConfig.publisherUrls,
+      publisherUrls: publisherConfig.urls,
     });
     await fs.mkdir(path.join(BUILD_PATH, 'about', 'PrZ3'), { recursive: true });
     await writeFileSafe(path.join(BUILD_PATH, 'about', 'PrZ3', 'index.html'), prz3Html, 'utf8');
@@ -4022,7 +3997,7 @@ void (async () => {
     robotsMeta: 'noindex,follow',
     assetPrefix: '/',
     penguinMessagesJson: penguinMessagesJson,
-    publisherUrls: siteConfig.publisherUrls,
+    publisherUrls: publisherConfig.urls,
   });
   await writeFileSafe(path.join(BUILD_PATH, '404.html'), fourOhFourHtml, 'utf8');
   console.log('[build] Wrote build/404.html');

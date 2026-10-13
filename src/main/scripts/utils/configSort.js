@@ -30,6 +30,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // canonicalize-json.js
 const fs = require('fs');
 const { loadControlledKeywords, saveControlledKeywords } = require('../../lib/keywordConform');
+const { PUBLISHERS_PATH } = require('../../lib/publishers');
 
 function sortObj(v) {
   if (Array.isArray(v)) return v.map(sortObj);
@@ -58,3 +59,20 @@ canonicalize('src/main/input/refMap.json')
 // controlledKeywords.json: terms alphabetical (localeCompare), one per line, so the list scans in order
 saveControlledKeywords(loadControlledKeywords())
 console.log('Canonicalized: src/main/config/controlledKeywords.json')
+
+// publishers.json: entries by name (localeCompare), fields in one order, aliases sorted
+const PUBLISHER_FIELDS = ['url', 'logo', 'logoDark', 'aliases', 'dateless'];
+{
+  const data = JSON.parse(fs.readFileSync(PUBLISHERS_PATH, 'utf8'));
+  const publishers = {};
+  for (const name of Object.keys(data.publishers).sort((a, b) => a.localeCompare(b))) {
+    const p = data.publishers[name];
+    const out = {};
+    for (const f of PUBLISHER_FIELDS) if (p[f] !== undefined) out[f] = f === 'aliases' ? [...p[f]].sort((a, b) => a.localeCompare(b)) : p[f];
+    for (const f of Object.keys(p)) if (!PUBLISHER_FIELDS.includes(f)) out[f] = p[f];
+    publishers[name] = out;
+  }
+  data.publishers = publishers;
+  fs.writeFileSync(PUBLISHERS_PATH, JSON.stringify(data, null, 2) + '\n', 'utf8');
+  console.log('Canonicalized: src/main/config/publishers.json');
+}
