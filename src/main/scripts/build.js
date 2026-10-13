@@ -130,12 +130,12 @@ hb.registerHelper('raw', function(options) {
 });
 
 // contentTypeLabel(value) — look up the NLM raw article-type value
-// (e.g. "research-article") in site.json's contentTypeLabels map and return
+// (e.g. "research-article") in docRendering.json's contentType labels and return
 // the friendly display label ("Research Article"). Falls through to the raw
 // value if no map entry exists.
 hb.registerHelper('contentTypeLabel', function (value) {
   if (!value) return '';
-  const map = (siteConfig && siteConfig.contentTypeLabels) || {};
+  const map = docRendering.contentTypeLabels;
   return map[String(value)] || String(value);
 });
 
@@ -282,6 +282,7 @@ const keying = require('../lib/keying');
 const { loadAllDocs } = require('../lib/registry');
 const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
 const { loadPublisherConfig } = require('../lib/publishers');
+const { loadDocRendering } = require('../lib/docRendering');
 const { assembleSlices } = require('./build.assemble-registry');
 const { emitSearchApi } = require('./build.search-api');
 const buildStats = require('./utils/buildStats');
@@ -344,6 +345,8 @@ const BUILD_PATH = "build";
 let siteConfig = null;
 // Publisher urls / logos / aliases / dateless (src/main/config/publishers.json), as flat maps
 const publisherConfig = loadPublisherConfig();
+// docType / contentType rules, facet curation and citation templates (docRendering.json + templates/citations/)
+const docRendering = loadDocRendering();
 async function loadSiteConfig() {
   try {
     const cfgRaw = await fs.readFile(path.join('src','main','config','site.json'), 'utf8');
@@ -361,10 +364,10 @@ async function loadSiteConfig() {
 }
 
 // Page gate: skip rendered pages for docs whose contentType is listed in
-// siteConfig.noPageContentTypes (set built lazily, once siteConfig is loaded).
+// docRendering.json (contentTypes flagged noPage).
 let __pageGateSet = null;
 function pageGated(doc) {
-  if (__pageGateSet === null) __pageGateSet = noPageContentTypeSet(siteConfig);
+  if (__pageGateSet === null) __pageGateSet = noPageContentTypeSet(docRendering);
   return isPageGated(doc, __pageGateSet);
 }
 
@@ -1234,22 +1237,16 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
       });
     };
 
-    // Load site config to expand keyword lists
-    let cfg = null;
-    try {
-      cfg = require('../config/site.json');
-    } catch (e) {
-      cfg = null;
-    }
+    // docType / publisher lists the keywords expand to
 
     // Expand keywords and merge results; preserve literal items too
     for (const t of rawTargets) {
       if (t === 'nonlineagedoctypes') {
-        addList(cfg && Array.isArray(cfg.nonLineageDocTypes) ? cfg.nonLineageDocTypes : []);
+        addList(docRendering.nonLineageDocTypes);
         continue;
       }
       if (t === 'titlelabeldoctypes') {
-        addList(cfg && Array.isArray(cfg.titleLabelDocTypes) ? cfg.titleLabelDocTypes : []);
+        addList(docRendering.titleLabelDocTypes);
         continue;
       }
       if (t === 'publishersdateless') {
@@ -1459,19 +1456,19 @@ function _titleOf(doc){
 
   // Public helpers
   hb.registerHelper('citeText', function(doc){
-    const tpl = siteConfig?.citations?.text?.preview;
+    const tpl = docRendering.citations.text?.preview;
     return tpl ? __renderCiteTpl(tpl, doc) : _buildCiteText(doc);
   });
   hb.registerHelper('citeTextUndated', function(doc){
-    const tpl = siteConfig?.citations?.text?.previewUndated;
+    const tpl = docRendering.citations.text?.previewUndated;
     return tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteText(doc);
   });
   hb.registerHelper('citeHtmlGeneric', function(doc){
-    const tpl = siteConfig?.citations?.generic?.preview;
+    const tpl = docRendering.citations.generic?.preview;
     return new hb.SafeString(tpl ? __renderCiteTpl(tpl, doc) : _buildCiteHtmlGeneric(doc));
   });
   hb.registerHelper('citeHtmlGenericUndated', function(doc){
-    const tpl = siteConfig?.citations?.generic?.previewUndated;
+    const tpl = docRendering.citations.generic?.previewUndated;
     return new hb.SafeString(tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteHtmlGeneric(doc));
   });
   hb.registerHelper('citeHtmlSmpte', function(doc){
@@ -1480,22 +1477,22 @@ function _titleOf(doc){
 
   // Code-safe (escaped) versions for &lt;pre&gt; blocks
   hb.registerHelper('citeCodeText', function(doc){
-    const tpl = siteConfig?.citations?.text?.preview;
+    const tpl = docRendering.citations.text?.preview;
     return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc) : _buildCiteText(doc)));
   });
 
   hb.registerHelper('citeCodeTextUndated', function(doc){
-    const tpl = siteConfig?.citations?.text?.previewUndated;
+    const tpl = docRendering.citations.text?.previewUndated;
     return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteText(doc)));
   });
 
   hb.registerHelper('citeCodeHtmlGeneric', function(doc){
-    const tpl = siteConfig?.citations?.generic?.preview;
+    const tpl = docRendering.citations.generic?.preview;
     return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc) : _buildCiteHtmlGeneric(doc)));
   });
   
   hb.registerHelper('citeCodeHtmlGenericUndated', function(doc){
-    const tpl = siteConfig?.citations?.generic?.previewUndated;
+    const tpl = docRendering.citations.generic?.previewUndated;
     return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteHtmlGeneric(doc)));
   });
 
@@ -1553,10 +1550,10 @@ function _titleOf(doc){
     return compiled(map);
   }
 
-  // Helpers that prefer siteConfig.citations.smpte.{preview|snippet} if present
+  // Helpers that prefer templates/citations/smpte.{preview|snippet}.hbs if present
   hb.registerHelper('citeHtmlSmptePreview', function(doc){
     try {
-      const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.preview;
+      const cfgTpl = docRendering.citations.smpte?.preview;
       if (cfgTpl) {
         return new hb.SafeString(__renderCiteTpl(cfgTpl, doc));
       }
@@ -1569,7 +1566,7 @@ function _titleOf(doc){
 
   hb.registerHelper('citeCodeHtmlSmpteSnippet', function(doc){
     try {
-      const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.snippet;
+      const cfgTpl = docRendering.citations.smpte?.snippet;
       if (cfgTpl) {
         // For code blocks, escape the rendered HTML so users copy the literal tag string
         return new hb.SafeString(_escapeHtml(__renderCiteTpl(cfgTpl, doc)));
@@ -1583,7 +1580,7 @@ function _titleOf(doc){
 
   hb.registerHelper('citeHtmlSmptePreviewUndated', function(doc){
     try {
-      const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.previewUndated;
+      const cfgTpl = docRendering.citations.smpte?.previewUndated;
       if (cfgTpl) {
         return new hb.SafeString(__renderCiteTpl(cfgTpl, doc, { undatedSnippet: true }));
       }
@@ -1596,7 +1593,7 @@ function _titleOf(doc){
 
   hb.registerHelper('citeCodeHtmlSmpteSnippetUndated', function(doc){
     try {
-      const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.snippetUndated;
+      const cfgTpl = docRendering.citations.smpte?.snippetUndated;
       if (cfgTpl) {
         // For code blocks, escape the rendered HTML so users copy the literal tag string
         return new hb.SafeString(_escapeHtml(__renderCiteTpl(cfgTpl, doc, { undatedSnippet: true })));
@@ -2226,11 +2223,9 @@ function _titleOf(doc){
   });
 
   const docLabels = {};
-  // Build a case-insensitive set from siteConfig.titleLabelDocTypes
+  // Build a case-insensitive set from docRendering's titleLabel docTypes
   const __titleLabelSet = new Set(
-    Array.isArray(siteConfig && siteConfig.titleLabelDocTypes)
-      ? siteConfig.titleLabelDocTypes.map(t => String(t || '').toLowerCase()).filter(Boolean)
-      : []
+    docRendering.titleLabelDocTypes.map(t => String(t || '').toLowerCase()).filter(Boolean)
   );
 
   registryDocument.forEach(item => {
@@ -2691,9 +2686,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         try {
           const canonical = new URL(`/reftree/${encodeURIComponent(id)}/`, siteConfig.canonicalBase).href;
 
-          const titlePrefList = Array.isArray(siteConfig?.titleLabelDocTypes)
-            ? siteConfig.titleLabelDocTypes.map(x => String(x).toLowerCase())
-            : [];
+          const titlePrefList = docRendering.titleLabelDocTypes.map(x => String(x).toLowerCase());
           const useDocTitleFirst = titlePrefList.includes(String(d.docType || '').toLowerCase());
           const baseLabel = useDocTitleFirst ? (d.docTitle || d.docLabel || d.docId)
                                              : (d.docLabel || d.docId);
@@ -2750,7 +2743,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             assetPrefix: '../../',
             htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
             publisherUrls: publisherConfig.urls,
-            titleLabelDocTypes: Array.isArray(siteConfig?.titleLabelDocTypes) ? siteConfig.titleLabelDocTypes : [],
+            titleLabelDocTypes: docRendering.titleLabelDocTypes,
           });
 
           const outFile = path.join(dir, 'index.html');
@@ -3236,9 +3229,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       try {
         // Per‑doc canonical + social meta
         const perDocCanonical = new URL(`/docs/${encodeURIComponent(id)}/`, siteConfig.canonicalBase).href;
-        const titlePrefList = Array.isArray(siteConfig?.titleLabelDocTypes)
-          ? siteConfig.titleLabelDocTypes.map(x => String(x).toLowerCase())
-          : [];
+        const titlePrefList = docRendering.titleLabelDocTypes.map(x => String(x).toLowerCase());
         const useDocTitleFirst = titlePrefList.includes(String(d.docType || '').toLowerCase());
         const perDocTitle = (useDocTitleFirst ? (d.docTitle || d.docLabel || d.docId) : (d.docLabel || d.docId)) + ' — ' + siteConfig.siteName;
         const perDocListTitle = (useDocTitleFirst ? (d.docTitle || d.docLabel || d.docId) : (d.docLabel || d.docId));

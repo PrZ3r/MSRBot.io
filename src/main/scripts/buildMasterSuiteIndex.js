@@ -77,8 +77,8 @@ const PLACEHOLDERS_OUT = arg('--placeholders-out', 'src/main/reports/masterSuite
 const SEPARATE_AUX = has('--separate-aux');
 
 // Load non-lineage doc types from the shared site config
-const SITE_CONFIG = require('../config/site.json');
-const NON_LINEAGE_DOCTYPES = new Set(Array.isArray(SITE_CONFIG.nonLineageDocTypes) ? SITE_CONFIG.nonLineageDocTypes : []);
+const { loadDocRendering } = require('../lib/docRendering');
+const NON_LINEAGE_DOCTYPES = new Set(loadDocRendering().nonLineageDocTypes);
 
 function ensureDir(p) {
   fs.mkdirSync(path.dirname(p), { recursive: true });

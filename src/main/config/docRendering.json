@@ -1,0 +1,223 @@
+{
+  "_about": "How documents are filed, labelled, cited and browsed. docTypes (sorted by name): titleLabel = cited and listed title-first, and the registry files these docs under a {year}/ folder (src/main/lib/registry.js); nonLineage = not part of an edition lineage, so citations carry authors, publisher and year. contentTypes (sorted by name): label = display name; noPage = no rendered doc page and not in the browse/search index. facets: the hand-curated keyword chips on the doc list (add/remove, and minDocs for the automatic ones). Citation templates are Handlebars files in src/main/templates/citations/<style>.<variant>.hbs. Read through src/main/lib/docRendering.js (loadDocRendering).",
+  "docTypes": {
+    "Book": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Conference Paper": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Dissertation": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "FAQ": {
+      "nonLineage": true
+    },
+    "Guideline": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Journal Article": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Magazine Article": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Manual": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Memo": {
+      "nonLineage": true
+    },
+    "Notation": {
+      "nonLineage": true
+    },
+    "Patent": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Procedure": {
+      "nonLineage": true
+    },
+    "Registry": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Statement": {
+      "nonLineage": true
+    },
+    "Study Group Report": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Style Guide": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Technical Bulletin": {
+      "nonLineage": true
+    },
+    "Technical Journal": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Technical Note": {
+      "titleLabel": true,
+      "nonLineage": true
+    },
+    "Template": {
+      "nonLineage": true
+    },
+    "White Paper": {
+      "titleLabel": true,
+      "nonLineage": true
+    }
+  },
+  "contentTypes": {
+    "advert": {
+      "label": "Advertisement",
+      "noPage": true
+    },
+    "article-commentary": {
+      "label": "Commentary"
+    },
+    "awards": {
+      "label": "Awards",
+      "noPage": true
+    },
+    "content-announce": {
+      "label": "Content Announcement",
+      "noPage": true
+    },
+    "discussion": {
+      "label": "Discussion"
+    },
+    "editorial": {
+      "label": "Editorial",
+      "noPage": true
+    },
+    "errata": {
+      "label": "Errata"
+    },
+    "front-cover": {
+      "label": "Front Cover",
+      "noPage": true
+    },
+    "future-events": {
+      "label": "Upcoming Events",
+      "noPage": true
+    },
+    "info-society": {
+      "label": "Society Information",
+      "noPage": true
+    },
+    "introduction": {
+      "label": "Introduction",
+      "noPage": true
+    },
+    "list-staff": {
+      "label": "Staff List",
+      "noPage": true
+    },
+    "meeting-report": {
+      "label": "Meeting Report",
+      "noPage": true
+    },
+    "news": {
+      "label": "News",
+      "noPage": true
+    },
+    "obit": {
+      "label": "Obituary",
+      "noPage": true
+    },
+    "opinion": {
+      "label": "Opinion",
+      "noPage": true
+    },
+    "oration": {
+      "label": "Oration"
+    },
+    "orig-research": {
+      "label": "Original Research"
+    },
+    "other": {
+      "label": "Other"
+    },
+    "review": {
+      "label": "Review",
+      "noPage": true
+    },
+    "review-article": {
+      "label": "Review Article"
+    },
+    "summary-abstract": {
+      "label": "Abstract",
+      "noPage": true
+    },
+    "toc": {
+      "label": "Table of Contents",
+      "noPage": true
+    },
+    "tutorial": {
+      "label": "Tutorial"
+    }
+  },
+  "facets": {
+    "minDocs": 30,
+    "add": [
+      "3D",
+      "4K",
+      "65mm",
+      "70mm",
+      "AES",
+      "AI",
+      "Archive",
+      "Augmented Reality",
+      "Automation",
+      "AVC",
+      "Cloud",
+      "Display",
+      "DV",
+      "Edit",
+      "Encoding",
+      "Fiber",
+      "Frame Rate",
+      "HDTV",
+      "HEVC",
+      "HFR",
+      "Latency",
+      "Machine Learning",
+      "Metaverse",
+      "Quality",
+      "Rendering",
+      "SHA-1",
+      "ST 2110",
+      "Standards",
+      "Storage",
+      "Streaming",
+      "Sustainability",
+      "VC-2",
+      "VC-5",
+      "Video Coding",
+      "Virtual Production",
+      "Virtual Reality",
+      "Workflow",
+      "XML"
+    ],
+    "remove": [
+      "Absolute",
+      "Access",
+      "Alpha",
+      "Dimension",
+      "Label",
+      "Traffic"
+    ]
+  }
+}

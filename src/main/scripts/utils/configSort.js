@@ -31,6 +31,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 const fs = require('fs');
 const { loadControlledKeywords, saveControlledKeywords } = require('../../lib/keywordConform');
 const { PUBLISHERS_PATH } = require('../../lib/publishers');
+const { DOC_RENDERING_PATH } = require('../../lib/docRendering');
 
 function sortObj(v) {
   if (Array.isArray(v)) return v.map(sortObj);
@@ -75,4 +76,15 @@ const PUBLISHER_FIELDS = ['url', 'logo', 'logoDark', 'aliases', 'dateless'];
   data.publishers = publishers;
   fs.writeFileSync(PUBLISHERS_PATH, JSON.stringify(data, null, 2) + '\n', 'utf8');
   console.log('Canonicalized: src/main/config/publishers.json');
+}
+
+// docRendering.json: docTypes and contentTypes by name (localeCompare); facets as they are
+{
+  const data = JSON.parse(fs.readFileSync(DOC_RENDERING_PATH, 'utf8'));
+  for (const key of ['docTypes', 'contentTypes']) {
+    const map = data[key] || {};
+    data[key] = Object.fromEntries(Object.keys(map).sort((a, b) => a.localeCompare(b)).map((k) => [k, map[k]]));
+  }
+  fs.writeFileSync(DOC_RENDERING_PATH, JSON.stringify(data, null, 2) + '\n', 'utf8');
+  console.log('Canonicalized: src/main/config/docRendering.json');
 }

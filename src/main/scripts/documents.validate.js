@@ -27,12 +27,11 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-const fs = require("fs");
 const path = require("path");
 
 const { CONTROLLED_PATH, loadControlledKeywords, tokenContains } = require("../lib/keywordConform");
+const { loadDocRendering } = require("../lib/docRendering");
 
-const SITE_CONFIG_PATH = path.resolve("src/main/config/site.json");
 const CONTROLLED_REL = path.relative(process.cwd(), CONTROLLED_PATH);
 
 module.exports = (registry, name) => {
@@ -90,14 +89,14 @@ module.exports = (registry, name) => {
     }
   }
 
-  /* Hand-added facet chips (site.json facetKeywordCuration.add) need not be
+  /* Hand-added facet chips (docRendering.json facets.add) need not be
      controlled terms ("AI" is folded away), but each must token-match some
      doc keyword, or the build silently drops the chip. */
-  const curationAdd = JSON.parse(fs.readFileSync(SITE_CONFIG_PATH, "utf8"))?.facetKeywordCuration?.add || [];
+  const curationAdd = loadDocRendering().facetKeywordCuration.add || [];
   const docKeywords = new Set(registry.flatMap((doc) => (doc && Array.isArray(doc.keywords) ? doc.keywords : [])));
   const deadChips = curationAdd.filter((chip) => ![...docKeywords].some((kw) => tokenContains(kw, chip)));
   if (deadChips.length) {
-    const msg = `src/main/config/site.json facetKeywordCuration.add has chips matching no doc keyword: ${deadChips.join(", ")}`;
+    const msg = `src/main/config/docRendering.json facets.add has chips matching no doc keyword: ${deadChips.join(", ")}`;
     if (keywordWarnOnly) {
       console.warn(`⚠️ ${msg} (warning only; KEYWORD_VALIDATION_MODE=warn)`);
     } else {

@@ -52,13 +52,11 @@ const DOCS_ROOT = path.resolve('src/main/data/docs');
 
 // Year third-shard: docTypes identified by title (literature browsed by year)
 // rather than by docId — Book, Journal Article, Patent, White Paper, etc. The
-// single source of truth is site.json's titleLabelDocTypes list; a doc of such
-// a docType gets a {publisher}/{docType}/{year}/{docId}.json shard. Editing
-// that list and re-running `npm run canonicalize` re-homes affected docs.
-const SITE_CONFIG = require('../config/site.json');
-const YEAR_SHARDED_DOCTYPES = new Set(
-  Array.isArray(SITE_CONFIG.titleLabelDocTypes) ? SITE_CONFIG.titleLabelDocTypes : []
-);
+// single source of truth is the titleLabel docTypes in docRendering.json; a doc
+// of such a docType gets a {publisher}/{docType}/{year}/{docId}.json shard.
+// Editing that flag and re-running `npm run canonicalize` re-homes affected docs.
+const { loadDocRendering } = require('./docRendering');
+const YEAR_SHARDED_DOCTYPES = new Set(loadDocRendering().titleLabelDocTypes);
 
 /**
  * slug(value) — the one deterministic, filesystem-safe slug used for every path
