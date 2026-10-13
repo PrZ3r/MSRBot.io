@@ -460,7 +460,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       return (v !== undefined && v !== null && String(v).trim() !== '');
     });
     // contentTypeLabel helper: map raw NLM article-type value -> friendly label
-    // via facets.contentTypeLabels (which mirrors site.json's map). Falls
+    // via facets.contentTypeLabels (which mirrors docRendering.json's labels). Falls
     // through to the raw value when no entry exists.
     window.Handlebars.registerHelper('contentTypeLabel', function(value) {
       if (!value) return '';
@@ -1199,7 +1199,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         } else if (k === 'keywords') {
           // Keyword chips are curated broad facets (derived each build by
           // build.search-index.js from the count bar + portal-declared keywords +
-          // site.json facetKeywordCuration) while doc.keywords holds the full
+          // docRendering.json facets) while doc.keywords holds the full
           // indexed vocabulary. So a chip matches on whole-token containment, not
           // equality: "AI" selects "Generative AI" and "AI Ethics" (but not
           // "Chain"/"Domain"). Clicking a doc's own keyword still works — a term

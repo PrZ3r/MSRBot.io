@@ -40,15 +40,14 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const { getProvider, listProviders } = require('./providers');
 const { reconcileIncoming } = require('./utils/reconcileIncoming');
-const { loadKeywordDecisions } = require('../lib/keywordConform');
+const { loadKeywordDecisions, loadControlledKeywords } = require('../lib/keywordConform');
 
 // The shared keyword rules, so a re-run conforms keywords an earlier run stored.
 function loadKeywordRules() {
   try {
     const d = loadKeywordDecisions();
-    const site = JSON.parse(require('fs').readFileSync(require('path').resolve(process.cwd(), 'src/main/config/site.json'), 'utf8'));
     return {
-      vocab: new Map((site.controlledKeywords || []).map((k) => [String(k).toLowerCase(), k])),
+      vocab: new Map(loadControlledKeywords().map((k) => [String(k).toLowerCase(), k])),
       folds: new Map(Object.entries(d.folds || {}).map(([k, v]) => [k.toLowerCase(), v])),
       drops: new Set((d.drops || []).map((x) => String(typeof x === 'string' ? x : x.term || '').toLowerCase())),
       splits: new Map(Object.entries(d.splits || {}).map(([k, v]) => [k.toLowerCase(), v]))

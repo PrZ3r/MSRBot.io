@@ -41,35 +41,31 @@ const fs = require('fs').promises;
 const path = require('path');
 const { loadAllDocs } = require('../lib/registry');
 const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
+const { tokenContains } = require('../lib/keywordConform');
+const { loadDocRendering } = require('../lib/docRendering');
 
 /** Page gate config — gated contentTypes are excluded from the browse/search
  *  index (and facets), matching the per-doc page gate in build.js. */
-let __gateSet;
-let __siteConfig = {};
-try {
-  __siteConfig = require('../config/site.json');
-  __gateSet = noPageContentTypeSet(__siteConfig);
-} catch (e) {
-  __gateSet = new Set();
-}
+const __docRendering = loadDocRendering();
+const __gateSet = noPageContentTypeSet(__docRendering);
 
 /* Keyword chips for the doc-list facet rail.
  *
- * site.json `controlledKeywords` is the INDEXED vocabulary — every searchable
- * term (~990). Rendering one chip per term would be unusable, so the chip rail
+ * controlledKeywords.json is the INDEXED vocabulary — every searchable
+ * term (~4,500). Rendering one chip per term would be unusable, so the chip rail
  * is a curated subset, DERIVED HERE ON EVERY BUILD from three inputs:
  *
  *   1. count  — terms carried by >= curation.minDocs docs
  *   2. portal — every keyword any portal declares (portals.json `match.keyword`).
  *               Non-negotiable: portals filter on keywords, so a portal keyword
  *               with no chip is a portal you cannot browse.
- *   3. hand   — site.json facetKeywordCuration.add / .remove, applied last so
+ *   3. hand   — docRendering.json facets.add / .remove, applied last so
  *               curation always beats the heuristics.
  *
  * Nothing is hand-maintained: add a keyword to a portal (or to .add) and the
  * next build picks it up. There is deliberately no persisted `facetKeywords`
  * list — it is derived output, and a stored copy would go stale. */
-const __curation = (__siteConfig && __siteConfig.facetKeywordCuration) || {};
+const __curation = __docRendering.facetKeywordCuration;
 const CHIP_MIN_DOCS = Number.isFinite(__curation.minDocs) ? __curation.minDocs : 30;
 const CHIP_ADD = Array.isArray(__curation.add) ? __curation.add : [];
 const CHIP_REMOVE = new Set((Array.isArray(__curation.remove) ? __curation.remove : []).map((s) => String(s).toLowerCase()));
@@ -85,27 +81,6 @@ function portalKeywords() {
     }
   } catch { /* no portals — chips fall back to count + hand */ }
   return out;
-}
-
-/* True when `needle` appears in `hay` on whole-token boundaries. Deliberately
- * not a substring test: "AI" must match "Generative AI" and "AI-Driven Media"
- * but not "Chain", "Domain" or "Training". Hand-rolled rather than a \b regex so
- * chips containing regex metacharacters ("Test & Measurement", "Media Exchange
- * Layer (MXL)") need no escaping. MUST stay in sync with the same-named helper
- * in src/site/js/docList.js — this computes the counts, that applies the filter. */
-function tokenContains(hay, needle) {
-  const h = String(hay == null ? '' : hay).toLowerCase();
-  const n = String(needle == null ? '' : needle).toLowerCase();
-  if (!h || !n) return false;
-  const isWord = (c) => /[a-z0-9]/.test(c);
-  let i = 0;
-  while ((i = h.indexOf(n, i)) !== -1) {
-    const before = i === 0 ? '' : h[i - 1];
-    const after = (i + n.length >= h.length) ? '' : h[i + n.length];
-    if ((!before || !isWord(before)) && (!after || !isWord(after))) return true;
-    i += 1;
-  }
-  return false;
 }
 
 /* Derive the chip list from the finished index rows. */
@@ -126,26 +101,6 @@ function deriveChips(rows) {
     if (!rows.some((r) => (r.keywords || []).some((k) => tokenContains(k, c)))) chips.delete(c);
   }
   return [...chips].sort((a, b) => a.localeCompare(b));
-}
-
-/* True when `needle` appears in `hay` on whole-token boundaries. Deliberately
- * not a substring test: "AI" must match "Generative AI" and "AI-driven Media"
- * but not "Chain", "Domain" or "Training". Hand-rolled rather than a \b regex so
- * chips containing regex metacharacters ("Test & Measurement", "Media Exchange
- * Layer (MXL)") need no escaping. */
-function tokenContains(hay, needle) {
-  const h = String(hay == null ? '' : hay).toLowerCase();
-  const n = String(needle == null ? '' : needle).toLowerCase();
-  if (!h || !n) return false;
-  const isWord = (c) => /[a-z0-9]/.test(c);
-  let i = 0;
-  while ((i = h.indexOf(n, i)) !== -1) {
-    const before = i === 0 ? '' : h[i - 1];
-    const after = (i + n.length >= h.length) ? '' : h[i + n.length];
-    if ((!before || !isWord(before)) && (!after || !isWord(after))) return true;
-    i += 1;
-  }
-  return false;
 }
 
 const GROUPS = path.join('src','main','data','groups.json');
@@ -416,7 +371,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
   }
 
   /* Chips are derived from the finished index rows on every build — count bar +
-   * portal-declared keywords + site.json hand curation. Nothing to hand-maintain. */
+   * portal-declared keywords + docRendering.json hand curation. Nothing to hand-maintain. */
   const FACET_KEYWORDS = deriveChips(idx);
 
   /** Build facet counts (using the flat index) */
@@ -452,7 +407,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
     hasDoi: { true: 0, false: 0 },
     hasReleaseTag: { true: 0, false: 0 },
     groupLabels: Object.fromEntries(Array.from(groupNameById.entries())),
-    contentTypeLabels: (__siteConfig && __siteConfig.contentTypeLabels) || {},
+    contentTypeLabels: __docRendering.contentTypeLabels,
     icsCodeLabels
   };
 
@@ -481,7 +436,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
         facets.currentWork[key] = (facets.currentWork[key] || 0) + 1;
       }
     }
-    // Keyword chips are the CURATED site.json facetKeywords list — not every
+    // Keyword chips are the CURATED docRendering.json facets list — not every
     // distinct doc keyword. doc.keywords is the full indexed vocabulary (~1k
     // terms, all searchable); rendering one chip per term would be unusable.
     // A doc matches a chip when any of its keywords contains the chip as a

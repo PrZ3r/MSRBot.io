@@ -44,6 +44,7 @@ const path = require('path');
 const { normalizeKeyword } = require('../scripts/utils/keyword.normalize');
 
 const DECISIONS_PATH = path.join(__dirname, '..', 'config', 'keywordDecisions.json');
+const CONTROLLED_PATH = path.join(__dirname, '..', 'config', 'controlledKeywords.json');
 
 // IEEE terms arrive mixed-case ("Digital TV", "DVB-S2", "192 kHz", "AES3id"),
 // unlike the ALL-CAPS index_terms normalizeKeyword() was written for. Tokens
@@ -123,7 +124,7 @@ function clusterKey(term) {
 const trailingAcronym = (s) => ((String(s).match(/\(([A-Za-z0-9][A-Za-z0-9.+\-/ ]{1,14})\)\s*$/) || [])[1] || null);
 const longForm = (s) => String(s).replace(/\s*\([^()]*\)\s*$/, '').trim();
 
-// vocab = the caller's controlledKeywords ∪ decisions.adds.
+// vocab = the caller's controlled keywords ∪ decisions.adds.
 // Order per term: split → drop → fold → vocab (exact) → acronym (single token)
 // → normalizeIeee → cluster; a fold also applies to the spelling a cluster
 // lands on. prime() sees every term up front and builds the
@@ -312,20 +313,67 @@ function loadKeywordDecisions(file = DECISIONS_PATH) {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
-// Drop controlledKeywords no doc carries any more (spellings a re-run folded away).
-function pruneUnusedVocab(site, docs) {
+// The controlled vocabulary (src/main/config/controlledKeywords.json `terms`),
+// or another file. Throws when the file is missing or malformed: a check that
+// silently ran against an empty list would let every keyword through.
+function loadControlledKeywords(file = CONTROLLED_PATH) {
+  const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (!Array.isArray(data?.terms)) throw new Error(`${file}: expected a "terms" array`);
+  return data.terms;
+}
+
+// The order the terms file keeps, so a scan or a sync never reshuffles it.
+function sortKeywords(terms) {
+  return Array.from(new Set(terms.filter(Boolean))).sort((a, b) => a.localeCompare(b));
+}
+
+// Write the terms back sorted, one per line, keeping the file's other keys (`_about`).
+function saveControlledKeywords(terms, file = CONTROLLED_PATH) {
+  const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+  data.terms = sortKeywords(terms);
+  fs.writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`);
+  return data.terms;
+}
+
+// Drop controlled terms no doc carries any more (spellings a re-run folded away).
+function pruneUnusedVocab(terms, docs) {
   const used = new Set();
   for (const d of docs) for (const k of d.keywords || []) used.add(k);
-  const before = (site.controlledKeywords || []).length;
-  site.controlledKeywords = (site.controlledKeywords || []).filter((k) => used.has(k));
-  return before - site.controlledKeywords.length;
+  return terms.filter((k) => used.has(k));
+}
+
+/* True when `needle` appears in `hay` on whole-token boundaries. Deliberately
+ * not a substring test: "AI" must match "Generative AI" and "AI-driven Media"
+ * but not "Chain", "Domain" or "Training". Hand-rolled rather than a \b regex so
+ * chips containing regex metacharacters ("Test & Measurement", "Media Exchange
+ * Layer (MXL)") need no escaping. MUST stay in sync with the same-named helper
+ * in src/site/js/docList.js: the build (build.search-index.js) computes the chip
+ * counts with this one, that one applies the filter in the browser. */
+function tokenContains(hay, needle) {
+  const h = String(hay == null ? '' : hay).toLowerCase();
+  const n = String(needle == null ? '' : needle).toLowerCase();
+  if (!h || !n) return false;
+  const isWord = (c) => /[a-z0-9]/.test(c);
+  let i = 0;
+  while ((i = h.indexOf(n, i)) !== -1) {
+    const before = i === 0 ? '' : h[i - 1];
+    const after = (i + n.length >= h.length) ? '' : h[i + n.length];
+    if ((!before || !isWord(before)) && (!after || !isWord(after))) return true;
+    i += 1;
+  }
+  return false;
 }
 
 module.exports = {
   DECISIONS_PATH,
+  CONTROLLED_PATH,
   clusterKey,
   normalizeIeee,
   makeKeywordConformer,
   loadKeywordDecisions,
+  loadControlledKeywords,
+  saveControlledKeywords,
+  sortKeywords,
   pruneUnusedVocab,
+  tokenContains,
 };

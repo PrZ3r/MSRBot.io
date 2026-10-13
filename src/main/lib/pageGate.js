@@ -3,7 +3,8 @@
 /**
  * Page gate — contentType-based exclusion of rendered site pages.
  *
- * Documents whose `contentType` is listed in `siteConfig.noPageContentTypes`
+ * Documents whose `contentType` is listed in `noPageContentTypes` (the
+ * docRendering.json contentTypes flagged `noPage`, via src/main/lib/docRendering.js)
  * are gated: they get no rendered HTML detail page, no reference-tree page,
  * no sitemap entry, and no row in the browse/search index. They remain fully
  * present in the API JSON (`/api/documents.json`, `/api/doc/{id}.json`) and in
@@ -27,7 +28,7 @@ function noPageContentTypeSet(siteConfig) {
  * True when `doc` should NOT get a rendered page.
  * @param {object} doc - a document record
  * @param {Set<string>|object} setOrConfig - a Set from noPageContentTypeSet(),
- *        or a siteConfig object (a Set is built on the fly).
+ *        or a loadDocRendering() object (a Set is built on the fly).
  */
 function isPageGated(doc, setOrConfig) {
   if (!doc) return false;

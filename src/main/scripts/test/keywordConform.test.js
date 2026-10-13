@@ -39,7 +39,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 const assert = require('assert');
-const { makeKeywordConformer, loadKeywordDecisions, clusterKey } = require('../../lib/keywordConform');
+const { makeKeywordConformer, loadKeywordDecisions, clusterKey, loadControlledKeywords, sortKeywords, tokenContains } = require('../../lib/keywordConform');
 const { matchBios } = require('../../lib/authorBios');
 
 const decisions = loadKeywordDecisions();
@@ -84,13 +84,43 @@ eq(assigned.get(0).startsWith('Yvonne Thomas'), true, 'bio swapped back to its a
 {
   const fs = require('fs');
   const path = require('path');
-  const site = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'config', 'site.json'), 'utf8'));
-  const vocab = new Set((site.controlledKeywords || []).map((k) => String(k).toLowerCase()));
+  const vocab = new Set(loadControlledKeywords().map((k) => String(k).toLowerCase()));
   const rawFolds = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'config', 'keywordDecisions.json'), 'utf8')).folds || {};
   const pubFolds = Object.values(JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'config', 'keywordDecisions.json'), 'utf8')).publisherFolds || {})
     .flatMap((m) => Object.entries(m));
   const dangling = [...Object.entries(rawFolds), ...pubFolds].filter(([, v]) => !vocab.has(String(v).toLowerCase())).map(([k, v]) => `${k} → ${v}`);
-  eq(dangling, [], 'fold targets missing from controlledKeywords');
+  eq(dangling, [], 'fold targets missing from controlledKeywords.json');
 }
+
+// controlledKeywords.json stays in sortKeywords() order, so it scans alphabetically and a
+// keywords-sync --write never reshuffles it (backfill tooling inserts terms as text).
+{
+  const terms = loadControlledKeywords();
+  const sorted = sortKeywords(terms);
+  eq(terms.filter((t, i) => t !== sorted[i]).slice(0, 5), [], 'controlledKeywords.json terms out of sortKeywords() order (or duplicated)');
+  eq(terms.length, sorted.length, 'controlledKeywords.json has no duplicate terms');
+}
+
+// A missing or malformed terms file throws instead of reading as an empty list.
+{
+  const fs = require('fs');
+  const os = require('os');
+  const path = require('path');
+  const bad = path.join(os.tmpdir(), `controlledKeywords-${process.pid}.json`);
+  fs.writeFileSync(bad, '["Audio"]');
+  let threw = false;
+  try { loadControlledKeywords(bad); } catch { threw = true; }
+  fs.unlinkSync(bad);
+  eq(threw, true, 'a bare array (no "terms" key) throws');
+  threw = false;
+  try { loadControlledKeywords(bad); } catch { threw = true; }
+  eq(threw, true, 'a missing file throws');
+}
+
+// Facet chips match on whole tokens: "AI" hits "Generative AI" / "AI-driven Media", not "Domain".
+eq(tokenContains('Generative AI', 'AI'), true, 'AI in Generative AI');
+eq(tokenContains('AI-driven Media', 'ai'), true, 'AI before a hyphen');
+eq(tokenContains('Domain', 'AI'), false, 'AI inside a word');
+eq(tokenContains('Test & Measurement', 'Test & Measurement'), true, 'metacharacters need no escaping');
 
 console.log(`keywordConform.test.js — ${n} cases passed`);

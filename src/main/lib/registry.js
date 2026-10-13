@@ -52,13 +52,11 @@ const DOCS_ROOT = path.resolve('src/main/data/docs');
 
 // Year third-shard: docTypes identified by title (literature browsed by year)
 // rather than by docId — Book, Journal Article, Patent, White Paper, etc. The
-// single source of truth is site.json's titleLabelDocTypes list; a doc of such
-// a docType gets a {publisher}/{docType}/{year}/{docId}.json shard. Editing
-// that list and re-running `npm run canonicalize` re-homes affected docs.
-const SITE_CONFIG = require('../config/site.json');
-const YEAR_SHARDED_DOCTYPES = new Set(
-  Array.isArray(SITE_CONFIG.titleLabelDocTypes) ? SITE_CONFIG.titleLabelDocTypes : []
-);
+// single source of truth is the titleLabel docTypes in docRendering.json; a doc
+// of such a docType gets a {publisher}/{docType}/{year}/{docId}.json shard.
+// Editing that flag and re-running `npm run canonicalize` re-homes affected docs.
+const { loadDocRendering } = require('./docRendering');
+const YEAR_SHARDED_DOCTYPES = new Set(loadDocRendering().titleLabelDocTypes);
 
 /**
  * slug(value) — the one deterministic, filesystem-safe slug used for every path
@@ -142,14 +140,35 @@ function walkJsonFiles(dir) {
   return out;
 }
 
+// Opt-in read cache for read-only runs that load the registry several times
+// (the site build: ~7 loads of ~26k files). Keeps each file's text, so every
+// loadAllDocs() call still parses fresh objects a caller may mutate freely.
+// saveDoc() / invalidateIndex() drop it, so a write is never read back stale.
+let _readCache = null;
+
+/** cacheDocReads() — read the per-doc files from disk once for this process. */
+function cacheDocReads() {
+  if (!_readCache) _readCache = { files: null, text: new Map() };
+}
+
+function readDocText(file) {
+  if (!_readCache) return fs.readFileSync(file, 'utf8');
+  let text = _readCache.text.get(file);
+  if (text === undefined) _readCache.text.set(file, (text = fs.readFileSync(file, 'utf8')));
+  return text;
+}
+
 /**
  * loadAllDocs() — glob + parse every per-doc file, returning the array in the
  * same in-memory shape (and docId sort order) tools used with documents.json.
  */
 function loadAllDocs() {
-  const docs = walkJsonFiles(DOCS_ROOT).map((file) => {
+  const files = _readCache
+    ? (_readCache.files || (_readCache.files = walkJsonFiles(DOCS_ROOT)))
+    : walkJsonFiles(DOCS_ROOT);
+  const docs = files.map((file) => {
     try {
-      return JSON.parse(fs.readFileSync(file, 'utf8'));
+      return JSON.parse(readDocText(file));
     } catch (err) {
       throw new Error(`Failed to parse registry file ${file}: ${err.message}`);
     }
@@ -190,6 +209,7 @@ function getIndex() {
 /** Invalidate the docId index after a mutation. */
 function invalidateIndex() {
   _index = null;
+  _readCache = null;
 }
 
 /** loadDoc(docId) — single-doc read; null if absent. */
@@ -224,6 +244,7 @@ function saveDoc(doc) {
   // turned any save loop (e.g. url.normalize --apply) into O(docs × corpus) and
   // wedged CI for hours. Patching one key keeps a save loop O(docs).
   _index.set(String(doc.docId), target);
+  _readCache = null;
   return { path: target, created, rehomed };
 }
 
@@ -237,6 +258,7 @@ module.exports = {
   isYearSharded,
   yearOf,
   loadAllDocs,
+  cacheDocReads,
   loadDoc,
   saveDoc,
   invalidateIndex,

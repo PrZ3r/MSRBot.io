@@ -76,9 +76,7 @@ const { loadMri } = require('../../lib/mriStore');
 const {
   mapRefByCite, parseCiteDesignator, tidyCiteText, citeHref, mriRecordSighting, _contentHash,
 } = require('../../lib/referencing');
-const { makeKeywordConformer, loadKeywordDecisions } = require('../../lib/keywordConform');
-
-const SITE_PATH = path.join(__dirname, '..', '..', 'config', 'site.json');
+const { makeKeywordConformer, loadKeywordDecisions, loadControlledKeywords } = require('../../lib/keywordConform');
 
 // ---- XML helpers ----------------------------------------------------------
 function decodeEntities(s) {
@@ -569,8 +567,7 @@ function createSmpteJournalParser({ discovery }) {
       }
     }
 
-    const site = JSON.parse(fs.readFileSync(SITE_PATH, 'utf8'));
-    const kw = makeKeywordConformer(site.controlledKeywords || [], loadKeywordDecisions(), { shouted: true });
+    const kw = makeKeywordConformer(loadControlledKeywords(), loadKeywordDecisions(), { shouted: true });
     kw.prime(recs.map(({ rec }) => rec.rawKeywords));
 
     ctx = { byDocId, byDoi, docIds: new Set(byDocId.keys()), volPages, volIssuePages, titles, hashToRefId, dupDois, kw };

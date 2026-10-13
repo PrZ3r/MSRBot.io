@@ -1,0 +1,5 @@
+<li>
+{{#citeIfEq docType "nonLineageDocTypes"}}{{#if authors}}{{joinAuthors authors oxford=true}}; {{/if}}{{/citeIfEq}}<cite id="bib-{{bibId}}">{{#citeIfEq docType "titleLabelDocTypes"}}{{getUndatedTitle title}}</cite>, {{getUndatedLabelCite docId}}{{else}}{{getUndatedLabelCite docId}}</cite>, {{getUndatedTitle title}}{{/citeIfEq}}{{#citeIfEq docType "nonLineageDocTypes"}}; {{publisher}}, {{#if year}}{{year}}{{/if}}{{#if isbn}}, ISBN: {{isbn}}{{/if}}{{/citeIfEq}}{{#if doi}}
+<span class="doi">{{#citeIfEq publisher "SMPTE"}}{{getUndatedDoiCite doi}}{{else}}{{doi}}{{/citeIfEq}}</span>{{else if href}}
+<a>{{#citeIfEq publisher "SMPTE"}}{{getUndatedHrefCite href}}{{else}}{{href}}{{/citeIfEq}}</a>{{/if}}
+</li>

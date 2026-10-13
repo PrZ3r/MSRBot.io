@@ -100,7 +100,7 @@ assert.strictEqual(
   'blank publisher → reserved _unknown slug'
 );
 
-// ---- YEAR_SHARDED_DOCTYPES sources from site.json#titleLabelDocTypes ----
+// ---- YEAR_SHARDED_DOCTYPES sources from docRendering.json (titleLabel docTypes) ----
 assert.ok(r.YEAR_SHARDED_DOCTYPES.has('Journal Article'), 'Journal Article must be year-sharded');
 assert.ok(!r.YEAR_SHARDED_DOCTYPES.has('Standard'),       'Standard (lineage) must NOT be year-sharded');
 

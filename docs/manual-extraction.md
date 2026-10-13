@@ -29,7 +29,7 @@ AI agents: in Claude Code, the project skill `.claude/skills/msrbot-extract/` wa
    - A new publisher needs:
      - keying in `src/main/lib/keying.js`;
      - a `parseRefId` family, if other documents cite it;
-     - `site.json` abbreviation, logo and link.
+     - an entry in `src/main/config/publishers.json` (link, logo, aliases).
 2. **Read** each document's cover or title block, dates, scope section and references section, word for word. How depends on what you were pointed at:
 
    | Source you were pointed at | What to read | `sourceUrl` / `href` | Dates and references |

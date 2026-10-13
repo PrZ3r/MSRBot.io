@@ -130,12 +130,12 @@ hb.registerHelper('raw', function(options) {
 });
 
 // contentTypeLabel(value) — look up the NLM raw article-type value
-// (e.g. "research-article") in site.json's contentTypeLabels map and return
+// (e.g. "research-article") in docRendering.json's contentType labels and return
 // the friendly display label ("Research Article"). Falls through to the raw
 // value if no map entry exists.
 hb.registerHelper('contentTypeLabel', function (value) {
   if (!value) return '';
-  const map = (siteConfig && siteConfig.contentTypeLabels) || {};
+  const map = docRendering.contentTypeLabels;
   return map[String(value)] || String(value);
 });
 
@@ -279,8 +279,14 @@ hb.registerHelper('refHref', function (refId) {
 
 // Minimal shared keying import for MSI lineage lookups
 const keying = require('../lib/keying');
-const { loadAllDocs } = require('../lib/registry');
+const { loadAllDocs, cacheDocReads } = require('../lib/registry');
+// localeCompare(b, 'en', { numeric: true }), with the collator built once (it ran per comparison).
+const __refIdCollator = new Intl.Collator('en', { numeric: true });
+// The build only reads the registry, and loads it several times: read each file once.
+cacheDocReads();
 const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
+const { loadPublisherConfig } = require('../lib/publishers');
+const { loadDocRendering } = require('../lib/docRendering');
 const { assembleSlices } = require('./build.assemble-registry');
 const { emitSearchApi } = require('./build.search-api');
 const buildStats = require('./utils/buildStats');
@@ -341,6 +347,10 @@ const BUILD_PATH = "build";
 
 // --- Site config used for meta and structured data (single source of truth: src/main/config/site.json)
 let siteConfig = null;
+// Publisher urls / logos / aliases / dateless (src/main/config/publishers.json), as flat maps
+const publisherConfig = loadPublisherConfig();
+// docType / contentType rules, facet curation and citation templates (docRendering.json + templates/citations/)
+const docRendering = loadDocRendering();
 async function loadSiteConfig() {
   try {
     const cfgRaw = await fs.readFile(path.join('src','main','config','site.json'), 'utf8');
@@ -358,10 +368,10 @@ async function loadSiteConfig() {
 }
 
 // Page gate: skip rendered pages for docs whose contentType is listed in
-// siteConfig.noPageContentTypes (set built lazily, once siteConfig is loaded).
+// docRendering.json (contentTypes flagged noPage).
 let __pageGateSet = null;
 function pageGated(doc) {
-  if (__pageGateSet === null) __pageGateSet = noPageContentTypeSet(siteConfig);
+  if (__pageGateSet === null) __pageGateSet = noPageContentTypeSet(docRendering);
   return isPageGated(doc, __pageGateSet);
 }
 
@@ -763,6 +773,8 @@ async function emitDocumentsApiOnce() {
 
   let ok = 0;
   let failed = 0;
+  const io = ioBatch();
+  const colliding = caseCollidingIds(docs);
 
   for (const d of docs) {
     if (!d || !d.docId) continue;
@@ -781,17 +793,22 @@ async function emitDocumentsApiOnce() {
       document: d,
     };
 
-    try {
-      await _writeFile(outPath, JSON.stringify(docPayload, null, 2), 'utf8');
-      ok++;
-    } catch (e) {
-      failed++;
-      console.warn(
-        `[api] Failed to write per-doc JSON for ${id}:`,
-        e && e.message ? e.message : e
-      );
-    }
+    const json = JSON.stringify(docPayload, null, 2);
+    await io.queue(
+      () => _writeFile(outPath, json, 'utf8').then(
+        () => { ok++; },
+        (e) => {
+          failed++;
+          console.warn(
+            `[api] Failed to write per-doc JSON for ${id}:`,
+            e && e.message ? e.message : e
+          );
+        }
+      ),
+      colliding.has(id.toLowerCase())
+    );
   }
+  await io.flush();
 
   console.log(`[api] Wrote per-doc API JSON (ok=${ok}, failed=${failed})`);
 
@@ -815,6 +832,34 @@ async function writeFileSafe(filePath, data, encoding = 'utf8') {
   }
   await _writeFile(filePath, data, encoding);
   return true;
+}
+
+// Per-doc output (doc pages, refTree pages, api/doc/*.json) is ~16–33k small
+// disk operations; awaiting them one at a time left the build idle on I/O.
+// ioBatch() runs up to `size` at a time. A docId that differs from another only
+// by case shares its output path on a case-insensitive filesystem (macOS), so
+// its work drains the batch and runs alone, in registry order, as before.
+function ioBatch(size = 64) {
+  let pending = [];
+  const flush = async () => { await Promise.all(pending); pending = []; };
+  const queue = async (job, alone) => {
+    if (alone) { await flush(); await job(); return; }
+    pending.push(job());
+    if (pending.length >= size) await flush();
+  };
+  return { queue, flush };
+}
+
+// Lowercased docIds shared by 2+ docs (10.5594-J18404 / 10.5594-j18404).
+function caseCollidingIds(docs) {
+  const seen = new Map();
+  for (const d of docs) if (d && d.docId) {
+    const lo = String(d.docId).toLowerCase();
+    seen.set(lo, (seen.get(lo) || 0) + 1);
+  }
+  const out = new Set();
+  for (const [lo, n] of seen) if (n > 1) out.add(lo);
+  return out;
 }
 
 // --- Groups registry normalization + emit (for client-side groups view)
@@ -1231,26 +1276,20 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
       });
     };
 
-    // Load site config to expand keyword lists
-    let cfg = null;
-    try {
-      cfg = require('../config/site.json');
-    } catch (e) {
-      cfg = null;
-    }
+    // docType / publisher lists the keywords expand to
 
     // Expand keywords and merge results; preserve literal items too
     for (const t of rawTargets) {
       if (t === 'nonlineagedoctypes') {
-        addList(cfg && Array.isArray(cfg.nonLineageDocTypes) ? cfg.nonLineageDocTypes : []);
+        addList(docRendering.nonLineageDocTypes);
         continue;
       }
       if (t === 'titlelabeldoctypes') {
-        addList(cfg && Array.isArray(cfg.titleLabelDocTypes) ? cfg.titleLabelDocTypes : []);
+        addList(docRendering.titleLabelDocTypes);
         continue;
       }
       if (t === 'publishersdateless') {
-        addList(cfg && Array.isArray(cfg.publishersDateless) ? cfg.publishersDateless : []);
+        addList(publisherConfig.dateless);
         continue;
       }
       // literal compare value
@@ -1456,19 +1495,19 @@ function _titleOf(doc){
 
   // Public helpers
   hb.registerHelper('citeText', function(doc){
-    const tpl = siteConfig?.citations?.text?.preview;
+    const tpl = docRendering.citations.text?.preview;
     return tpl ? __renderCiteTpl(tpl, doc) : _buildCiteText(doc);
   });
   hb.registerHelper('citeTextUndated', function(doc){
-    const tpl = siteConfig?.citations?.text?.previewUndated;
+    const tpl = docRendering.citations.text?.previewUndated;
     return tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteText(doc);
   });
   hb.registerHelper('citeHtmlGeneric', function(doc){
-    const tpl = siteConfig?.citations?.generic?.preview;
+    const tpl = docRendering.citations.generic?.preview;
     return new hb.SafeString(tpl ? __renderCiteTpl(tpl, doc) : _buildCiteHtmlGeneric(doc));
   });
   hb.registerHelper('citeHtmlGenericUndated', function(doc){
-    const tpl = siteConfig?.citations?.generic?.previewUndated;
+    const tpl = docRendering.citations.generic?.previewUndated;
     return new hb.SafeString(tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteHtmlGeneric(doc));
   });
   hb.registerHelper('citeHtmlSmpte', function(doc){
@@ -1477,22 +1516,22 @@ function _titleOf(doc){
 
   // Code-safe (escaped) versions for &lt;pre&gt; blocks
   hb.registerHelper('citeCodeText', function(doc){
-    const tpl = siteConfig?.citations?.text?.preview;
+    const tpl = docRendering.citations.text?.preview;
     return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc) : _buildCiteText(doc)));
   });
 
   hb.registerHelper('citeCodeTextUndated', function(doc){
-    const tpl = siteConfig?.citations?.text?.previewUndated;
+    const tpl = docRendering.citations.text?.previewUndated;
     return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteText(doc)));
   });
 
   hb.registerHelper('citeCodeHtmlGeneric', function(doc){
-    const tpl = siteConfig?.citations?.generic?.preview;
+    const tpl = docRendering.citations.generic?.preview;
     return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc) : _buildCiteHtmlGeneric(doc)));
   });
   
   hb.registerHelper('citeCodeHtmlGenericUndated', function(doc){
-    const tpl = siteConfig?.citations?.generic?.previewUndated;
+    const tpl = docRendering.citations.generic?.previewUndated;
     return new hb.SafeString(_escapeHtml(tpl ? __renderCiteTpl(tpl, doc, { undatedSnippet: true }) : _buildCiteHtmlGeneric(doc)));
   });
 
@@ -1545,15 +1584,19 @@ function _titleOf(doc){
       doi
     };
 
-    // Compile & render using Handlebars so helpers like {{#citeIfEq ...}} work
-    const compiled = hb.compile(String(tpl || ''));
+    // Compile & render using Handlebars so helpers like {{#citeIfEq ...}} work.
+    // Compiled once per template source: every doc page renders up to 12 citations.
+    const src = String(tpl || '');
+    let compiled = __citeTplCache.get(src);
+    if (!compiled) __citeTplCache.set(src, (compiled = hb.compile(src)));
     return compiled(map);
   }
+  const __citeTplCache = new Map();
 
-  // Helpers that prefer siteConfig.citations.smpte.{preview|snippet} if present
+  // Helpers that prefer templates/citations/smpte.{preview|snippet}.hbs if present
   hb.registerHelper('citeHtmlSmptePreview', function(doc){
     try {
-      const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.preview;
+      const cfgTpl = docRendering.citations.smpte?.preview;
       if (cfgTpl) {
         return new hb.SafeString(__renderCiteTpl(cfgTpl, doc));
       }
@@ -1566,7 +1609,7 @@ function _titleOf(doc){
 
   hb.registerHelper('citeCodeHtmlSmpteSnippet', function(doc){
     try {
-      const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.snippet;
+      const cfgTpl = docRendering.citations.smpte?.snippet;
       if (cfgTpl) {
         // For code blocks, escape the rendered HTML so users copy the literal tag string
         return new hb.SafeString(_escapeHtml(__renderCiteTpl(cfgTpl, doc)));
@@ -1580,7 +1623,7 @@ function _titleOf(doc){
 
   hb.registerHelper('citeHtmlSmptePreviewUndated', function(doc){
     try {
-      const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.previewUndated;
+      const cfgTpl = docRendering.citations.smpte?.previewUndated;
       if (cfgTpl) {
         return new hb.SafeString(__renderCiteTpl(cfgTpl, doc, { undatedSnippet: true }));
       }
@@ -1593,7 +1636,7 @@ function _titleOf(doc){
 
   hb.registerHelper('citeCodeHtmlSmpteSnippetUndated', function(doc){
     try {
-      const cfgTpl = siteConfig && siteConfig.citations && siteConfig.citations.smpte && siteConfig.citations.smpte.snippetUndated;
+      const cfgTpl = docRendering.citations.smpte?.snippetUndated;
       if (cfgTpl) {
         // For code blocks, escape the rendered HTML so users copy the literal tag string
         return new hb.SafeString(_escapeHtml(__renderCiteTpl(cfgTpl, doc, { undatedSnippet: true })));
@@ -1988,7 +2031,7 @@ function _titleOf(doc){
 
       // Numeric-aware: orphan/<doc>/ref2 before …/ref10 (a paper's own order),
       // and ST 2 before ST 12.
-      const refIdCompare = (a, b) => String(a).localeCompare(String(b), 'en', { numeric: true });
+      const refIdCompare = (a, b) => __refIdCollator.compare(String(a), String(b));
       if (normRefs && Array.isArray(normRefs)) {
         normRefs.sort(refIdCompare);
         for (let i = 0; i < normRefs.length; i++) {
@@ -2223,11 +2266,9 @@ function _titleOf(doc){
   });
 
   const docLabels = {};
-  // Build a case-insensitive set from siteConfig.titleLabelDocTypes
+  // Build a case-insensitive set from docRendering's titleLabel docTypes
   const __titleLabelSet = new Set(
-    Array.isArray(siteConfig && siteConfig.titleLabelDocTypes)
-      ? siteConfig.titleLabelDocTypes.map(t => String(t || '').toLowerCase()).filter(Boolean)
-      : []
+    docRendering.titleLabelDocTypes.map(t => String(t || '').toLowerCase()).filter(Boolean)
   );
 
   registryDocument.forEach(item => {
@@ -2578,15 +2619,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     if (!raw) return '';
 
     // Resolve config maps (light + dark + aliases)
-    const logos = (siteConfig && siteConfig.publisherLogos && typeof siteConfig.publisherLogos === 'object')
-      ? siteConfig.publisherLogos
-      : {};
-    const logosDark = (siteConfig && siteConfig.publisherLogosDark && typeof siteConfig.publisherLogosDark === 'object')
-      ? siteConfig.publisherLogosDark
-      : {};
-    const aliases = (siteConfig && siteConfig.publisherLogoAliases && typeof siteConfig.publisherLogoAliases === 'object')
-      ? siteConfig.publisherLogoAliases
-      : {};
+    const { logos, logosDark, aliases } = publisherConfig;
 
     const relLight = resolvePublisherLogoFromMapNode(logos, aliases, raw);
     if (!relLight) return '';
@@ -2597,14 +2630,12 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     const root = (opts && opts.data && opts.data.root) ? opts.data.root : {};
     const assetPrefix = (typeof root.assetPrefix === 'string') ? root.assetPrefix : '';
 
-    // Height precedence: explicit hash height > root.publisherLogoHeight > siteConfig.publisherLogoHeight > 25
-    let h = 25;
+    // Height precedence: explicit hash height > root.publisherLogoHeight > publishers.json logoHeight
+    let h = publisherConfig.logoHeight;
     if (opts && opts.hash && opts.hash.height != null && !Number.isNaN(Number(opts.hash.height))) {
       h = Number(opts.hash.height);
     } else if (typeof root.publisherLogoHeight === 'number') {
       h = root.publisherLogoHeight;
-    } else if (siteConfig && typeof siteConfig.publisherLogoHeight === 'number') {
-      h = siteConfig.publisherLogoHeight;
     }
 
     // Build URLs relative to assetPrefix
@@ -2635,18 +2666,10 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     );
   });
   
-  // Publisher link resolver: resolves publisher to URL using siteConfig.publisherUrls and optional aliases
+  // Publisher link resolver: resolves publisher to URL using publishers.json urls and aliases
   hb.registerHelper('publisherLink', function (pub) {
     if (!pub || typeof pub !== 'string') return '';
-    const urlMap = (siteConfig && siteConfig.publisherUrls && typeof siteConfig.publisherUrls === 'object')
-      ? siteConfig.publisherUrls
-      : null;
-    if (!urlMap) return '';
-
-    // Normalize basic alias mapping reusing publisherLogoAliases when present
-    const aliases = (siteConfig && siteConfig.publisherLogoAliases && typeof siteConfig.publisherLogoAliases === 'object')
-      ? siteConfig.publisherLogoAliases
-      : {};
+    const { urls: urlMap, aliases } = publisherConfig;
 
     const raw = String(pub).trim();
     // 1) Exact
@@ -2691,24 +2714,32 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       await fs.mkdir(refTreeRoot, { recursive: true });
 
       let __rtOk = 0, __rtFail = 0;
+      const __rtIo = ioBatch();
+      const __rtColliding = caseCollidingIds(registryDocument);
+      const __rtFailed = (d, id, perDocRtErr) => {
+        __rtFail++;
+        console.warn(
+          `[build] Per-doc refTree emit failed for ${id} — pub:${d.publisher || 'unknown'}, type:${d.docType || 'unknown'}`,
+          '\nReason:',
+          perDocRtErr && perDocRtErr.stack ? perDocRtErr.stack : (perDocRtErr && perDocRtErr.message ? perDocRtErr.message : perDocRtErr)
+        );
+      };
+      const titlePrefList = docRendering.titleLabelDocTypes.map(x => String(x).toLowerCase());
       for (const d of registryDocument) {
         if (!d || !d.docId) continue;
         const id = String(d.docId);
         const dir = path.join(refTreeRoot, id);
+        const alone = __rtColliding.has(id.toLowerCase());
         // Page gate: no detail page → no reference-tree page either.
         // Remove any stale page left by an earlier (pre-gate) build.
         if (pageGated(d)) {
-          await fs.rm(dir, { recursive: true, force: true });
+          await __rtIo.queue(() => fs.rm(dir, { recursive: true, force: true }), alone);
           continue;
         }
-        await fs.mkdir(dir, { recursive: true });
 
         try {
           const canonical = new URL(`/reftree/${encodeURIComponent(id)}/`, siteConfig.canonicalBase).href;
 
-          const titlePrefList = Array.isArray(siteConfig?.titleLabelDocTypes)
-            ? siteConfig.titleLabelDocTypes.map(x => String(x).toLowerCase())
-            : [];
           const useDocTitleFirst = titlePrefList.includes(String(d.docType || '').toLowerCase());
           const baseLabel = useDocTitleFirst ? (d.docTitle || d.docLabel || d.docId)
                                              : (d.docLabel || d.docId);
@@ -2764,23 +2795,23 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             ogImageAlt: siteConfig.ogImageAlt,
             assetPrefix: '../../',
             htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
-            publisherUrls: siteConfig.publisherUrls,
-            titleLabelDocTypes: Array.isArray(siteConfig?.titleLabelDocTypes) ? siteConfig.titleLabelDocTypes : [],
+            publisherUrls: publisherConfig.urls,
+            titleLabelDocTypes: docRendering.titleLabelDocTypes,
           });
 
           const outFile = path.join(dir, 'index.html');
-          await writeFileSafe(outFile, refTreeHtml, 'utf8');
-          __rtOk++;
-        } catch (perDocRtErr) {
-          __rtFail++;
-          console.warn(
-            `[build] Per-doc refTree emit failed for ${id} — pub:${d.publisher || 'unknown'}, type:${d.docType || 'unknown'}`,
-            '\nReason:',
-            perDocRtErr && perDocRtErr.stack ? perDocRtErr.stack : (perDocRtErr && perDocRtErr.message ? perDocRtErr.message : perDocRtErr)
+          await __rtIo.queue(
+            () => fs.mkdir(dir, { recursive: true })
+              .then(() => writeFileSafe(outFile, refTreeHtml, 'utf8'))
+              .then(() => { __rtOk++; }, (err) => __rtFailed(d, id, err)),
+            alone
           );
+        } catch (perDocRtErr) {
+          __rtFailed(d, id, perDocRtErr);
           continue;
         }
       }
+      await __rtIo.flush();
       if (__rtFail) {
         console.warn(`[build] RefTree pages emitted with warnings: ok=${__rtOk}, failed=${__rtFail}`);
       }
@@ -2824,7 +2855,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
         ogImageAlt: siteConfig.ogImageAlt,
         assetPrefix: '../',
-        publisherUrls: siteConfig.publisherUrls,
+        publisherUrls: publisherConfig.urls,
       });
 
       await writeFileSafe(path.join(refTreeIndexRoot, 'index.html'), refTreeIndexHtml, 'utf8');
@@ -2906,7 +2937,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
               ogImageAlt: siteConfig.ogImageAlt,
               assetPrefix: '../../',
               htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
-              publisherUrls: siteConfig.publisherUrls,
+              publisherUrls: publisherConfig.urls,
             };
 
             const suiteHtml = suitesTpl({
@@ -2931,7 +2962,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
               ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
               ogImageAlt: siteConfig.ogImageAlt,
               assetPrefix: '../../',
-              publisherUrls: siteConfig.publisherUrls,
+              publisherUrls: publisherConfig.urls,
               // data
               suite: suiteCtx,
               suites
@@ -2988,7 +3019,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
             ogImageAlt: siteConfig.ogImageAlt,
             assetPrefix: '../',
-            publisherUrls: siteConfig.publisherUrls,
+            publisherUrls: publisherConfig.urls,
             // data
             suites
           });
@@ -3016,38 +3047,32 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     // Emit publisher logos + optional aliases for client-side docList.js
     try {
       const logosOut = {};
-      if (siteConfig && siteConfig.publisherLogos && typeof siteConfig.publisherLogos === 'object') {
-        for (const [k, v] of Object.entries(siteConfig.publisherLogos)) {
-          if (!v) continue;
-          const rel = String(v).trim();
-          // Normalize to root-absolute so client doesn't need per-page assetPrefix
-          logosOut[String(k).trim()] = rel.startsWith('/') ? rel : '/' + rel;
-        }
+      for (const [k, v] of Object.entries(publisherConfig.logos)) {
+        if (!v) continue;
+        const rel = String(v).trim();
+        // Normalize to root-absolute so client doesn't need per-page assetPrefix
+        logosOut[String(k).trim()] = rel.startsWith('/') ? rel : '/' + rel;
       }
 
       // Optional dark-logo map (only for publishers that define a dark variant)
       const logosDarkOut = {};
-      if (siteConfig && siteConfig.publisherLogosDark && typeof siteConfig.publisherLogosDark === 'object') {
-        for (const [k, v] of Object.entries(siteConfig.publisherLogosDark)) {
-          if (!v) continue;
-          const rel = String(v).trim();
-          logosDarkOut[String(k).trim()] = rel.startsWith('/') ? rel : '/' + rel;
-        }
+      for (const [k, v] of Object.entries(publisherConfig.logosDark)) {
+        if (!v) continue;
+        const rel = String(v).trim();
+        logosDarkOut[String(k).trim()] = rel.startsWith('/') ? rel : '/' + rel;
       }
 
       // Optional alias map: { "smpte": "SMPTE", "SMPTE – Society of Motion Picture…": "SMPTE" }
       const aliasesOut = {};
-      if (siteConfig && siteConfig.publisherLogoAliases && typeof siteConfig.publisherLogoAliases === 'object') {
-        for (const [alias, canon] of Object.entries(siteConfig.publisherLogoAliases)) {
-          if (!alias || !canon) continue;
-          aliasesOut[String(alias).trim()] = String(canon).trim();
-        }
+      for (const [alias, canon] of Object.entries(publisherConfig.aliases)) {
+        if (!alias || !canon) continue;
+        aliasesOut[String(alias).trim()] = String(canon).trim();
       }
 
       const logosPayload = {
         logos: logosOut,
         logosDark: logosDarkOut,
-        height: (typeof siteConfig.publisherLogoHeight === 'number' ? siteConfig.publisherLogoHeight : 25),
+        height: publisherConfig.logoHeight,
         aliases: aliasesOut
       };
 
@@ -3063,18 +3088,14 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     // Emit publisher URLs (for client-side cards)
     try {
       const urlsOut = {};
-      if (siteConfig && siteConfig.publisherUrls && typeof siteConfig.publisherUrls === 'object') {
-        for (const [k, v] of Object.entries(siteConfig.publisherUrls)) {
-          if (!v) continue;
-          urlsOut[String(k).trim()] = String(v).trim();
-        }
+      for (const [k, v] of Object.entries(publisherConfig.urls)) {
+        if (!v) continue;
+        urlsOut[String(k).trim()] = String(v).trim();
       }
       const urlAliasesOut = {};
-      if (siteConfig && siteConfig.publisherLogoAliases && typeof siteConfig.publisherLogoAliases === 'object') {
-        for (const [alias, canon] of Object.entries(siteConfig.publisherLogoAliases)) {
-          if (!alias || !canon) continue;
-          urlAliasesOut[String(alias).trim()] = String(canon).trim();
-        }
+      for (const [alias, canon] of Object.entries(publisherConfig.aliases)) {
+        if (!alias || !canon) continue;
+        urlAliasesOut[String(alias).trim()] = String(canon).trim();
       }
       const urlsPayload = {
         urls: urlsOut,
@@ -3136,7 +3157,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       "ogImage": ogImage,
       "ogImageAlt": ogImageAlt,
       "assetPrefix": assetPrefix,
-      "publisherUrls": siteConfig.publisherUrls,
+      "publisherUrls": publisherConfig.urls,
     });
   }
 
@@ -3234,6 +3255,8 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     }
 
     let __ok = 0, __fail = 0, __gated = 0;
+    const __docIo = ioBatch();
+    const __sharesDir = (id) => __caseGroups.get(id.toLowerCase()).length > 1;
     // Pass 1: gate removals (must precede all page writes — see note above)
     for (const d of registryDocument) {
       if (!d || !d.docId) continue;
@@ -3249,21 +3272,27 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           if (!html.includes(`/docs/${encodeURIComponent(id)}/`)) continue;
         } catch { /* nothing readable there — rm is a no-op or stale dir */ }
       }
-      await fs.rm(docDir, { recursive: true, force: true });
+      await __docIo.queue(() => fs.rm(docDir, { recursive: true, force: true }), __sharesDir(id));
     }
+    await __docIo.flush();
     // Pass 2: page writes
+    const titlePrefList = docRendering.titleLabelDocTypes.map(x => String(x).toLowerCase());
+    const __emitFailed = (d, id, perDocErr) => {
+      __fail++;
+      console.warn(
+        `[build] Per-doc emit failed for ${id} — pub:${d.publisher || 'unknown'}, type:${d.docType || 'unknown'}, refs:${Array.isArray(d.references?.normative) || Array.isArray(d.references?.bibliographic) ? 'yes' : 'no'}`,
+        '\nReason:',
+        perDocErr && perDocErr.stack ? perDocErr.stack : (perDocErr && perDocErr.message ? perDocErr.message : perDocErr)
+      );
+    };
     for (const d of registryDocument) {
       if (!d || !d.docId) continue;
       const id = String(d.docId);
       const docDir = path.join(docsOutRoot, id);
       if (pageGated(d)) continue;
-      await fs.mkdir(docDir, { recursive: true });
       try {
         // Per‑doc canonical + social meta
         const perDocCanonical = new URL(`/docs/${encodeURIComponent(id)}/`, siteConfig.canonicalBase).href;
-        const titlePrefList = Array.isArray(siteConfig?.titleLabelDocTypes)
-          ? siteConfig.titleLabelDocTypes.map(x => String(x).toLowerCase())
-          : [];
         const useDocTitleFirst = titlePrefList.includes(String(d.docType || '').toLowerCase());
         const perDocTitle = (useDocTitleFirst ? (d.docTitle || d.docLabel || d.docId) : (d.docLabel || d.docId)) + ' — ' + siteConfig.siteName;
         const perDocListTitle = (useDocTitleFirst ? (d.docTitle || d.docLabel || d.docId) : (d.docLabel || d.docId));
@@ -3309,25 +3338,25 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           ogImageAlt: siteConfig.ogImageAlt,
           assetPrefix: '../../',
           htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
-          publisherLogoHeight: 25,
-          publisherUrls: siteConfig.publisherUrls,
+          publisherLogoHeight: publisherConfig.logoHeight,
+          publisherUrls: publisherConfig.urls,
           alternateJson: `api/doc/${encodeURIComponent(id)}.json`,
           schemaUrl: 'api/schemas/documents.schema.json',
         });
 
         const outFile = path.join(docDir, 'index.html');
-        await writeFileSafe(outFile, docHtml, 'utf8');
-        __ok++;
-      } catch (perDocErr) {
-        __fail++;
-        console.warn(
-          `[build] Per-doc emit failed for ${id} — pub:${d.publisher || 'unknown'}, type:${d.docType || 'unknown'}, refs:${Array.isArray(d.references?.normative) || Array.isArray(d.references?.bibliographic) ? 'yes' : 'no'}`,
-          '\nReason:',
-          perDocErr && perDocErr.stack ? perDocErr.stack : (perDocErr && perDocErr.message ? perDocErr.message : perDocErr)
+        await __docIo.queue(
+          () => fs.mkdir(docDir, { recursive: true })
+            .then(() => writeFileSafe(outFile, docHtml, 'utf8'))
+            .then(() => { __ok++; }, (err) => __emitFailed(d, id, err)),
+          __sharesDir(id)
         );
+      } catch (perDocErr) {
+        __emitFailed(d, id, perDocErr);
         continue;
       }
     }
+    await __docIo.flush();
     if (__fail) {
       console.warn(`[build] Per-doc pages emitted with warnings: ok=${__ok}, failed=${__fail}, gated=${__gated}`);
     } else {
@@ -3572,10 +3601,10 @@ void (async () => {
     ogImage: docsOgImage,
     ogImageAlt: docsOgImageAlt,
     assetPrefix: docsAssetPrefix,
-    publisherLogos: siteConfig.publisherLogos,
-    publisherLogosJson: JSON.stringify(siteConfig.publisherLogos || {}),
-    publisherLogoHeight: 25,
-    publisherUrls: siteConfig.publisherUrls,
+    publisherLogos: publisherConfig.logos,
+    publisherLogosJson: JSON.stringify(publisherConfig.logos),
+    publisherLogoHeight: publisherConfig.logoHeight,
+    publisherUrls: publisherConfig.urls,
     robotsMeta: 'noindex,nofollow'
   }), 'utf8');
 
@@ -3613,7 +3642,7 @@ void (async () => {
     ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
     ogImageAlt: siteConfig.ogImageAlt,
     assetPrefix: '',
-    publisherUrls: siteConfig.publisherUrls,
+    publisherUrls: publisherConfig.urls,
   });
   await writeFileSafe(path.join(BUILD_PATH, 'index.html'), homeHtml, 'utf8');
   console.log('[build] Wrote build/index.html');
@@ -3644,7 +3673,7 @@ void (async () => {
     ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
     ogImageAlt: siteConfig.ogImageAlt,
     assetPrefix: '../',
-    publisherUrls: siteConfig.publisherUrls,
+    publisherUrls: publisherConfig.urls,
     alternateJson: 'api/documents.json',
     schemaUrl: 'api/schemas/documents.schema.json',
   });
@@ -3685,7 +3714,7 @@ void (async () => {
       ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
       ogImageAlt: siteConfig.ogImageAlt,
       assetPrefix: '../',
-      publisherUrls: siteConfig.publisherUrls,
+      publisherUrls: publisherConfig.urls,
       skillZipUrl: 'https://github.com/PrZ3r/MSRBot.io/releases/latest/download/msrbot-research.zip',
       promptText: promptMatch[1].trimEnd(),
     });
@@ -3861,7 +3890,7 @@ void (async () => {
       ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
       ogImageAlt: siteConfig.ogImageAlt,
       assetPrefix: '../',
-      publisherUrls: siteConfig.publisherUrls,
+      publisherUrls: publisherConfig.urls,
       preambleHtml: parsed.preambleHtml,
       releases: parsed.releases,
     });
@@ -3900,7 +3929,7 @@ void (async () => {
       ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
       ogImageAlt: siteConfig.ogImageAlt,
       assetPrefix: '../../',
-      publisherUrls: siteConfig.publisherUrls,
+      publisherUrls: publisherConfig.urls,
     });
     await fs.mkdir(path.join(BUILD_PATH, 'about', 'PrZ3'), { recursive: true });
     await writeFileSafe(path.join(BUILD_PATH, 'about', 'PrZ3', 'index.html'), prz3Html, 'utf8');
@@ -4022,7 +4051,7 @@ void (async () => {
     robotsMeta: 'noindex,follow',
     assetPrefix: '/',
     penguinMessagesJson: penguinMessagesJson,
-    publisherUrls: siteConfig.publisherUrls,
+    publisherUrls: publisherConfig.urls,
   });
   await writeFileSafe(path.join(BUILD_PATH, '404.html'), fourOhFourHtml, 'utf8');
   console.log('[build] Wrote build/404.html');
