@@ -64,7 +64,8 @@ const API_VERSION = '2.1.0';
 // verbatim matches reported ~50 KB shards as cut off; 25 KB leaves real margin.
 const MAX_SHARD_BYTES = 25 * 1024;
 
-const byDocId = (a, b) => a.id.localeCompare(b.id, 'en', { numeric: true, sensitivity: 'base' });
+const __idCollator = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
+const byDocId = (a, b) => __idCollator.compare(a.id, b.id);
 
 function statusOf(st) {
   if (!st || typeof st !== 'object') return 'unknown';

@@ -279,7 +279,11 @@ hb.registerHelper('refHref', function (refId) {
 
 // Minimal shared keying import for MSI lineage lookups
 const keying = require('../lib/keying');
-const { loadAllDocs } = require('../lib/registry');
+const { loadAllDocs, cacheDocReads } = require('../lib/registry');
+// localeCompare(b, 'en', { numeric: true }), with the collator built once (it ran per comparison).
+const __refIdCollator = new Intl.Collator('en', { numeric: true });
+// The build only reads the registry, and loads it several times: read each file once.
+cacheDocReads();
 const { noPageContentTypeSet, isPageGated } = require('../lib/pageGate');
 const { loadPublisherConfig } = require('../lib/publishers');
 const { loadDocRendering } = require('../lib/docRendering');
@@ -769,6 +773,8 @@ async function emitDocumentsApiOnce() {
 
   let ok = 0;
   let failed = 0;
+  const io = ioBatch();
+  const colliding = caseCollidingIds(docs);
 
   for (const d of docs) {
     if (!d || !d.docId) continue;
@@ -787,17 +793,22 @@ async function emitDocumentsApiOnce() {
       document: d,
     };
 
-    try {
-      await _writeFile(outPath, JSON.stringify(docPayload, null, 2), 'utf8');
-      ok++;
-    } catch (e) {
-      failed++;
-      console.warn(
-        `[api] Failed to write per-doc JSON for ${id}:`,
-        e && e.message ? e.message : e
-      );
-    }
+    const json = JSON.stringify(docPayload, null, 2);
+    await io.queue(
+      () => _writeFile(outPath, json, 'utf8').then(
+        () => { ok++; },
+        (e) => {
+          failed++;
+          console.warn(
+            `[api] Failed to write per-doc JSON for ${id}:`,
+            e && e.message ? e.message : e
+          );
+        }
+      ),
+      colliding.has(id.toLowerCase())
+    );
   }
+  await io.flush();
 
   console.log(`[api] Wrote per-doc API JSON (ok=${ok}, failed=${failed})`);
 
@@ -821,6 +832,34 @@ async function writeFileSafe(filePath, data, encoding = 'utf8') {
   }
   await _writeFile(filePath, data, encoding);
   return true;
+}
+
+// Per-doc output (doc pages, refTree pages, api/doc/*.json) is ~16–33k small
+// disk operations; awaiting them one at a time left the build idle on I/O.
+// ioBatch() runs up to `size` at a time. A docId that differs from another only
+// by case shares its output path on a case-insensitive filesystem (macOS), so
+// its work drains the batch and runs alone, in registry order, as before.
+function ioBatch(size = 64) {
+  let pending = [];
+  const flush = async () => { await Promise.all(pending); pending = []; };
+  const queue = async (job, alone) => {
+    if (alone) { await flush(); await job(); return; }
+    pending.push(job());
+    if (pending.length >= size) await flush();
+  };
+  return { queue, flush };
+}
+
+// Lowercased docIds shared by 2+ docs (10.5594-J18404 / 10.5594-j18404).
+function caseCollidingIds(docs) {
+  const seen = new Map();
+  for (const d of docs) if (d && d.docId) {
+    const lo = String(d.docId).toLowerCase();
+    seen.set(lo, (seen.get(lo) || 0) + 1);
+  }
+  const out = new Set();
+  for (const [lo, n] of seen) if (n > 1) out.add(lo);
+  return out;
 }
 
 // --- Groups registry normalization + emit (for client-side groups view)
@@ -1992,7 +2031,7 @@ function _titleOf(doc){
 
       // Numeric-aware: orphan/<doc>/ref2 before …/ref10 (a paper's own order),
       // and ST 2 before ST 12.
-      const refIdCompare = (a, b) => String(a).localeCompare(String(b), 'en', { numeric: true });
+      const refIdCompare = (a, b) => __refIdCollator.compare(String(a), String(b));
       if (normRefs && Array.isArray(normRefs)) {
         normRefs.sort(refIdCompare);
         for (let i = 0; i < normRefs.length; i++) {
@@ -2675,22 +2714,32 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       await fs.mkdir(refTreeRoot, { recursive: true });
 
       let __rtOk = 0, __rtFail = 0;
+      const __rtIo = ioBatch();
+      const __rtColliding = caseCollidingIds(registryDocument);
+      const __rtFailed = (d, id, perDocRtErr) => {
+        __rtFail++;
+        console.warn(
+          `[build] Per-doc refTree emit failed for ${id} — pub:${d.publisher || 'unknown'}, type:${d.docType || 'unknown'}`,
+          '\nReason:',
+          perDocRtErr && perDocRtErr.stack ? perDocRtErr.stack : (perDocRtErr && perDocRtErr.message ? perDocRtErr.message : perDocRtErr)
+        );
+      };
+      const titlePrefList = docRendering.titleLabelDocTypes.map(x => String(x).toLowerCase());
       for (const d of registryDocument) {
         if (!d || !d.docId) continue;
         const id = String(d.docId);
         const dir = path.join(refTreeRoot, id);
+        const alone = __rtColliding.has(id.toLowerCase());
         // Page gate: no detail page → no reference-tree page either.
         // Remove any stale page left by an earlier (pre-gate) build.
         if (pageGated(d)) {
-          await fs.rm(dir, { recursive: true, force: true });
+          await __rtIo.queue(() => fs.rm(dir, { recursive: true, force: true }), alone);
           continue;
         }
-        await fs.mkdir(dir, { recursive: true });
 
         try {
           const canonical = new URL(`/reftree/${encodeURIComponent(id)}/`, siteConfig.canonicalBase).href;
 
-          const titlePrefList = docRendering.titleLabelDocTypes.map(x => String(x).toLowerCase());
           const useDocTitleFirst = titlePrefList.includes(String(d.docType || '').toLowerCase());
           const baseLabel = useDocTitleFirst ? (d.docTitle || d.docLabel || d.docId)
                                              : (d.docLabel || d.docId);
@@ -2751,18 +2800,18 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           });
 
           const outFile = path.join(dir, 'index.html');
-          await writeFileSafe(outFile, refTreeHtml, 'utf8');
-          __rtOk++;
-        } catch (perDocRtErr) {
-          __rtFail++;
-          console.warn(
-            `[build] Per-doc refTree emit failed for ${id} — pub:${d.publisher || 'unknown'}, type:${d.docType || 'unknown'}`,
-            '\nReason:',
-            perDocRtErr && perDocRtErr.stack ? perDocRtErr.stack : (perDocRtErr && perDocRtErr.message ? perDocRtErr.message : perDocRtErr)
+          await __rtIo.queue(
+            () => fs.mkdir(dir, { recursive: true })
+              .then(() => writeFileSafe(outFile, refTreeHtml, 'utf8'))
+              .then(() => { __rtOk++; }, (err) => __rtFailed(d, id, err)),
+            alone
           );
+        } catch (perDocRtErr) {
+          __rtFailed(d, id, perDocRtErr);
           continue;
         }
       }
+      await __rtIo.flush();
       if (__rtFail) {
         console.warn(`[build] RefTree pages emitted with warnings: ok=${__rtOk}, failed=${__rtFail}`);
       }
@@ -3206,6 +3255,8 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     }
 
     let __ok = 0, __fail = 0, __gated = 0;
+    const __docIo = ioBatch();
+    const __sharesDir = (id) => __caseGroups.get(id.toLowerCase()).length > 1;
     // Pass 1: gate removals (must precede all page writes — see note above)
     for (const d of registryDocument) {
       if (!d || !d.docId) continue;
@@ -3221,19 +3272,27 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           if (!html.includes(`/docs/${encodeURIComponent(id)}/`)) continue;
         } catch { /* nothing readable there — rm is a no-op or stale dir */ }
       }
-      await fs.rm(docDir, { recursive: true, force: true });
+      await __docIo.queue(() => fs.rm(docDir, { recursive: true, force: true }), __sharesDir(id));
     }
+    await __docIo.flush();
     // Pass 2: page writes
+    const titlePrefList = docRendering.titleLabelDocTypes.map(x => String(x).toLowerCase());
+    const __emitFailed = (d, id, perDocErr) => {
+      __fail++;
+      console.warn(
+        `[build] Per-doc emit failed for ${id} — pub:${d.publisher || 'unknown'}, type:${d.docType || 'unknown'}, refs:${Array.isArray(d.references?.normative) || Array.isArray(d.references?.bibliographic) ? 'yes' : 'no'}`,
+        '\nReason:',
+        perDocErr && perDocErr.stack ? perDocErr.stack : (perDocErr && perDocErr.message ? perDocErr.message : perDocErr)
+      );
+    };
     for (const d of registryDocument) {
       if (!d || !d.docId) continue;
       const id = String(d.docId);
       const docDir = path.join(docsOutRoot, id);
       if (pageGated(d)) continue;
-      await fs.mkdir(docDir, { recursive: true });
       try {
         // Per‑doc canonical + social meta
         const perDocCanonical = new URL(`/docs/${encodeURIComponent(id)}/`, siteConfig.canonicalBase).href;
-        const titlePrefList = docRendering.titleLabelDocTypes.map(x => String(x).toLowerCase());
         const useDocTitleFirst = titlePrefList.includes(String(d.docType || '').toLowerCase());
         const perDocTitle = (useDocTitleFirst ? (d.docTitle || d.docLabel || d.docId) : (d.docLabel || d.docId)) + ' — ' + siteConfig.siteName;
         const perDocListTitle = (useDocTitleFirst ? (d.docTitle || d.docLabel || d.docId) : (d.docLabel || d.docId));
@@ -3286,18 +3345,18 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         });
 
         const outFile = path.join(docDir, 'index.html');
-        await writeFileSafe(outFile, docHtml, 'utf8');
-        __ok++;
-      } catch (perDocErr) {
-        __fail++;
-        console.warn(
-          `[build] Per-doc emit failed for ${id} — pub:${d.publisher || 'unknown'}, type:${d.docType || 'unknown'}, refs:${Array.isArray(d.references?.normative) || Array.isArray(d.references?.bibliographic) ? 'yes' : 'no'}`,
-          '\nReason:',
-          perDocErr && perDocErr.stack ? perDocErr.stack : (perDocErr && perDocErr.message ? perDocErr.message : perDocErr)
+        await __docIo.queue(
+          () => fs.mkdir(docDir, { recursive: true })
+            .then(() => writeFileSafe(outFile, docHtml, 'utf8'))
+            .then(() => { __ok++; }, (err) => __emitFailed(d, id, err)),
+          __sharesDir(id)
         );
+      } catch (perDocErr) {
+        __emitFailed(d, id, perDocErr);
         continue;
       }
     }
+    await __docIo.flush();
     if (__fail) {
       console.warn(`[build] Per-doc pages emitted with warnings: ok=${__ok}, failed=${__fail}, gated=${__gated}`);
     } else {
