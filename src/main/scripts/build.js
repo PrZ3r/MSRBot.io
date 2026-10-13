@@ -1545,10 +1545,14 @@ function _titleOf(doc){
       doi
     };
 
-    // Compile & render using Handlebars so helpers like {{#citeIfEq ...}} work
-    const compiled = hb.compile(String(tpl || ''));
+    // Compile & render using Handlebars so helpers like {{#citeIfEq ...}} work.
+    // Compiled once per template source: every doc page renders up to 12 citations.
+    const src = String(tpl || '');
+    let compiled = __citeTplCache.get(src);
+    if (!compiled) __citeTplCache.set(src, (compiled = hb.compile(src)));
     return compiled(map);
   }
+  const __citeTplCache = new Map();
 
   // Helpers that prefer templates/citations/smpte.{preview|snippet}.hbs if present
   hb.registerHelper('citeHtmlSmptePreview', function(doc){
