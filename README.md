@@ -242,11 +242,11 @@ For the full command and flag reference (including `build-mri`, `build-msi`, `au
 - Validation mode can be selected at runtime:
   - Strict (default): `npm run validate` or `npm run validate -- --error`
   - Warn-only for unknown keywords: `npm run validate -- --warn`
-- Hand-added facet chips (`site.json` `facetKeywordCuration.add`) need not be controlled terms, but validate checks that each one token-matches some doc keyword (the build drops a chip that matches nothing).
+- Hand-added facet chips (`src/main/config/docRendering.json` `facets.add`) need not be controlled terms, but validate checks that each one token-matches some doc keyword (the build drops a chip that matches nothing).
 - Extract workflows (`extract-docs-smpte.yml`, `extract-docs-ietf.yml`) run validation in warn mode for unknown keywords (`KEYWORD_VALIDATION_MODE=warn`), while build/local defaults remain strict unless overridden.
 - Use keyword sync to review and optionally add new observed keywords:
   - Dry run: `npm run keywords-sync`
-  - Write updates to `site.json`: `npm run keywords-sync -- --write`
+  - Write updates to `controlledKeywords.json`: `npm run keywords-sync -- --write`
 ---
 ### Contributing
 Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). To add documents from a publisher without an extractor, including with an AI tool, see [docs/manual-extraction.md](docs/manual-extraction.md).  
