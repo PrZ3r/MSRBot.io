@@ -2102,6 +2102,20 @@ function parseRefId(text, href = '', opts = {}) {
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-international-standard' } } : refId;
     }
   }
+  // ISO/IEC Technical Reports keep "TR" in the ID, apart from a standard of the same number:
+  // "ISO/IEC TR 9577:1990(E)" → ISO.TR9577.1990 (iso.org labels it "ISO/IEC TR 9577:1990");
+  // also "Technical Report 9575" in an ISO citation (RFC1629). A draft (PDTR/DTR) is not the report.
+  {
+    const src = String(text || '');
+    const tr = !/\b(?:Working\s+)?Draft\s+ISO\b/i.test(src) && src.match(/\bISO(?:\s*\/\s*IEC)?\s+TR\s+(\d{3,5}(?:-\d+)*)\b(?:\s*:\s*((?:19|20)\d{2}))?/)
+      || ((/\bISO\b/.test(src) || /\bInternational\s+Organi[sz]ation\s+for\s+Standardi[sz]ation\b/i.test(src))
+        && src.match(/(?<!\b(?:Draft|Proposed|PD|D)\s*)\bTechnical\s+Report\s+(\d{4,5}(?:-\d+)*)\b/));
+    if (tr) {
+      const y = tr[2] || (src.slice(tr.index + tr[0].length).match(/\b((?:19|20)\d{2})\b/) || [])[1];
+      const refId = `ISO.TR${tr[1]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-technical-report' } } : refId;
+    }
+  }
   // The stage written out: "ISO International Standard (IS) 3309, "…", 1979." and "International
   // Organization for Standardization, "ISO …", IS 3309, October 1984" (RFC1547, RFC1510). An
   // addendum ("ISO IS 9595 1989: DAD1", RFC1189) cites the amendment, not the standard.

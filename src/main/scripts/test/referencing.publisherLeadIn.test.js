@@ -200,4 +200,9 @@ assert.strictEqual(parseRefId('ANSI X12.6 Applications Control Structures for El
 assert.strictEqual(parseRefId('ANSI X9.57-199x, Public Key Cryptography For The Financial Services Industry: Certificate Management, Working Draft, June 1996.'), 'ANSI.X9.57'); n++;
 assert.strictEqual(parseRefId('International Standards 8602 - Information Processing Systems - OSI: Connectionless Transport Protocol Specification. International Standards Organization, December 1986.'), 'ISO.8602.1986'); n++;
 
+// ISO/IEC Technical Reports keep TR in the ID (iso.org: "ISO/IEC TR 9577:1990"); a draft doesn't resolve.
+assert.strictEqual(parseRefId('ISO/IEC TR 9577:1990(E), "Information technology - Protocol Identification in the network layer", 1990-10-15.'), 'ISO.TR9577.1990'); n++;
+assert.strictEqual(parseRefId('ISO/IEC, "Information Technology - OSI Routeing Framework", Technical Report 9575, ISO/IEC JTC 1, Switzerland, 1989.'), 'ISO.TR9575.1989'); n++;
+assert.strictEqual(parseRefId('J. Samuelsson, Working Draft ISO/IEC TR 23008-14 Conversion and Coding Practices for HDR/WCG, 2016.'), null); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
