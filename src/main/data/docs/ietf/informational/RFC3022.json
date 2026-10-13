@@ -1,0 +1,258 @@
+{
+  "abstract": "The NAT operation described in this document extends address translation introduced in RFC 1631 and includes a new type of network address and TCP/UDP port translation. In addition, this document corrects the Checksum adjustment algorithm published in RFC 1631 and attempts to discuss NAT operation and limitations in detail. This memo provides information for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "authors": [
+    {
+      "name": "Pyda Srisuresh"
+    },
+    {
+      "name": "Kjeld Borch Egevang"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docId": "RFC3022",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docLabel": "IETF RFC 3022",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docNumber": "3022",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docTitle": "Traditional IP Network Address Translator (Traditional NAT)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "doi": "10.17487/RFC3022",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "href": "https://doi.org/10.17487/RFC3022",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "keywords": [
+    "IP",
+    "Port Numbers"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "pages": "16",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publicationDate": "2001-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2663",
+      "RFC1918",
+      "RFC1700",
+      "RFC1122",
+      "RFC1123",
+      "RFC1812",
+      "RFC959",
+      "RFC793",
+      "RFC792",
+      "RFC768",
+      "RFC2101"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=13 proseBlocks=13 skippedAnchorBlocks=12",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+      "updated": "2026-10-12T21:12:08.756Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3022/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+    "updated": "2026-10-12T21:12:08.756Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+      "updated": "2026-10-12T21:12:08.756Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+      "updated": "2026-10-12T21:12:08.756Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc3022",
+      "https://www.rfc-editor.org/errata_search.php?rfc=3022"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+      "updated": "2026-10-12T21:12:08.756Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+      "updated": "2026-10-12T21:12:08.756Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+      "updated": "2026-10-12T21:12:08.756Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+      "updated": "2026-10-12T21:12:08.756Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "supersedes": [
+      "RFC1631"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3022/",
+      "updated": "2026-10-12T21:12:08.756Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  }
+}

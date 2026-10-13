@@ -1,0 +1,243 @@
+{
+  "abstract": "This document proposes a new Transmission Control Protocol (TCP) mechanism that can be used to more effectively recover lost segments when a connection's congestion window is small, or when a large number of segments are lost in a single transmission window. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "authors": [
+    {
+      "name": "Mark Allman"
+    },
+    {
+      "name": "Hari Balakrishnan"
+    },
+    {
+      "name": "Sally Floyd"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docId": "RFC3042",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docLabel": "IETF RFC 3042",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docNumber": "3042",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docTitle": "Enhancing TCP's Loss Recovery Using Limited Transmit",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "doi": "10.17487/RFC3042",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "href": "https://doi.org/10.17487/RFC3042",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "keywords": [
+    "TCP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "pages": "9",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publicationDate": "2001-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2988",
+      "RFC2884",
+      "RFC793",
+      "RFC2018",
+      "RFC2119",
+      "RFC2481",
+      "RFC2581",
+      "RFC2582",
+      "orphan/RFC3042/h:0ed4e4aa",
+      "orphan/RFC3042/h:74a79a74",
+      "orphan/RFC3042/h:0a8455d1",
+      "orphan/RFC3042/h:1bfa5f15",
+      "orphan/RFC3042/h:0ad169e1",
+      "orphan/RFC3042/h:04d8d871",
+      "orphan/RFC3042/h:8dd384fb",
+      "orphan/RFC3042/h:99b7169d",
+      "orphan/RFC3042/h:e2d9736c",
+      "orphan/RFC3042/h:3f6d3d4f",
+      "orphan/RFC3042/h:25af0239",
+      "orphan/RFC3042/h:9e36666f",
+      "orphan/RFC3042/h:f85dca11"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=21 proseBlocks=24 skippedAnchorBlocks=23",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+      "updated": "2026-10-12T21:12:16.963Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3042/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+    "updated": "2026-10-12T21:12:16.963Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+      "updated": "2026-10-12T21:12:16.963Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+      "updated": "2026-10-12T21:12:16.963Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+      "updated": "2026-10-12T21:12:16.963Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+      "updated": "2026-10-12T21:12:16.963Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3042/",
+      "updated": "2026-10-12T21:12:16.963Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  }
+}

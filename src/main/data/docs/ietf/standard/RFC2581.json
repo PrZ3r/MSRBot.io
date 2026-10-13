@@ -1,0 +1,299 @@
+{
+  "abstract": "This document defines TCP's four intertwined congestion control algorithms: slow start, congestion avoidance, fast retransmit, and fast recovery. In addition, the document specifies how TCP should begin transmission after a relatively long idle period, as well as discussing various acknowledgment generation methods. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "authors": [
+    {
+      "name": "Mark Allman"
+    },
+    {
+      "name": "Dr. Vern Paxson"
+    },
+    {
+      "name": "W. Richard Stevens"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docId": "RFC2581",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docLabel": "IETF RFC 2581",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docNumber": "2581",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docTitle": "TCP Congestion Control",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "doi": "10.17487/RFC2581",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "href": "https://doi.org/10.17487/RFC2581",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "keywords": [
+    "TCP-CC",
+    "TCP",
+    "Congestion Control"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "pages": "14",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publicationDate": "1999-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2414",
+      "RFC1122",
+      "RFC2119",
+      "RFC813",
+      "RFC2582",
+      "RFC1191",
+      "RFC2018",
+      "RFC793",
+      "RFC2001",
+      "RFC2525",
+      "orphan/RFC2581/h:042f2d73",
+      "orphan/RFC2581/h:bb3d52cb",
+      "orphan/RFC2581/h:5bd0861b",
+      "orphan/RFC2581/h:cde72ee0",
+      "orphan/RFC2581/h:7a29a9db",
+      "orphan/RFC2581/h:657897f0",
+      "orphan/RFC2581/h:5bb61531",
+      "orphan/RFC2581/h:db15c3e4",
+      "orphan/RFC2581/h:a6bc08c3",
+      "orphan/RFC2581/h:f958f65c",
+      "orphan/RFC2581/h:c2a0261b"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=21 proseBlocks=25 skippedAnchorBlocks=23",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc2581/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+    "updated": "2026-10-12T21:10:15.299Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "amendedBy": [
+      "RFC3390"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc2581",
+      "https://www.rfc-editor.org/errata_search.php?rfc=2581",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc2581.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "supersededBy": [
+      "RFC5681"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "supersedes": [
+      "RFC2001"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2581/",
+      "updated": "2026-10-12T21:10:15.299Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  }
+}

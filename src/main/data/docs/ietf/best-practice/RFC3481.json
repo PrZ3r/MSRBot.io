@@ -1,0 +1,288 @@
+{
+  "abstract": "This document describes a profile for optimizing TCP to adapt so that it handles paths including second (2.5G) and third (3G) generation wireless networks. It describes the relevant characteristics of 2.5G and 3G networks, and specific features of example deployments of such networks. It then recommends TCP algorithm choices for nodes known to be starting or ending on such paths, and it also discusses open issues. The configuration options recommended in this document are commonly found in modern TCP stacks, and are widely available standards-track mechanisms that the community considers safe for use on the general Internet. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "authors": [
+    {
+      "name": "Hiroshi Inamura"
+    },
+    {
+      "name": "Gabriel Montenegro"
+    },
+    {
+      "name": "Ludwig Reiner"
+    },
+    {
+      "name": "Andrei Gurtov"
+    },
+    {
+      "name": "Farid Khafizov"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docId": "RFC3481",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docLabel": "IETF RFC 3481",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docNumber": "3481",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docTitle": "TCP over Second (2.5G) and Third (3G) Generation Wireless Networks",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "docType": "Best Practice",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "doi": "10.17487/RFC3481",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "href": "https://doi.org/10.17487/RFC3481",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "pages": "26",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publicationDate": "2003-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2757",
+      "RFC3366",
+      "RFC3135",
+      "RFC1644",
+      "RFC2309",
+      "RFC2884",
+      "RFC2883",
+      "RFC2246",
+      "RFC2401",
+      "3GPP.TS-25.331.200109",
+      "RFC1144",
+      "RFC2760",
+      "RFC2488",
+      "RFC3449",
+      "RFC3374",
+      "orphan/RFC3481/h:fc1b8643",
+      "orphan/RFC3481/h:31f4610a",
+      "orphan/RFC3481/h:44f72504",
+      "orphan/RFC3481/h:019938b9",
+      "orphan/RFC3481/h:7d9fae6d",
+      "orphan/RFC3481/h:b4c7715c",
+      "orphan/RFC3481/h:4d019c2e",
+      "orphan/RFC3481/h:16eaf084",
+      "orphan/RFC3481/h:9ee4b52b",
+      "orphan/RFC3481/h:6b870537",
+      "orphan/RFC3481/h:7ffd1fe3",
+      "orphan/RFC3481/h:7d8b4edc",
+      "orphan/RFC3481/h:5c7e6bbf",
+      "orphan/RFC3481/h:87e69dd5",
+      "orphan/RFC3481/h:1a76d3d8",
+      "orphan/RFC3481/h:f5328d8f",
+      "orphan/RFC3481/h:6c5e3b6c",
+      "orphan/RFC3481/h:b29fc962",
+      "orphan/RFC3481/h:df96b62e",
+      "orphan/RFC3481/h:f4d11fd9",
+      "orphan/RFC3481/h:0de2ae96",
+      "orphan/RFC3481/h:735a4664",
+      "orphan/RFC3481/h:aeb3e60e",
+      "orphan/RFC3481/h:3f56d212",
+      "orphan/RFC3481/h:a6a67874",
+      "orphan/RFC3481/h:36c241cb",
+      "orphan/RFC3481/h:3d12187d"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=60 proseBlocks=72 skippedAnchorBlocks=66",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+      "updated": "2026-10-12T21:13:37.252Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "normative": [
+      "RFC2581",
+      "RFC1323",
+      "RFC2018",
+      "RFC3390",
+      "RFC3150",
+      "RFC1191",
+      "RFC1435",
+      "RFC1981",
+      "RFC3168",
+      "RFC3042",
+      "RFC2988",
+      "RFC3095",
+      "RFC2507",
+      "RFC793",
+      "RFC2582",
+      "RFC3241",
+      "RFC1122",
+      "RFC2460"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+      "updated": "2026-10-12T21:13:37.252Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3481/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+    "updated": "2026-10-12T21:13:37.252Z",
+    "version": "extractDocs.js@commit:291bb05ea30a"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+      "updated": "2026-10-12T21:13:37.252Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+      "updated": "2026-10-12T21:13:37.252Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+      "updated": "2026-10-12T21:13:37.252Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "statusNote": "Best Current Practice",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+      "updated": "2026-10-12T21:13:37.252Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3481/",
+      "updated": "2026-10-12T21:13:37.252Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    }
+  }
+}
