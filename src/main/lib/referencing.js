@@ -1807,9 +1807,10 @@ function parseRefId(text, href = '', opts = {}) {
     }
     // Spelled out with a bare X-series designator: "American National Standards Institute,
     // "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985." (RFC2828)
-    // also "American National Standard for Telecommunications -- …, T1.403, February 1989" (RFC4805)
+    // also "American National Standard for Telecommunications -- …, T1.403, February 1989" (RFC4805);
+    // a hyphenated label ("ANSI-T1.403 …") is skipped so the dated designator in the body is used.
     const spelled = !m && /\bAmerican\s+National\s+Standards?\s+(?:Institute|for)\b/.test(String(text || ''))
-      && String(text || '').match(/(?<![\w.\/])(X\d{1,2}|T1)\.(\d{1,3}(?:\.\d{2})?)\b(?![.\/]\d)(?:[^\n]{0,80}?\b((?:19|20)\d{2})\b)?/);
+      && String(text || '').match(/(?<![\w.\/-])(X\d{1,2}|T1)\.(\d{1,3}(?:\.\d{2})?)\b(?![.\/]\d)(?:[^\n]{0,80}?\b((?:19|20)\d{2})\b)?/);
     if (spelled) {
       // US-ASCII (X3.4) is filed under INCITS, as refMap does for "ANSI X3.4, 1986".
       const pub = spelled[1] === 'X3' && spelled[2] === '4' ? 'INCITS' : 'ANSI';

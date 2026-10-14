@@ -237,6 +237,7 @@ assert.strictEqual(parseRefId('IEEE, "Standard Specifications for Public Key Cry
 // WHATWG living standards by host or name (RFC8089, RFC8187).
 assert.strictEqual(parseRefId('American National Standard for Telecommunications -- Carrier-to-Customer Installation - DS1 Metallic Interface, T1.403, February 1989.'), 'ANSI.T1.403.1989'); n++;
 assert.strictEqual(parseRefId('American National Standard for Telecommunications -- Digital Hierarchy DS1-- Layer 1 In-Service Digital Transmission Performance Monitoring, T1.231.02, October 2003.'), 'ANSI.T1.231.02.2003'); n++;
+assert.strictEqual(parseRefId('ANSI-T1.403 American National Standard for Telecommunications -- Carrier-to-Customer Installation - DS1 Metallic Interface, T1.403, February 1989.'), 'ANSI.T1.403.1989'); n++;
 assert.strictEqual(parseRefId('International Organization for Standardization, "Data elements and interchange formats", ISO/IEC Standard 8601, December 2000.'), 'ISO.8601.2000'); n++;
 assert.strictEqual(parseRefId('ISO/IEC Standard 13818&#x2013;1, <source>Systems</source>.'), 'ISO.13818-1'); n++;
 assert.strictEqual(parseRefId('WHATWG, "URL Living Standard", January 2017, < https://url.spec.whatwg.org/ >.'), 'WHATWG.URL'); n++;
