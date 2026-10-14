@@ -243,4 +243,16 @@ assert.strictEqual(parseRefId('ISO/IEC Standard 13818&#x2013;1, <source>Systems<
 assert.strictEqual(parseRefId('WHATWG, "URL Living Standard", January 2017, < https://url.spec.whatwg.org/ >.'), 'WHATWG.URL'); n++;
 assert.strictEqual(parseRefId('WhatWG, "XMLHttpRequest", < https://xhr.spec.whatwg.org/ >.'), 'WHATWG.XHR'); n++;
 
+// Relations batch 3: PKCS with a date but no version (RFC4387), not a paper about PKCS (RFC3218);
+// 3GPP "Technical Specification N" and TR (RFC9599, RFC9522) but not an ETSI-numbered TR;
+// "…, ITU G.7713.3, January 2003" (RFC3475); "ANSI/INCITS 357:2002" (RFC4172).
+assert.strictEqual(parseRefId('PKCS #11 Cryptographic Token Interface Standard, RSA Laboratories, December 1999.'), 'RSA.PKCS11.v2.10.1999'); n++;
+assert.strictEqual(parseRefId('RSA Laboratories, PKCS #11, 2003.'), 'RSA.PKCS11'); n++;
+assert.strictEqual(parseRefId('Bleichenbacher, D., B. Kaliski, and J. Staddon, "Recent Results on PKCS #1: RSA Encryption Standard", RSA Laboratories Bulletin 7, 1998.'), null); n++;
+assert.strictEqual(parseRefId('3GPP, "UTRAN overall description", Technical Specification 25.401.'), '3GPP.TS-25.401'); n++;
+assert.strictEqual(parseRefId('3GPP, "Study on access traffic steering", Release 16, 3GPP TR 23.793, December 2018.'), '3GPP.TR-23.793.201812'); n++;
+assert.notStrictEqual(String(parseRefId('ETSI TR 126 928 V16.0.0 (2020-11) - 5G; Extended Reality (XR) in 5G (3GPP TR 26.928 version 16.0.0 Release 16)')).slice(0, 4), '3GPP'); n++;
+assert.strictEqual(parseRefId('Distributed Call and Connection Management signalling using GMPLS CR-LDP, ITU G.7713.3, Januray 2003.'), 'T-REC-G.7713.3.2003'); n++;
+assert.strictEqual(parseRefId('ANSI/INCITS 357:2002, "Fibre Channel Virtual Interface Architecture Mapping Protocol (FC-VI)", July 2000.'), 'INCITS.357.2002'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

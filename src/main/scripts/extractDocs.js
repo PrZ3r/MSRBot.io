@@ -159,6 +159,8 @@ function isNonCitationLine(cite) {
   if (/^\+-{2,}/.test(c)) return true;
   // A licensing note in the reference list, not a citation (RFC2433, RFC2548, RFC2759).
   if (/^RC4 is a proprietary encryption algorithm\b/i.test(c)) return true;
+  // A trademark notice after the reference list (RFC1044: "HYPERchannel is a trademark of …").
+  if (/^[^"“,;]{1,60}\b(?:is|are)\s+(?:a\s+)?(?:registered\s+)?trademarks?\s+of\b/i.test(c)) return true;
   // An item this memo itself registers (RFC3297: "'Content-alternative' header (this memo, section 4)").
   if (/\(this memo,?\s+section\s+[\d.]+\s*\)\.?$/i.test(c)) return true;
   // Editors' change markers in RFC2616's reference list ("[jg639").
