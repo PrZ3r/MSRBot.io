@@ -233,4 +233,13 @@ assert.strictEqual(parseRefId('National Institute of Standards and Technology, "
 assert.strictEqual(parseRefId('Raggett, D., "HTML 4.0 Specification", W3C REC REC- html40-19980424, April 1998.'), 'W3C.html40.19980424'); n++;
 assert.strictEqual(parseRefId('IEEE, "Standard Specifications for Public Key Cryptography", IEEE Std P1363.'), 'IEEE.STD1363'); n++;
 
+// Relations batch 2: ANSI T1 spelled out (RFC4805), "ISO/IEC Standard N" (RFC7826, J09590 en dash),
+// WHATWG living standards by host or name (RFC8089, RFC8187).
+assert.strictEqual(parseRefId('American National Standard for Telecommunications -- Carrier-to-Customer Installation - DS1 Metallic Interface, T1.403, February 1989.'), 'ANSI.T1.403.1989'); n++;
+assert.strictEqual(parseRefId('American National Standard for Telecommunications -- Digital Hierarchy DS1-- Layer 1 In-Service Digital Transmission Performance Monitoring, T1.231.02, October 2003.'), 'ANSI.T1.231.02.2003'); n++;
+assert.strictEqual(parseRefId('International Organization for Standardization, "Data elements and interchange formats", ISO/IEC Standard 8601, December 2000.'), 'ISO.8601.2000'); n++;
+assert.strictEqual(parseRefId('ISO/IEC Standard 13818&#x2013;1, <source>Systems</source>.'), 'ISO.13818-1'); n++;
+assert.strictEqual(parseRefId('WHATWG, "URL Living Standard", January 2017, < https://url.spec.whatwg.org/ >.'), 'WHATWG.URL'); n++;
+assert.strictEqual(parseRefId('WhatWG, "XMLHttpRequest", < https://xhr.spec.whatwg.org/ >.'), 'WHATWG.XHR'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

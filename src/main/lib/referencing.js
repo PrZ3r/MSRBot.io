@@ -1162,6 +1162,18 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // WHATWG living standards by their spec host or name: "WHATWG, "URL Living Standard",
+  // <https://url.spec.whatwg.org/>" (RFC8089) → WHATWG.URL; FETCH and HTML as refMap already has them.
+  {
+    const host = String(href || '').match(/\b([a-z][a-z0-9-]*)\.spec\.whatwg\.org\b/i)
+      || String(text || '').match(/\b([a-z][a-z0-9-]*)\.spec\.whatwg\.org\b/i);
+    const named = !host && String(text || '').match(/\bWHATWG\b[,.]?\s*["“]?\s*([A-Za-z][A-Za-z0-9 -]{1,40}?)\s*[-–:]?\s*Living\s+Standard\b/i);
+    const name = host ? host[1] : (named ? named[1].trim().split(/\s+/)[0] : '');
+    if (name) {
+      const refId = `WHATWG.${name.toUpperCase()}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'whatwg-living-standard' } } : refId;
+    }
+  }
   // W3C dated stage docs under /TR/YYYY/, e.g.:
   // - .../TR/2017/REC-foo-20170101
   // - .../TR/2017/CR-referrer-policy-20170126
@@ -1795,8 +1807,9 @@ function parseRefId(text, href = '', opts = {}) {
     }
     // Spelled out with a bare X-series designator: "American National Standards Institute,
     // "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985." (RFC2828)
-    const spelled = !m && /\bAmerican\s+National\s+Standards\s+Institute\b/.test(String(text || ''))
-      && String(text || '').match(/(?<![\w.\/])(X\d{1,2})\.(\d{1,3})\b(?![.\/]\d)(?:[^\n]{0,80}?\b((?:19|20)\d{2})\b)?/);
+    // also "American National Standard for Telecommunications -- …, T1.403, February 1989" (RFC4805)
+    const spelled = !m && /\bAmerican\s+National\s+Standards?\s+(?:Institute|for)\b/.test(String(text || ''))
+      && String(text || '').match(/(?<![\w.\/])(X\d{1,2}|T1)\.(\d{1,3}(?:\.\d{2})?)\b(?![.\/]\d)(?:[^\n]{0,80}?\b((?:19|20)\d{2})\b)?/);
     if (spelled) {
       // US-ASCII (X3.4) is filed under INCITS, as refMap does for "ANSI X3.4, 1986".
       const pub = spelled[1] === 'X3' && spelled[2] === '4' ? 'INCITS' : 'ANSI';
@@ -2156,10 +2169,11 @@ function parseRefId(text, href = '', opts = {}) {
   // xml2rfc's "ISO Standard 10646:2014, 2014" / "ISO Standard 26324, 2012": the series
   // name sits between ISO and the number, and the year may follow a comma.
   {
-    const m = String(text || '').match(/\bISO\s+Standard\s+(\d+(?:-\d+)*)(?::((?:19|20)\d{2}))?(?:\s*,\s*(?:[A-Z][a-z]+\s+)?((?:19|20)\d{2})\b)?/);
+    // also "ISO/IEC Standard 8601, December 2000" (RFC7826)
+    const m = String(text || '').match(/\bISO(?:\s*\/\s*IEC)?\s+Standard\s+(\d+(?:(?:-|–|&#x2013;|&ndash;)\d+)*)(?::((?:19|20)\d{2}))?(?:\s*,\s*(?:[A-Z][a-z]+\s+)?((?:19|20)\d{2})\b)?/);
     if (m) {
       const year = m[2] || m[3];
-      const refId = `ISO.${m[1]}${year ? `.${year}` : ''}`;
+      const refId = `ISO.${m[1].replace(/–|&#x2013;|&ndash;/g, '-')}${year ? `.${year}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-standard-xml2rfc' } } : refId;
     }
   }

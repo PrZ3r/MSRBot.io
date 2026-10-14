@@ -110,6 +110,7 @@ function citeWithoutLabel(raw) {
     // labels may start with a digit and run long: "802.1X", "3GPP-SA3-030736",
     // "11-05-0822-03-000u-tgu-requirements" (RFC5113/RFC5281)
     .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')   // "[ISO/IEC-18033-2]"
+    .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+\/-]*&(?:amp;)?[A-Za-z0-9_.:+\/-]{1,40}\s*\]\s*(?=\S)/u, '')   // "[AT&T-TR-54016]" (RFC4805)
     .replace(/^[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')
     // numbered again after a label: "DDN-NEWS:….TXT ] 2. Defense Communications …" (RFC1032,
     // where an entry's bracketed FTP path is read as the next entry's label)
