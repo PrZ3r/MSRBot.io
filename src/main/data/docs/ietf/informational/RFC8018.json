@@ -1,0 +1,303 @@
+{
+  "abstract": "This document provides recommendations for the implementation of password-based cryptography, covering key derivation functions, encryption schemes, message authentication schemes, and ASN.1 syntax identifying the techniques. This document represents a republication of PKCS #5 v2.1 from RSA Laboratories' Public-Key Cryptography Standards (PKCS) series. By publishing this RFC, change control is transferred to the IETF. This document also obsoletes RFC 2898.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Kathleen Moriarty"
+    },
+    {
+      "name": "Burt Kaliski"
+    },
+    {
+      "name": "Andreas Rusch"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC8018",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 8018",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "8018",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "PKCS #5: Password-Based Cryptography Specification Version 2.1",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC8018",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC8018",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "keywords": [
+    "Password-based Encryption",
+    "Password-based Key Derivation"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Password-based Encryption",
+      "Password-based Key Derivation",
+      "Salt"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T17:04:10.691Z",
+    "version": "extractDocs.js@commit:8aec15acefbb"
+  },
+  "pages": "40",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2017-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "normative": [
+      "ANSI.X9.52.1998",
+      "10.1109-RISP.1992.213269",
+      "ISO.8824-1.2008",
+      "ISO.8824-2.2008",
+      "ISO.8824-3.2008",
+      "ISO.8824-4.2008",
+      "10.1145-242896.242897",
+      "10.1145-359168.359172",
+      "NIST.FIPS.46-3",
+      "NIST.FIPS.81",
+      "NIST.FIPS.180-4",
+      "NIST.FIPS.197",
+      "NIST.FIPS.198-1",
+      "NIST.SP.800-63-2",
+      "NIST.SP.800-132",
+      "RSA.PKCS5.v1.5.1993",
+      "RSA.PKCS5.v2.1.2012",
+      "RFC5208",
+      "SSCID.1865634",
+      "RFC1319",
+      "RFC1321",
+      "RFC1423",
+      "RFC2040",
+      "RFC2104",
+      "RFC2268",
+      "RFC2898",
+      "RFC3629",
+      "RFC5652",
+      "RFC5958",
+      "RFC6149",
+      "RFC6151",
+      "RFC6194",
+      "SSCID.14281976",
+      "orphan/RFC8018/h:d99b058c",
+      "orphan/RFC8018/h:83b62423"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+      "updated": "2026-10-14T16:15:14.675Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8018/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+    "updated": "2026-10-14T16:15:14.675Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+      "updated": "2026-10-14T16:15:14.675Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amendedBy": [
+      "RFC9579",
+      "RFC9879"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+      "updated": "2026-10-14T16:15:14.675Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+      "updated": "2026-10-14T16:15:14.675Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8018",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8018",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8018.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+      "updated": "2026-10-14T16:15:14.675Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+      "updated": "2026-10-14T16:15:14.675Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+      "updated": "2026-10-14T16:15:14.675Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+      "updated": "2026-10-14T16:15:14.675Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "supersedes": [
+      "RFC2898"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8018/",
+      "updated": "2026-10-14T16:15:14.675Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}

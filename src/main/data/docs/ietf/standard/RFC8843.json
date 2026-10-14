@@ -1,0 +1,326 @@
+{
+  "abstract": "This specification defines a new Session Description Protocol (SDP) Grouping Framework extension called 'BUNDLE'. The extension can be used with the SDP offer/answer mechanism to negotiate the usage of a single transport (5-tuple) for sending and receiving media described by multiple SDP media descriptions (\"m=\" sections). Such transport is referred to as a BUNDLE transport, and the media is referred to as bundled media. The \"m=\" sections that use the BUNDLE transport form a BUNDLE group. This specification defines a new RTP Control Protocol (RTCP) Source Description (SDES) item and a new RTP header extension. This specification updates RFCs 3264, 5888, and 7941.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Christer Holmberg"
+    },
+    {
+      "name": "Harald T. Alvestrand"
+    },
+    {
+      "name": "Cullen Fluffy Jennings"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC8843",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 8843",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "8843",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "Negotiating Media Multiplexing Using the Session Description Protocol (SDP)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC8843",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC8843",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "keywords": [
+    "RTP",
+    "SDP",
+    "BUNDLE",
+    "RTCWEB",
+    "CLUE",
+    "MMUSIC",
+    "AVT",
+    "Web Browser"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "RTP",
+      "SDP",
+      "Bundle",
+      "RTCWEB",
+      "CLUE",
+      "MMUSIC",
+      "AVT",
+      "Web",
+      "Browser"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T17:05:49.186Z",
+    "version": "extractDocs.js@commit:8aec15acefbb"
+  },
+  "pages": "50",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2021-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-avtext-lrr-07",
+      "RFC2543",
+      "RFC3261",
+      "RFC3611",
+      "RFC4585",
+      "RFC5104",
+      "RFC5576",
+      "RFC7160",
+      "RFC7201",
+      "RFC7656",
+      "RFC7657",
+      "RFC8829",
+      "RFC8838"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.729Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3264",
+      "RFC3550",
+      "RFC3605",
+      "RFC3629",
+      "RFC3711",
+      "RFC4566",
+      "RFC4961",
+      "RFC5761",
+      "RFC5764",
+      "RFC5888",
+      "RFC6347",
+      "RFC7941",
+      "RFC8174",
+      "RFC8285",
+      "RFC8445",
+      "RFC8839",
+      "RFC8840",
+      "RFC8858",
+      "RFC8859"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.729Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8843/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+    "updated": "2026-10-14T16:16:33.728Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.728Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amends": [
+      "RFC3264",
+      "RFC5888",
+      "RFC7941"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.729Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.729Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8843",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8843",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8843.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.729Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.729Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.729Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.729Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "supersededBy": [
+      "RFC9143"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8843/",
+      "updated": "2026-10-14T16:16:33.729Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}
