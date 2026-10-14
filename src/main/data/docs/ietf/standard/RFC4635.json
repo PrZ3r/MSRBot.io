@@ -1,0 +1,277 @@
+{
+  "abstract": "Use of the Domain Name System TSIG resource record requires specification of a cryptographic message authentication code. Currently, identifiers have been specified only for HMAC MD5 (Hashed Message Authentication Code, Message Digest 5) and GSS (Generic Security Service) TSIG algorithms. This document standardizes identifiers and implementation requirements for additional HMAC SHA (Secure Hash Algorithm) TSIG algorithms and standardizes how to specify and handle the truncation of HMAC values in TSIG. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "authors": [
+    {
+      "name": "Donald E. Eastlake 3rd"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docId": "RFC4635",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docLabel": "IETF RFC 4635",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docNumber": "4635",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docTitle": "HMAC SHA (Hashed Message Authentication Code, Secure Hash Algorithm) TSIG Algorithm Identifiers",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "doi": "10.17487/RFC4635",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "href": "https://doi.org/10.17487/RFC4635",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "keywords": [
+    "DNS",
+    "Resource Records",
+    "Message Authentication Code",
+    "CMAC"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "DNS",
+      "Resource Records",
+      "Cryptographic Message Authentication Code",
+      "CMAC"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-14T15:55:29.646Z",
+    "version": "extractDocs.js@commit:ca62cd19765f"
+  },
+  "pages": "8",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publicationDate": "2006-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "references": {
+    "normative": [
+      "RFC1321",
+      "RFC2104",
+      "RFC2119",
+      "RFC2845",
+      "RFC3174",
+      "RFC3874",
+      "RFC4634",
+      "RFC1034",
+      "RFC1035",
+      "RFC2930",
+      "RFC2931",
+      "RFC3645",
+      "orphan/RFC4635/h:f556c7e6"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+      "updated": "2026-10-13T22:23:49.406Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4635/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+    "updated": "2026-10-13T22:23:49.406Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+      "updated": "2026-10-13T22:23:49.406Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "amends": [
+      "RFC2845"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+      "updated": "2026-10-13T22:23:49.406Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+      "updated": "2026-10-13T22:23:49.406Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc4635",
+      "https://www.rfc-editor.org/errata_search.php?rfc=4635",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc4635.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+      "updated": "2026-10-13T22:23:49.406Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+      "updated": "2026-10-13T22:23:49.406Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+      "updated": "2026-10-13T22:23:49.406Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+      "updated": "2026-10-13T22:23:49.406Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "supersededBy": [
+      "RFC8945"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4635/",
+      "updated": "2026-10-13T22:23:49.406Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  }
+}

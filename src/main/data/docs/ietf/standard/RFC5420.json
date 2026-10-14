@@ -1,0 +1,306 @@
+{
+  "abstract": "Multiprotocol Label Switching (MPLS) Label Switched Paths (LSPs) may be established using the Resource Reservation Protocol Traffic Engineering (RSVP-TE) extensions. This protocol includes an object (the SESSION_ATTRIBUTE object) that carries a Flags field used to indicate options and attributes of the LSP. That Flags field has eight bits, allowing for eight options to be set. Recent proposals in many documents that extend RSVP-TE have suggested uses for each of the previously unused bits. This document defines a new object for RSVP-TE messages that allows the signaling of further attribute bits and also the carriage of arbitrary attribute parameters to make RSVP-TE easily extensible to support new requirements. Additionally, this document defines a way to record the attributes applied to the LSP on a hop-by-hop basis. The object mechanisms defined in this document are equally applicable to Generalized MPLS (GMPLS) Packet Switch Capable (PSC) LSPs and to GMPLS non-PSC LSPs. This document replaces and obsoletes the previous version of this work, published as RFC 4420. The only change is in the encoding of the Type-Length-Variable (TLV) data structures. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.026Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "authors": [
+    {
+      "name": "Adrian Farrel"
+    },
+    {
+      "name": "Dimitri Papadimitriou"
+    },
+    {
+      "name": "JP Vasseur"
+    },
+    {
+      "name": "Arthi Ayyangar"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.027Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docId": "RFC5420",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.026Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docLabel": "IETF RFC 5420",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.026Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docNumber": "5420",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.026Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docTitle": "Encoding of Attributes for MPLS LSP Establishment Using Resource Reservation Protocol Traffic Engineering (RSVP-TE)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.026Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.026Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "doi": "10.17487/RFC5420",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.027Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "href": "https://doi.org/10.17487/RFC5420",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.026Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "keywords": [
+    "MPLS",
+    "LSP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "MPLS",
+      "LSP",
+      "SESSION_ATTRIBUTE"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-14T15:56:16.112Z",
+    "version": "extractDocs.js@commit:ca62cd19765f"
+  },
+  "pages": "22",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.027Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publicationDate": "2009-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.026Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.026Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3031",
+      "RFC4090",
+      "RFC4206",
+      "RFC4420"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=9 proseBlocks=12 skippedAnchorBlocks=10",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2205",
+      "RFC3209",
+      "RFC3471",
+      "RFC3473"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5420/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+    "updated": "2026-10-13T22:24:26.027Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "amendedBy": [
+      "RFC6510"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "amends": [
+      "RFC3209",
+      "RFC3473"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5420",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5420"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "supersedes": [
+      "RFC4420"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5420/",
+      "updated": "2026-10-13T22:24:26.027Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  }
+}

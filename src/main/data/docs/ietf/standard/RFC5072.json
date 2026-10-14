@@ -1,0 +1,279 @@
+{
+  "abstract": "The Point-to-Point Protocol (PPP) provides a standard method of encapsulating network-layer protocol information over point-to-point links. PPP also defines an extensible Link Control Protocol, and proposes a family of Network Control Protocols (NCPs) for establishing and configuring different network-layer protocols. This document defines the method for sending IPv6 packets over PPP links, the NCP for establishing and configuring the IPv6 over PPP, and the method for forming IPv6 link-local addresses on PPP links. It also specifies the conditions for performing Duplicate Address Detection on IPv6 global unicast addresses configured for PPP links either through stateful or stateless address autoconfiguration. This document obsoletes RFC 2472. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "authors": [
+    {
+      "name": "Srihari V. Varada"
+    },
+    {
+      "name": "D. Haskins"
+    },
+    {
+      "name": "E. Allen"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docId": "RFC5072",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docLabel": "IETF RFC 5072",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docNumber": "5072",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docTitle": "IP Version 6 over PPP",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "doi": "10.17487/RFC5072",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "href": "https://doi.org/10.17487/RFC5072",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "keywords": [
+    "IPv6-PPP",
+    "IP",
+    "IPv6"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "pages": "16",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publicationDate": "2007-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "references": {
+    "bibliographic": [
+      "3GPP.TS-29.061.200504",
+      "RFC3315",
+      "3GPP.TS-23.060.200503",
+      "RFC2469",
+      "RFC3748",
+      "RFC1321",
+      "RFC1968",
+      "orphan/RFC5072/h:03a59480",
+      "orphan/RFC5072/h:0b539197"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=17 proseBlocks=21 skippedAnchorBlocks=19",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+      "updated": "2026-10-13T22:24:11.028Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "normative": [
+      "RFC1661",
+      "RFC2460",
+      "RFC4862",
+      "RFC4291",
+      "RFC2119",
+      "RFC2472",
+      "RFC4941",
+      "orphan/RFC5072/h:6d8a140b"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+      "updated": "2026-10-13T22:24:11.028Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5072/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+    "updated": "2026-10-13T22:24:11.028Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+      "updated": "2026-10-13T22:24:11.028Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "amendedBy": [
+      "RFC8064"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+      "updated": "2026-10-13T22:24:11.028Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+      "updated": "2026-10-13T22:24:11.028Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+      "updated": "2026-10-13T22:24:11.028Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "statusNote": "Draft Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+      "updated": "2026-10-13T22:24:11.028Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+      "updated": "2026-10-13T22:24:11.028Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "supersedes": [
+      "RFC2472"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5072/",
+      "updated": "2026-10-13T22:24:11.028Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  }
+}
