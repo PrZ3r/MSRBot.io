@@ -1,0 +1,265 @@
+{
+  "abstract": "This document is a compilation of issues found since the publication of RFC 4960 in September 2007, based on experience with implementing, testing, and using the Stream Control Transmission Protocol (SCTP) along with the suggested fixes. This document provides deltas to RFC 4960 and is organized in a time-ordered way. The issues are listed in the order in which they were brought up. Because some text is changed several times, the last delta in the text is the one that should be applied. In addition to the deltas, a description of each problem and the details of the solution for each are also provided.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "authors": [
+    {
+      "name": "Randall R. Stewart"
+    },
+    {
+      "name": "Michael Tüxen"
+    },
+    {
+      "name": "Maksim Proshin"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docId": "RFC8540",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docLabel": "IETF RFC 8540",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docNumber": "8540",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docTitle": "Stream Control Transmission Protocol: Errata and Issues in RFC 4960",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "doi": "10.17487/RFC8540",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "href": "https://doi.org/10.17487/RFC8540",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "pages": "94",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publicationDate": "2019-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1122",
+      "RFC1858",
+      "RFC2960",
+      "RFC3168",
+      "RFC4460",
+      "RFC5681",
+      "RFC6096",
+      "RFC6298",
+      "RFC6335",
+      "RFC7053",
+      "RFC8126",
+      "RFC8311"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=37 proseBlocks=21 skippedAnchorBlocks=17",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+      "updated": "2026-10-15T19:19:37.039Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4960",
+      "RFC8174"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+      "updated": "2026-10-15T19:19:37.039Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8540/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+    "updated": "2026-10-15T19:19:37.039Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+      "updated": "2026-10-15T19:19:37.039Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+      "updated": "2026-10-15T19:19:37.039Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "errataUrl": [
+      "https://datatracker.ietf.org/doc/draft-ietf-tsvwg-rfc4960-errata/08/",
+      "https://mailarchive.ietf.org/arch/browse/tsvwg/?q=rfc8540%20OR%20%22draft-ietf-tsvwg-rfc4960-errata%22",
+      "mailto:draft-ietf-tsvwg-rfc4960-errata@ietf.org?subject=Mail%20regarding%20rfc8540"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+      "updated": "2026-10-15T19:19:37.039Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+      "updated": "2026-10-15T19:19:37.039Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+      "updated": "2026-10-15T19:19:37.039Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+      "updated": "2026-10-15T19:19:37.039Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "supersededBy": [
+      "RFC9260"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8540/",
+      "updated": "2026-10-15T19:19:37.039Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  }
+}

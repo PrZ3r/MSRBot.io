@@ -1,0 +1,296 @@
+{
+  "abstract": "This document defines a Border Gateway Protocol Network Layer Reachability Information (BGP NLRI) encoding format that can be used to distribute (intra-domain and inter-domain) traffic Flow Specifications for IPv4 unicast and IPv4 BGP/MPLS VPN services. This allows the routing system to propagate information regarding more specific components of the traffic aggregate defined by an IP destination prefix. It also specifies BGP Extended Community encoding formats, which can be used to propagate Traffic Filtering Actions along with the Flow Specification NLRI. Those Traffic Filtering Actions encode actions a routing system can take if the packet matches the Flow Specification. This document obsoletes both RFC 5575 and RFC 7674.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "authors": [
+    {
+      "name": "Christoph Loibl"
+    },
+    {
+      "name": "Susan Hares"
+    },
+    {
+      "name": "Robert Raszuk"
+    },
+    {
+      "name": "Danny R. McPherson"
+    },
+    {
+      "name": "Martin Bacher"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docId": "RFC8955",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docLabel": "IETF RFC 8955",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docNumber": "8955",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docTitle": "Dissemination of Flow Specification Rules",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "doi": "10.17487/RFC8955",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "href": "https://doi.org/10.17487/RFC8955",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "pages": "36",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publicationDate": "2020-12-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4303",
+      "RFC5575",
+      "RFC6811",
+      "RFC7674",
+      "RFC7950",
+      "RFC8205",
+      "RFC8294",
+      "RFC8956"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "normative": [
+      "10.1109-IEEESTD.2019.8766229",
+      "ISO.9899.2018",
+      "RFC768",
+      "RFC791",
+      "RFC792",
+      "RFC793",
+      "RFC2119",
+      "RFC2474",
+      "RFC4271",
+      "RFC4360",
+      "RFC4364",
+      "RFC4456",
+      "RFC4760",
+      "RFC5668",
+      "RFC7153",
+      "RFC7606",
+      "RFC8126",
+      "RFC8174"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8955/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+    "updated": "2026-10-15T19:19:39.891Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "amendedBy": [
+      "RFC8956",
+      "RFC9117",
+      "RFC9184"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8955",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8955",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8955.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "supersedes": [
+      "RFC5575",
+      "RFC7674"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8955/",
+      "updated": "2026-10-15T19:19:39.891Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  }
+}

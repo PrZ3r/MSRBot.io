@@ -1,0 +1,262 @@
+{
+  "abstract": "This document introduces a hub and spoke multipoint (HSMP) Label Switched Path (LSP), which allows traffic from root to leaf through point-to-multipoint (P2MP) LSPs and also leaf to root along the reverse path. That means traffic entering the HSMP LSP from the application/customer at the root node travels downstream to each leaf node, exactly as if it were traveling downstream along a P2MP LSP to each leaf node. Upstream traffic entering the HSMP LSP at any leaf node travels upstream along the tree to the root, as if it were unicast to the root. Direct communication among the leaf nodes is not allowed.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "authors": [
+    {
+      "name": "Lizhong Jin"
+    },
+    {
+      "name": "Frederic JOUNAY"
+    },
+    {
+      "name": "IJsbrand Wijnands"
+    },
+    {
+      "name": "Nicolai Leymann"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docId": "RFC7140",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docLabel": "IETF RFC 7140",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docNumber": "7140",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docTitle": "LDP Extensions for Hub and Spoke Multipoint Label Switched Path",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "doi": "10.17487/RFC7140",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "href": "https://doi.org/10.17487/RFC7140",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "keywords": [
+    "P2MP LSP",
+    "MP2MP LSP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "pages": "15",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publicationDate": "2014-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4379",
+      "RFC5036",
+      "RFC5226"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=11 proseBlocks=14 skippedAnchorBlocks=12",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+      "updated": "2026-10-15T19:19:24.946Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC5331",
+      "RFC5332",
+      "RFC5561",
+      "RFC6388",
+      "RFC6389",
+      "RFC6425",
+      "RFC6426"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+      "updated": "2026-10-15T19:19:24.946Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7140/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+    "updated": "2026-10-15T19:19:24.946Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+      "updated": "2026-10-15T19:19:24.946Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "amendedBy": [
+      "RFC7358"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+      "updated": "2026-10-15T19:19:24.946Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+      "updated": "2026-10-15T19:19:24.946Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+      "updated": "2026-10-15T19:19:24.946Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+      "updated": "2026-10-15T19:19:24.946Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7140/",
+      "updated": "2026-10-15T19:19:24.946Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  }
+}

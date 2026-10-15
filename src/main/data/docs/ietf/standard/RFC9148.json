@@ -1,0 +1,274 @@
+{
+  "abstract": "Enrollment over Secure Transport (EST) is used as a certificate provisioning protocol over HTTPS. Low-resource devices often use the lightweight Constrained Application Protocol (CoAP) for message exchanges. This document defines how to transport EST payloads over secure CoAP (EST-coaps), which allows constrained devices to use existing EST functionality for provisioning certificates.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "authors": [
+    {
+      "name": "Peter Van der Stok"
+    },
+    {
+      "name": "Panos Kampanakis"
+    },
+    {
+      "name": "Michael Richardson"
+    },
+    {
+      "name": "Shahid Raza"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docId": "RFC9148",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docLabel": "IETF RFC 9148",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docNumber": "9148",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docTitle": "EST-coaps: Enrollment over Secure Transport with the Secure Constrained Application Protocol",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "doi": "10.17487/RFC9148",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "href": "https://doi.org/10.17487/RFC9148",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "pages": "41",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publicationDate": "2022-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC7525",
+      "IEEE.STD802.15.4.2020",
+      "IETF.draft-moskowitz-ecdsa-pki-10",
+      "RFC4919",
+      "RFC5272",
+      "RFC5929",
+      "RFC6402",
+      "RFC7228",
+      "RFC7230",
+      "RFC7251",
+      "RFC7299",
+      "RFC7627",
+      "RFC7748",
+      "RFC9146",
+      "IETF.draft-ietf-kitten-tls-channel-bindings-for-tls13-15",
+      "10.1109-SP.2014.14",
+      "orphan/RFC9148/h:8ad23b54",
+      "orphan/RFC9148/h:9fd2e122",
+      "orphan/RFC9148/h:2aff129a",
+      "orphan/RFC9148/h:91e50f23"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+      "updated": "2026-10-15T19:19:41.342Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2585",
+      "RFC5246",
+      "RFC5958",
+      "RFC5967",
+      "RFC6347",
+      "RFC6690",
+      "RFC7030",
+      "RFC7252",
+      "RFC7925",
+      "RFC7959",
+      "RFC8075",
+      "RFC8174",
+      "RFC8422",
+      "RFC8446",
+      "RFC8551",
+      "RFC8710",
+      "RFC9147"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+      "updated": "2026-10-15T19:19:41.342Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9148/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+    "updated": "2026-10-15T19:19:41.342Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+      "updated": "2026-10-15T19:19:41.342Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "amendedBy": [
+      "RFC9908"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+      "updated": "2026-10-15T19:19:41.342Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+      "updated": "2026-10-15T19:19:41.342Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+      "updated": "2026-10-15T19:19:41.342Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+      "updated": "2026-10-15T19:19:41.342Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9148/",
+      "updated": "2026-10-15T19:19:41.342Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  }
+}

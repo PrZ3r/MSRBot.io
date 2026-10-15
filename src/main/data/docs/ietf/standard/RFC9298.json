@@ -1,0 +1,276 @@
+{
+  "abstract": "This document describes how to proxy UDP in HTTP, similar to how the HTTP CONNECT method allows proxying TCP in HTTP. More specifically, this document defines a protocol that allows an HTTP client to create a tunnel for UDP communications through an HTTP server that acts as a proxy.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "authors": [
+    {
+      "name": "David Schinazi"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docId": "RFC9298",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docLabel": "IETF RFC 9298",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docNumber": "9298",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docTitle": "Proxying UDP in HTTP",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "doi": "10.17487/RFC9298",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "href": "https://doi.org/10.17487/RFC9298",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "keywords": [
+    "QUIC",
+    "HTTP",
+    "UDP",
+    "Proxy",
+    "Tunnels",
+    "Quic in Quic",
+    "Turtles All The Way Down",
+    "Masque",
+    "Http-ng"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "pages": "16",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publicationDate": "2022-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4787",
+      "RFC8899",
+      "RFC6040",
+      "IETF.draft-schwartz-httpbis-helium-00",
+      "IETF.draft-pardue-httpbis-http-network-tunnelling-00",
+      "RFC4443",
+      "IETF.draft-schinazi-masque-00",
+      "RFC6169",
+      "RFC8085",
+      "RFC6455"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+      "updated": "2026-10-15T19:19:42.272Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "normative": [
+      "RFC2234",
+      "RFC3168",
+      "RFC8441",
+      "RFC9220",
+      "RFC9110",
+      "RFC9297",
+      "RFC9112",
+      "RFC9113",
+      "RFC9114",
+      "RFC9209",
+      "RFC9000",
+      "RFC9221",
+      "RFC2119",
+      "RFC8174",
+      "RFC9293",
+      "RFC6570",
+      "RFC768",
+      "RFC3986"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+      "updated": "2026-10-15T19:19:42.272Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9298/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+    "updated": "2026-10-15T19:19:42.272Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+      "updated": "2026-10-15T19:19:42.272Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "amendedBy": [
+      "RFC9484",
+      "RFC9931"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+      "updated": "2026-10-15T19:19:42.272Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+      "updated": "2026-10-15T19:19:42.272Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+      "updated": "2026-10-15T19:19:42.272Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+      "updated": "2026-10-15T19:19:42.272Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9298/",
+      "updated": "2026-10-15T19:19:42.272Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  }
+}
