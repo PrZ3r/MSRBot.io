@@ -3220,6 +3220,60 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     const docsOutRoot = path.join(BUILD_PATH, 'docs');
     await fs.mkdir(docsOutRoot, { recursive: true });
 
+    // --- Relations shown at the top of each doc page: what this doc revises, supersedes or
+    // amends, and what revises, supersedes or amends it. Each side is the doc's own fields plus
+    // the inverse of every other doc's, so a relation recorded on only one side (SMPTE and ISO
+    // record supersededBy; IETF records both) shows on both pages. When a revision and a
+    // supersession name the same doc, the one this doc records itself wins and the other is
+    // dropped (ST 1:1990 records "superseded by ST 1:1996"; ST 1:1996 records "revision of").
+    const __relations = (() => {
+      const rel = new Map();
+      const get = (id) => {
+        let r = rel.get(id);
+        if (!r) rel.set(id, (r = { revisionOf: new Set(), revisedBy: new Set(), supersedes: new Set(), supersededBy: new Set(), amends: new Set(), amendedBy: new Set(), own: new Set() }));
+        return r;
+      };
+      const ids = (v) => (Array.isArray(v) ? v : (v ? [v] : [])).map((x) => String(x || '').trim()).filter(Boolean);
+      for (const d of registryDocument) {
+        if (!d || !d.docId) continue;
+        const id = String(d.docId);
+        const s = (d.status && typeof d.status === 'object') ? d.status : {};
+        const pairs = [
+          [ids(d.revisionOf), 'revisionOf', 'revisedBy'],
+          [ids(s.supersedes), 'supersedes', 'supersededBy'],
+          [ids(s.supersededBy), 'supersededBy', 'supersedes'],
+          [ids(s.amends), 'amends', 'amendedBy'],
+          [ids(s.amendedBy), 'amendedBy', 'amends'],
+        ];
+        for (const [list, own, inverse] of pairs) {
+          for (const t of list) {
+            if (t === id) continue;
+            get(id)[own].add(t);
+            get(id).own.add(`${own}|${t}`);
+            get(t)[inverse].add(id);
+          }
+        }
+      }
+      const out = new Map();
+      for (const [id, r] of rel) {
+        const dedupe = (a, b) => {
+          for (const t of [...r[a]]) {
+            if (!r[b].has(t)) continue;
+            if (r.own.has(`${b}|${t}`) && !r.own.has(`${a}|${t}`)) r[a].delete(t); else r[b].delete(t);
+          }
+        };
+        dedupe('revisionOf', 'supersedes');
+        dedupe('revisedBy', 'supersededBy');
+        const cells = [
+          ['Revision of', r.revisionOf], ['Revised by', r.revisedBy],
+          ['Supersedes', r.supersedes], ['Superseded by', r.supersededBy],
+          ['Amends', r.amends], ['Amended by', r.amendedBy],
+        ].filter(([, set]) => set.size).map(([label, set]) => ({ label, ids: [...set] }));
+        if (cells.length) out.set(id, cells);
+      }
+      return out;
+    })();
+
     // --- Case-collision awareness --------------------------------------
     // SMPTE docIds are case-sensitive (10.5594-J18049 [1916] and
     // 10.5594-j18049 [2011] are different documents). On a case-
@@ -3316,6 +3370,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           docProjs: docProjs,
           // per-doc fields exposed under non-colliding names
           docCopyright,
+          docRelations: __relations.get(id) || null,
           // footer shows this content date instead of site_version/build date
           recordUpdated: docLastModified(d),
           // site/meta

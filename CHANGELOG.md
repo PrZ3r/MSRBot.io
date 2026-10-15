@@ -41,6 +41,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **Doc pages show relations at the top**, above Metadata: Revision of / Revised by, Supersedes / Superseded by, Amends / Amended by. Each side combines the doc's own fields with the inverse of every other doc's, so a relation recorded on one side (most publishers record only `supersededBy`) shows on both pages. Page-only: the registry and API are unchanged.
 - **IETF extraction.** `extract-ietf -- --only <ids>` extracts just the named seeds. Requests are paced per host (`MSRBOT_REQUEST_GAP_MS`) and retried on 403/429/5xx. A run that changes data saves the RFC index it used (`src/main/input/sources/ietf/rfc-index.xml`). Relations come from the RFC index only.
 - **Weekly IETF runs are incremental.** An RFC we hold is re-fetched only when its RFC index entry changed (status, relations, errata); new seeds and drafts are always fetched. A full run is a `full` checkbox on a manual run (`--full`). Seeds download 4 at a time with progress lines.
 - **Controlled keywords have their own file: `src/main/config/controlledKeywords.json` (#2433).** The list (4,554 terms) was 4,556 of `site.json`'s 5,006 lines, so the site settings were hard to find and every keyword batch made a large diff in that file. It now sits next to `keywordDecisions.json` as `{ "_about", "terms" }`, sorted with `localeCompare` (3 terms moved: `YANG`, `YANG Extension`, `Y′CBCR`). `site.json` no longer has the key. No terms were added or removed.
