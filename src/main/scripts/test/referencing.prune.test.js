@@ -76,7 +76,10 @@ mriStore.writeMri({
     // Renamed away: stored flag still says present, no doc and no sightings → must go.
     'CMR.ML': entry('CMR.ML', true),
     // Registered doc with no sightings: a source doc, kept.
-    'MOVIELABS.CMR': entry('MOVIELABS.CMR', false)
+    'MOVIELABS.CMR': entry('MOVIELABS.CMR', false),
+    // Uncited alias that only resolves to a held doc (as SMPTE.RP27.3.1989 → SMPTE.RP27-3.1989):
+    // not a registry doc itself, nothing cites it → goes.
+    'MOVIELABS.CMR.ALIAS': { ...entry('MOVIELABS.CMR.ALIAS', false), resolvedDocId: 'MOVIELABS.CMR' }
   },
   reverse: {},
   orphans: { unmapped: [] }
@@ -88,11 +91,24 @@ const res = ref.mriPruneToSightings(new Set(), { removeEmptyRefs: true });
 ref.mriFlush({ force: true });
 
 const refs = mriStore.loadMri().refs;
+
+// A registry that fails to load (one unreadable doc file) must not read as "no docs": a
+// registered doc's own uncited entry (MOVIELABS.CMR) would be pruned. 2026-10-15: a local re-extract dropped all six uncited MRI
+// aliases (ISO.2022, OMG.XMI, R-REC-BS.1352, SMPTE.RP27.3.1989, …) this way.
+const origWarn = console.warn; console.warn = () => {};
+fs.writeFileSync(path.join(docsRoot, 'movielabs/registry/_undated/BROKEN.json'), '{ not json');
+ref.reloadDocumentsIndex();
+const res2 = ref.mriPruneToSightings(new Set(), { removeEmptyRefs: true });
+console.warn = origWarn;
+
 process.chdir(origCwd);
 fs.rmSync(sandbox, { recursive: true, force: true });
 
-assert.strictEqual(res.removedRefs, 1, `expected 1 ref removed, got ${res.removedRefs}`);
+assert.strictEqual(res.removedRefs, 2, `expected 2 refs removed, got ${res.removedRefs}`);
+assert.deepStrictEqual(res.removed.sort(), ['CMR.ML (no citations, not a registry doc)', 'MOVIELABS.CMR.ALIAS (no citations, not a registry doc)']);
 assert.ok(!refs['CMR.ML'], 'uncited CMR.ML with a stale sourcePresent flag must be pruned');
 assert.ok(refs['MOVIELABS.CMR'], 'registered MOVIELABS.CMR must be kept even with no sightings');
+assert.ok(!refs['MOVIELABS.CMR.ALIAS'], 'an uncited alias that only resolves to a doc must be pruned');
+assert.strictEqual(res2.removedRefs, 0, `no refs may be pruned when the registry fails to load, got ${res2.removedRefs}`);
 
 console.log('referencing.prune.test.js — all assertions passed');

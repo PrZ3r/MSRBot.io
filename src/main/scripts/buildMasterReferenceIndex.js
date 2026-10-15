@@ -232,6 +232,7 @@ function main() {
   if (!PRESENCE_ONLY && !NO_PRUNE) {
     const pr = mriPruneToSightings(sightIdx, { removeEmptyRefs: true });
     if (!QUIET) console.log(`🧹 Pruned MRI: -${pr.removedVariants} variants, -${pr.removedRefs} refs, -${pr.removedOrphans || 0} orphans`);
+    if (!QUIET) for (const r of pr.removed || []) console.log(`   - ${r}`);
   }
 
   // Flush MRI (recomputes sourcePresent/sourceDocId; writes only files whose content changed)

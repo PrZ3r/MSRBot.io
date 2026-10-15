@@ -35,10 +35,19 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 function mriPruneToSightings(index, opts = {}) {
   // index: Set of keys `${refId}||${docId}||${type}` representing CURRENT truth
-  const removeEmptyRefs = opts.removeEmptyRefs !== false; // default true
+  // Never drop entries when the registry failed to load: every uncited entry would look
+  // like it has no doc behind it.
+  _loadDocumentsIndex();
+  const registryLoaded = !_docIndexLoadError;
+  if (opts.removeEmptyRefs !== false && !registryLoaded) {
+    console.warn(`⚠️ MRI prune: registry failed to load (${_docIndexLoadError}); keeping uncited entries this run.`);
+  }
+  const removeEmptyRefs = opts.removeEmptyRefs !== false && registryLoaded; // default true
   const mri = _loadMRI();
   let removedVariants = 0;
   let removedRefs = 0;
+  // Every entry removed, with the reason, so a run log shows exactly what a prune dropped.
+  const removed = [];
 
   for (const [refId, entry] of Object.entries(mri.refs || {})) {
     const before = Array.isArray(entry.rawVariants) ? entry.rawVariants.length : 0;
@@ -58,11 +67,15 @@ function mriPruneToSightings(index, opts = {}) {
     // Ask the registry now rather than trusting the stored `resolution.sourcePresent`: prune runs
     // before mriFlush refreshes it, so a renamed or removed doc (CMR.ML → MOVIELABS.CMR) would
     // otherwise survive one more build as an uncited "missing" ref.
+    // "A source doc itself" means its exact docId is registered. An uncited alias that only
+    // resolves to a doc (`SMPTE.RP27.3.1989` → `SMPTE.RP27-3.1989`, `ISO.2022` → `ISO.2022.1994`)
+    // is not one: nothing cites it, so it goes.
     const hasAny = Array.isArray(entry.rawVariants) && entry.rawVariants.length > 0;
-    const isSource = !hasAny && !!_findSourceDocIdForRefId(refId);
+    const isSource = !hasAny && _hasDocId(refId);
     if (removeEmptyRefs && !hasAny && !isSource) {
       delete mri.refs[refId];
       removedRefs++;
+      removed.push(`${refId} (${entry.isOrphan ? 'orphan no longer cited' : 'no citations, not a registry doc'})`);
       _dirty = true;
     }
   }
@@ -105,6 +118,7 @@ function mriPruneToSightings(index, opts = {}) {
       const { docGone, nowResolved } = tryResolveOrphan(o && o.docId, o && o.cite, o && o.href, o && o.type);
       if (docGone || nowResolved) {
         removedOrphans++;
+        removed.push(`${(o && o.docId) || '?'} legacy orphan (${docGone ? 'source doc gone' : 'citation now resolves'})`);
         _dirty = true;
       } else {
         keptOrphans.push(o);
@@ -125,6 +139,7 @@ function mriPruneToSightings(index, opts = {}) {
     if (docGone || nowResolved) {
       delete mri.refs[slug];
       removedOrphans++;
+      removed.push(`${slug} (orphan: ${docGone ? 'source doc gone' : 'citation now resolves'})`);
       _dirty = true;
     }
   }
@@ -133,7 +148,7 @@ function mriPruneToSightings(index, opts = {}) {
     console.log(`🧹 MRI prune: removedVariants=${removedVariants}, removedRefs=${removedRefs}, removedOrphans=${typeof removedOrphans === 'number' ? removedOrphans : 0}`);
   }
 
-  return { removedVariants, removedRefs, removedOrphans: typeof removedOrphans === 'number' ? removedOrphans : 0 };
+  return { removedVariants, removedRefs, removedOrphans: typeof removedOrphans === 'number' ? removedOrphans : 0, removed };
 }
 
 // referencing.js — shared helpers for building references from HTML
@@ -152,6 +167,7 @@ function _getDocsPath() {
   return path.resolve(process.cwd(), 'src/main/data/docs');
 }
 let _docIdIndex = null; // Set<string> of docIds from the registry
+let _docIndexLoadError = null; // message of the last failed registry load, else null
 let _docBaseIndex = null; // Map<string base, string[]> of docIds by base
 let _doiAliasIndex = null; // Map<string SMPTE designation from DOI, string docId> where they differ
 const DATED_TAIL_RE = /\.(?:\d{8}|\d{4}(?:-\d{2}){0,2})$/; // .YYYY | .YYYY-MM | .YYYY-MM-DD | .YYYYMMDD
@@ -167,6 +183,7 @@ function _stripDatedTail(id) {
 
 function _loadDocumentsIndex() {
   if (_docIdIndex && _docBaseIndex) return _docIdIndex;
+  _docIndexLoadError = null;
   try {
     _docIdIndex = new Set();
     _docBaseIndex = new Map();
@@ -194,10 +211,15 @@ function _loadDocumentsIndex() {
         if (doiId && doiId !== d.docId && typeof d.docId === 'string') _doiAliasIndex.set(doiId, d.docId);
       }
     }
-  } catch {
-    _docIdIndex = new Set();
-    _docBaseIndex = new Map();
-    _doiAliasIndex = new Map();
+  } catch (e) {
+    // Don't cache a failed load: an empty index reads as "no doc behind any ref", and the MRI
+    // prune would then delete every uncited alias entry. Report it and retry on the next call.
+    _docIndexLoadError = (e && e.message) || String(e);
+    console.warn(`⚠️ MRI: could not load the registry for ref resolution: ${_docIndexLoadError}`);
+    _docIdIndex = null;
+    _docBaseIndex = null;
+    _doiAliasIndex = null;
+    return new Set();
   }
   return _docIdIndex;
 }
