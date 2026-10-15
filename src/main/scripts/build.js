@@ -3264,10 +3264,10 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         };
         dedupe('revisionOf', 'supersedes');
         dedupe('revisedBy', 'supersededBy');
+        // Fixed order: what this doc replaces first, then what changes or replaces it.
         const cells = [
-          ['Revision of', r.revisionOf], ['Revised by', r.revisedBy],
-          ['Supersedes', r.supersedes], ['Superseded by', r.supersededBy],
-          ['Amends', r.amends], ['Amended by', r.amendedBy],
+          ['Revision of', r.revisionOf], ['Supersedes', r.supersedes], ['Amends', r.amends],
+          ['Amended by', r.amendedBy], ['Revised by', r.revisedBy], ['Superseded by', r.supersededBy],
         ].filter(([, set]) => set.size).map(([label, set]) => ({ label, ids: [...set] }));
         if (cells.length) out.set(id, cells);
       }

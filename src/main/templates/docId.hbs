@@ -48,27 +48,6 @@
               {{/ifnoteq}}
               {{/ifeq}}
   {{/inline}}
-  {{#if (len docRelations)}}
-  <section class="card mb-3 border-warning-subtle">
-    <div class="card-body py-2">
-      <div class="row row-cols-1 row-cols-md-2 g-2 small">
-        {{#each docRelations}}
-        <div class="col">
-          <span class="fw-bold">{{label}}:</span>
-          <ul class="list-group list-group-flush">
-            {{#each ids}}
-            <li class="list-group-item py-1">
-{{> relationItem}}
-            </li>
-            {{/each}}
-          </ul>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </section>
-  {{/if}}
-
   <section class="row g-3">
     <div class="col-lg-7">
       <div class="card">
@@ -382,6 +361,21 @@
     </div>
 
     <div class="col-lg-5">
+      {{#if (len docRelations)}}
+      <div class="card mb-3 border-warning-subtle doc-relations" role="note">
+        <div class="card-body small bg-warning-subtle rounded">
+          {{#each docRelations}}
+          <div class="{{#unless @last}}mb-2{{/unless}}">
+            <span class="fw-bold">{{label}}:</span>
+            {{#each ids}}<div class="ms-3">
+{{> relationItem}}
+            </div>{{/each}}
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+
       {{#if (any (len referencesResolved.normative) (len referencesResolved.bibliographic) (len referencedBy))}}
       <div class="card mb-3">
         <div class="card-body small">
