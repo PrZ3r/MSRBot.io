@@ -3,7 +3,12 @@ name: Extract Documents - IETF
 on:
   schedule:
     - cron: "45 04 * * 2"   # 21:45 PT, Tues (cron in UTC)
-  workflow_dispatch: 
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Full run: re-fetch every RFC (after a parser change). Default: only RFCs whose RFC index entry changed, plus new seeds."
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -50,7 +55,7 @@ jobs:
           #MSR_CONSOLE_BUDGET: "3670016"       # ~3.5 MiB
           #MSR_HEARTBEAT_EVERY: "50"          # print heartbeat every XX docs
           #MSR_HEARTBEAT_PREFIX: " 💓 ... still processing"
-        run: node src/main/scripts/extractDocs.js --provider ietf
+        run: node src/main/scripts/extractDocs.js --provider ietf ${{ inputs.full && '--full' || '' }}
 
       - name: Upload full extract log (post-extraction)
         if: always()

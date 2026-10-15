@@ -100,6 +100,11 @@ function createIetfParser(deps) {
   const RFC_INDEX_URL = 'https://www.rfc-editor.org/rfc-index.xml';
   let rfcIndexMapPromise = null;
   let rfcIndexLiveXml = null;
+  // Incremental runs: RFCs whose index entry changed since the snapshot (selectSeedsToFetch),
+  // and RFCs this run extracted. The snapshot only moves on when every changed RFC came through,
+  // so a failed fetch is retried next run instead of being hidden by the newer snapshot.
+  let changedRfcs = null;
+  const extractedRfcs = new Set();
   // RFC index XML/XSD mapping contract (https://www.rfc-editor.org/rfc-index.xsd).
   // status:
   // - required: expected from index for valid RFC entries and should be present.
@@ -1334,6 +1339,7 @@ function createIetfParser(deps) {
       Object.defineProperty(doc, '__sourceUrl', { value: seed, enumerable: false });
       Object.defineProperty(doc, '__metaNotes', { value: metaNotes, enumerable: false });
       Object.defineProperty(doc, '__metaFlags', { value: metaFlags, enumerable: false });
+      extractedRfcs.add(String(rfcNum));
       return [doc];
     }
 
@@ -1545,11 +1551,53 @@ function createIetfParser(deps) {
     return extractFromSeedDoc(rootUrl);
   }
 
+  // One normalized string per RFC entry, keyed by number, for comparing two index versions.
+  function rfcIndexEntries(xml) {
+    const out = new Map();
+    const re = /<rfc-entry>([\s\S]*?)<\/rfc-entry>/g;
+    let m;
+    while ((m = re.exec(String(xml || ''))) !== null) {
+      const id = m[1].match(/<doc-id>\s*RFC0*(\d+)\s*<\/doc-id>/);
+      if (id) out.set(id[1], m[1].replace(/\s+/g, ' ').trim());
+    }
+    return out;
+  }
+
+  // Weekly runs fetch only what can have changed. A published RFC's text never changes; its
+  // status does (obsoleted-by, updated-by, current-status, is-also, errata-url), and that is
+  // all in its rfc-index.xml entry. So an RFC we hold is fetched only when its entry differs
+  // from the committed snapshot; new RFCs and non-RFC seeds (drafts) are always fetched.
+  // Without a live index there is nothing to compare: fetch everything.
+  async function selectSeedsToFetch(urls, { heldIds } = {}) {
+    await getRfcIndexMap();
+    if (!rfcIndexLiveXml) return { urls, note: 'live RFC index unavailable, fetching all' };
+    let snapshotXml = '';
+    try { snapshotXml = fs.readFileSync(rfcIndexCachePath, 'utf8'); } catch {}
+    if (!snapshotXml) return { urls, note: 'no RFC index snapshot, fetching all' };
+    const live = rfcIndexEntries(rfcIndexLiveXml);
+    const snap = rfcIndexEntries(snapshotXml);
+    changedRfcs = new Set();
+    const keep = [];
+    let changed = 0, fresh = 0, other = 0;
+    for (const url of urls) {
+      const n = extractRfcNumber(url);
+      if (!n) { keep.push(url); other++; continue; }
+      if (!heldIds || !heldIds.has(`RFC${n}`)) { keep.push(url); fresh++; continue; }
+      if (live.get(n) !== snap.get(n)) { keep.push(url); changed++; changedRfcs.add(n); }
+    }
+    return { urls: keep, note: `${changed} changed in the RFC index, ${fresh} new, ${other} non-RFC` };
+  }
+
   // Write the live-fetched RFC index over the committed snapshot. Called by extractDocs
   // only when the run added/updated docs. No-op when the index came from the fallback
-  // (nothing new to record) or was never fetched.
+  // (nothing new to record) or was never fetched, or when a changed RFC failed to extract.
   function persistSourceSnapshots() {
     if (!rfcIndexLiveXml) return [];
+    const missed = changedRfcs ? [...changedRfcs].filter((n) => !extractedRfcs.has(n)) : [];
+    if (missed.length) {
+      console.warn(`⚠️ RFC index snapshot not updated: ${missed.length} changed RFC(s) failed to extract (${missed.slice(0, 20).map((n) => `RFC${n}`).join(', ')}${missed.length > 20 ? ', …' : ''}); they are retried next run.`);
+      return [];
+    }
     let current = null;
     try { current = fs.readFileSync(rfcIndexCachePath, 'utf8'); } catch {}
     if (current === rfcIndexLiveXml) return [];
@@ -1558,7 +1606,7 @@ function createIetfParser(deps) {
     return [path.relative(process.cwd(), rfcIndexCachePath)];
   }
 
-  return { extractFromSeedDoc, extractFromUrl, persistSourceSnapshots };
+  return { extractFromSeedDoc, extractFromUrl, persistSourceSnapshots, selectSeedsToFetch };
 }
 
 module.exports = { createIetfParser };
