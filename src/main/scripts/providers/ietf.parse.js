@@ -1606,7 +1606,8 @@ function createIetfParser(deps) {
     return [path.relative(process.cwd(), rfcIndexCachePath)];
   }
 
-  return { extractFromSeedDoc, extractFromUrl, persistSourceSnapshots, selectSeedsToFetch };
+  // Requests are paced per host (politeGet), so extractDocs may fetch several seeds at once.
+  return { extractFromSeedDoc, extractFromUrl, persistSourceSnapshots, selectSeedsToFetch, fetchConcurrency: 4 };
 }
 
 module.exports = { createIetfParser };

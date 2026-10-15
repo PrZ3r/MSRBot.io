@@ -775,10 +775,11 @@ const onlyMatches = (url) => onlyList.some((item) => onlyMatchesOne(item, url));
 
   console.log(`\n📂 Processing ${urls.length} ${activeProvider.label} URLs... (seeds added: ${seedsAdded}, seeds skipped: ${seedsSkipped})`);
 
-  // Fetch seeds a few at a time (MSR_FETCH_CONCURRENCY, default 4). Providers pace requests
-  // per host themselves, so this overlaps network waits without raising the request rate.
-  // Results keep seed order; progress prints every MSR_HEARTBEAT_EVERY seeds.
-  const FETCH_CONCURRENCY = Math.max(1, Number(process.env.MSR_FETCH_CONCURRENCY || 4));
+  // Fetch seeds a few at a time when the provider paces its own requests per host (it sets
+  // parser.fetchConcurrency; IETF: 4), so network waits overlap without raising the request
+  // rate. Others fetch one at a time. MSR_FETCH_CONCURRENCY overrides. Results keep seed
+  // order; progress prints every MSR_HEARTBEAT_EVERY seeds.
+  const FETCH_CONCURRENCY = Math.max(1, Number(process.env.MSR_FETCH_CONCURRENCY || activeProvider.parser.fetchConcurrency || 1));
   const FETCH_BEAT_EVERY = Math.max(1, Number(process.env.MSR_HEARTBEAT_EVERY || 50));
   const fetchStarted = Date.now();
   const perSeed = new Array(urls.length);
