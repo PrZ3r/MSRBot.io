@@ -35,7 +35,14 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 function mriPruneToSightings(index, opts = {}) {
   // index: Set of keys `${refId}||${docId}||${type}` representing CURRENT truth
-  const removeEmptyRefs = opts.removeEmptyRefs !== false; // default true
+  // Never drop entries when the registry failed to load: every uncited entry would look
+  // like it has no doc behind it.
+  _loadDocumentsIndex();
+  const registryLoaded = !_docIndexLoadError;
+  if (opts.removeEmptyRefs !== false && !registryLoaded) {
+    console.warn(`⚠️ MRI prune: registry failed to load (${_docIndexLoadError}); keeping uncited entries this run.`);
+  }
+  const removeEmptyRefs = opts.removeEmptyRefs !== false && registryLoaded; // default true
   const mri = _loadMRI();
   let removedVariants = 0;
   let removedRefs = 0;
@@ -59,7 +66,9 @@ function mriPruneToSightings(index, opts = {}) {
     // before mriFlush refreshes it, so a renamed or removed doc (CMR.ML → MOVIELABS.CMR) would
     // otherwise survive one more build as an uncited "missing" ref.
     const hasAny = Array.isArray(entry.rawVariants) && entry.rawVariants.length > 0;
-    const isSource = !hasAny && !!_findSourceDocIdForRefId(refId);
+    // An uncited alias whose stored resolvedDocId is a doc we hold (`SMPTE.RP27.3.1989` →
+    // `SMPTE.RP27-3.1989`) is a deliberate redirect: keep it.
+    const isSource = !hasAny && (!!_findSourceDocIdForRefId(refId) || (typeof entry.resolvedDocId === 'string' && _hasDocId(entry.resolvedDocId)));
     if (removeEmptyRefs && !hasAny && !isSource) {
       delete mri.refs[refId];
       removedRefs++;
@@ -152,6 +161,7 @@ function _getDocsPath() {
   return path.resolve(process.cwd(), 'src/main/data/docs');
 }
 let _docIdIndex = null; // Set<string> of docIds from the registry
+let _docIndexLoadError = null; // message of the last failed registry load, else null
 let _docBaseIndex = null; // Map<string base, string[]> of docIds by base
 let _doiAliasIndex = null; // Map<string SMPTE designation from DOI, string docId> where they differ
 const DATED_TAIL_RE = /\.(?:\d{8}|\d{4}(?:-\d{2}){0,2})$/; // .YYYY | .YYYY-MM | .YYYY-MM-DD | .YYYYMMDD
@@ -167,6 +177,7 @@ function _stripDatedTail(id) {
 
 function _loadDocumentsIndex() {
   if (_docIdIndex && _docBaseIndex) return _docIdIndex;
+  _docIndexLoadError = null;
   try {
     _docIdIndex = new Set();
     _docBaseIndex = new Map();
@@ -194,10 +205,15 @@ function _loadDocumentsIndex() {
         if (doiId && doiId !== d.docId && typeof d.docId === 'string') _doiAliasIndex.set(doiId, d.docId);
       }
     }
-  } catch {
-    _docIdIndex = new Set();
-    _docBaseIndex = new Map();
-    _doiAliasIndex = new Map();
+  } catch (e) {
+    // Don't cache a failed load: an empty index reads as "no doc behind any ref", and the MRI
+    // prune would then delete every uncited alias entry. Report it and retry on the next call.
+    _docIndexLoadError = (e && e.message) || String(e);
+    console.warn(`⚠️ MRI: could not load the registry for ref resolution: ${_docIndexLoadError}`);
+    _docIdIndex = null;
+    _docBaseIndex = null;
+    _doiAliasIndex = null;
+    return new Set();
   }
   return _docIdIndex;
 }
