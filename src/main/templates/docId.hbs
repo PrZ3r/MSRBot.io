@@ -37,6 +37,17 @@
     {{#if docTitleOriginal}}<p class="mb-1 text-muted"{{#if language}} lang="{{language}}"{{/if}}>{{#with (alternateHref hrefAlternates language)}}<a class="text-decoration-none text-muted" href="{{this}}" target="_blank" rel="noopener" hreflang="{{../language}}">{{../docTitleOriginal}}</a>{{else}}{{docTitleOriginal}}{{/with}}</p>{{/if}}
   </header>
 
+  {{#*inline "relationItem"}}
+              {{#ifeq (getStatus this) "MRI-KNOWN"}}
+                <span class="small">{{{mriCite this}}} <span class="badge text-bg-info ms-1">EXTERNAL</span></span>
+              {{else}}
+              {{#ifnoteq (getStatus this) "NOT IN REGISTRY"}}
+                <span class="small"><a class="{{@root.idType}}-link " href="{{refHref this}}">{{getLabel this}}</a> [{{getStatus this}}]</span> {{{getstatusButton this "10"}}} {{#with (docProjLookup @root.docProjs this)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
+              {{else}}
+                <span class="small"><span class="text-muted fst-italic">{{getLabel this}}</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
+              {{/ifnoteq}}
+              {{/ifeq}}
+  {{/inline}}
   <section class="row g-3">
     <div class="col-lg-7">
       <div class="card">
@@ -91,7 +102,6 @@
             </dd>{{/if}}{{/with}}
             {{#if keywords}}<dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8">{{#keywords}}<a class="" href="../?f.keywords={{this}}">{{this}}</a>{{#unless @last}}, {{/unless}}{{/keywords}}</dd>{{/if}}
             {{#if icsCodes}}<dt class="col-sm-4">ICS Codes</dt><dd class="col-sm-8">{{#icsCodes}}<div class="mb-1"><a href="../?f.icsCodes={{code}}"><code>{{code}}</code></a>{{#if description}} <span class="small text-muted">{{description}}</span>{{/if}}</div>{{/icsCodes}}</dd>{{/if}}
-            {{#if revisionOf}}<dt class="col-sm-4">Revision of</dt><dd class="col-sm-8">{{#revisionOf}}<a class="" href="../{{this}}/">{{this}}</a>{{#unless @last}}; {{/unless}}{{/revisionOf}}</dd>{{/if}}
             
             {{#if details}}<dt class="col-sm-4">Details</dt><dd class="col-sm-8"><em>{{details}}</em></dd>{{/if}}
             {{#if docCopyright}}<dt class="col-sm-4">Copyright</dt><dd class="col-sm-8"><span class="text-muted small">© {{docCopyright.year}}{{#if docCopyright.holder}} {{docCopyright.holder}}{{/if}}</span></dd>{{/if}}
@@ -151,51 +161,6 @@
     </div>
     {{/if}}
   {{/if}}
-
-      {{#if (or (len status.supersededBy) (len status.amendedBy))}}
-      <div class="row text-muted mx-2">
-        <div class="col col-md-6">
-        {{#if (len status.supersededBy)}}
-        <br><span class="font-weight-bold small"> Superseded by:</span>
-          <ul class="list-group list-group-flush">
-          {{#each (asArray status.supersededBy)}}
-            <li class="list-group-item">
-              {{#ifeq (getStatus this) "MRI-KNOWN"}}
-                <span class="small">{{{mriCite this}}} <span class="badge text-bg-info ms-1">EXTERNAL</span></span>
-              {{else}}
-              {{#ifnoteq (getStatus this) "NOT IN REGISTRY"}}
-                <span class="small"><a class="{{../../idType}}-link " href="{{refHref this}}">{{getLabel this}}</a> [{{getStatus this}}]</span> {{{getstatusButton this "10"}}} {{#with (docProjLookup @root.docProjs this)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
-              {{else}}
-                <span class="small"><span class="text-muted fst-italic">{{getLabel this}}</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-              {{/ifnoteq}}
-              {{/ifeq}}
-            </li>
-          {{/each}}
-          </ul>
-        {{/if}}
-        </div>
-        <div class="col col-md-6">
-        {{#if (len status.amendedBy)}}
-        <br><span class="font-weight-bold small"> Amended by:</span>
-          <ul class="list-group list-group-flush">
-            {{#each (asArray status.amendedBy)}}
-            <li class="list-group-item">
-              {{#ifeq (getStatus this) "MRI-KNOWN"}}
-                <span class="small">{{{mriCite this}}} <span class="badge text-bg-info ms-1">EXTERNAL</span></span>
-              {{else}}
-              {{#ifnoteq (getStatus this) "NOT IN REGISTRY"}}
-                <span class="small"><a class="{{../../idType}}-link " href="{{refHref this}}">{{getLabel this}}</a> [{{getStatus this}}]</span> {{{getstatusButton this "10"}}} {{#with (docProjLookup @root.docProjs this)}}{{#ifnoteq projectStatus "Complete"}}<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#F6BE00" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>{{/ifnoteq}}{{/with}}
-              {{else}}
-                <span class="small"><span class="text-muted fst-italic">{{getLabel this}}</span> <span class="badge text-bg-warning ms-1">NOT IN REGISTRY</span></span>
-              {{/ifnoteq}}
-              {{/ifeq}}
-            </li>
-            {{/each}}
-          </ul>
-        {{/if}}
-        </div>
-      </div>
-      {{/if}}
 
       {{#if (len xmlNamespace)}}
       <div class="card mt-3">
@@ -396,6 +361,21 @@
     </div>
 
     <div class="col-lg-5">
+      {{#if (len docRelations)}}
+      <div class="card mb-3 border-warning-subtle doc-relations" role="note">
+        <div class="card-body small bg-warning-subtle rounded">
+          {{#each docRelations}}
+          <div class="{{#unless @last}}mb-2{{/unless}}">
+            <span class="fw-bold">{{label}}:</span>
+            {{#each ids}}<div class="ms-3">
+{{> relationItem}}
+            </div>{{/each}}
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+
       {{#if (any (len referencesResolved.normative) (len referencesResolved.bibliographic) (len referencedBy))}}
       <div class="card mb-3">
         <div class="card-body small">
