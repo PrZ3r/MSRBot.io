@@ -1,0 +1,295 @@
+{
+  "abstract": "This document defines how to convert contact information between the JSContact and vCard data formats. It defines conversion rules for every JSContact and vCard element registered at IANA at the time of publication. It also defines new JSContact properties as well as vCard properties and parameters, to support converting arbitrary or unknown JSContact and vCard elements.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Mario Loffredo"
+    },
+    {
+      "name": "Robert Stepanek"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC9555",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 9555",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "9555",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "JSContact: Converting from and to vCard",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC9555",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC9555",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "JSON",
+    "vCard",
+    "jCard"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "JSON",
+      "Contacts",
+      "vCard",
+      "jCard"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-15T16:41:47.640Z",
+    "version": "extractDocs.js@commit:0f51bb226575"
+  },
+  "pages": "60",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2024-05-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC8605",
+      "IETF.draft-calconnect-vobject-i18n-00",
+      "orphan/RFC9555/h:862e57fb"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3986",
+      "RFC5234",
+      "RFC5646",
+      "RFC6350",
+      "RFC6473",
+      "RFC6474",
+      "RFC6715",
+      "RFC6869",
+      "RFC6901",
+      "RFC7095",
+      "RFC8174",
+      "RFC8259",
+      "RFC9553",
+      "RFC9554"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9555/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+    "updated": "2026-10-14T18:51:23.758Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amendedBy": [
+      "RFC9982"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amends": [
+      "RFC6350"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc9555",
+      "https://www.rfc-editor.org/errata_search.php?rfc=9555"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9555/",
+      "updated": "2026-10-14T18:51:23.758Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

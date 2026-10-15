@@ -1,0 +1,291 @@
+{
+  "abstract": "This document provides guidelines and documents best current practice for operating authoritative DNS servers, recursive resolvers, and stub resolvers in a mixed IPv4/IPv6 environment. This document recommends that both authoritative DNS servers and recursive resolvers support IPv4 and IPv6. It also provides guidance on how recursive DNS resolvers should select upstream DNS servers, including when IPv4-embedded IPv6 addresses are available. This document obsoletes RFC 3901.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Momoka Yamamoto"
+    },
+    {
+      "name": "Tobias Fiebig"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC10001",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 10001",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "10001",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Operational Guidelines for DNS Transport in Mixed IPv4/IPv6 Environments",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Best Practice",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC10001",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC10001",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "DNS",
+    "IPv6"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "pages": "17",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2026-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1145-3730567.3764439",
+      "IETF.draft-ietf-dnsop-ns-revalidation-13",
+      "RFC1918",
+      "RFC2131",
+      "RFC2182",
+      "RFC2460",
+      "RFC3542",
+      "RFC3901",
+      "RFC4034",
+      "RFC4193",
+      "RFC6146",
+      "RFC6540",
+      "RFC6877",
+      "RFC6888",
+      "RFC7050",
+      "RFC7269",
+      "RFC7858",
+      "RFC8106",
+      "RFC8201",
+      "RFC8781",
+      "RFC8900",
+      "RFC9250",
+      "RFC9313",
+      "RFC9386",
+      "RFC9499",
+      "RFC9872",
+      "RFC9915",
+      "10.1007-978-3-031-28486-1_22",
+      "orphan/RFC10001/h:8e4bf0e3",
+      "orphan/RFC10001/h:555b7348",
+      "orphan/RFC10001/h:7db74499",
+      "orphan/RFC10001/h:03cc7626"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+      "updated": "2026-10-14T18:52:06.378Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "RFC1034",
+      "RFC1035",
+      "RFC2119",
+      "RFC4291",
+      "RFC4821",
+      "RFC6052",
+      "RFC6724",
+      "RFC6891",
+      "RFC7766",
+      "RFC8174",
+      "RFC8200",
+      "RFC8899",
+      "RFC9210",
+      "RFC9293",
+      "RFC9471",
+      "RFC9715"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+      "updated": "2026-10-14T18:52:06.378Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc10001/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+    "updated": "2026-10-14T18:52:06.378Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+      "updated": "2026-10-14T18:52:06.378Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+      "updated": "2026-10-14T18:52:06.378Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+      "updated": "2026-10-14T18:52:06.378Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Best Current Practice",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+      "updated": "2026-10-14T18:52:06.378Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+      "updated": "2026-10-14T18:52:06.378Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "supersedes": [
+      "RFC3901"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10001/",
+      "updated": "2026-10-14T18:52:06.378Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

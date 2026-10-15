@@ -1,0 +1,290 @@
+{
+  "abstract": "Explicit Congestion Notification (ECN) is a mechanism by which network nodes can mark IP packets instead of dropping them to indicate incipient congestion to the endpoints. Receivers with an ECN-capable transport protocol feed back this information to the sender. ECN was originally specified for TCP in such a way that only one feedback signal can be transmitted per Round-Trip Time (RTT). More recently defined mechanisms like Congestion Exposure (ConEx), Data Center TCP (DCTCP), or Low Latency, Low Loss, and Scalable Throughput (L4S) need more accurate ECN feedback information whenever more than one marking is received in one RTT. This document updates the original ECN specification defined in RFC 3168 by specifying a scheme that provides more than one feedback signal per RTT in the TCP header, called More Accurate ECN (AccECN). Given TCP header space is scarce, it allocates a reserved header bit previously assigned to the ECN-nonce. It also overloads the two existing ECN flags in the TCP header. The resulting extra space is additionally exploited to feed back the IP-ECN field received during the TCP connection establishment. Supplementary feedback information can optionally be provided in two new TCP Option alternatives, which are never used on the TCP SYN. The document also specifies the treatment of this updated TCP wire protocol by middleboxes.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Bob Briscoe"
+    },
+    {
+      "name": "Mirja Kühlewind"
+    },
+    {
+      "name": "Richard Scheffenegger"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC9768",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 9768",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "9768",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "More Accurate Explicit Congestion Notification (AccECN) Feedback in TCP",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC9768",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC9768",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "Congestion Control",
+    "Congestion Notification",
+    "Protocol",
+    "ECN"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Congestion Control",
+      "Congestion Notification",
+      "Feedback",
+      "Reliable",
+      "Ordered",
+      "Protocol",
+      "ECN"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-15T16:42:00.646Z",
+    "version": "extractDocs.js@commit:0f51bb226575"
+  },
+  "pages": "58",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2026-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-tcpm-generalized-ecn-17",
+      "RFC3449",
+      "RFC3540",
+      "RFC4987",
+      "RFC5562",
+      "RFC5681",
+      "RFC5690",
+      "RFC5925",
+      "RFC6679",
+      "RFC6994",
+      "RFC7141",
+      "RFC7323",
+      "RFC7413",
+      "RFC7560",
+      "RFC7713",
+      "RFC8257",
+      "RFC8311",
+      "RFC8511",
+      "RFC8684",
+      "RFC9000",
+      "RFC9040",
+      "RFC9260",
+      "RFC9330",
+      "RFC9438",
+      "orphan/RFC9768/h:67f4a22b",
+      "orphan/RFC9768/h:6d4c215b"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+      "updated": "2026-10-14T18:51:45.883Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "RFC2018",
+      "RFC2119",
+      "RFC2883",
+      "RFC3168",
+      "RFC5961",
+      "RFC8174",
+      "RFC9293"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+      "updated": "2026-10-14T18:51:45.883Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9768/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+    "updated": "2026-10-14T18:51:45.883Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+      "updated": "2026-10-14T18:51:45.883Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amends": [
+      "RFC3168"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+      "updated": "2026-10-14T18:51:45.883Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+      "updated": "2026-10-14T18:51:45.883Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+      "updated": "2026-10-14T18:51:45.883Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+      "updated": "2026-10-14T18:51:45.883Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9768/",
+      "updated": "2026-10-14T18:51:45.883Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

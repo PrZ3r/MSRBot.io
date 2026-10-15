@@ -1,0 +1,332 @@
+{
+  "abstract": "This document discusses how to secure block storage and storage discovery protocols running over IP (Internet Protocol) using IPsec and IKE (Internet Key Exchange). Threat models and security protocols are developed for iSCSI (Internet Protocol Small Computer System Interface), iFCP (Internet Fibre Channel Storage Networking) and FCIP (Fibre Channel over TCP/IP), as well as the iSNS (Internet Storage Name Server) and SLPv2 (Service Location Protocol v2) discovery protocols. Performance issues and resource constraints are analyzed. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Dr. Bernard D. Aboba"
+    },
+    {
+      "name": "Josh Tseng"
+    },
+    {
+      "name": "Jesse R. Walker"
+    },
+    {
+      "name": "Venkat D. Rangan"
+    },
+    {
+      "name": "Franco Travostino"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC3723",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 3723",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "3723",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Securing Block Storage Protocols over IP",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC3723",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC3723",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "Internet",
+    "Threat Model",
+    "Security"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Internet",
+      "Threat Models",
+      "Security"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-15T16:40:39.650Z",
+    "version": "extractDocs.js@commit:0f51bb226575"
+  },
+  "pages": "70",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2004-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1321",
+      "RFC1994",
+      "RFC2230",
+      "RFC2373",
+      "RFC2402",
+      "RFC2403",
+      "RFC2405",
+      "RFC2535",
+      "RFC2782",
+      "RFC2845",
+      "RFC2865",
+      "RFC2931",
+      "RFC2983",
+      "RFC3007",
+      "RFC3347",
+      "RFC3721",
+      "NIST.FIPS.46-3",
+      "NIST.FIPS.74",
+      "NIST.FIPS.197",
+      "RFC3715",
+      "RSA.crypto.v2n2.1996",
+      "NIST.SP.800-38A",
+      "IETF.draft-krovetz-umac-01",
+      "orphan/RFC3723/h:4670e96f",
+      "orphan/RFC3723/h:9bc8f626",
+      "orphan/RFC3723/h:06138020",
+      "orphan/RFC3723/h:46086e9a",
+      "orphan/RFC3723/h:12b4b392",
+      "orphan/RFC3723/h:e567b5eb",
+      "orphan/RFC3723/h:a077f375",
+      "orphan/RFC3723/h:efa0347e",
+      "orphan/RFC3723/h:e5700862",
+      "orphan/RFC3723/h:c69da8e0",
+      "orphan/RFC3723/h:4e50854d",
+      "orphan/RFC3723/h:e0798c86",
+      "orphan/RFC3723/h:c6ee2e7e",
+      "orphan/RFC3723/h:24379734",
+      "orphan/RFC3723/h:2f84b286",
+      "orphan/RFC3723/h:612f8685",
+      "orphan/RFC3723/h:6b687ab5",
+      "orphan/RFC3723/h:b141bfab",
+      "orphan/RFC3723/h:1dd3deb2",
+      "orphan/RFC3723/h:60fb07fc",
+      "orphan/RFC3723/h:ca38b947"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=136 proseBlocks=83 skippedAnchorBlocks=78",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+      "updated": "2026-10-14T18:50:03.257Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "RFC793",
+      "RFC1191",
+      "RFC1435",
+      "RFC1981",
+      "RFC2104",
+      "RFC2119",
+      "RFC2131",
+      "RFC2401",
+      "RFC2404",
+      "RFC2406",
+      "RFC2407",
+      "RFC2408",
+      "RFC2409",
+      "RFC2412",
+      "RFC2434",
+      "RFC2451",
+      "RFC2608",
+      "RFC2923",
+      "RFC2945",
+      "RFC3315",
+      "RFC3456",
+      "RFC3526",
+      "RFC3566",
+      "RFC3643",
+      "RFC3686",
+      "RFC3720",
+      "ANSI.X9.52.1998",
+      "SSCID.14281976"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+      "updated": "2026-10-14T18:50:03.257Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3723/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+    "updated": "2026-10-14T18:50:03.257Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+      "updated": "2026-10-14T18:50:03.257Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amendedBy": [
+      "RFC7146"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+      "updated": "2026-10-14T18:50:03.257Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+      "updated": "2026-10-14T18:50:03.257Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+      "updated": "2026-10-14T18:50:03.257Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+      "updated": "2026-10-14T18:50:03.257Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3723/",
+      "updated": "2026-10-14T18:50:03.257Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

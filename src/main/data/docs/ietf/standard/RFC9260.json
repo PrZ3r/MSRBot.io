@@ -1,0 +1,311 @@
+{
+  "abstract": "This document describes the Stream Control Transmission Protocol (SCTP) and obsoletes RFC 4960. It incorporates the specification of the chunk flags registry from RFC 6096 and the specification of the I bit of DATA chunks from RFC 7053. Therefore, RFCs 6096 and 7053 are also obsoleted by this document. In addition, RFCs 4460 and 8540, which describe errata for SCTP, are obsoleted by this document. SCTP was originally designed to transport Public Switched Telephone Network (PSTN) signaling messages over IP networks. It is also suited to be used for other applications, for example, WebRTC. SCTP is a reliable transport protocol operating on top of a connectionless packet network, such as IP. It offers the following services to its users: The design of SCTP includes appropriate congestion avoidance behavior and resistance to flooding and masquerade attacks.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Randall R. Stewart"
+    },
+    {
+      "name": "Michael Tüxen"
+    },
+    {
+      "name": "karen Nielsen"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC9260",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 9260",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "9260",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Stream Control Transmission Protocol",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC9260",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC9260",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "SCTP",
+    "IP",
+    "Internet",
+    "Transport",
+    "Packet",
+    "Networks"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "pages": "133",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2022-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC768",
+      "RFC793",
+      "RFC1858",
+      "RFC2104",
+      "RFC2196",
+      "RFC2522",
+      "RFC2960",
+      "RFC3465",
+      "RFC3873",
+      "RFC4086",
+      "RFC4301",
+      "RFC4460",
+      "RFC4960",
+      "RFC6096",
+      "RFC6458",
+      "RFC6951",
+      "RFC7053",
+      "RFC8260",
+      "RFC8261",
+      "RFC8540",
+      "orphan/RFC9260/h:8d81df48",
+      "orphan/RFC9260/h:741db333",
+      "orphan/RFC9260/h:f0de4e9f",
+      "orphan/RFC9260/h:11573b68"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+      "updated": "2026-10-14T18:51:03.055Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "T-REC-V.42.1994",
+      "RFC1122",
+      "RFC1123",
+      "RFC1191",
+      "RFC1982",
+      "RFC2119",
+      "RFC4291",
+      "RFC4303",
+      "RFC4895",
+      "RFC5681",
+      "RFC6335",
+      "RFC6083",
+      "RFC7296",
+      "RFC8126",
+      "RFC8174",
+      "RFC8200",
+      "RFC8201",
+      "RFC8899"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+      "updated": "2026-10-14T18:51:03.055Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9260/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+    "updated": "2026-10-14T18:51:03.055Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+      "updated": "2026-10-14T18:51:03.055Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+      "updated": "2026-10-14T18:51:03.055Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc9260",
+      "https://www.rfc-editor.org/errata_search.php?rfc=9260",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc9260.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+      "updated": "2026-10-14T18:51:03.055Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+      "updated": "2026-10-14T18:51:03.055Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+      "updated": "2026-10-14T18:51:03.055Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+      "updated": "2026-10-14T18:51:03.055Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "supersedes": [
+      "RFC4460",
+      "RFC4960",
+      "RFC6096",
+      "RFC7053",
+      "RFC8540"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9260/",
+      "updated": "2026-10-14T18:51:03.055Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}
