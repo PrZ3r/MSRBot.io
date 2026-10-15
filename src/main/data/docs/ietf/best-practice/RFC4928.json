@@ -1,0 +1,274 @@
+{
+  "abstract": "This document describes the Equal Cost Multipath (ECMP) behavior of currently deployed MPLS networks. This document makes best practice recommendations for anyone defining an application to run over an MPLS network that wishes to avoid the reordering that can result from transmission of different packets from the same flow over multiple different equal cost paths. These recommendations rely on inspection of the IP version number field in packets. Despite the heuristic nature of the recommendations, they provide a relatively safe way to operate MPLS networks, even if future allocations of IP version numbers were made for some purpose. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "George Swallow"
+    },
+    {
+      "name": "Stewart Bryant"
+    },
+    {
+      "name": "Loa Andersson"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC4928",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 4928",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "4928",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Avoiding Equal Cost Multipath Treatment in MPLS Networks",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Best Practice",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC4928",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC4928",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "ECMP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "pages": "8",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2007-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3036",
+      "RFC3107",
+      "RFC3209",
+      "RFC3478",
+      "RFC3479",
+      "RFC4206",
+      "RFC4220",
+      "RFC4221",
+      "RFC4378",
+      "RFC4379",
+      "RFC4385"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=12 proseBlocks=15 skippedAnchorBlocks=13",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+      "updated": "2026-10-14T18:50:47.418Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "RFC3031"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+      "updated": "2026-10-14T18:50:47.418Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4928/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+    "updated": "2026-10-14T18:50:47.418Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+      "updated": "2026-10-14T18:50:47.418Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amendedBy": [
+      "RFC7274",
+      "RFC9790"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+      "updated": "2026-10-14T18:50:47.418Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+      "updated": "2026-10-14T18:50:47.418Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc4928",
+      "https://www.rfc-editor.org/errata_search.php?rfc=4928"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+      "updated": "2026-10-14T18:50:47.418Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+      "updated": "2026-10-14T18:50:47.418Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Best Current Practice",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+      "updated": "2026-10-14T18:50:47.418Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4928/",
+      "updated": "2026-10-14T18:50:47.418Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

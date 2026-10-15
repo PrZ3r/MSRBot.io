@@ -1,0 +1,285 @@
+{
+  "abstract": "This document defines enhancements to the OSPF protocol to support a new class of link state advertisements (LSAs) called Opaque LSAs. Opaque LSAs provide a generalized mechanism to allow for the future extensibility of OSPF. Opaque LSAs consist of a standard LSA header followed by application-specific information. The information field may be used directly by OSPF or by other applications. Standard OSPF link-state database flooding mechanisms are used to distribute Opaque LSAs to all or some limited portion of the OSPF topology. This document replaces RFC 2370 and adds to it a mechanism to enable an OSPF router to validate Autonomous System (AS)-scope Opaque LSAs originated outside of the router's OSPF area. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "authors": [
+    {
+      "name": "Lou Berger"
+    },
+    {
+      "name": "Igor Bryskin"
+    },
+    {
+      "name": "Alex D. Zinin"
+    },
+    {
+      "name": "Rob Coltun"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docId": "RFC5250",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docLabel": "IETF RFC 5250",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docNumber": "5250",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docTitle": "The OSPF Opaque LSA Option",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "doi": "10.17487/RFC5250",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "href": "https://doi.org/10.17487/RFC5250",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "keywords": [
+    "OSPF-LSA",
+    "OSPF",
+    "LSA"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "OSPF-LSA",
+      "OSPF",
+      "LSA",
+      "Opaque Lsas"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-14T15:56:04.349Z",
+    "version": "extractDocs.js@commit:ca62cd19765f"
+  },
+  "pages": "17",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publicationDate": "2008-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1584",
+      "RFC3101",
+      "RFC4915",
+      "RFC1765",
+      "RFC2370",
+      "RFC3630",
+      "RFC4576",
+      "orphan/RFC5250/h:b730058e"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=13 proseBlocks=17 skippedAnchorBlocks=14",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+      "updated": "2026-10-13T22:24:17.929Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "normative": [
+      "RFC1793",
+      "RFC2328",
+      "RFC2119",
+      "RFC4750",
+      "RFC5226"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+      "updated": "2026-10-13T22:24:17.929Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5250/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+    "updated": "2026-10-13T22:24:17.929Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+      "updated": "2026-10-13T22:24:17.929Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+      "updated": "2026-10-13T22:24:17.929Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5250",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5250"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+      "updated": "2026-10-13T22:24:17.929Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+      "updated": "2026-10-13T22:24:17.929Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+      "updated": "2026-10-13T22:24:17.929Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+      "updated": "2026-10-13T22:24:17.929Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "supersedes": [
+      "RFC2370"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5250/",
+      "updated": "2026-10-13T22:24:17.929Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  }
+}

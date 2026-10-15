@@ -1,0 +1,252 @@
+{
+  "abstract": "The IP Router Alert Option is an IP option that alerts transit routers to more closely examine the contents of an IP packet. The Resource reSerVation Protocol (RSVP), Pragmatic General Multicast (PGM), the Internet Group Management Protocol (IGMP), Multicast Listener Discovery (MLD), Multicast Router Discovery (MRD), and General Internet Signaling Transport (GIST) are some of the protocols that make use of the IP Router Alert Option. This document discusses security aspects and usage guidelines around the use of the current IP Router Alert Option, thereby updating RFC 2113 and RFC 2711. Specifically, it provides recommendations against using the Router Alert in the end-to-end open Internet and identifies controlled environments where protocols depending on Router Alert can be used safely. It also provides recommendations about protection approaches for service providers. Finally, it provides brief guidelines for Router Alert implementation on routers. This memo documents an Internet Best Current Practice.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "authors": [
+    {
+      "name": "François Le Faucheur"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docId": "RFC6398",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docLabel": "IETF RFC 6398",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docNumber": "6398",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docTitle": "IP Router Alert Considerations and Usage",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docType": "Best Practice",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "doi": "10.17487/RFC6398",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "href": "https://doi.org/10.17487/RFC6398",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "pages": "19",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publicationDate": "2011-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2205",
+      "RFC2710",
+      "RFC2961",
+      "RFC3175",
+      "RFC3208",
+      "RFC3209",
+      "RFC3376",
+      "RFC3810",
+      "RFC4081",
+      "RFC4286",
+      "RFC4732",
+      "RFC5971",
+      "RFC6016",
+      "RFC6178",
+      "orphan/RFC6398/h:ac9aa7d2",
+      "orphan/RFC6398/h:fd709f30"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=24 proseBlocks=29 skippedAnchorBlocks=24",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+      "updated": "2026-10-13T22:25:56.855Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "normative": [
+      "RFC791",
+      "RFC2113",
+      "RFC2119",
+      "RFC2460",
+      "RFC2711",
+      "RFC5350"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+      "updated": "2026-10-13T22:25:56.855Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6398/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+    "updated": "2026-10-13T22:25:56.855Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+      "updated": "2026-10-13T22:25:56.855Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "amends": [
+      "RFC2113",
+      "RFC2711"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+      "updated": "2026-10-13T22:25:56.855Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+      "updated": "2026-10-13T22:25:56.855Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+      "updated": "2026-10-13T22:25:56.855Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "statusNote": "Best Current Practice",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+      "updated": "2026-10-13T22:25:56.855Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6398/",
+      "updated": "2026-10-13T22:25:56.855Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  }
+}

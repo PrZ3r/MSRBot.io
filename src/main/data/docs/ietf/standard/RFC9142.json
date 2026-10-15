@@ -1,0 +1,334 @@
+{
+  "abstract": "This document updates the recommended set of key exchange methods for use in the Secure Shell (SSH) protocol to meet evolving needs for stronger security. It updates RFCs 4250, 4253, 4432, and 4462.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Mark D. Baushke"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC9142",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 9142",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "9142",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "Key Exchange (KEX) Method Updates and Recommendations for Secure Shell (SSH)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC9142",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC9142",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "keywords": [
+    "3DES",
+    "AES",
+    "Advanced Encryption Standard",
+    "Curve25519",
+    "Curve448",
+    "Diffie-Hellman",
+    "DES",
+    "ECC",
+    "ECDH",
+    "Elliptic Curve Cryptography",
+    "FFC",
+    "IFC",
+    "MODP",
+    "MTI",
+    "RSA",
+    "SHA-2",
+    "SSH",
+    "Secure Shell",
+    "SHA-1"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "3DES",
+      "AES",
+      "Advanced Encryption Standard",
+      "Curve25519",
+      "Curve448",
+      "DH",
+      "Diffie-Hellman",
+      "Digital Encryption Standard",
+      "ECC",
+      "ECDH",
+      "Elliptic Curve Cryptography",
+      "FFC",
+      "Finite Field Cryptography",
+      "IFC",
+      "Integer Factorization Cryptography",
+      "MODP",
+      "MTI",
+      "Mandatory To Implement",
+      "Modular Exponential",
+      "Public Key Exchange",
+      "RSA",
+      "SHA-2",
+      "Secure Shell Key Exchange",
+      "Secure Shell",
+      "Security Strength",
+      "Triple-DES",
+      "SHA-1",
+      "Sha256",
+      "Sha384",
+      "Sha512",
+      "Modular Exponentiation"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T17:06:34.088Z",
+    "version": "extractDocs.js@commit:8aec15acefbb"
+  },
+  "pages": "19",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2022-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "bibliographic": [
+      "NIST.FIPS.202",
+      "NIST.SP.800-107r1",
+      "NIST.SP.800-57pt1r5",
+      "RFC2409",
+      "RFC3526",
+      "RFC4086",
+      "RFC4251",
+      "RFC4419",
+      "RFC4432",
+      "RFC4462",
+      "RFC5656",
+      "RFC6194",
+      "RFC6234",
+      "RFC7748",
+      "RFC8031",
+      "RFC8732",
+      "10.14722-ndss.2016.23418",
+      "orphan/RFC9142/h:029d02f0"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+      "updated": "2026-10-14T16:16:58.113Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4250",
+      "RFC4253",
+      "RFC8174",
+      "RFC8268",
+      "RFC8270",
+      "RFC8308",
+      "RFC8731"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+      "updated": "2026-10-14T16:16:58.113Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9142/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+    "updated": "2026-10-14T16:16:58.113Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+      "updated": "2026-10-14T16:16:58.113Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amends": [
+      "RFC4250",
+      "RFC4253",
+      "RFC4432",
+      "RFC4462"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+      "updated": "2026-10-14T16:16:58.113Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+      "updated": "2026-10-14T16:16:58.113Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc9142",
+      "https://www.rfc-editor.org/errata_search.php?rfc=9142",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc9142.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+      "updated": "2026-10-14T16:16:58.113Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+      "updated": "2026-10-14T16:16:58.113Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+      "updated": "2026-10-14T16:16:58.113Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9142/",
+      "updated": "2026-10-14T16:16:58.113Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}

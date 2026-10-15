@@ -1,0 +1,277 @@
+{
+  "abstract": "This memo provides guidance to TCP implementers that is intended to help improve connection convergence to steady-state operation without affecting interoperability. It updates and replaces RFC 2140's description of sharing TCP state, as typically represented in TCP Control Blocks, among similar concurrent or consecutive connections.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Dr. Joseph D. Touch"
+    },
+    {
+      "name": "Michael Welzl"
+    },
+    {
+      "name": "Safiqul Islam"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC9040",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 9040",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "9040",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "TCP Control Block Interdependence",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC9040",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC9040",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "pages": "29",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2021-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-allman-tcpm-bump-initcwnd-00",
+      "10.1109-ICC.2016.7510786",
+      "IETF.draft-ietf-tcpm-generalized-ecn-07",
+      "10.1145-179606.179671",
+      "10.1109-MCOM.2002.1039865",
+      "IETF.draft-hughes-restart-00",
+      "10.1109-ICC.2012.6364516",
+      "IANA",
+      "10.1109-INFCOMW.2018.8406887",
+      "RFC1379",
+      "RFC1644",
+      "RFC2001",
+      "RFC2140",
+      "RFC2414",
+      "RFC2663",
+      "RFC3124",
+      "RFC3390",
+      "RFC4340",
+      "RFC4960",
+      "RFC5925",
+      "RFC6437",
+      "RFC6691",
+      "RFC6928",
+      "RFC7231",
+      "RFC7323",
+      "RFC7424",
+      "RFC7540",
+      "RFC7661",
+      "RFC8684",
+      "orphan/RFC9040/h:fe83a479",
+      "orphan/RFC9040/h:dc23b38f",
+      "orphan/RFC9040/h:704df3f1",
+      "orphan/RFC9040/h:9194caec",
+      "orphan/RFC9040/h:cb8210fa"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+      "updated": "2026-10-14T16:16:48.869Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "normative": [
+      "RFC793",
+      "RFC1122",
+      "RFC1191",
+      "RFC2119",
+      "RFC4821",
+      "RFC5681",
+      "RFC6298",
+      "RFC7413",
+      "RFC8174",
+      "RFC8201"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+      "updated": "2026-10-14T16:16:48.869Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9040/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+    "updated": "2026-10-14T16:16:48.869Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+      "updated": "2026-10-14T16:16:48.869Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+      "updated": "2026-10-14T16:16:48.869Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+      "updated": "2026-10-14T16:16:48.869Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+      "updated": "2026-10-14T16:16:48.869Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+      "updated": "2026-10-14T16:16:48.869Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "supersedes": [
+      "RFC2140"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9040/",
+      "updated": "2026-10-14T16:16:48.869Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "abstract": "Fast handover protocols for Mobile IPv6 (MIPv6) and Proxy Mobile IPv6 (PMIPv6) define mobility management procedures that support unicast communication at reduced handover latency. Fast handover base operations do not affect multicast communication and, hence, do not accelerate handover management for native multicast listeners. Many multicast applications like IPTV or conferencing, though, comprise delay-sensitive, real-time traffic and will benefit from fast handover completion. This document specifies extension of the Mobile IPv6 Fast Handovers (FMIPv6) and the Fast Handovers for Proxy Mobile IPv6 (PFMIPv6) protocols to include multicast traffic management in fast handover operations. This multicast support is provided first at the control plane by management of rapid context transfer between access routers and second at the data plane by optional fast traffic forwarding that may include buffering. An FMIPv6 access router indicates support for multicast using an updated Proxy Router Advertisements message format. This document updates RFC 5568, \"Mobile IPv6 Fast Handovers\".",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Thomas C. Schmidt"
+    },
+    {
+      "name": "Matthias Wählisch"
+    },
+    {
+      "name": "Rajeev Koodli"
+    },
+    {
+      "name": "Gorry Fairhurst"
+    },
+    {
+      "name": "Dapeng Liu"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC7411",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 7411",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "7411",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Multicast Listener Extensions for Mobile IPv6 (MIPv6) and Proxy Mobile IPv6 (PMIPv6) Fast Handovers",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC7411",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC7411",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "Multicast",
+    "Mobility",
+    "IPv6",
+    "PIM",
+    "MLD"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "pages": "30",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2014-11-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC5757",
+      "IETF.draft-suh-mipshop-fmcast-mip6-00",
+      "10.1007-s11235-005-4321-4",
+      "RFC6224",
+      "RFC7287",
+      "RFC5844",
+      "RFC5845"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=16 proseBlocks=23 skippedAnchorBlocks=19",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+      "updated": "2026-10-14T18:50:50.942Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC6275",
+      "RFC5213",
+      "RFC5568",
+      "RFC5949",
+      "RFC1112",
+      "RFC4605",
+      "RFC3810",
+      "RFC3376"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+      "updated": "2026-10-14T18:50:50.942Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7411/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+    "updated": "2026-10-14T18:50:50.942Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+      "updated": "2026-10-14T18:50:50.942Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amends": [
+      "RFC5568"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+      "updated": "2026-10-14T18:50:50.942Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+      "updated": "2026-10-14T18:50:50.942Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+      "updated": "2026-10-14T18:50:50.942Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+      "updated": "2026-10-14T18:50:50.942Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7411/",
+      "updated": "2026-10-14T18:50:50.942Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

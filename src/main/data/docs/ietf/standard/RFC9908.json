@@ -1,0 +1,280 @@
+{
+  "abstract": "This document updates RFC 7030, \"Enrollment over Secure Transport\" (EST), clarifying how the Certificate Signing Request (CSR) Attributes Response can be used by an EST server to specify both CSR attribute Object Identifiers (OIDs) and CSR attribute values, particularly X.509 extension values, that the server expects the client to include in a subsequent CSR request. RFC 9148 is derived from RFC 7030 and is also updated. RFC 7030 is ambiguous in its specification of the CSR Attributes Response. This has resulted in implementation challenges and implementor confusion because there was no universal understanding of what was specified. This document clarifies the encoding rules. This document also provides a new straightforward approach: using a template for CSR contents that may be partially filled in by the server. This also allows an EST server to specify a subject Distinguished Name (DN).",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Michael Richardson"
+    },
+    {
+      "name": "Owen Friel"
+    },
+    {
+      "name": "David von Oheimb"
+    },
+    {
+      "name": "Dan Harkins"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC9908",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 9908",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "9908",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Clarification and Enhancement of the CSR Attributes Definition in RFC 7030",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC9908",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC9908",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "SubjectAltName",
+    "SAN",
+    "Certificate Extensions",
+    "CSR"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "SubjectAltName",
+      "SAN",
+      "Certificate Extensions",
+      "Certificate Signing Request"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-15T16:42:11.832Z",
+    "version": "extractDocs.js@commit:0f51bb226575"
+  },
+  "pages": "22",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2026-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2985",
+      "RFC4211",
+      "RFC5272",
+      "RFC5280",
+      "RFC8295",
+      "RFC8368",
+      "RFC8994",
+      "RFC8995",
+      "RFC9483",
+      "RFC9810",
+      "orphan/RFC9908/h:cffcbf5a",
+      "orphan/RFC9908/h:4b136754"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+      "updated": "2026-10-14T18:52:00.379Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2986",
+      "RFC5911",
+      "RFC5912",
+      "RFC6268",
+      "RFC7030",
+      "RFC8174",
+      "RFC9148",
+      "T-REC-X.680.2021",
+      "T-REC-X.690.2021"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+      "updated": "2026-10-14T18:52:00.379Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9908/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+    "updated": "2026-10-14T18:52:00.379Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+      "updated": "2026-10-14T18:52:00.379Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amends": [
+      "RFC7030",
+      "RFC9148"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+      "updated": "2026-10-14T18:52:00.379Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+      "updated": "2026-10-14T18:52:00.379Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+      "updated": "2026-10-14T18:52:00.379Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+      "updated": "2026-10-14T18:52:00.379Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9908/",
+      "updated": "2026-10-14T18:52:00.379Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

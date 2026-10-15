@@ -1,0 +1,307 @@
+{
+  "abstract": "S/MIME version 3.1 introduced a mechanism to provide end-to-end cryptographic protection of email message headers. However, few implementations generate messages using this mechanism, and several legacy implementations have revealed rendering or security issues when handling such a message. This document updates the S/MIME specification (RFC 8551) to offer a different mechanism that provides the same cryptographic protections but with fewer downsides when handled by legacy clients. Furthermore, it offers more explicit usability, privacy, and security guidance for clients when generating or handling email messages with cryptographic protection of message headers. The Header Protection scheme defined here is also applicable to messages with PGP/MIME (Pretty Good Privacy with MIME) cryptographic protections.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Daniel Kahn Gillmor"
+    },
+    {
+      "name": "Bernie Hoeneisen"
+    },
+    {
+      "name": "Alexey Melnikov"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC9788",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 9788",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "9788",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Header Protection for Cryptographically Protected Email",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC9788",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC9788",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "Header Protection",
+    "Email Encryption",
+    "Encryption",
+    "Signature",
+    "S/MIME",
+    "PGP/MIME",
+    "MIME",
+    "Privacy",
+    "HP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Header Protection",
+      "Header Confidentiality Policy",
+      "HCP",
+      "Cryptographic Email",
+      "Email Encryption",
+      "Encryption",
+      "Signature",
+      "Sign",
+      "S/MIME",
+      "PGP/MIME",
+      "Legacy Display",
+      "Legacy Display Element",
+      "MIME",
+      "Privacy",
+      "HP-Outer",
+      "Hp-legacy-display",
+      "HP"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-15T16:42:02.709Z",
+    "version": "extractDocs.js@commit:0f51bb226575"
+  },
+  "pages": "218",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2025-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "W3C.WD-css22.20160412",
+      "IETF.draft-pep-email-03",
+      "IETF.draft-pep-general-03",
+      "IETF.draft-autocrypt-lamps-protected-headers-03",
+      "RFC1035",
+      "RFC2047",
+      "RFC2049",
+      "RFC3156",
+      "RFC3851",
+      "RFC4021",
+      "RFC5751",
+      "RFC5890",
+      "RFC5891",
+      "RFC6376",
+      "RFC7489",
+      "RFC7929",
+      "RFC8162",
+      "RFC8617",
+      "RFC9216",
+      "orphan/RFC9788/h:c1e39b9c",
+      "orphan/RFC9788/h:35a688a2",
+      "orphan/RFC9788/h:fcdce22d",
+      "orphan/RFC9788/h:43328d95"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+      "updated": "2026-10-14T18:51:48.673Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "RFC2045",
+      "RFC2119",
+      "RFC3864",
+      "RFC5083",
+      "RFC5234",
+      "RFC5322",
+      "RFC5652",
+      "RFC8126",
+      "RFC8174",
+      "RFC8551",
+      "RFC9580",
+      "RFC9787"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+      "updated": "2026-10-14T18:51:48.673Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9788/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+    "updated": "2026-10-14T18:51:48.673Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+      "updated": "2026-10-14T18:51:48.673Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amends": [
+      "RFC8551"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+      "updated": "2026-10-14T18:51:48.673Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+      "updated": "2026-10-14T18:51:48.673Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+      "updated": "2026-10-14T18:51:48.673Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+      "updated": "2026-10-14T18:51:48.673Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9788/",
+      "updated": "2026-10-14T18:51:48.673Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}
