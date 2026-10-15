@@ -1843,6 +1843,18 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // INCITS by its own number: "INCITS 373-2003, Fibre Channel Framing and Signaling Interface
+  // (FC-FS)" (RFC3980) → INCITS.373.2003. A placeholder year ("ANSI INCITS 513-201x", a
+  // project not yet published, RFC7143) leaves it undated. Project numbers ("INCITS Project
+  // 1828-D", "T10/1416-D") are drafts and stay orphans.
+  {
+    const m = String(text || '').match(/\bINCITS\s+(\d{2,4})(?:[-:]((?:19|20)\d{2})\b|[-:](?:19|20)\d?x\b)/i);
+    if (m) {
+      const refId = `INCITS.${m[1]}${m[2] ? `.${m[2]}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'incits-designator' } } : refId;
+    }
+  }
+
   // AES (Audio Engineering Society): "AES3-2003", "AES3-3:2009" (part 3), "AES3-4-2009",
   // "AES11-2009 (r2014)" → AES3.2003 / AES3-3.2009
   {

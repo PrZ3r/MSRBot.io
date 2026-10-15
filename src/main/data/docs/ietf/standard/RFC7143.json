@@ -1,0 +1,381 @@
+{
+  "abstract": "This document describes a transport protocol for SCSI that works on top of TCP. The iSCSI protocol aims to be fully compliant with the standardized SCSI Architecture Model (SAM-2). RFC 3720 defined the original iSCSI protocol. RFC 3721 discusses iSCSI naming examples and discovery techniques. Subsequently, RFC 3980 added an additional naming format to the iSCSI protocol. RFC 4850 followed up by adding a new public extension key to iSCSI. RFC 5048 offered a number of clarifications as well as a few improvements and corrections to the original iSCSI protocol. This document obsoletes RFCs 3720, 3980, 4850, and 5048 by consolidating them into a single document and making additional updates to the consolidated specification. This document also updates RFC 3721. The text in this document thus supersedes the text in all the noted RFCs wherever there is a difference in semantics.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "authors": [
+    {
+      "name": "Mallikarjun Chadalapaka"
+    },
+    {
+      "name": "Julian Satran"
+    },
+    {
+      "name": "Kalman Meth"
+    },
+    {
+      "name": "David L. Black"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docId": "RFC7143",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docLabel": "IETF RFC 7143",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docNumber": "7143",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docTitle": "Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "doi": "10.17487/RFC7143",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "href": "https://doi.org/10.17487/RFC7143",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "keywords": [
+    "iSCSI",
+    "SCSI",
+    "Storage",
+    "SAN",
+    "Block Storage",
+    "OSD",
+    "Disk"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "iSCSI",
+      "SCSI",
+      "Storage",
+      "SAN",
+      "Block Storage",
+      "SCSI Object Storage Devices",
+      "OSD",
+      "SAM",
+      "Disk",
+      "T10"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T20:20:18.590Z",
+    "version": "extractDocs.js@commit:5774daa8c9d8"
+  },
+  "pages": "295",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publicationDate": "2014-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "references": {
+    "bibliographic": [
+      "INCITS.496.2012",
+      "RFC1737",
+      "RFC2401",
+      "RFC2407",
+      "RFC2409",
+      "RFC2608",
+      "RFC2743",
+      "RFC2865",
+      "RFC3385",
+      "RFC3602",
+      "RFC3720",
+      "RFC3721",
+      "RFC3783",
+      "RFC4121",
+      "RFC4297",
+      "RFC4806",
+      "RFC4850",
+      "RFC5046",
+      "RFC5048",
+      "RFC5433",
+      "RFC6648",
+      "INCITS.457.2010",
+      "INCITS.405.2005",
+      "INCITS.513",
+      "INCITS.505.2013",
+      "RFC3980",
+      "orphan/RFC7143/h:63b00f69",
+      "orphan/RFC7143/h:7ad8f182"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=69 proseBlocks=77 skippedAnchorBlocks=73",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+        "INCITS.496.2012",
+        "RFC1737",
+        "RFC2401",
+        "RFC2407",
+        "RFC2409",
+        "RFC2608",
+        "RFC2743",
+        "RFC2865",
+        "RFC3385",
+        "RFC3602",
+        "RFC3720",
+        "RFC3721",
+        "RFC3783",
+        "RFC4121",
+        "RFC4297",
+        "RFC4806",
+        "RFC4850",
+        "RFC5046",
+        "RFC5048",
+        "RFC5433",
+        "RFC6648",
+        "INCITS.457.2010",
+        "INCITS.405.2005",
+        "INCITS.505.2013",
+        "RFC3980",
+        "orphan/RFC7143/h:63b00f69",
+        "orphan/RFC7143/h:7ad8f182",
+        "orphan/RFC7143/h:1efda0a9"
+      ],
+      "overridden": true,
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+      "updated": "2026-10-15T20:20:18.590Z",
+      "version": "extractDocs.js@commit:5774daa8c9d8"
+    },
+    "normative": [
+      "INCITS.470.2011",
+      "RFC1122",
+      "RFC1964",
+      "RFC1982",
+      "RFC1994",
+      "RFC2119",
+      "RFC2404",
+      "RFC2406",
+      "RFC2451",
+      "RFC2945",
+      "RFC3454",
+      "RFC3566",
+      "RFC3629",
+      "RFC3686",
+      "RFC3722",
+      "RFC3723",
+      "RFC3986",
+      "RFC4106",
+      "RFC4120",
+      "RFC4171",
+      "RFC4291",
+      "RFC4301",
+      "RFC4303",
+      "RFC4304",
+      "RFC4543",
+      "RFC4648",
+      "RFC5226",
+      "RFC5996",
+      "RFC6960",
+      "RFC7144",
+      "RFC7145",
+      "RFC7146",
+      "INCITS.366.2003",
+      "INCITS.447.2008",
+      "INCITS.351.2001",
+      "INCITS.408.2005",
+      "ISO.19501.2005",
+      "orphan/RFC7143/h:6bae0c92",
+      "orphan/RFC7143/h:e1c26fb3",
+      "orphan/RFC7143/h:d4a94bd7"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+      "updated": "2026-10-15T19:19:25.589Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7143/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+    "updated": "2026-10-15T19:19:25.589Z",
+    "version": "extractDocs.js@commit:669b9e3c6fef"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+      "updated": "2026-10-15T19:19:25.589Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "amends": [
+      "RFC3721"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+      "updated": "2026-10-15T19:19:25.589Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+      "updated": "2026-10-15T19:19:25.589Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+      "updated": "2026-10-15T19:19:25.589Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+      "updated": "2026-10-15T19:19:25.589Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+      "updated": "2026-10-15T19:19:25.589Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "supersedes": [
+      "RFC3720",
+      "RFC3980",
+      "RFC4850",
+      "RFC5048"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7143/",
+      "updated": "2026-10-15T19:19:25.589Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    }
+  }
+}
