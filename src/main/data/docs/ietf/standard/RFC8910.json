@@ -1,0 +1,294 @@
+{
+  "abstract": "In many environments offering short-term or temporary Internet access (such as coffee shops), it is common to start new connections in a captive portal mode. This highly restricts what the user can do until the user has satisfied the captive portal conditions. This document describes a DHCPv4 and DHCPv6 option and a Router Advertisement (RA) option to inform clients that they are behind some sort of captive portal enforcement device, and that they will need to satisfy the Captive Portal conditions to get Internet access. It is not a full solution to address all of the issues that clients may have with captive portals; it is designed to be one component of a standardized approach for hosts to interact with such portals. While this document defines how the network operator may convey the captive portal API endpoint to hosts, the specific methods of satisfying and interacting with the captive portal are out of scope of this document. This document replaces RFC 7710, which used DHCP code point 160. Due to a conflict, this document specifies 114. Consequently, this document also updates RFC 3679.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Warren Kumari"
+    },
+    {
+      "name": "Erik Kline"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC8910",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 8910",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "8910",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "Captive-Portal Identification in DHCP and Router Advertisements (RAs)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC8910",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC8910",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "keywords": [
+    "Captive Portal"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Captive Portal",
+      "Walled Garden",
+      "Coffee-shop",
+      "Hotel"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T17:06:05.235Z",
+    "version": "extractDocs.js@commit:8aec15acefbb"
+  },
+  "pages": "11",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2020-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3679",
+      "RFC3779",
+      "RFC6105",
+      "RFC7113",
+      "RFC7610",
+      "RFC7710",
+      "RFC8908"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2131",
+      "RFC2132",
+      "RFC3553",
+      "RFC3986",
+      "RFC4861",
+      "RFC7227",
+      "RFC7231",
+      "RFC7234",
+      "RFC8174",
+      "RFC8415"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8910/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+    "updated": "2026-10-14T16:16:39.722Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amends": [
+      "RFC3679"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8910",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8910",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8910.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "supersedes": [
+      "RFC7710"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8910/",
+      "updated": "2026-10-14T16:16:39.722Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}

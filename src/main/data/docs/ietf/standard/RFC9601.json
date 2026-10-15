@@ -1,0 +1,327 @@
+{
+  "abstract": "RFC 6040 on \"Tunnelling of Explicit Congestion Notification\" made the rules for propagation of Explicit Congestion Notification (ECN) consistent for all forms of IP-in-IP tunnel. This specification updates RFC 6040 to clarify that its scope includes tunnels where two IP headers are separated by at least one shim header that is not sufficient on its own for wide-area packet forwarding. It surveys widely deployed IP tunnelling protocols that use such shim headers and updates the specifications of those that do not mention ECN propagation (including RFCs 2661, 3931, 2784, 4380 and 7450, which specify L2TPv2, L2TPv3, Generic Routing Encapsulation (GRE), Teredo, and Automatic Multicast Tunneling (AMT), respectively). This specification also updates RFC 6040 with configuration requirements needed to make any legacy tunnel ingress safe.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Bob Briscoe"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC9601",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 9601",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "9601",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Propagating Explicit Congestion Notification across IP Tunnel Headers Separated by a Shim",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC9601",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC9601",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "Congestion Control",
+    "Congestion Notification",
+    "Information Security",
+    "Tunnel",
+    "Protocol",
+    "ECN"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "pages": "19",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2024-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "10.48550-arXiv.2311.16825",
+      "3GPP.TS-29.060",
+      "3GPP.TS-29.281",
+      "3GPP.TS-29.274",
+      "IETF.draft-ietf-intarea-tunnels-13",
+      "IETF.draft-ietf-nvo3-vxlan-gpe-13",
+      "RFC1701",
+      "RFC2332",
+      "RFC2637",
+      "RFC2983",
+      "RFC3260",
+      "RFC3308",
+      "RFC5415",
+      "RFC5845",
+      "RFC5944",
+      "RFC6275",
+      "RFC7059",
+      "RFC7296",
+      "RFC7348",
+      "RFC7637",
+      "RFC7665",
+      "RFC8085",
+      "RFC8087",
+      "RFC8159",
+      "RFC8174",
+      "RFC8300",
+      "RFC8311",
+      "RFC8926",
+      "RFC9300",
+      "RFC9329",
+      "RFC9331",
+      "IETF.draft-ietf-sfc-nsh-ecn-support-13"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+        "10.48550-arXiv.2311.16825",
+        "IETF.draft-ietf-intarea-tunnels-13",
+        "IETF.draft-ietf-nvo3-vxlan-gpe-13",
+        "RFC1701",
+        "RFC2332",
+        "RFC2637",
+        "RFC2983",
+        "RFC3260",
+        "RFC3308",
+        "RFC5415",
+        "RFC5845",
+        "RFC5944",
+        "RFC6275",
+        "RFC7059",
+        "RFC7296",
+        "RFC7348",
+        "RFC7637",
+        "RFC7665",
+        "RFC8085",
+        "RFC8087",
+        "RFC8159",
+        "RFC8174",
+        "RFC8300",
+        "RFC8311",
+        "RFC8926",
+        "RFC9300",
+        "RFC9329",
+        "RFC9331",
+        "IETF.draft-ietf-sfc-nsh-ecn-support-13",
+        "orphan/RFC9601/h:88574b6c",
+        "orphan/RFC9601/h:28dc1822",
+        "orphan/RFC9601/h:7bc88027"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+      "updated": "2026-10-15T16:41:52.399Z",
+      "version": "extractDocs.js@commit:0f51bb226575"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2474",
+      "RFC2661",
+      "RFC2784",
+      "RFC3168",
+      "RFC3931",
+      "RFC4301",
+      "RFC4380",
+      "RFC5129",
+      "RFC6040",
+      "RFC6660",
+      "RFC7450",
+      "RFC9599"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+      "updated": "2026-10-14T18:51:37.807Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9601/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+    "updated": "2026-10-14T18:51:37.807Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+      "updated": "2026-10-14T18:51:37.807Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amends": [
+      "RFC2661",
+      "RFC2784",
+      "RFC3931",
+      "RFC4380",
+      "RFC6040",
+      "RFC7450"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+      "updated": "2026-10-14T18:51:37.807Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+      "updated": "2026-10-14T18:51:37.807Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+      "updated": "2026-10-14T18:51:37.807Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+      "updated": "2026-10-14T18:51:37.807Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9601/",
+      "updated": "2026-10-14T18:51:37.807Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

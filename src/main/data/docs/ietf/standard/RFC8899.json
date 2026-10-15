@@ -1,0 +1,290 @@
+{
+  "abstract": "This document specifies Datagram Packetization Layer Path MTU Discovery (DPLPMTUD). This is a robust method for Path MTU Discovery (PMTUD) for datagram Packetization Layers (PLs). It allows a PL, or a datagram application that uses a PL, to discover whether a network path can support the current size of datagram. This can be used to detect and reduce the message size when a sender encounters a packet black hole. It can also probe a network path to discover whether the maximum packet size can be increased. This provides functionality for datagram transports that is equivalent to the PLPMTUD specification for TCP, specified in RFC 4821, which it updates. It also updates the UDP Usage Guidelines to refer to this method for use with UDP datagrams and updates SCTP. The document provides implementation notes for incorporating Datagram PMTUD into IETF datagram transports or applications that use datagram transports. This specification updates RFC 4960, RFC 4821, RFC 6951, RFC 8085, and RFC 8261.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Gorry Fairhurst"
+    },
+    {
+      "name": "Tom Jones"
+    },
+    {
+      "name": "Michael Tüxen"
+    },
+    {
+      "name": "Irene Ruengeler"
+    },
+    {
+      "name": "Timo Völker"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC8899",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 8899",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "8899",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "Packetization Layer Path MTU Discovery for Datagram Transports",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC8899",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC8899",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "keywords": [
+    "UDP",
+    "SCTP",
+    "Transport",
+    "PMTUD"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "UDP",
+      "SCTP",
+      "Transport",
+      "PMTUD",
+      "PLPMTUD"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T17:06:04.053Z",
+    "version": "extractDocs.js@commit:8aec15acefbb"
+  },
+  "pages": "35",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2020-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-quic-transport-29",
+      "RFC792",
+      "RFC1122",
+      "RFC1812",
+      "RFC2923",
+      "RFC4340",
+      "RFC4443",
+      "RFC4821",
+      "RFC4890",
+      "RFC5508",
+      "RFC8900",
+      "IETF.draft-ietf-intarea-tunnels-10"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+      "updated": "2026-10-14T16:16:39.281Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "normative": [
+      "RFC8085",
+      "RFC768",
+      "RFC791",
+      "RFC1191",
+      "RFC2119",
+      "RFC3828",
+      "RFC4820",
+      "RFC4960",
+      "RFC6951",
+      "RFC8174",
+      "RFC8200",
+      "RFC8201",
+      "RFC8261"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+      "updated": "2026-10-14T16:16:39.281Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8899/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+    "updated": "2026-10-14T16:16:39.281Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+      "updated": "2026-10-14T16:16:39.281Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amends": [
+      "RFC4821",
+      "RFC4960",
+      "RFC6951",
+      "RFC8085",
+      "RFC8261"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+      "updated": "2026-10-14T16:16:39.281Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+      "updated": "2026-10-14T16:16:39.281Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+      "updated": "2026-10-14T16:16:39.281Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+      "updated": "2026-10-14T16:16:39.281Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8899/",
+      "updated": "2026-10-14T16:16:39.281Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}

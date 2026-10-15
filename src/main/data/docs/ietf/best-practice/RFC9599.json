@@ -1,0 +1,340 @@
+{
+  "abstract": "The purpose of this document is to guide the design of congestion notification in any lower-layer or tunnelling protocol that encapsulates IP. The aim is for explicit congestion signals to propagate consistently from lower-layer protocols into IP. Then, the IP internetwork layer can act as a portability layer to carry congestion notification from non-IP-aware congested nodes up to the transport layer (L4). Specifications that follow these guidelines, whether produced by the IETF or other standards bodies, should assure interworking among IP-layer and lower-layer congestion notification mechanisms. This document is included in BCP 89 and updates the single paragraph of advice to subnetwork designers about Explicit Congestion Notification (ECN) in Section 13 of RFC 3819 by replacing it with a reference to this document.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Bob Briscoe"
+    },
+    {
+      "name": "John Kaippallimalil"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC9599",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 9599",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "9599",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Guidelines for Adding Congestion Notification to Protocols that Encapsulate IP",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Best Practice",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC9599",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC9599",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "Congestion Control",
+    "Congestion Notification",
+    "Information Security",
+    "Tunnel",
+    "Encapsulation",
+    "Decapsulation",
+    "Protocol",
+    "ECN"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "pages": "28",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2024-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "ISBN.9780201485240",
+      "10.1002-j.1538-7305.1953.tb01433.x",
+      "3GPP.TS-29.060",
+      "3GPP.TS-29.281",
+      "3GPP.TS-29.274",
+      "10.1109-IEEESTD.2022.10004498",
+      "IETF.draft-ietf-intarea-gue-09",
+      "T-REC-I.371.2004",
+      "10.1109-TC.1985.6312192",
+      "3GPP.TS-36.300",
+      "RFC2003",
+      "RFC2473",
+      "RFC2637",
+      "RFC2661",
+      "RFC2784",
+      "RFC2884",
+      "RFC2983",
+      "RFC3931",
+      "RFC4301",
+      "RFC4380",
+      "RFC5415",
+      "RFC6633",
+      "RFC6660",
+      "RFC7323",
+      "RFC7348",
+      "RFC7567",
+      "RFC7637",
+      "RFC7713",
+      "RFC7780",
+      "RFC8084",
+      "RFC8087",
+      "RFC8174",
+      "RFC8257",
+      "RFC8300",
+      "RFC8311",
+      "RFC8926",
+      "RFC9300",
+      "RFC9331",
+      "RFC9601",
+      "3GPP.TS-25.401",
+      "orphan/RFC9599/h:5f3f2aaf"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+        "ISBN.9780201485240",
+        "10.1002-j.1538-7305.1953.tb01433.x",
+        "10.1109-IEEESTD.2022.10004498",
+        "IETF.draft-ietf-intarea-gue-09",
+        "T-REC-I.371.2004",
+        "10.1109-TC.1985.6312192",
+        "RFC2003",
+        "RFC2473",
+        "RFC2637",
+        "RFC2661",
+        "RFC2784",
+        "RFC2884",
+        "RFC2983",
+        "RFC3931",
+        "RFC4301",
+        "RFC4380",
+        "RFC5415",
+        "RFC6633",
+        "RFC6660",
+        "RFC7323",
+        "RFC7348",
+        "RFC7567",
+        "RFC7637",
+        "RFC7713",
+        "RFC7780",
+        "RFC8084",
+        "RFC8087",
+        "RFC8174",
+        "RFC8257",
+        "RFC8300",
+        "RFC8311",
+        "RFC8926",
+        "RFC9300",
+        "RFC9331",
+        "RFC9601",
+        "orphan/RFC9599/h:5f3f2aaf",
+        "orphan/RFC9599/h:88574b6c",
+        "orphan/RFC9599/h:28dc1822",
+        "orphan/RFC9599/h:7bc88027",
+        "orphan/RFC9599/h:3e8e1f60",
+        "orphan/RFC9599/h:dbc1642b"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+      "updated": "2026-10-15T16:41:52.028Z",
+      "version": "extractDocs.js@commit:0f51bb226575"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3168",
+      "RFC3819",
+      "RFC4774",
+      "RFC5129",
+      "RFC6040",
+      "RFC7141",
+      "RFC9600"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+      "updated": "2026-10-14T18:51:37.342Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9599/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+    "updated": "2026-10-14T18:51:37.342Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+      "updated": "2026-10-14T18:51:37.342Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amends": [
+      "RFC3819"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+      "updated": "2026-10-14T18:51:37.342Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+      "updated": "2026-10-14T18:51:37.342Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+      "updated": "2026-10-14T18:51:37.342Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Best Current Practice",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+      "updated": "2026-10-14T18:51:37.342Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9599/",
+      "updated": "2026-10-14T18:51:37.342Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

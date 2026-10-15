@@ -1,0 +1,286 @@
+{
+  "abstract": "This document defines how Datagram Transport Layer Security (DTLS), Real-time Transport Protocol (RTP), RTP Control Protocol (RTCP), Session Traversal Utilities for NAT (STUN), Traversal Using Relays around NAT (TURN), and ZRTP packets are multiplexed on a single receiving socket. It overrides the guidance from RFC 5764 (\"SRTP Extension for DTLS\"), which suffered from four issues described and fixed in this document. This document updates RFC 5764.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Marc Petit-Huguenin"
+    },
+    {
+      "name": "Gonzalo Salgueiro"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC7983",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 7983",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "7983",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "Multiplexing Scheme Updates for Secure Real-time Transport Protocol (SRTP) Extension for Datagram Transport Layer Security (DTLS)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC7983",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC7983",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "keywords": [
+    "TLS",
+    "STUN",
+    "TURN",
+    "TURN Channel Numbers",
+    "STUN Methods",
+    "DTLS-SRTP",
+    "ZRTP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "TLS",
+      "STUN",
+      "TURN",
+      "TURN Channel Numbers",
+      "STUN Methods",
+      "RFC 5764",
+      "SRTP-DTLS",
+      "ZRTP"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T17:04:07.699Z",
+    "version": "extractDocs.js@commit:8aec15acefbb"
+  },
+  "pages": "13",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2016-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4347",
+      "RFC6189",
+      "RFC7345",
+      "IETF.draft-ietf-mmusic-sdp-bundle-negotiation-32"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=13 proseBlocks=18 skippedAnchorBlocks=15",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+      "updated": "2026-10-14T16:15:08.682Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3550",
+      "RFC3711",
+      "RFC5245",
+      "RFC5246",
+      "RFC5389",
+      "RFC5764",
+      "RFC5766",
+      "RFC6347"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+      "updated": "2026-10-14T16:15:08.682Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7983/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+    "updated": "2026-10-14T16:15:08.682Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+      "updated": "2026-10-14T16:15:08.682Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amendedBy": [
+      "RFC9443"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+      "updated": "2026-10-14T16:15:08.682Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amends": [
+      "RFC5764"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+      "updated": "2026-10-14T16:15:08.682Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+      "updated": "2026-10-14T16:15:08.682Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+      "updated": "2026-10-14T16:15:08.682Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+      "updated": "2026-10-14T16:15:08.682Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7983/",
+      "updated": "2026-10-14T16:15:08.682Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}

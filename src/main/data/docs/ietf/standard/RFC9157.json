@@ -1,0 +1,252 @@
+{
+  "abstract": "This document changes the review requirements needed to get DNSSEC algorithms and resource records added to IANA registries. It updates RFC 6014 to include hash algorithms for Delegation Signer (DS) records and NextSECure version 3 (NSEC3) parameters (for Hashed Authenticated Denial of Existence). It also updates RFCs 5155 and 6014, which have requirements for DNSSEC algorithms, and updates RFC 8624 to clarify the implementation recommendation related to the algorithms described in RFCs that are not on the standards track. The rationale for these changes is to bring the requirements for DS records and hash algorithms used in NSEC3 in line with the requirements for all other DNSSEC algorithms.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Paul E. Hoffman"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC9157",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 9157",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "9157",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "Revised IANA Considerations for DNSSEC",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC9157",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC9157",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "pages": "5",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2021-12-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3658"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+      "updated": "2026-10-14T16:17:00.070Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4033",
+      "RFC4034",
+      "RFC4035",
+      "RFC5155",
+      "RFC6014",
+      "RFC8126",
+      "RFC8174",
+      "RFC8624"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+      "updated": "2026-10-14T16:17:00.070Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9157/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+    "updated": "2026-10-14T16:17:00.070Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+      "updated": "2026-10-14T16:17:00.070Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amendedBy": [
+      "RFC9904"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+      "updated": "2026-10-14T16:17:00.070Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amends": [
+      "RFC5155",
+      "RFC6014",
+      "RFC8624"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+      "updated": "2026-10-14T16:17:00.070Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+      "updated": "2026-10-14T16:17:00.070Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+      "updated": "2026-10-14T16:17:00.070Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+      "updated": "2026-10-14T16:17:00.070Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9157/",
+      "updated": "2026-10-14T16:17:00.070Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}

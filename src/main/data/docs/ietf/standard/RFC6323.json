@@ -1,0 +1,261 @@
+{
+  "abstract": "This document specifies an update to the round-trip time (RTT) estimation algorithm used for TFRC (TCP-Friendly Rate Control) congestion control by the Datagram Congestion Control Protocol (DCCP). It updates specifications for the CCID-3 and CCID-4 Congestion Control IDs of DCCP. The update addresses parameter-estimation problems occurring with TFRC-based DCCP congestion control. It uses a recommendation made in the original TFRC specification to avoid the inherent problems of receiver-based RTT sampling, by utilising higher-accuracy RTT samples already available at the sender. It is integrated into the feature set of DCCP as an end-to-end negotiable extension. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "authors": [
+    {
+      "name": "Gerrit Renker"
+    },
+    {
+      "name": "Gorry Fairhurst"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docId": "RFC6323",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docLabel": "IETF RFC 6323",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docNumber": "6323",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docTitle": "Sender RTT Estimate Option for the Datagram Congestion Control Protocol (DCCP)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "doi": "10.17487/RFC6323",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "href": "https://doi.org/10.17487/RFC6323",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "keywords": [
+    "DCCP",
+    "TFRC",
+    "CCID3",
+    "CCID4"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "DCCP",
+      "TFRC",
+      "CCID-3",
+      "CCID-4"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-14T15:57:06.797Z",
+    "version": "extractDocs.js@commit:ca62cd19765f"
+  },
+  "pages": "13",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publicationDate": "2011-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2140",
+      "orphan/RFC6323/h:969565da"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=9 proseBlocks=12 skippedAnchorBlocks=10",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+      "updated": "2026-10-13T22:25:53.934Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4340",
+      "RFC4342",
+      "RFC5348",
+      "RFC5622"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+      "updated": "2026-10-13T22:25:53.934Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6323/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+    "updated": "2026-10-13T22:25:53.934Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+      "updated": "2026-10-13T22:25:53.934Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "amends": [
+      "RFC4342",
+      "RFC5622"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+      "updated": "2026-10-13T22:25:53.934Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+      "updated": "2026-10-13T22:25:53.934Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+      "updated": "2026-10-13T22:25:53.934Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+      "updated": "2026-10-13T22:25:53.934Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6323/",
+      "updated": "2026-10-13T22:25:53.934Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  }
+}

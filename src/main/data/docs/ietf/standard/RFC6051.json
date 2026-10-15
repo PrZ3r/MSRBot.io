@@ -1,0 +1,271 @@
+{
+  "abstract": "This memo outlines how RTP sessions are synchronised, and discusses how rapidly such synchronisation can occur. We show that most RTP sessions can be synchronised immediately, but that the use of video switching multipoint conference units (MCUs) or large source-specific multicast (SSM) groups can greatly increase the synchronisation delay. This increase in delay can be unacceptable to some applications that use layered and/or multi-description codecs. This memo introduces three mechanisms to reduce the synchronisation delay for such sessions. First, it updates the RTP Control Protocol (RTCP) timing rules to reduce the initial synchronisation delay for SSM sessions. Second, a new feedback packet is defined for use with the extended RTP profile for RTCP-based feedback (RTP/AVPF), allowing video switching MCUs to rapidly request resynchronisation. Finally, new RTP header extensions are defined to allow rapid synchronisation of late joiners, and guarantee correct timestamp-based decoding order recovery for layered codecs in the presence of clock skew. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "authors": [
+    {
+      "name": "Colin Perkins"
+    },
+    {
+      "name": "Thomas Schierl"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docId": "RFC6051",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docLabel": "IETF RFC 6051",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docNumber": "6051",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docTitle": "Rapid Synchronisation of RTP Flows",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "doi": "10.17487/RFC6051",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "href": "https://doi.org/10.17487/RFC6051",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "keywords": [
+    "RTCP",
+    "MCU",
+    "SSM"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "RTCP",
+      "Mcu",
+      "Multipoint Conference Units",
+      "SSM",
+      "Source-specific Multicast"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-14T15:56:51.629Z",
+    "version": "extractDocs.js@commit:ca62cd19765f"
+  },
+  "pages": "22",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publicationDate": "2010-11-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3556",
+      "RFC3711",
+      "RFC5117",
+      "RFC5245",
+      "RFC5576",
+      "RFC5691",
+      "RFC5764",
+      "orphan/RFC6051/h:91d8a464",
+      "orphan/RFC6051/h:18a385ca",
+      "orphan/RFC6051/h:0b7489eb"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=18 proseBlocks=24 skippedAnchorBlocks=20",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+      "updated": "2026-10-13T22:25:34.522Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3550",
+      "RFC4585",
+      "RFC5285",
+      "RFC5506",
+      "RFC5583",
+      "RFC5760",
+      "RFC5905"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+      "updated": "2026-10-13T22:25:34.522Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6051/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+    "updated": "2026-10-13T22:25:34.522Z",
+    "version": "extractDocs.js@commit:fd871efde64d"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+      "updated": "2026-10-13T22:25:34.522Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "amends": [
+      "RFC3550"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+      "updated": "2026-10-13T22:25:34.522Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+      "updated": "2026-10-13T22:25:34.522Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+      "updated": "2026-10-13T22:25:34.522Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+      "updated": "2026-10-13T22:25:34.522Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6051/",
+      "updated": "2026-10-13T22:25:34.522Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    }
+  }
+}

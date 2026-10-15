@@ -1,0 +1,298 @@
+{
+  "abstract": "Real-time media streams that use RTP are, to some degree, resilient against packet losses. Receivers may use the base mechanisms of the Real-time Transport Control Protocol (RTCP) to report packet reception statistics and thus allow a sender to adapt its transmission behavior in the mid-term. This is the sole means for feedback and feedback-based error repair (besides a few codec-specific mechanisms). This document defines an extension to the Audio-visual Profile (AVP) that enables receivers to provide, statistically, more immediate feedback to the senders and thus allows for short-term adaptation and efficient feedback-based repair mechanisms to be implemented. This early feedback profile (AVPF) maintains the AVP bandwidth constraints for RTCP and preserves scalability to large groups. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "authors": [
+    {
+      "name": "Joerg Ott"
+    },
+    {
+      "name": "Stephan Wenger"
+    },
+    {
+      "name": "Noriyuki Sato"
+    },
+    {
+      "name": "Carsten Burmeister"
+    },
+    {
+      "name": "Jose Rey"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docId": "RFC4585",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docLabel": "IETF RFC 4585",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docNumber": "4585",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docTitle": "Extended RTP Profile for Real-time Transport Control Protocol (RTCP)-Based Feedback (RTP/AVPF)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "doi": "10.17487/RFC4585",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "href": "https://doi.org/10.17487/RFC4585",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "keywords": [
+    "Media Stream",
+    "Audio Visual Profile"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Media Stream",
+      "Feedback Based Error",
+      "Audio Visual Profile"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-15T16:40:54.406Z",
+    "version": "extractDocs.js@commit:0f51bb226575"
+  },
+  "pages": "51",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publicationDate": "2006-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3388",
+      "RFC2354",
+      "RFC2733",
+      "RFC2198",
+      "RFC2429",
+      "ISO.14496-2.2001",
+      "T-REC-H.263.2000",
+      "RFC2833",
+      "RFC4340",
+      "RFC3711",
+      "RFC3016",
+      "T-REC-H.245.2006",
+      "orphan/RFC4585/h:19f8787b",
+      "orphan/RFC4585/h:16b97b09"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=25 proseBlocks=30 skippedAnchorBlocks=26",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+      "updated": "2026-10-14T18:50:38.312Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "normative": [
+      "RFC3550",
+      "RFC3551",
+      "RFC4566",
+      "RFC3556",
+      "RFC2119",
+      "RFC2032",
+      "RFC3448",
+      "RFC3264",
+      "RFC2434"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+      "updated": "2026-10-14T18:50:38.312Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4585/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+    "updated": "2026-10-14T18:50:38.312Z",
+    "version": "extractDocs.js@commit:673dd514c094"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+      "updated": "2026-10-14T18:50:38.312Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "amendedBy": [
+      "RFC5506",
+      "RFC8108"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+      "updated": "2026-10-14T18:50:38.312Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+      "updated": "2026-10-14T18:50:38.312Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc4585",
+      "https://www.rfc-editor.org/errata_search.php?rfc=4585",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc4585.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+      "updated": "2026-10-14T18:50:38.312Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+      "updated": "2026-10-14T18:50:38.312Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+      "updated": "2026-10-14T18:50:38.312Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4585/",
+      "updated": "2026-10-14T18:50:38.312Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    }
+  }
+}

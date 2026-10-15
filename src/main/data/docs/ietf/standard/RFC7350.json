@@ -1,0 +1,259 @@
+{
+  "abstract": "This document specifies the usage of Datagram Transport Layer Security (DTLS) as a transport protocol for Session Traversal Utilities for NAT (STUN). It provides guidance on when and how to use DTLS with the currently standardized STUN usages. It also specifies modifications to the STUN and Traversal Using Relay NAT (TURN) URIs and to the TURN resolution mechanism to facilitate the resolution of STUN and TURN URIs into the IP address and port of STUN and TURN servers supporting DTLS as a transport protocol. This document updates RFCs 5389 and 5928.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Marc Petit-Huguenin"
+    },
+    {
+      "name": "Gonzalo Salgueiro"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC7350",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 7350",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "7350",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "Datagram Transport Layer Security (DTLS) as Transport for Session Traversal Utilities for NAT (STUN)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC7350",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC7350",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "keywords": [
+    "Security Encryption"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "pages": "16",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2014-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "bibliographic": [
+      "orphan/RFC7350/h:a170f545",
+      "orphan/RFC7350/h:8c747303"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "note": "Citations without a standard ID, kept as MRI orphan refs (or resolved once the reference label was stripped)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+      "updated": "2026-10-14T16:17:13.462Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3489",
+      "RFC3958",
+      "RFC5245",
+      "RFC5246",
+      "RFC5389",
+      "RFC5626",
+      "RFC5764",
+      "RFC5766",
+      "RFC5928",
+      "RFC6062",
+      "RFC6335",
+      "RFC6347",
+      "RFC7064",
+      "RFC7065"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+      "updated": "2026-10-14T16:14:25.626Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7350/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+    "updated": "2026-10-14T16:14:25.626Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+      "updated": "2026-10-14T16:14:25.626Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amends": [
+      "RFC5389",
+      "RFC5928"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+      "updated": "2026-10-14T16:14:25.626Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+      "updated": "2026-10-14T16:14:25.626Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+      "updated": "2026-10-14T16:14:25.626Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+      "updated": "2026-10-14T16:14:25.626Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7350/",
+      "updated": "2026-10-14T16:14:25.626Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}

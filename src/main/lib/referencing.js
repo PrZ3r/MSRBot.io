@@ -1125,7 +1125,9 @@ function parseRefId(text, href = '', opts = {}) {
   text = normalizePublisherLeadIn(normalizeCiteTypography(text));
   // "ANSI INCITS.342:2001" (RFC3821) → "INCITS 342-2001"; a W3C TR name wrapped after its stage
   // ("W3C REC REC- html40-19980424", RFC5122) is rejoined.
-  text = String(text || '').replace(/\bINCITS\.(\d{2,4})(?::|-)((?:19|20)\d{2})\b/g, 'INCITS $1-$2')
+  // also "ANSI/INCITS 357:2002" (RFC4172)
+  text = String(text || '').replace(/\bANSI\s*\/\s*INCITS\b/g, 'ANSI INCITS')
+    .replace(/\bINCITS[.\s](\d{2,4})(?::|-)((?:19|20)\d{2})\b/g, 'INCITS $1-$2')
     .replace(/\b(REC|WD|CR|PR|NOTE)-\s+([a-z][\w.-]*-(?:19|20)\d{6})\b/g, '$1-$2');
   // A part number wrapped onto the next line: "ISO/IEC 9594- 8:2001" (RFC3546, RFC4510) gave "ISO.9594-".
   text = String(text || '').replace(/(\bISO(?:\s*\/\s*(?:IEC|DIS|FDIS|CD))?\s+\d{3,5})-\s+(\d)/g, '$1-$2');
@@ -1162,6 +1164,18 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // WHATWG living standards by their spec host or name: "WHATWG, "URL Living Standard",
+  // <https://url.spec.whatwg.org/>" (RFC8089) → WHATWG.URL; FETCH and HTML as refMap already has them.
+  {
+    const host = String(href || '').match(/\b([a-z][a-z0-9-]*)\.spec\.whatwg\.org\b/i)
+      || String(text || '').match(/\b([a-z][a-z0-9-]*)\.spec\.whatwg\.org\b/i);
+    const named = !host && String(text || '').match(/\bWHATWG\b[,.]?\s*["“]?\s*([A-Za-z][A-Za-z0-9 -]{1,40}?)\s*[-–:]?\s*Living\s+Standard\b/i);
+    const name = host ? host[1] : (named ? named[1].trim().split(/\s+/)[0] : '');
+    if (name) {
+      const refId = `WHATWG.${name.toUpperCase()}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'whatwg-living-standard' } } : refId;
+    }
+  }
   // W3C dated stage docs under /TR/YYYY/, e.g.:
   // - .../TR/2017/REC-foo-20170101
   // - .../TR/2017/CR-referrer-policy-20170126
@@ -1414,8 +1428,12 @@ function parseRefId(text, href = '', opts = {}) {
     // Direct form: "3GPP TS 33.501" or "3GPP Technical Specification 33.501"
     const direct = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{3})\b/i);
     // Split form: "3GPP, ... TS 33.501, ..." (3GPP appears earlier, TS appears later)
-    const split = has3gpp ? src.match(/\bTS\s+(\d{2})\.(\d{3})\b/i) : null;
-    const m3gpp = direct || split;
+    // also "3GPP, "…", Technical Specification 29.281." and a Technical Report "3GPP TR 23.793" (RFC9599, RFC9522)
+    const split = has3gpp ? src.match(/\b(?:TS|Technical\s+Specification|(TR))\s+(\d{2})\.(\d{3})\b/i) : null;
+    const m3gpp = direct || (split && [split[0], split[2], split[3]]);
+    const kind = !direct && split && split[1] ? 'TR' : 'TS';
+    // An ETSI-numbered TR ("ETSI TR 126 928 … (3GPP TR 26.928)") is the ETSI publication: the ETSI rule keeps it.
+    if (kind === 'TR' && /\bETSI\b/.test(src) && /\bTR\s+\d{3}\s+\d{3}\b/.test(src)) m3gpp[1] = '';
     if (m3gpp?.[1] && m3gpp?.[2] && has3gpp) {
       const spec = `${m3gpp[1]}.${m3gpp[2]}`;
       const monthMap = {
@@ -1441,7 +1459,7 @@ function parseRefId(text, href = '', opts = {}) {
         const y = src.match(/\b(19|20)\d{2}\b/);
         if (y?.[0]) suffix = String(y[0]);
       }
-      const refId = `3GPP.TS-${spec}${suffix ? `.${suffix}` : ''}`;
+      const refId = `3GPP.${kind}-${spec}${suffix ? `.${suffix}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: direct ? '3gpp-ts-direct' : '3gpp-ts-split' } } : refId;
     }
   }
@@ -1726,7 +1744,8 @@ function parseRefId(text, href = '', opts = {}) {
       }
     }
     // ("ITU-T …" is left to the rules below, which keep it undated.)
-    const bare = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?ITU\s+([A-Z])\.\s?(\d{1,4}(?:\.\d{1,2})?)(?:-(\d+))?(?=[\s,.:;)-]|$)/);
+    // also after a title: "Distributed Call and Connection Management …, ITU G.7713.3, January 2003" (RFC3475)
+    const bare = String(text || '').match(/(?:^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?|,\s+)ITU\s+([A-Z])\.\s?(\d{1,4}(?:\.\d{1,2})?)(?:-(\d+))?(?=[\s,.:;)-]|$)/);
     if (bare) {
       const series = bare[1].toUpperCase();
       const part = bare[3] ? `-${parseInt(bare[3], 10)}` : '';
@@ -1795,8 +1814,10 @@ function parseRefId(text, href = '', opts = {}) {
     }
     // Spelled out with a bare X-series designator: "American National Standards Institute,
     // "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985." (RFC2828)
-    const spelled = !m && /\bAmerican\s+National\s+Standards\s+Institute\b/.test(String(text || ''))
-      && String(text || '').match(/(?<![\w.\/])(X\d{1,2})\.(\d{1,3})\b(?![.\/]\d)(?:[^\n]{0,80}?\b((?:19|20)\d{2})\b)?/);
+    // also "American National Standard for Telecommunications -- …, T1.403, February 1989" (RFC4805);
+    // a hyphenated label ("ANSI-T1.403 …") is skipped so the dated designator in the body is used.
+    const spelled = !m && /\bAmerican\s+National\s+Standards?\s+(?:Institute|for)\b/.test(String(text || ''))
+      && String(text || '').match(/(?<![\w.\/-])(X\d{1,2}|T1)\.(\d{1,3}(?:\.\d{2})?)\b(?![.\/]\d)(?:[^\n]{0,80}?\b((?:19|20)\d{2})\b)?/);
     if (spelled) {
       // US-ASCII (X3.4) is filed under INCITS, as refMap does for "ANSI X3.4, 1986".
       const pub = spelled[1] === 'X3' && spelled[2] === '4' ? 'INCITS' : 'ANSI';
@@ -1981,6 +2002,24 @@ function parseRefId(text, href = '', opts = {}) {
       const refId = `RSA.PKCS${n[1]}.v${ver[1]}.${y[1]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rsa-pkcs' } } : refId;
     }
+    // No version, only a date ("PKCS #11 Cryptographic Token Interface Standard, RSA Laboratories,
+    // December 1999", RFC4387): RSA published one edition per year, so the year names it. A year
+    // with no known edition stays undated rather than rolling to a neighbour.
+    // The standard itself, titled "PKCS #n…": not a paper about it ("Recent Results on PKCS #1", RFC3218).
+    const titled = /(?:^|["“,]|\]\s*)\s*(?:The\s+Public-Key\s+Cryptography\s+Standards\s*[-–:]\s*)?PKCS\s*#\s*\d/i.test(src);
+    if (n && !ver && titled) {
+      const editions = {
+        1: { 1991: '1.4', 1993: '1.5', 1998: '2.0', 2002: '2.1', 2012: '2.2' }, 3: { 1993: '1.4' },
+        5: { 1993: '1.5', 1999: '2.0' }, 6: { 1993: '1.5' }, 7: { 1993: '1.5' }, 8: { 1993: '1.2' },
+        9: { 1993: '1.1', 2000: '2.0' }, 10: { 1993: '1.0', 2000: '1.7' },
+        11: { 1995: '1.0', 1997: '2.01', 1999: '2.10', 2001: '2.11', 2004: '2.20' },
+        12: { 1999: '1.0', 2012: '1.1' }, 15: { 1999: '1.0', 2000: '1.1' },
+      };
+      const yr = (src.match(/\b((?:19|20)\d{2})\b/) || [])[1];
+      const v = yr && (editions[n[1]] || {})[yr];
+      const refId = v ? `RSA.PKCS${n[1]}.v${v}.${yr}` : `RSA.PKCS${n[1]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'rsa-pkcs-dated' } } : refId;
+    }
   }
 
   // SECG: "Standards for Efficient Cryptography Group, SEC 1: …, Version 1.0, September 2000"
@@ -2156,10 +2195,11 @@ function parseRefId(text, href = '', opts = {}) {
   // xml2rfc's "ISO Standard 10646:2014, 2014" / "ISO Standard 26324, 2012": the series
   // name sits between ISO and the number, and the year may follow a comma.
   {
-    const m = String(text || '').match(/\bISO\s+Standard\s+(\d+(?:-\d+)*)(?::((?:19|20)\d{2}))?(?:\s*,\s*(?:[A-Z][a-z]+\s+)?((?:19|20)\d{2})\b)?/);
+    // also "ISO/IEC Standard 8601, December 2000" (RFC7826)
+    const m = String(text || '').match(/\bISO(?:\s*\/\s*IEC)?\s+Standard\s+(\d+(?:(?:-|–|&#x2013;|&ndash;)\d+)*)(?::((?:19|20)\d{2}))?(?:\s*,\s*(?:[A-Z][a-z]+\s+)?((?:19|20)\d{2})\b)?/);
     if (m) {
       const year = m[2] || m[3];
-      const refId = `ISO.${m[1]}${year ? `.${year}` : ''}`;
+      const refId = `ISO.${m[1].replace(/–|&#x2013;|&ndash;/g, '-')}${year ? `.${year}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-standard-xml2rfc' } } : refId;
     }
   }
@@ -2705,6 +2745,13 @@ function extractRefs($, currentDocId, opts = {}) {
         if (!refsPositions.length) refsPositions = [firstBibPos];
       }
       refsPositions = Array.from(new Set(refsPositions)).sort((a, b) => a - b);
+      // A numbered "References" subsection ahead of a top-level References section documents a
+      // header of that name (RFC1849 §6.5, the Usenet References header), not the bibliography (§12).
+      {
+        const idAt = (p) => ((raw.slice(p, p + 300).match(/\bid=["'](?:section|appendix)-([^"']+)["']/) || [])[1] || '');
+        const firstTop = refsPositions.find((p) => /^[A-Za-z0-9]+$/.test(idAt(p)));
+        if (firstTop !== undefined) refsPositions = refsPositions.filter((p) => p >= firstTop || !/\./.test(idAt(p)));
+      }
       // A "Normative References" section that discusses references (RFC3967 §1.1) has a twin
       // under the document's own "References" heading (§6.1): keep the twin only.
       if (refsPositions.length) {

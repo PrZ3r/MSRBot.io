@@ -1,0 +1,340 @@
+{
+  "abstract": "This document describes a simple and efficient mechanism to detect data-plane failures in Multiprotocol Label Switching (MPLS) Label Switched Paths (LSPs). It defines a probe message called an \"MPLS echo request\" and a response message called an \"MPLS echo reply\" for returning the result of the probe. The MPLS echo request is intended to contain sufficient information to check correct operation of the data plane and to verify the data plane against the control plane, thereby localizing faults. This document obsoletes RFCs 4379, 6424, 6829, and 7537, and updates RFC 1122.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "authors": [
+    {
+      "name": "Kireeti Kompella"
+    },
+    {
+      "name": "George Swallow"
+    },
+    {
+      "name": "Carlos Pignataro"
+    },
+    {
+      "name": "Nagendra Kumar Nainar"
+    },
+    {
+      "name": "Sam Aldrin"
+    },
+    {
+      "name": "Mach Chen"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docId": "RFC8029",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docLabel": "IETF RFC 8029",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docNumber": "8029",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docTitle": "Detecting Multiprotocol Label Switched (MPLS) Data-Plane Failures",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "doi": "10.17487/RFC8029",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "href": "https://doi.org/10.17487/RFC8029",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "keywords": [
+    "LSP Ping"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "MPLS Echo Request",
+      "MPLS Echo Reply"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T17:04:12.153Z",
+    "version": "extractDocs.js@commit:8aec15acefbb"
+  },
+  "pages": "78",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publicationDate": "2017-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC792",
+      "RFC3107",
+      "RFC3209",
+      "RFC3443",
+      "RFC4026",
+      "RFC4365",
+      "RFC4461",
+      "RFC4761",
+      "RFC5036",
+      "RFC5085",
+      "RFC5331",
+      "RFC5462",
+      "RFC5885",
+      "RFC6425",
+      "RFC6426",
+      "RFC6829",
+      "RFC7537",
+      "RFC8012",
+      "RFC8077",
+      "RFC4447",
+      "orphan/RFC8029/h:ca59b60a",
+      "orphan/RFC8029/h:b539d920",
+      "orphan/RFC8029/h:eb1b7389"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=42 proseBlocks=49 skippedAnchorBlocks=45",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "normative": [
+      "RFC1122",
+      "RFC1812",
+      "RFC2113",
+      "RFC2119",
+      "RFC3032",
+      "RFC4271",
+      "RFC4379",
+      "RFC5226",
+      "RFC5905",
+      "RFC6424",
+      "RFC7506"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8029/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+    "updated": "2026-10-14T16:15:17.132Z",
+    "version": "extractDocs.js@commit:1ff63569c1a0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amendedBy": [
+      "RFC8611",
+      "RFC9041",
+      "RFC9570"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "amends": [
+      "RFC1122"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8029",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8029",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8029.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "supersedes": [
+      "RFC4379",
+      "RFC6424",
+      "RFC6829",
+      "RFC7537"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8029/",
+      "updated": "2026-10-14T16:15:17.132Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    }
+  }
+}

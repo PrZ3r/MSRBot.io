@@ -110,6 +110,7 @@ function citeWithoutLabel(raw) {
     // labels may start with a digit and run long: "802.1X", "3GPP-SA3-030736",
     // "11-05-0822-03-000u-tgu-requirements" (RFC5113/RFC5281)
     .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')   // "[ISO/IEC-18033-2]"
+    .replace(/^\[\s*[A-Za-z0-9][A-Za-z0-9_.:+\/-]*&(?:amp;)?[A-Za-z0-9_.:+\/-]{1,40}\s*\]\s*(?=\S)/u, '')   // "[AT&T-TR-54016]" (RFC4805)
     .replace(/^[A-Za-z0-9][A-Za-z0-9_.:+\/-]{0,63}\s*\]\s*(?=\S)/u, '')
     // numbered again after a label: "DDN-NEWS:….TXT ] 2. Defense Communications …" (RFC1032,
     // where an entry's bracketed FTP path is read as the next entry's label)
@@ -158,6 +159,8 @@ function isNonCitationLine(cite) {
   if (/^\+-{2,}/.test(c)) return true;
   // A licensing note in the reference list, not a citation (RFC2433, RFC2548, RFC2759).
   if (/^RC4 is a proprietary encryption algorithm\b/i.test(c)) return true;
+  // A trademark notice after the reference list (RFC1044: "HYPERchannel is a trademark of …").
+  if (/^[^"“,;]{1,60}\b(?:is|are)\s+(?:a\s+)?(?:registered\s+)?trademarks?\s+of\b/i.test(c)) return true;
   // An item this memo itself registers (RFC3297: "'Content-alternative' header (this memo, section 4)").
   if (/\(this memo,?\s+section\s+[\d.]+\s*\)\.?$/i.test(c)) return true;
   // Editors' change markers in RFC2616's reference list ("[jg639").
