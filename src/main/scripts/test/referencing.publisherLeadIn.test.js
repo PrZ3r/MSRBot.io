@@ -255,4 +255,9 @@ assert.notStrictEqual(String(parseRefId('ETSI TR 126 928 V16.0.0 (2020-11) - 5G;
 assert.strictEqual(parseRefId('Distributed Call and Connection Management signalling using GMPLS CR-LDP, ITU G.7713.3, Januray 2003.'), 'T-REC-G.7713.3.2003'); n++;
 assert.strictEqual(parseRefId('ANSI/INCITS 357:2002, "Fibre Channel Virtual Interface Architecture Mapping Protocol (FC-VI)", July 2000.'), 'INCITS.357.2002'); n++;
 
+// INCITS by its own number (RFC3980); a placeholder year stays undated (RFC7143); project numbers stay orphans.
+assert.strictEqual(parseRefId('INCITS 373-2003, Fibre Channel Framing and Signaling Interface (FC-FS).'), 'INCITS.373.2003'); n++;
+assert.strictEqual(parseRefId('INCITS Technical Committee T10, "SCSI Primary Commands - 4", ANSI INCITS 513-201x.'), 'INCITS.513'); n++;
+assert.strictEqual(parseRefId('Fibre Channel Protocol - 4 (FCP-4), INCITS Project 1828-D, Technical Committee T10 (www.t10.org).'), null); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
