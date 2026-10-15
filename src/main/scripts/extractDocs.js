@@ -754,23 +754,58 @@ const onlyMatches = (url) => onlyList.some((item) => onlyMatchesOne(item, url));
     const unmatched = onlyList.filter((item) => !urls.some((u) => onlyMatchesOne(item, u)));
     if (unmatched.length) console.warn(`⚠️ --only: not in ${seedPath}: ${unmatched.join(', ')}`);
   }
-  console.log(`\n📂 Processing ${urls.length} ${activeProvider.label} URLs... (seeds added: ${seedsAdded}, seeds skipped: ${seedsSkipped})`);
-  
-  const results = [];
+  // Source of truth is the per-doc registry under src/main/data/docs/ (loaded here so the
+  // provider can tell held docs from new ones before fetching).
+  let existingDocs = loadAllDocs();
 
-  for (const url of urls) {
-    try {
-      const docs = seedSet.has(url)
-        ? await extractFromSeedDoc(url)
-        : await extractFromUrl(url);
-      results.push(...docs);
-    } catch (e) {
-      console.error(`❌ Failed to process ${url}:`, e.message);
+  // Incremental runs (provider opt-in): fetch only seeds whose source changed since the last
+  // snapshot, plus new ones. --full fetches everything (after a parser change); --only always
+  // fetches what it names.
+  const fullRun = process.argv.includes('--full');
+  if (!onlyList && !fullRun && typeof activeProvider.parser.selectSeedsToFetch === 'function') {
+    const heldIds = new Set(existingDocs.map((d) => d && d.docId).filter(Boolean));
+    const sel = await activeProvider.parser.selectSeedsToFetch(urls, { heldIds });
+    if (sel && Array.isArray(sel.urls)) {
+      console.log(`⏭️ Incremental run: ${sel.urls.length} to fetch, ${urls.length - sel.urls.length} unchanged since the last snapshot skipped${sel.note ? ` (${sel.note})` : ''}. Use --full to fetch all.`);
+      urls = sel.urls;
     }
+  } else if (fullRun) {
+    console.log('🔁 --full: fetching every seed.');
   }
 
-  // Source of truth is the per-doc registry under src/main/data/docs/.
-  let existingDocs = loadAllDocs();
+  console.log(`\n📂 Processing ${urls.length} ${activeProvider.label} URLs... (seeds added: ${seedsAdded}, seeds skipped: ${seedsSkipped})`);
+
+  // Fetch seeds a few at a time when the provider paces its own requests per host (it sets
+  // parser.fetchConcurrency; IETF: 4), so network waits overlap without raising the request
+  // rate. Others fetch one at a time. MSR_FETCH_CONCURRENCY overrides. Results keep seed
+  // order; progress prints every MSR_HEARTBEAT_EVERY seeds.
+  const FETCH_CONCURRENCY = Math.max(1, Number(process.env.MSR_FETCH_CONCURRENCY || activeProvider.parser.fetchConcurrency || 1));
+  const FETCH_BEAT_EVERY = Math.max(1, Number(process.env.MSR_HEARTBEAT_EVERY || 50));
+  const fetchStarted = Date.now();
+  const perSeed = new Array(urls.length);
+  let nextSeed = 0, fetched = 0;
+  const fetchWorker = async () => {
+    while (nextSeed < urls.length) {
+      const i = nextSeed++;
+      const url = urls[i];
+      try {
+        perSeed[i] = seedSet.has(url)
+          ? await extractFromSeedDoc(url)
+          : await extractFromUrl(url);
+      } catch (e) {
+        console.error(`❌ Failed to process ${url}:`, e.message);
+      }
+      fetched++;
+      if (fetched % FETCH_BEAT_EVERY === 0 || fetched === urls.length) {
+        const mins = ((Date.now() - fetchStarted) / 60000).toFixed(1);
+        logSmart(`📥 Fetched ${fetched}/${urls.length} (${Math.floor((fetched / urls.length) * 100)}%, ${mins} min)`);
+      }
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(FETCH_CONCURRENCY, urls.length) }, fetchWorker));
+  const results = [];
+  for (const docs of perSeed) if (Array.isArray(docs)) results.push(...docs);
+
 
   const newDocs = [];
   const updatedDocs = [];

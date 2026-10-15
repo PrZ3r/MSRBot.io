@@ -72,6 +72,9 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Runs: `node src/main/scripts/extractDocs.js --provider ietf`
   - Action: Extracts/updates IETF-seeded docs, references, and provenance metadata.
   - `--only <ids|urls|file.json>`: process just these seeds, even ones on the filter list, e.g. `npm run extract-ietf -- --only RFC7595,RFC7615`. Takes doc IDs, seed URLs or draft names (comma-separated), or a JSON array file. For working through a backlog in batches without re-extracting every unfiltered seed.
+  - Incremental by default: an RFC we hold is fetched only when its `rfc-index.xml` entry differs from the committed snapshot (`src/main/input/sources/ietf/rfc-index.xml`). Status changes (obsoleted-by, updated-by, current status, is-also, errata) all show up there; a published RFC's text never changes. New seeds and drafts are always fetched. If a changed RFC fails to extract, the snapshot isn't updated, so it's retried next run.
+  - `--full`: fetch every seed, e.g. after a parser change. On GitHub, tick **full** when running *Extract Documents - IETF* manually; scheduled runs are never full.
+  - Seeds are fetched 4 at a time (`MSR_FETCH_CONCURRENCY` overrides), with a progress line every 50 (`MSR_HEARTBEAT_EVERY`).
   - Requests to each host are paced (400 ms apart by default; set `MSRBOT_REQUEST_GAP_MS` to change it). 403/429/5xx responses are retried up to 3 times with backoff (honouring `Retry-After`).
 
 - `npm run extract-manual -- --input <records.json>`
@@ -270,7 +273,10 @@ This is the canonical CLI reference for local scripts in `package.json`.
   - Console output budget in bytes for smart logger tripwire.
 
 - `MSR_HEARTBEAT_EVERY`
-  - Heartbeat line interval for long extraction runs.
+  - Heartbeat line interval for long extraction runs (merge phase), and the fetch-progress interval (default 50 seeds).
+
+- `MSR_FETCH_CONCURRENCY`
+  - Seeds fetched at once. Default: 4 for IETF (which paces requests per host), 1 for other providers.
 
 - `MSR_HEARTBEAT_PREFIX`
   - Prefix text for heartbeat lines.
