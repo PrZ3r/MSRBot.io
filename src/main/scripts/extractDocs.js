@@ -1332,6 +1332,7 @@ for (const doc of results) {
     const pr = mriPruneToSightings(sightIdx, { removeEmptyRefs: true });
     if ((pr.removedVariants || 0) > 0 || (pr.removedRefs || 0) > 0 || (pr.removedOrphans || 0) > 0) {
       console.log(`🧹 MRI prune during extract: -${pr.removedVariants || 0} variants, -${pr.removedRefs || 0} refs, -${pr.removedOrphans || 0} orphans`);
+      for (const r of pr.removed || []) console.log(`   - ${r}`);
     }
   } catch (e) {
     console.warn(`⚠️ MRI prune during extract failed: ${e.message}`);

@@ -46,6 +46,8 @@ function mriPruneToSightings(index, opts = {}) {
   const mri = _loadMRI();
   let removedVariants = 0;
   let removedRefs = 0;
+  // Every entry removed, with the reason, so a run log shows exactly what a prune dropped.
+  const removed = [];
 
   for (const [refId, entry] of Object.entries(mri.refs || {})) {
     const before = Array.isArray(entry.rawVariants) ? entry.rawVariants.length : 0;
@@ -65,13 +67,15 @@ function mriPruneToSightings(index, opts = {}) {
     // Ask the registry now rather than trusting the stored `resolution.sourcePresent`: prune runs
     // before mriFlush refreshes it, so a renamed or removed doc (CMR.ML → MOVIELABS.CMR) would
     // otherwise survive one more build as an uncited "missing" ref.
+    // "A source doc itself" means its exact docId is registered. An uncited alias that only
+    // resolves to a doc (`SMPTE.RP27.3.1989` → `SMPTE.RP27-3.1989`, `ISO.2022` → `ISO.2022.1994`)
+    // is not one: nothing cites it, so it goes.
     const hasAny = Array.isArray(entry.rawVariants) && entry.rawVariants.length > 0;
-    // An uncited alias whose stored resolvedDocId is a doc we hold (`SMPTE.RP27.3.1989` →
-    // `SMPTE.RP27-3.1989`) is a deliberate redirect: keep it.
-    const isSource = !hasAny && (!!_findSourceDocIdForRefId(refId) || (typeof entry.resolvedDocId === 'string' && _hasDocId(entry.resolvedDocId)));
+    const isSource = !hasAny && _hasDocId(refId);
     if (removeEmptyRefs && !hasAny && !isSource) {
       delete mri.refs[refId];
       removedRefs++;
+      removed.push(`${refId} (${entry.isOrphan ? 'orphan no longer cited' : 'no citations, not a registry doc'})`);
       _dirty = true;
     }
   }
@@ -114,6 +118,7 @@ function mriPruneToSightings(index, opts = {}) {
       const { docGone, nowResolved } = tryResolveOrphan(o && o.docId, o && o.cite, o && o.href, o && o.type);
       if (docGone || nowResolved) {
         removedOrphans++;
+        removed.push(`${(o && o.docId) || '?'} legacy orphan (${docGone ? 'source doc gone' : 'citation now resolves'})`);
         _dirty = true;
       } else {
         keptOrphans.push(o);
@@ -134,6 +139,7 @@ function mriPruneToSightings(index, opts = {}) {
     if (docGone || nowResolved) {
       delete mri.refs[slug];
       removedOrphans++;
+      removed.push(`${slug} (orphan: ${docGone ? 'source doc gone' : 'citation now resolves'})`);
       _dirty = true;
     }
   }
@@ -142,7 +148,7 @@ function mriPruneToSightings(index, opts = {}) {
     console.log(`🧹 MRI prune: removedVariants=${removedVariants}, removedRefs=${removedRefs}, removedOrphans=${typeof removedOrphans === 'number' ? removedOrphans : 0}`);
   }
 
-  return { removedVariants, removedRefs, removedOrphans: typeof removedOrphans === 'number' ? removedOrphans : 0 };
+  return { removedVariants, removedRefs, removedOrphans: typeof removedOrphans === 'number' ? removedOrphans : 0, removed };
 }
 
 // referencing.js — shared helpers for building references from HTML
