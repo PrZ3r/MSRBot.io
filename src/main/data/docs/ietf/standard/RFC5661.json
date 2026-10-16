@@ -1,0 +1,344 @@
+{
+  "abstract": "This document describes the Network File System (NFS) version 4 minor version 1, including features retained from the base protocol (NFS version 4 minor version 0, which is specified in RFC 3530) and protocol extensions made subsequently. Major extensions introduced in NFS version 4 minor version 1 include Sessions, Directory Delegations, and parallel NFS (pNFS). NFS version 4 minor version 1 has no dependencies on NFS version 4 minor version 0, and it is considered a separate protocol. Thus, this document neither updates nor obsoletes RFC 3530. NFS minor version 1 is deemed superior to NFS minor version 0 with no loss of functionality, and its use is preferred over version 0. Both NFS minor versions 0 and 1 can be used simultaneously on the same network, between the same client and server. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "authors": [
+    {
+      "name": "Spencer Shepler"
+    },
+    {
+      "name": "Mike Eisler"
+    },
+    {
+      "name": "David Noveck"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docId": "RFC5661",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docLabel": "IETF RFC 5661",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docNumber": "5661",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docTitle": "Network File System (NFS) Version 4 Minor Version 1 Protocol",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "doi": "10.17487/RFC5661",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "href": "https://doi.org/10.17487/RFC5661",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "keywords": [
+    "ACL",
+    "Exactly Once Semantics",
+    "File Access Protocol",
+    "Network File Access",
+    "NFS",
+    "Parallel Storage",
+    "pNFS",
+    "Storage Cluster"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "ACL",
+      "Communications Sessions",
+      "Exactly Once Semantics",
+      "File Access Protocol",
+      "Global Namespace",
+      "Network Authentication",
+      "Network File Access",
+      "NFS",
+      "Network Security",
+      "Parallel Storage",
+      "pNFS",
+      "Storage Cluster"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T19:30:14.960Z",
+    "version": "extractDocs.js@commit:75b379398159"
+  },
+  "pages": "617",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publicationDate": "2010-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3530",
+      "RFC1813",
+      "RFC2847",
+      "RFC2623",
+      "RFC1700",
+      "RFC1833",
+      "RFC1094",
+      "RFC5664",
+      "RFC5663",
+      "RFC2054",
+      "RFC2055",
+      "RFC2624",
+      "ISBN.1859121845",
+      "RFC3720",
+      "INCITS.350.2003",
+      "INCITS.400.2004",
+      "IEEE.STD1003.1.2004",
+      "RFC2224",
+      "RFC2755",
+      "RFC5226",
+      "RFC3232",
+      "orphan/RFC5661/h:5583384f",
+      "orphan/RFC5661/h:a7bffe08",
+      "orphan/RFC5661/h:3867809c",
+      "orphan/RFC5661/h:0c1324fb",
+      "orphan/RFC5661/h:8de0c4c6",
+      "orphan/RFC5661/h:0e136177"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=55 proseBlocks=63 skippedAnchorBlocks=61",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4506",
+      "RFC5531",
+      "RFC2203",
+      "RFC4121",
+      "ISBN.1931624232",
+      "RFC2743",
+      "RFC5666",
+      "RFC5667",
+      "RFC5040",
+      "RFC2104",
+      "RFC5403",
+      "RFC5662",
+      "RFC5665",
+      "RFC3454",
+      "ISO.10646-1.1993",
+      "RFC2277",
+      "RFC3491",
+      "RFC4055",
+      "orphan/RFC5661/h:18289e46"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5661/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+    "updated": "2026-10-16T18:55:45.610Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "amendedBy": [
+      "RFC8178",
+      "RFC8434"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5661",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5661",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc5661.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "supersededBy": [
+      "RFC8881"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5661/",
+      "updated": "2026-10-16T18:55:45.610Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  }
+}

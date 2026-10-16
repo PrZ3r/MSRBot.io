@@ -1,0 +1,253 @@
+{
+  "abstract": "This document describes a possible congestion control mechanism for acknowledgement (ACKs) traffic in TCP. The document specifies an end-to-end acknowledgement congestion control mechanism for TCP that uses participation from both TCP hosts: the TCP data sender and the TCP data receiver. The TCP data sender detects lost or Explicit Congestion Notification (ECN)-marked ACK packets, and tells the TCP data receiver the ACK Ratio R to use to respond to the congestion on the reverse path from the data receiver to the data sender. The TCP data receiver sends roughly one ACK packet for every R data packets received. This mechanism is based on the acknowledgement congestion control in the Datagram Congestion Control Protocol's (DCCP's) Congestion Control Identifier (CCID) 2. This acknowledgement congestion control mechanism is being specified for further evaluation by the network community. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "authors": [
+    {
+      "name": "Sally Floyd"
+    },
+    {
+      "name": "Andres Arcia"
+    },
+    {
+      "name": "David Ros"
+    },
+    {
+      "name": "Jana Iyengar"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docId": "RFC5690",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docLabel": "IETF RFC 5690",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docNumber": "5690",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docTitle": "Adding Acknowledgement Congestion Control to TCP",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "doi": "10.17487/RFC5690",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "href": "https://doi.org/10.17487/RFC5690",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "pages": "33",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publicationDate": "2010-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2760",
+      "RFC3135",
+      "RFC3168",
+      "RFC3449",
+      "RFC4653",
+      "orphan/RFC5690/h:5ccc4093",
+      "orphan/RFC5690/h:8bbf1b1f",
+      "orphan/RFC5690/h:32cd811e",
+      "orphan/RFC5690/h:58290397",
+      "orphan/RFC5690/h:3d63df54",
+      "orphan/RFC5690/h:d88d0799",
+      "orphan/RFC5690/h:4f3d9d13",
+      "orphan/RFC5690/h:51ab8445",
+      "orphan/RFC5690/h:a38ec9c4",
+      "orphan/RFC5690/h:bdfc09ca",
+      "orphan/RFC5690/h:cb796dab",
+      "orphan/RFC5690/h:66b1149c",
+      "orphan/RFC5690/h:b305bc99",
+      "orphan/RFC5690/h:9e6d5706",
+      "orphan/RFC5690/h:e0f100ab",
+      "orphan/RFC5690/h:484b198f"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=28 proseBlocks=35 skippedAnchorBlocks=31",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+      "updated": "2026-10-16T18:55:50.029Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3465",
+      "RFC3692",
+      "RFC4340",
+      "RFC4341",
+      "RFC4727",
+      "RFC5681"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+      "updated": "2026-10-16T18:55:50.029Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5690/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+    "updated": "2026-10-16T18:55:50.029Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+      "updated": "2026-10-16T18:55:50.029Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+      "updated": "2026-10-16T18:55:50.029Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+      "updated": "2026-10-16T18:55:50.029Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+      "updated": "2026-10-16T18:55:50.029Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5690/",
+      "updated": "2026-10-16T18:55:50.029Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  }
+}

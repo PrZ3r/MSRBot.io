@@ -1,0 +1,265 @@
+{
+  "abstract": "Multimedia Internet Keying (MIKEY) is a key management protocol that can be used for \\%real-time applications. In particular, it has been defined focusing on the support of the Secure \\%Real-time Transport Protocol (SRTP). MIKEY itself is standardized within RFC 3830 and defines four key distribution methods. Moreover, it is defined to allow extensions of the protocol. As MIKEY becomes more and more accepted, extensions to the base protocol arise, especially in terms of additional key distribution methods but also in terms of payload enhancements. This document provides an overview about the MIKEY base document in general as well as the existing extensions for MIKEY, which have been defined or are in the process of definition. It is intended as an additional source of information for developers or architects to provide more insight in use case scenarios and motivations as well as advantages and disadvantages for the different key distribution schemes. The use cases discussed in this document are strongly related to dedicated SIP call scenarios providing challenges for key management in general, among them media before Session Description Protocol (SDP) answer, forking, and shared key conferencing. This memo provides information for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "authors": [
+    {
+      "name": "Steffen Fries"
+    },
+    {
+      "name": "Dragan Ignjatic"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docId": "RFC5197",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docLabel": "IETF RFC 5197",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docNumber": "5197",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docTitle": "On the Applicability of Various Multimedia Internet KEYing (MIKEY) Modes and Extensions",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "doi": "10.17487/RFC5197",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "href": "https://doi.org/10.17487/RFC5197",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "keywords": [
+    "Key Management",
+    "Media Stream Security",
+    "SRTP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "pages": "31",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publicationDate": "2008-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "references": {
+    "bibliographic": [
+      "T-REC-H.235.2005",
+      "ISO.18014",
+      "RFC1305",
+      "RFC2412",
+      "RFC3261",
+      "RFC3711",
+      "RFC4082",
+      "RFC4086",
+      "RFC4383",
+      "RFC4442",
+      "RFC4563",
+      "RFC4566",
+      "RFC4567",
+      "RFC4568",
+      "RFC4597",
+      "RFC4650",
+      "RFC4738",
+      "RFC4771",
+      "RFC4909",
+      "RFC4949",
+      "RFC5027",
+      "RFC5125",
+      "orphan/RFC5197/h:e566d962",
+      "orphan/RFC5197/h:24ac1f89",
+      "orphan/RFC5197/h:c95a9358",
+      "orphan/RFC5197/h:4edc91f3",
+      "orphan/RFC5197/h:3f4840f3",
+      "orphan/RFC5197/h:62b67188",
+      "orphan/RFC5197/h:6e06f8ff",
+      "orphan/RFC5197/h:f2dce8c7"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=37 proseBlocks=38 skippedAnchorBlocks=35",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+      "updated": "2026-10-16T18:53:53.307Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3830"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+      "updated": "2026-10-16T18:53:53.307Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5197/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+    "updated": "2026-10-16T18:53:53.307Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+      "updated": "2026-10-16T18:53:53.307Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+      "updated": "2026-10-16T18:53:53.307Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+      "updated": "2026-10-16T18:53:53.307Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+      "updated": "2026-10-16T18:53:53.307Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5197/",
+      "updated": "2026-10-16T18:53:53.307Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  }
+}
