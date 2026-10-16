@@ -1,0 +1,254 @@
+{
+  "abstract": "This document describes a method by which a Service Provider may use its packet-switched backbone to provide Virtual Private Network (VPN) services for its IPv6 customers. This method reuses, and extends where necessary, the \"BGP/MPLS IP VPN\" method for support of IPv6. In BGP/MPLS IP VPN, \"Multiprotocol BGP\" is used for distributing IPv4 VPN routes over the service provider backbone, and MPLS is used to forward IPv4 VPN packets over the backbone. This document defines an IPv6 VPN address family and describes the corresponding IPv6 VPN route distribution in \"Multiprotocol BGP\". This document defines support of the IPv6 VPN service over both an IPv4 and an IPv6 backbone, and for using various tunneling techniques over the core, including MPLS, IP-in-IP, Generic Routing Encapsulation (GRE) and IPsec protected tunnels. The inter-working between an IPv4 site and an IPv6 site is outside the scope of this document. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "authors": [
+    {
+      "name": "Jeremy De Clercq"
+    },
+    {
+      "name": "Dirk Ooms"
+    },
+    {
+      "name": "Marco Carugi"
+    },
+    {
+      "name": "François Le Faucheur"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docId": "RFC4659",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docLabel": "IETF RFC 4659",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docNumber": "4659",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docTitle": "BGP-MPLS IP Virtual Private Network (VPN) Extension for IPv6 VPN",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "doi": "10.17487/RFC4659",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "href": "https://doi.org/10.17487/RFC4659",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "keywords": [
+    "Service Provider",
+    "BGP",
+    "MPLS"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "pages": "18",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publicationDate": "2006-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4291",
+      "RFC4193",
+      "RFC2547",
+      "RFC3209",
+      "RFC4271",
+      "RFC4023",
+      "orphan/RFC4659/h:146b4713"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=14 proseBlocks=20 skippedAnchorBlocks=17",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+      "updated": "2026-10-16T15:46:37.806Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "normative": [
+      "RFC4360",
+      "RFC2858",
+      "RFC2460",
+      "RFC3107",
+      "RFC3392",
+      "RFC3036",
+      "RFC2545",
+      "RFC4364"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+      "updated": "2026-10-16T15:46:37.806Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4659/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+    "updated": "2026-10-16T15:46:37.806Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+      "updated": "2026-10-16T15:46:37.806Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+      "updated": "2026-10-16T15:46:37.806Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+      "updated": "2026-10-16T15:46:37.806Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+      "updated": "2026-10-16T15:46:37.806Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4659/",
+      "updated": "2026-10-16T15:46:37.806Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  }
+}

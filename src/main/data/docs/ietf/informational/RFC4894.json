@@ -1,0 +1,232 @@
+{
+  "abstract": "This document describes how the IKEv1 (Internet Key Exchange version 1), IKEv2, and IPsec protocols use hash functions, and explains the level of vulnerability of these protocols to the reduced collision resistance of the MD5 and SHA-1 hash algorithms. This memo provides information for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "authors": [
+    {
+      "name": "Paul E. Hoffman"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docId": "RFC4894",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docLabel": "IETF RFC 4894",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docNumber": "4894",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docTitle": "Use of Hash Algorithms in Internet Key Exchange (IKE) and IPsec",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "doi": "10.17487/RFC4894",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "href": "https://doi.org/10.17487/RFC4894",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "keywords": [
+    "MD5",
+    "PKIX"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "pages": "11",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publicationDate": "2007-05-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3566",
+      "RFC4434",
+      "RFC4302",
+      "RFC4303",
+      "RFC4270",
+      "RFC2409",
+      "RFC4306",
+      "RFC4307",
+      "RFC4305",
+      "RFC3947",
+      "RFC4868",
+      "orphan/RFC4894/h:6e74c707",
+      "orphan/RFC4894/h:29b5f7b6",
+      "orphan/RFC4894/h:6a03a006",
+      "orphan/RFC4894/h:a3a9cf4d"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=15 proseBlocks=18 skippedAnchorBlocks=17",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+      "updated": "2026-10-16T15:47:21.745Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4894/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+    "updated": "2026-10-16T15:47:21.745Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+      "updated": "2026-10-16T15:47:21.745Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+      "updated": "2026-10-16T15:47:21.745Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+      "updated": "2026-10-16T15:47:21.745Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+      "updated": "2026-10-16T15:47:21.745Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4894/",
+      "updated": "2026-10-16T15:47:21.745Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  }
+}

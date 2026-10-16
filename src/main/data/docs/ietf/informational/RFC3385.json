@@ -1,0 +1,266 @@
+{
+  "abstract": "Cyclic redundancy check (CRC) codes [Peterson] are shortened cyclic codes used for error detection. A number of CRC codes have been adopted in standards: ATM, IEC, IEEE, CCITT, IBM-SDLC, and more [Baicheva]. The most important expectation from this kind of code is a very low probability for undetected errors. The probability of undetected errors in such codes has been, and still is, subject to extensive studies that have included both analytical models and simulations. Those codes have been used extensively in communications and magnetic recording as they demonstrate good 'burst error' detection capabilities, but are also good at detecting several independent bit errors. Hardware implementations are very simple and well known; their simplicity has made them popular with hardware developers for many years. However, algorithms and software for effective implementations of CRC are now also widely available [Williams]. The probability of undetected errors depends on the polynomial selected to generate the code, the error distribution (error model), and the data length. In this memo, we attempt to give some estimates for the probability of undetected errors to facilitate the selection of an error detection code for iSCSI. We will also attempt to compare CRCs with other checksum forms (Fletcher, Adler, weighted checksums), as permitted by available data.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.238Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "authors": [
+    {
+      "name": "Dafna Sheinwald"
+    },
+    {
+      "name": "Julian Satran"
+    },
+    {
+      "name": "Patricia Thaler"
+    },
+    {
+      "name": "Vincente Cavanna"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.238Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docId": "RFC3385",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.237Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docLabel": "IETF RFC 3385",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.237Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docNumber": "3385",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.237Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docTitle": "Internet Protocol Small Computer System Interface (iSCSI) Cyclic Redundancy Check (CRC)/Checksum Considerations",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.237Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.237Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "doi": "10.17487/RFC3385",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.238Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "href": "https://doi.org/10.17487/RFC3385",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.238Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "keywords": [
+    "Error Detection Code"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.238Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "pages": "23",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.238Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publicationDate": "2002-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.237Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.238Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "references": {
+    "bibliographic": [
+      "IEEE.STD1364.1995",
+      "RFC2026",
+      "RFC1146",
+      "RFC1950",
+      "orphan/RFC3385/h:913513f5",
+      "orphan/RFC3385/h:8f59d2a9",
+      "orphan/RFC3385/h:a9db90db",
+      "orphan/RFC3385/h:e6dea83f",
+      "orphan/RFC3385/h:afa669d9",
+      "orphan/RFC3385/h:90e13321",
+      "orphan/RFC3385/h:4011ed4e",
+      "orphan/RFC3385/h:c68b6275",
+      "orphan/RFC3385/h:aab00d4c",
+      "orphan/RFC3385/h:2fc42b28",
+      "orphan/RFC3385/h:8e942567",
+      "orphan/RFC3385/h:67c59e35",
+      "orphan/RFC3385/h:7388b528",
+      "orphan/RFC3385/h:1ed18064",
+      "orphan/RFC3385/h:3d06742f",
+      "orphan/RFC3385/h:ef8e15d1",
+      "orphan/RFC3385/h:c9ff65f1",
+      "orphan/RFC3385/h:d548ee23",
+      "orphan/RFC3385/h:461400cc",
+      "orphan/RFC3385/h:71624c75",
+      "orphan/RFC3385/h:92cd47ab",
+      "orphan/RFC3385/h:d241c2be"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=26 proseBlocks=30 skippedAnchorBlocks=29",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+      "updated": "2026-10-16T15:43:51.238Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3385/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+    "updated": "2026-10-16T15:43:51.238Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+      "updated": "2026-10-16T15:43:51.238Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+      "updated": "2026-10-16T15:43:51.238Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc3385",
+      "https://www.rfc-editor.org/errata_search.php?rfc=3385",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc3385.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+      "updated": "2026-10-16T15:43:51.238Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+      "updated": "2026-10-16T15:43:51.238Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+      "updated": "2026-10-16T15:43:51.238Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3385/",
+      "updated": "2026-10-16T15:43:51.238Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  }
+}

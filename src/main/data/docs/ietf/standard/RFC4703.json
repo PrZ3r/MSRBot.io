@@ -1,0 +1,252 @@
+{
+  "abstract": "The Dynamic Host Configuration Protocol (DHCP) provides a mechanism for host configuration that includes dynamic assignment of IP addresses and fully qualified domain names. To maintain accurate name-to-IP-address and IP-address-to-name mappings in the DNS, these dynamically assigned addresses and fully qualified domain names (FQDNs) require updates to the DNS. This document identifies situations in which conflicts in the use of fully qualified domain names may arise among DHCP clients and servers, and it describes a strategy for the use of the DHCID DNS resource record (RR) in resolving those conflicts. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "authors": [
+    {
+      "name": "Mark Stapp"
+    },
+    {
+      "name": "Bernie Volz"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docId": "RFC4703",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docLabel": "IETF RFC 4703",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docNumber": "4703",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docTitle": "Resolution of Fully Qualified Domain Name (FQDN) Conflicts among Dynamic Host Configuration Protocol (DHCP) Clients",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "doi": "10.17487/RFC4703",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "href": "https://doi.org/10.17487/RFC4703",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "keywords": [
+    "Dynamic Assignment",
+    "DNS",
+    "DHCID"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Dynamic Assignment",
+      "DNS",
+      "Dhcid DNS Rr"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T16:58:25.856Z",
+    "version": "extractDocs.js@commit:30d92d8ed083"
+  },
+  "pages": "13",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publicationDate": "2006-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1035",
+      "RFC1983",
+      "RFC4702",
+      "RFC4704",
+      "RFC3007",
+      "RFC4361",
+      "RFC2132",
+      "RFC2845",
+      "RFC3118"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=14 proseBlocks=17 skippedAnchorBlocks=15",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+      "updated": "2026-10-16T15:46:49.730Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4701",
+      "RFC2136",
+      "RFC2131",
+      "RFC3315"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+      "updated": "2026-10-16T15:46:49.730Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4703/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+    "updated": "2026-10-16T15:46:49.730Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+      "updated": "2026-10-16T15:46:49.730Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+      "updated": "2026-10-16T15:46:49.730Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+      "updated": "2026-10-16T15:46:49.730Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+      "updated": "2026-10-16T15:46:49.730Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4703/",
+      "updated": "2026-10-16T15:46:49.730Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  }
+}

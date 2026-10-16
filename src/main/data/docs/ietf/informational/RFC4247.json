@@ -1,0 +1,257 @@
+{
+  "abstract": "Voice over IP (VoIP) typically uses the encapsulation voice/RTP/UDP/IP. When MPLS labels are added, this becomes voice/RTP/UDP/IP/MPLS-labels. For an MPLS VPN, the packet header is typically 48 bytes, while the voice payload is often no more than 30 bytes, for example. Header compression can significantly reduce the overhead through various compression mechanisms, such as enhanced compressed RTP (ECRTP) and robust header compression (ROHC). We consider using MPLS to route compressed packets over an MPLS Label Switched Path (LSP) without compression/decompression cycles at each router. This approach can increase the bandwidth efficiency as well as processing scalability of the maximum number of simultaneous flows that use header compression at each router. In this document, we give a problem statement, goals and requirements, and an example scenario. This memo provides information for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "authors": [
+    {
+      "name": "Gerald Ash"
+    },
+    {
+      "name": "Bur Goode"
+    },
+    {
+      "name": "Jim Hand"
+    },
+    {
+      "name": "Raymond Zhang"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docId": "RFC4247",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docLabel": "IETF RFC 4247",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docNumber": "4247",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docTitle": "Requirements for Header Compression over MPLS",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "doi": "10.17487/RFC4247",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "href": "https://doi.org/10.17487/RFC4247",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "keywords": [
+    "MPLS",
+    "VoIP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "MPLS",
+      "VoIP",
+      "Voice Over IP"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T16:57:33.455Z",
+    "version": "extractDocs.js@commit:30d92d8ed083"
+  },
+  "pages": "11",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publicationDate": "2005-11-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T15:45:38.253Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3032",
+      "RFC2547",
+      "orphan/RFC4247/h:1e796c22",
+      "orphan/RFC4247/h:26ceb356",
+      "orphan/RFC4247/h:6e8f8203"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=17 proseBlocks=19 skippedAnchorBlocks=16",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+      "updated": "2026-10-16T15:45:38.253Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "normative": [
+      "RFC2508",
+      "RFC3544",
+      "RFC3545",
+      "RFC2119",
+      "RFC3036",
+      "RFC3031",
+      "RFC3095",
+      "RFC2205",
+      "RFC3209"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+      "updated": "2026-10-16T15:45:38.253Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4247/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+    "updated": "2026-10-16T16:57:33.455Z",
+    "version": "extractDocs.js@commit:30d92d8ed083"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+      "updated": "2026-10-16T15:45:38.253Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+      "updated": "2026-10-16T15:45:38.253Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+      "updated": "2026-10-16T15:45:38.253Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+      "updated": "2026-10-16T15:45:38.253Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4247/",
+      "updated": "2026-10-16T15:45:38.253Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "abstract": "This document discusses the creation of negative-acknowledgment (NACK)-oriented reliable multicast (NORM) protocols. The rationale for NORM goals and assumptions are presented. Technical challenges for NACK-oriented (and in some cases general) reliable multicast protocol operation are identified. These goals and challenges are resolved into a set of functional \"building blocks\" that address different aspects of NORM protocol operation. It is anticipated that these building blocks will be useful in generating different instantiations of reliable multicast protocols. This memo defines an Experimental Protocol for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "authors": [
+    {
+      "name": "Brian Adamson"
+    },
+    {
+      "name": "Carsten Bormann"
+    },
+    {
+      "name": "Mark J. Handley"
+    },
+    {
+      "name": "Joseph P. Macker"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docId": "RFC3941",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docLabel": "IETF RFC 3941",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docNumber": "3941",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docTitle": "Negative-Acknowledgment (NACK)-Oriented Reliable Multicast (NORM) Building Blocks",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "doi": "10.17487/RFC3941",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "href": "https://doi.org/10.17487/RFC3941",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "keywords": [
+    "NACK",
+    "NORM"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "pages": "36",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publicationDate": "2004-11-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2357",
+      "RFC3269",
+      "RFC3452",
+      "RFC3453",
+      "RFC2401",
+      "orphan/RFC3941/h:74434165",
+      "orphan/RFC3941/h:04a9e2d3",
+      "orphan/RFC3941/h:cc551c94",
+      "orphan/RFC3941/h:e9cbef1d",
+      "orphan/RFC3941/h:88895c22",
+      "orphan/RFC3941/h:3ca26a91",
+      "orphan/RFC3941/h:01494d40",
+      "orphan/RFC3941/h:2f846a98",
+      "orphan/RFC3941/h:3ff99489",
+      "orphan/RFC3941/h:58a0f712",
+      "orphan/RFC3941/h:c6d6a915",
+      "orphan/RFC3941/h:5fd86cc3",
+      "orphan/RFC3941/h:f955464b"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=20 proseBlocks=24 skippedAnchorBlocks=22",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+      "updated": "2026-10-16T15:44:49.244Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC1112"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+      "updated": "2026-10-16T15:44:49.244Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc3941/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+    "updated": "2026-10-16T15:44:49.244Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+      "updated": "2026-10-16T15:44:49.244Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+      "updated": "2026-10-16T15:44:49.244Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+      "updated": "2026-10-16T15:44:49.244Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+      "updated": "2026-10-16T15:44:49.244Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+      "updated": "2026-10-16T15:44:49.244Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "supersededBy": [
+      "RFC5401"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3941/",
+      "updated": "2026-10-16T15:44:49.244Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  }
+}
