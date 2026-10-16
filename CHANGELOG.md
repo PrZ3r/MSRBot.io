@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+## [v2.10.0] - 2026-10-15
+
+### Added
+
 - **IETF seed backfill (#2429, #2432).** `seed-backfill-ietf` seeds RFCs we don't hold from two sources: citations (MRI missing refs) and RFC-index relations on held docs (`supersededBy`, `amendedBy`, `supersedes`, `amends`). `--limit`/`--out` run reviewed batches for `extract-ietf -- --only`; `--cited` / `--relations` pick one source. Never-issued RFC numbers are skipped. The registry grew from 413 to 2,799 RFCs, then to 3,799 with three relations batches (#2438).
 - **The weekly IETF extract seeds new editions.** It runs `seed-backfill-ietf --relations --write` first, so an RFC that obsoletes or updates one we hold arrives in the same PR as its seed.
 - **Publisher-scoped keyword folds** (`keywordDecisions.json` → `publisherFolds`) for acronyms another field uses differently. IETF's `IAB` is the Internet Architecture Board (media's is the Immersive Audio Bitstream); `CA`, `MN`, `IV` and `CE` also fold for IETF only.
