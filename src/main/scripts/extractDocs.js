@@ -163,6 +163,9 @@ function isNonCitationLine(cite) {
   // Current Practice BOF Birds Of a Feather …"), and that RFC's glossary/pointer paragraphs.
   if (/^(?:[A-Z][A-Z0-9]{1,6}\s+[A-Z][a-z]+(?:[ -][A-Za-z()]+){0,5}\s+){4,}/.test(c)) return true;
   if (/^Pronounced "dow", Tao is\b/.test(c) || /^The IETF web site, http:\/\/www\.ietf\.org\s*, is the best source\b/.test(c)) return true;
+  // Mailing-list subscription instructions in the reference list (RFC1729: "To subscribe to the
+  // Z39.50 Implementor's Workshop list send the message: …").
+  if (/^To subscribe to\b[^"“]{0,120}\bsend\b/i.test(c)) return true;
   // A trademark notice after the reference list (RFC1044: "HYPERchannel is a trademark of …").
   if (/^[^"“,;]{1,60}\b(?:is|are)\s+(?:a\s+)?(?:registered\s+)?trademarks?\s+of\b/i.test(c)) return true;
   // An item this memo itself registers (RFC3297: "'Content-alternative' header (this memo, section 4)").

@@ -1150,6 +1150,13 @@ function parseRefId(text, href = '', opts = {}) {
   // also "ANSI/INCITS 357:2002" (RFC4172)
   // Cited-RFC batch 1: "US FIPS197" (RFC3607), "ANSI Std. X3.139-1987" (RFC2816), "ANSI
   // X3.269:1996" (RFC3347), "W3C REC REC-CSS2- 19980512" with the date wrapped (RFC5022).
+  // Cited-RFC batch 3: a designator leading the cite with its body named later — ETSI
+  // ("TS 101 812, "…", v1.2.1, European Telecommunications Standards Institute", RFC4259) and
+  // ATSC ("A/54A, "…", Advanced Television Systems Committee (ATSC)"); "3GPP TS33.402" (RFC5836);
+  // "ITU-T Doc. G.663" (RFC4054).
+  if (/^\s*(?:TS|TR|EN|ES|EG|ETS)\s+\d{3}\s+\d{3}\b/.test(String(text || '')) && /\bEuropean\s+Telecommunications?\s+Standards?\s+Institute\b|\bETSI\b/.test(String(text || ''))) text = `ETSI ${String(text).trim()}`;
+  if (/^\s*A\/\d+[A-Z]?\b/.test(String(text || '')) && /\bATSC\b|Advanced\s+Television\s+Systems\s+Committee/.test(String(text || ''))) text = `ATSC ${String(text).trim()}`;
+  text = String(text || '').replace(/\b3GPP\s+TS(?=\d{2}\.\d{3})/g, '3GPP TS ').replace(/\bITU-T\s+Doc\.\s+(?=[A-Z]\.\d)/g, 'ITU-T Recommendation ');
   // Cited-RFC batch 2: "ITU-T G.G.8011.1" (RFC6004), "NIST SP800- 38B" (RFC6218),
   // "FIP PUBS 188" (RFC6274).
   text = String(text || '').replace(/\bG\.G\.(?=\d)/g, 'G.')
@@ -1798,6 +1805,17 @@ function parseRefId(text, href = '', opts = {}) {
       const refId = `T-REC-${series}.${bare[2]}${part}${by && Number(by) <= new Date().getUTCFullYear() + 1 ? `.${by}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-bare' } } : refId;
     }
+    // The designator leading, the ITU named after the title: 'H.222.0, "Information technology - …",
+    // International Telecommunication Union' and 'I.363.5, "…", ITU-T, 1996' (RFC4326); 'Y.1312 -
+    // Layer 1 Virtual Private Network …, ITU-T Recommendation, September 2003' (RFC4847).
+    const lead = /\bInternational\s+Telecommunications?\s+Union\b|\bITU(?:-T)?\b/.test(String(text || ''))
+      && String(text || '').match(/^\s*([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)(?:,\s*["“]|\s+[-–]\s+[A-Z])/);
+    if (lead) {
+      const after = String(text || '').slice(lead.index + lead[0].length);
+      const y = (after.match(/\b((?:19|20)\d{2})\b/) || [])[1] || '';
+      const refId = `T-REC-${lead[1]}.${lead[2]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-designator-lead' } } : refId;
+    }
     // 'ITU-T Recommendation, "G.114 - One-way transmission time", …, 05/2003' (RFC5757)
     const recQuoted = String(text || '').match(/\bITU-T\s+Recommendation,?\s*["“]([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s+[-–]/);
     if (recQuoted) {
@@ -1986,7 +2004,8 @@ function parseRefId(text, href = '', opts = {}) {
 
   // The LAN/MAN committee lead-in: "…", IEEE LAN/MAN Std 802.21-2008, January 2009 (RFC5677, RFC6418)
   {
-    const m = String(text || '').match(/\bIEEE\s+LAN\/MAN\s+(?:Std\.?|Standard)\s+(\d{3,4}(?:\.\d+[A-Za-z]{0,3})?)[-:]((?:19|20)\d{2})\b/);
+    // also a comma and month: "IEEE LAN/MAN Standard 802.1x, June, 2001" (RFC4831)
+    const m = String(text || '').match(/\bIEEE\s+LAN\/MAN\s+(?:Std\.?|Standard)\s+(\d{3,4}(?:\.\d+[A-Za-z]{0,3})?)(?:[-:]|,\s*(?:[A-Z][a-z]+,?\s+)?)((?:19|20)\d{2})\b/);
     if (m) {
       const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-lanman-std' } } : refId;
@@ -2030,6 +2049,25 @@ function parseRefId(text, href = '', opts = {}) {
     if (m) {
       const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-catalogue' } } : refId;
+    }
+  }
+  // The designator-year after the title: '"IEEE Standard for … / MAC Bridges", 802.1D-2004, 9 June
+  // 2004' (RFC6325). Not a draft or a revision project ("802.1X-REV Draft 2.9", "802.1aj Draft 4.2").
+  {
+    const src = String(text || '');
+    const m = /\bIEEE\b|Institute\s+of\s+Electrical/.test(src) && !/\bDraft\b|-REV\b/i.test(src)
+      && src.match(/["”],?\s*(802(?:\.\d+[A-Za-z]{0,3})?)-((?:19|20)\d{2})\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-after-title' } } : refId;
+    }
+  }
+  // 'IEEE 754, "IEEE Standard for Floating-Point Arithmetic", August 2008' (RFC6397)
+  {
+    const m = String(text || '').match(/^\s*IEEE\s+(\d{3,4}(?:\.\d+)?),\s*["“][^"”]{4,200}["”],?\s*(?:[A-Z][a-z]+\.?\s+)?((?:19|20)\d{2})\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1]}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-number-title-date' } } : refId;
     }
   }
   // An undated IEEE 802 standard leading the citation: "IEEE 802.3 CSMA/CD Access Method.",

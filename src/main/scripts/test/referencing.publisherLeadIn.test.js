@@ -289,4 +289,17 @@ assert.strictEqual(parseRefId('ITU-T G.G.8011.1/Y.1307.1, "Ethernet private line
 assert.strictEqual(parseRefId('Dworkin, M., "The CMAC Mode for Authentication", NIST SP800- 38B, May 2005.'), 'NIST.SP.800-38B'); n++;
 assert.strictEqual(parseRefId('FIPS, "Standard Security Label for Information Transfer", Federal Information Processing Standards Publication. FIP PUBS 188, 1994.'), 'NIST.FIPS.188'); n++;
 
+// Cited-RFC batch 3: IEEE 802 designator after the title (RFC6325), not a revision draft; IEEE 754 with
+// a quoted title (RFC6397); LAN/MAN Standard with a comma date (RFC4831); ITU designator leading
+// (RFC4326, RFC4847); ETSI/ATSC designator leading (RFC4259); "3GPP TS33.402" (RFC5836).
+assert.strictEqual(parseRefId('"IEEE Standard for Local and metropolitan area networks / Media Access Control (MAC) Bridges", 802.1D-2004, 9 June 2004.'), 'IEEE.STD802.1D.2004'); n++;
+assert.strictEqual(parseRefId('"IEEE Standard for Local and metropolitan area networks / Port Based Network Access Control", 802.1X-REV Draft 2.9, 3 September 2008.'), null); n++;
+assert.strictEqual(parseRefId('IEEE 754, "IEEE Standard for Floating-Point Arithmetic", August 2008.'), 'IEEE.STD754.2008'); n++;
+assert.strictEqual(parseRefId('IEEE, "Port-based Access Control", IEEE LAN/MAN Standard 802.1x, June, 2001.'), 'IEEE.STD802.1X.2001'); n++;
+assert.strictEqual(parseRefId('I.363.5, "B-ISDN ATM Adaptation Layer specification: Type 5 AAL", International Telecommunication Union, (ITU-T), 1996.'), 'T-REC-I.363.5.1996'); n++;
+assert.strictEqual(parseRefId('Y.1312 - Layer 1 Virtual Private Network Generic requirements and architecture elements, ITU-T Recommendation, September 2003.'), 'T-REC-Y.1312.2003'); n++;
+assert.strictEqual(parseRefId('TR 101 162, "Digital Video Broadcasting (DVB); Allocation of Service Information (SI) codes for DVB systems", European Telecommunications Standards Institute (ETSI).'), 'ETSI.TR-101-162'); n++;
+assert.strictEqual(parseRefId('A/54A, "Guide to the use of the ATSC Digital Television Standard", Advanced Television Systems Committee (ATSC), Doc. A/54A, 4 December 2003.'), 'ATSC.A54A.2003'); n++;
+assert.strictEqual(parseRefId('3GPP, "Security aspects of non-3GPP accesses (Release 8)", 3GPP TS33.402 V8.3.1, 2009.'), '3GPP.TS-33.402.2009'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
