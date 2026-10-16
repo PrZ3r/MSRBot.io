@@ -1150,6 +1150,11 @@ function parseRefId(text, href = '', opts = {}) {
   // also "ANSI/INCITS 357:2002" (RFC4172)
   // Cited-RFC batch 1: "US FIPS197" (RFC3607), "ANSI Std. X3.139-1987" (RFC2816), "ANSI
   // X3.269:1996" (RFC3347), "W3C REC REC-CSS2- 19980512" with the date wrapped (RFC5022).
+  // Cited-RFC batch 2: "ITU-T G.G.8011.1" (RFC6004), "NIST SP800- 38B" (RFC6218),
+  // "FIP PUBS 188" (RFC6274).
+  text = String(text || '').replace(/\bG\.G\.(?=\d)/g, 'G.')
+    .replace(/\bNIST\s+SP\s*800-\s*(?=\d)/g, 'NIST SP 800-')
+    .replace(/\bFIP\s+PUBS?\b/g, 'FIPS PUB');
   text = String(text || '').replace(/\bU\.?S\.?\s+FIPS(\d{2,3})\b/g, 'US FIPS $1')
     .replace(/\bANSI\s+Std\.?\s+(?=X\d)/g, 'ANSI ')
     .replace(/\b(X\d{1,2}\.\d{1,3}):((?:19|20)\d{2})\b/g, '$1-$2')
@@ -1793,6 +1798,13 @@ function parseRefId(text, href = '', opts = {}) {
       const refId = `T-REC-${series}.${bare[2]}${part}${by && Number(by) <= new Date().getUTCFullYear() + 1 ? `.${by}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-bare' } } : refId;
     }
+    // 'ITU-T Recommendation, "G.114 - One-way transmission time", …, 05/2003' (RFC5757)
+    const recQuoted = String(text || '').match(/\bITU-T\s+Recommendation,?\s*["“]([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s+[-–]/);
+    if (recQuoted) {
+      const y = year || (String(text || '').match(/\b\d{2}\/((?:19|20)\d{2})\b/) || [])[1] || '';
+      const refId = `T-REC-${recQuoted[1]}.${recQuoted[2]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-recommendation-quoted' } } : refId;
+    }
     // also "ITU, "…", ITU, Recommendation, I.255.3, July, 1990" (RFC4190)
     const recSub = String(text || '').match(/\bITU\b[^\n\r]{0,120}?\bRecommendation,\s+([A-Z])\.(\d{1,4}\.\d{1,2})\b/);
     if (recSub) {
@@ -1972,6 +1984,14 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // The LAN/MAN committee lead-in: "…", IEEE LAN/MAN Std 802.21-2008, January 2009 (RFC5677, RFC6418)
+  {
+    const m = String(text || '').match(/\bIEEE\s+LAN\/MAN\s+(?:Std\.?|Standard)\s+(\d{3,4}(?:\.\d+[A-Za-z]{0,3})?)[-:]((?:19|20)\d{2})\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-lanman-std' } } : refId;
+    }
+  }
   // IEEE standards: "IEEE Standard 1588-2008", "IEEE 802-1990", "... P754-2008" → IEEE.STD1588.2008
   {
     // also a letter suffix and a comma before the year (xml2rfc): "IEEE Standard 802.1X-2004",
@@ -1999,6 +2019,17 @@ function parseRefId(text, href = '', opts = {}) {
     if (m) {
       const refId = `IEEE.STD${m[1].toUpperCase()}.${m[2]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-in-title' } } : refId;
+    }
+  }
+  // An IEEE 802 designator-year followed by its catalogue title: 'IEEE, "802.11-2007 IEEE Standard
+  // for LAN/MAN …"' (RFC5184), '"Institute of Electrical and Electronic Engineers, 802.1D-2004,
+  // IEEE Standard for …"' (RFC4837).
+  {
+    const m = /\bIEEE\b|Institute\s+of\s+Electrical/.test(String(text || ''))
+      && String(text || '').match(/(?<![\w.])(802(?:\.\d+[A-Za-z]{0,3})?)-((?:19|20)\d{2}),?\s+IEEE\s+Standard\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-catalogue' } } : refId;
     }
   }
   // An undated IEEE 802 standard leading the citation: "IEEE 802.3 CSMA/CD Access Method.",

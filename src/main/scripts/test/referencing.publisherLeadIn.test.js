@@ -278,4 +278,15 @@ assert.strictEqual(parseRefId('Jacobs, I., "CSS2 Specification", W3C REC REC-CSS
 assert.strictEqual(parseRefId('"GPRS Service description; Stage 2", 3GPP TS 03.60 version 7.9.0 Release 98.'), '3GPP.TS-03.60'); n++;
 assert.strictEqual(parseRefId('ISO-C "Programming languages -- C", ISO/IEC 9899:1990, International Organization for Standardization. This is effectively the same as ANSI C standard X3.159-1989.'), 'ISO.9899.1990'); n++;
 
+// Cited-RFC batch 2: IEEE 802 catalogue numbers (RFC4837, RFC5184, RFC5677), ITU-T quoted number
+// and "G.G." typo (RFC5757, RFC6004), "NIST SP800- 38B" (RFC6218), "FIP PUBS 188" (RFC6274);
+// an "SP800-67" label doesn't override the cite's revision.
+assert.strictEqual(parseRefId('IEEE, "Institute of Electrical and Electronic Engineers, 802.1D-2004, IEEE Standard for Local and metropolitan area networks"'), 'IEEE.STD802.1D.2004'); n++;
+assert.strictEqual(parseRefId('IEEE, "802.11-2007 IEEE Standard for LAN/MAN - Specific requirements Part 11: Wireless LAN"'), 'IEEE.STD802.11.2007'); n++;
+assert.strictEqual(parseRefId('"IEEE Standard for Local and Metropolitan Area Networks - Part 21: Media Independent Handover Services", IEEE LAN/MAN Std 802.21-2008, January 2009, http://www.ieee802.org/21/private/Published%20Spec/ 802.21-2008.pdf'), 'IEEE.STD802.21.2008'); n++;
+assert.strictEqual(parseRefId('ITU-T Recommendation, "G.114 - One-way transmission time", Telecommunication Union Standardization Sector, 05/2003.'), 'T-REC-G.114.2003'); n++;
+assert.strictEqual(parseRefId('ITU-T G.G.8011.1/Y.1307.1, "Ethernet private line service", August 2004.'), 'T-REC-G.8011.1'); n++;
+assert.strictEqual(parseRefId('Dworkin, M., "The CMAC Mode for Authentication", NIST SP800- 38B, May 2005.'), 'NIST.SP.800-38B'); n++;
+assert.strictEqual(parseRefId('FIPS, "Standard Security Label for Information Transfer", Federal Information Processing Standards Publication. FIP PUBS 188, 1994.'), 'NIST.FIPS.188'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
