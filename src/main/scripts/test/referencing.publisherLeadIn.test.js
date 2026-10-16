@@ -260,4 +260,22 @@ assert.strictEqual(parseRefId('INCITS 373-2003, Fibre Channel Framing and Signal
 assert.strictEqual(parseRefId('INCITS Technical Committee T10, "SCSI Primary Commands - 4", ANSI INCITS 513-201x.'), 'INCITS.513'); n++;
 assert.strictEqual(parseRefId('Fibre Channel Protocol - 4 (FCP-4), INCITS Project 1828-D, Technical Committee T10 (www.t10.org).'), null); n++;
 
+// Cited-RFC batch 1: "US FIPS197" (RFC3607), "ANSI Std. X3.139-1987" (RFC2816), "X3.269:1996",
+// ANSI T1 by the ANSI token (RFC3946), "FIPS, …, publication 180-1" (RFC4782), IEEE 802 dated by a
+// trailing year (RFC5087), "ITU, …, Recommendation, I.255.3" (RFC4190), W3C CR/WD tokens and a
+// wrapped date (RFC4661, RFC5022), 3GPP GSM-era numbers (RFC4957); ANSI not read from an ISO cite
+// or a quoted title.
+assert.strictEqual(parseRefId('"Advanced Encryption Standard", US FIPS197, November, 2001.'), 'NIST.FIPS.197'); n++;
+assert.strictEqual(parseRefId('Fiber Distributed Data Interface MAC, ANSI Std. X3.139-1987.'), 'ANSI.X3.139.1987'); n++;
+assert.strictEqual(parseRefId('8. [FCP] ANSI NCITS. SCSI-3 Fibre Channel Protocol [ANSI X3.269:1996].'), 'ANSI.X3.269.1996'); n++;
+assert.strictEqual(parseRefId('"Synchronous Optical Network (SONET): Basic Description", ANSI T1.105, October 2000.'), 'ANSI.T1.105.2000'); n++;
+assert.strictEqual(parseRefId('"Secure Hash Standard", FIPS, U.S. Department of Commerce, Washington, D.C., publication 180-1, April 1995.'), 'NIST.FIPS.180-1'); n++;
+assert.strictEqual(parseRefId('IEEE 802.1Q, IEEE Standards for Local and Metropolitan Area Networks -- Virtual Bridged Local Area Networks (2003)'), 'IEEE.STD802.1Q.2003'); n++;
+assert.strictEqual(parseRefId('IEEE 802 Liaison letter to Bert Wijnen and Bernard Aboba, July 26, 2004.'), null); n++;
+assert.strictEqual(parseRefId('ITU, "Multi-Level Precedence and Preemption Service, ITU, Recommendation, I.255.3, July, 1990.'), 'T-REC-I.255.3.1990'); n++;
+assert.strictEqual(parseRefId('Bray, T., "XML 1.0 (Second Edition)", W3C CR CR-xml11-20011006, October 2000.'), 'W3C.xml11.20011006'); n++;
+assert.strictEqual(parseRefId('Jacobs, I., "CSS2 Specification", W3C REC REC-CSS2- 19980512, May 1998.'), 'W3C.css2.19980512'); n++;
+assert.strictEqual(parseRefId('"GPRS Service description; Stage 2", 3GPP TS 03.60 version 7.9.0 Release 98.'), '3GPP.TS-03.60'); n++;
+assert.strictEqual(parseRefId('ISO-C "Programming languages -- C", ISO/IEC 9899:1990, International Organization for Standardization. This is effectively the same as ANSI C standard X3.159-1989.'), 'ISO.9899.1990'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

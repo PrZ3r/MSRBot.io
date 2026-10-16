@@ -159,6 +159,10 @@ function isNonCitationLine(cite) {
   if (/^\+-{2,}/.test(c)) return true;
   // A licensing note in the reference list, not a citation (RFC2433, RFC2548, RFC2759).
   if (/^RC4 is a proprietary encryption algorithm\b/i.test(c)) return true;
+  // An acronym table inside the References section (RFC3160 §9.4: "AD Area Director BCP Best
+  // Current Practice BOF Birds Of a Feather …"), and that RFC's glossary/pointer paragraphs.
+  if (/^(?:[A-Z][A-Z0-9]{1,6}\s+[A-Z][a-z]+(?:[ -][A-Za-z()]+){0,5}\s+){4,}/.test(c)) return true;
+  if (/^Pronounced "dow", Tao is\b/.test(c) || /^The IETF web site, http:\/\/www\.ietf\.org\s*, is the best source\b/.test(c)) return true;
   // A trademark notice after the reference list (RFC1044: "HYPERchannel is a trademark of …").
   if (/^[^"“,;]{1,60}\b(?:is|are)\s+(?:a\s+)?(?:registered\s+)?trademarks?\s+of\b/i.test(c)) return true;
   // An item this memo itself registers (RFC3297: "'Content-alternative' header (this memo, section 4)").
