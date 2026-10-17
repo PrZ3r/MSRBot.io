@@ -526,7 +526,7 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
   }
 
   /** Write outputs */
-  await fs.writeFile(IDX, JSON.stringify(idx, null, 2), 'utf8');
+  await fs.writeFile(IDX, JSON.stringify(idx), 'utf8'); // compact: published to gh-pages
   await fs.writeFile(FAC, JSON.stringify(facets, null, 2), 'utf8');
   console.log(`[docList] Wrote ${IDX} (${idx.length} docs, ${gatedCount} gated by contentType), ${FAC}`);
 })().catch(err => {
