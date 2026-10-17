@@ -1,0 +1,281 @@
+{
+  "abstract": "This document discusses the metrics to be considered in an evaluation of new or modified congestion control mechanisms for the Internet. These include metrics for the evaluation of new transport protocols, of proposed modifications to TCP, of application-level congestion control, and of Active Queue Management (AQM) mechanisms in the router. This document is the first in a series of documents aimed at improving the models that we use in the evaluation of transport protocols. This document is a product of the Transport Modeling Research Group (TMRG), and has received detailed feedback from many members of the Research Group (RG). As the document tries to make clear, there is not necessarily a consensus within the research community (or the IETF community, the vendor community, the operations community, or any other community) about the metrics that congestion control mechanisms should be designed to optimize, in terms of trade-offs between throughput and delay, fairness between competing flows, and the like. However, we believe that there is a clear consensus that congestion control mechanisms should be evaluated in terms of trade-offs between a range of metrics, rather than in terms of optimizing for a single metric. This memo provides information for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "authors": [
+    {
+      "name": "Sally Floyd"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docId": "RFC5166",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docLabel": "IETF RFC 5166",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docNumber": "5166",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docTitle": "Metrics for the Evaluation of Congestion Control Mechanisms",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "doi": "10.17487/RFC5166",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "href": "https://doi.org/10.17487/RFC5166",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "keywords": [
+    "TMRG"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Transport Modeling Research Group",
+      "Tmrg"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T19:28:05.971Z",
+    "version": "extractDocs.js@commit:75b379398159"
+  },
+  "pages": "23",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publicationDate": "2008-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2018",
+      "RFC2680",
+      "RFC2678",
+      "RFC2679",
+      "RFC2681",
+      "RFC2914",
+      "RFC3148",
+      "RFC3168",
+      "RFC3357",
+      "RFC3393",
+      "RFC3448",
+      "RFC3611",
+      "RFC3714",
+      "RFC3782",
+      "RFC4737",
+      "RFC4782",
+      "RFC4828",
+      "RFC5136",
+      "orphan/RFC5166/h:f311807e",
+      "orphan/RFC5166/h:af054890",
+      "orphan/RFC5166/h:a62d0663",
+      "orphan/RFC5166/h:dac320fe",
+      "orphan/RFC5166/h:38fd918b",
+      "orphan/RFC5166/h:e08894a5",
+      "orphan/RFC5166/h:018390ff",
+      "orphan/RFC5166/h:fdc7f20a",
+      "orphan/RFC5166/h:b2dead6a",
+      "orphan/RFC5166/h:4c42cc9b",
+      "orphan/RFC5166/h:7b6aef8b",
+      "orphan/RFC5166/h:0136e5d9",
+      "orphan/RFC5166/h:3769b112",
+      "orphan/RFC5166/h:7690eccf",
+      "orphan/RFC5166/h:ba36ed1d",
+      "orphan/RFC5166/h:e4fe980e",
+      "orphan/RFC5166/h:38dda487",
+      "orphan/RFC5166/h:1ee67da1",
+      "orphan/RFC5166/h:dc847098",
+      "orphan/RFC5166/h:942c7b42",
+      "orphan/RFC5166/h:cfff9ea3",
+      "orphan/RFC5166/h:10c14c23",
+      "orphan/RFC5166/h:bf4f5477",
+      "orphan/RFC5166/h:f9b432ea",
+      "orphan/RFC5166/h:997ae0ad",
+      "orphan/RFC5166/h:3f2089ef",
+      "orphan/RFC5166/h:8366326f",
+      "orphan/RFC5166/h:a93899a0",
+      "orphan/RFC5166/h:59133cbe",
+      "orphan/RFC5166/h:00be6baa",
+      "orphan/RFC5166/h:e1473602",
+      "orphan/RFC5166/h:68b5bb61",
+      "orphan/RFC5166/h:c1f190d9",
+      "orphan/RFC5166/h:0fd4c3cb",
+      "orphan/RFC5166/h:2b0f199d",
+      "orphan/RFC5166/h:bcd4eeaf",
+      "orphan/RFC5166/h:406135f0",
+      "orphan/RFC5166/h:5def75fe",
+      "orphan/RFC5166/h:d56703a7",
+      "orphan/RFC5166/h:d03b5891",
+      "orphan/RFC5166/h:d83350d1",
+      "orphan/RFC5166/h:25ab5398",
+      "orphan/RFC5166/h:5cafdaef"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=61 proseBlocks=69 skippedAnchorBlocks=66",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+      "updated": "2026-10-16T18:53:48.985Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5166/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+    "updated": "2026-10-16T18:53:48.985Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+      "updated": "2026-10-16T18:53:48.985Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+      "updated": "2026-10-16T18:53:48.985Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+      "updated": "2026-10-16T18:53:48.985Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+      "updated": "2026-10-16T18:53:48.985Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5166/",
+      "updated": "2026-10-16T18:53:48.985Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  }
+}

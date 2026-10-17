@@ -1,0 +1,264 @@
+{
+  "abstract": "The Path Computation Element Communication Protocol (PCEP) allows Path Computation Clients (PCCs) to request path computations from Path Computation Elements (PCEs), and lets the PCEs return responses. When computing or reoptimizing the routes of a set of Traffic Engineering Label Switched Paths (TE LSPs) through a network, it may be advantageous to perform bulk path computations in order to avoid blocking problems and to achieve more optimal network-wide solutions. Such bulk optimization is termed Global Concurrent Optimization (GCO). A GCO is able to simultaneously consider the entire topology of the network and the complete set of existing TE LSPs, and their respective constraints, and look to optimize or reoptimize the entire network to satisfy all constraints for all TE LSPs. A GCO may also be applied to some subset of the TE LSPs in a network. The GCO application is primarily a Network Management System (NMS) solution. This document provides application-specific requirements and the PCEP extensions in support of GCO applications. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "authors": [
+    {
+      "name": "Young Lee"
+    },
+    {
+      "name": "Jean-Louis Le Roux"
+    },
+    {
+      "name": "Daniel King"
+    },
+    {
+      "name": "Eiji Oki"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docId": "RFC5557",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docLabel": "IETF RFC 5557",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docNumber": "5557",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docTitle": "Path Computation Element Communication Protocol (PCEP) Requirements and Protocol Extensions in Support of Global Concurrent Optimization",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "doi": "10.17487/RFC5557",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "href": "https://doi.org/10.17487/RFC5557",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "keywords": [
+    "PCE",
+    "Global Concurrent Optimization",
+    "NMS",
+    "Network Management System"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Pcc",
+      "Path Communication Client",
+      "Pce",
+      "Gco",
+      "Global Concurrent Optimization",
+      "NMS",
+      "Network Management System"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T19:29:41.634Z",
+    "version": "extractDocs.js@commit:75b379398159"
+  },
+  "pages": "26",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publicationDate": "2009-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC5511",
+      "RFC4655",
+      "RFC4657",
+      "RFC4674",
+      "RFC5212",
+      "orphan/RFC5557/h:15d68787",
+      "orphan/RFC5557/h:0edcc9e4"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=16 proseBlocks=18 skippedAnchorBlocks=16",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+      "updated": "2026-10-16T18:55:32.557Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "normative": [
+      "RFC5441",
+      "RFC5541",
+      "RFC5521",
+      "RFC5440",
+      "RFC2119",
+      "RFC3209",
+      "RFC5088",
+      "RFC5089"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+      "updated": "2026-10-16T18:55:32.557Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5557/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+    "updated": "2026-10-16T18:55:32.557Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+      "updated": "2026-10-16T18:55:32.557Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+      "updated": "2026-10-16T18:55:32.557Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+      "updated": "2026-10-16T18:55:32.557Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+      "updated": "2026-10-16T18:55:32.557Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5557/",
+      "updated": "2026-10-16T18:55:32.557Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  }
+}

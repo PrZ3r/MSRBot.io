@@ -1,0 +1,359 @@
+{
+  "abstract": "Routing Bridges (RBridges) provide optimal pair-wise forwarding without configuration, safe forwarding even during periods of temporary loops, and support for multipathing of both unicast and multicast traffic. They achieve these goals using IS-IS routing and encapsulation of traffic with a header that includes a hop count. RBridges are compatible with previous IEEE 802.1 customer bridges as well as IPv4 and IPv6 routers and end nodes. They are as invisible to current IP routers as bridges are and, like routers, they terminate the bridge spanning tree protocol. The design supports VLANs and the optimization of the distribution of multi-destination frames based on VLAN ID and based on IP-derived multicast groups. It also allows unicast forwarding tables at transit RBridges to be sized according to the number of RBridges (rather than the number of end nodes), which allows their forwarding tables to be substantially smaller than in conventional customer bridges. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "Radia Perlman"
+    },
+    {
+      "name": "Donald E. Eastlake 3rd"
+    },
+    {
+      "name": "Dinesh G. Dutt"
+    },
+    {
+      "name": "Silvano Gai"
+    },
+    {
+      "name": "Anoop Ghanwani"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC6325",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 6325",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "6325",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "Routing Bridges (RBridges): Base Protocol Specification",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC6325",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC6325",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "keywords": [
+    "TRILL"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "pages": "99",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2011-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "IEEE.STD802.1AB.2009",
+      "IEEE.STD802.1AD.2005",
+      "IEEE.STD802.1AH.2008",
+      "IEEE.STD802.1AE.2006",
+      "IEEE.STD802.1AX.2008",
+      "RFC1661",
+      "RFC3411",
+      "RFC4086",
+      "RFC4541",
+      "RFC4789",
+      "RFC5304",
+      "RFC5310",
+      "RFC5342",
+      "RFC5556",
+      "orphan/RFC6325/h:04ade4ca",
+      "orphan/RFC6325/h:6b2f92bf",
+      "orphan/RFC6325/h:4bf6b03d",
+      "orphan/RFC6325/h:c26447e8",
+      "orphan/RFC6325/h:cff02e6a"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=38 proseBlocks=45 skippedAnchorBlocks=42",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+        "RFC1661",
+        "RFC3411",
+        "RFC4086",
+        "RFC4541",
+        "RFC4789",
+        "RFC5304",
+        "RFC5310",
+        "RFC5342",
+        "RFC5556",
+        "orphan/RFC6325/h:1a361ad4",
+        "orphan/RFC6325/h:3d33d26b",
+        "orphan/RFC6325/h:a8706b78",
+        "orphan/RFC6325/h:04ade4ca",
+        "orphan/RFC6325/h:4e12fc25",
+        "orphan/RFC6325/h:0f1c1f17",
+        "orphan/RFC6325/h:6b2f92bf",
+        "orphan/RFC6325/h:4bf6b03d",
+        "orphan/RFC6325/h:c26447e8",
+        "orphan/RFC6325/h:cff02e6a"
+      ],
+      "overridden": true,
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+      "updated": "2026-10-17T00:34:23.755Z",
+      "version": "extractDocs.js@commit:e15f05a0bdbb"
+    },
+    "normative": [
+      "IEEE.STD802.1AK.2007",
+      "IEEE.STD802.1D.2004",
+      "IEEE.STD802.1Q.2005",
+      "IEEE.STD802.3.2008",
+      "ISO.10589.2002",
+      "RFC1112",
+      "RFC1195",
+      "RFC2119",
+      "RFC2464",
+      "RFC2710",
+      "RFC3376",
+      "RFC3417",
+      "RFC3419",
+      "RFC4286",
+      "RFC5226",
+      "RFC5303",
+      "RFC5305",
+      "RFC6165",
+      "RFC6326"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+        "IEEE.STD802.1AK.2007",
+        "ISO.10589.2002",
+        "RFC1112",
+        "RFC1195",
+        "RFC2119",
+        "RFC2464",
+        "RFC2710",
+        "RFC3376",
+        "RFC3417",
+        "RFC3419",
+        "RFC4286",
+        "RFC5226",
+        "RFC5303",
+        "RFC5305",
+        "RFC6165",
+        "RFC6326",
+        "orphan/RFC6325/h:1c55a4a5",
+        "orphan/RFC6325/h:e563126f",
+        "orphan/RFC6325/h:b8945352"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+      "updated": "2026-10-17T00:34:23.755Z",
+      "version": "extractDocs.js@commit:e15f05a0bdbb"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6325/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+    "updated": "2026-10-16T20:43:36.726Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+      "updated": "2026-10-16T20:43:36.726Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "amendedBy": [
+      "RFC6327",
+      "RFC6439",
+      "RFC7172",
+      "RFC7177",
+      "RFC7179",
+      "RFC7180",
+      "RFC7357",
+      "RFC7455",
+      "RFC7780",
+      "RFC7783",
+      "RFC8139",
+      "RFC8249",
+      "RFC8361",
+      "RFC8377"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+      "updated": "2026-10-16T20:43:36.726Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+      "updated": "2026-10-16T20:43:36.726Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc6325",
+      "https://www.rfc-editor.org/errata_search.php?rfc=6325",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc6325.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+      "updated": "2026-10-16T20:43:36.726Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+      "updated": "2026-10-16T20:43:36.726Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+      "updated": "2026-10-16T20:43:36.726Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6325/",
+      "updated": "2026-10-16T20:43:36.726Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}

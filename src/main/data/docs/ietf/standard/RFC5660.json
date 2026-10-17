@@ -1,0 +1,261 @@
+{
+  "abstract": "This document specifies, abstractly, how to interface applications and transport protocols with IPsec so as to create \"channels\" by latching \"connections\" (packet flows) to certain IPsec Security Association (SA) parameters for the lifetime of the connections. Connection latching is layered on top of IPsec and does not modify the underlying IPsec architecture. Connection latching can be used to protect applications against accidentally exposing live packet flows to unintended peers, whether as the result of a reconfiguration of IPsec or as the result of using weak peer identity to peer address associations. Weak association of peer ID and peer addresses is at the core of Better Than Nothing Security (BTNS); thus, connection latching can add a significant measure of protection to BTNS IPsec nodes. Finally, the availability of IPsec channels will make it possible to use channel binding to IPsec channels. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "authors": [
+    {
+      "name": "Nicolás Williams"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docId": "RFC5660",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docLabel": "IETF RFC 5660",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docNumber": "5660",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docTitle": "IPsec Channels: Connection Latching",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "doi": "10.17487/RFC5660",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "href": "https://doi.org/10.17487/RFC5660",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "keywords": [
+    "IPSEC",
+    "Connection Latching"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "pages": "31",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publicationDate": "2009-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1034",
+      "RFC2367",
+      "RFC5056",
+      "RFC5387",
+      "RFC5406",
+      "orphan/RFC5660/h:f877e4ce",
+      "orphan/RFC5660/h:33141972",
+      "orphan/RFC5660/h:3a3761df",
+      "orphan/RFC5660/h:e68cfaf9"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=17 proseBlocks=20 skippedAnchorBlocks=18",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+      "updated": "2026-10-16T18:55:45.238Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "normative": [
+      "RFC768",
+      "RFC793",
+      "RFC2119",
+      "RFC4301",
+      "RFC4306",
+      "RFC4960",
+      "RFC5061",
+      "RFC5386"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+      "updated": "2026-10-16T18:55:45.238Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5660/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+    "updated": "2026-10-16T18:55:45.238Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+      "updated": "2026-10-16T18:55:45.238Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+      "updated": "2026-10-16T18:55:45.238Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5660",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5660",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc5660.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+      "updated": "2026-10-16T18:55:45.238Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+      "updated": "2026-10-16T18:55:45.238Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+      "updated": "2026-10-16T18:55:45.238Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5660/",
+      "updated": "2026-10-16T18:55:45.238Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  }
+}

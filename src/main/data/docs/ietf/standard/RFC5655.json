@@ -1,0 +1,286 @@
+{
+  "abstract": "This document describes a file format for the storage of flow data based upon the IP Flow Information Export (IPFIX) protocol. It proposes a set of requirements for flat-file, binary flow data file formats, then specifies the IPFIX File format to meet these requirements based upon IPFIX Messages. This IPFIX File format is designed to facilitate interoperability and reusability among a wide variety of flow storage, processing, and analysis tools. [STANDARDS TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "authors": [
+    {
+      "name": "Brian Trammell"
+    },
+    {
+      "name": "Elisa Boschi"
+    },
+    {
+      "name": "Lutz Mark"
+    },
+    {
+      "name": "Tanja Zseby"
+    },
+    {
+      "name": "Arno Wagner"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docId": "RFC5655",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docLabel": "IETF RFC 5655",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docNumber": "5655",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docTitle": "Specification of the IP Flow Information Export (IPFIX) File Format",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "doi": "10.17487/RFC5655",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "href": "https://doi.org/10.17487/RFC5655",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "keywords": [
+    "Flow File",
+    "Flow Storage",
+    "IPFIX",
+    "Netflow Storage"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Flow File",
+      "Flow Storage",
+      "Ipfix Storage",
+      "Netflow Storage"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T19:30:04.491Z",
+    "version": "extractDocs.js@commit:75b379398159"
+  },
+  "pages": "64",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publicationDate": "2009-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3917",
+      "RFC3954",
+      "RFC5153",
+      "RFC5470",
+      "RFC5471",
+      "RFC5472",
+      "RFC5473",
+      "RFC3851",
+      "RFC4288",
+      "RFC5485",
+      "orphan/RFC5655/h:72ec6d9e",
+      "orphan/RFC5655/h:efa66459"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=24 proseBlocks=27 skippedAnchorBlocks=24",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+      "updated": "2026-10-16T18:55:44.896Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "normative": [
+      "RFC5101",
+      "RFC5102",
+      "RFC5610",
+      "RFC1321",
+      "RFC1952",
+      "RFC2119",
+      "RFC3852",
+      "RFC4810",
+      "RFC5280",
+      "orphan/RFC5655/h:48080d70"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+      "updated": "2026-10-16T18:55:44.896Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5655/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+    "updated": "2026-10-16T18:55:44.896Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+      "updated": "2026-10-16T18:55:44.896Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+      "updated": "2026-10-16T18:55:44.896Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5655",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5655",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc5655.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+      "updated": "2026-10-16T18:55:44.896Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+      "updated": "2026-10-16T18:55:44.896Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+      "updated": "2026-10-16T18:55:44.896Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5655/",
+      "updated": "2026-10-16T18:55:44.896Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  }
+}

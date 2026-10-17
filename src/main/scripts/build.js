@@ -3440,7 +3440,9 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             (key, val) => (typeof key === 'string' && key.includes('$meta') ? undefined : val)
           )
         );
-        await writeFileSafe(EFFECTIVE_DOCS_PATH, JSON.stringify(cleanEffective, null, 2), 'utf8');
+        // Compact, not pretty-printed: the indented file passed GitHub's 100 MB limit for gh-pages
+        // (110 MB at 34.8k docs; 72 MB compact). Client scripts only parse it.
+        await writeFileSafe(EFFECTIVE_DOCS_PATH, JSON.stringify(cleanEffective), 'utf8');
         console.log(`[build] Wrote ${EFFECTIVE_DOCS_PATH}`);
       } catch (e) {
         console.warn('[build] Could not write documents snapshot:', e && e.message ? e.message : e);

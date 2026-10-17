@@ -61,7 +61,8 @@ function stripMeta(value) {
 
 function writeJson(file, data) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
+  // Compact: the SMPTE slice alone passed GitHub's 50 MB warning size when indented.
+  fs.writeFileSync(file, JSON.stringify(data) + '\n');
 }
 
 /**

@@ -1,0 +1,267 @@
+{
+  "abstract": "This document defines mobility and multihoming extensions to the Host Identity Protocol (HIP). Specifically, this document defines a general \"LOCATOR\" parameter for HIP messages that allows for a HIP host to notify peers about alternate addresses at which it may be reached. This document also defines elements of procedure for mobility of a HIP host -- the process by which a host dynamically changes the primary locator that it uses to receive packets. While the same LOCATOR parameter can also be used to support end-host multihoming, detailed procedures are left for further study. This memo defines an Experimental Protocol for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "authors": [
+    {
+      "name": "Pekka Nikander"
+    },
+    {
+      "name": "Tom Henderson"
+    },
+    {
+      "name": "Christian Vogt"
+    },
+    {
+      "name": "Jari Arkko"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docId": "RFC5206",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docLabel": "IETF RFC 5206",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docNumber": "5206",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docTitle": "End-Host Mobility and Multihoming with the Host Identity Protocol",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "doi": "10.17487/RFC5206",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "href": "https://doi.org/10.17487/RFC5206",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "keywords": [
+    "HIP",
+    "Shim6"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "HIP",
+      "Multihoming Extensions",
+      "Mobility Extentions"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T19:28:21.128Z",
+    "version": "extractDocs.js@commit:75b379398159"
+  },
+  "pages": "40",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publicationDate": "2008-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4225",
+      "orphan/RFC5206/h:fda9b2ff",
+      "orphan/RFC5206/h:67b529a0"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=11 proseBlocks=14 skippedAnchorBlocks=12",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+      "updated": "2026-10-16T18:53:54.336Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3484",
+      "RFC4291",
+      "RFC4303",
+      "RFC4423",
+      "RFC5201",
+      "RFC5202",
+      "RFC5204"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+      "updated": "2026-10-16T18:53:54.336Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5206/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+    "updated": "2026-10-16T18:53:54.336Z",
+    "version": "extractDocs.js@commit:a6ae1efef02e"
+  },
+  "status": {
+    "active": false,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+      "updated": "2026-10-16T18:53:54.336Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+      "updated": "2026-10-16T18:53:54.336Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "latestVersion": false,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+      "updated": "2026-10-16T18:53:54.336Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+      "updated": "2026-10-16T18:53:54.336Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "superseded": true,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+      "updated": "2026-10-16T18:53:54.336Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "supersededBy": [
+      "RFC8046"
+    ],
+    "supersededBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5206/",
+      "updated": "2026-10-16T18:53:54.336Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    }
+  }
+}

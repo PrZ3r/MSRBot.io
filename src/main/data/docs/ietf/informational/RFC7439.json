@@ -1,0 +1,324 @@
+{
+  "abstract": "This document reviews the Multiprotocol Label Switching (MPLS) protocol suite in the context of IPv6 and identifies gaps that must be addressed in order to allow MPLS-related protocols and applications to be used with IPv6-only networks. This document is intended to focus on gaps in the standards defining the MPLS suite, and is not intended to highlight particular vendor implementations (or lack thereof) in the context of IPv6-only MPLS functionality. In the data plane, MPLS fully supports IPv6, and MPLS labeled packets can be carried over IPv6 packets in a variety of encapsulations. However, support for IPv6 among MPLS control-plane protocols, MPLS applications, MPLS Operations, Administration, and Maintenance (OAM), and MIB modules is mixed, with some protocols having major gaps. For most major gaps, work is in progress to upgrade the relevant protocols.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "Wesley George"
+    },
+    {
+      "name": "Carlos Pignataro"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC7439",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 7439",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "7439",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "Gap Analysis for Operating IPv6-Only MPLS Networks",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC7439",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC7439",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "keywords": [
+    "MPLS",
+    "LDP",
+    "IPv6",
+    "RSVP",
+    "L3VPN",
+    "L2VPN"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "pages": "28",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2015-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-l2vpn-evpn-11",
+      "IETF.draft-itojun-v6ops-v4mapped-harmful-02",
+      "IETF.draft-raza-mpls-oam-ipv6-rao-02",
+      "IETF.draft-ietf-mpls-ldp-ipv6-14",
+      "IETF.draft-smith-v6ops-larger-ipv6-loopback-prefix-04",
+      "IETF.draft-ietf-l3vpn-mvpn-mldp-nlri-10",
+      "IETF.draft-manral-mpls-rfc3811bis-04",
+      "IETF.draft-ietf-l3vpn-mvpn-pe",
+      "RFC1918",
+      "RFC3630",
+      "RFC3812",
+      "RFC3813",
+      "RFC3815",
+      "RFC4090",
+      "RFC4220",
+      "RFC4364",
+      "RFC4447",
+      "RFC4558",
+      "RFC4655",
+      "RFC4664",
+      "RFC4761",
+      "RFC4762",
+      "RFC4798",
+      "RFC4802",
+      "RFC4875",
+      "RFC4884",
+      "RFC4950",
+      "RFC4990",
+      "RFC5082",
+      "RFC5085",
+      "RFC5088",
+      "RFC5089",
+      "RFC5286",
+      "RFC5305",
+      "RFC5329",
+      "RFC5440",
+      "RFC5512",
+      "RFC5520",
+      "RFC5521",
+      "RFC5640",
+      "RFC5837",
+      "RFC5884",
+      "RFC5885",
+      "RFC5886",
+      "RFC5921",
+      "RFC6006",
+      "RFC6073",
+      "RFC6119",
+      "RFC6371",
+      "RFC6388",
+      "RFC6445",
+      "RFC6513",
+      "RFC6514",
+      "RFC6540",
+      "RFC6624",
+      "RFC6720",
+      "RFC6829",
+      "RFC7117"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=74 proseBlocks=88 skippedAnchorBlocks=80",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+      "updated": "2026-10-16T20:46:17.389Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "normative": [
+      "RFC2460",
+      "RFC3032",
+      "RFC3107",
+      "RFC3209",
+      "RFC3471",
+      "RFC3473",
+      "RFC3811",
+      "RFC4023",
+      "RFC4379",
+      "RFC4659",
+      "RFC4817",
+      "RFC5036",
+      "RFC6074",
+      "RFC6370",
+      "RFC6512"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+      "updated": "2026-10-16T20:46:17.389Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7439/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+    "updated": "2026-10-16T20:46:17.389Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+      "updated": "2026-10-16T20:46:17.389Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+      "updated": "2026-10-16T20:46:17.389Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc7439",
+      "https://www.rfc-editor.org/errata_search.php?rfc=7439",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc7439.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+      "updated": "2026-10-16T20:46:17.389Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+      "updated": "2026-10-16T20:46:17.389Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+      "updated": "2026-10-16T20:46:17.389Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7439/",
+      "updated": "2026-10-16T20:46:17.389Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}

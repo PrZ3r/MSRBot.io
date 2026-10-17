@@ -1,0 +1,265 @@
+{
+  "abstract": "Recent analysis of potential attacks on core Internet infrastructure indicates an increased vulnerability of TCP connections to spurious resets (RSTs), sent with forged IP source addresses (spoofing). TCP has always been susceptible to such RST spoofing attacks, which were indirectly protected by checking that the RST sequence number was inside the current receive window, as well as via the obfuscation of TCP endpoint and port numbers. For pairs of well-known endpoints often over predictable port pairs, such as BGP or between web servers and well-known large-scale caches, increases in the path bandwidth-delay product of a connection have sufficiently increased the receive window space that off-path third parties can brute-force generate a viable RST sequence number. The susceptibility to attack increases with the square of the bandwidth, and thus presents a significant vulnerability for recent high-speed networks. This document addresses this vulnerability, discussing proposed solutions at the transport level and their inherent challenges, as well as existing network level solutions and the feasibility of their deployment. This document focuses on vulnerabilities due to spoofed TCP segments, and includes a discussion of related ICMP spoofing attacks on TCP connections. This memo provides information for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "authors": [
+    {
+      "name": "Dr. Joseph D. Touch"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docId": "RFC4953",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docLabel": "IETF RFC 4953",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docNumber": "4953",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docTitle": "Defending TCP Against Spoofing Attacks",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "doi": "10.17487/RFC4953",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "href": "https://doi.org/10.17487/RFC4953",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "keywords": [
+    "TCP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "pages": "28",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publicationDate": "2007-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2581",
+      "RFC3704",
+      "RFC2385",
+      "RFC1122",
+      "RFC1337",
+      "RFC2827",
+      "RFC3360",
+      "RFC3682",
+      "RFC2410",
+      "RFC3027",
+      "RFC1323",
+      "RFC4306",
+      "RFC4302",
+      "RFC4303",
+      "RFC4301",
+      "RFC4340",
+      "RFC3562",
+      "RFC1263",
+      "RFC2003",
+      "RFC793",
+      "RFC4271",
+      "RFC2960",
+      "RFC1810",
+      "RFC4278",
+      "orphan/RFC4953/h:d74ffeeb",
+      "orphan/RFC4953/h:7abe10ab",
+      "orphan/RFC4953/h:c908ebe6",
+      "orphan/RFC4953/h:8ae2308c",
+      "orphan/RFC4953/h:2d5ab3aa",
+      "orphan/RFC4953/h:78e9e0da",
+      "orphan/RFC4953/h:f5a85217",
+      "orphan/RFC4953/h:f0faef83",
+      "orphan/RFC4953/h:7c1ca468",
+      "orphan/RFC4953/h:31d57531",
+      "orphan/RFC4953/h:e8e43e08",
+      "orphan/RFC4953/h:3debfa5f",
+      "orphan/RFC4953/h:66eacdc0",
+      "orphan/RFC4953/h:14b2a285",
+      "orphan/RFC4953/h:59e54b70",
+      "orphan/RFC4953/h:f26c780f",
+      "orphan/RFC4953/h:1c977eac",
+      "orphan/RFC4953/h:91539f77",
+      "orphan/RFC4953/h:aaafe553",
+      "orphan/RFC4953/h:24a37acb",
+      "orphan/RFC4953/h:627c7144",
+      "orphan/RFC4953/h:e378b19e",
+      "orphan/RFC4953/h:fc2e0cb6",
+      "orphan/RFC4953/h:0074150e",
+      "orphan/RFC4953/h:62e67098"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=49 proseBlocks=53 skippedAnchorBlocks=52",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+      "updated": "2026-10-16T15:47:27.520Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4953/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+    "updated": "2026-10-16T15:47:27.520Z",
+    "version": "extractDocs.js@commit:e0fe4a71cd26"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+      "updated": "2026-10-16T15:47:27.520Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+      "updated": "2026-10-16T15:47:27.520Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+      "updated": "2026-10-16T15:47:27.520Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+      "updated": "2026-10-16T15:47:27.520Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4953/",
+      "updated": "2026-10-16T15:47:27.520Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    }
+  }
+}

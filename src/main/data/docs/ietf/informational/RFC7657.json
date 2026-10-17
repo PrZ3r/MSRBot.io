@@ -1,0 +1,284 @@
+{
+  "abstract": "This memo describes the interaction between Differentiated Services (Diffserv) network quality-of-service (QoS) functionality and real- time network communication, including communication based on the Real-time Transport Protocol (RTP). Diffserv is based on network nodes applying different forwarding treatments to packets whose IP headers are marked with different Diffserv Codepoints (DSCPs). WebRTC applications, as well as some conferencing applications, have begun using the Session Description Protocol (SDP) bundle negotiation mechanism to send multiple traffic streams with different QoS requirements using the same network 5-tuple. The results of using multiple DSCPs to obtain different QoS treatments within a single network 5-tuple have transport protocol interactions, particularly with congestion control functionality (e.g., reordering). In addition, DSCP markings may be changed or removed between the traffic source and destination. This memo covers the implications of these Diffserv aspects for real-time network communication, including WebRTC.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "David L. Black"
+    },
+    {
+      "name": "Paul Jones"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC7657",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 7657",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "7657",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "Differentiated Services (Diffserv) and Real-Time Communication",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC7657",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC7657",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "keywords": [
+    "DiffServ",
+    "DSCP",
+    "RAI",
+    "RTP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "pages": "26",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2015-11-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-welzl-rmcat-coupled-cc-05",
+      "IETF.draft-ietf-rtcweb-data-channel-13",
+      "IETF.draft-ietf-tsvwg-diffserv-intercon-03",
+      "T-REC-H.221.2009",
+      "T-REC-H.264.2014",
+      "RFC2697",
+      "RFC2698",
+      "RFC2914",
+      "RFC3168",
+      "RFC3270",
+      "RFC4103",
+      "RFC4303",
+      "RFC4566",
+      "RFC4594",
+      "RFC5109",
+      "RFC5127",
+      "RFC5129",
+      "RFC5245",
+      "RFC5389",
+      "RFC5462",
+      "RFC5761",
+      "RFC5764",
+      "RFC5766",
+      "RFC6062",
+      "RFC6274",
+      "RFC6386",
+      "RFC6437",
+      "RFC6458",
+      "IETF.draft-ietf-rmcat-cc-requirements-09",
+      "IETF.draft-ietf-rtcweb-rtp-usage-25",
+      "IETF.draft-ietf-mmusic-sdp-bundle-negotiation-23",
+      "IETF.draft-petithuguenin-avtcore-rfc5764-mux-fixes-02",
+      "W3C.WD-mediacapture-streams.20130903",
+      "IETF.draft-ietf-rtcweb-overview-14",
+      "IETF.draft-ietf-rtcweb-transports-10"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=50 proseBlocks=68 skippedAnchorBlocks=56",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+      "updated": "2026-10-16T20:47:08.307Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "normative": [
+      "RFC768",
+      "RFC793",
+      "RFC2474",
+      "RFC2475",
+      "RFC2597",
+      "RFC3246",
+      "RFC3550",
+      "RFC3662",
+      "RFC3828",
+      "RFC4340",
+      "RFC4960",
+      "RFC5405",
+      "RFC5865",
+      "RFC6951",
+      "RFC7656"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+      "updated": "2026-10-16T20:47:08.307Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7657/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+    "updated": "2026-10-16T20:47:08.307Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+      "updated": "2026-10-16T20:47:08.307Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+      "updated": "2026-10-16T20:47:08.307Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+      "updated": "2026-10-16T20:47:08.307Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+      "updated": "2026-10-16T20:47:08.307Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7657/",
+      "updated": "2026-10-16T20:47:08.307Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}

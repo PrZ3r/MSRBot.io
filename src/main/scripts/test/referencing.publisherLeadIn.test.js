@@ -260,4 +260,46 @@ assert.strictEqual(parseRefId('INCITS 373-2003, Fibre Channel Framing and Signal
 assert.strictEqual(parseRefId('INCITS Technical Committee T10, "SCSI Primary Commands - 4", ANSI INCITS 513-201x.'), 'INCITS.513'); n++;
 assert.strictEqual(parseRefId('Fibre Channel Protocol - 4 (FCP-4), INCITS Project 1828-D, Technical Committee T10 (www.t10.org).'), null); n++;
 
+// Cited-RFC batch 1: "US FIPS197" (RFC3607), "ANSI Std. X3.139-1987" (RFC2816), "X3.269:1996",
+// ANSI T1 by the ANSI token (RFC3946), "FIPS, …, publication 180-1" (RFC4782), IEEE 802 dated by a
+// trailing year (RFC5087), "ITU, …, Recommendation, I.255.3" (RFC4190), W3C CR/WD tokens and a
+// wrapped date (RFC4661, RFC5022), 3GPP GSM-era numbers (RFC4957); ANSI not read from an ISO cite
+// or a quoted title.
+assert.strictEqual(parseRefId('"Advanced Encryption Standard", US FIPS197, November, 2001.'), 'NIST.FIPS.197'); n++;
+assert.strictEqual(parseRefId('Fiber Distributed Data Interface MAC, ANSI Std. X3.139-1987.'), 'ANSI.X3.139.1987'); n++;
+assert.strictEqual(parseRefId('8. [FCP] ANSI NCITS. SCSI-3 Fibre Channel Protocol [ANSI X3.269:1996].'), 'ANSI.X3.269.1996'); n++;
+assert.strictEqual(parseRefId('"Synchronous Optical Network (SONET): Basic Description", ANSI T1.105, October 2000.'), 'ANSI.T1.105.2000'); n++;
+assert.strictEqual(parseRefId('"Secure Hash Standard", FIPS, U.S. Department of Commerce, Washington, D.C., publication 180-1, April 1995.'), 'NIST.FIPS.180-1'); n++;
+assert.strictEqual(parseRefId('IEEE 802.1Q, IEEE Standards for Local and Metropolitan Area Networks -- Virtual Bridged Local Area Networks (2003)'), 'IEEE.STD802.1Q.2003'); n++;
+assert.strictEqual(parseRefId('IEEE 802 Liaison letter to Bert Wijnen and Bernard Aboba, July 26, 2004.'), null); n++;
+assert.strictEqual(parseRefId('ITU, "Multi-Level Precedence and Preemption Service, ITU, Recommendation, I.255.3, July, 1990.'), 'T-REC-I.255.3.1990'); n++;
+assert.strictEqual(parseRefId('Bray, T., "XML 1.0 (Second Edition)", W3C CR CR-xml11-20011006, October 2000.'), 'W3C.xml11.20011006'); n++;
+assert.strictEqual(parseRefId('Jacobs, I., "CSS2 Specification", W3C REC REC-CSS2- 19980512, May 1998.'), 'W3C.css2.19980512'); n++;
+assert.strictEqual(parseRefId('"GPRS Service description; Stage 2", 3GPP TS 03.60 version 7.9.0 Release 98.'), '3GPP.TS-03.60'); n++;
+assert.strictEqual(parseRefId('ISO-C "Programming languages -- C", ISO/IEC 9899:1990, International Organization for Standardization. This is effectively the same as ANSI C standard X3.159-1989.'), 'ISO.9899.1990'); n++;
+
+// Cited-RFC batch 2: IEEE 802 catalogue numbers (RFC4837, RFC5184, RFC5677), ITU-T quoted number
+// and "G.G." typo (RFC5757, RFC6004), "NIST SP800- 38B" (RFC6218), "FIP PUBS 188" (RFC6274);
+// an "SP800-67" label doesn't override the cite's revision.
+assert.strictEqual(parseRefId('IEEE, "Institute of Electrical and Electronic Engineers, 802.1D-2004, IEEE Standard for Local and metropolitan area networks"'), 'IEEE.STD802.1D.2004'); n++;
+assert.strictEqual(parseRefId('IEEE, "802.11-2007 IEEE Standard for LAN/MAN - Specific requirements Part 11: Wireless LAN"'), 'IEEE.STD802.11.2007'); n++;
+assert.strictEqual(parseRefId('"IEEE Standard for Local and Metropolitan Area Networks - Part 21: Media Independent Handover Services", IEEE LAN/MAN Std 802.21-2008, January 2009, http://www.ieee802.org/21/private/Published%20Spec/ 802.21-2008.pdf'), 'IEEE.STD802.21.2008'); n++;
+assert.strictEqual(parseRefId('ITU-T Recommendation, "G.114 - One-way transmission time", Telecommunication Union Standardization Sector, 05/2003.'), 'T-REC-G.114.2003'); n++;
+assert.strictEqual(parseRefId('ITU-T G.G.8011.1/Y.1307.1, "Ethernet private line service", August 2004.'), 'T-REC-G.8011.1'); n++;
+assert.strictEqual(parseRefId('Dworkin, M., "The CMAC Mode for Authentication", NIST SP800- 38B, May 2005.'), 'NIST.SP.800-38B'); n++;
+assert.strictEqual(parseRefId('FIPS, "Standard Security Label for Information Transfer", Federal Information Processing Standards Publication. FIP PUBS 188, 1994.'), 'NIST.FIPS.188'); n++;
+
+// Cited-RFC batch 3: IEEE 802 designator after the title (RFC6325), not a revision draft; IEEE 754 with
+// a quoted title (RFC6397); LAN/MAN Standard with a comma date (RFC4831); ITU designator leading
+// (RFC4326, RFC4847); ETSI/ATSC designator leading (RFC4259); "3GPP TS33.402" (RFC5836).
+assert.strictEqual(parseRefId('"IEEE Standard for Local and metropolitan area networks / Media Access Control (MAC) Bridges", 802.1D-2004, 9 June 2004.'), 'IEEE.STD802.1D.2004'); n++;
+assert.strictEqual(parseRefId('"IEEE Standard for Local and metropolitan area networks / Port Based Network Access Control", 802.1X-REV Draft 2.9, 3 September 2008.'), null); n++;
+assert.strictEqual(parseRefId('IEEE 754, "IEEE Standard for Floating-Point Arithmetic", August 2008.'), 'IEEE.STD754.2008'); n++;
+assert.strictEqual(parseRefId('IEEE, "Port-based Access Control", IEEE LAN/MAN Standard 802.1x, June, 2001.'), 'IEEE.STD802.1X.2001'); n++;
+assert.strictEqual(parseRefId('I.363.5, "B-ISDN ATM Adaptation Layer specification: Type 5 AAL", International Telecommunication Union, (ITU-T), 1996.'), 'T-REC-I.363.5.1996'); n++;
+assert.strictEqual(parseRefId('Y.1312 - Layer 1 Virtual Private Network Generic requirements and architecture elements, ITU-T Recommendation, September 2003.'), 'T-REC-Y.1312.2003'); n++;
+assert.strictEqual(parseRefId('TR 101 162, "Digital Video Broadcasting (DVB); Allocation of Service Information (SI) codes for DVB systems", European Telecommunications Standards Institute (ETSI).'), 'ETSI.TR-101-162'); n++;
+assert.strictEqual(parseRefId('A/54A, "Guide to the use of the ATSC Digital Television Standard", Advanced Television Systems Committee (ATSC), Doc. A/54A, 4 December 2003.'), 'ATSC.A54A.2003'); n++;
+assert.strictEqual(parseRefId('3GPP, "Security aspects of non-3GPP accesses (Release 8)", 3GPP TS33.402 V8.3.1, 2009.'), '3GPP.TS-33.402.2009'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

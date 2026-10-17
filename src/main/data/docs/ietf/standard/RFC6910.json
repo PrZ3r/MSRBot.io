@@ -1,0 +1,274 @@
+{
+  "abstract": "The \"completion of calls\" feature defined in this specification allows the caller of a failed call to be notified when the callee becomes available to receive a call. For the realization of a basic solution without queuing, this document references the usage of the dialog event package (RFC 4235) that is described as 'Automatic Redial' in \"Session Initiation Protocol Service Examples\" (RFC 5359). For the realization of a more comprehensive solution with queuing, this document introduces an architecture for implementing these features in the Session Initiation Protocol where \"completion of calls\" implementations associated with the caller's and callee's endpoints cooperate to place the caller's request for completion of calls into a queue at the callee's endpoint; when a caller's request is ready to be serviced, re-attempt of the original, failed call is then made. The architecture is designed to interoperate well with existing completion of calls solutions in other networks.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "Dale R. Worley"
+    },
+    {
+      "name": "Martin Huelsemann"
+    },
+    {
+      "name": "Roland Jesske"
+    },
+    {
+      "name": "Denis Alexeitsev"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC6910",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.205Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 6910",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.205Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "6910",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.205Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "Completion of Calls for the Session Initiation Protocol (SIP)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC6910",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC6910",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "keywords": [
+    "Call Completion",
+    "SS7",
+    "Call-completion Event Package",
+    "CCBS",
+    "CCNR",
+    "PIDF"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Call Completion",
+      "SS7",
+      "Signaling System 7",
+      "Purpose Header Parameter",
+      "M URI Parameter",
+      "M Header Parameter",
+      "Call-completion Event Package",
+      "Â CCBS",
+      "CCNR",
+      "CCNL",
+      "Call-Info Header Field",
+      "PIDF",
+      "P-Asserted-Identity Header Field"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-17T00:36:00.647Z",
+    "version": "extractDocs.js@commit:e15f05a0bdbb"
+  },
+  "pages": "37",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2013-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3325",
+      "RFC3725",
+      "RFC5359",
+      "orphan/RFC6910/h:aa98f9d3",
+      "orphan/RFC6910/h:8a60df56"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=20 proseBlocks=21 skippedAnchorBlocks=19",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+      "updated": "2026-10-16T20:45:08.206Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3261",
+      "RFC3515",
+      "RFC3863",
+      "RFC3903",
+      "RFC3969",
+      "RFC4235",
+      "RFC4474",
+      "RFC5234",
+      "RFC5367",
+      "RFC5627",
+      "RFC6665"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+      "updated": "2026-10-16T20:45:08.206Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6910/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+    "updated": "2026-10-16T20:45:08.206Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+      "updated": "2026-10-16T20:45:08.206Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+      "updated": "2026-10-16T20:45:08.206Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+      "updated": "2026-10-16T20:45:08.206Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+      "updated": "2026-10-16T20:45:08.206Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6910/",
+      "updated": "2026-10-16T20:45:08.206Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}

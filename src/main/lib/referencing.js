@@ -1148,6 +1148,24 @@ function parseRefId(text, href = '', opts = {}) {
   // "ANSI INCITS.342:2001" (RFC3821) → "INCITS 342-2001"; a W3C TR name wrapped after its stage
   // ("W3C REC REC- html40-19980424", RFC5122) is rejoined.
   // also "ANSI/INCITS 357:2002" (RFC4172)
+  // Cited-RFC batch 1: "US FIPS197" (RFC3607), "ANSI Std. X3.139-1987" (RFC2816), "ANSI
+  // X3.269:1996" (RFC3347), "W3C REC REC-CSS2- 19980512" with the date wrapped (RFC5022).
+  // Cited-RFC batch 3: a designator leading the cite with its body named later — ETSI
+  // ("TS 101 812, "…", v1.2.1, European Telecommunications Standards Institute", RFC4259) and
+  // ATSC ("A/54A, "…", Advanced Television Systems Committee (ATSC)"); "3GPP TS33.402" (RFC5836);
+  // "ITU-T Doc. G.663" (RFC4054).
+  if (/^\s*(?:TS|TR|EN|ES|EG|ETS)\s+\d{3}\s+\d{3}\b/.test(String(text || '')) && /\bEuropean\s+Telecommunications?\s+Standards?\s+Institute\b|\bETSI\b/.test(String(text || ''))) text = `ETSI ${String(text).trim()}`;
+  if (/^\s*A\/\d+[A-Z]?\b/.test(String(text || '')) && /\bATSC\b|Advanced\s+Television\s+Systems\s+Committee/.test(String(text || ''))) text = `ATSC ${String(text).trim()}`;
+  text = String(text || '').replace(/\b3GPP\s+TS(?=\d{2}\.\d{3})/g, '3GPP TS ').replace(/\bITU-T\s+Doc\.\s+(?=[A-Z]\.\d)/g, 'ITU-T Recommendation ');
+  // Cited-RFC batch 2: "ITU-T G.G.8011.1" (RFC6004), "NIST SP800- 38B" (RFC6218),
+  // "FIP PUBS 188" (RFC6274).
+  text = String(text || '').replace(/\bG\.G\.(?=\d)/g, 'G.')
+    .replace(/\bNIST\s+SP\s*800-\s*(?=\d)/g, 'NIST SP 800-')
+    .replace(/\bFIP\s+PUBS?\b/g, 'FIPS PUB');
+  text = String(text || '').replace(/\bU\.?S\.?\s+FIPS(\d{2,3})\b/g, 'US FIPS $1')
+    .replace(/\bANSI\s+Std\.?\s+(?=X\d)/g, 'ANSI ')
+    .replace(/\b(X\d{1,2}\.\d{1,3}):((?:19|20)\d{2})\b/g, '$1-$2')
+    .replace(/\b((?:REC|CR|PR|WD|NOTE)-[A-Za-z][\w.]*-)\s+((?:19|20)\d{6})\b/g, '$1$2');
   text = String(text || '').replace(/\bANSI\s*\/\s*INCITS\b/g, 'ANSI INCITS')
     .replace(/\bINCITS[.\s](\d{2,4})(?::|-)((?:19|20)\d{2})\b/g, 'INCITS $1-$2')
     .replace(/\b(REC|WD|CR|PR|NOTE)-\s+([a-z][\w.-]*-(?:19|20)\d{6})\b/g, '$1-$2');
@@ -1215,8 +1233,9 @@ function parseRefId(text, href = '', opts = {}) {
   }
   // W3C dated REC tokens in cite text (no href available), e.g.:
   // "W3C Recommendation REC-xmlschema-1-20041028"
-  if (/\bREC-([A-Za-z0-9._-]+)-(\d{8})\b/i.test(text)) {
-    const [, shortname, yyyymmdd] = text.match(/\bREC-([A-Za-z0-9._-]+)-(\d{8})\b/i);
+  // also a Candidate/Proposed Recommendation or draft: "W3C CR CR-xml11-20011006" (RFC4661)
+  if (/\b(?:REC|CR|PR|WD)-([A-Za-z0-9._-]+)-(\d{8})\b/i.test(text)) {
+    const [, shortname, yyyymmdd] = text.match(/\b(?:REC|CR|PR|WD)-([A-Za-z0-9._-]+)-(\d{8})\b/i);
     { const refId = `W3C.${String(shortname).toLowerCase()}.${yyyymmdd}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'w3c:dated-REC-cite' } } : refId; }
   }
   // W3C author-date cites with no href (SMPTE ST 2053, ST 2067-21), e.g.:
@@ -1448,7 +1467,8 @@ function parseRefId(text, href = '', opts = {}) {
     // spelled out too, but not "… Project 2" (3GPP2, a different body): RFC4169
     const has3gpp = /\b3GPP\b/i.test(src) || /\b3rd\s+Generation\s+Partnership\s+Project\b(?!\s*2)/i.test(src);
     // Direct form: "3GPP TS 33.501" or "3GPP Technical Specification 33.501"
-    const direct = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{3})\b/i);
+    // also pre-Release-99 GSM-era numbers: "3GPP TS 03.60 version 7.9.0" (RFC4957)
+    const direct = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{2,3})\b/i);
     // Split form: "3GPP, ... TS 33.501, ..." (3GPP appears earlier, TS appears later)
     // also "3GPP, "…", Technical Specification 29.281." and a Technical Report "3GPP TR 23.793" (RFC9599, RFC9522)
     const split = has3gpp ? src.match(/\b(?:TS|Technical\s+Specification|(TR))\s+(\d{2})\.(\d{3})\b/i) : null;
@@ -1594,6 +1614,14 @@ function parseRefId(text, href = '', opts = {}) {
   if (/\bFIPS\)?[\s-]+(?:PUB(?:LICATION)?\.?[\s-]+)?(\d+)(-\d+)?\b/i.test(text)) {
     const [, num, rev] = text.match(/\bFIPS\)?[\s-]+(?:PUB(?:LICATION)?\.?[\s-]+)?(\d+)(-\d+)?\b/i);
     { const refId = `NIST.FIPS.${num}${rev || ''}`; return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fips-generic' } } : refId; }
+  }
+  // '"Secure Hash Standard", FIPS, U.S. Department of Commerce, …, publication 180-1' (RFC4782)
+  {
+    const m = String(text || '').match(/\bFIPS\b[^\n]{0,120}?\bpublication\s+(\d{2,3})(-\d)?\b/i);
+    if (m) {
+      const refId = `NIST.FIPS.${m[1]}${m[2] || ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'fips-publication' } } : refId;
+    }
   }
   // FIPS structure in hrefs .../fips/186/2/...
   if (/csrc\.nist\.gov\/.+\/fips\/(\d+)(?:\/(\d+))?/i.test(href)) {
@@ -1777,6 +1805,30 @@ function parseRefId(text, href = '', opts = {}) {
       const refId = `T-REC-${series}.${bare[2]}${part}${by && Number(by) <= new Date().getUTCFullYear() + 1 ? `.${by}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-bare' } } : refId;
     }
+    // The designator leading, the ITU named after the title: 'H.222.0, "Information technology - …",
+    // International Telecommunication Union' and 'I.363.5, "…", ITU-T, 1996' (RFC4326); 'Y.1312 -
+    // Layer 1 Virtual Private Network …, ITU-T Recommendation, September 2003' (RFC4847).
+    const lead = /\bInternational\s+Telecommunications?\s+Union\b|\bITU(?:-T)?\b/.test(String(text || ''))
+      && String(text || '').match(/^\s*([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)(?:,\s*["“]|\s+[-–]\s+[A-Z])/);
+    if (lead) {
+      const after = String(text || '').slice(lead.index + lead[0].length);
+      const y = (after.match(/\b((?:19|20)\d{2})\b/) || [])[1] || '';
+      const refId = `T-REC-${lead[1]}.${lead[2]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-designator-lead' } } : refId;
+    }
+    // 'ITU-T Recommendation, "G.114 - One-way transmission time", …, 05/2003' (RFC5757)
+    const recQuoted = String(text || '').match(/\bITU-T\s+Recommendation,?\s*["“]([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s+[-–]/);
+    if (recQuoted) {
+      const y = year || (String(text || '').match(/\b\d{2}\/((?:19|20)\d{2})\b/) || [])[1] || '';
+      const refId = `T-REC-${recQuoted[1]}.${recQuoted[2]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-recommendation-quoted' } } : refId;
+    }
+    // also "ITU, "…", ITU, Recommendation, I.255.3, July, 1990" (RFC4190)
+    const recSub = String(text || '').match(/\bITU\b[^\n\r]{0,120}?\bRecommendation,\s+([A-Z])\.(\d{1,4}\.\d{1,2})\b/);
+    if (recSub) {
+      const refId = `T-REC-${recSub[1]}.${recSub[2]}${year ? `.${year}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-recommendation-comma' } } : refId;
+    }
     const rec = String(text || '').match(/\b(?:CCITT|ITU-?T)?[^\n\r]{0,80}?\bRecommendation(?:s)?\s+([A-Z])\.(\d{1,4})(?:-(\d+))?\b/i)
       || String(text || '').match(/\b([A-Z])\.(\d{1,4})(?:-(\d+))?\b(?=[^\n\r]{0,80}\bRecommendation\b)/i);
     if (rec) {
@@ -1838,9 +1890,19 @@ function parseRefId(text, href = '', opts = {}) {
     // "Financial Institution Key Management (Wholesale)", X9.17, 4 Apr 1985." (RFC2828)
     // also "American National Standard for Telecommunications -- …, T1.403, February 1989" (RFC4805);
     // a hyphenated label ("ANSI-T1.403 …") is skipped so the dated designator in the body is used.
-    const spelled = !m && /\bAmerican\s+National\s+Standards?\s+(?:Institute|for)\b/.test(String(text || ''))
+    // also "…, ANSI T1.105, October 2000" (RFC3946) and 'ANSI, "SONET …", T1.105, October 2000' (RFC4139)
+    // The bare "ANSI" token only where no ISO/INCITS number names the document (ISO 9899:1990,
+    // INCITS 4-1986 resolve through their own rules), and never from inside a quoted title.
+    const spelledLead = /\bAmerican\s+National\s+Standards?\s+(?:Institute|for)\b/.test(String(text || ''));
+    const ansiToken = !spelledLead && /\bANSI\b/.test(String(text || ''))
+      && !/\bISO(?:\s*\/\s*IEC)?\s+(?:(?:DIS|DP|CD|FDIS)\s+)?\d{3,5}\b|\bINCITS\b/.test(String(text || ''));
+    const spelled = !m && (spelledLead || ansiToken)
       && String(text || '').match(/(?<![\w.\/-])(X\d{1,2}|T1)\.(\d{1,3}(?:\.\d{2})?)\b(?![.\/]\d)(?:[^\n]{0,80}?\b((?:19|20)\d{2})\b)?/);
-    if (spelled) {
+    const inQuotes = spelled && ansiToken && (() => {
+      const before = String(text || '').slice(0, spelled.index);
+      return ((before.match(/["“”]/g) || []).length % 2) === 1;
+    })();
+    if (spelled && !inQuotes) {
       // US-ASCII (X3.4) is filed under INCITS, as refMap does for "ANSI X3.4, 1986".
       const pub = spelled[1] === 'X3' && spelled[2] === '4' ? 'INCITS' : 'ANSI';
       const refId = `${pub}.${spelled[1]}.${spelled[2]}${spelled[3] ? `.${spelled[3]}` : ''}`;
@@ -1940,6 +2002,15 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // The LAN/MAN committee lead-in: "…", IEEE LAN/MAN Std 802.21-2008, January 2009 (RFC5677, RFC6418)
+  {
+    // also a comma and month: "IEEE LAN/MAN Standard 802.1x, June, 2001" (RFC4831)
+    const m = String(text || '').match(/\bIEEE\s+LAN\/MAN\s+(?:Std\.?|Standard)\s+(\d{3,4}(?:\.\d+[A-Za-z]{0,3})?)(?:[-:]|,\s*(?:[A-Z][a-z]+,?\s+)?)((?:19|20)\d{2})\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-lanman-std' } } : refId;
+    }
+  }
   // IEEE standards: "IEEE Standard 1588-2008", "IEEE 802-1990", "... P754-2008" → IEEE.STD1588.2008
   {
     // also a letter suffix and a comma before the year (xml2rfc): "IEEE Standard 802.1X-2004",
@@ -1969,15 +2040,47 @@ function parseRefId(text, href = '', opts = {}) {
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-in-title' } } : refId;
     }
   }
+  // An IEEE 802 designator-year followed by its catalogue title: 'IEEE, "802.11-2007 IEEE Standard
+  // for LAN/MAN …"' (RFC5184), '"Institute of Electrical and Electronic Engineers, 802.1D-2004,
+  // IEEE Standard for …"' (RFC4837).
+  {
+    const m = /\bIEEE\b|Institute\s+of\s+Electrical/.test(String(text || ''))
+      && String(text || '').match(/(?<![\w.])(802(?:\.\d+[A-Za-z]{0,3})?)-((?:19|20)\d{2}),?\s+IEEE\s+Standard\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-catalogue' } } : refId;
+    }
+  }
+  // The designator-year after the title: '"IEEE Standard for … / MAC Bridges", 802.1D-2004, 9 June
+  // 2004' (RFC6325). Not a draft or a revision project ("802.1X-REV Draft 2.9", "802.1aj Draft 4.2").
+  {
+    const src = String(text || '');
+    const m = /\bIEEE\b|Institute\s+of\s+Electrical/.test(src) && !/\bDraft\b|-REV\b/i.test(src)
+      && src.match(/["”],?\s*(802(?:\.\d+[A-Za-z]{0,3})?)-((?:19|20)\d{2})\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-after-title' } } : refId;
+    }
+  }
+  // 'IEEE 754, "IEEE Standard for Floating-Point Arithmetic", August 2008' (RFC6397)
+  {
+    const m = String(text || '').match(/^\s*IEEE\s+(\d{3,4}(?:\.\d+)?),\s*["“][^"”]{4,200}["”],?\s*(?:[A-Z][a-z]+\.?\s+)?((?:19|20)\d{2})\b/);
+    if (m) {
+      const refId = `IEEE.STD${m[1]}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-number-title-date' } } : refId;
+    }
+  }
   // An undated IEEE 802 standard leading the citation: "IEEE 802.3 CSMA/CD Access Method.",
   // "IEEE 802.11 Wireless LAN standard.", "IEEE, 802.1p, Standard for Local and Metropolitan …"
   // (RFC3819). Not a project or draft ("IEEE P802.1Q/D10", "802.16e/D8").
   {
     // ("IEEE 802.3/ISO 8802-3" is a co-designation the ISO rules already resolve.)
-    const m = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?IEEE,?\s+(802(?:\.\d+(?:\.\d+)?)?)([A-Za-z]{0,3})(?![\w.])(?!\s*\/\s*ISO)(?![\/.\-]?\s*D\d)(?![^\n]{0,40}\bDraft\b)/);
-    if (m && !/(?:19|20)\d{2}/.test(String(text || '').slice(m.index + m[0].length, m.index + m[0].length + 200))) {
-      const refId = `IEEE.STD${m[1]}${m[2] ? m[2].toUpperCase() : ''}`;
-      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-undated' } } : refId;
+    const m = String(text || '').match(/^\s*(?:\[?[^\s\]]{1,30}\s*\]\s*)?IEEE,?\s+(802(?:\.\d+(?:\.\d+)?)?)([A-Za-z]{0,3})(?![\w.])(?!\s*\/\s*ISO)(?![\/.\-]?\s*D\d)(?![^\n]{0,40}\bDraft\b)(?![^\n]{0,20}\b(?:Liaison|letter)\b)/i);
+    const yr = m && (String(text || '').slice(m.index + m[0].length, m.index + m[0].length + 200).match(/\b((?:19|20)\d{2})\b/) || [])[1];
+    if (m) {
+      // dated by the year after the title: "IEEE 802.1Q, IEEE Standards for … (2003)" (RFC5087)
+      const refId = `IEEE.STD${m[1]}${m[2] ? m[2].toUpperCase() : ''}${yr ? `.${yr}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: yr ? 'ieee-802-lead-dated' : 'ieee-802-undated' } } : refId;
     }
   }
   // A quoted title between the designator and the date: "IEEE Standard 802.6, "Distributed
@@ -3416,6 +3519,21 @@ function extractRefs($, currentDocId, opts = {}) {
         while ((rm = bareRe.exec(trimmedSlice)) !== null) {
           if (isInsideAnchoredResolvedRange(rm.index)) continue;
           set.add(`RFC${parseInt(rm[1], 10)}`);
+        }
+        // A BCP cited by itself, its link leading the line: "BCP 9     "The Internet Standards
+        // Process"" (RFC3160 §9.5) → BCP9. Not one inside an RFC entry ("…, BCP 14, RFC 2119").
+        const bcpRe = /(^|\n)[ \t]*<a[^>]*href=["'][^"']*\/bcp\/?bcp0*([0-9]{1,3})(?:\.(?:html|txt))?["'][^>]*>\s*BCP\s*\d+\s*<\/a>([^\n]*)/ig;
+        while ((rm = bcpRe.exec(trimmedSlice)) !== null) {
+          if (isInsideAnchoredResolvedRange(rm.index)) continue;
+          // The whole entry: its first line plus the lines indented deeper under it ("BCP 14:  Bradner,
+          // …,\n             BCP 14, RFC 2119", RFC2782). A line at the same indent starts the next one.
+          const lines = trimmedSlice.slice(rm.index + rm[1].length).split('\n');
+          const indentOf = (l) => (l.match(/^[ \t]*/) || [''])[0].length;
+          const first = indentOf(lines[0]);
+          let entry = lines[0];
+          for (let li = 1; li < lines.length && lines[li].trim() && indentOf(lines[li]) > first; li++) entry += `\n${lines[li]}`;
+          if (/\bRFC\s*\d/i.test(entry.replace(/<[^>]+>/g, ''))) continue;
+          set.add(`BCP${parseInt(rm[2], 10)}`);
         }
         for (const id of set) pushId(id);
       };
