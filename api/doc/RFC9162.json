@@ -1,0 +1,306 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T17:06:38.349Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9162",
+  "document": {
+    "abstract": "This document describes version 2.0 of the Certificate Transparency (CT) protocol for publicly logging the existence of Transport Layer Security (TLS) server certificates as they are issued or observed, in a manner that allows anyone to audit certification authority (CA) activity and notice the issuance of suspect certificates as well as to audit the certificate logs themselves. The intent is that eventually clients would refuse to honor certificates that do not appear in a log, effectively forcing CAs to add all issued certificates to the logs. This document obsoletes RFC 6962. It also specifies a new TLS extension that is used to send various CT log artifacts. Logs are network services that implement the protocol operations for submissions and queries that are defined in this document.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.572Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "authors": [
+      {
+        "name": "Ben Laurie"
+      },
+      {
+        "name": "Eran Messeri"
+      },
+      {
+        "name": "Rob Stradling"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.573Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docId": "RFC9162",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.572Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docLabel": "IETF RFC 9162",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.572Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docNumber": "9162",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.572Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docTitle": "Certificate Transparency Version 2.0",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.572Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docType": "Experimental",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.572Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "doi": "10.17487/RFC9162",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.573Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "href": "https://doi.org/10.17487/RFC9162",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.572Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "keywords": [
+      "PKIX",
+      "TLS",
+      "Web PKI",
+      "Web Browser"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "PKIX",
+        "TLS",
+        "Website",
+        "Webpki",
+        "Browsers"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T17:06:38.349Z",
+      "version": "extractDocs.js@commit:8aec15acefbb"
+    },
+    "pages": "53",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.573Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publicationDate": "2021-12-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.572Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.572Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC5912",
+        "RFC6268",
+        "RFC6962",
+        "RFC8126",
+        "RFC8820",
+        "T-REC-X.680.2021",
+        "orphan/RFC9162/h:8ffecb36",
+        "orphan/RFC9162/h:69355ec5",
+        "orphan/RFC9162/h:1304fe9f",
+        "orphan/RFC9162/h:908c79f8",
+        "orphan/RFC9162/h:9ef53ccf"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+        "updated": "2026-10-14T16:17:00.573Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "normative": [
+        "NIST.FIPS.186-4",
+        "W3C.SPSD-html401.20180327",
+        "RFC2119",
+        "RFC3553",
+        "RFC3986",
+        "RFC4648",
+        "RFC5246",
+        "RFC5280",
+        "RFC5652",
+        "RFC6066",
+        "RFC6234",
+        "RFC6960",
+        "RFC6979",
+        "RFC7231",
+        "RFC7633",
+        "RFC7807",
+        "RFC8032",
+        "RFC8174",
+        "RFC8259",
+        "RFC8391",
+        "RFC8446",
+        "IEEE.STD1003.1.2008",
+        "T-REC-X.690.2021"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+        "updated": "2026-10-14T16:17:00.573Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9162/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+      "updated": "2026-10-14T16:17:00.573Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+        "updated": "2026-10-14T16:17:00.573Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+        "updated": "2026-10-14T16:17:00.573Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9162",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9162"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+        "updated": "2026-10-14T16:17:00.573Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+        "updated": "2026-10-14T16:17:00.573Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "statusNote": "Experimental",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+        "updated": "2026-10-14T16:17:00.573Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+        "updated": "2026-10-14T16:17:00.573Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "supersedes": [
+        "RFC6962"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9162/",
+        "updated": "2026-10-14T16:17:00.573Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    }
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-13T22:24:23.937Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC5393",
+  "document": {
+    "abstract": "This document normatively updates RFC 3261, the Session Initiation Protocol (SIP), to address a security vulnerability identified in SIP proxy behavior. This vulnerability enables an attack against SIP networks where a small number of legitimate, even authorized, SIP requests can stimulate massive amounts of proxy-to-proxy traffic. This document strengthens loop-detection requirements on SIP proxies when they fork requests (that is, forward a request to more than one destination). It also corrects and clarifies the description of the loop-detection algorithm such proxies are required to implement. Additionally, this document defines a Max-Breadth mechanism for limiting the number of concurrent branches pursued for any given request. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "authors": [
+      {
+        "name": "Robert Sparks"
+      },
+      {
+        "name": "Scott Lawrence"
+      },
+      {
+        "name": "Alan Hawrylyshen"
+      },
+      {
+        "name": "Byron Campen"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docId": "RFC5393",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docLabel": "IETF RFC 5393",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docNumber": "5393",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docTitle": "Addressing an Amplification Vulnerability in Session Initiation Protocol (SIP) Forking Proxies",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "doi": "10.17487/RFC5393",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "href": "https://doi.org/10.17487/RFC5393",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "keywords": [
+      "SIP",
+      "Application",
+      "Multimedia",
+      "Multicast",
+      "Unicast"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "pages": "20",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "publicationDate": "2008-12-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC1321",
+        "RFC2543",
+        "RFC4960",
+        "orphan/RFC5393/h:f57c2934",
+        "orphan/RFC5393/h:4e5dba00",
+        "orphan/RFC5393/h:cc25c875"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=9 proseBlocks=12 skippedAnchorBlocks=10",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+        "updated": "2026-10-13T22:24:23.937Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC3261",
+        "RFC5234"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+        "updated": "2026-10-13T22:24:23.937Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc5393/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+      "updated": "2026-10-13T22:24:23.937Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+        "updated": "2026-10-13T22:24:23.937Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "amends": [
+        "RFC3261"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+        "updated": "2026-10-13T22:24:23.937Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+        "updated": "2026-10-13T22:24:23.937Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+        "updated": "2026-10-13T22:24:23.937Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+        "updated": "2026-10-13T22:24:23.937Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5393/",
+        "updated": "2026-10-13T22:24:23.937Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      }
+    }
+  }
+}
