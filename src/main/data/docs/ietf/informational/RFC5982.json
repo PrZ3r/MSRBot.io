@@ -1,0 +1,248 @@
+{
+  "abstract": "Flow-based measurement is a popular method for various network monitoring usages. The sharing of flow-based information for monitoring applications having different requirements raises some open issues in terms of measurement system scalability, flow-based measurement flexibility, and export reliability that IP Flow Information Export (IPFIX) Mediation may help resolve. This document describes some problems related to flow-based measurement that network administrators have been facing, and then it describes IPFIX Mediation applicability examples along with the problems. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "Atsushi Kobayashi"
+    },
+    {
+      "name": "Benoît Claise"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC5982",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 5982",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "5982",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "IP Flow Information Export (IPFIX) Mediation: Problem Statement",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC5982",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC5982",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "keywords": [
+    "Flow-based Measurement"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "pages": "25",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2010-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "IEEE.STD802.3AD.2000",
+      "RFC3917",
+      "RFC3954",
+      "RFC4347",
+      "RFC5102",
+      "RFC5246",
+      "RFC5470",
+      "RFC5472",
+      "RFC5474",
+      "RFC5475",
+      "RFC5477",
+      "RFC5655",
+      "RFC5815",
+      "orphan/RFC5982/h:f554941b",
+      "orphan/RFC5982/h:8bf09be8"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=17 proseBlocks=21 skippedAnchorBlocks=19",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+      "updated": "2026-10-16T20:43:30.317Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "normative": [
+      "RFC5101",
+      "RFC5476"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+      "updated": "2026-10-16T20:43:30.317Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5982/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+    "updated": "2026-10-16T20:43:30.317Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+      "updated": "2026-10-16T20:43:30.317Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+      "updated": "2026-10-16T20:43:30.317Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+      "updated": "2026-10-16T20:43:30.317Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+      "updated": "2026-10-16T20:43:30.317Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5982/",
+      "updated": "2026-10-16T20:43:30.317Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}

@@ -1,0 +1,274 @@
+{
+  "abstract": "This document summarizes NAT64 function deployment scenarios and operational experience. Both NAT64 Carrier-Grade NAT (NAT64-CGN) and NAT64 server Front End (NAT64-FE) are considered in this document.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "Gang Chen"
+    },
+    {
+      "name": "Zhen Cao"
+    },
+    {
+      "name": "Chongfeng Xie"
+    },
+    {
+      "name": "David Binet"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC7269",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 7269",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "7269",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "NAT64 Deployment Options and Experience",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC7269",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC7269",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "pages": "22",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2014-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC6036",
+      "RFC6056",
+      "RFC6092",
+      "RFC6144",
+      "RFC6346",
+      "RFC6459",
+      "RFC6586",
+      "RFC6877",
+      "RFC6883",
+      "RFC6967",
+      "orphan/RFC7269/h:5298c28f",
+      "orphan/RFC7269/h:59aa42ee",
+      "orphan/RFC7269/h:39806ee5",
+      "orphan/RFC7269/h:11e70494",
+      "orphan/RFC7269/h:c4aff0c6",
+      "orphan/RFC7269/h:0cd1bdd0",
+      "orphan/RFC7269/h:f667b42b",
+      "orphan/RFC7269/h:b423f3a0",
+      "orphan/RFC7269/h:38a9e63d",
+      "orphan/RFC7269/h:d8ad09ac",
+      "orphan/RFC7269/h:0c7cbe37",
+      "orphan/RFC7269/h:3acee866",
+      "orphan/RFC7269/h:8d2f2bb6"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=52 proseBlocks=64 skippedAnchorBlocks=54",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+      "updated": "2026-10-16T20:46:03.029Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "normative": [
+      "RFC2460",
+      "RFC3704",
+      "RFC3947",
+      "RFC3948",
+      "RFC4035",
+      "RFC4193",
+      "RFC4787",
+      "RFC5245",
+      "RFC5382",
+      "RFC5424",
+      "RFC5580",
+      "RFC5722",
+      "RFC5798",
+      "RFC5880",
+      "RFC6052",
+      "RFC6145",
+      "RFC6146",
+      "RFC6147",
+      "RFC6157",
+      "RFC6384",
+      "RFC6555",
+      "RFC6724",
+      "RFC6887",
+      "RFC6946",
+      "RFC7050",
+      "RFC7239"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+      "updated": "2026-10-16T20:46:03.029Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7269/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+    "updated": "2026-10-16T20:46:03.028Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+      "updated": "2026-10-16T20:46:03.028Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+      "updated": "2026-10-16T20:46:03.028Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+      "updated": "2026-10-16T20:46:03.028Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+      "updated": "2026-10-16T20:46:03.028Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7269/",
+      "updated": "2026-10-16T20:46:03.028Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}

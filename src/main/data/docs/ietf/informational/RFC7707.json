@@ -1,0 +1,296 @@
+{
+  "abstract": "IPv6 offers a much larger address space than that of its IPv4 counterpart. An IPv6 subnet of size /64 can (in theory) accommodate approximately 1.844 * 10^19 hosts, thus resulting in a much lower host density (#hosts/#addresses) than is typical in IPv4 networks, where a site typically has 65,000 or fewer unique addresses. As a result, it is widely assumed that it would take a tremendous effort to perform address-scanning attacks against IPv6 networks; therefore, IPv6 address-scanning attacks have been considered unfeasible. This document formally obsoletes RFC 5157, which first discussed this assumption, by providing further analysis on how traditional address-scanning techniques apply to IPv6 networks and exploring some additional techniques that can be employed for IPv6 network reconnaissance.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "Fernando Gont"
+    },
+    {
+      "name": "Tim Chown"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC7707",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.638Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 7707",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "7707",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "Network Reconnaissance in IPv6 Networks",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC7707",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC7707",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "pages": "38",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2016-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1145-2815675.2815678",
+      "IETF.draft-ietf-6man-default-iids-10",
+      "IETF.draft-ietf-dhc-stable-privacy-addresses-02",
+      "IETF.draft-ietf-v6ops-ipv6-ehs-in-real-world-02",
+      "IETF.draft-ietf-dnsop-isp-ip6rdns-00",
+      "10.1007-978-3-540-79232-1_3",
+      "IETF.draft-ietf-dnsop-nxdomain-cut-00",
+      "IETF.draft-ietf-opsec-v6-07",
+      "RFC4795",
+      "RFC4890",
+      "RFC5157",
+      "RFC5375",
+      "RFC6583",
+      "RFC6762",
+      "RFC6763",
+      "RFC7421",
+      "RFC7719",
+      "RFC7721",
+      "IETF.draft-gont-6man-ipv6-smurf-amplifier-03",
+      "orphan/RFC7707/h:48a67900",
+      "orphan/RFC7707/h:e4e6916b",
+      "orphan/RFC7707/h:0dd8f6f9",
+      "orphan/RFC7707/h:68d60edd",
+      "orphan/RFC7707/h:5d36c009",
+      "orphan/RFC7707/h:67a24bd2",
+      "orphan/RFC7707/h:33956fac",
+      "orphan/RFC7707/h:d429623e",
+      "orphan/RFC7707/h:f2e5ffb3",
+      "orphan/RFC7707/h:c646fd85",
+      "orphan/RFC7707/h:92f2b295",
+      "orphan/RFC7707/h:ded8bd10",
+      "orphan/RFC7707/h:08b0b522",
+      "orphan/RFC7707/h:5c19db1d",
+      "orphan/RFC7707/h:523acc00",
+      "orphan/RFC7707/h:7af335fc"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=53 proseBlocks=71 skippedAnchorBlocks=55",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+      "updated": "2026-10-16T20:47:17.639Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "normative": [
+      "RFC1034",
+      "RFC1035",
+      "RFC2460",
+      "RFC3315",
+      "RFC4380",
+      "RFC4861",
+      "RFC4862",
+      "RFC4941",
+      "RFC5214",
+      "RFC6620",
+      "RFC6724",
+      "RFC7012",
+      "RFC7136",
+      "RFC7217"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+      "updated": "2026-10-16T20:47:17.639Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7707/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+    "updated": "2026-10-16T20:47:17.639Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+      "updated": "2026-10-16T20:47:17.639Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+      "updated": "2026-10-16T20:47:17.639Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc7707",
+      "https://www.rfc-editor.org/errata_search.php?rfc=7707",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc7707.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+      "updated": "2026-10-16T20:47:17.639Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+      "updated": "2026-10-16T20:47:17.639Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+      "updated": "2026-10-16T20:47:17.639Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+      "updated": "2026-10-16T20:47:17.639Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "supersedes": [
+      "RFC5157"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7707/",
+      "updated": "2026-10-16T20:47:17.639Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}

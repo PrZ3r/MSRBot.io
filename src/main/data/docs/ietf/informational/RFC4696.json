@@ -1,0 +1,290 @@
+{
+  "abstract": "This memo offers non-normative implementation guidance for the Real-time Protocol (RTP) MIDI (Musical Instrument Digital Interface) payload format. The memo presents its advice in the context of a network musical performance application. In this application two musicians, located in different physical locations, interact over a network to perform as they would if located in the same room. Underlying the performances are RTP MIDI sessions over unicast UDP. Algorithms for sending and receiving recovery journals (the resiliency structure for the payload format) are described in detail. Although the memo focuses on network musical performance, the presented implementation advice is relevant to other RTP MIDI applications. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "John Lazzaro"
+    },
+    {
+      "name": "John Wawrzynek"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC4696",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 4696",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "4696",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "An Implementation Guide for RTP MIDI",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC4696",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC4696",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "keywords": [
+    "Checkpoint Packet",
+    "Checkpoint History",
+    "Guard Packets",
+    "Jitter",
+    "Keepalive",
+    "MIDI",
+    "Telepresence",
+    "Receiving Algorithm",
+    "Recovery Journal",
+    "RTP MIDI",
+    "RTP",
+    "Sending Algorithm"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Checkpoint Packet",
+      "Checkpoint History",
+      "Guard Packets",
+      "Jitter",
+      "Keep-alive Packets",
+      "MIDI",
+      "Musical Telepresence",
+      "NMP",
+      "Receiving Algorithm",
+      "Recovery Journal",
+      "Recovery Journal Receiving Structure",
+      "Recovery Journal Sending Structure",
+      "RTP",
+      "RTP MIDI",
+      "Queuing MIDI",
+      "Sending Algorithm",
+      "Sending MIDI",
+      "Telepresence"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-17T00:32:55.303Z",
+    "version": "extractDocs.js@commit:e15f05a0bdbb"
+  },
+  "pages": "38",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2006-11-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3261",
+      "ISBN.0672322498",
+      "orphan/RFC4696/h:1fb92a7b",
+      "orphan/RFC4696/h:856c9d41",
+      "orphan/RFC4696/h:91753e75",
+      "orphan/RFC4696/h:375838f8"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=14 proseBlocks=17 skippedAnchorBlocks=15",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+      "updated": "2026-10-16T20:41:53.444Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "normative": [
+      "RFC4695",
+      "RFC3550",
+      "RFC3551",
+      "RFC4566",
+      "ISO.14496",
+      "RFC3556",
+      "orphan/RFC4696/h:18f09042"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+      "updated": "2026-10-16T20:41:53.444Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc4696/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+    "updated": "2026-10-16T20:41:53.444Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+      "updated": "2026-10-16T20:41:53.444Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+      "updated": "2026-10-16T20:41:53.444Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc4696",
+      "https://www.rfc-editor.org/errata_search.php?rfc=4696",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc4696.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+      "updated": "2026-10-16T20:41:53.444Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+      "updated": "2026-10-16T20:41:53.444Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+      "updated": "2026-10-16T20:41:53.444Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4696/",
+      "updated": "2026-10-16T20:41:53.444Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}

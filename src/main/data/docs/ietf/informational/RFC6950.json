@@ -1,0 +1,264 @@
+{
+  "abstract": "A number of Internet applications rely on the Domain Name System (DNS) to support their operations. Many applications use the DNS to locate services for a domain; some, for example, transform identifiers other than domain names into formats that the DNS can process, and then fetch application data or service location data from the DNS. Proposals incorporating sophisticated application behavior using DNS as a substrate have raised questions about the role of the DNS as an application platform. This document explores the architectural consequences of using the DNS to implement certain application features, and it provides guidance to future application designers as to the limitations of the DNS as a substrate and the situations in which alternative designs should be considered.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "Jon Peterson"
+    },
+    {
+      "name": "Olaf Kolkman"
+    },
+    {
+      "name": "Hannes Tschofenig"
+    },
+    {
+      "name": "Dr. Bernard D. Aboba"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC6950",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 6950",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "6950",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "Architectural Considerations on Application Features in the DNS",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC6950",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC6950",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "pages": "31",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2013-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC882",
+      "RFC883",
+      "RFC974",
+      "RFC1034",
+      "RFC1035",
+      "RFC1464",
+      "RFC1530",
+      "RFC1794",
+      "RFC1918",
+      "RFC1995",
+      "RFC2052",
+      "RFC2168",
+      "RFC2181",
+      "RFC2397",
+      "RFC2671",
+      "RFC2818",
+      "RFC2826",
+      "RFC2845",
+      "RFC2915",
+      "RFC2916",
+      "RFC3007",
+      "RFC3261",
+      "RFC3263",
+      "RFC3401",
+      "RFC3402",
+      "RFC3403",
+      "RFC3596",
+      "RFC3986",
+      "RFC4033",
+      "RFC4367",
+      "RFC4398",
+      "RFC4732",
+      "RFC4985",
+      "RFC5486",
+      "RFC5507",
+      "RFC5922",
+      "RFC6055",
+      "RFC6125",
+      "RFC6269",
+      "RFC6376",
+      "RFC6394",
+      "RFC6763",
+      "RFC6891",
+      "orphan/RFC6950/h:ff637cc5",
+      "orphan/RFC6950/h:535dc2c3",
+      "orphan/RFC6950/h:c579f7c5",
+      "orphan/RFC6950/h:d6e0ad74",
+      "orphan/RFC6950/h:26e61ef5",
+      "orphan/RFC6950/h:9cf8a072",
+      "orphan/RFC6950/h:c9eff2c6",
+      "orphan/RFC6950/h:267c0822"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=53 proseBlocks=62 skippedAnchorBlocks=55",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+      "updated": "2026-10-16T20:45:10.388Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6950/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+    "updated": "2026-10-16T20:45:10.388Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+      "updated": "2026-10-16T20:45:10.388Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+      "updated": "2026-10-16T20:45:10.388Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+      "updated": "2026-10-16T20:45:10.388Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+      "updated": "2026-10-16T20:45:10.388Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6950/",
+      "updated": "2026-10-16T20:45:10.388Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}

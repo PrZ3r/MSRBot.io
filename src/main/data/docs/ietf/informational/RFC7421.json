@@ -1,0 +1,297 @@
+{
+  "abstract": "The IPv6 unicast addressing format includes a separation between the prefix used to route packets to a subnet and the interface identifier used to specify a given interface connected to that subnet. Currently, the interface identifier is defined as 64 bits long for almost every case, leaving 64 bits for the subnet prefix. This document describes the advantages of this fixed boundary and analyzes the issues that would be involved in treating it as a variable boundary.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "authors": [
+    {
+      "name": "Brian E. Carpenter"
+    },
+    {
+      "name": "Tim Chown"
+    },
+    {
+      "name": "Fernando Gont"
+    },
+    {
+      "name": "Sheng Jiang"
+    },
+    {
+      "name": "Alexandre Petrescu"
+    },
+    {
+      "name": "Andrew Yourtchenko"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docId": "RFC7421",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docLabel": "IETF RFC 7421",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docNumber": "7421",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docTitle": "Analysis of the 64-bit Boundary in IPv6 Addressing",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "doi": "10.17487/RFC7421",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "href": "https://doi.org/10.17487/RFC7421",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "pages": "24",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publicationDate": "2015-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-6man-ipv6-address-generation-privacy-02",
+      "IETF.draft-templin-aerolink-46",
+      "IETF.draft-ietf-6lowpan-btle-12",
+      "IETF.draft-ietf-opsec-ipv6-host-scanning-04",
+      "IEEE.STD802.2001",
+      "IETF.draft-ietf-6lo-lowpanz-08",
+      "IETF.draft-ietf-6lo-6lobac-00",
+      "IETF.draft-odell-8",
+      "RFC2629",
+      "RFC3756",
+      "RFC4692",
+      "RFC4887",
+      "RFC5505",
+      "RFC6583",
+      "RFC6741",
+      "RFC6877",
+      "RFC7094",
+      "RFC7217",
+      "RFC7278",
+      "RFC7368",
+      "orphan/RFC7421/h:03339a00"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=67 proseBlocks=81 skippedAnchorBlocks=72",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+      "updated": "2026-10-16T20:46:14.792Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "normative": [
+      "RFC2464",
+      "RFC2467",
+      "RFC2470",
+      "RFC2492",
+      "RFC2497",
+      "RFC2526",
+      "RFC2529",
+      "RFC2590",
+      "RFC2710",
+      "RFC3056",
+      "RFC3146",
+      "RFC3306",
+      "RFC3315",
+      "RFC3590",
+      "RFC3810",
+      "RFC3956",
+      "RFC3972",
+      "RFC4191",
+      "RFC4213",
+      "RFC4291",
+      "RFC4338",
+      "RFC4380",
+      "RFC4429",
+      "RFC4861",
+      "RFC4862",
+      "RFC4941",
+      "RFC4944",
+      "RFC5072",
+      "RFC5121",
+      "RFC5214",
+      "RFC5453",
+      "RFC5533",
+      "RFC5535",
+      "RFC5692",
+      "RFC5942",
+      "RFC5969",
+      "RFC6052",
+      "RFC6146",
+      "RFC6164",
+      "RFC6177",
+      "RFC6296",
+      "RFC6437",
+      "RFC7084",
+      "RFC7136",
+      "RFC7296"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+      "updated": "2026-10-16T20:46:14.792Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7421/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+    "updated": "2026-10-16T20:46:14.792Z",
+    "version": "extractDocs.js@commit:2c3b1db1b97b"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+      "updated": "2026-10-16T20:46:14.792Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+      "updated": "2026-10-16T20:46:14.792Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+      "updated": "2026-10-16T20:46:14.792Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+      "updated": "2026-10-16T20:46:14.792Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7421/",
+      "updated": "2026-10-16T20:46:14.792Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    }
+  }
+}
