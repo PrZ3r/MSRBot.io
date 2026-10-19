@@ -31,15 +31,15 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * build.assemble-registry.js — assemble build artifacts from the per-doc
  * registry (issue #1108).
  *
- * The monolithic site snapshot (build/docs/_data/documents.json) and the
- * per-docId API (build/api/) are emitted by build.js. This step adds the
- * per-publisher and per-publisher/docType slices, so downstream clients can
- * fetch a narrow cut of the registry instead of the whole monolith.
+ * The per-docId API (build/api/doc/) is emitted by build.js. This step adds
+ * the per-publisher and per-publisher/docType slices of full records, so
+ * clients can fetch a narrow cut of the registry (API, #1170; indexed by
+ * /api/by-publisher.json from build.reference-api.js):
  *
- *   build/docs/_data/by-publisher/{publisher}.json
- *   build/docs/_data/by-publisher/{publisher}/{docType}.json
+ *   build/api/by-publisher/{publisher}.json
+ *   build/api/by-publisher/{publisher}/{docType}.json
  *
- * Slices are site artifacts: $meta is stripped (matching build.js).
+ * $meta is stripped (fetch /api/doc/{docId}.json for provenance).
  *
  *   node src/main/scripts/build.assemble-registry.js   # standalone
  */
@@ -48,9 +48,11 @@ const fs = require('fs');
 const path = require('path');
 const { loadAllDocs, slug } = require('../lib/registry');
 
-const SLICES_ROOT = path.resolve('build', 'docs', '_data', 'by-publisher');
+const SLICES_ROOT = path.resolve('build', 'api', 'by-publisher');
+// Pre-#1170 location: each old path gets a moved-file stub (GitHub Pages can't redirect).
+const LEGACY_SLICES_ROOT = path.resolve('build', 'docs', '_data', 'by-publisher');
 
-/** Deep-clone a doc with every "*$meta" key removed (site outputs strip $meta). */
+/** Deep-clone a doc with every "*$meta" key removed. */
 function stripMeta(value) {
   return JSON.parse(
     JSON.stringify(value, (key, val) =>
@@ -70,6 +72,12 @@ function writeJson(file, data) {
  * are derived from the docs themselves (via slug()), never a hardcoded list.
  */
 function assembleSlices(docs = loadAllDocs()) {
+  fs.rmSync(LEGACY_SLICES_ROOT, { recursive: true, force: true });
+  const stub = (rel) => {
+    const file = path.join(LEGACY_SLICES_ROOT, rel);
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, JSON.stringify({ moved: true, movedTo: `/api/by-publisher/${rel}`, notice: 'Moved to /api/by-publisher/ (index: /api/by-publisher.json).' }, null, 2) + '\n');
+  };
   const byPublisher = new Map();
   for (const doc of docs) {
     const pub = slug(doc.publisher);
@@ -82,6 +90,7 @@ function assembleSlices(docs = loadAllDocs()) {
 
   for (const [pub, pubDocs] of byPublisher) {
     writeJson(path.join(SLICES_ROOT, `${pub}.json`), stripMeta(pubDocs));
+    stub(`${pub}.json`);
     publisherCount += 1;
 
     const byType = new Map();
@@ -92,6 +101,7 @@ function assembleSlices(docs = loadAllDocs()) {
     }
     for (const [type, typeDocs] of byType) {
       writeJson(path.join(SLICES_ROOT, pub, `${type}.json`), stripMeta(typeDocs));
+      stub(`${pub}/${type}.json`);
       typeCount += 1;
     }
   }

@@ -140,7 +140,7 @@ string>]` entry, structured like:
 ## How a reference renders
 
 The renderer (build-time `getStatus`/`refHref`/`getLabel`/`mriCite`
-Handlebars helpers + client-side `refTree.js`) follows this chain for
+Handlebars helpers + the reference-tree renderer `refTreeRender.js`) follows this chain for
 every string in `doc.references[]`:
 
 ```text
@@ -177,10 +177,11 @@ A few practical consequences:
   as a normal `<a>` link to `/docs/RFC8446/` with RFC8446's actual status.
   The bare slug never appears.
 
-Client-side: the `build/api/mri-cite-map.json` sidecar (~150 KB) is
-fetched by `src/site/js/refTree.js` and carries the same `{cite, href,
-isOrphan, resolvedDocId}` so the reference tree renders the same way the
-doc page does.
+Reference tree: the build folds the same `{cite, resolvedDocId}` from the
+MRI cite map (published as `build/api/mri-cite-map.json`) into the tree's
+graph, `build/reftree/_data/ref-graph.json` (`src/main/lib/refGraph.js`),
+so the tree renders the same way the doc page does. External refs show
+their citation, unlinked.
 
 ---
 
@@ -527,8 +528,9 @@ Today's corpus (2026-09-22): 55,581 ref sightings across 5,645 docs, collapsing 
   `references[]` before save.
 - `src/main/scripts/build.js` — `getStatus`, `refHref`, `getLabel`,
   `mriCite` Handlebars helpers + `followMriResolution` pointer chase.
-- `src/site/js/refTree.js` — client-side render of the reference tree;
-  consumes `build/api/mri-cite-map.json`.
+- `src/main/lib/refGraph.js` + `src/site/js/refTreeRender.js` — the
+  reference tree's build-time graph (MRI cites folded in) and its shared
+  build/browser renderer; `src/site/js/refTree.js` draws deeper levels.
 - `.github/workflows/build-reports-pr.yml` — rebuilds MSI + MRI inside
   data PRs and commits the reports back to the PR branch.
 - `.github/workflows/sync-report-issues.yml` +

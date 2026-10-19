@@ -11,6 +11,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - **IETF cited-RFC backfill, batches 1–3.** 1,500 RFCs cited by documents we hold, each batch reviewed (registry 3,973 → 5,473 RFCs). The parser now reads linked BCP citations and more IEEE 802, ITU, ETSI, ATSC, ANSI, NIST, W3C and 3GPP citation forms; keyword rules extended.
+- **API reference endpoints (#1170, #2037, #2038).** `/api/by-publisher.json` indexes the full-record slices, which move to `/api/by-publisher/`. New: `/api/groups.json`, `/api/projects.json`, `/api/by-doc.json` (docId → groups and projects), `/api/publishers.json` and `/api/vocabulary.json`, with `/api/schemas/reference.schema.json`, all at `apiVersion` 1.0.0; existing endpoints keep their versions (shapes unchanged). The research skill points at the new paths (1.6.0).
+
+### Changed
+
+- **Site pages are static HTML (#2555).** Ref tree, ref tree index, suites, portals, groups and projects pages are rendered at build time, and their scripts only filter, sort and expand. Ref tree pages show Level 1 statically, then load a build-time graph (`/reftree/_data/ref-graph.json`, ~4 MB gzipped) for deeper levels, instead of ~100 MB of `documents.json` plus the MRI cite map on every visit. Nodes without a tree page (external, missing or page-gated docs) are no longer links.
+- **Full records are served only by the API.** `docs/_data/documents.json`, `groups/_data/groups.json`, `projects/_data/projects.json` and `_data/portals.json` are no longer published; the Dev Tools menu lists API endpoints only. Each removed path now holds a small JSON stub (`moved`, `movedTo`), since GitHub Pages can't redirect.
+- **Smaller docs search index.** `docs/_data/search-index.json` drops fields nothing reads (`statusFlags`, `authors`, `docTypeAbr`, `abbrevTitle`) and null fields; author names, affiliations and bios stay searchable through `keywordsSearch`.
 
 ## [v2.10.0] - 2026-10-15
 

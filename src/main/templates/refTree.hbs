@@ -50,11 +50,13 @@
                   </select>
                 </div>
               </div>
-              <div id="rt-root" class="card-body small"></div>
+              <div id="rt-root" class="card-body small">{{{rootHtml}}}</div>
             </div>
           </div>
         </div>
       </div>
+
+      <div id="rt-graph-note" class="alert alert-warning small d-none" role="status"></div>
 
       <!-- Reference panels row: upstream and downstream side-by-side -->
       <section class="row g-3">
@@ -98,7 +100,7 @@
                 </span>
               </div>
             </div>
-            <div id="rt-upstream" class="card-body small"></div>
+            <div id="rt-upstream" class="card-body small">{{{upHtml}}}</div>
           </div>
         </div>
 
@@ -142,7 +144,7 @@
                 </span>
               </div>
             </div>
-            <div id="rt-downstream" class="card-body small"></div>
+            <div id="rt-downstream" class="card-body small">{{{downHtml}}}</div>
           </div>
         </div>
       </section>
@@ -152,14 +154,8 @@
     <script>
       window.assetPrefix = "{{assetPrefix}}";
       window.MSR_REF_ROOT = "{{docId}}";
-      window.MSR_TITLE_LABEL_DOC_TYPES = [
-        {{#if titleLabelDocTypes}}
-          {{#each titleLabelDocTypes}}
-            "{{this}}"{{#unless @last}}, {{/unless}}
-          {{/each}}
-        {{/if}}
-      ];
     </script>
+    <script src="{{assetPrefix}}js/refTreeRender.js"></script>
     <script src="{{assetPrefix}}js/refTree.js"></script>
 
     <!-- Main content ends - do not edit below this line -->
