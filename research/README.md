@@ -94,7 +94,7 @@ This one should end in a clean **NOT FOUND**. ISDCF's documents fit in one small
 > What is ISDCF Doc 20 about?
 
 - [ ] It says **Not found in MSRBot**, or **Status: NOT FOUND**, and **not** COULD NOT VERIFY
-- [ ] It checked **all** of ISDCF: the whole file `https://msrbot.io/docs/_data/by-publisher/isdcf.json` (17 records, highest is Doc 15), or **every** ISDCF search shard, not just one document type
+- [ ] It checked **all** of ISDCF: the whole file `https://msrbot.io/api/by-publisher/isdcf.json` (17 records, highest is Doc 15), or **every** ISDCF search shard, not just one document type
 - [ ] It names the **last entry** of what it read as evidence it read the whole thing
 - [ ] It doesn't describe Doc 20 from memory, guess why it's missing, or suggest nearby numbers
 

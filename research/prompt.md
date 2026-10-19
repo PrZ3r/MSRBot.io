@@ -30,7 +30,7 @@ DCI and other publishers, including D-Cinema and IMF.
 4. https://msrbot.io/docs/{docId}/
    Human-readable page. Many journal articles have NO page, only JSON.
 Large files (often cut off by fetch tools): /api/documents.json (~9 MB),
-/suites/_data/suites.json (~230 KB), /docs/_data/by-publisher/... (small publishers such as
+/suites/_data/suites.json (~230 KB), /api/by-publisher/... (small publishers such as
 isdcf.json come through whole). Do NOT use as data: /api/?q=…, the /docs/ search box, or
 /reftree/; they run JavaScript in the browser and return nothing to a fetch tool.
 

@@ -2,7 +2,7 @@
 name: msrbot-research
 description: Answer questions about media-technology standards and specifications (SMPTE, ISO, ITU, AES, IETF, EBU, ISDCF, DCI and other publishers, including D-Cinema, IMF, ST 2110, color and audio) using MSRBot.io (Media Standards Registry) as the verified source of truth, with citations and provenance. Use this skill whenever someone asks about a standard's number, part, title, publisher, edition or year, whether it is current, superseded, withdrawn or amended, what replaced it, what it references or depends on, or asks you to find, check, cite or list media standards, including topic questions such as "which standards cover X?". Use it even when the user doesn't mention MSRBot — any factual claim about a media standard's metadata should be checked here rather than answered from memory.
 metadata:
-  version: "1.5.4"
+  version: "1.6.0"
 ---
 
 # MSRBot research
@@ -41,7 +41,7 @@ Choose the path that fits your tools:
    - **Guess, then confirm.** You may try a candidate docId built from the label pattern (SMPTE ST 2110-20:2022 → `SMPTE.ST2110-20.2022`). Only a successful fetch counts as evidence. A 404 means the guess was wrong, not that the document is missing. Never *state* an id you haven't fetched successfully.
      - **If the user gave a year,** start there and follow that record's `supersededBy` links. Don't guess other years.
      - **With no year, set a budget:** about three candidates, fetched in parallel if your tool allows. Editions can also carry a month (`.2023-09`), so year-guessing has no natural end. After the budget, stop and report COULD NOT VERIFY, or ask the user for the year or the docId.
-   - **Whole-publisher file** for small publishers: `https://msrbot.io/docs/_data/by-publisher/{publisher}.json` (e.g. `isdcf`, 17 records, ~23 KB), which comes through a fetch tool complete. A **single document-type file** (`…/{publisher}/{docType}.json`) covers only that type, so it can find a document but can never support NOT FOUND.
+   - **Whole-publisher file** for small publishers: `https://msrbot.io/api/by-publisher/{publisher}.json` (e.g. `isdcf`, 17 records, ~23 KB), which comes through a fetch tool complete. A **single document-type file** (`…/{publisher}/{docType}.json`) covers only that type, so it can find a document but can never support NOT FOUND.
    - **Full index** (`/api/documents.json`, ~9 MB), or a large publisher's file. These are often too large for chat fetch tools, and a truncated read proves nothing.
    - IDs don't always follow the label: ISDCF Doc 01 is `ISDCF.DCNC`, not `ISDCF.D01`. Prefer a list over guessing.
 2. **Fetch the record:** `https://msrbot.io/api/doc/{docId}.json` (URL-encode the docId). Read facts from its `document` object.
