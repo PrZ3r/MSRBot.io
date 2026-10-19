@@ -54,7 +54,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   const FLAG_NOPAGE = 32;    // registry doc without a /reftree/ page (page-gated contentType)
 
   const SUITE_PREFIX = 'SUITE:';
-  const MAX_DEPTH = 3;
+  // Depth 3 on open; up to 6 on request. The graph saturates by about depth 6
+  // (the densest docs reach ~16k nodes), so deeper adds almost nothing.
+  const DEFAULT_DEPTH = 3;
+  const MAX_DEPTH = 6;
 
   function escapeHtml(str) {
     return String(str == null ? '' : str)
@@ -264,7 +267,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   return {
     FLAG_REGISTRY, FLAG_PROJECT, FLAG_SUITE, FLAG_EXTERNAL, FLAG_RESOLVED, FLAG_NOPAGE,
-    SUITE_PREFIX, MAX_DEPTH,
+    SUITE_PREFIX, DEFAULT_DEPTH, MAX_DEPTH,
     escapeHtml, isSuiteNode, decodeGraph, buildLevels, buildTreeDedup,
     statusIcon, projectIcon, nodeHtml, renderLevelsHtml, renderTreeHtml,
   };

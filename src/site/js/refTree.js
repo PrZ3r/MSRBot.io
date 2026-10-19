@@ -38,7 +38,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   const GRAPH_URL = (window.assetPrefix || '') + 'reftree/_data/ref-graph.json';
 
   let graph = null;
-  let maxDepth = R.MAX_DEPTH;
+  let maxDepth = R.DEFAULT_DEPTH;
   const viewMode = { up: 'levels', down: 'levels' };
   const panelId = { up: 'rt-upstream', down: 'rt-downstream' };
 
@@ -89,9 +89,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       depthSelect.value = String(maxDepth);
       depthSelect.addEventListener('change', (ev) => {
         const val = parseInt(ev.target.value, 10);
-        // Hard cap at MAX_DEPTH — deeper trees overload the page on the dense
-        // ref graph; to explore further, open a node's own tree.
-        maxDepth = (!Number.isNaN(val) && val > 0) ? Math.min(val, R.MAX_DEPTH) : R.MAX_DEPTH;
+        // Cap at MAX_DEPTH; to explore further, open a node's own tree.
+        maxDepth = (!Number.isNaN(val) && val > 0) ? Math.min(val, R.MAX_DEPTH) : R.DEFAULT_DEPTH;
         renderPanels();
       });
     }
