@@ -56,10 +56,8 @@
         </nav>
       </div>
 
-      <div id="projectCards" class="cards"><!-- Cards rendered client-side from projects.json --></div>
-
-      {{{{raw}}}}
-      <template id="project-card-tpl-src">
+      <div id="projectCards" class="cards">
+      {{#each data}}
         <article
           class="card-reg project-card border border-secondary-subtle"
           data-org="{{#if assignedGroup}}{{#with (groupIdLookup ../dataGroups assignedGroup)}}{{groupOrg}} {{#if parentgroupId}}{{#with (groupIdLookup ../../dataGroups parentgroupId)}}{{groupName}}{{/with}} {{/if}}{{groupName}}{{#if groupDesc}} {{groupDesc}}{{/if}}{{/with}}{{/if}}"
@@ -142,8 +140,8 @@
             </div>
           {{/if}}
         </article>
-      </template>
-      {{{{/raw}}}}
+      {{/each}}
+      </div>
 
       <div id="projectPagerBottom" class="sticky-bottom py-2">
         <nav class="d-flex justify-content-between align-items-center">

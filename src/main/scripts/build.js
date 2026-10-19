@@ -33,6 +33,7 @@ const path = require('path');
 const fsRaw = require('fs');
 const fs = fsRaw.promises; // use promises API everywhere by default
 const { promisify } = require('util');
+const os = require('os');
 const execFile = promisify(require('child_process').execFile);
 
 // Capture the original callback writeFile once so later monkey-patching
@@ -289,6 +290,10 @@ const { loadPublisherConfig } = require('../lib/publishers');
 const { loadDocRendering } = require('../lib/docRendering');
 const { assembleSlices } = require('./build.assemble-registry');
 const { emitSearchApi } = require('./build.search-api');
+const { emitReferenceApi } = require('./build.reference-api');
+const { encodeRefGraph, refTreeIndexData, mostConnectedHtml } = require('../lib/refGraph');
+const { suitePage, suiteCards, resolvePortalDocs, portalDocsTable, portalSectionsHtml, portalResourcesHtml } = require('../lib/sitePages');
+const RefTreeRender = require('../../site/js/refTreeRender');
 const buildStats = require('./utils/buildStats');
 const { lineageKeyFromDoc, lineageKeyFromDocId } = keying;
 
@@ -339,6 +344,28 @@ async function loadSuiteLookupsOnce() {
   } catch (e) {
     console.warn('[build] suite lookups unavailable:', e?.message ? e.message : e);
   }
+}
+
+// Suites + collections from masterSuiteIndex.json, each tagged with `kind`:
+// { sourcePath, suites, collections }. Shape of build/suites/_data/suites.json.
+let __suitesPayloadCache = null;
+async function loadSuitesPayload() {
+  if (__suitesPayloadCache) return __suitesPayloadCache;
+  let msi = null;
+  try {
+    msi = JSON.parse(await fs.readFile(path.join('src', 'main', 'reports', 'masterSuiteIndex.json'), 'utf8'));
+  } catch (e) {
+    msi = null;
+  }
+  // Legacy MSI is a bare array of suites.
+  const suites = Array.isArray(msi) ? msi : (msi && Array.isArray(msi.suites) ? msi.suites : []);
+  const collections = msi && !Array.isArray(msi) && Array.isArray(msi.collections) ? msi.collections : [];
+  __suitesPayloadCache = {
+    sourcePath: (msi && !Array.isArray(msi) && msi.sourcePath) ? msi.sourcePath : null,
+    suites: suites.map(x => ({ ...x, kind: 'suite' })),
+    collections: collections.map(x => ({ ...x, kind: 'collection' })),
+  };
+  return __suitesPayloadCache;
 }
 
 const REGISTRIES_REPO_PATH = "src/main";
@@ -473,6 +500,10 @@ let __normalizedGroupsEmitted = false;
 // One-shot guard for portals emit (root-level landing pages)
 let __portalsEmitted = false;
 
+// Built docs from the documents pass (status, currentStatus, referencesResolved…),
+// reused by the suites pass for static suite and portal pages.
+let __effectiveDocs = null;
+
 // One-shot guard for full documents API emit
 let __docsApiEmitted = false;
 
@@ -526,11 +557,11 @@ async function emitPortalsOnce() {
     'favicon.ico'
   ]);
 
-  // Emit portal data files into build/_data
+  // Emit the home page's portal cards into build/_data (portal pages themselves are static).
   const outDataDir = path.join(BUILD_PATH, '_data');
   await fs.mkdir(outDataDir, { recursive: true });
-
-  await _writeFile(path.join(outDataDir, 'portals.json'), JSON.stringify({ portals }, null, 2), 'utf8');
+  await writeMovedStub('_data/portals.json', null,
+    `Portal definitions are no longer published as data; portal pages are static HTML: ${portals.map(p => `/${p.portalSlug}/`).join(', ')}.`);
 
   const cards = portals.map(p => {
     const slug = String(p && p.portalSlug || '').trim();
@@ -546,7 +577,6 @@ async function emitPortalsOnce() {
   }).filter(Boolean);
 
   await _writeFile(path.join(outDataDir, 'portal-cards.json'), JSON.stringify({ portals: cards }, null, 2), 'utf8');
-  console.log(`[build] Wrote build/_data/portals.json (count=${portals.length})`);
   console.log(`[build] Wrote build/_data/portal-cards.json (count=${cards.length})`);
 
   // Compile portal template once
@@ -578,7 +608,25 @@ async function emitPortalsOnce() {
       const pageDesc = String(p && p.summary || '').trim() || `Landing page for ${pageTitle}.`;
       const canonicalUrl = new URL(`/${encodeURIComponent(slug)}/`, siteConfig.canonicalBase).href;
 
+      // Static page body (#2555); portals.js only filters and sorts the docs table.
+      const portalDocs = resolvePortalDocs(p, Array.isArray(__effectiveDocs) ? __effectiveDocs : []);
+      const table = portalDocsTable(portalDocs);
+      const sectionsHtml = portalSectionsHtml(p);
+      const resourcesHtml = portalResourcesHtml(p);
       const html = portalTpl({
+        portalTitle: pageTitle,
+        portalSummary: String(p && p.summary || '').trim(),
+        portalSectionsHtml: sectionsHtml,
+        portalResourcesHtml: resourcesHtml,
+        portalRowsHtml: table.rowsHtml,
+        portalDocCount: table.count,
+        portalPublisherOptions: table.publisherOptions,
+        portalTypeOptions: table.typeOptions,
+        portalNav: [
+          sectionsHtml ? { id: 'portal-overview', label: 'Overview' } : null,
+          { id: 'portal-docs', label: 'Docs' },
+          resourcesHtml ? { id: 'portal-resources', label: 'Resources' } : null,
+        ].filter(Boolean),
         templateName: 'portals',
         listTitle: pageTitle,
         htmlLink: '',
@@ -615,6 +663,14 @@ async function emitPortalsOnce() {
   }
 }
 
+// Moved-file stub (#2555): GitHub Pages can't redirect, so a removed JSON path
+// gets a small JSON pointer to its replacement (like the legacy CSV stubs).
+async function writeMovedStub(relPath, movedTo, notice) {
+  const out = path.join(BUILD_PATH, relPath);
+  await fs.mkdir(path.dirname(out), { recursive: true });
+  await _writeFile(out, JSON.stringify({ moved: true, movedTo, notice }, null, 2) + '\n', 'utf8');
+}
+
 // Content-derived "last modified" for a doc, used instead of build time so
 // output stays byte-stable across builds. Latest `updated` timestamp found in
 // any `*$meta` object wins (full ISO datetime as stored); falls back to
@@ -636,6 +692,51 @@ function docLastModified(d) {
   if (latest) return latest;
   const pub = typeof d?.publicationDate === 'string' ? d.publicationDate.trim() : '';
   return /^\d{4}(-\d{2}(-\d{2})?)?$/.test(pub) ? pub : '';
+}
+
+// MRI cite map for renderers (the ref graph, /api/mri-cite-map.json): lets them
+// show an inline <cite> for MRI-known refs without bundling the full MRI.
+// Schema: { refId: { cite, href, isOrphan, resolvedDocId } }
+let __mriCiteMapCache = null;
+function buildMriCiteMap() {
+  if (__mriCiteMapCache) return __mriCiteMapCache;
+  const mri = _mri();
+  const { synthesizeCiteFromRawRef } = require('../lib/referencing');
+  const citeMap = {};
+  for (const [refId, entry] of Object.entries(mri.refs || {})) {
+    // Two reasons to include a ref:
+    //   (a) `resolvedDocId` is set — the slug graduated to a real registry
+    //       doc (via resolveOrphans.js or mriFlush sourcePresence-sync).
+    //       Client renders as a link to the resolved doc, not inline.
+    //   (b) `resolvedDocId` is null — render inline `<cite>` instead of
+    //       a broken "NOT IN REGISTRY" pill.
+    const hasResolution = !!entry.resolvedDocId;
+    let cite = entry.citationText
+      || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].cite)
+      || null;
+    const href = entry.href
+      || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].href)
+      || null;
+    // Fallback: derive a citation from rawRef when the extractor didn't
+    // populate citationText/cite (covers `<other reftype="book">` and other
+    // shapes where the source XML carries authors/publisher/year but no
+    // explicit cite text element). Keeps the renderer from dropping the ref.
+    if (!cite) {
+      const raw = entry.rawRef
+        || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].rawRef)
+        || null;
+      if (raw) cite = synthesizeCiteFromRawRef(raw);
+    }
+    if (!hasResolution && !cite && !href) continue;
+    citeMap[refId] = {
+      cite: cite || null,
+      href: href || null,
+      isOrphan: entry.isOrphan === true,
+      resolvedDocId: entry.resolvedDocId || null,
+    };
+  }
+  __mriCiteMapCache = citeMap;
+  return citeMap;
 }
 
 // Emit full-fidelity documents API payloads under build/api/ using the
@@ -722,45 +823,9 @@ async function emitDocumentsApiOnce() {
     );
   }
 
-  // Lightweight MRI-cite map for client-side renderers (refTree.js etc.) so
-  // they can show inline <cite> for MRI-KNOWN refs without bundling the full
-  // 5+ MB MRI. Schema: { refId: { cite, href, isOrphan } }
+  // Lightweight MRI-cite map (see buildMriCiteMap) published for API clients.
   try {
-    const mri = _mri();
-    const { synthesizeCiteFromRawRef } = require('../lib/referencing');
-    const citeMap = {};
-    for (const [refId, entry] of Object.entries(mri.refs || {})) {
-      // Two reasons to include a ref:
-      //   (a) `resolvedDocId` is set — the slug graduated to a real registry
-      //       doc (via resolveOrphans.js or mriFlush sourcePresence-sync).
-      //       Client renders as a link to the resolved doc, not inline.
-      //   (b) `resolvedDocId` is null — render inline `<cite>` instead of
-      //       a broken "NOT IN REGISTRY" pill.
-      const hasResolution = !!entry.resolvedDocId;
-      let cite = entry.citationText
-        || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].cite)
-        || null;
-      const href = entry.href
-        || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].href)
-        || null;
-      // Fallback: derive a citation from rawRef when the extractor didn't
-      // populate citationText/cite (covers `<other reftype="book">` and other
-      // shapes where the source XML carries authors/publisher/year but no
-      // explicit cite text element). Keeps the renderer from dropping the ref.
-      if (!cite) {
-        const raw = entry.rawRef
-          || (entry.rawVariants && entry.rawVariants[0] && entry.rawVariants[0].rawRef)
-          || null;
-        if (raw) cite = synthesizeCiteFromRawRef(raw);
-      }
-      if (!hasResolution && !cite && !href) continue;
-      citeMap[refId] = {
-        cite: cite || null,
-        href: href || null,
-        isOrphan: entry.isOrphan === true,
-        resolvedDocId: entry.resolvedDocId || null,
-      };
-    }
+    const citeMap = buildMriCiteMap();
     await _writeFile(
       path.join(apiRoot, 'mri-cite-map.json'),
       JSON.stringify(citeMap, null, 2),
@@ -817,6 +882,13 @@ async function emitDocumentsApiOnce() {
     emitSearchApi(docs);
   } catch (e) {
     console.warn('[api] Failed to write /api/search/:', e && e.message ? e.message : e);
+  }
+
+  // Reference endpoints: slice index, groups, projects, reverse index, publishers, vocabulary.
+  try {
+    emitReferenceApi(docs);
+  } catch (e) {
+    console.warn('[api] Failed to write reference endpoints:', e && e.message ? e.message : e);
   }
 }
 
@@ -1004,12 +1076,9 @@ async function emitNormalizedGroups({ dataPath }){
   try {
     const raw = JSON.parse(await fs.readFile(dataPath, 'utf8'));
     const norm = normalizeGroupsRegistry(raw);
-    const outDir = path.join(BUILD_PATH, 'groups', '_data');
-    await fs.mkdir(outDir, { recursive: true });
-    // Authoritative normalized groups registry for client-side use
-    const outPath = path.join(outDir, 'groups.json');
-    await _writeFile(outPath, JSON.stringify(norm, null, 2), 'utf8');
-    console.log(`[build] Wrote normalized groups registry: ${outPath} (count=${norm.length})`);
+    // The groups page renders from this at build time; the data itself is
+    // published at /api/groups.json (#2037).
+    await writeMovedStub('groups/_data/groups.json', '/api/groups.json', 'No longer published here. Use /api/groups.json.');
     return norm;
   } catch (e) {
     console.warn('[build] Failed to emit normalized groups registry:', e && e.message ? e.message : e);
@@ -1044,12 +1113,9 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
       data = norm; // use normalized data for template render / CSV
     }
   }
-  // --- Generic registry JSON emit (ALL registries except groups)
-  // Groups are emitted via emitNormalizedGroups() + optional raw copy above.
-  // Skip emitting build/documents/_data/documents.json; that folder is unused now.
-  // Also skip build/refTree/_data/documents.json — refTree client JS reads docs/_data/documents.json directly.
-  // Also skip build/suites/_data/documents.json — suites index should not emit documents.json.
-  // Instead: suites index emits build/suites/_data/suites.json with new format.
+  // --- Registry JSON emit. Pages render at build time and the registries are
+  // published under /api/ (#2555, #2037); only the suites pass writes site data
+  // (build/suites/_data/suites.json, from masterSuiteIndex.json).
   if (
     templateName === 'suites' && listType === 'documents'
   ) {
@@ -1059,43 +1125,13 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
     await fs.mkdir(outDir, { recursive: true });
     const outPath = path.join(outDir, 'suites.json');
 
-    // Load the masterSuiteIndex.json (from reports)
-    let msi;
-    let msiPath = path.join('src', 'main', 'reports', 'masterSuiteIndex.json');
-    try {
-      msi = JSON.parse(await fs.readFile(msiPath, 'utf8'));
-    } catch (e) {
-      msi = [];
-    }
-
-    // Compatibility rules:
-    // 1. If msi is object with suites/collections, use them. Else, treat as legacy array.
-    let suites, collections;
-    if (msi && typeof msi === 'object' && !Array.isArray(msi)) {
-      suites = Array.isArray(msi.suites) ? msi.suites : (Array.isArray(msi) ? msi : []);
-      collections = Array.isArray(msi.collections) ? msi.collections : [];
-    } else if (Array.isArray(msi)) {
-      suites = msi;
-      collections = [];
-    } else {
-      suites = [];
-      collections = [];
-    }
-
-    // Before writing, attach a kind field to each item (do not mutate originals)
-    const suitesOut = Array.isArray(suites) ? suites.map(s => ({ ...s, kind: 'suite' })) : [];
-    const collectionsOut = Array.isArray(collections) ? collections.map(c => ({ ...c, kind: 'collection' })) : [];
-
-    // Compose output object
-    const payload = {
-      sourcePath: (msi && typeof msi === 'object' && msi.sourcePath) ? msi.sourcePath : null,
-      suites: suitesOut,
-      collections: collectionsOut
-    };
+    const payload = await loadSuitesPayload();
+    const suitesOut = payload.suites;
+    const collectionsOut = payload.collections;
     await _writeFile(outPath, JSON.stringify(payload, null, 2), 'utf8');
     console.log(`[build] Wrote build/suites/_data/suites.json (suites=${suitesOut.length}, collections=${collectionsOut.length})`);
 
-    // --- Emit suite + collection detail pages (client-rendered via /js/suites.js) ---
+    // --- Emit suite + collection detail pages (static HTML from lib/sitePages.js) ---
     // Each page lives at: build/suites/<slug>/index.html
     // It uses src/main/templates/suites.hbs and sets assetPrefix so relative assets resolve.
     try {
@@ -1115,6 +1151,8 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
 
       let emittedSuites = 0;
       let emittedCollections = 0;
+      const suiteDocs = Array.isArray(__effectiveDocs) ? __effectiveDocs : [];
+      const suiteDocsById = new Map(suiteDocs.map(d => [d.docId, d]));
 
       for (const it of itemsForEmit) {
         const outDir = path.join(BUILD_PATH, 'suites', String(it.slug));
@@ -1141,10 +1179,18 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
           ? `Collection page for ${pageTitle}.`
           : `Suite page for ${pageTitle}.`;
 
-        // IMPORTANT: suite detail pages are client-rendered, but they still use the shared header/footer
-        // partials. Those partials expect the same meta/site fields as every other page. If we don't
-        // pass them here, the emitted HTML gets blank author/site/locale/etc.
+        // The shared header/footer partials expect the same meta/site fields as every other page.
+        // If we don't pass them here, the emitted HTML gets blank author/site/locale/etc.
+        const body = rec ? suitePage(rec, { byId: suiteDocsById, docs: suiteDocs, aliases: publisherConfig.aliases }) : null;
         const html = suiteDetailTpl({
+          // static page body (#2555)
+          suiteFound: !!body,
+          suitePublisher: pub,
+          suiteLabel: body ? body.label : pageTitle,
+          suiteMetaText: body ? body.metaText : '',
+          suiteBaseHtml: body ? body.baseHtml : '',
+          suiteRowsHtml: body ? body.rowsHtml : '',
+          suiteIsCollection: body ? body.isCollection : false,
           // template/meta fields used by header/footer
           templateName: 'suites',
           listTitle: pageTitle,
@@ -1198,12 +1244,9 @@ async function buildRegistry ({ listType, templateType, templateName, idType, li
     !(templateName === 'refTree' && listType === 'documents') &&
     !(templateName === 'suites' && listType === 'documents')
   ) {
-    const outDir = path.join(BUILD_PATH, templateName, '_data');
-    await fs.mkdir(outDir, { recursive: true });
-    const outPath = path.join(outDir, `${listType}.json`);
-
-    await writeFileSafe(outPath, JSON.stringify(data, null, 2), 'utf8');
-    console.log(`[build] Wrote build/${templateName}/_data/${listType}.json`);
+    // Pages render this registry at build time; the data is published under
+    // /api/ (#2037).
+    await writeMovedStub(`${templateName}/_data/${listType}.json`, `/api/${listType}.json`, `No longer published here. Use /api/${listType}.json.`);
   }
   // --- end registry JSON emit
   var PAGE_SITE_PATH
@@ -1649,9 +1692,10 @@ function _titleOf(doc){
   });
   
   // --- Load registries (data only).
+  // Groups render from the normalized registry (groupLabel, isActive, statusText…).
   let registryDocument = (listType === 'documents')
     ? loadAllDocs()
-    : JSON.parse(await fs.readFile(DATA_PATH, 'utf8'));
+    : (templateName === 'groups' && Array.isArray(data) ? data : JSON.parse(await fs.readFile(DATA_PATH, 'utf8')));
   // Fast lookup of existing docIds in the current registry — used to short-circuit MSI ref upgrades
   const __docIdSet = new Set(Array.isArray(registryDocument) ? registryDocument.map(d => d && d.docId).filter(Boolean) : []);
   let registryGroup = [];
@@ -2271,7 +2315,10 @@ function _titleOf(doc){
     docRendering.titleLabelDocTypes.map(t => String(t || '').toLowerCase()).filter(Boolean)
   );
 
-  registryDocument.forEach(item => {
+  // Projects/groups passes label docs from the documents sub-registry.
+  const __labelDocs = listType === 'documents' ? registryDocument : (Array.isArray(registryDocsAll) ? registryDocsAll : []);
+  __labelDocs.forEach(item => {
+    if (!item || !item.docId) return;
     const dt = String(item && item.docType || '').toLowerCase();
     // Prefer docTitle as the label for configured docTypes; otherwise fall back to docLabel.
     // Also add defensive fallbacks if either field is missing.
@@ -2556,6 +2603,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
 });
 
   hb.registerHelper('groupIdLookup', function(collection, id) {
+      if (!Array.isArray(collection)) return null;
       var collectionLength = collection.length;
       for (var i = 0; i < collectionLength; i++) {
           if (collection[i].groupId === id) {
@@ -2725,6 +2773,19 @@ hb.registerHelper('docProjLookup', function(collection, id) {
         );
       };
       const titlePrefList = docRendering.titleLabelDocTypes.map(x => String(x).toLowerCase());
+      // Citation graph, built once here (#2555): pages render Level 1 statically,
+      // and refTree.js loads the same payload for deeper levels.
+      const refGraphPayload = encodeRefGraph({
+        docs: registryDocument,
+        suitesPayload: await loadSuitesPayload(),
+        citeMap: buildMriCiteMap(),
+        titleLabelDocTypes: docRendering.titleLabelDocTypes,
+        hasPage: d => !pageGated(d),
+      });
+      await fs.mkdir(path.join(refTreeRoot, '_data'), { recursive: true });
+      await writeFileSafe(path.join(refTreeRoot, '_data', 'ref-graph.json'), JSON.stringify(refGraphPayload), 'utf8');
+      console.log(`[build] Wrote build/reftree/_data/ref-graph.json (nodes=${refGraphPayload.nodes.length})`);
+      const refGraph = RefTreeRender.decodeGraph(refGraphPayload);
       for (const d of registryDocument) {
         if (!d || !d.docId) continue;
         const id = String(d.docId);
@@ -2764,6 +2825,9 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           const refTreeHtml = refTreeTpl({
             // document fields for this root
             docId: d.docId,
+            // static Level 1 of each panel (refTree.js renders deeper levels)
+            upHtml: RefTreeRender.renderLevelsHtml(refGraph, RefTreeRender.buildLevels(refGraph, id, 'up', 1), 'up'),
+            downHtml: RefTreeRender.renderLevelsHtml(refGraph, RefTreeRender.buildLevels(refGraph, id, 'down', 1), 'down'),
             docTitle: d.docTitle,
             docRootLabel: rootLabel,
             docRootTitle: rootTitle,
@@ -2831,7 +2895,13 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       const refTreeListTitle = 'Reference Trees';
       const refTreeDesc = 'Explore dependency and citation trees for documents in the registry.';
 
+      // Static most-connected list + slim search lookup (#2555).
+      const rtIndex = refTreeIndexData(registryDocument, d => !pageGated(d));
+      await fs.mkdir(path.join(refTreeIndexRoot, '_data'), { recursive: true });
+      await writeFileSafe(path.join(refTreeIndexRoot, '_data', 'lookup.json'), JSON.stringify(rtIndex.lookup), 'utf8');
+      console.log(`[build] Wrote build/reftree/_data/lookup.json (docs=${rtIndex.lookup.length})`);
       const refTreeIndexHtml = refTreeIndexTpl({
+        mostConnectedHtml: mostConnectedHtml(rtIndex.mostConnected),
         templateName: 'refTreeIndex',
         listTitle: refTreeListTitle,
         site_version: site_version,
@@ -2864,174 +2934,55 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       console.warn('[build] Could not emit refTree index page:', e && e.message ? e.message : e);
     }
 
-    // --- Emit suites data and pages from MasterSuiteIndex at /suites/… ---
+    __effectiveDocs = registryDocument;
+
+    // --- Emit /suites/index.html: static suite/collection cards (suitesIndex.js filters them)
     try {
-      const msiPath = path.join('src', 'main', 'reports', 'masterSuiteIndex.json');
-      let suites = [];
-      try {
-        const raw = await fs.readFile(msiPath, 'utf8');
-        const parsed = JSON.parse(raw);
-        suites = Array.isArray(parsed.suites) ? parsed.suites : [];
-      } catch (e) {
-        console.warn('[build] No masterSuiteIndex at', msiPath, '; skipping suites emit:', e && e.message ? e.message : e);
-        suites = [];
-      }
+      const suitesIndexTplSrc = await fs.readFile('src/main/templates/suitesIndex.hbs', 'utf8');
+      const suitesIndexTpl = hb.compile(suitesIndexTplSrc);
+      const suitesRoot = path.join(BUILD_PATH, 'suites');
+      await fs.mkdir(suitesRoot, { recursive: true });
 
-      if (!suites.length) {
-        console.log('[build] No suites found in masterSuiteIndex; nothing to emit for /suites');
-      } else {
-        // 1) Emit suites/_data/suites.json
-        const suitesDataDir = path.join(BUILD_PATH, 'suites', '_data');
-        await fs.mkdir(suitesDataDir, { recursive: true });
-        const suitesDataPath = path.join(suitesDataDir, 'suites.json');
-        await writeFileSafe(suitesDataPath, JSON.stringify(suites, null, 2), 'utf8');
-        console.log(`[build] Wrote ${suitesDataPath}`);
+      const suitesCanonical = new URL('/suites/', siteConfig.canonicalBase).href;
+      const suitesPageTitle = `Suites — ${siteConfig.siteName}`;
+      const suitesListTitle = 'Suites';
+      const suitesDesc = 'Bundles of related standards with multiple parts.';
 
-        // 2) Emit per-suite pages at /suites/{suiteSlug}/index.html using suites.hbs
-        try {
-          const suitesTplSrc = await fs.readFile('src/main/templates/suites.hbs', 'utf8');
-          const suitesTpl = hb.compile(suitesTplSrc);
-          const suitesOutRoot = path.join(BUILD_PATH, 'suites');
-          await fs.mkdir(suitesOutRoot, { recursive: true });
+      const suiteCards_ = suiteCards(await loadSuitesPayload());
+      const suitesIndexHtml = suitesIndexTpl({
+        templateName: 'suitesIndex',
+        listTitle: suitesListTitle,
+        site_version: site_version,
+        date: new Date(),
+        // meta
+        siteName: siteConfig.siteName,
+        author: siteConfig.author,
+        authorUrl: siteConfig.authorUrl,
+        copyright: siteConfig.copyright,
+        copyrightHolder: siteConfig.copyrightHolder,
+        copyrightYear: siteConfig.copyrightYear,
+        license: siteConfig.license,
+        licenseUrl: siteConfig.licenseUrl,
+        locale: siteConfig.locale,
+        siteDescription: suitesDesc,
+        siteTitle: suitesPageTitle,
+        canonicalBase: siteConfig.canonicalBase,
+        canonicalUrl: suitesCanonical,
+        ogTitle: suitesPageTitle,
+        ogDescription: suitesDesc,
+        ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
+        ogImageAlt: siteConfig.ogImageAlt,
+        assetPrefix: '../',
+        publisherUrls: publisherConfig.urls,
+        // static cards
+        suiteCardsHtml: suiteCards_.cardsHtml,
+        suitePublisherOptions: suiteCards_.publisherOptions,
+      });
 
-          let __sOk = 0, __sFail = 0;
-          for (const s of suites) {
-            if (!s) continue;
-            const slug = (s.suiteSlug || '').trim();
-            if (!slug) continue;
-
-            const pub  = (s.publisher || '').trim();
-            const type = (s.type || '').trim();
-            const num  = (s.number || '').trim();
-
-            const baseLabel = type ? `${pub} ${type} ${num}` : `${pub} ${num}`;
-            const suiteLabel = baseLabel || 'Suite';
-
-            const perSuiteCanonical = new URL(`/suites/${encodeURIComponent(slug)}/`, siteConfig.canonicalBase).href;
-            const perSuiteTitle = `${suiteLabel} — ${siteConfig.siteName}`;
-            const perSuiteListTitle = suiteLabel;
-            const perSuiteDesc = siteConfig.siteDescription;
-
-            // Compose merged suite context for use as `suite` (so {{#with suite}} in template still works for partials/meta)
-            const suiteCtx = {
-              ...(s || {}),
-              // make meta available even if templates change context with {{#with suite}}
-              listTitle: perSuiteListTitle,
-              // no site_version/date: per-item pages stay byte-stable across builds
-              siteName: siteConfig.siteName,
-              author: siteConfig.author,
-              authorUrl: siteConfig.authorUrl,
-              copyright: siteConfig.copyright,
-              copyrightHolder: siteConfig.copyrightHolder,
-              copyrightYear: siteConfig.copyrightYear,
-              license: siteConfig.license,
-              licenseUrl: siteConfig.licenseUrl,
-              locale: siteConfig.locale,
-              siteDescription: perSuiteDesc,
-              siteTitle: perSuiteTitle,
-              canonicalBase: siteConfig.canonicalBase,
-              canonicalUrl: perSuiteCanonical,
-              ogTitle: perSuiteTitle,
-              ogDescription: perSuiteDesc,
-              ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
-              ogImageAlt: siteConfig.ogImageAlt,
-              assetPrefix: '../../',
-              htmlLink: ('GH_PAGES_BUILD' in process.env) ? '' : 'index.html',
-              publisherUrls: publisherConfig.urls,
-            };
-
-            const suiteHtml = suitesTpl({
-              templateName: 'suites',
-              listTitle: perSuiteListTitle,
-              // site/meta
-              siteName: siteConfig.siteName,
-              author: siteConfig.author,
-              authorUrl: siteConfig.authorUrl,
-              copyright: siteConfig.copyright,
-              copyrightHolder: siteConfig.copyrightHolder,
-              copyrightYear: siteConfig.copyrightYear,
-              license: siteConfig.license,
-              licenseUrl: siteConfig.licenseUrl,
-              locale: siteConfig.locale,
-              siteDescription: perSuiteDesc,
-              siteTitle: perSuiteTitle,
-              canonicalBase: siteConfig.canonicalBase,
-              canonicalUrl: perSuiteCanonical,
-              ogTitle: perSuiteTitle,
-              ogDescription: perSuiteDesc,
-              ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
-              ogImageAlt: siteConfig.ogImageAlt,
-              assetPrefix: '../../',
-              publisherUrls: publisherConfig.urls,
-              // data
-              suite: suiteCtx,
-              suites
-            });
-
-            const suiteDir = path.join(suitesOutRoot, slug);
-            await fs.mkdir(suiteDir, { recursive: true });
-            const suiteOutFile = path.join(suiteDir, 'index.html');
-            await writeFileSafe(suiteOutFile, suiteHtml, 'utf8');
-            __sOk++;
-          }
-          if (__sFail) {
-            console.warn(`[build] Suite pages emitted with warnings: ok=${__sOk}, failed=${__sFail}`);
-          } else {
-            console.log(`[build] Suite pages emitted: ${__sOk}`);
-          }
-        } catch (suiteTplErr) {
-          console.warn('[build] Could not emit suite detail pages:', suiteTplErr && suiteTplErr.message ? suiteTplErr.message : suiteTplErr);
-        }
-
-        // 3) Emit /suites/index.html landing page using suitesIndex.hbs
-        try {
-          const suitesIndexTplSrc = await fs.readFile('src/main/templates/suitesIndex.hbs', 'utf8');
-          const suitesIndexTpl = hb.compile(suitesIndexTplSrc);
-          const suitesRoot = path.join(BUILD_PATH, 'suites');
-          await fs.mkdir(suitesRoot, { recursive: true });
-
-          const suitesCanonical = new URL('/suites/', siteConfig.canonicalBase).href;
-          const suitesPageTitle = `Suites — ${siteConfig.siteName}`;
-          const suitesListTitle = 'Suites';
-          const suitesDesc = 'Bundles of related standards with multiple parts.';
-
-          const suitesIndexHtml = suitesIndexTpl({
-            templateName: 'suitesIndex',
-            listTitle: suitesListTitle,
-            site_version: site_version,
-            date: new Date(),
-            // meta
-            siteName: siteConfig.siteName,
-            author: siteConfig.author,
-            authorUrl: siteConfig.authorUrl,
-            copyright: siteConfig.copyright,
-            copyrightHolder: siteConfig.copyrightHolder,
-            copyrightYear: siteConfig.copyrightYear,
-            license: siteConfig.license,
-            licenseUrl: siteConfig.licenseUrl,
-            locale: siteConfig.locale,
-            siteDescription: suitesDesc,
-            siteTitle: suitesPageTitle,
-            canonicalBase: siteConfig.canonicalBase,
-            canonicalUrl: suitesCanonical,
-            ogTitle: suitesPageTitle,
-            ogDescription: suitesDesc,
-            ogImage: new URL(siteConfig.ogImage, siteConfig.canonicalBase).href,
-            ogImageAlt: siteConfig.ogImageAlt,
-            assetPrefix: '../',
-            publisherUrls: publisherConfig.urls,
-            // data
-            suites
-          });
-
-          await writeFileSafe(path.join(suitesRoot, 'index.html'), suitesIndexHtml, 'utf8');
-          console.log('[build] Wrote build/suites/index.html');
-        } catch (e) {
-          console.warn('[build] Could not emit suites index page:', e && e.message ? e.message : e);
-        }
-      }
+      await writeFileSafe(path.join(suitesRoot, 'index.html'), suitesIndexHtml, 'utf8');
+      console.log(`[build] Wrote build/suites/index.html (cards=${suiteCards_.count})`);
     } catch (e) {
-      console.warn('[build] Suites emit failed:', e && e.message ? e.message : e);
+      console.warn('[build] Could not emit suites index page:', e && e.message ? e.message : e);
     }
 
   }
@@ -3429,10 +3380,11 @@ hb.registerHelper('docProjLookup', function(collection, id) {
   // Build docList search index (search-index.json + facets.json) once per run
   // Only trigger from the main index page to avoid duplicate executions
     if (templateName === 'documents') {
-      // Persist the in-memory documents state for downstream consumers (docs/search-index)
-      const EFFECTIVE_DOCS_PATH = path.join('build','docs','_data','documents.json');
+      // Built docs snapshot for the search-index step. Not published (#2555):
+      // site pages read slim build-time data, and full records are served by
+      // /api/doc/{docId}.json, so it goes to a temp file outside build/.
+      const EFFECTIVE_DOCS_PATH = path.join(os.tmpdir(), `msrbot-effective-docs-${process.pid}.json`);
       try {
-        await fs.mkdir(path.dirname(EFFECTIVE_DOCS_PATH), { recursive: true });
         // Remove all deep keys that contain "$meta" before writing effective docs snapshot
         const cleanEffective = JSON.parse(
           JSON.stringify(
@@ -3440,14 +3392,13 @@ hb.registerHelper('docProjLookup', function(collection, id) {
             (key, val) => (typeof key === 'string' && key.includes('$meta') ? undefined : val)
           )
         );
-        // Compact, not pretty-printed: the indented file passed GitHub's 100 MB limit for gh-pages
-        // (110 MB at 34.8k docs; 72 MB compact). Client scripts only parse it.
-        await writeFileSafe(EFFECTIVE_DOCS_PATH, JSON.stringify(cleanEffective), 'utf8');
-        console.log(`[build] Wrote ${EFFECTIVE_DOCS_PATH}`);
+        await _writeFile(EFFECTIVE_DOCS_PATH, JSON.stringify(cleanEffective), 'utf8');
       } catch (e) {
         console.warn('[build] Could not write documents snapshot:', e && e.message ? e.message : e);
       }
-      // Emit per-publisher / per-docType slices from the same built state.
+      await writeMovedStub('docs/_data/documents.json', '/api/documents.json',
+        'No longer published. /api/documents.json indexes every document; full records are at /api/doc/{docId}.json and /api/by-publisher/ (see /api/by-publisher.json).');
+      // Emit per-publisher / per-docType slices (API) from the same built state.
       try {
         assembleSlices(registryDocument);
       } catch (e) {
@@ -3459,6 +3410,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
       } catch (e) {
         console.warn('[docList] Index build failed:', e && e.message ? e.message : e);
       }
+      await fs.rm(EFFECTIVE_DOCS_PATH, { force: true });
 
       // --- Emit sitemap.xml including all /docs/{docId}/ detail pages
       try {
@@ -3581,9 +3533,9 @@ hb.registerHelper('docProjLookup', function(collection, id) {
     const jsonPointer = templateType === 'documents'
       ? '/api/documents.json'
       : templateType === 'groups'
-        ? '/groups/_data/groups.json'
+        ? '/api/groups.json'
         : templateType === 'projects'
-          ? '/projects/_data/projects.json'
+          ? '/api/projects.json'
           : `/_data/${templateType}.json`;
     const stub =
       'notice,new_location\n' +

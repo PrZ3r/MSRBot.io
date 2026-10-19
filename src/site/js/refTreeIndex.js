@@ -32,17 +32,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   var input = document.getElementById('rt-docid');
   var errorEl = document.getElementById('rt-search-error');
   var resultsEl = document.getElementById('rt-search-results');
-  var listEl = document.getElementById('rt-most-connected');
 
-  // Shared registry data + index
+  // Search lookup rows [docId, docLabel, title] (built at build time, #2555).
+  // The most-connected list is static HTML; the lookup loads on first use.
   var registryDocs = null;
-  var registryIndexBuilt = false;
-
-  function safeLen(v) {
-    if (Array.isArray(v)) return v.length;
-    if (v && typeof v === 'object') return Object.keys(v).length;
-    return 0;
-  }
+  var registryPromise = null;
 
   function normalizeCompact(str) {
     return String(str || '')
@@ -60,125 +54,25 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       .replace(/>/g, '&gt;');
   }
 
-  // Helper to build display title using docSuiteTitle if present
-  function buildDisplayTitle(doc) {
-    if (!doc) return '';
-    var suiteTitle = doc.docSuiteTitle || doc.suiteTitle || '';
-    var baseTitle = doc.docTitle || doc.title || '';
-    if (suiteTitle && baseTitle) {
-      return suiteTitle + ' — ' + baseTitle;
-    }
-    return baseTitle || suiteTitle || '';
-  }
-
-  function buildSearchIndex() {
-    if (!Array.isArray(registryDocs) || registryIndexBuilt) return;
-    // No heavy structures needed yet; we compute scores on the fly in search.
-    registryIndexBuilt = true;
-  }
-
-  // Load registry once and reuse
-  var registryPromise = (function () {
-    if (!listEl && !form) return Promise.resolve([]);
-    return fetch('../docs/_data/documents.json')
+  function loadLookup() {
+    if (registryPromise) return registryPromise;
+    registryPromise = fetch('_data/lookup.json')
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
-      .then(function (docs) {
-        if (!Array.isArray(docs)) docs = [];
-        registryDocs = docs;
-        buildSearchIndex();
-        // Populate most-connected list if present
-        if (listEl) {
-          populateMostConnected();
-        }
-        return docs;
+      .then(function (rows) {
+        registryDocs = (Array.isArray(rows) ? rows : []).map(function (r) {
+          return { docId: r[0], docLabel: r[1] || '', title: r[2] || '' };
+        });
+        return registryDocs;
       })
       .catch(function (err) {
-        console.error('[refTreeIndex] Failed to load documents.json:', err);
-        if (listEl) {
-          listEl.innerHTML = '<li class="text-muted small">Could not load registry data.</li>';
-        }
-        return [];
+        console.error('[refTreeIndex] Failed to load lookup.json:', err);
+        registryDocs = [];
+        return registryDocs;
       });
-  })();
-
-  function populateMostConnected() {
-    if (!listEl) return;
-    if (!Array.isArray(registryDocs) || !registryDocs.length) {
-      listEl.innerHTML = '<li class="text-muted small">No registry data available.</li>';
-      return;
-    }
-
-    var scored = [];
-    for (var i = 0; i < registryDocs.length; i++) {
-      var d = registryDocs[i] || {};
-      var id = d.docId;
-      if (!id) continue;
-
-      var displayTitle = buildDisplayTitle(d);
-
-      var upstream = safeLen(d.referencedBy);
-
-      var refsResolved = d.referencesResolved || {};
-      var norm = Array.isArray(refsResolved.normative) ? refsResolved.normative : [];
-      var bib = Array.isArray(refsResolved.bibliographic) ? refsResolved.bibliographic : [];
-      var downstream = norm.length + bib.length;
-
-      var total = upstream + downstream;
-      if (!total) continue; // skip totally isolated docs
-
-      scored.push({
-        id: id,
-        label: d.docLabel || displayTitle || id,
-        title: displayTitle,
-        upstream: upstream,
-        downstream: downstream,
-        total: total
-      });
-    }
-
-    if (!scored.length) {
-      listEl.innerHTML = '<li class="text-muted small">No connected documents found.</li>';
-      return;
-    }
-
-    scored.sort(function (a, b) {
-      if (b.total !== a.total) return b.total - a.total;
-      return a.id.localeCompare(b.id);
-    });
-
-    var topN = scored.slice(0, 10);
-    listEl.innerHTML = '';
-
-    topN.forEach(function (item) {
-      var li = document.createElement('li');
-      li.className = 'mb-2';
-
-      var link = document.createElement('a');
-      link.className = 'd-inline-block';
-      link.href = '../reftree/' + encodeURIComponent(item.id) + '/';
-      link.textContent = (item.label || item.id);
-
-      var titleDiv = document.createElement('div');
-      titleDiv.className = 'text-muted small';
-      if (item.title) {
-        titleDiv.textContent = item.title;
-      }
-
-      var meta = document.createElement('div');
-      meta.className = 'text-muted small';
-      meta.textContent =
-        item.upstream + ' upstream \u2022 ' + item.downstream + ' downstream';
-
-      li.appendChild(link);
-      if (item.title) {
-        li.appendChild(titleDiv);
-      }
-      li.appendChild(meta);
-      listEl.appendChild(li);
-    });
+    return registryPromise;
   }
 
   function clearSearchMessages() {
@@ -257,7 +151,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   function scoreDocAgainstQuery(doc, query, queryCompact) {
     var id = String(doc.docId || '');
-    var displayTitle = buildDisplayTitle(doc);
+    var displayTitle = doc.title;
     var label = String(doc.docLabel || displayTitle || id);
     var title = String(displayTitle || '');
 
@@ -300,7 +194,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     for (var i = 0; i < registryDocs.length; i++) {
       var d = registryDocs[i];
       if (!d || !d.docId) continue;
-      var displayTitle = buildDisplayTitle(d);
+      var displayTitle = d.title;
       var s = scoreDocAgainstQuery(d, q, qCompact);
       if (s > 0) {
         scored.push({
@@ -334,7 +228,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       return;
     }
 
-    registryPromise.then(function () {
+    loadLookup().then(function () {
       if (!Array.isArray(registryDocs) || !registryDocs.length) {
         showError('Registry data is not available yet. Try again after the page finishes loading.');
         return;
@@ -350,7 +244,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       // If there is exactly one clear match, go straight to it.
       if (matches.length === 1 || (matches[0].score >= 90 && (matches.length === 1 || matches[0].score > matches[1].score))) {
         var targetId = matches[0].id;
-        var target = '../reftree/' + encodeURIComponent(targetId) + '/';
+        var target = encodeURIComponent(targetId) + '/';
         window.location.assign(target);
         return;
       }
@@ -362,5 +256,6 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   if (form && input) {
     form.addEventListener('submit', handleSearchSubmit);
+    input.addEventListener('focus', loadLookup, { once: true });
   }
 })();

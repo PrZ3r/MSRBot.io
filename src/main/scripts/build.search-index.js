@@ -336,17 +336,16 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
       )
     );
 
-    // Minimal row — 1‑to‑1 with canonical where applicable
-    idx.push({
+    // Minimal row: only the fields docList.js reads. Null fields are left out
+    // (the client treats missing and null alike). Full records: /api/doc/{id}.json.
+    const row = {
       id: d.docId,
       title,                 // display title for cards
       label,                 // canonical label (useful for details view)
       publisher: d.publisher || 'Unknown',
       docType: d.docType,                  // required field
-      docTypeAbr: d.docTypeAbr || null,    // optional abbreviation (e.g., ST, RP)
       contentType: d.contentType || null,  // journal-article subtype (filter via ?f.contentType=)
       status,                // array of all true flags (no primary)
-      statusFlags,           // canonical booleans
       pubDate,               // full canonical date
       pubTs,                 // parsed timestamp for sort
       year,
@@ -354,20 +353,20 @@ const squash = s => compact(s).replace(/\s+/g, ' ');
       doi: d.doi || null,
       releaseTag: d.releaseTag,
       hasReleaseTag: Boolean(d.releaseTag),
-      authors: d.authors,
       group,
       groupNames,
       currentWork,
       hasCurrentWork,
       keywords: facetKeywords,        // facet values (from documents.json)
-      keywordsSearch: searchKeywords, // assembled search tokens
+      keywordsSearch: searchKeywords, // assembled search tokens (title, label, authors, affiliations, bios, DOI aliases, work)
       icsCodes: icsCodesList,         // facet values (codes only; descriptions stay in API)
       affiliations: affiliationsFacet,// facet values from authors[].affiliation
-      abbrevTitle: d.abbrevTitle || null,
       href: d.href || null,
       docBase: d.docBase || null,
       docBaseLabel: d.docBaseLabel || null
-    });
+    };
+    for (const k of Object.keys(row)) if (row[k] == null || row[k] === '') delete row[k];
+    idx.push(row);
   }
 
   /* Chips are derived from the finished index rows on every build — count bar +

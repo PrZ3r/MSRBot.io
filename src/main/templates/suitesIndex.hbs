@@ -30,6 +30,7 @@
               <span class="input-group-text">Publisher</span>
               <select id="suitePublisherFilter" class="form-select">
                 <option value="">All publishers</option>
+                {{{suitePublisherOptions}}}
               </select>
             </div>
           </div>
@@ -46,9 +47,10 @@
         </div>
       </div>
     </div>
-    <div id="suite-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">  
-      <!-- suitesIndex.js will inject cards here -->
+    <div id="suite-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+      {{{suiteCardsHtml}}}
     </div>
+    <p id="suite-list-empty" class="text-muted small mt-3 d-none">No suites match these filters.</p>
   </main>
 
   <!-- suite index page scripts -->

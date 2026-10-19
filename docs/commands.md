@@ -56,7 +56,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `npm run assemble`
   - Runs: `node src/main/scripts/build.assemble-registry.js`
   - Action: Assembles per-publisher and per-publisher/docType registry slices from the per-doc registry.
-  - Key outputs: `build/docs/_data/by-publisher/{publisher}.json` and `.../{publisher}/{docType}.json` (`$meta` stripped). Also run automatically as part of `npm run build`.
+  - Key outputs: `build/api/by-publisher/{publisher}.json` and `.../{publisher}/{docType}.json` (`$meta` stripped). Also run automatically as part of `npm run build`.
 
 ### Extraction
 

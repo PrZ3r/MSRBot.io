@@ -60,20 +60,47 @@
                 <td>Compact search index of current editions (id, label, title, keywords, status, date; non-English documents add <code>titleOriginal</code>, <code>lang</code> and, when the English title is a translation, MSRBot.io's or an outside contributor's, <code>translatedBy</code>), split per publisher and doc type into small shards (each under ~25 KB) so AI assistants can fetch them whole. The root index lists publishers; each publisher index (<code>/api/search/{publisher}.json</code>) gives every shard's <code>first</code>/<code>last</code> docId range <a href="{{assetPrefix}}api/search/index.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
               </tr>
               <tr>
+                <td class="text-nowrap"><code>/api/by-publisher.json</code></td>
+                <td>Index of full-record slices per publisher (<code>/api/by-publisher/{publisher}.json</code>) and per publisher + doc type (<code>/api/by-publisher/{publisher}/{docType}.json</code>), with document counts. Each slice is a JSON array of records without <code>$meta</code> <a href="{{assetPrefix}}api/by-publisher.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+              </tr>
+              <tr>
+                <td class="text-nowrap"><code>/api/groups.json</code></td>
+                <td>Groups registry (committees, working groups) — items follow the groups schema <a href="{{assetPrefix}}api/groups.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+              </tr>
+              <tr>
+                <td class="text-nowrap"><code>/api/projects.json</code></td>
+                <td>Projects registry (open and completed work) — items follow the projects schema <a href="{{assetPrefix}}api/projects.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+              </tr>
+              <tr>
+                <td class="text-nowrap"><code>/api/by-doc.json</code></td>
+                <td>Reverse index: <code>docId</code> → owning groups and projects <a href="{{assetPrefix}}api/by-doc.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+              </tr>
+              <tr>
+                <td class="text-nowrap"><code>/api/publishers.json</code></td>
+                <td>Publishers: slug, display name, URL, logo, aliases, and document counts by doc type <a href="{{assetPrefix}}api/publishers.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+              </tr>
+              <tr>
+                <td class="text-nowrap"><code>/api/vocabulary.json</code></td>
+                <td>Valid filter values: controlled keywords, doc types (with counts), and content types <a href="{{assetPrefix}}api/vocabulary.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+              </tr>
+              <tr>
                 <td class="text-nowrap"><code>/api/mri-cite-map.json</code></td>
                 <td>MRI inline-citation sidecar — refs known to MRI but with no registry doc (`resolvedDocId` or `cite` text per entry); used by the doc-page renderer and reference tree to inline <code>&lt;cite&gt;</code> blocks for MRI-only refs <a href="{{assetPrefix}}api/mri-cite-map.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
               </tr>
               <tr>
                 <td class="text-nowrap"><code>/api/schemas/</code></td>
-                <td>JSON Schemas for documents and the search index <a href="{{assetPrefix}}api/schemas/documents.schema.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>JSON Schemas for documents, the search index, groups, projects, and the reference endpoints <a href="{{assetPrefix}}api/schemas/documents.schema.json" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i></a></td>
               </tr>
             </tbody>
           </table>
           <p class="text-muted small mb-3">
-            All JSON responses include <code>"$schema"</code> and <code>"apiVersion"</code> fields
-            for machine validation. Each endpoint is versioned on its own: <code>/api/documents.json</code> and
+            JSON responses include <code>"$schema"</code> and <code>"apiVersion"</code> fields
+            for machine validation (the <code>/api/by-publisher/</code> slices are bare arrays, versioned by
+            <code>/api/by-publisher.json</code>; <code>/api/mri-cite-map.json</code> is unversioned). Each endpoint is versioned on its own: <code>/api/documents.json</code> and
             <code>/api/search/</code> <strong>2.1.0</strong>, <code>/api/doc/</code> <strong>1.1.0</strong>,
-            <code>/api/stats.json</code> <strong>1.1.0</strong>; records follow the documents schema <strong>2.8.0</strong>.
+            <code>/api/stats.json</code> <strong>1.1.0</strong>, the reference endpoints (<code>by-publisher</code>, <code>groups</code>,
+            <code>projects</code>, <code>by-doc</code>, <code>publishers</code>, <code>vocabulary</code>) <strong>1.0.0</strong>;
+            records follow the documents schema <strong>2.8.0</strong>.
           </p>
 
           <h3 class="h6 mb-2">Search URL Parameters</h3>

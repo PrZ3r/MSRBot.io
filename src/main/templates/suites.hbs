@@ -2,47 +2,59 @@
   <!-- Main content starts - do not edit above this line -->
 
   <main class="container my-4">
-    <div id="suite-loading" class="text-muted small mb-3">
-      Loading suite…
-    </div>
-
-    <div id="suite-error" class="alert alert-warning d-none" role="alert">
-      Suite not found. The link may be outdated or invalid.
-    </div>
-
-    <section id="suite-header" class="d-none d-flex gap-2 mb-1">
-      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0" id="suite-publisher"></div>
-      <h1 id="suite-title" class="h3 mb-1"></h1>
+    {{#if suiteFound}}
+    <section id="suite-header" class="d-flex gap-2 mb-1">
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0" id="suite-publisher">
+        {{#if (publisherLogo suitePublisher)}}
+          {{#if (publisherLink suitePublisher)}}
+            <a href="{{publisherLink suitePublisher}}" target="_blank" rel="noopener">{{publisherLogo suitePublisher}}</a>
+          {{else}}
+            {{publisherLogo suitePublisher}}
+          {{/if}}
+        {{else if (publisherLink suitePublisher)}}
+          <a href="{{publisherLink suitePublisher}}" target="_blank" rel="noopener" class="small text-muted">{{suitePublisher}}</a>
+        {{/if}}
+      </div>
+      <h1 id="suite-title" class="h3 mb-1">{{suiteLabel}}</h1>
     </section>
 
-    <p id="suite-meta" class="text-muted small mb-3"></p>
+    <p id="suite-meta" class="text-muted small mb-3">{{suiteMetaText}}</p>
 
-    <section id="suite-no-base" class="card mb-4 d-none">
+    {{#if suiteBaseHtml}}
+    <section id="suite-no-base" class="card mb-4">
       <div class="card-header d-flex align-items-center">
         <h2 class="h5">Base document</h2>
       </div>
-      <div class="card-body" id="suite-no-base-body"></div>
+      <div class="card-body" id="suite-no-base-body">{{{suiteBaseHtml}}}</div>
     </section>
+    {{/if}}
 
-    <section id="suite-parts" class="card mb-4 d-none">
+    <section id="suite-parts" class="card mb-4">
       <div class="table-responsive">
         <table class="table table-sm mb-0 suite-table">
           <thead class="table-header">
             <tr>
-              <th class="part-col">Part</th>
+              {{#unless suiteIsCollection}}<th class="part-col">Part</th>{{/unless}}
               <th>Document</th>
               <th class="status-col">Status</th>
               <th class="pubdate-col">Publication Date</th>
             </tr>
           </thead>
-          <tbody id="suite-parts-body" class="table-body"></tbody>
+          <tbody id="suite-parts-body" class="table-body">
+            {{{suiteRowsHtml}}}
+          </tbody>
         </table>
       </div>
     </section>
+    {{else}}
+    <div id="suite-error" class="alert alert-warning" role="alert">
+      Suite not found. The link may be outdated or invalid.
+    </div>
+    {{/if}}
 
   </main>
 
-  <!-- suite detail page scripts -->
+  <!-- suite detail page scripts (abstract More/Less toggle) -->
   <script src="{{assetPrefix}}js/suites.js"></script>
 
   <!-- Main content ends - do not edit below this line -->

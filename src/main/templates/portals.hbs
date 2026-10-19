@@ -3,33 +3,25 @@
 
 
   <main class="container my-4">
-    <div id="portal-loading" class="text-muted small mb-3">
-      Loading portal…
-    </div>
-
-    <div id="portal-error" class="alert alert-warning d-none" role="alert">
-      Portal not found. The link may be outdated or invalid.
-    </div>
-
-    <section id="portal-header" class="d-none mb-3">
-      <h1 id="portal-title" class="h3 mb-1">Loading…</h1>
-      <p id="portal-summary" class="text-muted mb-0"></p>
+    <section id="portal-header" class="mb-3">
+      <h1 id="portal-title" class="h3 mb-1">{{portalTitle}}</h1>
+      <p id="portal-summary" class="text-muted mb-0">{{portalSummary}}</p>
     </section>
 
     <!-- Sticky topbar: use same card pattern as suites/refTree topbars -->
-    <div id="portal-topbar" class="sticky-top mb-3 px-3 py-2 d-none">
+    <div id="portal-topbar" class="sticky-top mb-3 px-3 py-2">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
           <nav aria-label="Portal sections" class="small d-flex flex-wrap align-items-center gap-2">
-            <a id="portal-nav-overview" href="#portal-overview" class="text-decoration-none">Overview</a>
-            <span id="portal-nav-sep-od" class="text-muted">·</span>
-            <a id="portal-nav-docs" href="#portal-docs" class="text-decoration-none">Docs</a>
-            <span id="portal-nav-sep-dr" class="text-muted">·</span>
-            <a id="portal-nav-resources" href="#portal-resources" class="text-decoration-none">Resources</a>
+            {{#each portalNav}}
+              {{#unless @first}}<span class="text-muted">·</span>{{/unless}}
+              <a href="#{{id}}" class="text-decoration-none">{{label}}</a>
+            {{/each}}
           </nav>
-          <span id="portal-doc-count" class="text-muted small text-nowrap"></span>
+          <span id="portal-doc-count" class="text-muted small text-nowrap">{{#if portalDocCount}}Showing {{portalDocCount}} / {{portalDocCount}} docs{{/if}}</span>
         </div>
-        <div id="portal-doc-controls" class="card-body d-none">
+        {{#if portalDocCount}}
+        <div id="portal-doc-controls" class="card-body">
           <div class="row g-2 align-items-end">
             <div class="col-12 col-md-5">
               <label for="portalDocSearch" class="form-label small fw-semibold">Filter docs</label>
@@ -40,6 +32,7 @@
                 <span class="input-group-text">Type</span>
                 <select id="portalTypeFilter" class="form-select">
                   <option value="">All types</option>
+                  {{{portalTypeOptions}}}
                 </select>
               </div>
             </div>
@@ -48,6 +41,7 @@
                 <span class="input-group-text">Publisher</span>
                 <select id="portalPublisherFilter" class="form-select">
                   <option value="">All publishers</option>
+                  {{{portalPublisherOptions}}}
                 </select>
               </div>
             </div>
@@ -72,16 +66,38 @@
             </div>
           </div>
         </div>
+        {{/if}}
       </div>
     </div>
 
-    <section id="portal-overview" class="mb-4"></section>
+    {{#if portalSectionsHtml}}
+    <section id="portal-overview" class="mb-4">{{{portalSectionsHtml}}}</section>
+    {{/if}}
 
     <section id="portal-docs" class="mb-4">
-      <div id="portal-docs-table"></div>
+      <div id="portal-docs-table">
+        {{#if portalDocCount}}
+        <h3>Documents</h3>
+        <div class="card">
+          <div class="table-responsive">
+            <table class="table table-sm mb-0 suite-table">
+              <thead class="table-header"><tr><th>Label</th><th>Document</th><th>Type</th><th>Date</th><th class="status-col">Status</th><th>Publisher</th></tr></thead>
+              <tbody class="table-body" id="portal-docs-body">
+                {{{portalRowsHtml}}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p id="portal-docs-empty" class="text-muted small mt-2 d-none">No documents match these filters.</p>
+        {{else}}
+        <h2>Documents</h2><p>No documents matched this portal yet.</p>
+        {{/if}}
+      </div>
     </section>
 
-    <section id="portal-resources" class="mb-4"></section>
+    {{#if portalResourcesHtml}}
+    <section id="portal-resources" class="mb-4">{{{portalResourcesHtml}}}</section>
+    {{/if}}
   </main>
 
 
