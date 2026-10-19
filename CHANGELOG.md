@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased] - yyyy-mm-dd
 
+## [v2.11.0] - 2026-10-19
+
 ### Added
 
 - **IETF cited-RFC backfill, batches 1–3.** 1,500 RFCs cited by documents we hold, each batch reviewed (registry 3,973 → 5,473 RFCs). The parser now reads linked BCP citations and more IEEE 802, ITU, ETSI, ATSC, ANSI, NIST, W3C and 3GPP citation forms; keyword rules extended.
