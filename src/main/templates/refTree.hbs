@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-between align-items-start">
           <div class="gap-2">
             <p class="text-muted mb-1">
-              Starting document root:
+              Current document root:
               <span class="ms-1 fs-6"><code>{{docRootLabel}}</code></span>
             </p>
             <p class="h5 mb-2">
@@ -26,35 +26,21 @@
             {{/if}}
           </div>
           <div class="text-end">
-            <a class="btn btn-outline-secondary btn-sm ms-2 mb-1 text-nowrap" href="../../docs/{{docId}}/">
+            <a class="btn btn-outline-secondary btn-sm ms-2 mb-2 text-nowrap" href="../../docs/{{docId}}/">
               ← Back to Doc
             </a>
-          </div>
-        </div>
-      </header>
-
-      <!-- Root band: full-width sticky bar so it stays visible while exploring the tree -->
-      <div id="ref-root-topbar" class="sticky-top px-3 py-2 mb-3">
-        <div class="row justify-content-md-center">
-          <div class="col-md-8">
-            <div class="card h-100 mb-0">
-              <div class="card-header d-flex justify-content-between align-items-center gap-2">
-                <h2 class="h6 mb-0">Current Tree Root</h2>
-
-                <div class="small text-muted text-nowrap">
-                  Max Ref Depth:
-                  <select id="rt-depth-select" class="form-select form-select-sm d-inline w-auto ms-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3" selected>3</option>
-                  </select>
-                </div>
-              </div>
-              <div id="rt-root" class="card-body small">{{{rootHtml}}}</div>
+            <div class="small text-muted text-nowrap">
+              <label for="rt-depth-select">Max Ref Depth:</label>
+              <select id="rt-depth-select" class="form-select form-select-sm d-inline w-auto ms-1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+              </select>
             </div>
           </div>
         </div>
-      </div>
+        <p class="small text-muted mt-2 mb-0">Click a document below to open its own reference tree.</p>
+      </header>
 
       <div id="rt-graph-note" class="alert alert-warning small d-none" role="status"></div>
 

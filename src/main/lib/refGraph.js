@@ -173,34 +173,6 @@ function encodeRefGraph({ docs, suitesPayload, citeMap = {}, titleLabelDocTypes 
   return { v: 1, nodes, out: outIdx };
 }
 
-/** Static root card for /reftree/{docId}/ (a registry doc). */
-function renderRootCard(d) {
-  const esc = R.escapeHtml;
-  const label = d.docLabel || d.docTitle || d.docId;
-  const suiteTitle = String(d.docSuiteTitle || d.suiteTitle || '').trim();
-  const titleText = suiteTitle ? `${suiteTitle} - ${d.docTitle || label}` : (d.docTitle || label);
-  const status = d.currentStatus ? String(d.currentStatus) : '';
-  const icon = R.statusIcon(status, 12);
-  const proj = R.projectIcon(Array.isArray(d.currentWork) && d.currentWork.length > 0, 12);
-  const pub = d.publisher ? String(d.publisher) : '';
-  const type = d.docType ? String(d.docType) : '';
-  const meta = (pub || type)
-    ? '<div class="text-muted small mb-1">' +
-      (pub ? `<a href="../../docs/?f.publisher=${encodeURIComponent(pub)}">${esc(pub)}</a>` : '') +
-      (pub && type ? ' • ' : '') +
-      (type ? `<a href="../../docs/?f.docType=${encodeURIComponent(type)}">${esc(type)}</a>` : '') +
-      (status ? ` • <span class="ms-1">[${esc(status)}]</span>` : '') +
-      (icon ? `<span class="ms-1">${icon}</span>` : '') +
-      (proj ? `<span class="ms-1">${proj}</span>` : '') +
-      '</div>'
-    : '';
-  return '<div class="mb-2"><div class="mb-1 d-flex flex-wrap align-items-center gap-1">' +
-    `<span><code>${esc(label)}</code></span>` +
-    `<span class="fw-semibold"><a href="../../docs/${encodeURIComponent(d.docId)}/">${esc(titleText)}</a></span>` +
-    '</div>' + meta + '</div>' +
-    '<p class="small text-muted mt-3 mb-0">Click a document below to open its own reference tree.</p>';
-}
-
 // "suiteTitle — docTitle" when the doc belongs to a suite.
 function displayTitle(d) {
   const suiteTitle = d.docSuiteTitle || d.suiteTitle || '';
@@ -241,4 +213,4 @@ function mostConnectedHtml(items) {
     '</li>').join('\n');
 }
 
-module.exports = { buildRefGraph, encodeRefGraph, suiteNodes, nodeLabel, renderRootCard, refTreeIndexData, mostConnectedHtml };
+module.exports = { buildRefGraph, encodeRefGraph, suiteNodes, nodeLabel, refTreeIndexData, mostConnectedHtml };

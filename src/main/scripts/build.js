@@ -291,7 +291,7 @@ const { loadDocRendering } = require('../lib/docRendering');
 const { assembleSlices } = require('./build.assemble-registry');
 const { emitSearchApi } = require('./build.search-api');
 const { emitReferenceApi } = require('./build.reference-api');
-const { encodeRefGraph, renderRootCard, refTreeIndexData, mostConnectedHtml } = require('../lib/refGraph');
+const { encodeRefGraph, refTreeIndexData, mostConnectedHtml } = require('../lib/refGraph');
 const { suitePage, suiteCards, resolvePortalDocs, portalDocsTable, portalSectionsHtml, portalResourcesHtml } = require('../lib/sitePages');
 const RefTreeRender = require('../../site/js/refTreeRender');
 const buildStats = require('./utils/buildStats');
@@ -2825,8 +2825,7 @@ hb.registerHelper('docProjLookup', function(collection, id) {
           const refTreeHtml = refTreeTpl({
             // document fields for this root
             docId: d.docId,
-            // static root card + Level 1 of each panel (refTree.js renders deeper levels)
-            rootHtml: renderRootCard(d),
+            // static Level 1 of each panel (refTree.js renders deeper levels)
             upHtml: RefTreeRender.renderLevelsHtml(refGraph, RefTreeRender.buildLevels(refGraph, id, 'up', 1), 'up'),
             downHtml: RefTreeRender.renderLevelsHtml(refGraph, RefTreeRender.buildLevels(refGraph, id, 'down', 1), 'down'),
             docTitle: d.docTitle,
