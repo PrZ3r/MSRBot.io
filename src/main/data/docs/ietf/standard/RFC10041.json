@@ -1,0 +1,283 @@
+{
+  "abstract": "OSPF Router Link State Advertisements (LSAs) use fixed-format encodings that always include advertised links in the default Shortest Path First (SPF) computation. For non-default SPF computations, e.g., Flexible Algorithms as described in RFC 9350, advertised OSPF links are used in the default SPF computation even if this is not intended. In order to advertise these links and not use them in the base SPF calculation, the metric LSLinkInfinity (0xffff) is used to specify that the link is unreachable. If all OSPF routers in an OSPF area support this functionality and have advertised the capability via an area-scoped OSPF Router Information LSA, then links advertised with a metric of LSLinkInfinity are considered unreachable. MaxReachableLinkMetric (0xfffe) is defined to provide backward compatible reachability in specifications that previously specified advertisement of MaxLinkMetric (0xffff). This document updates RFC 5443, RFC 6987, RFC 8379, and RFC 8770 with respect to the advertisement of MaxReachableLinkMetric (0xfffe) rather than MaxLinkMetric (0xffff).",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "authors": [
+    {
+      "name": "Liyan Gong"
+    },
+    {
+      "name": "Weiqiang Cheng"
+    },
+    {
+      "name": "Changwang Lin"
+    },
+    {
+      "name": "Acee Lindem"
+    },
+    {
+      "name": "Ran Chen"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docId": "RFC10041",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docLabel": "IETF RFC 10041",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docNumber": " 10041",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docTitle": "Advertising Unreachable Links in OSPF",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "doi": "10.17487/RFC10041",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "href": "https://doi.org/10.17487/RFC10041",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "keywords": [
+    "LSR Working Group",
+    "OSPF"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "pages": "22",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publicationDate": "2026-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4252",
+      "RFC6241",
+      "RFC7308",
+      "RFC8040",
+      "RFC8340",
+      "RFC9000",
+      "RFC9846"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+      "updated": "2026-10-20T09:42:47.078Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2328",
+      "RFC3688",
+      "RFC4915",
+      "RFC5340",
+      "RFC5443",
+      "RFC6020",
+      "RFC6987",
+      "RFC7770",
+      "RFC7950",
+      "RFC8174",
+      "RFC8341",
+      "RFC8349",
+      "RFC8362",
+      "RFC8379",
+      "RFC8405",
+      "RFC8770",
+      "RFC9129",
+      "RFC9350",
+      "orphan/RFC10041/h:1a44eba5",
+      "orphan/RFC10041/h:ed17f3ef"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+      "updated": "2026-10-20T09:42:47.078Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc10041/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+    "updated": "2026-10-20T09:42:47.078Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+      "updated": "2026-10-20T09:42:47.078Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "amends": [
+      "RFC5443",
+      "RFC6987",
+      "RFC8379",
+      "RFC8770"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+      "updated": "2026-10-20T09:42:47.078Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+      "updated": "2026-10-20T09:42:47.078Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+      "updated": "2026-10-20T09:42:47.078Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+      "updated": "2026-10-20T09:42:47.078Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc10041/",
+      "updated": "2026-10-20T09:42:47.078Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  }
+}

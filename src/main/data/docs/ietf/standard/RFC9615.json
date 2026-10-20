@@ -1,0 +1,274 @@
+{
+  "abstract": "This document introduces an in-band method for DNS operators to publish arbitrary information about the zones for which they are authoritative, in an authenticated fashion and on a per-zone basis. The mechanism allows managed DNS operators to securely announce DNSSEC key parameters for zones under their management, including for zones that are not currently securely delegated. Whenever DS records are absent for a zone's delegation, this signal enables the parent's registry or registrar to cryptographically validate the CDS/CDNSKEY records found at the child's apex. The parent can then provision DS records for the delegation without resorting to out-of-band validation or weaker types of cross-checks such as \"Accept after Delay\". This document establishes the DS enrollment method described in Section 4 of this document as the preferred method over those from Section 3 of RFC 8078. It also updates RFC 7344.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "authors": [
+    {
+      "name": "Peter Thomassen"
+    },
+    {
+      "name": "Nils Wisiol"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docId": "RFC9615",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docLabel": "IETF RFC 9615",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docNumber": " 9615",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docTitle": "Automatic DNSSEC Bootstrapping Using Authenticated Signals from the Zone's Operator",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "doi": "10.17487/RFC9615",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "href": "https://doi.org/10.17487/RFC9615",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "keywords": [
+    "DNSSEC",
+    "Bootstrapping",
+    "DiffServ",
+    "Cinema Digital Sound",
+    "CDNSKEY"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "pages": "12",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publicationDate": "2024-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC9364",
+      "IETF.draft-hardaker-dnsop-intentionally-temporary-insec-01",
+      "RFC8901"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+      "updated": "2026-10-20T09:42:45.226Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "normative": [
+      "RFC1035",
+      "RFC2119",
+      "RFC7344",
+      "RFC7477",
+      "RFC8078",
+      "RFC8174",
+      "RFC8552",
+      "RFC9156",
+      "RFC9499"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+      "updated": "2026-10-20T09:42:45.226Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9615/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+    "updated": "2026-10-20T09:42:45.226Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+      "updated": "2026-10-20T09:42:45.226Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "amends": [
+      "RFC7344",
+      "RFC8078"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+      "updated": "2026-10-20T09:42:45.226Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+      "updated": "2026-10-20T09:42:45.226Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc9615",
+      "https://www.rfc-editor.org/errata_search.php?rfc=9615",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc9615.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+      "updated": "2026-10-20T09:42:45.226Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+      "updated": "2026-10-20T09:42:45.226Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+      "updated": "2026-10-20T09:42:45.226Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9615/",
+      "updated": "2026-10-20T09:42:45.226Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  }
+}

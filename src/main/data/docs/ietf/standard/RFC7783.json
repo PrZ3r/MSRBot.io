@@ -1,0 +1,261 @@
+{
+  "abstract": "TRILL (Transparent Interconnection of Lots of Links) facilitates loop-free connectivity to non-TRILL networks via a choice of an Appointed Forwarder for a set of VLANs. Appointed Forwarders provide VLAN-based load sharing with an active-standby model. High-performance applications require an active-active load-sharing model. The active-active load-sharing model can be accomplished by representing any given non-TRILL network with a single virtual RBridge (also referred to as a virtual Routing Bridge or virtual TRILL switch). Virtual representation of the non-TRILL network with a single RBridge poses serious challenges in multi-destination RPF (Reverse Path Forwarding) check calculations. This document specifies required enhancements to build Coordinated Multicast Trees (CMT) within the TRILL campus to solve related RPF issues. CMT, which only requires a software upgrade, provides flexibility to RBridges in selecting a desired path of association to a given TRILL multi-destination distribution tree. This document updates RFC 6325.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "authors": [
+    {
+      "name": "Tissa Senevirathne"
+    },
+    {
+      "name": "Janardhanan Pathangi"
+    },
+    {
+      "name": "Jon Hudson"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docId": "RFC7783",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docLabel": "IETF RFC 7783",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docNumber": " 7783",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docTitle": "Coordinated Multicast Trees (CMT) for Transparent Interconnection of Lots of Links (TRILL)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "doi": "10.17487/RFC7783",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "href": "https://doi.org/10.17487/RFC7783",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "keywords": [
+    "Affinity",
+    "RPF"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "pages": "16",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publicationDate": "2016-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1109-IEEESTD.2014.7055197",
+      "IETF.draft-ietf-trill-channel-tunnel-07",
+      "RFC7379"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=13 proseBlocks=18 skippedAnchorBlocks=15",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+      "updated": "2026-10-20T09:42:34.424Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "normative": [
+      "ISO.10589.2002",
+      "RFC2119",
+      "RFC5310",
+      "RFC6325",
+      "RFC6439",
+      "RFC7172",
+      "RFC7176",
+      "RFC7177",
+      "RFC7780",
+      "RFC7781"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+      "updated": "2026-10-20T09:42:34.424Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7783/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+    "updated": "2026-10-20T09:42:34.423Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+      "updated": "2026-10-20T09:42:34.423Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "amends": [
+      "RFC6325"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+      "updated": "2026-10-20T09:42:34.424Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+      "updated": "2026-10-20T09:42:34.424Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+      "updated": "2026-10-20T09:42:34.424Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+      "updated": "2026-10-20T09:42:34.424Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7783/",
+      "updated": "2026-10-20T09:42:34.424Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  }
+}

@@ -1,0 +1,262 @@
+{
+  "abstract": "RFCs 6513, 6514, and other RFCs describe procedures by which a Service Provider may offer Multicast VPN (MVPN) service to its customers. These procedures create point-to-multipoint (P2MP) or multipoint-to-multipoint (MP2MP) trees across the Service Provider's backbone. One type of P2MP tree that may be used is known as an \"Ingress Replication (IR) tunnel\". In an IR tunnel, a parent node need not be directly connected to its child nodes. When a parent node has to send a multicast data packet to its n child nodes, it does not use Layer 2 multicast, IP multicast, or MPLS multicast to do so. Rather, it makes n individual copies, and then unicasts each copy, through an IP or MPLS unicast tunnel, to exactly one child node. While the prior MVPN specifications allow the use of IR tunnels, those specifications are not always very clear or explicit about how the MVPN protocol elements and procedures are applied to IR tunnels. This document updates RFCs 6513 and 6514 by adding additional details that are specific to the use of IR tunnels.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "authors": [
+    {
+      "name": "Eric C. Rosen"
+    },
+    {
+      "name": "Karthik Subramanian"
+    },
+    {
+      "name": "Zhaohui (Jeffrey) Zhang"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docId": "RFC7988",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docLabel": "IETF RFC 7988",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docNumber": " 7988",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docTitle": "Ingress Replication Tunnels in Multicast VPN",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "doi": "10.17487/RFC7988",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "href": "https://doi.org/10.17487/RFC7988",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "pages": "23",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publicationDate": "2016-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3209",
+      "RFC5036",
+      "RFC6388",
+      "RFC6625",
+      "RFC7524",
+      "RFC7582",
+      "RFC7716",
+      "RFC7740",
+      "RFC7900"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=14 proseBlocks=18 skippedAnchorBlocks=15",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+      "updated": "2026-10-20T09:42:35.813Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC6513",
+      "RFC6514",
+      "RFC6515"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+      "updated": "2026-10-20T09:42:35.813Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7988/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+    "updated": "2026-10-20T09:42:35.813Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+      "updated": "2026-10-20T09:42:35.813Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "amendedBy": [
+      "RFC10018"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+      "updated": "2026-10-20T09:42:35.813Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "amends": [
+      "RFC6513",
+      "RFC6514"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+      "updated": "2026-10-20T09:42:35.813Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+      "updated": "2026-10-20T09:42:35.813Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+      "updated": "2026-10-20T09:42:35.813Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+      "updated": "2026-10-20T09:42:35.813Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7988/",
+      "updated": "2026-10-20T09:42:35.813Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  }
+}

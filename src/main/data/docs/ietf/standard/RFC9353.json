@@ -1,0 +1,281 @@
+{
+  "abstract": "When a Path Computation Element (PCE) is a Label Switching Router (LSR) or a server participating in the Interior Gateway Protocol (IGP), its presence and path computation capabilities can be advertised using IGP flooding. The IGP extensions for PCE Discovery (PCED) (RFCs 5088 and 5089) define a method to advertise path computation capabilities using IGP flooding for OSPF and IS-IS, respectively. However, these specifications lack a method to advertise Path Computation Element Communication Protocol (PCEP) security (e.g., Transport Layer Security (TLS) and TCP Authentication Option (TCP-AO)) support capability. This document defines capability flag bits for the PCE-CAP-FLAGS sub-TLV that can be announced as an attribute in the IGP advertisement to distribute PCEP security support information. In addition, this document updates RFCs 5088 and 5089 to allow advertisement of a Key ID or KEY-CHAIN-NAME sub-TLV to support TCP-AO security capability. This document also updates RFCs 8231 and 8306.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "authors": [
+    {
+      "name": "Diego Lopez"
+    },
+    {
+      "name": "Qin Wu"
+    },
+    {
+      "name": "Dhruv Dhody"
+    },
+    {
+      "name": "Qiufang Ma"
+    },
+    {
+      "name": "Daniel King"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docId": "RFC9353",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docLabel": "IETF RFC 9353",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docNumber": " 9353",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docTitle": "IGP Extension for Path Computation Element Communication Protocol (PCEP) Security Capability Support in PCE Discovery (PCED)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "doi": "10.17487/RFC9353",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "href": "https://doi.org/10.17487/RFC9353",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "keywords": [
+    "PCE"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "pages": "13",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publicationDate": "2023-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-lsr-ospf-transport-instance-04",
+      "IETF.draft-ietf-pce-pcep-yang-20",
+      "RFC2385",
+      "RFC4674",
+      "RFC5440",
+      "RFC5926",
+      "RFC6823",
+      "RFC6952",
+      "RFC8446",
+      "orphan/RFC9353/h:397ebb73"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+      "updated": "2026-10-20T09:42:44.126Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC5088",
+      "RFC5089",
+      "RFC5304",
+      "RFC5310",
+      "RFC5557",
+      "RFC5709",
+      "RFC5925",
+      "RFC7770",
+      "RFC8126",
+      "RFC8174",
+      "RFC8177",
+      "RFC8231",
+      "RFC8253",
+      "RFC8306",
+      "RFC8623",
+      "RFC9168"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+      "updated": "2026-10-20T09:42:44.126Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9353/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+    "updated": "2026-10-20T09:42:44.126Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+      "updated": "2026-10-20T09:42:44.126Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "amends": [
+      "RFC5088",
+      "RFC5089",
+      "RFC8231",
+      "RFC8306"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+      "updated": "2026-10-20T09:42:44.126Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+      "updated": "2026-10-20T09:42:44.126Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+      "updated": "2026-10-20T09:42:44.126Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+      "updated": "2026-10-20T09:42:44.126Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9353/",
+      "updated": "2026-10-20T09:42:44.126Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  }
+}
