@@ -13,6 +13,9 @@ editions, which the weekly extract keeps current), then cited RFCs, then RFCs ou
 update, each in number order, then drafts.
 --cited seeds only the citation backlog (cited RFCs in number order, then drafts), leaving the
 relation targets for a later --relations run.
+A draft is seeded only when a document outside the IETF (an SMPTE standard or paper, say) cites
+it. Drafts cited only by RFCs or other drafts stay missing refs: they are the IETF's own working
+history, not documents the registry's other publishers depend on.
 --relations seeds only the RFCs named by those relations (no citation backlog, no drafts). The
 weekly extract runs it first, so an RFC that newly obsoletes or updates one we hold is pulled in.
 --out <file> writes the chosen URLs as a JSON list, ready for
@@ -137,7 +140,7 @@ function argValue(name) {
   return i >= 0 ? process.argv[i + 1] : null;
 }
 
-function main() {
+async function main() {
   const doWrite = process.argv.includes('--write');
   const limitRaw = argValue('--limit');
   const limit = limitRaw == null ? null : Number(limitRaw);
@@ -173,8 +176,12 @@ function main() {
       .map((row) => asRfcNum(row?.refId))
       .filter((n) => Number.isInteger(n))
   )].sort((a, b) => a - b);
+  const ietfDoc = (id) => /^(?:RFC\d+|IETF\.draft-)/i.test(String(id || ''));
+  const citedOutside = (row) => (Array.isArray(row?.sightings) ? row.sightings : []).some((x) => x && x.docId && !ietfDoc(x.docId));
+  const allDraftNames = [...new Set(missingRows.map((row) => asDraftName(row?.refId)).filter(Boolean))];
   const draftNames = [...new Set(
     missingRows
+      .filter(citedOutside)
       .map((row) => asDraftName(row?.refId))
       .filter(Boolean)
   )].sort((a, b) => a.localeCompare(b));
@@ -193,7 +200,20 @@ function main() {
     : citedOnly
       ? rfcNums.filter(unseeded).map((n) => toRfcUrl(n))
       : [...forwardNums, ...citedNums, ...backwardNums].map((n) => toRfcUrl(n));
-  const missingDraftNames = relationsOnly ? [] : draftNames.filter((name) => !seedSet.has(toDraftUrl(name).toLowerCase()));
+  // A draft is seeded only if Datatracker knows it: a misprinted name in a citation
+  // ("draft-ietf-ntpntpv4-proto-11") would otherwise fail on every weekly run.
+  const candidateDrafts = relationsOnly ? [] : draftNames.filter((name) => !seedSet.has(toDraftUrl(name).toLowerCase()));
+  const unknownDrafts = [];
+  const missingDraftNames = [];
+  for (const name of candidateDrafts) {
+    const base = name.replace(/-\d{2}$/, '');
+    let ok = false;
+    try {
+      const res = await fetch(`https://datatracker.ietf.org/doc/${base}/doc.json`);
+      ok = res.ok;
+    } catch {}
+    (ok ? missingDraftNames : unknownDrafts).push(name);
+  }
   const missingDraftUrls = missingDraftNames.map((name) => toDraftUrl(name));
   const missingAll = [...missingDraftUrls, ...missingSeedUrls];
   // A batch takes the newer editions first, then cited RFCs, then older editions, then drafts
@@ -203,11 +223,12 @@ function main() {
 
   console.log(`MRI missing refs: ${missingRows.length}`);
   console.log(`MRI missing RFC refs: ${rfcNums.length}`);
-  console.log(`MRI missing IETF draft refs: ${draftNames.length}`);
+  console.log(`MRI missing IETF draft refs: ${allDraftNames.length} (${draftNames.length} cited outside the IETF; the rest are never seeded)`);
   console.log(`RFCs superseding/updating one we hold, not seeded: ${forwardNums.length}`);
   console.log(`Cited RFCs not seeded: ${citedNums.length}`);
   console.log(`RFCs one we hold supersedes/updates, not cited, not seeded: ${backwardNums.length}`);
   console.log(`IETF draft refs not in seedUrls.ietf.json: ${missingDraftUrls.length}`);
+  if (unknownDrafts.length) console.log(`Not seeded, unknown to Datatracker (misprinted names?): ${unknownDrafts.join(', ')}`);
   console.log(`RFC refs not in seedUrls.ietf.json: ${missingSeedUrls.length}`);
   console.log(`Total refs to backfill into seedUrls.ietf.json: ${missingAll.length}`);
   if (!missingAll.length) return;
@@ -231,4 +252,4 @@ function main() {
   console.log(`\nUpdated ${SEED_PATH} (+${batch.length} seed URL(s): ${batchDrafts} draft, ${batch.length - batchDrafts} RFC).`);
 }
 
-main();
+main().catch((e) => { console.error(e); process.exit(1); });
