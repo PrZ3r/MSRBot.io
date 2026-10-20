@@ -1139,6 +1139,28 @@ function otherSeriesRfc(text) {
   return /\b(?:DCE|OSF|Open\s+Software\s+Foundation)\s+(?:Request\s+for\s+Comments?|RFC)\b/i.test(String(text || ''));
 }
 
+// DOI case: the DOI system resolves any case to the same document, but an ID must be spelled one
+// way or one document splits into two MRI entries (10.1109-IEEESTD… / 10.1109-ieeestd…). These
+// give the publisher's own spelling for the publishers whose cites come in both cases. SMPTE
+// (10.5594) is never touched: its registry keeps J and j DOIs as different documents.
+//   NIST: series uppercase (FIPS, SP), a part letter uppercase (800-56A), "pt" and the "r"
+//   revision lowercase (800-57pt1r5, 800-56Ar3) — NIST's DOI spelling.
+function canonicalNistNumber(num) {
+  return String(num || '').toUpperCase().replace(/PT(?=\d)/g, 'pt').replace(/-UPD(\d+)/g, '-upd$1').replace(/R(\d+)$/, 'r$1');
+}
+function canonicalNistId(id) {
+  const m = String(id || '').match(/^([A-Za-z]+)\.(.+)$/);
+  return m ? `${m[1].toUpperCase()}.${canonicalNistNumber(m[2])}` : String(id || '');
+}
+//   IEEE (10.1109) registers uppercase suffixes; Springer's old series is BF… / BFb….
+function canonicalDoiCase(doi) {
+  const m = String(doi || '').match(/^(10\.\d{4,9})\/(.+)$/);
+  if (!m) return doi;
+  if (m[1] === '10.1109') return `${m[1]}/${m[2].toUpperCase()}`;
+  if (m[1] === '10.1007') return `${m[1]}/${m[2].replace(/^bfb(?=\d)/i, 'BFb').replace(/^bf(?=\d)/i, 'BF')}`;
+  return doi;
+}
+
 function parseRefId(text, href = '', opts = {}) {
   const wantDiag = !!opts.wantDiag;
   // allow explicit cite→refId normalization via refMap.json
@@ -1602,7 +1624,7 @@ function parseRefId(text, href = '', opts = {}) {
   // NIST via DOI href
   if (/10\.6028\/NIST\.(.+)/i.test(href)) {
     const [, id] = href.match(/10\.6028\/NIST\.(.+)/i);
-    { const refId = `NIST.${id}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-doi' } } : refId; }
+    { const refId = `NIST.${canonicalNistId(id)}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-doi' } } : refId; }
   }
   // NIST FIPS (strip optional PUB)
   if (/NIST\s+FIPS\s+(?:PUB\s+)?(\d+)(-\d+)?/i.test(text)) {
@@ -1656,7 +1678,7 @@ function parseRefId(text, href = '', opts = {}) {
   {
     const m = String(href || '').match(/csrc\.nist\.gov\/publications\/detail\/sp\/(800-[0-9A-Za-z-]+)(?:\/rev-?([0-9]+))?/i);
     if (m?.[1]) {
-      const sp = String(m[1]).toUpperCase();
+      const sp = canonicalNistNumber(m[1]);
       const rev = m[2] ? `r${m[2]}` : '';
       const refId = `NIST.SP.${sp}${rev}`;
       return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-sp-path' } } : refId;
@@ -1672,7 +1694,7 @@ function parseRefId(text, href = '', opts = {}) {
     if (m?.[1]) {
       // NIST writes the revision lowercase ("800-56Ar3", from a DOI in the cite text);
       // uppercasing it would split one SP into two ids (NIST.SP.800-56AR3).
-      const sp = String(m[1]).toUpperCase().replace(/R(\d+)$/, 'r$1');
+      const sp = canonicalNistNumber(m[1]);
       const revMatch = src.match(/\bRev\.?\s*([0-9]+)\b/i);
       const rev = revMatch?.[1] ? `r${revMatch[1]}` : '';
       const refId = `NIST.SP.${sp}${rev}`;
@@ -1703,9 +1725,9 @@ function parseRefId(text, href = '', opts = {}) {
     const doiSource = `${String(text || '')} ${String(href || '')}`;
     const doiMatch = doiSource.match(/\b(10\.\d{4,9}\/[-._;()/:A-Z0-9]+)\b/i);
     if (doiMatch?.[1]) {
-      const raw = String(doiMatch[1] || '')
+      const raw = canonicalDoiCase(String(doiMatch[1] || '')
         .trim()
-        .replace(/[>,.;:]+$/g, '');
+        .replace(/[>,.;:]+$/g, ''));
       const normalized = raw
         .replace(/\//g, '-')
         .replace(/[()]/g, '_')

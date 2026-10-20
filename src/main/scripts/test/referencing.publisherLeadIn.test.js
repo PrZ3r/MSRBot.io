@@ -329,4 +329,14 @@ assert.strictEqual(parseRefId('Eastlake, D., "Exclusive XML Canonicalization Ver
 assert.strictEqual(parseRefId('ITU-T Recommedation Y.2111, "Resource and admission control functions in Next Generation Networks", September 2006.'), 'T-REC-Y.2111.2006'); n++;
 assert.strictEqual(parseRefId('3GPP, "IP Multimedia Subsystem (IMS) Customized Ringing Signal (CRS); Protocol specification", Specification 24.183, September 2016.'), '3GPP.TS-24.183.201609'); n++;
 
+// DOI case: one spelling per document. IEEE suffixes uppercase, Springer BF/BFb, NIST series and part
+// letter uppercase with pt/r/upd lowercase. SMPTE DOIs keep their case (J and j are different documents).
+assert.strictEqual(parseRefId('Diffie, W. and M. Hellman, "New directions in cryptography", DOI 10.1109/tit.1976.1055638, November 1976.'), '10.1109-TIT.1976.1055638'); n++;
+assert.strictEqual(parseRefId('Lamport, L., "x", DOI 10.1007/bfb0055716.'), '10.1007-BFb0055716'); n++;
+assert.strictEqual(parseRefId('NIST, "Advanced encryption standard (AES)"', 'https://doi.org/10.6028/nist.fips.197'), 'NIST.FIPS.197'); n++;
+assert.strictEqual(parseRefId('NIST, "AES"', 'https://doi.org/10.6028/NIST.FIPS.197-upd1'), 'NIST.FIPS.197-upd1'); n++;
+assert.strictEqual(parseRefId('Barker, E., "Recommendation for pair-wise key-establishment"', 'https://doi.org/10.6028/nist.sp.800-56ar3'), 'NIST.SP.800-56Ar3'); n++;
+assert.strictEqual(parseRefId('Barker, E. and NIST, "Recommendation for key management:part 1 - general", NIST Special Publication 800-57pt1r5'), 'NIST.SP.800-57pt1r5'); n++;
+assert.strictEqual(parseRefId('X, 10.5594/smpte.st2067-21.2023'), '10.5594-smpte.st2067-21.2023'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
