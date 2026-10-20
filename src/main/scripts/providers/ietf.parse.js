@@ -105,7 +105,8 @@ function createIetfParser(deps) {
   // so a failed fetch is retried next run instead of being hidden by the newer snapshot.
   let changedRfcs = null;
   const extractedRfcs = new Set();
-  // RFC index XML/XSD mapping contract (https://www.rfc-editor.org/rfc-index.xsd).
+  // RFC index XML/XSD mapping contract (https://www.rfc-editor.org/rfc-index.xsd; a copy is kept at
+  // src/main/input/sources/ietf/rfc-index.xsd — last schema change 2026-04-01, 5-digit numbers).
   // status:
   // - required: expected from index for valid RFC entries and should be present.
   // - optional: parsed when available; not guaranteed.
