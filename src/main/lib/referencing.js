@@ -1150,6 +1150,11 @@ function parseRefId(text, href = '', opts = {}) {
   // also "ANSI/INCITS 357:2002" (RFC4172)
   // Cited-RFC batch 1: "US FIPS197" (RFC3607), "ANSI Std. X3.139-1987" (RFC2816), "ANSI
   // X3.269:1996" (RFC3347), "W3C REC REC-CSS2- 19980512" with the date wrapped (RFC5022).
+  // Cited-RFC batch 4: "ANSI/ASHRAE Standard 135-2016" (RFC8163); 'ISO/IEC, "Standard 13818-1, …"' (RFC6776).
+  // (Not an addenda package: "Addenda an, at, … to ANSI/ASHRAE Standard 135-2012" stays an orphan.)
+  if (!/\bAddend/i.test(String(text || ''))) text = String(text || '').replace(/\bANSI\/ASHRAE\s+Standard\s+(?=\d)/g, 'ANSI/ASHRAE ');
+  text = String(text || '')
+    .replace(/\bISO(\s*\/\s*IEC)?,\s*["“]Standard\s+(?=\d)/g, 'ISO$1 Standard ');
   // Weekly run 2026-10-20: "ANSI/INCITS, 350-2003" (RFC8881), "3GPP …, TS.29.281" (RFC9301).
   text = String(text || '').replace(/\bINCITS,\s+(?=\d{2,4}-(?:19|20)\d{2}\b)/g, 'INCITS ')
     .replace(/\bTS\.(?=\d{2}\.\d{3}\b)/g, 'TS ');
@@ -1819,6 +1824,14 @@ function parseRefId(text, href = '', opts = {}) {
       const refId = `T-REC-${lead[1]}.${lead[2]}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-designator-lead' } } : refId;
     }
+    // 'International Telecommunication Union, "X.700: Management Framework …", September 1992' (RFC6632)
+    const spelledTitle = String(text || '').match(/\bInternational\s+Telecommunications?\s+Union,\s*["“]([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s*:/);
+    if (spelledTitle) {
+      const after = String(text || '').slice(spelledTitle.index + spelledTitle[0].length);
+      const y = (after.match(/["”][^"”]*?\b((?:19|20)\d{2})\b/) || [])[1] || '';
+      const refId = `T-REC-${spelledTitle[1]}.${spelledTitle[2]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itu-spelled-title-designator' } } : refId;
+    }
     // 'ITU-T Recommendation, "G.114 - One-way transmission time", …, 05/2003' (RFC5757)
     const recQuoted = String(text || '').match(/\bITU-T\s+Recommendation,?\s*["“]([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s+[-–]/);
     if (recQuoted) {
@@ -2048,10 +2061,32 @@ function parseRefId(text, href = '', opts = {}) {
   // IEEE Standard for …"' (RFC4837).
   {
     const m = /\bIEEE\b|Institute\s+of\s+Electrical/.test(String(text || ''))
-      && String(text || '').match(/(?<![\w.])(802(?:\.\d+[A-Za-z]{0,3})?)-((?:19|20)\d{2}),?\s+IEEE\s+Standard\b/);
+      // also other IEEE numbers: '"1588-2008 IEEE Standard for a Precision Clock …"' (RFC6669)
+      && String(text || '').match(/(?<![\w.])(802(?:\.\d+[A-Za-z]{0,3})?|\d{3,4}(?:\.\d+)?)-((?:19|20)\d{2}),?\s+IEEE\s+Standard\b/);
     if (m) {
       const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-catalogue' } } : refId;
+    }
+  }
+  // Cited-RFC batch 4 IEEE forms:
+  //   '"…", Std. 802.1AX-2008, IEEE Computer Society' (RFC7209) → IEEE.STD802.1AX.2008
+  //   '"IEEE, Virtual Bridged Local Area Networks, IEEE 802.1Q", May 2003' (RFC4968) → dated
+  //   '"IEEE 802.16e, IEEE standard for …", October 2005' (RFC4968) → dated
+  //   'IEEE, "IEEE Standard for … Connectivity Discovery", IEEE 802.1AB.' (RFC8520) and
+  //   '…", IEEE 802.15.4, <https://…>.' (RFC8180): the designator closing the cite → undated
+  {
+    const src = String(text || '');
+    const up = (d) => d.replace(/[a-z]+$/, (x) => x.toUpperCase());
+    const hasIeee = /\bIEEE\b/.test(src) && !/\bDraft\b|-REV\b|\bP802/i.test(src);
+    const std = hasIeee && src.match(/\bStd\.?\s+(802(?:\.\d+[A-Za-z]{0,3})?)-((?:19|20)\d{2})\b/);
+    const inQuote = hasIeee && (src.match(/\bIEEE\s+(802(?:\.\d+[A-Za-z]{0,3})?)["”],?\s*(?:[A-Z][a-z]+\.?\s+)?((?:19|20)\d{2})\b/)
+      || src.match(/^\s*["“]IEEE\s+(802(?:\.\d+[A-Za-z]{0,3})?),[^"”]{4,300}["”],?\s*(?:[A-Z][a-z]+\.?\s+)?((?:19|20)\d{2})\b/));
+    const closing = hasIeee && /^\s*IEEE\b/.test(src)
+      && src.match(/["”],?\s*IEEE\s+(?:Standard\s+|Std\.?\s+)?(802(?:\.\d+[A-Za-z]{0,3})*|\d{3,4}(?:\.\d+)?)\s*[.,]?\s*(?:(?:<|&lt;)\s*https?:[^\s>&]+\s*(?:>|&gt;)|https?:\S+)?\s*\.?\s*$/);
+    const hit = std || inQuote;
+    if (hit || closing) {
+      const refId = hit ? `IEEE.STD${up(hit[1])}.${hit[2]}` : `IEEE.STD${up(closing[1])}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: std ? 'ieee-std-dot' : inQuote ? 'ieee-in-quote' : 'ieee-closing' } } : refId;
     }
   }
   // The designator-year after the title: '"IEEE Standard for … / MAC Bridges", 802.1D-2004, 9 June

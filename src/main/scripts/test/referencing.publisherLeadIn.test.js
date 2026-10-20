@@ -309,4 +309,18 @@ assert.strictEqual(parseRefId('Cheikes, B., "Common Platform Enumeration: Naming
 assert.strictEqual(parseRefId('Snively, R., "Fibre Channel Protocol for SCSI, 2nd Version (FCP-2)", ANSI/INCITS, 350-2003, October 2003.'), 'INCITS.350.2003'); n++;
 assert.strictEqual(parseRefId('3GPP, "GPRS Tunnelling Protocol User Plane (GTPv1-U)", TS.29.281, June 2022.'), '3GPP.TS-29.281.202206'); n++;
 
+// Cited-RFC batch 4: IEEE designator closing the cite (RFC8520, RFC8180), "Std. 802.1AX-2008" (RFC7209),
+// designator inside the quoted title (RFC4968), "1588-2008 IEEE Standard" (RFC6669), ITU spelled with the
+// designator opening the title (RFC6632), 'ISO/IEC, "Standard 13818-1' (RFC6776), ANSI/ASHRAE Standard;
+// an ASHRAE addenda package stays an orphan.
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Local and Metropolitan Area Networks-- Station and Media Access Control Connectivity Discovery", IEEE 802.1AB.'), 'IEEE.STD802.1AB'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Low-Rate Wireless Networks", IEEE 802.15.4, &lt; http://ieeexplore.ieee.org/document/7460875/ &gt;.'), 'IEEE.STD802.15.4'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Local and metropolitan area networks - Link Aggregation", Std. 802.1AX-2008, IEEE Computer Society, November 2008.'), 'IEEE.STD802.1AX.2008'); n++;
+assert.strictEqual(parseRefId('"IEEE, Virtual Bridged Local Area Networks, IEEE 802.1Q", May 2003.'), 'IEEE.STD802.1Q.2003'); n++;
+assert.strictEqual(parseRefId('IEEE, "1588-2008 IEEE Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems", March 2008.'), 'IEEE.STD1588.2008'); n++;
+assert.strictEqual(parseRefId('International Telecommunication Union, "X.700: Management Framework For Open Systems Interconnection (OSI) For CCITT Applications", September 1992.'), 'T-REC-X.700.1992'); n++;
+assert.strictEqual(parseRefId('ISO/IEC, "Standard 13818-1, Information technology -- Generic coding of moving pictures and associated audio information: Systems", October 2007.'), 'ISO.13818-1'); n++;
+assert.strictEqual(parseRefId('ASHRAE, "BACnet-A Data Communication Protocol for Building Automation and Control Networks", ANSI/ASHRAE Standard 135-2016, January 2016.'), 'ASHRAE.135.2016'); n++;
+assert.strictEqual(parseRefId('ANSI/ASHRAE, "Addenda: BACnet", ANSI/ASHRAE Addenda an, at, au to ANSI/ASHRAE Standard 135-2012, July 2014.'), null); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
