@@ -1181,7 +1181,8 @@ function createIetfParser(deps) {
         [cInfo.report, 'Parsed from RFC info page report metadata']
       ]);
       const report = reportPick.value;
-      const docNumber = report ? report.replace(/^rfc/i, '') : rfcNum;
+      // The redesigned info page writes "RFC 9549" (was "rfc9549"): drop the prefix and the space.
+      const docNumber = report ? report.replace(/^rfc\s*/i, '').trim() : rfcNum;
       if (reportPick.sourceNote) metaNotes.docNumber = reportPick.sourceNote;
 
       const abstractPick = pickFirstWithSource([
