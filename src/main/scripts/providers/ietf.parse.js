@@ -1181,9 +1181,14 @@ function createIetfParser(deps) {
         [cInfo.report, 'Parsed from RFC info page report metadata']
       ]);
       const report = reportPick.value;
-      // The redesigned info page writes "RFC 9549" (was "rfc9549"): drop the prefix and the space.
-      const docNumber = report ? report.replace(/^rfc\s*/i, '').trim() : rfcNum;
-      if (reportPick.sourceNote) metaNotes.docNumber = reportPick.sourceNote;
+      // The number comes from the RFC Editor's own record, the RFC index entry's <doc-id>, else
+      // the RFC number in the seed URL. Page citation metadata is only a cross-check: its format
+      // changed under us ("RFC 9549" vs "rfc9549", 2026-10) and the RFC HTML pages dropped it.
+      const indexNum = index && index.docId ? String(index.docId).replace(/^RFC0*/i, '') : '';
+      const docNumber = indexNum || String(parseInt(rfcNum, 10));
+      metaNotes.docNumber = indexNum ? 'From the RFC index entry (rfc-index.xml <doc-id>)' : 'From the RFC number in the seed URL';
+      const pageNum = report ? String(report).replace(/^rfc\s*/i, '').replace(/^0+/, '').trim() : '';
+      if (pageNum && pageNum !== docNumber) console.warn(`⚠️ RFC${rfcNum}: page report number "${report}" disagrees with ${docNumber}`);
 
       const abstractPick = pickFirstWithSource([
         [index?.abstract, 'Parsed from RFC index XML abstract'],
