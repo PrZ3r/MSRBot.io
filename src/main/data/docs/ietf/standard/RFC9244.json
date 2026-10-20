@@ -1,0 +1,286 @@
+{
+  "abstract": "This document aims to enrich the Distributed Denial-of-Service Open Threat Signaling (DOTS) signal channel protocol with various telemetry attributes, allowing for optimal Distributed Denial-of-Service (DDoS) attack mitigation. It specifies the normal traffic baseline and attack traffic telemetry attributes a DOTS client can convey to its DOTS server in the mitigation request, the mitigation status telemetry attributes a DOTS server can communicate to a DOTS client, and the mitigation efficacy telemetry attributes a DOTS client can communicate to a DOTS server. The telemetry attributes can assist the mitigator in choosing the DDoS mitigation techniques and performing optimal DDoS attack mitigation. This document specifies two YANG modules: one for representing DOTS telemetry message types and one for sharing the attack mapping details over the DOTS data channel.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Mohamed Boucadair"
+    },
+    {
+      "name": "Tirumaleswar Reddy.K"
+    },
+    {
+      "name": "Ehud Doron"
+    },
+    {
+      "name": "Meiling Chen"
+    },
+    {
+      "name": "Jon Shallow"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC9244",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 9244",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "9244",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "Distributed Denial-of-Service Open Threat Signaling (DOTS) Telemetry",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC9244",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC9244",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "Automation",
+    "Cybersecurity",
+    "DDoS",
+    "Resilience",
+    "Service Delivery"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Automation",
+      "Cybersecurity",
+      "DDoS",
+      "Resilience",
+      "Intelligence",
+      "Service Delivery",
+      "Collaborative"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T22:12:17.331Z",
+    "version": "extractDocs.js@commit:301bfdf288d8"
+  },
+  "pages": "108",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2022-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-dots-multihoming-13",
+      "IETF.draft-ietf-dots-robust-blocks-03",
+      "IETF.draft-doron-dots-telemetry-00",
+      "GITHUB.mbj4668.pyang.201802",
+      "RFC2330",
+      "RFC4732",
+      "RFC5612",
+      "RFC8340",
+      "RFC8525",
+      "RFC8612",
+      "RFC8811",
+      "RFC8903",
+      "RFC9133",
+      "RFC9177",
+      "RFC9260",
+      "orphan/RFC9244/h:be20d91c",
+      "orphan/RFC9244/h:45170fae"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+      "updated": "2026-10-20T21:47:29.943Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3688",
+      "RFC5646",
+      "RFC6020",
+      "RFC6991",
+      "RFC7252",
+      "RFC7641",
+      "RFC7950",
+      "RFC7959",
+      "RFC7970",
+      "RFC8040",
+      "RFC8174",
+      "RFC8345",
+      "RFC8783",
+      "RFC8791",
+      "RFC8949",
+      "RFC9132",
+      "orphan/RFC9244/h:60ac3f03"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+      "updated": "2026-10-20T21:47:29.943Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9244/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+    "updated": "2026-10-20T21:47:29.943Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+      "updated": "2026-10-20T21:47:29.943Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+      "updated": "2026-10-20T21:47:29.943Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+      "updated": "2026-10-20T21:47:29.943Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+      "updated": "2026-10-20T21:47:29.943Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9244/",
+      "updated": "2026-10-20T21:47:29.943Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

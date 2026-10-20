@@ -1,0 +1,277 @@
+{
+  "abstract": "This document defines enhancements to the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol, known as BRSKI with Alternative Enrollment (BRSKI-AE). BRSKI-AE extends BRSKI to support certificate enrollment mechanisms instead of the originally specified use of Enrollment over Secure Transport (EST). It supports certificate enrollment protocols such as the Certificate Management Protocol (CMP) that use authenticated self-contained signed objects for certification messages, allowing for flexibility in network device onboarding scenarios. The enhancements address use cases where the existing enrollment mechanism may not be feasible or optimal, providing a framework for integrating suitable alternative enrollment protocols. This document also updates the BRSKI reference architecture to accommodate these alternative methods, ensuring secure and scalable deployment across a range of network environments.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "David von Oheimb"
+    },
+    {
+      "name": "Steffen Fries"
+    },
+    {
+      "name": "Hendrik Brockhaus"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC9733",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 9733",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "9733",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "BRSKI with Alternative Enrollment (BRSKI-AE)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC9733",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC9733",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "BRSKI",
+    "IoT",
+    "Zero Touch",
+    "Alternative Enrollment Protocols",
+    "CMP",
+    "Self-contained Signed Objects",
+    "End-to-end Proof of Origin",
+    "Auditable Source Authentication"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "BRSKI",
+      "IoT",
+      "Zero-touch Onboarding",
+      "Alternative Enrollment Protocols",
+      "CMP",
+      "Self-contained Signed Objects",
+      "End-to-end Proof of Origin",
+      "Auditable Source Authentication"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T22:13:18.330Z",
+    "version": "extractDocs.js@commit:301bfdf288d8"
+  },
+  "pages": "27",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2025-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-anima-brski-discovery-05",
+      "IETF.draft-ietf-anima-constrained-voucher-27",
+      "IEC.62351-9.2023",
+      "ISO.15118-2.2014",
+      "RFC2986",
+      "RFC4210",
+      "RFC4211",
+      "RFC5272",
+      "RFC5652",
+      "RFC5929",
+      "RFC6955",
+      "RFC7030",
+      "RFC8366",
+      "RFC8894",
+      "RFC8994",
+      "RFC9148",
+      "RFC9480",
+      "RFC9482",
+      "orphan/RFC9733/h:c40db32c",
+      "orphan/RFC9733/h:c021e178",
+      "orphan/RFC9733/h:bcd5965e",
+      "orphan/RFC9733/h:fe503117"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+      "updated": "2026-10-20T21:48:00.233Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "10.1109-IEEESTD.2018.8423794",
+      "RFC2119",
+      "RFC5280",
+      "RFC8174",
+      "RFC8995",
+      "RFC9483"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+      "updated": "2026-10-20T21:48:00.233Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9733/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+    "updated": "2026-10-20T21:48:00.233Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+      "updated": "2026-10-20T21:48:00.233Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+      "updated": "2026-10-20T21:48:00.233Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+      "updated": "2026-10-20T21:48:00.233Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+      "updated": "2026-10-20T21:48:00.233Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9733/",
+      "updated": "2026-10-20T21:48:00.233Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

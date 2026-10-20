@@ -1,0 +1,230 @@
+{
+  "abstract": "This document specifies the BBR congestion control algorithm. BBR uses recent measurements of a transport connection's delivery rate and round-trip time to build an explicit model that includes both the maximum recent bandwidth available to that connection, and its minimum recent round-trip delay. BBR then uses this model to control both how fast it sends data and the maximum amount of data it allows in flight in the network at any time. Relative to loss-based congestion control algorithms such as Reno or CUBIC , BBR offers substantially higher throughput for bottlenecks with shallow buffers or random losses, and substantially lower queueing delays for bottlenecks with deep buffers (avoiding \"bufferbloat\"). This algorithm can be implemented in any transport protocol that supports packet-delivery acknowledgment (thus far, open source implementations are available for TCP and QUIC ).",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from archive XML front/abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Neal Cardwell"
+    },
+    {
+      "name": "Yuchung Cheng"
+    },
+    {
+      "name": "Soheil Hassas Yeganeh"
+    },
+    {
+      "name": "Van Jacobson"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from archive XML front/author",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "IETF.draft-cardwell-iccrg-bbr-congestion-control-00",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF draft-cardwell-iccrg-bbr-congestion-control-00",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "BBR Congestion Control",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from archive XML front/title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+  "href$meta": {
+    "confidence": "high",
+    "note": "URL normalized and retained from seed/discovery input",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "Congestion Control",
+    "TCP",
+    "QUIC"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from archive XML front/keyword",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2017-07-03",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from archive XML front/date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+    "updated": "2026-10-20T21:44:32.847Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-cheng-iccrg-delivery-rate-estimation-00",
+      "IETF.draft-ietf-quic-transport-00",
+      "IETF.draft-ietf-tcpm-cubic-04",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:5f0a0029",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:83a9c15c",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:6ae18f75",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:0e182bf2",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:36690527",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:fe1fb05a",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:d3b74142",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:59b5b669",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:e2f76143",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:57466f51",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:c87839ab",
+      "orphan/IETF.draft-cardwell-iccrg-bbr-congestion-control-00/h:c6f80675"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML references (Informative/Bibliographic References)",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+      "updated": "2026-10-20T21:44:32.847Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "RFC793",
+      "RFC2119",
+      "RFC2018",
+      "RFC7323",
+      "RFC5226",
+      "RFC6298",
+      "RFC5681",
+      "RFC7942"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML references (Normative References)",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+      "updated": "2026-10-20T21:44:32.847Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+      "updated": "2026-10-20T21:44:32.847Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "draft": true,
+    "draft$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker/RFC sources",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+      "updated": "2026-10-20T21:44:32.847Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+      "updated": "2026-10-20T21:44:32.847Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+      "updated": "2026-10-20T21:44:32.847Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Internet-Draft",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+      "updated": "2026-10-20T21:44:32.847Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00/",
+      "updated": "2026-10-20T21:44:32.847Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "abstract": "This specification defines a framework for coupling the Active Queue Management (AQM) algorithms in two queues intended for flows with different responses to congestion. This provides a way for the Internet to transition from the scaling problems of standard TCP-Reno-friendly ('Classic') congestion controls to the family of 'Scalable' congestion controls. These are designed for consistently very low queuing latency, very low congestion loss, and scaling of per-flow throughput by using Explicit Congestion Notification (ECN) in a modified way. Until the Coupled Dual Queue (DualQ), these Scalable L4S congestion controls could only be deployed where a clean-slate environment could be arranged, such as in private data centres. This specification first explains how a Coupled DualQ works. It then gives the normative requirements that are necessary for it to work well. All this is independent of which two AQMs are used, but pseudocode examples of specific AQMs are given in appendices.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Koen De Schepper"
+    },
+    {
+      "name": "Bob Briscoe"
+    },
+    {
+      "name": "Greg White"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC9332",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 9332",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "9332",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "Dual-Queue Coupled Active Queue Management (AQM) for Low Latency, Low Loss, and Scalable Throughput (L4S)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC9332",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC9332",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "Queuing Delay",
+    "One-way Delay",
+    "RTT",
+    "Jitter",
+    "Congestion Control",
+    "Congestion Avoidance",
+    "Quality Of Service",
+    "QoS",
+    "Quality of Experience",
+    "QoE",
+    "AQM",
+    "ECN",
+    "Pacing",
+    "Burstiness"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Queuing Delay",
+      "One Way Delay",
+      "Round-Trip Time",
+      "RTT",
+      "Jitter",
+      "Congestion Control",
+      "Congestion Avoidance",
+      "Quality Of Service",
+      "QoS",
+      "Quality of Experience",
+      "QoE",
+      "AQM",
+      "ECN",
+      "Pacing",
+      "Burstiness"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T22:12:33.653Z",
+    "version": "extractDocs.js@commit:301bfdf288d8"
+  },
+  "pages": "52",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2023-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1145-1993744.1993753",
+      "10.1117-12.473021",
+      "IETF.draft-cardwell-iccrg-bbr-congestion-control-02",
+      "GITHUB.google.bbr",
+      "10.1145-3402413.3402419",
+      "10.1145-3366693",
+      "10.48550-arXiv.1904.07339",
+      "IETF.draft-briscoe-docsis-q-protection-06",
+      "10.1145-1111322.1111336",
+      "GITHUB.heistp.l4s-tests",
+      "IETF.draft-briscoe-tsvwg-l4s-diffserv-02",
+      "10.1145-2910017.2910633",
+      "10.48550-arXiv.2209.01078",
+      "10.1145-1851275.1851194",
+      "10.1109-INFCOM.2003.1208948",
+      "10.1145-2999572.2999578",
+      "10.48550-arXiv.2107.01003",
+      "IETF.draft-briscoe-iccrg-prague-congestion-control-01",
+      "10.1109-90.251892",
+      "IETF.draft-mathis-iccrg-relentless-tcp-00",
+      "RFC970",
+      "RFC2914",
+      "RFC3246",
+      "RFC3649",
+      "RFC5033",
+      "RFC5348",
+      "RFC5681",
+      "RFC5706",
+      "RFC7567",
+      "RFC8033",
+      "RFC8034",
+      "RFC8174",
+      "RFC8257",
+      "RFC8290",
+      "RFC8298",
+      "RFC8312",
+      "RFC8404",
+      "RFC9000",
+      "RFC9330",
+      "GITHUB.EricssonResearch.scream",
+      "10.48550-arXiv.1904.07044",
+      "orphan/RFC9332/h:fccc17f3",
+      "orphan/RFC9332/h:1bc02558",
+      "orphan/RFC9332/h:e6dac56c",
+      "orphan/RFC9332/h:b2b50715",
+      "orphan/RFC9332/h:84813284",
+      "orphan/RFC9332/h:71b0679d",
+      "orphan/RFC9332/h:ba65bee8",
+      "orphan/RFC9332/h:b4ab6514"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+      "updated": "2026-10-20T21:47:43.111Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3168",
+      "RFC8311",
+      "RFC9331"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+      "updated": "2026-10-20T21:47:43.111Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9332/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+    "updated": "2026-10-20T21:47:43.111Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+      "updated": "2026-10-20T21:47:43.111Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+      "updated": "2026-10-20T21:47:43.111Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+      "updated": "2026-10-20T21:47:43.111Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+      "updated": "2026-10-20T21:47:43.111Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9332/",
+      "updated": "2026-10-20T21:47:43.111Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}
