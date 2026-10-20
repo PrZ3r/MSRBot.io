@@ -105,7 +105,8 @@ function createIetfParser(deps) {
   // so a failed fetch is retried next run instead of being hidden by the newer snapshot.
   let changedRfcs = null;
   const extractedRfcs = new Set();
-  // RFC index XML/XSD mapping contract (https://www.rfc-editor.org/rfc-index.xsd).
+  // RFC index XML/XSD mapping contract (https://www.rfc-editor.org/rfc-index.xsd; a copy is kept at
+  // src/main/input/sources/ietf/rfc-index.xsd — last schema change 2026-04-01, 5-digit numbers).
   // status:
   // - required: expected from index for valid RFC entries and should be present.
   // - optional: parsed when available; not guaranteed.
@@ -1181,8 +1182,14 @@ function createIetfParser(deps) {
         [cInfo.report, 'Parsed from RFC info page report metadata']
       ]);
       const report = reportPick.value;
-      const docNumber = report ? report.replace(/^rfc/i, '') : rfcNum;
-      if (reportPick.sourceNote) metaNotes.docNumber = reportPick.sourceNote;
+      // The number comes from the RFC Editor's own record, the RFC index entry's <doc-id>, else
+      // the RFC number in the seed URL. Page citation metadata is only a cross-check: its format
+      // changed under us ("RFC 9549" vs "rfc9549", 2026-10) and the RFC HTML pages dropped it.
+      const indexNum = index && index.docId ? String(index.docId).replace(/^RFC0*/i, '') : '';
+      const docNumber = indexNum || String(parseInt(rfcNum, 10));
+      metaNotes.docNumber = indexNum ? 'From the RFC index entry (rfc-index.xml <doc-id>)' : 'From the RFC number in the seed URL';
+      const pageNum = report ? String(report).replace(/^rfc\s*/i, '').replace(/^0+/, '').trim() : '';
+      if (pageNum && pageNum !== docNumber) console.warn(`⚠️ RFC${rfcNum}: page report number "${report}" disagrees with ${docNumber}`);
 
       const abstractPick = pickFirstWithSource([
         [index?.abstract, 'Parsed from RFC index XML abstract'],

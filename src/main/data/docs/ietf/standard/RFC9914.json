@@ -1,0 +1,286 @@
+{
+  "abstract": "The Routing Protocol for Low-Power and Lossy Networks (RPL) (RFC 6550) enables data packet routing along a Destination-Oriented Directed Acyclic Graph (DODAG). However, the default route establishment mechanism relies on hop-by-hop forwarding along the DODAG, which may not always provide optimal routing efficiency. This document introduces the concept of Destination Advertisement Object (DAO) Projection, a mechanism that allows a RPL Root or an external controller to install optimized routes within the RPL domain. DAO Projections enable the creation of optimized unicast or multicast routes that do not strictly follow the DODAG structure, thereby improving routing efficiency, reliability, availability, and resource utilization in the RPL domain. This document specifies two types of Projected Routes (P-Routes) -- Storing Mode and Non-Storing Mode -- and outlines the signaling procedures necessary to establish, maintain, and remove these routes. This document updates RFCs 6550, 6553, and 8138.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "authors": [
+    {
+      "name": "Pascal Thubert"
+    },
+    {
+      "name": "Rahul Jadhav"
+    },
+    {
+      "name": "Michael Richardson"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docId": "RFC9914",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docLabel": "IETF RFC 9914",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docNumber": "9914",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T16:08:15.901Z",
+    "version": "extractDocs.js@commit:cc2368606b5f"
+  },
+  "docTitle": "Root-Initiated Routing State in the Routing Protocol for Low-Power and Lossy Networks (RPL)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "doi": "10.17487/RFC9914",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "href": "https://doi.org/10.17487/RFC9914",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "keywords": [
+    "IoT",
+    "SDN",
+    "DetNet",
+    "Camera Raw"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "pages": "75",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publicationDate": "2026-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1122",
+      "RFC4655",
+      "RFC4861",
+      "RFC4944",
+      "RFC5440",
+      "RFC6997",
+      "RFC7102",
+      "RFC7416",
+      "RFC8025",
+      "RFC8402",
+      "RFC8505",
+      "RFC8754",
+      "RFC8655",
+      "RFC8930",
+      "RFC8931",
+      "RFC8994",
+      "RFC9010",
+      "RFC9031",
+      "RFC9035",
+      "RFC9450",
+      "IETF.draft-kuehlewind-rswg-updates-tag-02",
+      "orphan/RFC9914/h:68f19115",
+      "orphan/RFC9914/h:4f39b7cc",
+      "orphan/RFC9914/h:60826fdd"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+      "updated": "2026-10-20T09:42:46.165Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4443",
+      "RFC6282",
+      "RFC6550",
+      "RFC6553",
+      "RFC6554",
+      "RFC8126",
+      "RFC8138",
+      "RFC8174",
+      "RFC9008",
+      "RFC9030",
+      "RFC9912"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+      "updated": "2026-10-20T09:42:46.165Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9914/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+    "updated": "2026-10-20T09:42:46.165Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+      "updated": "2026-10-20T09:42:46.165Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "amends": [
+      "RFC6550",
+      "RFC6553",
+      "RFC8138"
+    ],
+    "amends$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+      "updated": "2026-10-20T09:42:46.165Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+      "updated": "2026-10-20T09:42:46.165Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+      "updated": "2026-10-20T09:42:46.165Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+      "updated": "2026-10-20T09:42:46.165Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9914/",
+      "updated": "2026-10-20T09:42:46.165Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  }
+}

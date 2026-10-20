@@ -1150,6 +1150,9 @@ function parseRefId(text, href = '', opts = {}) {
   // also "ANSI/INCITS 357:2002" (RFC4172)
   // Cited-RFC batch 1: "US FIPS197" (RFC3607), "ANSI Std. X3.139-1987" (RFC2816), "ANSI
   // X3.269:1996" (RFC3347), "W3C REC REC-CSS2- 19980512" with the date wrapped (RFC5022).
+  // Weekly run 2026-10-20: "ANSI/INCITS, 350-2003" (RFC8881), "3GPP …, TS.29.281" (RFC9301).
+  text = String(text || '').replace(/\bINCITS,\s+(?=\d{2,4}-(?:19|20)\d{2}\b)/g, 'INCITS ')
+    .replace(/\bTS\.(?=\d{2}\.\d{3}\b)/g, 'TS ');
   // Cited-RFC batch 3: a designator leading the cite with its body named later — ETSI
   // ("TS 101 812, "…", v1.2.1, European Telecommunications Standards Institute", RFC4259) and
   // ATSC ("A/54A, "…", Advanced Television Systems Committee (ATSC)"); "3GPP TS33.402" (RFC5836);
@@ -2159,11 +2162,21 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // NIST Interagency/Internal Reports: "…", NIST Interagency Report 7695, August 2011 (RFC7970) → NIST.IR.7695
+  {
+    const m = String(text || '').match(/\bNIST(?:IR|\s+(?:Interagency|Internal)\s+Report)\s*(\d{4})\b/i);
+    if (m) {
+      const refId = `NIST.IR.${m[1]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'nist-ir' } } : refId;
+    }
+  }
+
   // SECG: "Standards for Efficient Cryptography Group, SEC 1: …, Version 1.0, September 2000"
   //   → SECG.SEC1.v1.2000-09 (registry form: SECG.SEC1.v2.2009-05)
   {
     const src = String(text || '');
-    const m = /\bStandards\s+for\s+Efficient\s+Cryptography\b/i.test(src) && src.match(/\bSEC\s*(\d)\b/);
+    // also the acronym as publisher: 'SECG, "…", SEC 2 Version 2.0, January 2010' (RFC7401)
+    const m = /\bStandards\s+for\s+Efficient\s+Cryptography\b|\bSECG\b/i.test(src) && src.match(/\bSEC\s*(\d)\b/);
     const v = m && src.match(/\bVersion\s+(\d+)(?:\.\d+)?\b/i);
     const d = m && src.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+((?:19|20)\d{2})\b/i);
     if (m && v && d) {

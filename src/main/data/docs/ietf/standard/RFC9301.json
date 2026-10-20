@@ -1,0 +1,311 @@
+{
+  "abstract": "This document describes the control plane and Mapping Service for the Locator/ID Separation Protocol (LISP), implemented by two types of LISP-speaking devices -- the LISP Map-Resolver and LISP Map-Server -- that provide a simplified \"front end\" for one or more Endpoint IDs (EIDs) to Routing Locator mapping databases. By using this control plane service interface and communicating with Map-Resolvers and Map-Servers, LISP Ingress Tunnel Routers (ITRs) and Egress Tunnel Routers (ETRs) are not dependent on the details of mapping database systems; this behavior facilitates modularity with different database designs. Since these devices implement the \"edge\" of the LISP control plane infrastructure, connecting EID addressable nodes of a LISP site, the implementation and operational complexity of the overall cost and effort of deploying LISP is reduced. This document obsoletes RFCs 6830 and 6833.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "authors": [
+    {
+      "name": "Dino Farinacci"
+    },
+    {
+      "name": "Fabio Maino"
+    },
+    {
+      "name": "Vince Fuller"
+    },
+    {
+      "name": "Albert Cabellos-Aparicio"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docId": "RFC9301",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docLabel": "IETF RFC 9301",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docNumber": "9301",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T16:08:06.583Z",
+    "version": "extractDocs.js@commit:cc2368606b5f"
+  },
+  "docTitle": "Locator/ID Separation Protocol (LISP) Control Plane",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "doi": "10.17487/RFC9301",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "href": "https://doi.org/10.17487/RFC9301",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "pages": "42",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publicationDate": "2022-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-lisp-ecdsa-auth-09",
+      "IETF.draft-ietf-lisp-eid-anonymity-13",
+      "IETF.draft-ietf-lisp-eid-mobility-10",
+      "3GPP.TS-29.281.202206",
+      "IETF.draft-herbert-intarea-ila-01",
+      "IETF.draft-ietf-lisp-mn-12",
+      "IETF.draft-ietf-lisp-pubsub-09",
+      "IETF.draft-ietf-nvo3-vxlan-gpe-12",
+      "IETF.draft-ietf-opsec-icmp-filtering-04",
+      "RFC1035",
+      "RFC1071",
+      "RFC2890",
+      "RFC4984",
+      "RFC6830",
+      "RFC6831",
+      "RFC6832",
+      "RFC6836",
+      "RFC6837",
+      "RFC6973",
+      "RFC7348",
+      "RFC7835",
+      "RFC8060",
+      "RFC8061",
+      "RFC8111",
+      "RFC8378",
+      "RFC8402",
+      "RFC9147",
+      "RFC9299",
+      "RFC9305",
+      "orphan/RFC9301/h:da5d660c"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+        "IETF.draft-ietf-lisp-ecdsa-auth-09",
+        "IETF.draft-ietf-lisp-eid-anonymity-13",
+        "IETF.draft-ietf-lisp-eid-mobility-10",
+        "IETF.draft-herbert-intarea-ila-01",
+        "IETF.draft-ietf-lisp-mn-12",
+        "IETF.draft-ietf-lisp-pubsub-09",
+        "IETF.draft-ietf-nvo3-vxlan-gpe-12",
+        "IETF.draft-ietf-opsec-icmp-filtering-04",
+        "RFC1035",
+        "RFC1071",
+        "RFC2890",
+        "RFC4984",
+        "RFC6830",
+        "RFC6831",
+        "RFC6832",
+        "RFC6836",
+        "RFC6837",
+        "RFC6973",
+        "RFC7348",
+        "RFC7835",
+        "RFC8060",
+        "RFC8061",
+        "RFC8111",
+        "RFC8378",
+        "RFC8402",
+        "RFC9147",
+        "RFC9299",
+        "RFC9305",
+        "orphan/RFC9301/h:da5d660c",
+        "orphan/RFC9301/h:8fe47e9e"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+      "updated": "2026-10-20T16:08:06.583Z",
+      "version": "extractDocs.js@commit:cc2368606b5f"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2404",
+      "RFC4086",
+      "RFC4868",
+      "RFC5869",
+      "RFC6833",
+      "RFC8085",
+      "RFC8126",
+      "RFC8174",
+      "RFC9300",
+      "RFC9302",
+      "RFC9303",
+      "RFC9304"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+      "updated": "2026-10-20T09:42:43.937Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9301/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+    "updated": "2026-10-20T09:42:43.937Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+      "updated": "2026-10-20T09:42:43.937Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+      "updated": "2026-10-20T09:42:43.937Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+      "updated": "2026-10-20T09:42:43.937Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+      "updated": "2026-10-20T09:42:43.937Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+      "updated": "2026-10-20T09:42:43.937Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "supersedes": [
+      "RFC6830",
+      "RFC6833"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9301/",
+      "updated": "2026-10-20T09:42:43.937Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  }
+}

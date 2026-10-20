@@ -1,0 +1,296 @@
+{
+  "abstract": "This document describes Real-time Transport Protocol (RTP) payload formats for carrying each of MPEG-4 Audio and MPEG-4 Visual bitstreams without using MPEG-4 Systems. This document obsoletes RFC 3016. It contains a summary of changes from RFC 3016 and discusses backward compatibility to RFC 3016. It is a necessary revision of RFC 3016 in order to correct misalignments with the 3GPP Packet- switched Streaming Service (PSS) specification regarding the RTP payload format for MPEG-4 Audio. For the purpose of directly mapping MPEG-4 Audio/Visual bitstreams onto RTP packets, this document provides specifications for the use of RTP header fields and also specifies fragmentation rules. It also provides specifications for Media Type registration and the use of the Session Description Protocol (SDP). The audio payload format described in this document has some limitations related to the signaling of audio codec parameters for the required multiplexing format. Therefore, new system designs should utilize RFC 3640, which does not have these restrictions. Nevertheless, this revision of RFC 3016 is provided to update and complete the specification and to enable interoperable implementations. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "authors": [
+    {
+      "name": "Malte Schmidt"
+    },
+    {
+      "name": "Frans de Bont"
+    },
+    {
+      "name": "Stefan Doehla"
+    },
+    {
+      "name": "Jaehwan Kim"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docId": "RFC6416",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docLabel": "IETF RFC 6416",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docNumber": "6416",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T16:06:35.112Z",
+    "version": "extractDocs.js@commit:cc2368606b5f"
+  },
+  "docTitle": "RTP Payload Format for MPEG-4 Audio/Visual Streams",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "doi": "10.17487/RFC6416",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "href": "https://doi.org/10.17487/RFC6416",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "keywords": [
+    "RTP",
+    "MPEG-4",
+    "Audio",
+    "Video",
+    "AAC",
+    "HE-AAC",
+    "MPEG Surround"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "RFC3016",
+      "RTP",
+      "MPEG-4",
+      "Audio",
+      "Video",
+      "AAC",
+      "HE AAC",
+      "HE AAC v2",
+      "MPEG Surround"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T16:06:35.112Z",
+    "version": "extractDocs.js@commit:cc2368606b5f"
+  },
+  "pages": "35",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publicationDate": "2011-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "references": {
+    "bibliographic": [
+      "ISO.14496-1.2004",
+      "ISO.14496-12",
+      "ISO.14496-14",
+      "3GPP.TS-26.234.201012",
+      "T-REC-H.245.2009",
+      "T-REC-H.261.1993",
+      "T-REC-H.323.2009",
+      "RFC2198",
+      "RFC3016",
+      "RFC3261",
+      "RFC3640",
+      "RFC3711",
+      "RFC4301",
+      "RFC4628",
+      "RFC5109",
+      "RFC5246",
+      "RFC5691",
+      "orphan/RFC6416/h:d0129b75"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=27 proseBlocks=35 skippedAnchorBlocks=32",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+      "updated": "2026-10-20T09:42:29.110Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "normative": [
+      "ISO.14496-2.2003",
+      "ISO.14496-3.2009",
+      "ISO.23003-1.2007",
+      "RFC2119",
+      "RFC3550",
+      "RFC4288",
+      "RFC4566",
+      "RFC4629",
+      "RFC4855",
+      "RFC5583",
+      "orphan/RFC6416/h:4c76c0dd"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+      "updated": "2026-10-20T09:42:29.110Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6416/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+    "updated": "2026-10-20T09:42:29.110Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+      "updated": "2026-10-20T09:42:29.110Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+      "updated": "2026-10-20T09:42:29.110Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+      "updated": "2026-10-20T09:42:29.110Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+      "updated": "2026-10-20T09:42:29.110Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+      "updated": "2026-10-20T09:42:29.110Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "supersedes": [
+      "RFC3016"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6416/",
+      "updated": "2026-10-20T09:42:29.110Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  }
+}

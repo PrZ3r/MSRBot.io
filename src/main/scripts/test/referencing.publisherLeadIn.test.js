@@ -302,4 +302,11 @@ assert.strictEqual(parseRefId('TR 101 162, "Digital Video Broadcasting (DVB); Al
 assert.strictEqual(parseRefId('A/54A, "Guide to the use of the ATSC Digital Television Standard", Advanced Television Systems Committee (ATSC), Doc. A/54A, 4 December 2003.'), 'ATSC.A54A.2003'); n++;
 assert.strictEqual(parseRefId('3GPP, "Security aspects of non-3GPP accesses (Release 8)", 3GPP TS33.402 V8.3.1, 2009.'), '3GPP.TS-33.402.2009'); n++;
 
+// Weekly run 2026-10-20: SECG as publisher (RFC7401), NIST Interagency Report (RFC7970),
+// "ANSI/INCITS, 350-2003" (RFC8881), "TS.29.281" (RFC9301).
+assert.strictEqual(parseRefId('SECG, "Recommended Elliptic Curve Domain Parameters", SEC 2 Version 2.0, January 2010.'), 'SECG.SEC2.v2.2010-01'); n++;
+assert.strictEqual(parseRefId('Cheikes, B., "Common Platform Enumeration: Naming Specification Version 2.3", NIST Interagency Report 7695, August 2011.'), 'NIST.IR.7695'); n++;
+assert.strictEqual(parseRefId('Snively, R., "Fibre Channel Protocol for SCSI, 2nd Version (FCP-2)", ANSI/INCITS, 350-2003, October 2003.'), 'INCITS.350.2003'); n++;
+assert.strictEqual(parseRefId('3GPP, "GPRS Tunnelling Protocol User Plane (GTPv1-U)", TS.29.281, June 2022.'), '3GPP.TS-29.281.202206'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

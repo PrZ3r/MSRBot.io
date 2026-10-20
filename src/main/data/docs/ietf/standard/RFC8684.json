@@ -1,0 +1,306 @@
+{
+  "abstract": "TCP/IP communication is currently restricted to a single path per connection, yet multiple paths often exist between peers. The simultaneous use of these multiple paths for a TCP/IP session would improve resource usage within the network and thus improve user experience through higher throughput and improved resilience to network failure. Multipath TCP provides the ability to simultaneously use multiple paths between peers. This document presents a set of extensions to traditional TCP to support multipath operation. The protocol offers the same type of service to applications as TCP (i.e., a reliable bytestream), and it provides the components necessary to establish and use multiple TCP flows across potentially disjoint paths. This document specifies v1 of Multipath TCP, obsoleting v0 as specified in RFC 6824, through clarifications and modifications primarily driven by deployment experience.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "authors": [
+    {
+      "name": "Alan Ford"
+    },
+    {
+      "name": "Costin Raiciu"
+    },
+    {
+      "name": "Mark J. Handley"
+    },
+    {
+      "name": "Olivier Bonaventure"
+    },
+    {
+      "name": "Christoph Paasch"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docId": "RFC8684",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docLabel": "IETF RFC 8684",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docNumber": "8684",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC info page report metadata",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T16:07:51.149Z",
+    "version": "extractDocs.js@commit:cc2368606b5f"
+  },
+  "docTitle": "TCP Extensions for Multipath Operation with Multiple Addresses",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "doi": "10.17487/RFC8684",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "href": "https://doi.org/10.17487/RFC8684",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "keywords": [
+    "TCP",
+    "Extensions",
+    "Multihoming",
+    "Subflow"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "TCP",
+      "Extensions",
+      "Multihomed",
+      "Subflow"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T16:07:51.149Z",
+    "version": "extractDocs.js@commit:cc2368606b5f"
+  },
+  "pages": "68",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publicationDate": "2020-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1122",
+      "RFC1918",
+      "RFC2018",
+      "RFC2979",
+      "RFC2992",
+      "RFC3022",
+      "RFC3135",
+      "RFC4086",
+      "RFC4987",
+      "RFC5681",
+      "RFC6181",
+      "RFC6182",
+      "RFC6356",
+      "RFC6528",
+      "RFC6824",
+      "RFC6897",
+      "RFC7323",
+      "RFC7413",
+      "RFC7430",
+      "RFC8041",
+      "RFC8126",
+      "IETF.draft-ananth-tcpm-tcpoptext-00",
+      "orphan/RFC8684/h:ad0ace48",
+      "orphan/RFC8684/h:dd81b791",
+      "orphan/RFC8684/h:e0c786f6"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+      "updated": "2026-10-20T09:42:40.354Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "normative": [
+      "RFC793",
+      "RFC2104",
+      "RFC2119",
+      "RFC5961",
+      "RFC6234",
+      "RFC8174"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+      "updated": "2026-10-20T09:42:40.354Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8684/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+    "updated": "2026-10-20T09:42:40.354Z",
+    "version": "extractDocs.js@commit:6ff5f1bb34e3"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+      "updated": "2026-10-20T09:42:40.354Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+      "updated": "2026-10-20T09:42:40.354Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8684",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8684",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8684.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+      "updated": "2026-10-20T09:42:40.354Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+      "updated": "2026-10-20T09:42:40.354Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+      "updated": "2026-10-20T09:42:40.354Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+      "updated": "2026-10-20T09:42:40.354Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "supersedes": [
+      "RFC6824"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8684/",
+      "updated": "2026-10-20T09:42:40.354Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    }
+  }
+}
