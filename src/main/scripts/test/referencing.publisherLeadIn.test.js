@@ -323,4 +323,10 @@ assert.strictEqual(parseRefId('ISO/IEC, "Standard 13818-1, Information technolog
 assert.strictEqual(parseRefId('ASHRAE, "BACnet-A Data Communication Protocol for Building Automation and Control Networks", ANSI/ASHRAE Standard 135-2016, January 2016.'), 'ASHRAE.135.2016'); n++;
 assert.strictEqual(parseRefId('ANSI/ASHRAE, "Addenda: BACnet", ANSI/ASHRAE Addenda an, at, au to ANSI/ASHRAE Standard 135-2012, July 2014.'), null); n++;
 
+// Cited-RFC batch 5: wrapped W3C date with a hyphenated short name (RFC5105), "Recommedation" typo
+// (RFC5431), 3GPP "Specification 24.182" (RFC8859).
+assert.strictEqual(parseRefId('Eastlake, D., "Exclusive XML Canonicalization Version 1.0", W3C REC REC-xml-exc-c14n- 20020718, July 2002.'), 'W3C.xml-exc-c14n.20020718'); n++;
+assert.strictEqual(parseRefId('ITU-T Recommedation Y.2111, "Resource and admission control functions in Next Generation Networks", September 2006.'), 'T-REC-Y.2111.2006'); n++;
+assert.strictEqual(parseRefId('3GPP, "IP Multimedia Subsystem (IMS) Customized Ringing Signal (CRS); Protocol specification", Specification 24.183, September 2016.'), '3GPP.TS-24.183.201609'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

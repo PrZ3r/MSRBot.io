@@ -1173,7 +1173,9 @@ function parseRefId(text, href = '', opts = {}) {
   text = String(text || '').replace(/\bU\.?S\.?\s+FIPS(\d{2,3})\b/g, 'US FIPS $1')
     .replace(/\bANSI\s+Std\.?\s+(?=X\d)/g, 'ANSI ')
     .replace(/\b(X\d{1,2}\.\d{1,3}):((?:19|20)\d{2})\b/g, '$1-$2')
-    .replace(/\b((?:REC|CR|PR|WD|NOTE)-[A-Za-z][\w.]*-)\s+((?:19|20)\d{6})\b/g, '$1$2');
+    .replace(/\b((?:REC|CR|PR|WD|NOTE)-[A-Za-z][\w.-]*-)\s+((?:19|20)\d{6})\b/g, '$1$2')
+    // "ITU-T Recommedation Y.2111" (RFC5431)
+    .replace(/\bRecommedation\b/g, 'Recommendation');
   text = String(text || '').replace(/\bANSI\s*\/\s*INCITS\b/g, 'ANSI INCITS')
     .replace(/\bINCITS[.\s](\d{2,4})(?::|-)((?:19|20)\d{2})\b/g, 'INCITS $1-$2')
     .replace(/\b(REC|WD|CR|PR|NOTE)-\s+([a-z][\w.-]*-(?:19|20)\d{6})\b/g, '$1-$2');
@@ -1479,7 +1481,8 @@ function parseRefId(text, href = '', opts = {}) {
     const direct = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{2,3})\b/i);
     // Split form: "3GPP, ... TS 33.501, ..." (3GPP appears earlier, TS appears later)
     // also "3GPP, "…", Technical Specification 29.281." and a Technical Report "3GPP TR 23.793" (RFC9599, RFC9522)
-    const split = has3gpp ? src.match(/\b(?:TS|Technical\s+Specification|(TR))\s+(\d{2})\.(\d{3})\b/i) : null;
+    // also '3GPP, "…", Specification 24.182' (RFC8859)
+    const split = has3gpp ? src.match(/\b(?:TS|(?:Technical\s+)?Specification|(TR))\s+(\d{2})\.(\d{3})\b/i) : null;
     const m3gpp = direct || (split && [split[0], split[2], split[3]]);
     const kind = !direct && split && split[1] ? 'TR' : 'TS';
     // An ETSI-numbered TR ("ETSI TR 126 928 … (3GPP TR 26.928)") is the ETSI publication: the ETSI rule keeps it.
