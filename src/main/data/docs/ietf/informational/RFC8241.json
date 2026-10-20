@@ -1,0 +1,243 @@
+{
+  "abstract": "This document presents security-related requirements for the Interface to the Routing System (I2RS) protocol, which provides a new interface to the routing system described in the I2RS architecture document (RFC 7921). The I2RS protocol is implemented by reusing portions of existing IETF protocols and adding new features to them. One such reuse is of the security features of a secure transport (e.g., Transport Layer Security (TLS), Secure SHell (SSH) Protocol, Datagram TLS (DTLS)) such as encryption, message integrity, mutual peer authentication, and anti-replay protection. The new I2RS features to consider from a security perspective are as follows: a priority mechanism to handle multi-headed write transactions, an opaque secondary identifier that identifies an application using the I2RS client, and an extremely constrained read-only non-secure transport.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Susan Hares"
+    },
+    {
+      "name": "Daniel Migault"
+    },
+    {
+      "name": "Joel M. Halpern"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC8241",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 8241",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "8241",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Interface to the Routing System (I2RS) Security-Related Requirements",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC8241",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC8241",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "pages": "20",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2017-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC768",
+      "RFC2865",
+      "RFC4960",
+      "RFC5246",
+      "RFC5764",
+      "RFC6241",
+      "RFC6347",
+      "RFC6536",
+      "RFC6614",
+      "RFC6733",
+      "RFC8040",
+      "RFC8095",
+      "RFC8242"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=22 proseBlocks=25 skippedAnchorBlocks=23",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+      "updated": "2026-10-20T17:32:40.575Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4107",
+      "RFC4949",
+      "RFC7258",
+      "RFC7921",
+      "RFC7922",
+      "RFC7923",
+      "RFC8174"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+      "updated": "2026-10-20T17:32:40.575Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8241/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+    "updated": "2026-10-20T17:32:40.575Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+      "updated": "2026-10-20T17:32:40.575Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+      "updated": "2026-10-20T17:32:40.575Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+      "updated": "2026-10-20T17:32:40.575Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+      "updated": "2026-10-20T17:32:40.575Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8241/",
+      "updated": "2026-10-20T17:32:40.575Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

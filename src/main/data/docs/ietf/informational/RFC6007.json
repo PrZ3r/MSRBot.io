@@ -1,0 +1,231 @@
+{
+  "abstract": "A Path Computation Element (PCE) may be required to perform dependent path computations. Dependent path computations are requests that need to be synchronized in order to meet specific objectives. An example of a dependent request would be a PCE computing a set of services that are required to be diverse (disjointed) from each other. When a PCE computes sets of dependent path computation requests concurrently, use of the Synchronization VECtor (SVEC) list is required for association among the sets of dependent path computation requests. The SVEC object is optional and carried within the Path Computation Element Communication Protocol (PCEP) PCRequest (PCReq) message. This document does not specify the PCEP SVEC object or procedure. This informational document clarifies the use of the SVEC list for synchronized path computations when computing dependent requests. The document also describes a number of usage scenarios for SVEC lists within single-domain and multi-domain environments. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Itaru Nishioka"
+    },
+    {
+      "name": "Daniel King"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC6007",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 6007",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "6007",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Use of the Synchronization VECtor (SVEC) List for Synchronized Dependent Path Computations",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC6007",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC6007",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "pages": "18",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2010-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC5886",
+      "RFC6006",
+      "orphan/RFC6007/h:0ebbf0d5",
+      "orphan/RFC6007/h:1070533d"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=16 proseBlocks=16 skippedAnchorBlocks=14",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+      "updated": "2026-10-20T17:29:21.555Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC4655",
+      "RFC4657",
+      "RFC4875",
+      "RFC5440",
+      "RFC5441",
+      "RFC5520",
+      "RFC5521",
+      "RFC5557"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+      "updated": "2026-10-20T17:29:21.555Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6007/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+    "updated": "2026-10-20T17:29:21.555Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+      "updated": "2026-10-20T17:29:21.555Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+      "updated": "2026-10-20T17:29:21.555Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+      "updated": "2026-10-20T17:29:21.555Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+      "updated": "2026-10-20T17:29:21.555Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6007/",
+      "updated": "2026-10-20T17:29:21.555Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

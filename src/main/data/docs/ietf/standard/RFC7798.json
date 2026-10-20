@@ -1,0 +1,292 @@
+{
+  "abstract": "This memo describes an RTP payload format for the video coding standard ITU-T Recommendation H.265 and ISO/IEC International Standard 23008-2, both also known as High Efficiency Video Coding (HEVC) and developed by the Joint Collaborative Team on Video Coding (JCT-VC). The RTP payload format allows for packetization of one or more Network Abstraction Layer (NAL) units in each RTP packet payload as well as fragmentation of a NAL unit into multiple RTP packets. Furthermore, it supports transmission of an HEVC bitstream over a single stream as well as multiple RTP streams. When multiple RTP streams are used, a single transport or multiple transports may be utilized. The payload format has wide applicability in videoconferencing, Internet video streaming, and high-bitrate entertainment-quality video, among others.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Ye-Kui Wang"
+    },
+    {
+      "name": "Yago Sanchez"
+    },
+    {
+      "name": "Thomas Schierl"
+    },
+    {
+      "name": "Stephan Wenger"
+    },
+    {
+      "name": "Miska M. Hannuksela"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC7798",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 7798",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "7798",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "RTP Payload Format for High Efficiency Video Coding (HEVC)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC7798",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC7798",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "H.265",
+    "Single NAL Unit Packet",
+    "Aggregation Packet",
+    "Fragmentation Unit",
+    "Payload Content Information Packet"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "H.265",
+      ": ISO/IEC 23008-2",
+      "Single NAL Unit Packet",
+      "Aggregation Packet",
+      "Fragmentation Unit",
+      "Payload Content Information Packet",
+      "Use of HEVC With Feedback Messages."
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T21:16:17.079Z",
+    "version": "extractDocs.js@commit:2d729ed26f61"
+  },
+  "pages": "86",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2016-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "3GPP.TS-26.247.201312",
+      "3GPP.TS-26.244.201312",
+      "10.1109-TCSVT.2012.2223055",
+      "10.1109-5.790632",
+      "T-REC-H.265.2014",
+      "ISO.14496-12",
+      "ISO.15444-12",
+      "ISO.13818-1.2013",
+      "ISO.23009-1.2012",
+      "RFC2326",
+      "RFC2974",
+      "RFC6051",
+      "RFC6184",
+      "RFC6190",
+      "RFC7201",
+      "RFC7202",
+      "RFC7656",
+      "RFC7667",
+      "IETF.draft-ietf-avtcore-rtp-multi-stream-11",
+      "IETF.draft-ietf-mmusic-sdp-bundle-negotiation-25",
+      "orphan/RFC7798/h:bf78f78e",
+      "orphan/RFC7798/h:1dda4b2c",
+      "orphan/RFC7798/h:a8a9548b"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=39 proseBlocks=49 skippedAnchorBlocks=44",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+      "updated": "2026-10-20T17:31:44.234Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "T-REC-H.264.2013",
+      "T-REC-H.265.2013",
+      "ISO.23008-2",
+      "RFC2119",
+      "RFC3264",
+      "RFC3550",
+      "RFC3551",
+      "RFC3711",
+      "RFC4566",
+      "RFC4585",
+      "RFC4648",
+      "RFC5104",
+      "RFC5124",
+      "RFC5234",
+      "RFC5576",
+      "RFC5583"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+      "updated": "2026-10-20T17:31:44.234Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7798/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+    "updated": "2026-10-20T17:31:44.234Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+      "updated": "2026-10-20T17:31:44.234Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+      "updated": "2026-10-20T17:31:44.234Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+      "updated": "2026-10-20T17:31:44.234Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+      "updated": "2026-10-20T17:31:44.234Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7798/",
+      "updated": "2026-10-20T17:31:44.234Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

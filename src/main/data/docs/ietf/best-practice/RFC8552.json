@@ -1,0 +1,273 @@
+{
+  "abstract": "Formally, any DNS Resource Record (RR) may occur under any domain name. However, some services use an operational convention for defining specific interpretations of an RRset by locating the records in a DNS branch under the parent domain to which the RRset actually applies. The top of this subordinate branch is defined by a naming convention that uses a reserved node name, which begins with the underscore character (e.g., \"_name\"). The underscored naming construct defines a semantic scope for DNS record types that are associated with the parent domain above the underscored branch. This specification explores the nature of this DNS usage and defines the \"Underscored and Globally Scoped DNS Node Names\" registry with IANA. The purpose of this registry is to avoid collisions resulting from the use of the same underscored name for different services.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Dave Crocker"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC8552",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 8552",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "8552",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Scoped Interpretation of DNS Resource Records through \"Underscored\" Naming of Attribute Leaves",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Best Practice",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC8552",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC8552",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "DNS"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "pages": "15",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2019-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC8553",
+      "IETF.draft-ietf-netconf-zerotouch-29"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=30 proseBlocks=36 skippedAnchorBlocks=33",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+      "updated": "2026-10-20T17:33:17.685Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC952",
+      "RFC1034",
+      "RFC1035",
+      "RFC2119",
+      "RFC2181",
+      "RFC2782",
+      "RFC3921",
+      "RFC4386",
+      "RFC5026",
+      "RFC5509",
+      "RFC5518",
+      "RFC6118",
+      "RFC6335",
+      "RFC6376",
+      "RFC6698",
+      "RFC6763",
+      "RFC7208",
+      "RFC7489",
+      "RFC7553",
+      "RFC7566",
+      "RFC7671",
+      "RFC7929",
+      "RFC8126",
+      "RFC8145",
+      "RFC8162",
+      "RFC8174",
+      "RFC8461",
+      "RFC8555"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+      "updated": "2026-10-20T17:33:17.685Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8552/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+    "updated": "2026-10-20T17:33:17.685Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+      "updated": "2026-10-20T17:33:17.685Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+      "updated": "2026-10-20T17:33:17.685Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8552",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8552",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8552.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+      "updated": "2026-10-20T17:33:17.685Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+      "updated": "2026-10-20T17:33:17.685Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Best Current Practice",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+      "updated": "2026-10-20T17:33:17.685Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8552/",
+      "updated": "2026-10-20T17:33:17.685Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

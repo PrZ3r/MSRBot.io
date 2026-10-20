@@ -1,0 +1,265 @@
+{
+  "abstract": "A systemic vulnerability of the Border Gateway Protocol routing system, known as \"route leaks\", has received significant attention in recent years. Frequent incidents that result in significant disruptions to Internet routing are labeled route leaks, but to date a common definition of the term has been lacking. This document provides a working definition of route leaks while keeping in mind the real occurrences that have received significant attention. Further, this document attempts to enumerate (though not exhaustively) different types of route leaks based on observed events on the Internet. The aim is to provide a taxonomy that covers several forms of route leaks that have been observed and are of concern to the Internet user community as well as the network operator community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Kotikalapudi Sriram"
+    },
+    {
+      "name": "Doug Montgomery"
+    },
+    {
+      "name": "Danny R. McPherson"
+    },
+    {
+      "name": "Eric Osterweil"
+    },
+    {
+      "name": "Brian Dickson"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC7908",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 7908",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "7908",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Problem Definition and Classification of BGP Route Leaks",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC7908",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC7908",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "BGP",
+    "BGPsec",
+    "Route Leak",
+    "BGP Security"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "BGP",
+      "BGPSEC",
+      "Route Leak",
+      "Route Leak Detection",
+      "Route Leak Mitigation",
+      "BGP Security"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T21:16:37.362Z",
+    "version": "extractDocs.js@commit:2d729ed26f61"
+  },
+  "pages": "11",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2016-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1145-2815675.2815712",
+      "10.1109-90.974523",
+      "10.1145-2567561.2567566",
+      "10.1109-ICC.2012.6363987",
+      "10.1007-978-3-642-36516-4_23",
+      "10.1145-2398776.2398780",
+      "10.1145-2504730.2504735",
+      "IETF.draft-dickson-sidr-route-leak-def-03",
+      "IETF.draft-dickson-sidr-route-leak-reqts-02",
+      "orphan/RFC7908/h:cb434fa8",
+      "orphan/RFC7908/h:08e81cf9",
+      "orphan/RFC7908/h:63fa324f",
+      "orphan/RFC7908/h:e17e2f5b",
+      "orphan/RFC7908/h:c01cc042",
+      "orphan/RFC7908/h:0001e884",
+      "orphan/RFC7908/h:95132b92",
+      "orphan/RFC7908/h:c3ac57b4",
+      "orphan/RFC7908/h:ef248386",
+      "orphan/RFC7908/h:b375664b",
+      "orphan/RFC7908/h:d68d6604",
+      "orphan/RFC7908/h:c40de298",
+      "orphan/RFC7908/h:86e05838",
+      "orphan/RFC7908/h:36b0a33c",
+      "orphan/RFC7908/h:2accc264",
+      "orphan/RFC7908/h:9ca1dcf1",
+      "orphan/RFC7908/h:ffef1c6e"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=26 proseBlocks=43 skippedAnchorBlocks=30",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+      "updated": "2026-10-20T17:31:56.264Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7908/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+    "updated": "2026-10-20T17:31:56.264Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+      "updated": "2026-10-20T17:31:56.264Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+      "updated": "2026-10-20T17:31:56.264Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+      "updated": "2026-10-20T17:31:56.264Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+      "updated": "2026-10-20T17:31:56.264Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7908/",
+      "updated": "2026-10-20T17:31:56.264Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}
