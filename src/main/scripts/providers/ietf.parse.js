@@ -1390,6 +1390,24 @@ function createIetfParser(deps) {
       } catch {}
     }
 
+    // Datatracker's document JSON for a draft seed (draft-name-NN): older drafts have no
+    // archive XML and their HTML page carries no citation metadata, so this is the only source
+    // of the revision's date and of the authors. The date is this revision's own entry in
+    // rev_history (never another revision's); authors are the document's current list.
+    let draftRevDate = '';
+    let draftAuthors = [];
+    {
+      const dm = String(seed).match(/\/(draft-[a-z0-9-]+?)-(\d{2})\/?(?:[?#].*)?$/i);
+      if (dm && !trackerJson) {
+        try {
+          const dj = await fetchJson(`https://datatracker.ietf.org/doc/${dm[1].toLowerCase()}/doc.json`);
+          const rev = Array.isArray(dj?.rev_history) ? dj.rev_history.find((r) => r && r.name === dm[1].toLowerCase() && String(r.rev) === dm[2]) : null;
+          draftRevDate = rev && rev.published ? String(rev.published).slice(0, 10) : '';
+          draftAuthors = normalizeAuthorNames(dj?.authors);
+        } catch {}
+      }
+    }
+
     const cSeed = citationBundle($seed);
     const metaNotes = {};
     const seedDateHint = firstNonEmpty(
@@ -1429,6 +1447,7 @@ function createIetfParser(deps) {
     const publicationDatePick = pickDateWithSource([
       [seedDateHint, 'Parsed from seed HTML date metadata (citation/time datetime)'],
       [xml.publicationDate, 'Parsed from archive XML front/date'],
+      [draftRevDate, 'Datatracker doc.json rev_history (this revision)'],
       [trackerJson?.time, 'Parsed from seed JSON time'],
       [trackerJson?.published, 'Parsed from seed JSON published'],
       [trackerJson?.pub_date, 'Parsed from seed JSON pub_date']
@@ -1439,7 +1458,8 @@ function createIetfParser(deps) {
     const authorsPick = pickFirstArrayWithSource([
       [xml.authors, 'Parsed from archive XML front/author'],
       [cSeed.authors, 'Parsed from seed HTML author metadata'],
-      [normalizeAuthorNames(trackerJson?.authors), 'Parsed from seed JSON authors']
+      [normalizeAuthorNames(trackerJson?.authors), 'Parsed from seed JSON authors'],
+      [draftAuthors, 'Datatracker doc.json authors (current author list)']
     ]);
     // Schema 2.3.0 object form (#1196). Shape only — affiliation extraction
     // from RFC XML <organization> + Datatracker JSON tracked separately.

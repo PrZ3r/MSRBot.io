@@ -2560,6 +2560,8 @@ function extractRefs($, currentDocId, opts = {}) {
           // Reject false positives from generic filenames such as
           // "...preliminary-draft-4.pdf".
           if (/^draft-\d+(?:\.\d+)?$/.test(token)) continue;
+          // A draft name has no dots: "draft-culley-iwarp-mpa-v1.0.pdf" (RDMA Consortium, RFC5044) is a file.
+          if (token.includes('.')) continue;
           if (!/^draft-[a-z0-9]+-[a-z0-9]/i.test(token)) continue;
           out.push(token);
         }
@@ -2570,9 +2572,13 @@ function extractRefs($, currentDocId, opts = {}) {
         uniq.sort((a, b) => b.length - a.length);
         return uniq[0] || '';
       };
+      // (Drafts mirrored on authors' own sites are real drafts, so the host doesn't matter; the name does.)
       const hrefToken = pickLongest(extractDraftTokens(hrefs));
-      if (hrefToken) return `IETF.${hrefToken}`;
       const citeToken = pickLongest(extractDraftTokens(cites));
+      // A link cut at a line wrap ("/doc/html/draft-canetti-secure" for "draft-canetti-secure -
+      // multicast-taxonomy-00", RFC2627) loses to the cite's longer name that extends it.
+      if (hrefToken && citeToken && citeToken.length > hrefToken.length && citeToken.startsWith(`${hrefToken}-`)) return `IETF.${citeToken}`;
+      if (hrefToken) return `IETF.${hrefToken}`;
       if (citeToken) return `IETF.${citeToken}`;
     }
 
