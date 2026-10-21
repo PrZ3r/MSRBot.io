@@ -1,0 +1,287 @@
+{
+  "abstract": "A DetNet (deterministic network) provides specific performance guarantees to its data flows, such as extremely low data loss rates and bounded latency (including bounded latency variation, i.e., \"jitter\"). As a result, securing a DetNet requires that in addition to the best practice security measures taken for any mission-critical network, additional security measures may be needed to secure the intended operation of these novel service properties. This document addresses DetNet-specific security considerations from the perspectives of both the DetNet system-level designer and component designer. System considerations include a taxonomy of relevant threats and attacks, and associations of threats versus use cases and service properties. Component-level considerations include ingress filtering and packet arrival-time violation detection. This document also addresses security considerations specific to the IP and MPLS data plane technologies, thereby complementing the Security Considerations sections of those documents.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "authors": [
+    {
+      "name": "Ethan Grossman"
+    },
+    {
+      "name": "Tal Mizrahi"
+    },
+    {
+      "name": "Andrew J. Hacker"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docId": "RFC9055",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docLabel": "IETF RFC 9055",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docNumber": "9055",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docTitle": "Deterministic Networking (DetNet) Security Considerations",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "doi": "10.17487/RFC9055",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "href": "https://doi.org/10.17487/RFC9055",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "keywords": [
+    "DetNet",
+    "Security"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "pages": "50",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publicationDate": "2021-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4107",
+      "RFC3552",
+      "IETF.draft-ietf-detnet-ip-oam-02",
+      "IETF.draft-ietf-detnet-mpls-oam-03",
+      "IETF.draft-varga-detnet-service-model-02",
+      "IETF.draft-ietf-detnet-yang-12",
+      "10.1109-IEEESTD.2008.4579760",
+      "10.1109-IEEESTD.2018.8585421",
+      "10.1109-IEEESTD.2011.6032690",
+      "10.1109-IEEESTD.2014.6991462",
+      "10.1109-IEEESTD.2016.8613095",
+      "10.1109-IEEESTD.2017.7961303",
+      "IETF.yang-security-guidelines",
+      "IETF.draft-ietf-ipsecme-g-ikev2-02",
+      "IETF.draft-ietf-mpls-opportunistic-encrypt-03",
+      "RFC2474",
+      "RFC2475",
+      "RFC3985",
+      "RFC4253",
+      "RFC4301",
+      "RFC4302",
+      "RFC4385",
+      "RFC4432",
+      "RFC5586",
+      "RFC5880",
+      "RFC5905",
+      "RFC5920",
+      "RFC5921",
+      "RFC6071",
+      "RFC6073",
+      "RFC6274",
+      "RFC6478",
+      "RFC6562",
+      "RFC6632",
+      "RFC6941",
+      "RFC7384",
+      "RFC7567",
+      "RFC7641",
+      "RFC7748",
+      "RFC7835",
+      "RFC8446",
+      "RFC8578",
+      "RFC9016",
+      "RFC9023",
+      "RFC9025",
+      "RFC9056",
+      "orphan/RFC9055/h:d620af31",
+      "orphan/RFC9055/h:021f1a78",
+      "orphan/RFC9055/h:f7d8cd1f",
+      "orphan/RFC9055/h:17f2a43c"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+      "updated": "2026-10-21T16:58:23.330Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "normative": [
+      "RFC8655",
+      "RFC8938",
+      "RFC8939",
+      "RFC8964"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+      "updated": "2026-10-21T16:58:23.330Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9055/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+    "updated": "2026-10-21T16:58:23.330Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+      "updated": "2026-10-21T16:58:23.330Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+      "updated": "2026-10-21T16:58:23.330Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+      "updated": "2026-10-21T16:58:23.330Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+      "updated": "2026-10-21T16:58:23.330Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9055/",
+      "updated": "2026-10-21T16:58:23.330Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  }
+}

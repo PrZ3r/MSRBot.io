@@ -1,0 +1,262 @@
+{
+  "abstract": "This document describes open research challenges for network virtualization. Network virtualization is following a similar path as previously taken by cloud computing. Specifically, cloud computing popularized migration of computing functions (e.g., applications) and storage from local, dedicated, physical resources to remote virtual functions accessible through the Internet. In a similar manner, network virtualization is encouraging migration of networking functions from dedicated physical hardware nodes to a virtualized pool of resources. However, network virtualization can be considered to be a more complex problem than cloud computing as it not only involves virtualization of computing and storage functions but also involves abstraction of the network itself. This document describes current research and engineering challenges in network virtualization including the guarantee of quality of service, performance improvement, support for multiple domains, network slicing, service composition, device virtualization, privacy and security, separation of control concerns, network function placement, and testing. In addition, some proposals are made for new activities in the IETF and IRTF that could address some of these challenges. This document is a product of the Network Function Virtualization Research Group (NFVRG).",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "authors": [
+    {
+      "name": "Carlos J. Bernardos"
+    },
+    {
+      "name": "Akbar Rahman"
+    },
+    {
+      "name": "Juan-Carlos Zúñiga"
+    },
+    {
+      "name": "Luis M. Contreras"
+    },
+    {
+      "name": "Pedro Andres Aranda"
+    },
+    {
+      "name": "Pierre Lynch"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docId": "RFC8568",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docLabel": "IETF RFC 8568",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docNumber": "8568",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docTitle": "Network Virtualization Research Challenges",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "doi": "10.17487/RFC8568",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "href": "https://doi.org/10.17487/RFC8568",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "pages": "42",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publicationDate": "2019-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-geng-coms-problem-statement-04",
+      "10.3390-fi8020024",
+      "10.1109-NOMS.2014.6838412",
+      "10.1145-2486001.2486019",
+      "T-REC-Y.3300.2014",
+      "T-REC-Y.3301.2016",
+      "T-REC-Y.3302.2017",
+      "IETF.draft-contreras-layered-sdn-03",
+      "IETF.draft-natarajan-nfvrg-containers-for-nfv-03",
+      "10.1002-ett.3085",
+      "IETF.draft-bernardos-nmrg-multidomain-00",
+      "IETF.draft-gdmb-netslices-intro-and-ps-02",
+      "IETF.draft-mlk-nfvrg-nfv-reliability-using-cots-01",
+      "10.1109-INM.2015.7140281",
+      "10.1109-COMST.2015.2477041",
+      "IETF.draft-bagnulo-nfvrg-topology-01",
+      "RFC5810",
+      "RFC6241",
+      "RFC7252",
+      "RFC7426",
+      "RFC7498",
+      "RFC7665",
+      "RFC8030",
+      "RFC8040",
+      "RFC8172",
+      "IETF.draft-marin-sdnrg-sdn-aaa-mng-00",
+      "10.1109-MCOM.2016.1600219RP",
+      "IETF.draft-defoy-netslices-3gpp-network-slicing-02",
+      "10.1109-CNSM.2014.7014205",
+      "IETF.draft-rorosz-nfvrg-vbaas-00",
+      "orphan/RFC8568/h:7e695341",
+      "orphan/RFC8568/h:fcfcea2f",
+      "orphan/RFC8568/h:d2cbb8a8",
+      "orphan/RFC8568/h:865411fd",
+      "orphan/RFC8568/h:98631d29",
+      "orphan/RFC8568/h:2952a1d4",
+      "orphan/RFC8568/h:6fe15be4",
+      "orphan/RFC8568/h:db55cab5",
+      "orphan/RFC8568/h:15f44ec1",
+      "orphan/RFC8568/h:e331f30d",
+      "orphan/RFC8568/h:a53be83e",
+      "orphan/RFC8568/h:6d225dc6",
+      "orphan/RFC8568/h:3d66f09f"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=44 proseBlocks=74 skippedAnchorBlocks=49",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+      "updated": "2026-10-21T16:58:03.886Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8568/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+    "updated": "2026-10-21T16:58:03.886Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+      "updated": "2026-10-21T16:58:03.886Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+      "updated": "2026-10-21T16:58:03.886Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+      "updated": "2026-10-21T16:58:03.886Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+      "updated": "2026-10-21T16:58:03.886Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8568/",
+      "updated": "2026-10-21T16:58:03.886Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  }
+}
