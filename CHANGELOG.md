@@ -8,12 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased] - yyyy-mm-dd
 
+### Added
+
+- **IETF cited-RFC backfill, batches 4–5.** 930 RFCs and the first 68 cited drafts, each batch reviewed (registry 5,688 → 6,618 RFCs). Drafts now get their revision's date and authors from Datatracker, and are seeded only when cited outside the IETF. More IEEE, ITU, ISO, ASHRAE, W3C and 3GPP citation forms parse; keyword rules extended.
+- **The weekly IETF run seeds citations too.** Besides relation targets, it seeds cited RFCs we don't hold and drafts cited outside the IETF, so an external doc's IETF refs resolve on the next run. Manual runs can pick relations only, citations only, or no seeding.
+
+### Changed
+
+- **One spelling per DOI.** IEEE, Springer and NIST DOIs written in different cases now map to one ID, so case variants merge in the MRI; SMPTE DOIs keep their case.
+
 ## [v2.11.0] - 2026-10-19
 
 ### Added
 
-- **IETF cited-RFC backfill, batches 1–5.** 2,430 RFCs and the first 68 cited drafts, each batch reviewed (registry 3,973 → 6,618 RFCs with the weekly runs). Drafts now get their revision's date and authors from Datatracker, and are seeded only when cited outside the IETF. IEEE, Springer and NIST DOIs now have one spelling each, so case variants merge (SMPTE DOIs keep their case). The parser now reads linked BCP citations and more IEEE 802, ITU, ETSI, ATSC, ANSI, NIST, W3C and 3GPP citation forms; keyword rules extended.
-- **The weekly IETF run seeds citations too.** Besides relation targets, it seeds cited RFCs we don't hold and drafts cited outside the IETF, so an external doc's IETF refs resolve on the next run. Manual runs can pick relations only, citations only, or no seeding.
+- **IETF cited-RFC backfill, batches 1–3.** 1,500 RFCs cited by documents we hold, each batch reviewed (registry 3,973 → 5,473 RFCs). The parser now reads linked BCP citations and more IEEE 802, ITU, ETSI, ATSC, ANSI, NIST, W3C and 3GPP citation forms; keyword rules extended.
 - **API reference endpoints (#1170, #2037, #2038).** `/api/by-publisher.json` indexes the full-record slices, which move to `/api/by-publisher/`. New: `/api/groups.json`, `/api/projects.json`, `/api/by-doc.json` (docId → groups and projects), `/api/publishers.json` and `/api/vocabulary.json`, with `/api/schemas/reference.schema.json`, all at `apiVersion` 1.0.0; existing endpoints keep their versions (shapes unchanged). The research skill points at the new paths (1.6.0).
 
 ### Changed
