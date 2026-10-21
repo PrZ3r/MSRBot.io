@@ -2554,7 +2554,11 @@ function parseRefId(text, href = '', opts = {}) {
     const cat = !page && String(href || '').match(/standards\.ieee\.org\/ieee\/(\d{3,4}(?:\.\d+[A-Za-z]{0,3})?)\/\d+\/?$/i);
     if (page || cat) {
       const num = up((page || cat)[1].replace(/_/g, '.'));
-      const y = page ? page[2] : (citeWithoutAccessDate(text).match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      // a year printed with the same number wins over the page's: '"1722-2001 - IEEE Standard …",
+      // <…/1722-2011.html>' (RFC7273) stays IEEE.STD1722.2001, as cited
+      const esc = num.replace(/\./g, '\\.');
+      const printed = (String(text || '').match(new RegExp(`(?<![\\d.])${esc}-((?:19|20)\\d{2})\\b`, 'i')) || [])[1];
+      const y = printed || (page ? page[2] : (citeWithoutAccessDate(text).match(/\b(?:19|20)\d{2}\b/) || [])[0]);
       const refId = `IEEE.STD${num}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'ieee-std-page' } } : refId;
     }

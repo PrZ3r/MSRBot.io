@@ -359,5 +359,6 @@ assert.strictEqual(parseRefId('International Telecommunications Union, "Advanced
 assert.strictEqual(parseRefId('"H.264/AVC: Advanced Video Coding for Generic Audiovisual Services." Accessed: Nov. 19, 2022. [Online]. Available: https://www.itu.int/rec/T-REC-H.264', 'https://www.itu.int/rec/T-REC-H.264'), 'T-REC-H.264'); n++;
 assert.strictEqual(parseRefId('ITU, "V.42bis: Data compression procedures", http://www.itu.int/rec/T-REC-V.42bis , January 1990.', 'http://www.itu.int/rec/T-REC-V.42bis'), null); n++;
 assert.strictEqual(parseRefId('180-1, FIPS., "Secure Hash Standard", April 2005.'), 'NIST.FIPS.180-1'); n++;
+assert.strictEqual(parseRefId('IEEE1722 IEEE, "1722-2001 - IEEE Standard for Layer 2 Transport Protocol for Time Sensitive Applications in a Bridged Local Area Network", May 2011, &lt; http://standards.ieee.org/findstds/ standard/1722-2011.html &gt;.', 'http://standards.ieee.org/findstds/standard/1722-2011.html'), 'IEEE.STD1722.2001'); n++;
 
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
