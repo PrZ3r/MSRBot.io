@@ -1,0 +1,271 @@
+{
+  "abstract": "The purpose of this document is to define a framework for an Access Node Control Mechanism between a Network Access Server (NAS) and an Access Node (e.g., a Digital Subscriber Line Access Multiplexer (DSLAM)) in a multi-service reference architecture in order to perform operations related to service, quality of service, and subscribers. The Access Node Control Mechanism will ensure that the transmission of the information does not need to go through distinct element managers but rather uses a direct device-device communication. This allows for performing access-link-related operations within those network elements, while avoiding impact on the existing Operational Support Systems. This document first identifies a number of use cases for which the Access Node Control Mechanism may be appropriate. It then presents the requirements for the Access Node Control Protocol (ANCP) that must be taken into account during protocol design. Finally, it describes requirements for the network elements that need to support ANCP and the described use cases. These requirements should be seen as guidelines rather than as absolute requirements. RFC 2119 therefore does not apply to the nodal requirements. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Sven Ooghe"
+    },
+    {
+      "name": "Norbert Voigt"
+    },
+    {
+      "name": "Michel Platnic"
+    },
+    {
+      "name": "Thomas Haag"
+    },
+    {
+      "name": "Sanjay Wadhwa"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC5851",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 5851",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "5851",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "Framework and Requirements for an Access Node Control Mechanism in Broadband Multi-Service Networks",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC5851",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC5851",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "ANCP",
+    "Topology Discovery",
+    "Loop Configuration",
+    "Remote Connectivity Test",
+    "Multicast",
+    "Access Node",
+    "NAS"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Access Node Control Protocol",
+      "Topology Discovery",
+      "Loop Configuration",
+      "Remote Connectivity Test",
+      "Multicast",
+      "Access Node",
+      "NAS"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T22:09:08.136Z",
+    "version": "extractDocs.js@commit:301bfdf288d8"
+  },
+  "pages": "47",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2010-05-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "T-REC-G.993.2",
+      "T-REC-G.997.1",
+      "RFC2225",
+      "RFC2364",
+      "RFC2516",
+      "RFC2881",
+      "RFC3376",
+      "RFC4607",
+      "orphan/RFC5851/h:67a49d40",
+      "orphan/RFC5851/h:1cfff76e",
+      "orphan/RFC5851/h:8a5f4a1e"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=18 proseBlocks=19 skippedAnchorBlocks=17",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+      "updated": "2026-10-20T21:45:01.195Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2684",
+      "RFC5713",
+      "RFC894",
+      "orphan/RFC5851/h:c7adea28"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+      "updated": "2026-10-20T21:45:01.195Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5851/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+    "updated": "2026-10-20T21:45:01.195Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+      "updated": "2026-10-20T21:45:01.195Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+      "updated": "2026-10-20T21:45:01.195Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+      "updated": "2026-10-20T21:45:01.195Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+      "updated": "2026-10-20T21:45:01.195Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5851/",
+      "updated": "2026-10-20T21:45:01.195Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

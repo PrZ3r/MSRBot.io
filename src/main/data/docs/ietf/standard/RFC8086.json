@@ -1,0 +1,262 @@
+{
+  "abstract": "This document specifies a method of encapsulating network protocol packets within GRE and UDP headers. This GRE-in-UDP encapsulation allows the UDP source port field to be used as an entropy field. This may be used for load-balancing of GRE traffic in transit networks using existing Equal-Cost Multipath (ECMP) mechanisms. There are two applicability scenarios for GRE-in-UDP with different requirements: (1) general Internet and (2) a traffic-managed controlled environment. The controlled environment has less restrictive requirements than the general Internet.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Lucy Yong"
+    },
+    {
+      "name": "Edward Crabbe"
+    },
+    {
+      "name": "Xiaohu Xu"
+    },
+    {
+      "name": "Tom Herbert"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC8086",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 8086",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "8086",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "GRE-in-UDP Encapsulation",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC8086",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC8086",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "pages": "27",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2017-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC792",
+      "RFC793",
+      "RFC2460",
+      "RFC2914",
+      "RFC2983",
+      "RFC4787",
+      "RFC6056",
+      "RFC7042",
+      "RFC7637",
+      "RFC7676"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=23 proseBlocks=27 skippedAnchorBlocks=25",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+      "updated": "2026-10-20T17:32:25.744Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC768",
+      "RFC1122",
+      "RFC2119",
+      "RFC2474",
+      "RFC2784",
+      "RFC2890",
+      "RFC6040",
+      "RFC6347",
+      "RFC6438",
+      "RFC6935",
+      "RFC6936",
+      "RFC8085"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+      "updated": "2026-10-20T17:32:25.744Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8086/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+    "updated": "2026-10-20T17:32:25.744Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+      "updated": "2026-10-20T17:32:25.744Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+      "updated": "2026-10-20T17:32:25.744Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8086",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8086",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8086.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+      "updated": "2026-10-20T17:32:25.744Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+      "updated": "2026-10-20T17:32:25.744Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+      "updated": "2026-10-20T17:32:25.744Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8086/",
+      "updated": "2026-10-20T17:32:25.744Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

@@ -1,0 +1,347 @@
+{
+  "abstract": "This memo specifies a component-based architecture for Manufacturer Usage Descriptions (MUDs). The goal of MUD is to provide a means for end devices to signal to the network what sort of access and network functionality they require to properly function. The initial focus is on access control. Later work can delve into other aspects. This memo specifies two YANG modules, IPv4 and IPv6 DHCP options, a Link Layer Discovery Protocol (LLDP) TLV, a URL, an X.509 certificate extension, and a means to sign and verify the descriptions.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.471Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Eliot Lear"
+    },
+    {
+      "name": "Ralph Droms"
+    },
+    {
+      "name": "Dan Romascanu"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.471Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC8520",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.470Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 8520",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.470Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "8520",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.470Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Manufacturer Usage Description Specification",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.470Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.470Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC8520",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.471Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC8520",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.470Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "MUD",
+    "IoT Security",
+    "Access Policy"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.471Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "pages": "60",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.471Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2019-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.470Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T17:33:16.470Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC1984",
+      "RFC3553",
+      "RFC6092",
+      "RFC6872",
+      "RFC7042",
+      "RFC7170",
+      "RFC7252",
+      "RFC7452",
+      "RFC7488",
+      "RFC8126",
+      "RFC8343",
+      "RFC8407",
+      "orphan/RFC8520/h:da2c2cd8",
+      "IEEE.STD802.11I",
+      "IEEE.STD802.1AE",
+      "IEEE.STD802.1AR",
+      "IEEE.STD802.1X"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=49 proseBlocks=57 skippedAnchorBlocks=53",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+        "RFC1984",
+        "RFC3553",
+        "RFC6092",
+        "RFC6872",
+        "RFC7042",
+        "RFC7170",
+        "RFC7252",
+        "RFC7452",
+        "RFC7488",
+        "RFC8126",
+        "RFC8343",
+        "RFC8407",
+        "orphan/RFC8520/h:da2c2cd8",
+        "orphan/RFC8520/h:9a4b58d1",
+        "orphan/RFC8520/h:821196f8",
+        "orphan/RFC8520/h:2114292c",
+        "orphan/RFC8520/h:c4d0c78b"
+      ],
+      "overridden": true,
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+      "updated": "2026-10-20T21:17:54.588Z",
+      "version": "extractDocs.js@commit:2d729ed26f61"
+    },
+    "normative": [
+      "RFC1123",
+      "RFC2119",
+      "RFC2131",
+      "RFC2818",
+      "RFC3629",
+      "RFC3748",
+      "RFC3986",
+      "RFC3987",
+      "RFC5234",
+      "RFC5280",
+      "RFC5652",
+      "RFC5905",
+      "RFC5912",
+      "RFC6268",
+      "RFC6335",
+      "RFC6991",
+      "RFC7120",
+      "RFC7227",
+      "RFC7230",
+      "RFC7231",
+      "RFC7610",
+      "RFC7950",
+      "RFC7951",
+      "RFC8174",
+      "RFC8259",
+      "RFC8340",
+      "RFC8348",
+      "RFC8415",
+      "RFC8519",
+      "IEEE.STD802.1AB"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+        "RFC1123",
+        "RFC2119",
+        "RFC2131",
+        "RFC2818",
+        "RFC3629",
+        "RFC3748",
+        "RFC3986",
+        "RFC3987",
+        "RFC5234",
+        "RFC5280",
+        "RFC5652",
+        "RFC5905",
+        "RFC5912",
+        "RFC6268",
+        "RFC6335",
+        "RFC6991",
+        "RFC7120",
+        "RFC7227",
+        "RFC7230",
+        "RFC7231",
+        "RFC7610",
+        "RFC7950",
+        "RFC7951",
+        "RFC8174",
+        "RFC8259",
+        "RFC8340",
+        "RFC8348",
+        "RFC8415",
+        "RFC8519",
+        "orphan/RFC8520/h:91cb3898"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+      "updated": "2026-10-20T21:17:54.588Z",
+      "version": "extractDocs.js@commit:2d729ed26f61"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8520/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+    "updated": "2026-10-20T21:17:54.588Z",
+    "version": "extractDocs.js@commit:2d729ed26f61"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+      "updated": "2026-10-20T17:33:16.471Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+      "updated": "2026-10-20T17:33:16.471Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8520",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8520",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8520.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+      "updated": "2026-10-20T17:33:16.471Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+      "updated": "2026-10-20T17:33:16.471Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+      "updated": "2026-10-20T17:33:16.471Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8520/",
+      "updated": "2026-10-20T17:33:16.471Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

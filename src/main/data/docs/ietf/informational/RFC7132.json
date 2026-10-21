@@ -1,0 +1,257 @@
+{
+  "abstract": "This document describes a threat model for the context in which External Border Gateway Protocol (EBGP) path security mechanisms will be developed. The threat model includes an analysis of the Resource Public Key Infrastructure (RPKI) and focuses on the ability of an Autonomous System (AS) to verify the authenticity of the AS path info received in a BGP update. We use the term \"PATHSEC\" to refer to any BGP path security technology that makes use of the RPKI. PATHSEC will secure BGP, consistent with the inter-AS security focus of the RPKI. The document characterizes classes of potential adversaries that are considered to be threats and examines classes of attacks that might be launched against PATHSEC. It does not revisit attacks against unprotected BGP, as that topic has already been addressed in the BGP-4 standard. It concludes with a brief discussion of residual vulnerabilities.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Stephen Kent"
+    },
+    {
+      "name": "Andrew Chi"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC7132",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 7132",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "7132",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Threat Model for BGP Path Security",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC7132",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC7132",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "BGPsec",
+    "RPKI",
+    "SIDR"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "BGPSEC",
+      "RPKI",
+      "SIDR"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T21:15:26.607Z",
+    "version": "extractDocs.js@commit:2d729ed26f61"
+  },
+  "pages": "20",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2014-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3779",
+      "RFC4271",
+      "RFC4272",
+      "RFC4301",
+      "RFC5925",
+      "RFC6480",
+      "RFC6481",
+      "RFC6482",
+      "RFC6486",
+      "RFC6487",
+      "RFC6488",
+      "RFC6493",
+      "RFC6810",
+      "orphan/RFC7132/h:1d6e7153",
+      "orphan/RFC7132/h:93101f8e",
+      "orphan/RFC7132/h:41aba106",
+      "orphan/RFC7132/h:2352fc2f"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=17 proseBlocks=21 skippedAnchorBlocks=19",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+      "updated": "2026-10-20T17:30:40.157Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7132/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+    "updated": "2026-10-20T17:30:40.157Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+      "updated": "2026-10-20T17:30:40.157Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+      "updated": "2026-10-20T17:30:40.157Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc7132",
+      "https://www.rfc-editor.org/errata_search.php?rfc=7132"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+      "updated": "2026-10-20T17:30:40.157Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+      "updated": "2026-10-20T17:30:40.157Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+      "updated": "2026-10-20T17:30:40.157Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7132/",
+      "updated": "2026-10-20T17:30:40.157Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

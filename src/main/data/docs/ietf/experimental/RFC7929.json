@@ -1,0 +1,269 @@
+{
+  "abstract": "OpenPGP is a message format for email (and file) encryption that lacks a standardized lookup mechanism to securely obtain OpenPGP public keys. DNS-Based Authentication of Named Entities (DANE) is a method for publishing public keys in DNS. This document specifies a DANE method for publishing and locating OpenPGP public keys in DNS for a specific email address using a new OPENPGPKEY DNS resource record. Security is provided via Secure DNS, however the OPENPGPKEY record is not a replacement for verification of authenticity via the \"web of trust\" or manual verification. The OPENPGPKEY record can be used to encrypt an email that would otherwise have to be sent unencrypted.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Paul Wouters"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC7929",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 7929",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "7929",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "DNS-Based Authentication of Named Entities (DANE) Bindings for OpenPGP",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC7929",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC7929",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "Opportunistic Security",
+    "Encrypted Email"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "pages": "20",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2016-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-shaw-openpgp-hkp-00",
+      "IETF.draft-levine-dns-mailbox-01",
+      "RFC3597",
+      "RFC4255",
+      "RFC4398",
+      "RFC5321",
+      "RFC5322",
+      "RFC6530",
+      "RFC6672",
+      "RFC6698",
+      "RFC7258",
+      "RFC7816",
+      "RFC7858",
+      "RFC7873",
+      "IETF.draft-ietf-dane-smime-12",
+      "UNICODE.STD.9.0.0"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=26 proseBlocks=30 skippedAnchorBlocks=28",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+      "updated": "2026-10-20T17:32:00.248Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC1035",
+      "RFC2119",
+      "RFC2181",
+      "RFC4033",
+      "RFC4034",
+      "RFC4035",
+      "RFC4648",
+      "RFC4880",
+      "RFC5754"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+      "updated": "2026-10-20T17:32:00.248Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7929/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+    "updated": "2026-10-20T17:32:00.248Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+      "updated": "2026-10-20T17:32:00.248Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+      "updated": "2026-10-20T17:32:00.248Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc7929",
+      "https://www.rfc-editor.org/errata_search.php?rfc=7929",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc7929.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+      "updated": "2026-10-20T17:32:00.248Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+      "updated": "2026-10-20T17:32:00.248Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+      "updated": "2026-10-20T17:32:00.248Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7929/",
+      "updated": "2026-10-20T17:32:00.248Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

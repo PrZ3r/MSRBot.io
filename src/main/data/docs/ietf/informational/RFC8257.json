@@ -1,0 +1,277 @@
+{
+  "abstract": "This Informational RFC describes Data Center TCP (DCTCP): a TCP congestion control scheme for data-center traffic. DCTCP extends the Explicit Congestion Notification (ECN) processing to estimate the fraction of bytes that encounter congestion rather than simply detecting that some congestion has occurred. DCTCP then scales the TCP congestion window based on this estimate. This method achieves high-burst tolerance, low latency, and high throughput with shallow- buffered switches. This memo also discusses deployment issues related to the coexistence of DCTCP and conventional TCP, discusses the lack of a negotiating mechanism between sender and receiver, and presents some possible mitigations. This memo documents DCTCP as currently implemented by several major operating systems. DCTCP, as described in this specification, is applicable to deployments in controlled environments like data centers, but it must not be deployed over the public Internet without additional measures.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Stephen Bensley"
+    },
+    {
+      "name": "Dave Thaler"
+    },
+    {
+      "name": "Praveen Balasubramanian"
+    },
+    {
+      "name": "Lars Eggert"
+    },
+    {
+      "name": "Glenn Judd"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC8257",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 8257",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "8257",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Data Center TCP (DCTCP): TCP Congestion Control for Data Centers",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC8257",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC8257",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "TCP",
+    "ECN",
+    "DCTCP",
+    "Congestion Control"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "pages": "17",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2017-10-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1145-1993744.1993753",
+      "10.1145-1851182.1851192",
+      "IETF.draft-ietf-tsvwg-ecn-experimentation-06",
+      "RFC2309",
+      "RFC7567",
+      "orphan/RFC8257/h:ee62366f",
+      "orphan/RFC8257/h:4b7ed742",
+      "orphan/RFC8257/h:32f35f15",
+      "orphan/RFC8257/h:1ab893c4",
+      "orphan/RFC8257/h:0dc73dff",
+      "orphan/RFC8257/h:063ea22f",
+      "orphan/RFC8257/h:2ab887ef"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=23 proseBlocks=29 skippedAnchorBlocks=23",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+      "updated": "2026-10-20T17:32:42.398Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC793",
+      "RFC2018",
+      "RFC2119",
+      "RFC3168",
+      "RFC5562",
+      "RFC5681",
+      "RFC8174"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+      "updated": "2026-10-20T17:32:42.398Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8257/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+    "updated": "2026-10-20T17:32:42.398Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+      "updated": "2026-10-20T17:32:42.398Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+      "updated": "2026-10-20T17:32:42.398Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8257",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8257",
+      "https://www.rfc-editor.org/errata/eid3639"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+      "updated": "2026-10-20T17:32:42.398Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+      "updated": "2026-10-20T17:32:42.398Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+      "updated": "2026-10-20T17:32:42.398Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8257/",
+      "updated": "2026-10-20T17:32:42.398Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

@@ -1,0 +1,298 @@
+{
+  "abstract": "This RFC attempts to document various aspects of the IP service model and how it has evolved over time. In particular, it attempts to document the properties of the IP layer as they are seen by upper- layer protocols and applications, especially properties that were (and, at times, still are) incorrectly perceived to exist as well as properties that would cause problems if changed. The discussion of these properties is organized around evaluating a set of claims, or misconceptions. Finally, this document provides some guidance to protocol designers and implementers. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Dave Thaler"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC6250",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 6250",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "6250",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Evolution of the IP Model",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC6250",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC6250",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "IP",
+    "IPv4",
+    "IPv6"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "IP",
+      "IPv4",
+      "IPv6",
+      "Service Model"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T21:14:14.930Z",
+    "version": "extractDocs.js@commit:2d729ed26f61"
+  },
+  "pages": "25",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2011-05-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "ISI.IEN19",
+      "ISI.IEN23",
+      "ISI.IEN28",
+      "ISI.IEN135",
+      "RFC793",
+      "RFC925",
+      "RFC959",
+      "RFC1191",
+      "RFC1812",
+      "RFC1918",
+      "RFC1958",
+      "RFC1981",
+      "RFC2101",
+      "RFC2491",
+      "RFC2767",
+      "RFC2775",
+      "RFC2923",
+      "RFC2979",
+      "RFC2991",
+      "RFC2993",
+      "RFC3021",
+      "RFC3069",
+      "RFC3077",
+      "RFC3338",
+      "RFC3550",
+      "RFC3552",
+      "RFC3618",
+      "RFC3775",
+      "RFC3819",
+      "RFC3927",
+      "RFC3972",
+      "RFC4007",
+      "RFC4380",
+      "RFC4423",
+      "RFC4601",
+      "RFC4786",
+      "RFC4821",
+      "RFC4890",
+      "RFC4903",
+      "RFC4948",
+      "RFC5213",
+      "RFC5218",
+      "RFC5694",
+      "orphan/RFC6250/h:20c165bb",
+      "orphan/RFC6250/h:a6584593",
+      "orphan/RFC6250/h:b23d1328",
+      "orphan/RFC6250/h:71c08785",
+      "orphan/RFC6250/h:c8d63c02",
+      "orphan/RFC6250/h:1aa6029a",
+      "orphan/RFC6250/h:0a6ff3ec",
+      "orphan/RFC6250/h:163bcfba",
+      "orphan/RFC6250/h:fbda1451",
+      "orphan/RFC6250/h:99503817",
+      "orphan/RFC6250/h:286a8639"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=65 proseBlocks=74 skippedAnchorBlocks=67",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+      "updated": "2026-10-20T17:29:28.772Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC791",
+      "RFC1112",
+      "RFC1122",
+      "RFC1546",
+      "RFC2461",
+      "RFC2644",
+      "RFC4301",
+      "RFC4861"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+      "updated": "2026-10-20T17:29:28.772Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6250/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+    "updated": "2026-10-20T17:29:28.772Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+      "updated": "2026-10-20T17:29:28.772Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+      "updated": "2026-10-20T17:29:28.772Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+      "updated": "2026-10-20T17:29:28.772Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+      "updated": "2026-10-20T17:29:28.772Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6250/",
+      "updated": "2026-10-20T17:29:28.772Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

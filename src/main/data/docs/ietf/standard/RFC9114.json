@@ -1,0 +1,269 @@
+{
+  "abstract": "The QUIC transport protocol has several features that are desirable in a transport for HTTP, such as stream multiplexing, per-stream flow control, and low-latency connection establishment. This document describes a mapping of HTTP semantics over QUIC. This document also identifies HTTP/2 features that are subsumed by QUIC and describes how HTTP/2 extensions can be ported to HTTP/3.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Mike Bishop"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC9114",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 9114",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "9114",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "HTTP/3",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC9114",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC9114",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "Transport",
+    "QUIC",
+    "HTTP/2",
+    "HPACK",
+    "QPACK",
+    "Web"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "pages": "57",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2022-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC8499",
+      "RFC7541",
+      "RFC9112",
+      "RFC9113",
+      "RFC6585",
+      "RFC8164",
+      "RFC7413",
+      "RFC8446",
+      "orphan/RFC9114/h:e0912d9c"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+      "updated": "2026-10-20T21:47:21.616Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "RFC7838",
+      "RFC6265",
+      "RFC9110",
+      "RFC9111",
+      "RFC8470",
+      "RFC9204",
+      "RFC9000",
+      "RFC793",
+      "RFC2119",
+      "RFC6066",
+      "RFC7301",
+      "RFC8126",
+      "RFC8174",
+      "RFC3986"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+      "updated": "2026-10-20T21:47:21.616Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9114/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+    "updated": "2026-10-20T21:47:21.615Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+      "updated": "2026-10-20T21:47:21.615Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+      "updated": "2026-10-20T21:47:21.615Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc9114",
+      "https://www.rfc-editor.org/errata_search.php?rfc=9114",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc9114.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+      "updated": "2026-10-20T21:47:21.616Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+      "updated": "2026-10-20T21:47:21.615Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+      "updated": "2026-10-20T21:47:21.615Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9114/",
+      "updated": "2026-10-20T21:47:21.615Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

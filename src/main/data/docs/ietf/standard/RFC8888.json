@@ -1,0 +1,277 @@
+{
+  "abstract": "An effective RTP congestion control algorithm requires more fine-grained feedback on packet loss, timing, and Explicit Congestion Notification (ECN) marks than is provided by the standard RTP Control Protocol (RTCP) Sender Report (SR) and Receiver Report (RR) packets. This document describes an RTCP feedback message intended to enable congestion control for interactive real-time traffic using RTP. The feedback message is designed for use with a sender-based congestion control algorithm, in which the receiver of an RTP flow sends back to the sender RTCP feedback packets containing the information the sender needs to perform congestion control.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Zaheduzzaman Sarker"
+    },
+    {
+      "name": "Colin Perkins"
+    },
+    {
+      "name": "Varun Singh"
+    },
+    {
+      "name": "Michael A. Ramalho"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC8888",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 8888",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "8888",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "RTP Control Protocol (RTCP) Feedback for Congestion Control",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC8888",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC8888",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "Congestion Control",
+    "Feedback Message",
+    "RTP",
+    "RTCP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "pages": "13",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2021-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-rmcat-gcc-02",
+      "RFC3611",
+      "RFC5104",
+      "RFC6843",
+      "RFC8298",
+      "RFC8382",
+      "RFC8698",
+      "IETF.draft-ietf-rmcat-rtp-cc-feedback-05",
+      "IETF.draft-holmer-rmcat-transport-wide-cc-extensions-01",
+      "orphan/RFC8888/h:883be833"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+      "updated": "2026-10-20T21:46:47.562Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3168",
+      "RFC3550",
+      "RFC3551",
+      "RFC3711",
+      "RFC4585",
+      "RFC5124",
+      "RFC5234",
+      "RFC5506",
+      "RFC6679",
+      "RFC8083",
+      "RFC8174",
+      "RFC8843",
+      "RFC8859"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+      "updated": "2026-10-20T21:46:47.562Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8888/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+    "updated": "2026-10-20T21:46:47.562Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+      "updated": "2026-10-20T21:46:47.562Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+      "updated": "2026-10-20T21:46:47.562Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8888",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8888",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8888.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+      "updated": "2026-10-20T21:46:47.562Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+      "updated": "2026-10-20T21:46:47.562Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+      "updated": "2026-10-20T21:46:47.562Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8888/",
+      "updated": "2026-10-20T21:46:47.562Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

@@ -309,4 +309,34 @@ assert.strictEqual(parseRefId('Cheikes, B., "Common Platform Enumeration: Naming
 assert.strictEqual(parseRefId('Snively, R., "Fibre Channel Protocol for SCSI, 2nd Version (FCP-2)", ANSI/INCITS, 350-2003, October 2003.'), 'INCITS.350.2003'); n++;
 assert.strictEqual(parseRefId('3GPP, "GPRS Tunnelling Protocol User Plane (GTPv1-U)", TS.29.281, June 2022.'), '3GPP.TS-29.281.202206'); n++;
 
+// Cited-RFC batch 4: IEEE designator closing the cite (RFC8520, RFC8180), "Std. 802.1AX-2008" (RFC7209),
+// designator inside the quoted title (RFC4968), "1588-2008 IEEE Standard" (RFC6669), ITU spelled with the
+// designator opening the title (RFC6632), 'ISO/IEC, "Standard 13818-1' (RFC6776), ANSI/ASHRAE Standard;
+// an ASHRAE addenda package stays an orphan.
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Local and Metropolitan Area Networks-- Station and Media Access Control Connectivity Discovery", IEEE 802.1AB.'), 'IEEE.STD802.1AB'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Low-Rate Wireless Networks", IEEE 802.15.4, &lt; http://ieeexplore.ieee.org/document/7460875/ &gt;.'), 'IEEE.STD802.15.4'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Local and metropolitan area networks - Link Aggregation", Std. 802.1AX-2008, IEEE Computer Society, November 2008.'), 'IEEE.STD802.1AX.2008'); n++;
+assert.strictEqual(parseRefId('"IEEE, Virtual Bridged Local Area Networks, IEEE 802.1Q", May 2003.'), 'IEEE.STD802.1Q.2003'); n++;
+assert.strictEqual(parseRefId('IEEE, "1588-2008 IEEE Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems", March 2008.'), 'IEEE.STD1588.2008'); n++;
+assert.strictEqual(parseRefId('International Telecommunication Union, "X.700: Management Framework For Open Systems Interconnection (OSI) For CCITT Applications", September 1992.'), 'T-REC-X.700.1992'); n++;
+assert.strictEqual(parseRefId('ISO/IEC, "Standard 13818-1, Information technology -- Generic coding of moving pictures and associated audio information: Systems", October 2007.'), 'ISO.13818-1'); n++;
+assert.strictEqual(parseRefId('ASHRAE, "BACnet-A Data Communication Protocol for Building Automation and Control Networks", ANSI/ASHRAE Standard 135-2016, January 2016.'), 'ASHRAE.135.2016'); n++;
+assert.strictEqual(parseRefId('ANSI/ASHRAE, "Addenda: BACnet", ANSI/ASHRAE Addenda an, at, au to ANSI/ASHRAE Standard 135-2012, July 2014.'), null); n++;
+
+// Cited-RFC batch 5: wrapped W3C date with a hyphenated short name (RFC5105), "Recommedation" typo
+// (RFC5431), 3GPP "Specification 24.182" (RFC8859).
+assert.strictEqual(parseRefId('Eastlake, D., "Exclusive XML Canonicalization Version 1.0", W3C REC REC-xml-exc-c14n- 20020718, July 2002.'), 'W3C.xml-exc-c14n.20020718'); n++;
+assert.strictEqual(parseRefId('ITU-T Recommedation Y.2111, "Resource and admission control functions in Next Generation Networks", September 2006.'), 'T-REC-Y.2111.2006'); n++;
+assert.strictEqual(parseRefId('3GPP, "IP Multimedia Subsystem (IMS) Customized Ringing Signal (CRS); Protocol specification", Specification 24.183, September 2016.'), '3GPP.TS-24.183.201609'); n++;
+
+// DOI case: one spelling per document. IEEE suffixes uppercase, Springer BF/BFb, NIST series and part
+// letter uppercase with pt/r/upd lowercase. SMPTE DOIs keep their case (J and j are different documents).
+assert.strictEqual(parseRefId('Diffie, W. and M. Hellman, "New directions in cryptography", DOI 10.1109/tit.1976.1055638, November 1976.'), '10.1109-TIT.1976.1055638'); n++;
+assert.strictEqual(parseRefId('Lamport, L., "x", DOI 10.1007/bfb0055716.'), '10.1007-BFb0055716'); n++;
+assert.strictEqual(parseRefId('NIST, "Advanced encryption standard (AES)"', 'https://doi.org/10.6028/nist.fips.197'), 'NIST.FIPS.197'); n++;
+assert.strictEqual(parseRefId('NIST, "AES"', 'https://doi.org/10.6028/NIST.FIPS.197-upd1'), 'NIST.FIPS.197-upd1'); n++;
+assert.strictEqual(parseRefId('Barker, E., "Recommendation for pair-wise key-establishment"', 'https://doi.org/10.6028/nist.sp.800-56ar3'), 'NIST.SP.800-56Ar3'); n++;
+assert.strictEqual(parseRefId('Barker, E. and NIST, "Recommendation for key management:part 1 - general", NIST Special Publication 800-57pt1r5'), 'NIST.SP.800-57pt1r5'); n++;
+assert.strictEqual(parseRefId('X, 10.5594/smpte.st2067-21.2023'), '10.5594-smpte.st2067-21.2023'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

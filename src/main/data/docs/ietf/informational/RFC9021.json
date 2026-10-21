@@ -1,0 +1,239 @@
+{
+  "abstract": "This document specifies the conventions for using the Walnut Digital Signature Algorithm (WalnutDSA) for digital signatures with the CBOR Object Signing and Encryption (COSE) syntax. WalnutDSA is a lightweight, quantum-resistant signature scheme based on Group Theoretic Cryptography with implementation and computational efficiency of signature verification in constrained environments, even on 8- and 16-bit platforms. The goal of this publication is to document a way to use the lightweight, quantum-resistant WalnutDSA signature algorithm in COSE in a way that would allow multiple developers to build compatible implementations. As of this publication, the security properties of WalnutDSA have not been evaluated by the IETF and its use has not been endorsed by the IETF. WalnutDSA and the Walnut Digital Signature Algorithm are trademarks of Veridify Security Inc.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Derek Atkins"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC9021",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.560Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 9021",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.560Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "9021",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "Use of the Walnut Digital Signature Algorithm with CBOR Object Signing and Encryption (COSE)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC9021",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC9021",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "COSE",
+    "WalnutDSA"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "pages": "11",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2021-05-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "ISBN.9781584888369",
+      "10.17226-25196",
+      "10.1007-978-3-540-88702-7",
+      "RFC4086",
+      "orphan/RFC9021/h:ae96f51a",
+      "orphan/RFC9021/h:cd180744",
+      "orphan/RFC9021/h:890718ac"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+      "updated": "2026-10-20T21:47:09.561Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC8152",
+      "RFC8174",
+      "NIST.FIPS.180-4",
+      "10.1080-23799927.2020.1831613"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+      "updated": "2026-10-20T21:47:09.561Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9021/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+    "updated": "2026-10-20T21:47:09.561Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+      "updated": "2026-10-20T21:47:09.561Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+      "updated": "2026-10-20T21:47:09.561Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+      "updated": "2026-10-20T21:47:09.561Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+      "updated": "2026-10-20T21:47:09.561Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9021/",
+      "updated": "2026-10-20T21:47:09.561Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

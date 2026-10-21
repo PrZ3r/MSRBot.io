@@ -1,0 +1,290 @@
+{
+  "abstract": "This document describes a protocol and new DNS Resource Record that provides a cryptographic message digest over DNS zone data at rest. The ZONEMD Resource Record conveys the digest data in the zone itself. When used in combination with DNSSEC, ZONEMD allows recipients to verify the zone contents for data integrity and origin authenticity. This provides assurance that received zone data matches published data, regardless of how the zone data has been transmitted and received. When used without DNSSEC, ZONEMD functions as a checksum, guarding only against unintentional changes. ZONEMD does not replace DNSSEC: DNSSEC protects individual RRsets (DNS data with fine granularity), whereas ZONEMD protects a zone's data as a whole, whether consumed by authoritative name servers, recursive name servers, or any other applications. As specified herein, ZONEMD is impractical for large, dynamic zones due to the time and resources required for digest calculation. However, the ZONEMD record is extensible so that new digest schemes may be added in the future to support large, dynamic zones.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Duane Wessels"
+    },
+    {
+      "name": "Piet Barber"
+    },
+    {
+      "name": "Matt Weinberg"
+    },
+    {
+      "name": "Warren Kumari"
+    },
+    {
+      "name": "Wes Hardaker"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC8976",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 8976",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "8976",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "Message Digest for DNS Zones",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC8976",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC8976",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "DNS",
+    "DNSSEC",
+    "Checksum",
+    "Hash Function",
+    "Zone Transfer"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "pages": "31",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2021-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC7696",
+      "GITHUB.niclabs.dns-tools",
+      "IETF.draft-ietf-dprive-xfr-over-tls-05",
+      "GITHUB.verisign.ldns-zone-digest",
+      "RFC1995",
+      "RFC2065",
+      "RFC2136",
+      "RFC2535",
+      "RFC2931",
+      "RFC3258",
+      "RFC4033",
+      "RFC4035",
+      "RFC4880",
+      "RFC5155",
+      "RFC5936",
+      "RFC8126",
+      "RFC8484",
+      "RFC8499",
+      "RFC8551",
+      "RFC8806",
+      "RFC8901",
+      "RFC8945",
+      "GITHUB.shane-kerr.ZoneDigestHackathon",
+      "orphan/RFC8976/h:57d62846",
+      "orphan/RFC8976/h:a6fad105",
+      "orphan/RFC8976/h:e5b3fc93",
+      "orphan/RFC8976/h:d86af3b6",
+      "orphan/RFC8976/h:b1ded85f"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+      "updated": "2026-10-20T21:46:56.652Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "RFC1034",
+      "RFC1035",
+      "RFC2119",
+      "RFC4034",
+      "RFC6234",
+      "RFC8174"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+      "updated": "2026-10-20T21:46:56.652Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8976/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+    "updated": "2026-10-20T21:46:56.652Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+      "updated": "2026-10-20T21:46:56.652Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+      "updated": "2026-10-20T21:46:56.652Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8976",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8976"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+      "updated": "2026-10-20T21:46:56.652Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+      "updated": "2026-10-20T21:46:56.652Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+      "updated": "2026-10-20T21:46:56.652Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8976/",
+      "updated": "2026-10-20T21:46:56.652Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

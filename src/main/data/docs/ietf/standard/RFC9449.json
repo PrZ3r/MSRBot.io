@@ -1,0 +1,306 @@
+{
+  "abstract": "This document describes a mechanism for sender-constraining OAuth 2.0 tokens via a proof-of-possession mechanism on the application level. This mechanism allows for the detection of replay attacks with access and refresh tokens.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Daniel Fett"
+    },
+    {
+      "name": "Brian Campbell"
+    },
+    {
+      "name": "John Bradley"
+    },
+    {
+      "name": "Torsten Lodderstedt"
+    },
+    {
+      "name": "Michael B. Jones"
+    },
+    {
+      "name": "David Waite"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC9449",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 9449",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "9449",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "OAuth 2.0 Demonstrating Proof of Possession (DPoP)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC9449",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC9449",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "Security",
+    "OAuth"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Security",
+      "Oauth2"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T22:12:44.419Z",
+    "version": "extractDocs.js@commit:301bfdf288d8"
+  },
+  "pages": "39",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2023-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2046",
+      "RFC4122",
+      "RFC4949",
+      "RFC6838",
+      "RFC7523",
+      "RFC7591",
+      "RFC7636",
+      "RFC7662",
+      "RFC8414",
+      "RFC8705",
+      "RFC8707",
+      "RFC8725",
+      "RFC8792",
+      "RFC9110",
+      "RFC9126",
+      "IETF.draft-ietf-oauth-security-topics-23",
+      "IETF.draft-ietf-oauth-token-binding-08",
+      "W3C.csp3",
+      "W3C.webcryptoapi.20170126",
+      "WHATWG.FETCH",
+      "orphan/RFC9449/h:7ed147fa",
+      "orphan/RFC9449/h:437ce4f7",
+      "orphan/RFC9449/h:f6ec4fe5",
+      "orphan/RFC9449/h:08a8a94d",
+      "orphan/RFC9449/h:23293481",
+      "orphan/RFC9449/h:61fde2e7",
+      "orphan/RFC9449/h:13323349",
+      "orphan/RFC9449/h:908816e5",
+      "orphan/RFC9449/h:2b47a517",
+      "orphan/RFC9449/h:42f586f5",
+      "orphan/RFC9449/h:c85a2278",
+      "orphan/RFC9449/h:0d1f37fe"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+      "updated": "2026-10-20T21:47:50.171Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3986",
+      "RFC5234",
+      "RFC6125",
+      "RFC6749",
+      "RFC6750",
+      "RFC7515",
+      "RFC7517",
+      "RFC7519",
+      "RFC7638",
+      "RFC7800",
+      "RFC8174",
+      "NIST.FIPS.180-4"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+      "updated": "2026-10-20T21:47:50.171Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9449/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+    "updated": "2026-10-20T21:47:50.170Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+      "updated": "2026-10-20T21:47:50.170Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+      "updated": "2026-10-20T21:47:50.171Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc9449",
+      "https://www.rfc-editor.org/errata_search.php?rfc=9449",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc9449.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+      "updated": "2026-10-20T21:47:50.171Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+      "updated": "2026-10-20T21:47:50.170Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+      "updated": "2026-10-20T21:47:50.170Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9449/",
+      "updated": "2026-10-20T21:47:50.170Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

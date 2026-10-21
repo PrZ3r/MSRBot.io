@@ -1,0 +1,296 @@
+{
+  "abstract": "A Segment Routing (SR) architecture leverages source routing and tunneling paradigms and can be directly applied to the use of a Multiprotocol Label Switching (MPLS) data plane. A node steers a packet through a controlled set of instructions called \"segments\" by prepending the packet with an SR header. The segment assignment and forwarding semantic nature of SR raises additional considerations for connectivity verification and fault isolation for a Label Switched Path (LSP) within an SR architecture. This document illustrates the problem and defines extensions to perform LSP Ping and Traceroute for Segment Routing IGP-Prefix and IGP-Adjacency Segment Identifiers (SIDs) with an MPLS data plane.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Nagendra Kumar Nainar"
+    },
+    {
+      "name": "Carlos Pignataro"
+    },
+    {
+      "name": "George Swallow"
+    },
+    {
+      "name": "Nobo Akiya"
+    },
+    {
+      "name": "Sriganesh Kini"
+    },
+    {
+      "name": "Mach Chen"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC8287",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 8287",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "8287",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Label Switched Path (LSP) Ping/Traceroute for Segment Routing (SR) IGP-Prefix and IGP-Adjacency Segment Identifiers (SIDs) with MPLS Data Planes",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC8287",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC8287",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "MPLS",
+    "LSP Ping",
+    "Segment Routing"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "MPLS",
+      "LSP Ping",
+      "SPRING",
+      "Segment Routing",
+      "SR"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T21:17:15.711Z",
+    "version": "extractDocs.js@commit:2d729ed26f61"
+  },
+  "pages": "25",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2017-12-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "IANA",
+      "IETF.draft-ietf-spring-segment-routing-ldp-interop-09",
+      "RFC792",
+      "RFC8126",
+      "IETF.draft-ietf-spring-segment-routing-14",
+      "IETF.draft-ietf-isis-segment-routing-extensions-15",
+      "IETF.draft-ietf-spring-segment-routing-mpls-11",
+      "IETF.draft-ietf-ospf-segment-routing-extensions-24",
+      "IETF.draft-ietf-ospf-ospfv3-segment-routing-extensions-10"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=20 proseBlocks=26 skippedAnchorBlocks=17",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+      "updated": "2026-10-20T17:32:46.365Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3443",
+      "RFC4203",
+      "RFC5307",
+      "RFC8029",
+      "RFC8174"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+      "updated": "2026-10-20T17:32:46.365Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8287/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+    "updated": "2026-10-20T17:32:46.365Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+      "updated": "2026-10-20T17:32:46.365Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "amendedBy": [
+      "RFC8690",
+      "RFC9214"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+      "updated": "2026-10-20T17:32:46.365Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+      "updated": "2026-10-20T17:32:46.365Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8287",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8287",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8287.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+      "updated": "2026-10-20T17:32:46.365Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+      "updated": "2026-10-20T17:32:46.365Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+      "updated": "2026-10-20T17:32:46.365Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8287/",
+      "updated": "2026-10-20T17:32:46.365Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

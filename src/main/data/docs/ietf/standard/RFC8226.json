@@ -1,0 +1,288 @@
+{
+  "abstract": "In order to prevent the impersonation of telephone numbers on the Internet, some kind of credential system needs to exist that cryptographically asserts authority over telephone numbers. This document describes the use of certificates in establishing authority over telephone numbers, as a component of a broader architecture for managing telephone numbers as identities in protocols like SIP.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Jon Peterson"
+    },
+    {
+      "name": "Sean Turner"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC8226",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 8226",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "8226",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Secure Telephone Identity Credentials: Certificates",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC8226",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC8226",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "JWT"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "TNAuthorizationList",
+      "JWTClaimConstraints"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T21:17:08.181Z",
+    "version": "extractDocs.js@commit:2d729ed26f61"
+  },
+  "pages": "24",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2018-02-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2046",
+      "RFC3647",
+      "RFC7340",
+      "RFC7375",
+      "T-REC-X.520.2016"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=25 proseBlocks=31 skippedAnchorBlocks=28",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+      "updated": "2026-10-20T17:32:38.250Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "NIST.FIPS.186-4",
+      "RFC2119",
+      "RFC2392",
+      "RFC3986",
+      "RFC5280",
+      "RFC5912",
+      "RFC5958",
+      "RFC7230",
+      "RFC7258",
+      "RFC7519",
+      "RFC8017",
+      "RFC8174",
+      "RFC8224",
+      "RFC8225",
+      "T-REC-X.509.2016",
+      "T-REC-X.680.2015",
+      "T-REC-X.681.2015",
+      "T-REC-X.682.2015",
+      "T-REC-X.683.2015",
+      "orphan/RFC8226/h:c70f6c93"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+      "updated": "2026-10-20T17:32:38.250Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8226/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+    "updated": "2026-10-20T17:32:38.250Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+      "updated": "2026-10-20T17:32:38.250Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "amendedBy": [
+      "RFC9118"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+      "updated": "2026-10-20T17:32:38.250Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+      "updated": "2026-10-20T17:32:38.250Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8226",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8226",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8226.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+      "updated": "2026-10-20T17:32:38.250Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+      "updated": "2026-10-20T17:32:38.250Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+      "updated": "2026-10-20T17:32:38.250Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8226/",
+      "updated": "2026-10-20T17:32:38.250Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

@@ -1139,6 +1139,28 @@ function otherSeriesRfc(text) {
   return /\b(?:DCE|OSF|Open\s+Software\s+Foundation)\s+(?:Request\s+for\s+Comments?|RFC)\b/i.test(String(text || ''));
 }
 
+// DOI case: the DOI system resolves any case to the same document, but an ID must be spelled one
+// way or one document splits into two MRI entries (10.1109-IEEESTD… / 10.1109-ieeestd…). These
+// give the publisher's own spelling for the publishers whose cites come in both cases. SMPTE
+// (10.5594) is never touched: its registry keeps J and j DOIs as different documents.
+//   NIST: series uppercase (FIPS, SP), a part letter uppercase (800-56A), "pt" and the "r"
+//   revision lowercase (800-57pt1r5, 800-56Ar3) — NIST's DOI spelling.
+function canonicalNistNumber(num) {
+  return String(num || '').toUpperCase().replace(/PT(?=\d)/g, 'pt').replace(/-UPD(\d+)/g, '-upd$1').replace(/R(\d+)$/, 'r$1');
+}
+function canonicalNistId(id) {
+  const m = String(id || '').match(/^([A-Za-z]+)\.(.+)$/);
+  return m ? `${m[1].toUpperCase()}.${canonicalNistNumber(m[2])}` : String(id || '');
+}
+//   IEEE (10.1109) registers uppercase suffixes; Springer's old series is BF… / BFb….
+function canonicalDoiCase(doi) {
+  const m = String(doi || '').match(/^(10\.\d{4,9})\/(.+)$/);
+  if (!m) return doi;
+  if (m[1] === '10.1109') return `${m[1]}/${m[2].toUpperCase()}`;
+  if (m[1] === '10.1007') return `${m[1]}/${m[2].replace(/^bfb(?=\d)/i, 'BFb').replace(/^bf(?=\d)/i, 'BF')}`;
+  return doi;
+}
+
 function parseRefId(text, href = '', opts = {}) {
   const wantDiag = !!opts.wantDiag;
   // allow explicit cite→refId normalization via refMap.json
@@ -1150,6 +1172,11 @@ function parseRefId(text, href = '', opts = {}) {
   // also "ANSI/INCITS 357:2002" (RFC4172)
   // Cited-RFC batch 1: "US FIPS197" (RFC3607), "ANSI Std. X3.139-1987" (RFC2816), "ANSI
   // X3.269:1996" (RFC3347), "W3C REC REC-CSS2- 19980512" with the date wrapped (RFC5022).
+  // Cited-RFC batch 4: "ANSI/ASHRAE Standard 135-2016" (RFC8163); 'ISO/IEC, "Standard 13818-1, …"' (RFC6776).
+  // (Not an addenda package: "Addenda an, at, … to ANSI/ASHRAE Standard 135-2012" stays an orphan.)
+  if (!/\bAddend/i.test(String(text || ''))) text = String(text || '').replace(/\bANSI\/ASHRAE\s+Standard\s+(?=\d)/g, 'ANSI/ASHRAE ');
+  text = String(text || '')
+    .replace(/\bISO(\s*\/\s*IEC)?,\s*["“]Standard\s+(?=\d)/g, 'ISO$1 Standard ');
   // Weekly run 2026-10-20: "ANSI/INCITS, 350-2003" (RFC8881), "3GPP …, TS.29.281" (RFC9301).
   text = String(text || '').replace(/\bINCITS,\s+(?=\d{2,4}-(?:19|20)\d{2}\b)/g, 'INCITS ')
     .replace(/\bTS\.(?=\d{2}\.\d{3}\b)/g, 'TS ');
@@ -1168,7 +1195,9 @@ function parseRefId(text, href = '', opts = {}) {
   text = String(text || '').replace(/\bU\.?S\.?\s+FIPS(\d{2,3})\b/g, 'US FIPS $1')
     .replace(/\bANSI\s+Std\.?\s+(?=X\d)/g, 'ANSI ')
     .replace(/\b(X\d{1,2}\.\d{1,3}):((?:19|20)\d{2})\b/g, '$1-$2')
-    .replace(/\b((?:REC|CR|PR|WD|NOTE)-[A-Za-z][\w.]*-)\s+((?:19|20)\d{6})\b/g, '$1$2');
+    .replace(/\b((?:REC|CR|PR|WD|NOTE)-[A-Za-z][\w.-]*-)\s+((?:19|20)\d{6})\b/g, '$1$2')
+    // "ITU-T Recommedation Y.2111" (RFC5431)
+    .replace(/\bRecommedation\b/g, 'Recommendation');
   text = String(text || '').replace(/\bANSI\s*\/\s*INCITS\b/g, 'ANSI INCITS')
     .replace(/\bINCITS[.\s](\d{2,4})(?::|-)((?:19|20)\d{2})\b/g, 'INCITS $1-$2')
     .replace(/\b(REC|WD|CR|PR|NOTE)-\s+([a-z][\w.-]*-(?:19|20)\d{6})\b/g, '$1-$2');
@@ -1474,7 +1503,8 @@ function parseRefId(text, href = '', opts = {}) {
     const direct = src.match(/\b3GPP\s+(?:(?:Draft\s+)?Technical\s+Specification|TS)\s+(\d{2})\.(\d{2,3})\b/i);
     // Split form: "3GPP, ... TS 33.501, ..." (3GPP appears earlier, TS appears later)
     // also "3GPP, "…", Technical Specification 29.281." and a Technical Report "3GPP TR 23.793" (RFC9599, RFC9522)
-    const split = has3gpp ? src.match(/\b(?:TS|Technical\s+Specification|(TR))\s+(\d{2})\.(\d{3})\b/i) : null;
+    // also '3GPP, "…", Specification 24.182' (RFC8859)
+    const split = has3gpp ? src.match(/\b(?:TS|(?:Technical\s+)?Specification|(TR))\s+(\d{2})\.(\d{3})\b/i) : null;
     const m3gpp = direct || (split && [split[0], split[2], split[3]]);
     const kind = !direct && split && split[1] ? 'TR' : 'TS';
     // An ETSI-numbered TR ("ETSI TR 126 928 … (3GPP TR 26.928)") is the ETSI publication: the ETSI rule keeps it.
@@ -1594,7 +1624,7 @@ function parseRefId(text, href = '', opts = {}) {
   // NIST via DOI href
   if (/10\.6028\/NIST\.(.+)/i.test(href)) {
     const [, id] = href.match(/10\.6028\/NIST\.(.+)/i);
-    { const refId = `NIST.${id}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-doi' } } : refId; }
+    { const refId = `NIST.${canonicalNistId(id)}`; return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-doi' } } : refId; }
   }
   // NIST FIPS (strip optional PUB)
   if (/NIST\s+FIPS\s+(?:PUB\s+)?(\d+)(-\d+)?/i.test(text)) {
@@ -1648,7 +1678,7 @@ function parseRefId(text, href = '', opts = {}) {
   {
     const m = String(href || '').match(/csrc\.nist\.gov\/publications\/detail\/sp\/(800-[0-9A-Za-z-]+)(?:\/rev-?([0-9]+))?/i);
     if (m?.[1]) {
-      const sp = String(m[1]).toUpperCase();
+      const sp = canonicalNistNumber(m[1]);
       const rev = m[2] ? `r${m[2]}` : '';
       const refId = `NIST.SP.${sp}${rev}`;
       return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'nist-sp-path' } } : refId;
@@ -1664,7 +1694,7 @@ function parseRefId(text, href = '', opts = {}) {
     if (m?.[1]) {
       // NIST writes the revision lowercase ("800-56Ar3", from a DOI in the cite text);
       // uppercasing it would split one SP into two ids (NIST.SP.800-56AR3).
-      const sp = String(m[1]).toUpperCase().replace(/R(\d+)$/, 'r$1');
+      const sp = canonicalNistNumber(m[1]);
       const revMatch = src.match(/\bRev\.?\s*([0-9]+)\b/i);
       const rev = revMatch?.[1] ? `r${revMatch[1]}` : '';
       const refId = `NIST.SP.${sp}${rev}`;
@@ -1695,9 +1725,9 @@ function parseRefId(text, href = '', opts = {}) {
     const doiSource = `${String(text || '')} ${String(href || '')}`;
     const doiMatch = doiSource.match(/\b(10\.\d{4,9}\/[-._;()/:A-Z0-9]+)\b/i);
     if (doiMatch?.[1]) {
-      const raw = String(doiMatch[1] || '')
+      const raw = canonicalDoiCase(String(doiMatch[1] || '')
         .trim()
-        .replace(/[>,.;:]+$/g, '');
+        .replace(/[>,.;:]+$/g, ''));
       const normalized = raw
         .replace(/\//g, '-')
         .replace(/[()]/g, '_')
@@ -1818,6 +1848,14 @@ function parseRefId(text, href = '', opts = {}) {
       const y = (after.match(/\b((?:19|20)\d{2})\b/) || [])[1] || '';
       const refId = `T-REC-${lead[1]}.${lead[2]}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-designator-lead' } } : refId;
+    }
+    // 'International Telecommunication Union, "X.700: Management Framework …", September 1992' (RFC6632)
+    const spelledTitle = String(text || '').match(/\bInternational\s+Telecommunications?\s+Union,\s*["“]([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s*:/);
+    if (spelledTitle) {
+      const after = String(text || '').slice(spelledTitle.index + spelledTitle[0].length);
+      const y = (after.match(/["”][^"”]*?\b((?:19|20)\d{2})\b/) || [])[1] || '';
+      const refId = `T-REC-${spelledTitle[1]}.${spelledTitle[2]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itu-spelled-title-designator' } } : refId;
     }
     // 'ITU-T Recommendation, "G.114 - One-way transmission time", …, 05/2003' (RFC5757)
     const recQuoted = String(text || '').match(/\bITU-T\s+Recommendation,?\s*["“]([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s+[-–]/);
@@ -2048,10 +2086,32 @@ function parseRefId(text, href = '', opts = {}) {
   // IEEE Standard for …"' (RFC4837).
   {
     const m = /\bIEEE\b|Institute\s+of\s+Electrical/.test(String(text || ''))
-      && String(text || '').match(/(?<![\w.])(802(?:\.\d+[A-Za-z]{0,3})?)-((?:19|20)\d{2}),?\s+IEEE\s+Standard\b/);
+      // also other IEEE numbers: '"1588-2008 IEEE Standard for a Precision Clock …"' (RFC6669)
+      && String(text || '').match(/(?<![\w.])(802(?:\.\d+[A-Za-z]{0,3})?|\d{3,4}(?:\.\d+)?)-((?:19|20)\d{2}),?\s+IEEE\s+Standard\b/);
     if (m) {
       const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-catalogue' } } : refId;
+    }
+  }
+  // Cited-RFC batch 4 IEEE forms:
+  //   '"…", Std. 802.1AX-2008, IEEE Computer Society' (RFC7209) → IEEE.STD802.1AX.2008
+  //   '"IEEE, Virtual Bridged Local Area Networks, IEEE 802.1Q", May 2003' (RFC4968) → dated
+  //   '"IEEE 802.16e, IEEE standard for …", October 2005' (RFC4968) → dated
+  //   'IEEE, "IEEE Standard for … Connectivity Discovery", IEEE 802.1AB.' (RFC8520) and
+  //   '…", IEEE 802.15.4, <https://…>.' (RFC8180): the designator closing the cite → undated
+  {
+    const src = String(text || '');
+    const up = (d) => d.replace(/[a-z]+$/, (x) => x.toUpperCase());
+    const hasIeee = /\bIEEE\b/.test(src) && !/\bDraft\b|-REV\b|\bP802/i.test(src);
+    const std = hasIeee && src.match(/\bStd\.?\s+(802(?:\.\d+[A-Za-z]{0,3})?)-((?:19|20)\d{2})\b/);
+    const inQuote = hasIeee && (src.match(/\bIEEE\s+(802(?:\.\d+[A-Za-z]{0,3})?)["”],?\s*(?:[A-Z][a-z]+\.?\s+)?((?:19|20)\d{2})\b/)
+      || src.match(/^\s*["“]IEEE\s+(802(?:\.\d+[A-Za-z]{0,3})?),[^"”]{4,300}["”],?\s*(?:[A-Z][a-z]+\.?\s+)?((?:19|20)\d{2})\b/));
+    const closing = hasIeee && /^\s*IEEE\b/.test(src)
+      && src.match(/["”],?\s*IEEE\s+(?:Standard\s+|Std\.?\s+)?(802(?:\.\d+[A-Za-z]{0,3})*|\d{3,4}(?:\.\d+)?)\s*[.,]?\s*(?:(?:<|&lt;)\s*https?:[^\s>&]+\s*(?:>|&gt;)|https?:\S+)?\s*\.?\s*$/);
+    const hit = std || inQuote;
+    if (hit || closing) {
+      const refId = hit ? `IEEE.STD${up(hit[1])}.${hit[2]}` : `IEEE.STD${up(closing[1])}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: std ? 'ieee-std-dot' : inQuote ? 'ieee-in-quote' : 'ieee-closing' } } : refId;
     }
   }
   // The designator-year after the title: '"IEEE Standard for … / MAC Bridges", 802.1D-2004, 9 June
@@ -2525,6 +2585,8 @@ function extractRefs($, currentDocId, opts = {}) {
           // Reject false positives from generic filenames such as
           // "...preliminary-draft-4.pdf".
           if (/^draft-\d+(?:\.\d+)?$/.test(token)) continue;
+          // A draft name has no dots: "draft-culley-iwarp-mpa-v1.0.pdf" (RDMA Consortium, RFC5044) is a file.
+          if (token.includes('.')) continue;
           if (!/^draft-[a-z0-9]+-[a-z0-9]/i.test(token)) continue;
           out.push(token);
         }
@@ -2535,9 +2597,13 @@ function extractRefs($, currentDocId, opts = {}) {
         uniq.sort((a, b) => b.length - a.length);
         return uniq[0] || '';
       };
+      // (Drafts mirrored on authors' own sites are real drafts, so the host doesn't matter; the name does.)
       const hrefToken = pickLongest(extractDraftTokens(hrefs));
-      if (hrefToken) return `IETF.${hrefToken}`;
       const citeToken = pickLongest(extractDraftTokens(cites));
+      // A link cut at a line wrap ("/doc/html/draft-canetti-secure" for "draft-canetti-secure -
+      // multicast-taxonomy-00", RFC2627) loses to the cite's longer name that extends it.
+      if (hrefToken && citeToken && citeToken.length > hrefToken.length && citeToken.startsWith(`${hrefToken}-`)) return `IETF.${citeToken}`;
+      if (hrefToken) return `IETF.${hrefToken}`;
       if (citeToken) return `IETF.${citeToken}`;
     }
 

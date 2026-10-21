@@ -1,0 +1,290 @@
+{
+  "abstract": "Segment Routing (SR) leverages the source routing paradigm. A node steers a packet through an ordered list of instructions, called \"segments\". A segment can represent any instruction, topological or service based. A segment can have a semantic local to an SR node or global within an SR domain. SR provides a mechanism that allows a flow to be restricted to a specific topological path, while maintaining per-flow state only at the ingress node(s) to the SR domain. SR can be directly applied to the MPLS architecture with no change to the forwarding plane. A segment is encoded as an MPLS label. An ordered list of segments is encoded as a stack of labels. The segment to process is on the top of the stack. Upon completion of a segment, the related label is popped from the stack. SR can be applied to the IPv6 architecture, with a new type of routing header. A segment is encoded as an IPv6 address. An ordered list of segments is encoded as an ordered list of IPv6 addresses in the routing header. The active segment is indicated by the Destination Address (DA) of the packet. The next active segment is indicated by a pointer in the new routing header.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Clarence Filsfils"
+    },
+    {
+      "name": "Stefano Previdi"
+    },
+    {
+      "name": "Les Ginsberg"
+    },
+    {
+      "name": "Bruno Decraene"
+    },
+    {
+      "name": "Stephane Litkowski"
+    },
+    {
+      "name": "Rob Shakir"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC8402",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 8402",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "8402",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Segment Routing Architecture",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC8402",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC8402",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "pages": "32",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2018-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-idr-bgpls-segment-routing-epe-15",
+      "IETF.draft-ietf-6man-segment-routing-header-14",
+      "IETF.draft-ietf-isis-segment-routing-extensions-19",
+      "IETF.draft-ietf-ospf-segment-routing-extensions-25",
+      "IETF.draft-ietf-ospf-ospfv3-segment-routing-extensions-13",
+      "IETF.draft-ietf-pce-segment-routing-12",
+      "RFC3209",
+      "RFC4206",
+      "RFC4381",
+      "RFC4915",
+      "RFC5095",
+      "RFC5120",
+      "RFC5440",
+      "RFC5714",
+      "RFC5920",
+      "RFC6020",
+      "RFC6241",
+      "RFC6549",
+      "RFC7938",
+      "RFC8084",
+      "RFC8202",
+      "RFC8287",
+      "RFC8355",
+      "RFC8403",
+      "IETF.draft-ietf-spring-segment-routing-central-epe-10",
+      "IETF.draft-ietf-spring-segment-routing-mpls-14",
+      "IETF.draft-ietf-spring-sr-yang-09"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=31 proseBlocks=47 skippedAnchorBlocks=35",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+      "updated": "2026-10-20T17:32:56.828Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3031",
+      "RFC8174",
+      "RFC8200"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+      "updated": "2026-10-20T17:32:56.828Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8402/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+    "updated": "2026-10-20T17:32:56.828Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+      "updated": "2026-10-20T17:32:56.828Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "amendedBy": [
+      "RFC9256"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+      "updated": "2026-10-20T17:32:56.828Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+      "updated": "2026-10-20T17:32:56.828Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc8402",
+      "https://www.rfc-editor.org/errata_search.php?rfc=8402",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc8402.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+      "updated": "2026-10-20T17:32:56.828Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+      "updated": "2026-10-20T17:32:56.828Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+      "updated": "2026-10-20T17:32:56.828Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8402/",
+      "updated": "2026-10-20T17:32:56.828Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

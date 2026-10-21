@@ -9,6 +9,15 @@ on:
         description: "Full run: re-fetch every RFC (after a parser change). Default: only RFCs whose RFC index entry changed, plus new seeds."
         type: boolean
         default: false
+      seed:
+        description: "What to seed before extracting. Scheduled runs seed both."
+        type: choice
+        options:
+          - relations + citations
+          - relations only
+          - citations only
+          - none
+        default: relations + citations
 
 permissions:
   contents: write
@@ -44,8 +53,20 @@ jobs:
 
       # An RFC that obsoletes or updates one we hold is seeded first, so the weekly run brings in
       # the new edition, not just the changed status on the old one (lineage edges the MSI uses).
-      - name: Seed RFCs named by supersededBy / amendedBy / supersedes / amends
-        run: node src/main/scripts/utils/seedBackfill.ietf.js --relations --write
+      # Cited RFCs we don't hold come in too, and drafts only when a non-IETF document cites them,
+      # so a newly extracted external doc's IETF refs resolve on the next run.
+      # Manual runs can narrow this with the `seed` input; scheduled runs have no inputs and seed both.
+      - name: Seed relation targets and cited RFCs/drafts
+        if: inputs.seed != 'none'
+        env:
+          SEED: ${{ inputs.seed }}
+        run: |
+          case "$SEED" in
+            "relations only") MODE=--relations ;;
+            "citations only") MODE=--cited ;;
+            *) MODE= ;;
+          esac
+          node src/main/scripts/utils/seedBackfill.ietf.js $MODE --write
 
       - name: Run extraction
         env:

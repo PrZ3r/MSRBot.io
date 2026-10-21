@@ -1,0 +1,246 @@
+{
+  "abstract": "Edge TRILL (Transparent Interconnection of Lots of Links) switches currently learn the mapping between MAC (Media Access Control) addresses and their egress TRILL switch by observing the data packets they ingress or egress or by the TRILL ESADI (End-Station Address Distribution Information) protocol. When an ingress TRILL switch receives a data frame for a destination address (MAC&Label) that the switch does not know, the data frame is flooded within the frame's Data Label across the TRILL campus. This document describes the framework for using directory services to assist edge TRILL switches in reducing multi-destination frames, particularly unknown unicast frames flooding, and ARP/ND (Address Resolution Protocol / Neighbor Discovery), thus improving TRILL network scalability and security.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Linda Dunbar"
+    },
+    {
+      "name": "Donald E. Eastlake 3rd"
+    },
+    {
+      "name": "Radia Perlman"
+    },
+    {
+      "name": "Igor Gashinsky"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC7067",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 7067",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "7067",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Directory Assistance Problem and High-Level Design Proposal",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC7067",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC7067",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "TRILL",
+    "Orchestration",
+    "Directory Services",
+    "ARP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "TRILL",
+      "Orchestration",
+      "Directory Services",
+      "Push",
+      "Pull",
+      "ARP"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T21:15:23.963Z",
+    "version": "extractDocs.js@commit:2d729ed26f61"
+  },
+  "pages": "15",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2013-11-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "IEEE.STD802.1Q.2011",
+      "ISO.10589.2002",
+      "RFC826",
+      "RFC3971",
+      "RFC4861",
+      "RFC6325",
+      "RFC6326",
+      "RFC6439",
+      "orphan/RFC7067/h:94fd5639",
+      "orphan/RFC7067/h:ec316fbb"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=10 proseBlocks=12 skippedAnchorBlocks=11",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+      "updated": "2026-10-20T17:30:37.172Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7067/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+    "updated": "2026-10-20T17:30:37.172Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+      "updated": "2026-10-20T17:30:37.172Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+      "updated": "2026-10-20T17:30:37.172Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+      "updated": "2026-10-20T17:30:37.172Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+      "updated": "2026-10-20T17:30:37.172Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7067/",
+      "updated": "2026-10-20T17:30:37.172Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}

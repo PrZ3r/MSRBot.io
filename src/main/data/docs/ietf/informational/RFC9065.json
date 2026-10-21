@@ -1,0 +1,314 @@
+{
+  "abstract": "To protect user data and privacy, Internet transport protocols have supported payload encryption and authentication for some time. Such encryption and authentication are now also starting to be applied to the transport protocol headers. This helps avoid transport protocol ossification by middleboxes, mitigate attacks against the transport protocol, and protect metadata about the communication. Current operational practice in some networks inspect transport header information within the network, but this is no longer possible when those transport headers are encrypted. This document discusses the possible impact when network traffic uses a protocol with an encrypted transport header. It suggests issues to consider when designing new transport protocols or features.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "authors": [
+    {
+      "name": "Gorry Fairhurst"
+    },
+    {
+      "name": "Colin Perkins"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docId": "RFC9065",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docLabel": "IETF RFC 9065",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docNumber": "9065",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docTitle": "Considerations around Transport Header Confidentiality, Network Operations, and the Evolution of Internet Transport Protocols",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "doi": "10.17487/RFC9065",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "href": "https://doi.org/10.17487/RFC9065",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "keywords": [
+    "Transport Design",
+    "Operations and Management"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "pages": "37",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publicationDate": "2021-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1145-2063176.2063196",
+      "IETF.draft-ietf-tls-dtls13-43",
+      "IETF.draft-ietf-ippm-ioam-data-12",
+      "IETF.draft-ietf-6man-ipv6-alt-mark-06",
+      "10.1109-COMST.2014.2375213",
+      "IETF.draft-trammell-plus-abstract-mech-00",
+      "IETF.draft-ietf-quic-qlog-main-schema-00",
+      "GITHUB.google.quic-trace",
+      "RFC791",
+      "RFC2410",
+      "RFC2474",
+      "RFC2475",
+      "RFC2507",
+      "RFC2508",
+      "RFC2914",
+      "RFC3168",
+      "RFC3234",
+      "RFC3261",
+      "RFC3393",
+      "RFC3550",
+      "RFC3552",
+      "RFC3711",
+      "RFC4302",
+      "RFC4303",
+      "RFC4585",
+      "RFC4737",
+      "RFC4960",
+      "RFC5166",
+      "RFC5218",
+      "RFC5236",
+      "RFC5426",
+      "RFC5481",
+      "RFC5795",
+      "RFC5925",
+      "RFC6056",
+      "RFC6269",
+      "RFC6294",
+      "RFC6347",
+      "RFC6437",
+      "RFC6438",
+      "RFC6846",
+      "RFC6973",
+      "RFC7098",
+      "RFC7126",
+      "RFC7258",
+      "RFC7413",
+      "RFC7414",
+      "RFC7567",
+      "RFC7594",
+      "RFC7605",
+      "RFC7624",
+      "RFC7799",
+      "RFC7872",
+      "RFC7928",
+      "RFC7983",
+      "RFC8033",
+      "RFC8084",
+      "RFC8085",
+      "RFC8086",
+      "RFC8087",
+      "RFC8095",
+      "RFC8200",
+      "RFC8250",
+      "RFC8289",
+      "RFC8290",
+      "RFC8404",
+      "RFC8446",
+      "RFC8462",
+      "RFC8517",
+      "RFC8546",
+      "RFC8548",
+      "RFC8558",
+      "RFC8684",
+      "RFC8701",
+      "RFC8724",
+      "RFC8837",
+      "RFC8866",
+      "RFC8922",
+      "RFC9000",
+      "orphan/RFC9065/h:fcd23036",
+      "orphan/RFC9065/h:e48c81e0"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+      "updated": "2026-10-20T21:47:17.642Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9065/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+    "updated": "2026-10-20T21:47:17.642Z",
+    "version": "extractDocs.js@commit:92f3ced618ff"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+      "updated": "2026-10-20T21:47:17.642Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+      "updated": "2026-10-20T21:47:17.642Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc9065",
+      "https://www.rfc-editor.org/errata_search.php?rfc=9065",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc9065.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+      "updated": "2026-10-20T21:47:17.642Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+      "updated": "2026-10-20T21:47:17.642Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+      "updated": "2026-10-20T21:47:17.642Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9065/",
+      "updated": "2026-10-20T21:47:17.642Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    }
+  }
+}

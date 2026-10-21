@@ -1,0 +1,262 @@
+{
+  "abstract": "This document describes an abstract mechanism for delivering root keys from an Extensible Authentication Protocol (EAP) server to another network server that requires the keys for offering security protected services, such as re-authentication, to an EAP peer. The distributed root key can be either a usage-specific root key (USRK), a domain-specific root key (DSRK), or a domain-specific usage- specific root key (DSUSRK) that has been derived from an Extended Master Session Key (EMSK) hierarchy previously established between the EAP server and an EAP peer. This document defines a template for a key distribution exchange (KDE) protocol that can distribute these different types of root keys using a AAA (Authentication, Authorization, and Accounting) protocol and discusses its security requirements. The described protocol template does not specify message formats, data encoding, or other implementation details. It thus needs to be instantiated with a specific protocol (e.g., RADIUS or Diameter) before it can be used. [STANDARDS-TRACK]",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "authors": [
+    {
+      "name": "Katrin Hoeper"
+    },
+    {
+      "name": "Madjid Nakhjiri"
+    },
+    {
+      "name": "Yoshihiro Ohba"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docId": "RFC5749",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docLabel": "IETF RFC 5749",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docNumber": "5749",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docTitle": "Distribution of EAP-Based Keys for Handover and Re-Authentication",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "doi": "10.17487/RFC5749",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "href": "https://doi.org/10.17487/RFC5749",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "keywords": [
+    "Security",
+    "Authentication",
+    "Mobility",
+    "EAP",
+    "Key Management",
+    "Key Distribution"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "pages": "12",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publicationDate": "2010-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC2865",
+      "RFC3579",
+      "RFC3588",
+      "RFC5169",
+      "RFC5247"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=9 proseBlocks=13 skippedAnchorBlocks=11",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+      "updated": "2026-10-20T17:29:05.447Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3748",
+      "RFC5295",
+      "RFC5296"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+      "updated": "2026-10-20T17:29:05.447Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5749/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+    "updated": "2026-10-20T17:29:05.447Z",
+    "version": "extractDocs.js@commit:8277ba975118"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+      "updated": "2026-10-20T17:29:05.447Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+      "updated": "2026-10-20T17:29:05.447Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5749",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5749"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+      "updated": "2026-10-20T17:29:05.447Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+      "updated": "2026-10-20T17:29:05.447Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+      "updated": "2026-10-20T17:29:05.447Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5749/",
+      "updated": "2026-10-20T17:29:05.447Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    }
+  }
+}
