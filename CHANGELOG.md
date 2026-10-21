@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - **IETF cited-RFC backfill, batches 1–5.** 2,430 RFCs and the first 68 cited drafts, each batch reviewed (registry 3,973 → 6,618 RFCs with the weekly runs). Drafts now get their revision's date and authors from Datatracker, and are seeded only when cited outside the IETF. IEEE, Springer and NIST DOIs now have one spelling each, so case variants merge (SMPTE DOIs keep their case). The parser now reads linked BCP citations and more IEEE 802, ITU, ETSI, ATSC, ANSI, NIST, W3C and 3GPP citation forms; keyword rules extended.
+- **The weekly IETF run seeds citations too.** Besides relation targets, it seeds cited RFCs we don't hold and drafts cited outside the IETF, so an external doc's IETF refs resolve on the next run. Manual runs can pick relations only, citations only, or no seeding.
 - **API reference endpoints (#1170, #2037, #2038).** `/api/by-publisher.json` indexes the full-record slices, which move to `/api/by-publisher/`. New: `/api/groups.json`, `/api/projects.json`, `/api/by-doc.json` (docId → groups and projects), `/api/publishers.json` and `/api/vocabulary.json`, with `/api/schemas/reference.schema.json`, all at `apiVersion` 1.0.0; existing endpoints keep their versions (shapes unchanged). The research skill points at the new paths (1.6.0).
 
 ### Changed

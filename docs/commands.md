@@ -152,7 +152,9 @@ This is the canonical CLI reference for local scripts in `package.json`.
     - Dry-run (default): prints missing draft + RFC seed URLs.
     - Apply + canonicalize: `npm run seed-backfill-ietf -- --write` (appends missing draft + RFC URLs, de-duplicates, and canonical-orders the full seed list).
     - Citations only: `npm run seed-backfill-ietf -- --cited --limit 100 --out /tmp/ietf-batch.json --write` takes just the citation backlog (cited RFCs in number order, then drafts) and leaves relation targets for a `--relations` run.
-    - Relations only: `npm run seed-backfill-ietf -- --relations --write` seeds just the RFCs those relations name (no citation backlog, no drafts). The weekly `Extract Documents - IETF` workflow runs it before extracting, so a newly published RFC that obsoletes or updates one we hold comes in with the run.
+    - Relations only: `npm run seed-backfill-ietf -- --relations --write` seeds just the RFCs those relations name (no citation backlog, no drafts).
+    - The weekly `Extract Documents - IETF` workflow runs the default mode (`--write`) before extracting, so a newly published RFC that obsoletes or updates one we hold comes in with the run, and so do the RFCs and drafts that newly extracted documents cite. Manual runs have a `seed` choice: relations + citations (default), relations only, citations only, or none.
+    - Drafts are seeded only when a non-IETF document (SMPTE, for example) cites them and Datatracker knows the name; drafts cited only by RFCs or other drafts are never seeded.
     - Batch: `npm run seed-backfill-ietf -- --limit 100 --out /tmp/ietf-batch.json --write` adds only the first 100 missing seeds (RFCs that supersede or update one we hold, then cited RFCs, then older editions ours supersede or update, each in number order, then drafts) and writes them to the `--out` file. Extract just that batch with `node src/main/scripts/extractDocs.js --provider ietf --only /tmp/ietf-batch.json`. Each batch's new docs bring new missing refs, so the next dry run includes them.
 
 ### Validation and Normalization
