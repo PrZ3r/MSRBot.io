@@ -339,4 +339,25 @@ assert.strictEqual(parseRefId('Barker, E., "Recommendation for pair-wise key-est
 assert.strictEqual(parseRefId('Barker, E. and NIST, "Recommendation for key management:part 1 - general", NIST Special Publication 800-57pt1r5'), 'NIST.SP.800-57pt1r5'); n++;
 assert.strictEqual(parseRefId('X, 10.5594/smpte.st2067-21.2023'), '10.5594-smpte.st2067-21.2023'); n++;
 
+// Weekly cited run (#2708): ETSI Group Specifications, IEC TR, ITU "Recomendation"/"Series H H.239"/
+// 'ITU-T, "G.8013: …"', a 3GPP DynaReport link, "1588-2008 Standard" without IEEE, and an IEEE closing
+// designator dated by its linked page. ITU/IEEE standard pages only fill cites no text rule reads, and an
+// "Accessed:" date is never the edition.
+assert.strictEqual(parseRefId('ETSI NFV ISG, "Network Functions Virtualisation (NFV); Terminology for Main Concepts in NFV", ETSI GS NFV 003 V1.2.1 NFV 003, December 2014.'), 'ETSI.GS-NFV-003.2014'); n++;
+assert.strictEqual(parseRefId('ETSI NFV ISG, "…; Report on SDN Usage in NFV Architectural Framework", ETSI GS NFV-EVE 005 V1.1.1 NFV-EVE 005, December 2015.'), 'ETSI.GS-NFV-EVE-005.2015'); n++;
+assert.strictEqual(parseRefId('International Electrotechnical Commission, "Communication networks and systems for power utility automation - Part 90-12: Wide area network engineering guidelines", IEC TR 61850-90-12, July 2015.'), 'IEC.TR61850-90-12'); n++;
+assert.strictEqual(parseRefId('J. Samuelsson, Working Draft ISO/IEC TR 23008-14 Conversion and Coding Practices for HDR/WCG Video, 2016.'), null); n++;
+assert.strictEqual(parseRefId('ITU-T, "Time and phase synchronization aspects of packet networks", ITU-T Recomendation G.8271/Y.1366, July 2016.'), 'T-REC-G.8271.2016'); n++;
+assert.strictEqual(parseRefId('ITU-T, "Infrastructure of audiovisual services - Systems aspects; Role management and additional media channels for H.300-series terminals", Series H H.239, July 2003.'), 'T-REC-H.239.2003'); n++;
+assert.strictEqual(parseRefId('ITU-T, "G.8013: Operations, administration and maintenance (OAM) functions and mechanisms for Ethernet-based networks", August 2015.'), 'T-REC-G.8013.2015'); n++;
+assert.strictEqual(parseRefId('3GPP, "Technical Specification Group Core Network and Terminals; Mobile radio interface Layer 3 specification; Core network protocols; Stage 3 (Release 18)", version 18.4.0, September 2023, <https://www.3gpp.org/DynaReport/24008.htm>.', 'https://www.3gpp.org/DynaReport/24008.htm'), '3GPP.TS-24.008.202309'); n++;
+assert.strictEqual(parseRefId('IEEE, "1588-2008 Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems", March 2008.'), 'IEEE.STD1588.2008'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for a Transport Protocol for Time-Sensitive Applications in Bridged Local Area Networks", IEEE Standard 1722, &lt; https://standards.ieee.org/findstds/ standard/1722-2016.html &gt;.', 'https://standards.ieee.org/findstds/standard/1722-2016.html'), 'IEEE.STD1722.2016'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Local and Metropolitan Area Networks--Bridges and Bridged Networks", <https://standards.ieee.org/standard/802_1Q-2018.html>.', 'https://standards.ieee.org/standard/802_1Q-2018.html'), 'IEEE.STD802.1Q.2018'); n++;
+assert.strictEqual(parseRefId('IEEE, "IEEE Standard for Local and Metropolitan Area Networks - Secure Device Identity", August 2018, <https://standards.ieee.org/ieee/802.1AR/6995/>.', 'https://standards.ieee.org/ieee/802.1AR/6995/'), 'IEEE.STD802.1AR.2018'); n++;
+assert.strictEqual(parseRefId('International Telecommunications Union, "Advanced video coding for generic audiovisual services", January 2012, &lt; http://www.itu.int/rec/T-REC-H.264 &gt;.', 'http://www.itu.int/rec/T-REC-H.264'), 'T-REC-H.264.2012'); n++;
+assert.strictEqual(parseRefId('"H.264/AVC: Advanced Video Coding for Generic Audiovisual Services." Accessed: Nov. 19, 2022. [Online]. Available: https://www.itu.int/rec/T-REC-H.264', 'https://www.itu.int/rec/T-REC-H.264'), 'T-REC-H.264'); n++;
+assert.strictEqual(parseRefId('ITU, "V.42bis: Data compression procedures", http://www.itu.int/rec/T-REC-V.42bis , January 1990.', 'http://www.itu.int/rec/T-REC-V.42bis'), null); n++;
+assert.strictEqual(parseRefId('180-1, FIPS., "Secure Hash Standard", April 2005.'), 'NIST.FIPS.180-1'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
