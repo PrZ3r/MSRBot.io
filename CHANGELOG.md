@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - **One spelling per DOI.** IEEE, Springer and NIST DOIs written in different cases now map to one ID, so case variants merge in the MRI; SMPTE DOIs keep their case.
+- **More citation forms parse.** ETSI Group Specifications (`ETSI.GS-NFV-003.2014`), IEC TR, 3GPP DynaReport links, and ITU or IEEE standard pages for cites with no readable designator. An "Accessed:" date never dates an edition, and a year printed in the cite wins over its link's.
+- **`extract-ietf -- --only`** takes draft registry IDs and leaves the RFC index snapshot alone, so the next weekly run still sees index changes to RFCs it skipped.
 
 ## [v2.11.0] - 2026-10-19
 
