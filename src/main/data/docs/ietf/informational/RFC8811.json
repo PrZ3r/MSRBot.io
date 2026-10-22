@@ -1,0 +1,259 @@
+{
+  "abstract": "This document describes an architecture for establishing and maintaining Distributed Denial-of-Service (DDoS) Open Threat Signaling (DOTS) within and between domains. The document does not specify protocols or protocol extensions, instead focusing on defining architectural relationships, components, and concepts used in a DOTS deployment.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "authors": [
+    {
+      "name": "Andrew Mortensen"
+    },
+    {
+      "name": "Tirumaleswar Reddy.K"
+    },
+    {
+      "name": "Flemming Andreasen"
+    },
+    {
+      "name": "Nik Teague"
+    },
+    {
+      "name": "Rich Compton"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docId": "RFC8811",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docLabel": "IETF RFC 8811",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docNumber": "8811",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docTitle": "DDoS Open Threat Signaling (DOTS) Architecture",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "doi": "10.17487/RFC8811",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "href": "https://doi.org/10.17487/RFC8811",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "pages": "29",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publicationDate": "2020-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-dots-use-cases-25",
+      "IETF.draft-ietf-tls-dtls13-38",
+      "RFC768",
+      "RFC793",
+      "RFC1035",
+      "RFC2782",
+      "RFC3235",
+      "RFC3261",
+      "RFC4271",
+      "RFC4732",
+      "RFC5128",
+      "RFC5246",
+      "RFC5780",
+      "RFC6347",
+      "RFC6763",
+      "RFC7092",
+      "RFC7094",
+      "RFC7350",
+      "RFC7658",
+      "RFC8085",
+      "RFC8446",
+      "RFC8489",
+      "RFC8512",
+      "RFC8555",
+      "RFC8738",
+      "RFC8782",
+      "RFC8783"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+      "updated": "2026-10-21T16:58:13.963Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC4033",
+      "RFC4786",
+      "RFC6887",
+      "RFC8174",
+      "RFC8612"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+      "updated": "2026-10-21T16:58:13.963Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8811/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+    "updated": "2026-10-21T16:58:13.963Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+      "updated": "2026-10-21T16:58:13.963Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+      "updated": "2026-10-21T16:58:13.963Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+      "updated": "2026-10-21T16:58:13.963Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+      "updated": "2026-10-21T16:58:13.963Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8811/",
+      "updated": "2026-10-21T16:58:13.963Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  }
+}

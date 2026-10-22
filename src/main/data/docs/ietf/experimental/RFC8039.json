@@ -1,0 +1,254 @@
+{
+  "abstract": "Clock synchronization protocols are very widely used in IP-based networks. The Network Time Protocol (NTP) has been commonly deployed for many years, and the last few years have seen an increasingly rapid deployment of the Precision Time Protocol (PTP). As time-sensitive applications evolve, clock accuracy requirements are becoming increasingly stringent, requiring the time synchronization protocols to provide high accuracy. This memo describes a multipath approach to PTP and NTP over IP networks, allowing the protocols to run concurrently over multiple communication paths between the master and slave clocks, without modifying these protocols. The multipath approach can significantly contribute to clock accuracy, security, and fault tolerance. The multipath approach that is presented in this document enables backward compatibility with nodes that do not support the multipath functionality.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "authors": [
+    {
+      "name": "Alex Shpiner"
+    },
+    {
+      "name": "Richard Tse"
+    },
+    {
+      "name": "Craig Schelp"
+    },
+    {
+      "name": "Tal Mizrahi"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docId": "RFC8039",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docLabel": "IETF RFC 8039",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docNumber": "8039",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docTitle": "Multipath Time Synchronization",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "doi": "10.17487/RFC8039",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "href": "https://doi.org/10.17487/RFC8039",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "keywords": [
+    "NTP",
+    "PTP",
+    "Multiple Paths"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "pages": "17",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "publicationDate": "2016-12-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1109-GLOCOM.2005.1577769",
+      "10.1007-978-3-540-79232-1_19",
+      "10.1109-ISPCS.2012.6336612",
+      "10.1109-ISPCS.2013.6644760",
+      "10.1109-ISPCS.2014.6948693",
+      "RFC6418",
+      "RFC6824",
+      "10.1109-ISPCS.2013.6644754",
+      "10.1145-1298306.1298329",
+      "10.1109-TNET.2010.2096232",
+      "RFC7384",
+      "10.1109-ISPCS.2012.6336621",
+      "IETF.draft-janapath-intarea-traceflow-00"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=15 proseBlocks=24 skippedAnchorBlocks=17",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+      "updated": "2026-10-22T01:45:38.736Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "normative": [
+      "10.1109-IEEESTD.2008.4579760",
+      "RFC5905"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+      "updated": "2026-10-22T01:45:38.736Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8039/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+    "updated": "2026-10-22T01:45:38.736Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+      "updated": "2026-10-22T01:45:38.736Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+      "updated": "2026-10-22T01:45:38.736Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+      "updated": "2026-10-22T01:45:38.736Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+      "updated": "2026-10-22T01:45:38.736Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8039/",
+      "updated": "2026-10-22T01:45:38.736Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    }
+  }
+}

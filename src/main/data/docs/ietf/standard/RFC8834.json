@@ -1,0 +1,277 @@
+{
+  "abstract": "The framework for Web Real-Time Communication (WebRTC) provides support for direct interactive rich communication using audio, video, text, collaboration, games, etc. between two peers' web browsers. This memo describes the media transport aspects of the WebRTC framework. It specifies how the Real-time Transport Protocol (RTP) is used in the WebRTC context and gives requirements for which RTP features, profiles, and extensions need to be supported.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "authors": [
+    {
+      "name": "Colin Perkins"
+    },
+    {
+      "name": "Magnus Westerlund"
+    },
+    {
+      "name": "Joerg Ott"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docId": "RFC8834",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docLabel": "IETF RFC 8834",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docNumber": "8834",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docTitle": "Media Transport and Use of RTP in WebRTC",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "doi": "10.17487/RFC8834",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "href": "https://doi.org/10.17487/RFC8834",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "pages": "39",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publicationDate": "2021-01-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3611",
+      "RFC4383",
+      "RFC5576",
+      "RFC5968",
+      "RFC6263",
+      "RFC6792",
+      "RFC7478",
+      "RFC7656",
+      "RFC7657",
+      "RFC7667",
+      "RFC8088",
+      "RFC8445",
+      "RFC8829",
+      "RFC8830",
+      "RFC8836",
+      "RFC8837",
+      "RFC8872"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+      "updated": "2026-10-21T16:58:14.698Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2736",
+      "RFC3550",
+      "RFC3551",
+      "RFC3556",
+      "RFC3711",
+      "RFC4566",
+      "RFC4585",
+      "RFC4588",
+      "RFC4961",
+      "RFC5104",
+      "RFC5124",
+      "RFC5506",
+      "RFC5761",
+      "RFC5764",
+      "RFC6051",
+      "RFC6464",
+      "RFC6465",
+      "RFC6562",
+      "RFC6904",
+      "RFC7007",
+      "RFC7022",
+      "RFC7160",
+      "RFC7164",
+      "RFC7742",
+      "RFC7874",
+      "RFC8083",
+      "RFC8108",
+      "RFC8174",
+      "RFC8285",
+      "RFC8825",
+      "RFC8826",
+      "RFC8827",
+      "RFC8843",
+      "RFC8854",
+      "RFC8858",
+      "RFC8860",
+      "RFC8861",
+      "W3C.mediacapture-streams",
+      "W3C.webrtc"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+      "updated": "2026-10-21T16:58:14.698Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8834/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+    "updated": "2026-10-21T16:58:14.698Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+      "updated": "2026-10-21T16:58:14.698Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+      "updated": "2026-10-21T16:58:14.698Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+      "updated": "2026-10-21T16:58:14.698Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+      "updated": "2026-10-21T16:58:14.698Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8834/",
+      "updated": "2026-10-21T16:58:14.698Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "abstract": "The reoptimization of a Point-to-Multipoint (P2MP) Traffic Engineering (TE) Label Switched Path (LSP) may be triggered based on the need to reoptimize an individual source-to-leaf (S2L) sub-LSP or a set of S2L sub-LSPs, both using the Sub-Group-based reoptimization method, or the entire P2MP-TE LSP tree using the Make-Before-Break (MBB) method. This document discusses the application of the existing mechanisms for path reoptimization of loosely routed Point-to-Point (P2P) TE LSPs to the P2MP-TE LSPs, identifies issues in doing so, and defines procedures to address them. When reoptimizing a large number of S2L sub-LSPs in a tree using the Sub-Group-based reoptimization method, the S2L sub-LSP descriptor list may need to be semantically fragmented. This document defines the notion of a fragment identifier to help recipient nodes unambiguously reconstruct the fragmented S2L sub-LSP descriptor list.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "authors": [
+    {
+      "name": "Tarek Saad"
+    },
+    {
+      "name": "Rakesh Gandhi"
+    },
+    {
+      "name": "Zafar Ali"
+    },
+    {
+      "name": "Robert H. Venator"
+    },
+    {
+      "name": "Yuji Kamite"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docId": "RFC8149",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.413Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docLabel": "IETF RFC 8149",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.413Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docNumber": "8149",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.413Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docTitle": "RSVP Extensions for Reoptimization of Loosely Routed Point-to-Multipoint Traffic Engineering Label Switched Paths (LSPs)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "doi": "10.17487/RFC8149",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "href": "https://doi.org/10.17487/RFC8149",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "keywords": [
+    "RSVP Fragmentation",
+    "RSVP Fragment Identifier",
+    "P2MP"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "RSVP Fragmentation",
+      "RSVP Fragment Identifier",
+      "P2MP-TE Tree Reoptimization",
+      "P2MP-TE Tree Re-evaluation",
+      "Preferable P2MP-TE Tree",
+      "Inter-domain P2MP-TE"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T23:42:03.069Z",
+    "version": "extractDocs.js@commit:cc353c041d14"
+  },
+  "pages": "17",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publicationDate": "2017-04-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC3473",
+      "RFC5440",
+      "RFC5920",
+      "RFC6510"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=12 proseBlocks=13 skippedAnchorBlocks=11",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+      "updated": "2026-10-21T16:57:56.414Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2205",
+      "RFC3209",
+      "RFC4736",
+      "RFC4875",
+      "RFC5420"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+      "updated": "2026-10-21T16:57:56.414Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8149/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+    "updated": "2026-10-21T16:57:56.414Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+      "updated": "2026-10-21T16:57:56.414Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+      "updated": "2026-10-21T16:57:56.414Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+      "updated": "2026-10-21T16:57:56.414Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+      "updated": "2026-10-21T16:57:56.414Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8149/",
+      "updated": "2026-10-21T16:57:56.414Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  }
+}

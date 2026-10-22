@@ -1,0 +1,259 @@
+{
+  "abstract": "This document defines a Trust Anchor Locator (TAL) for the Resource Public Key Infrastructure (RPKI). The TAL allows Relying Parties in the RPKI to download the current Trust Anchor (TA) Certification Authority (CA) certificate from one or more locations and verify that the key of this self-signed certificate matches the key on the TAL. Thus, Relying Parties can be configured with TA keys but can allow these TAs to change the content of their CA certificate. In particular, it allows TAs to change the set of IP Address Delegations and/or Autonomous System Identifier Delegations included in the extension(s) (RFC 3779) of their certificate. This document obsoletes the previous definition of the TAL as provided in RFC 7730 by adding support for Uniform Resource Identifiers (URIs) (RFC 3986) that use HTTP over TLS (HTTPS) (RFC 7230) as the scheme.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "authors": [
+    {
+      "name": "Geoff Huston"
+    },
+    {
+      "name": "Sam Weiler"
+    },
+    {
+      "name": "George Michaelson"
+    },
+    {
+      "name": "Stephen Kent"
+    },
+    {
+      "name": "Tim Bruijnzeels"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docId": "RFC8630",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.126Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docLabel": "IETF RFC 8630",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docNumber": "8630",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docTitle": "Resource Public Key Infrastructure (RPKI) Trust Anchor Locator",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "doi": "10.17487/RFC8630",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "href": "https://doi.org/10.17487/RFC8630",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "pages": "11",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publicationDate": "2019-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "references": {
+    "bibliographic": [
+      "RFC4158",
+      "RFC5914",
+      "RFC6486"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=18 proseBlocks=23 skippedAnchorBlocks=20",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+      "updated": "2026-10-21T16:58:09.127Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3779",
+      "RFC3986",
+      "RFC4648",
+      "RFC5198",
+      "RFC5280",
+      "RFC5781",
+      "RFC6125",
+      "RFC6480",
+      "RFC6487",
+      "RFC7230",
+      "RFC7525",
+      "RFC7730",
+      "RFC8174",
+      "T-REC-X.509.2016"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+      "updated": "2026-10-21T16:58:09.127Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8630/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+    "updated": "2026-10-21T16:58:09.127Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+      "updated": "2026-10-21T16:58:09.127Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+      "updated": "2026-10-21T16:58:09.127Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+      "updated": "2026-10-21T16:58:09.127Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+      "updated": "2026-10-21T16:58:09.127Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+      "updated": "2026-10-21T16:58:09.127Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "supersedes": [
+      "RFC7730"
+    ],
+    "supersedes$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8630/",
+      "updated": "2026-10-21T16:58:09.127Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  }
+}

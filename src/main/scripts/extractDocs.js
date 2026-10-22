@@ -716,7 +716,8 @@ function parseOnlyArg() {
 const onlyList = parseOnlyArg();
 const onlyMatchesOne = (item, url) => {
   const u = String(url || '').toLowerCase().replace(/\/+$/, '');
-  const it = String(item || '').toLowerCase().replace(/\/+$/, '');
+  // a draft's registry ID names the same seed as its draft name: IETF.draft-foo-01 → draft-foo-01
+  const it = String(item || '').toLowerCase().replace(/\/+$/, '').replace(/^ietf\.(?=draft-)/, '');
   if (/^https?:\/\//.test(it)) return u === it;
   const rfc = it.match(/^rfc\s*0*(\d+)$/);
   if (rfc) return new RegExp(`/rfc${rfc[1]}$`).test(u);
@@ -1314,7 +1315,9 @@ for (const doc of results) {
   console.log(`💾 Wrote ${savedCount} per-doc registry file(s).`);
 
   // Keep the raw source the run parsed alongside the data it changed (provider opt-in).
-  if ((newDocs.length || updatedDocs.length) && typeof activeProvider.parser.persistSourceSnapshots === 'function') {
+  // Not on an --only run: it fetched just the listed seeds, so a newer snapshot would hide
+  // index changes to RFCs it skipped from the next incremental run.
+  if (!onlyList && (newDocs.length || updatedDocs.length) && typeof activeProvider.parser.persistSourceSnapshots === 'function') {
     try {
       for (const p of activeProvider.parser.persistSourceSnapshots()) console.log(`🗄️ Saved source snapshot: ${p}`);
     } catch (e) {

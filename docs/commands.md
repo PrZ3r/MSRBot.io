@@ -71,7 +71,7 @@ This is the canonical CLI reference for local scripts in `package.json`.
 - `npm run extract-ietf`
   - Runs: `node src/main/scripts/extractDocs.js --provider ietf`
   - Action: Extracts/updates IETF-seeded docs, references, and provenance metadata.
-  - `--only <ids|urls|file.json>`: process just these seeds, even ones on the filter list, e.g. `npm run extract-ietf -- --only RFC7595,RFC7615`. Takes doc IDs, seed URLs or draft names (comma-separated), or a JSON array file. For working through a backlog in batches without re-extracting every unfiltered seed.
+  - `--only <ids|urls|file.json>`: process just these seeds, even ones on the filter list, e.g. `npm run extract-ietf -- --only RFC7595,RFC7615`. Takes doc IDs (`RFC7595`, `IETF.draft-foo-01`), seed URLs or draft names (comma-separated), or a JSON array file. It leaves the RFC index snapshot alone, so the next incremental run still sees index changes to RFCs it skipped. For working through a backlog in batches without re-extracting every unfiltered seed.
   - Incremental by default: an RFC we hold is fetched only when its `rfc-index.xml` entry differs from the committed snapshot (`src/main/input/sources/ietf/rfc-index.xml`). Status changes (obsoleted-by, updated-by, current status, is-also, errata) all show up there; a published RFC's text never changes. New seeds and drafts are always fetched. If a changed RFC fails to extract, the snapshot isn't updated, so it's retried next run.
   - `--full`: fetch every seed, e.g. after a parser change. On GitHub, tick **full** when running *Extract Documents - IETF* manually; scheduled runs are never full.
   - Seeds are fetched 4 at a time (`MSR_FETCH_CONCURRENCY` overrides), with a progress line every 50 (`MSR_HEARTBEAT_EVERY`).

@@ -1145,6 +1145,10 @@ function otherSeriesRfc(text) {
 // (10.5594) is never touched: its registry keeps J and j DOIs as different documents.
 //   NIST: series uppercase (FIPS, SP), a part letter uppercase (800-56A), "pt" and the "r"
 //   revision lowercase (800-57pt1r5, 800-56Ar3) — NIST's DOI spelling.
+// A cite's "Accessed: Nov. 19, 2022" (or "Retrieved …") is when the link was read, not the edition.
+function citeWithoutAccessDate(text) {
+  return String(text || '').replace(/\b(?:Accessed|Retrieved|Last\s+accessed)(?:\s+on)?:?\s*(?:[A-Z][a-z]{2,8}\.?\s+)?(?:\d{1,2}(?:st|nd|rd|th)?,?\s*)?(?:[A-Z][a-z]{2,8}\.?,?\s+)?(?:19|20)\d{2}\b/gi, ' ');
+}
 function canonicalNistNumber(num) {
   return String(num || '').toUpperCase().replace(/PT(?=\d)/g, 'pt').replace(/-UPD(\d+)/g, '-upd$1').replace(/R(\d+)$/, 'r$1');
 }
@@ -1196,8 +1200,10 @@ function parseRefId(text, href = '', opts = {}) {
     .replace(/\bANSI\s+Std\.?\s+(?=X\d)/g, 'ANSI ')
     .replace(/\b(X\d{1,2}\.\d{1,3}):((?:19|20)\d{2})\b/g, '$1-$2')
     .replace(/\b((?:REC|CR|PR|WD|NOTE)-[A-Za-z][\w.-]*-)\s+((?:19|20)\d{6})\b/g, '$1$2')
-    // "ITU-T Recommedation Y.2111" (RFC5431)
-    .replace(/\bRecommedation\b/g, 'Recommendation');
+    // "ITU-T Recommedation Y.2111" (RFC5431), "ITU-T Recomendation G.8271/Y.1366" (RFC8169)
+    .replace(/\bReco(?:mmedation|mendation)\b/g, 'Recommendation')
+    // 'ITU-T, "…", Series H H.239, July 2003' (RFC4796)
+    .replace(/\bSeries\s+([A-Z])\s+(?=\1\.\d)/g, 'Recommendation ');
   text = String(text || '').replace(/\bANSI\s*\/\s*INCITS\b/g, 'ANSI INCITS')
     .replace(/\bINCITS[.\s](\d{2,4})(?::|-)((?:19|20)\d{2})\b/g, 'INCITS $1-$2')
     .replace(/\b(REC|WD|CR|PR|NOTE)-\s+([a-z][\w.-]*-(?:19|20)\d{6})\b/g, '$1-$2');
@@ -1206,6 +1212,14 @@ function parseRefId(text, href = '', opts = {}) {
   // No link: use a URL printed in the citation (old RFCs), rejoining one wrapped
   // across lines ("…/TR/2000/WD-xsl- 20000327/xslspec.html", RFC3075).
   if (!href) href = urlFromCiteText(text);
+  // A 3GPP spec named only by its DynaReport link: '3GPP, "…", version 18.4.0, September 2023,
+  // <https://www.3gpp.org/DynaReport/24008.htm>' (RFC9463). The link gives the number; the
+  // 3GPP rule below dates it from the cite.
+  {
+    const m = /\b3GPP\b/.test(String(text || '')) && !/\bT[SR]\s*\d{2}\.\d{3}\b/.test(String(text || ''))
+      && String(href || '').match(/3gpp\.org\/DynaReport\/(\d{2})(\d{3})\.htm/i);
+    if (m) text = `${String(text).trim()} 3GPP TS ${m[1]}.${m[2]}`;
+  }
 
   // --- ALLPARTS hinting from cite text ---
   // Some sources explicitly cite a standard as "(all parts)". Preserve that intent
@@ -1850,7 +1864,7 @@ function parseRefId(text, href = '', opts = {}) {
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'itut-designator-lead' } } : refId;
     }
     // 'International Telecommunication Union, "X.700: Management Framework …", September 1992' (RFC6632)
-    const spelledTitle = String(text || '').match(/\bInternational\s+Telecommunications?\s+Union,\s*["“]([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s*:/);
+    const spelledTitle = String(text || '').match(/(?:\bInternational\s+Telecommunications?\s+Union|^\s*ITU(?:-T)?),\s*["“]([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)\s*:/);
     if (spelledTitle) {
       const after = String(text || '').slice(spelledTitle.index + spelledTitle[0].length);
       const y = (after.match(/["”][^"”]*?\b((?:19|20)\d{2})\b/) || [])[1] || '';
@@ -2087,7 +2101,7 @@ function parseRefId(text, href = '', opts = {}) {
   {
     const m = /\bIEEE\b|Institute\s+of\s+Electrical/.test(String(text || ''))
       // also other IEEE numbers: '"1588-2008 IEEE Standard for a Precision Clock …"' (RFC6669)
-      && String(text || '').match(/(?<![\w.])(802(?:\.\d+[A-Za-z]{0,3})?|\d{3,4}(?:\.\d+)?)-((?:19|20)\d{2}),?\s+IEEE\s+Standard\b/);
+      && String(text || '').match(/(?<![\w.])(802(?:\.\d+[A-Za-z]{0,3})?|\d{3,4}(?:\.\d+)?)-((?:19|20)\d{2}),?\s+(?:IEEE\s+)?Standard\b/);
     if (m) {
       const refId = `IEEE.STD${m[1].replace(/[a-z]+$/, (x) => x.toUpperCase())}.${m[2]}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'ieee-802-catalogue' } } : refId;
@@ -2107,10 +2121,14 @@ function parseRefId(text, href = '', opts = {}) {
     const inQuote = hasIeee && (src.match(/\bIEEE\s+(802(?:\.\d+[A-Za-z]{0,3})?)["”],?\s*(?:[A-Z][a-z]+\.?\s+)?((?:19|20)\d{2})\b/)
       || src.match(/^\s*["“]IEEE\s+(802(?:\.\d+[A-Za-z]{0,3})?),[^"”]{4,300}["”],?\s*(?:[A-Z][a-z]+\.?\s+)?((?:19|20)\d{2})\b/));
     const closing = hasIeee && /^\s*IEEE\b/.test(src)
-      && src.match(/["”],?\s*IEEE\s+(?:Standard\s+|Std\.?\s+)?(802(?:\.\d+[A-Za-z]{0,3})*|\d{3,4}(?:\.\d+)?)\s*[.,]?\s*(?:(?:<|&lt;)\s*https?:[^\s>&]+\s*(?:>|&gt;)|https?:\S+)?\s*\.?\s*$/);
+      && src.match(/["”],?\s*IEEE\s+(?:Standard\s+|Std\.?\s+)?(802(?:\.\d+[A-Za-z]{0,3})*|\d{3,4}(?:\.\d+)?)\s*[.,]?\s*(?:(?:<|&lt;)\s*https?:[^<>]*?(?:>|&gt;)|https?:\S+)?\s*\.?\s*$/);
     const hit = std || inQuote;
     if (hit || closing) {
-      const refId = hit ? `IEEE.STD${up(hit[1])}.${hit[2]}` : `IEEE.STD${up(closing[1])}`;
+      // an undated closing designator takes the edition from its linked page:
+      // '…", IEEE Standard 1588, <https://standards.ieee.org/findstds/standard/1588-2008.html>.' (RFC8578)
+      const page = !hit && String(href || '').match(/standards\.ieee\.org\/(?:findstds\/)?standard\/(\d{3,4}(?:[._]\d+)*[A-Za-z]{0,3})-((?:19|20)\d{2})\.html/i);
+      const pageYear = page && up(page[1].replace(/_/g, '.')).toUpperCase() === up(closing[1]).toUpperCase() ? `.${page[2]}` : '';
+      const refId = hit ? `IEEE.STD${up(hit[1])}.${hit[2]}` : `IEEE.STD${up(closing[1])}${pageYear}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: std ? 'ieee-std-dot' : inQuote ? 'ieee-in-quote' : 'ieee-closing' } } : refId;
     }
   }
@@ -2156,6 +2174,29 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
+  // ISO's publicly available standards name the file after the standard: 'ISO, "… Part 4:
+  // Management Framework", November 1989, <http://standards.iso.org/ittf/PubliclyAvailableStandards/
+  // s014258_ISO_IEC_7498-4_1989(E).zip>' (RFC7927) → ISO.7498-4.1989
+  {
+    const m = `${String(text || '')} ${String(href || '')}`.match(/PubliclyAvailableStandards\/\s*s\d{6}_ISO(?:_IEC)?_(\d{3,5}(?:-\d+)*)_((?:19|20)\d{2})/i);
+    if (m) {
+      const refId = `ISO.${m[1]}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-pas-file' } } : refId;
+    }
+  }
+
+  // ETSI Group Specifications and Reports: "ETSI GS NFV 003 V1.2.1", "ETSI GS NFV-EVE 005 V1.1.1"
+  //   (RFC8568), "ETSI GR NFV 001 V1.2.1" (RFC8192) → ETSI.GS-NFV-003.2014, ETSI.GR-NFV-001.2017
+  {
+    const src = String(text || '');
+    const m = src.match(/\bETSI\s+(GS|GR)\s+([A-Z]{2,6}(?:-[A-Z]{2,6})?)[\s-]+(\d{3})\b/);
+    if (m) {
+      const y = (src.match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `ETSI.${m[1]}-${m[2]}-${m[3]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'etsi-gs' } } : refId;
+    }
+  }
+
   // ETSI: "ETSI TS 101 154", "ETSI ETS-300706", "ETSI EN 300 743" → ETSI.TS-101-154[.year]
   //   also "ETSI Standard EN 300 429", and a citation that opens with an ETSI EN number
   //   and no "ETSI": "EN 300 001 V1.5.1 (1998-10)", "EN 300 659-1" (RFC4682)
@@ -2164,7 +2205,10 @@ function parseRefId(text, href = '', opts = {}) {
     const m = src.match(/\bETSI\s+(?:Standard\s+)?(TS|TR|EN|ES|ETS|ETR)[\s‐-―-]+(\d[\d\s‐-―-]*\d)/i)
       || src.match(/^\s*(EN)\s+(3\d\d[\s‐-―-]\d{3}(?:-\d+)?)\b/)
       // "GSM 03.20 (ETS 300 534)" (RFC4186)
-      || src.match(/\((ETS)\s+(3\d\d\s\d{3})\)/);
+      || src.match(/\((ETS)\s+(3\d\d\s\d{3})\)/)
+      // ETSI leading, the number after the title: 'ETSI, "Digital Audio Compression (AC-3, Enhanced
+      // AC-3) Standard", TS 102 366, February 2005' (RFC4598)
+      || (/^\s*ETSI\b/.test(src) && src.match(/["”],?\s*(TS|TR|EN|ES)\s+(\d{3}\s\d{3}(?:-\d+)?)\b/));
     if (m) {
       const num = m[2].replace(/[\s‐-―-]+/g, '-');
       const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];
@@ -2486,11 +2530,51 @@ function parseRefId(text, href = '', opts = {}) {
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-hyphen designator' } } : refId;
     }
   }
+  // An IEC Technical Report or Specification: "IEC TR 61850-90-12, July 2015" (RFC8578) →
+  // IEC.TR61850-90-12, spelled like ISO's "ISO.TR29170-1"; dated only by a ":year".
+  {
+    const m = String(text || '').match(/(?<!\/\s*)\bIEC\s+(TR|TS)\s+(\d[\d-]*\d)(?::((?:19|20)\d{2}))?/);
+    if (m) {
+      const refId = `IEC.${m[1]}${m[2]}${m[3] ? `.${m[3]}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iec-tr-ts' } } : refId;
+    }
+  }
   {
     const best = pickBestStdMatch(/\bIEC\s+([\d\-]+)(:[\dA-Za-z+:\.-]+)?/ig);
     if (best) {
       const refId = `IEC.${best.base}${best.year ? `.${best.year}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iec designator' } } : refId;
+    }
+  }
+
+  // Last resort, after every text rule: a cite naming no designator the rules read, linked to
+  // its ITU or IEEE page. (Earlier, the page would override a DOI or a cited edition.)
+  // ITU-T Recommendation pages: …/rec/T-REC-G.8013-201508-I/en → T-REC-G.8013.2015 (RFC8924).
+  // An undated page (…/rec/T-REC-H.264) takes the cite's year.
+  {
+    const m = !/!(?:Add|Amd|Cor|Sup)/i.test(String(href || ''))
+      && String(href || '').match(/itu\.int\/rec\/T-REC-([A-Z])\.(\d{1,4}(?:\.\d{1,2})?)(?:(?:-|&#x2013;|–)((?:19|20)\d{2})\d{2})?(?![\d.A-Za-z])/i);
+    if (m) {
+      const y = m[3] || (citeWithoutAccessDate(text).match(/\b(?:19|20)\d{2}\b/) || [])[0];
+      const refId = `T-REC-${m[1].toUpperCase()}.${m[2]}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'itu-rec-page' } } : refId;
+    }
+  }
+  // IEEE standard pages: …/standard/802_1Q-2018.html, …/findstds/standard/1588-2008.html
+  // (RFC9181, RFC8578) → IEEE.STD802.1Q.2018; …/ieee/802.1AR/6995/ (RFC9646) takes the cite's year.
+  {
+    const up = (d) => d.replace(/[a-z]+$/, (x) => x.toUpperCase());
+    const page = String(href || '').match(/standards\.ieee\.org\/(?:findstds\/)?standard\/(\d{3,4}(?:[._]\d+)*[A-Za-z]{0,3})-((?:19|20)\d{2})\.html/i);
+    const cat = !page && String(href || '').match(/standards\.ieee\.org\/ieee\/(\d{3,4}(?:\.\d+[A-Za-z]{0,3})?)\/\d+\/?$/i);
+    if (page || cat) {
+      const num = up((page || cat)[1].replace(/_/g, '.'));
+      // a year printed with the same number wins over the page's: '"1722-2001 - IEEE Standard …",
+      // <…/1722-2011.html>' (RFC7273) stays IEEE.STD1722.2001, as cited
+      const esc = num.replace(/\./g, '\\.');
+      const printed = (String(text || '').match(new RegExp(`(?<![\\d.])${esc}-((?:19|20)\\d{2})\\b`, 'i')) || [])[1];
+      const y = printed || (page ? page[2] : (citeWithoutAccessDate(text).match(/\b(?:19|20)\d{2}\b/) || [])[0]);
+      const refId = `IEEE.STD${num}${y ? `.${y}` : ''}`;
+      return wantDiag ? { refId, diag: { mapSource: 'href', mapDetail: 'ieee-std-page' } } : refId;
     }
   }
 

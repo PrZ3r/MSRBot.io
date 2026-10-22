@@ -1,0 +1,294 @@
+{
+  "abstract": "The System for Cross-domain Identity Management (SCIM) specifications are designed to make identity management in cloud-based applications and services easier. The specification suite builds upon experience with existing schemas and deployments, placing specific emphasis on simplicity of development and integration, while applying existing authentication, authorization, and privacy models. Its intent is to reduce the cost and complexity of user management operations by providing a common user schema and extension model as well as binding documents to provide patterns for exchanging this schema using HTTP. This document provides a platform-neutral schema and extension model for representing users and groups and other resource types in JSON format. This schema is intended for exchange and use with cloud service providers.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "authors": [
+    {
+      "name": "Phil Hunt"
+    },
+    {
+      "name": "Kelly Grizzle"
+    },
+    {
+      "name": "Erik Wahlstroem"
+    },
+    {
+      "name": "Chuck Mortimore"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docId": "RFC7643",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docLabel": "IETF RFC 7643",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docNumber": "7643",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docTitle": "System for Cross-domain Identity Management: Core Schema",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "doi": "10.17487/RFC7643",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "href": "https://doi.org/10.17487/RFC7643",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "keywords": [
+    "Media Identity",
+    "Provisioning"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "pages": "104",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publicationDate": "2015-09-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "references": {
+    "bibliographic": [
+      "ISO.3166-1.2013",
+      "RFC2277",
+      "RFC4512",
+      "RFC5226",
+      "RFC6350",
+      "RFC6749",
+      "RFC6819",
+      "W3C.xmlschema11-2",
+      "orphan/RFC7643/h:12658561",
+      "orphan/RFC7643/h:6ea9197d"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=27 proseBlocks=35 skippedAnchorBlocks=30",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+      "updated": "2026-10-21T16:57:50.532Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC2141",
+      "RFC3553",
+      "RFC3629",
+      "RFC3966",
+      "RFC3986",
+      "RFC4647",
+      "RFC4648",
+      "RFC5234",
+      "RFC5280",
+      "RFC5321",
+      "RFC5646",
+      "RFC6557",
+      "RFC7159",
+      "RFC7231",
+      "RFC7232",
+      "RFC7644"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+      "updated": "2026-10-21T16:57:50.532Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7643/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+    "updated": "2026-10-21T16:57:50.532Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+      "updated": "2026-10-21T16:57:50.532Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "amendedBy": [
+      "RFC9865",
+      "RFC9967"
+    ],
+    "amendedBy$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+      "updated": "2026-10-21T16:57:50.532Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+      "updated": "2026-10-21T16:57:50.532Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc7643",
+      "https://www.rfc-editor.org/errata_search.php?rfc=7643",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc7643.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+      "updated": "2026-10-21T16:57:50.532Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+      "updated": "2026-10-21T16:57:50.532Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+      "updated": "2026-10-21T16:57:50.532Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7643/",
+      "updated": "2026-10-21T16:57:50.532Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  }
+}

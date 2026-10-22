@@ -1,0 +1,286 @@
+{
+  "abstract": "This document defines a practical architecture and protocols for offering privacy for a user who requests and uses an X.509 certificate containing a pseudonym, while still retaining the ability to map such a certificate to the real user who requested it. The architecture is compatible with IETF certificate request formats such as PKCS10 (RFC 2986) and CMC (RFC 5272). The architecture separates the authorities involved in issuing a certificate: one for verifying ownership of a private key (Blind Issuer) and the other for validating the contents of a certificate (Anonymity Issuer). The end entity (EE) certificates issued under this model are called Traceable Anonymous Certificates (TACs). This memo defines an Experimental Protocol for the Internet community.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "authors": [
+    {
+      "name": "Sanghwan Park"
+    },
+    {
+      "name": "Haeryong Park"
+    },
+    {
+      "name": "Yoojae Won"
+    },
+    {
+      "name": "Jaeil Lee"
+    },
+    {
+      "name": "Stephen Kent"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docId": "RFC5636",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docLabel": "IETF RFC 5636",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docNumber": "5636",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docTitle": "Traceable Anonymous Certificate",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "doi": "10.17487/RFC5636",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "href": "https://doi.org/10.17487/RFC5636",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "keywords": [
+    "X.509",
+    "Blind Issuer",
+    "Anonymity Issuer",
+    "Traceable Anonymous Certificate",
+    "End Entity"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "X.509",
+      "Blind Issuer",
+      "Anonymity Issuer",
+      "Tacs",
+      "End Entity",
+      "Ee"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T23:40:48.068Z",
+    "version": "extractDocs.js@commit:cc353c041d14"
+  },
+  "pages": "31",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publicationDate": "2009-08-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "references": {
+    "bibliographic": [
+      "T-REC-X.509.2000",
+      "RFC2560",
+      "RFC5246",
+      "RFC3850",
+      "RFC3280",
+      "orphan/RFC5636/h:1e72cb0b",
+      "orphan/RFC5636/h:f4d43323",
+      "orphan/RFC5636/h:b971a776",
+      "orphan/RFC5636/h:9ec1f56b",
+      "orphan/RFC5636/h:2b54d463",
+      "orphan/RFC5636/h:0a608e00",
+      "orphan/RFC5636/h:55401bca"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=18 proseBlocks=23 skippedAnchorBlocks=21",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+      "updated": "2026-10-21T16:57:41.009Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC5280",
+      "RFC2986",
+      "RFC5272",
+      "RFC4211",
+      "RFC3852",
+      "RFC2985"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+      "updated": "2026-10-21T16:57:41.009Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc5636/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+    "updated": "2026-10-21T16:57:41.009Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+      "updated": "2026-10-21T16:57:41.009Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+      "updated": "2026-10-21T16:57:41.009Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc5636",
+      "https://www.rfc-editor.org/errata_search.php?rfc=5636",
+      "https://www.rfc-editor.org/rfc/inline-errata/rfc5636.html"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+      "updated": "2026-10-21T16:57:41.009Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+      "updated": "2026-10-21T16:57:41.009Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+      "updated": "2026-10-21T16:57:41.009Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5636/",
+      "updated": "2026-10-21T16:57:41.009Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  }
+}

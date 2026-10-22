@@ -1,0 +1,329 @@
+{
+  "abstract": "This document specifies Ephemeral Diffie-Hellman Over COSE (EDHOC), a very compact and lightweight authenticated Diffie-Hellman key exchange with ephemeral keys. EDHOC provides mutual authentication, forward secrecy, and identity protection. EDHOC is intended for usage in constrained scenarios, and a main use case is to establish an Object Security for Constrained RESTful Environments (OSCORE) security context. By reusing CBOR Object Signing and Encryption (COSE) for cryptography, Concise Binary Object Representation (CBOR) for encoding, and Constrained Application Protocol (CoAP) for transport, the additional code size can be kept very low.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "authors": [
+    {
+      "name": "Göran Selander"
+    },
+    {
+      "name": "John Preuß Mattsson"
+    },
+    {
+      "name": "Francesca Palombini"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docId": "RFC9528",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docLabel": "IETF RFC 9528",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docNumber": "9528",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docTitle": "Ephemeral Diffie-Hellman Over COSE (EDHOC)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "doi": "10.17487/RFC9528",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "href": "https://doi.org/10.17487/RFC9528",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "keywords": [
+    "AKE",
+    "LAKE",
+    "COSE",
+    "OSCORE",
+    "Constrained-node Network",
+    "IoT Security"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "AKE",
+      "LAKE",
+      "COSE",
+      "OSCORE",
+      "Lightweight Authenticated Key Exchange",
+      "Constrained Node Networks",
+      "IoT Security"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T23:43:41.982Z",
+    "version": "extractDocs.js@commit:cc353c041d14"
+  },
+  "pages": "82",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publicationDate": "2024-03-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-ietf-cose-cbor-encoded-cert-09",
+      "IETF.draft-ietf-iotops-security-protocol-comparison-04",
+      "IETF.draft-ietf-lwig-curve-representations-23",
+      "IETF.draft-ietf-rats-eat-25",
+      "IETF.draft-ietf-core-oscore-edhoc-10",
+      "IETF.draft-irtf-cfrg-det-sigs-with-noise-02",
+      "10.1109-IEEESTD.2016.7460875",
+      "IETF.draft-ietf-core-oscore-key-update-07",
+      "IETF.draft-ietf-lake-authz-01",
+      "IETF.draft-ietf-lake-reqs-04",
+      "RFC2986",
+      "RFC5280",
+      "RFC6194",
+      "RFC7228",
+      "RFC7258",
+      "RFC7296",
+      "RFC7624",
+      "RFC8366",
+      "RFC8376",
+      "RFC8446",
+      "RFC8937",
+      "RFC9000",
+      "RFC9147",
+      "RFC9176",
+      "RFC9397",
+      "RFC9529",
+      "SECG.SEC1.v2.2009-05",
+      "NIST.SP.800-108R1-upd1",
+      "NIST.SP.800-56Ar3",
+      "NIST.SP.800-185",
+      "IETF.draft-arkko-arch-internet-threat-model-guidance-00",
+      "orphan/RFC9528/h:32014365",
+      "orphan/RFC9528/h:9ddb6045",
+      "orphan/RFC9528/h:56f822cb",
+      "orphan/RFC9528/h:874ef13e",
+      "orphan/RFC9528/h:12dd5335",
+      "orphan/RFC9528/h:f913aa3b",
+      "orphan/RFC9528/h:e9107d33",
+      "orphan/RFC9528/h:ba8d512c",
+      "orphan/RFC9528/h:3b8b072e",
+      "orphan/RFC9528/h:7afc947f",
+      "orphan/RFC9528/h:c63a7e8c",
+      "orphan/RFC9528/h:386bc306",
+      "orphan/RFC9528/h:ce463d03"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+      "updated": "2026-10-21T16:58:29.536Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC3279",
+      "RFC3552",
+      "RFC5116",
+      "RFC5869",
+      "RFC6090",
+      "RFC6960",
+      "RFC6979",
+      "RFC7252",
+      "RFC7748",
+      "RFC7959",
+      "RFC8126",
+      "RFC8174",
+      "RFC8392",
+      "RFC8410",
+      "RFC8610",
+      "RFC8613",
+      "RFC8724",
+      "RFC8742",
+      "RFC8747",
+      "RFC8949",
+      "RFC9052",
+      "RFC9053",
+      "RFC9175",
+      "RFC9360"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+      "updated": "2026-10-21T16:58:29.536Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9528/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+    "updated": "2026-10-21T16:58:29.536Z",
+    "version": "extractDocs.js@commit:2c1e5418e9d0"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+      "updated": "2026-10-21T16:58:29.536Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataExist": true,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+      "updated": "2026-10-21T16:58:29.536Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "errataUrl": [
+      "https://www.rfc-editor.org/errata/rfc9528",
+      "https://www.rfc-editor.org/errata_search.php?rfc=9528"
+    ],
+    "errataUrl$meta": {
+      "confidence": "high",
+      "note": "Parsed from errata links on RFC/Datatracker pages",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+      "updated": "2026-10-21T16:58:29.536Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+      "updated": "2026-10-21T16:58:29.536Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+      "updated": "2026-10-21T16:58:29.536Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9528/",
+      "updated": "2026-10-21T16:58:29.536Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    }
+  }
+}
