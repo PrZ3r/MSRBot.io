@@ -1,0 +1,289 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T19:31:08.822Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6056",
+  "document": {
+    "abstract": "During the last few years, awareness has been raised about a number of \"blind\" attacks that can be performed against the Transmission Control Protocol (TCP) and similar protocols. The consequences of these attacks range from throughput reduction to broken connections or data corruption. These attacks rely on the attacker's ability to guess or know the five-tuple (Protocol, Source Address, Destination Address, Source Port, Destination Port) that identifies the transport protocol instance to be attacked. This document describes a number of simple and efficient methods for the selection of the client port number, such that the possibility of an attacker guessing the exact value is reduced. While this is not a replacement for cryptographic methods for protecting the transport-protocol instance, the aforementioned port selection algorithms provide improved security with very little effort and without any key management overhead. The algorithms described in this document are local policies that may be incrementally deployed and that do not violate the specifications of any of the transport protocols that may benefit from them, such as TCP, UDP, UDP-lite, Stream Control Transmission Protocol (SCTP), Datagram Congestion Control Protocol (DCCP), and RTP (provided that the RTP application explicitly signals the RTP and RTCP port numbers). This memo documents an Internet Best Current Practice.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "authors": [
+      {
+        "name": "Michael Larsen"
+      },
+      {
+        "name": "Fernando Gont"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docId": "RFC6056",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docLabel": "IETF RFC 6056",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docNumber": "6056",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docTitle": "Recommendations for Transport-Protocol Port Randomization",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docType": "Best Practice",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "doi": "10.17487/RFC6056",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "href": "https://doi.org/10.17487/RFC6056",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "keywords": [
+      "TCP",
+      "Blind Attacks"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "TCP",
+        "Transmission Control Protocl",
+        "Blind Attacks"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T19:31:08.822Z",
+      "version": "extractDocs.js@commit:75b379398159"
+    },
+    "pages": "29",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publicationDate": "2011-01-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "references": {
+      "bibliographic": [
+        "IANA",
+        "RFC1337",
+        "RFC1948",
+        "RFC2663",
+        "RFC4953",
+        "RFC5925",
+        "RFC5927",
+        "orphan/RFC6056/h:f8e77f0a",
+        "orphan/RFC6056/h:8bc585db",
+        "orphan/RFC6056/h:14e2b70f",
+        "orphan/RFC6056/h:d0c64da8",
+        "orphan/RFC6056/h:3cc97589",
+        "orphan/RFC6056/h:d2d959b5",
+        "orphan/RFC6056/h:946487f9",
+        "orphan/RFC6056/h:081ed5a5",
+        "orphan/RFC6056/h:c3e7b161",
+        "orphan/RFC6056/h:39bc84f8",
+        "orphan/RFC6056/h:47f2d3f7",
+        "orphan/RFC6056/h:b9c0a1db"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=35 proseBlocks=40 skippedAnchorBlocks=37",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+        "updated": "2026-10-16T18:56:41.752Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "normative": [
+        "RFC768",
+        "RFC793",
+        "RFC1321",
+        "RFC2119",
+        "RFC2385",
+        "RFC3550",
+        "RFC3605",
+        "RFC3828",
+        "RFC4086",
+        "RFC4301",
+        "RFC4340",
+        "RFC4787",
+        "RFC4960",
+        "RFC5382"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+        "updated": "2026-10-16T18:56:41.752Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6056/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+      "updated": "2026-10-16T18:56:41.752Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+        "updated": "2026-10-16T18:56:41.752Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+        "updated": "2026-10-16T18:56:41.752Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc6056",
+        "https://www.rfc-editor.org/errata_search.php?rfc=6056",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc6056.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+        "updated": "2026-10-16T18:56:41.752Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+        "updated": "2026-10-16T18:56:41.752Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "statusNote": "Best Current Practice",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+        "updated": "2026-10-16T18:56:41.752Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6056/",
+        "updated": "2026-10-16T18:56:41.752Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    }
+  }
+}

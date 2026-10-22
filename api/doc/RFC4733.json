@@ -1,0 +1,303 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-13T22:23:52.539Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC4733",
+  "document": {
+    "abstract": "This memo describes how to carry dual-tone multifrequency (DTMF) signalling, other tone signals, and telephony events in RTP packets. It obsoletes RFC 2833. This memo captures and expands upon the basic framework defined in RFC 2833, but retains only the most basic event codes. It sets up an IANA registry to which other event code assignments may be added. Companion documents add event codes to this registry relating to modem, fax, text telephony, and channel-associated signalling events. The remainder of the event codes defined in RFC 2833 are conditionally reserved in case other documents revive their use. This document provides a number of clarifications to the original document. However, it specifically differs from RFC 2833 by removing the requirement that all compliant implementations support the DTMF events. Instead, compliant implementations taking part in out-of-band negotiations of media stream content indicate what events they support. This memo adds three new procedures to the RFC 2833 framework: subdivision of long events into segments, reporting of multiple events in a single packet, and the concept and reporting of state events. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "authors": [
+      {
+        "name": "Henning Schulzrinne"
+      },
+      {
+        "name": "Tom Taylor"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docId": "RFC4733",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docLabel": "IETF RFC 4733",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docNumber": "4733",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docTitle": "RTP Payload for DTMF Digits, Telephony Tones, and Telephony Signals",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "doi": "10.17487/RFC4733",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "href": "https://doi.org/10.17487/RFC4733",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "keywords": [
+      "RTP",
+      "DTMF"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "pages": "49",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "publicationDate": "2006-12-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2833",
+        "RFC3551",
+        "RFC4040",
+        "RFC4103",
+        "RFC4734",
+        "T-REC-E.180.1998",
+        "T-REC-G.711.1988",
+        "T-REC-G.723.1996",
+        "T-REC-G.729.1996",
+        "T-REC-Q.931.1998",
+        "T-REC-T.38.2003",
+        "T-REC-V.8.2000",
+        "T-REC-V.150.2003",
+        "T-REC-V.152.2005",
+        "T-REC-V.18.2000",
+        "orphan/RFC4733/h:39d59df5"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=27 proseBlocks=33 skippedAnchorBlocks=31",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC2198",
+        "RFC2434",
+        "RFC3264",
+        "RFC3550",
+        "RFC3555",
+        "RFC3711",
+        "RFC4288",
+        "RFC4566",
+        "T-REC-Q.23.1988",
+        "T-REC-Q.24.1988"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc4733/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+      "updated": "2026-10-13T22:23:52.539Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "amendedBy": [
+        "RFC4734",
+        "RFC5244"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc4733",
+        "https://www.rfc-editor.org/errata_search.php?rfc=4733",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc4733.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "supersedes": [
+        "RFC2833"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4733/",
+        "updated": "2026-10-13T22:23:52.539Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      }
+    }
+  }
+}

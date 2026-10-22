@@ -1,0 +1,272 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-15T16:40:46.640Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC4206",
+  "document": {
+    "abstract": "To improve scalability of Generalized Multi-Protocol Label Switching (GMPLS) it may be useful to aggregate Label Switched Paths (LSPs) by creating a hierarchy of such LSPs. A way to create such a hierarchy is by (a) a Label Switching Router (LSR) creating a Traffic Engineering Label Switched Path (TE LSP), (b) the LSR forming a forwarding adjacency (FA) out of that LSP (by advertising this LSP as a Traffic Engineering (TE) link into the same instance of ISIS/OSPF as the one that was used to create the LSP), (c) allowing other LSRs to use FAs for their path computation, and (d) nesting of LSPs originated by other LSRs into that LSP (by using the label stack construct). This document describes the mechanisms to accomplish this. [PROPOSED STANDARD]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "authors": [
+      {
+        "name": "Kireeti Kompella"
+      },
+      {
+        "name": "Yakov Rekhter"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docId": "RFC4206",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docLabel": "IETF RFC 4206",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docNumber": "4206",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docTitle": "Label Switched Paths (LSP) Hierarchy with Generalized Multi-Protocol Label Switching (GMPLS) Traffic Engineering (TE)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "doi": "10.17487/RFC4206",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "href": "https://doi.org/10.17487/RFC4206",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "keywords": [
+      "LSR",
+      "TE LSP",
+      "Forwarding Adjacency"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Lsr",
+        "Label Switching Router",
+        "Te Lsp",
+        "Fa",
+        "Forwarding Adjacency"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-15T16:40:46.640Z",
+      "version": "extractDocs.js@commit:0f51bb226575"
+    },
+    "pages": "14",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publicationDate": "2005-10-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC4201",
+        "RFC4204"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=15 proseBlocks=17 skippedAnchorBlocks=15",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+        "updated": "2026-10-14T18:50:20.187Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "normative": [
+        "RFC3472",
+        "RFC4205",
+        "RFC4203",
+        "RFC3473",
+        "RFC3471",
+        "RFC3784",
+        "RFC3036",
+        "RFC3630",
+        "RFC3480",
+        "RFC3477",
+        "RFC2119",
+        "RFC2747"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+        "updated": "2026-10-14T18:50:20.187Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc4206/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+      "updated": "2026-10-14T18:50:20.186Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+        "updated": "2026-10-14T18:50:20.186Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "amendedBy": [
+        "RFC6001",
+        "RFC6107"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+        "updated": "2026-10-14T18:50:20.187Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+        "updated": "2026-10-14T18:50:20.187Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+        "updated": "2026-10-14T18:50:20.186Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+        "updated": "2026-10-14T18:50:20.187Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4206/",
+        "updated": "2026-10-14T18:50:20.187Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    }
+  }
+}

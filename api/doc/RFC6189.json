@@ -1,0 +1,290 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T18:56:54.778Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6189",
+  "document": {
+    "abstract": "This document defines ZRTP, a protocol for media path Diffie-Hellman exchange to agree on a session key and parameters for establishing unicast Secure Real-time Transport Protocol (SRTP) sessions for Voice over IP (VoIP) applications. The ZRTP protocol is media path keying because it is multiplexed on the same port as RTP and does not require support in the signaling protocol. ZRTP does not assume a Public Key Infrastructure (PKI) or require the complexity of certificates in end devices. For the media session, ZRTP provides confidentiality, protection against man-in-the-middle (MiTM) attacks, and, in cases where the signaling protocol provides end-to-end integrity protection, authentication. ZRTP can utilize a Session Description Protocol (SDP) attribute to provide discovery and authentication through the signaling channel. To provide best effort SRTP, ZRTP utilizes normal RTP/AVP (Audio-Visual Profile) profiles. ZRTP secures media sessions that include a voice media stream and can also secure media sessions that do not include voice by using an optional digital signature. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "authors": [
+      {
+        "name": "Philip Zimmermann"
+      },
+      {
+        "name": "Alan Johnston"
+      },
+      {
+        "name": "Jon Callas"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docId": "RFC6189",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docLabel": "IETF RFC 6189",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docNumber": "6189",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docTitle": "ZRTP: Media Path Key Agreement for Unicast Secure RTP",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "doi": "10.17487/RFC6189",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "href": "https://doi.org/10.17487/RFC6189",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "pages": "115",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publicationDate": "2011-04-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC1191",
+        "RFC1981",
+        "RFC3261",
+        "RFC3514",
+        "RFC3824",
+        "RFC4086",
+        "RFC4251",
+        "RFC4474",
+        "RFC4475",
+        "RFC4567",
+        "RFC4568",
+        "RFC4579",
+        "RFC5117",
+        "RFC5245",
+        "RFC5764",
+        "RFC5869",
+        "RFC6090",
+        "NIST.SP.800-57-PART1",
+        "NIST.SP.800-131A",
+        "orphan/RFC6189/h:ec67c850",
+        "orphan/RFC6189/h:6a7682d3",
+        "orphan/RFC6189/h:bdd90290",
+        "orphan/RFC6189/h:4a6b8cab",
+        "orphan/RFC6189/h:ea168bc4",
+        "orphan/RFC6189/h:d0b4f16b",
+        "orphan/RFC6189/h:8cc7cbe6",
+        "orphan/RFC6189/h:0fa11877",
+        "orphan/RFC6189/h:32206b98",
+        "orphan/RFC6189/h:600d55af",
+        "orphan/RFC6189/h:e2078aee",
+        "orphan/RFC6189/h:46e2b3d6",
+        "orphan/RFC6189/h:2b6f508b",
+        "orphan/RFC6189/h:46403434",
+        "orphan/RFC6189/h:d41004ad",
+        "orphan/RFC6189/h:f8e427bc",
+        "orphan/RFC6189/h:4009aecb",
+        "orphan/RFC6189/h:72c3da3c"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=65 proseBlocks=84 skippedAnchorBlocks=71",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+        "updated": "2026-10-16T18:56:54.778Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "normative": [
+        "RFC2104",
+        "RFC2119",
+        "RFC3526",
+        "RFC3550",
+        "RFC3711",
+        "RFC4231",
+        "RFC4566",
+        "RFC4880",
+        "RFC4960",
+        "RFC5114",
+        "RFC5479",
+        "RFC5759",
+        "RFC6188",
+        "NIST.FIPS.140-2",
+        "NIST.FIPS.180-3",
+        "NIST.FIPS.186",
+        "NIST.FIPS.197",
+        "NIST.FIPS.198-1",
+        "NIST.SP.800-38A",
+        "NIST.SP.800-56A",
+        "NIST.SP.800-90",
+        "NIST.SP.800-108",
+        "orphan/RFC6189/h:f9bdf5f5",
+        "orphan/RFC6189/h:0fe32b2e",
+        "orphan/RFC6189/h:56ded1e4",
+        "orphan/RFC6189/h:611b8d86"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+        "updated": "2026-10-16T18:56:54.778Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6189/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+      "updated": "2026-10-16T18:56:54.778Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+        "updated": "2026-10-16T18:56:54.778Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+        "updated": "2026-10-16T18:56:54.778Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+        "updated": "2026-10-16T18:56:54.778Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+        "updated": "2026-10-16T18:56:54.778Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6189/",
+        "updated": "2026-10-16T18:56:54.778Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    }
+  }
+}

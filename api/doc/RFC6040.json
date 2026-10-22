@@ -1,0 +1,274 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-08T22:49:13.657Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6040",
+  "document": {
+    "abstract": "This document redefines how the explicit congestion notification (ECN) field of the IP header should be constructed on entry to and exit from any IP-in-IP tunnel. On encapsulation, it updates RFC 3168 to bring all IP-in-IP tunnels (v4 or v6) into line with RFC 4301 IPsec ECN processing. On decapsulation, it updates both RFC 3168 and RFC 4301 to add new behaviours for previously unused combinations of inner and outer headers. The new rules ensure the ECN field is correctly propagated across a tunnel whether it is used to signal one or two severity levels of congestion; whereas before, only one severity level was supported. Tunnel endpoints can be updated in any order without affecting pre-existing uses of the ECN field, thus ensuring backward compatibility. Nonetheless, operators wanting to support two severity levels (e.g., for pre-congestion notification -- PCN) can require compliance with this new specification. A thorough analysis of the reasoning for these changes and the implications is included. In the unlikely event that the new rules do not meet a specific need, RFC 4774 gives guidance on designing alternate ECN semantics, and this document extends that to include tunnelling issues. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+      "updated": "2026-10-08T22:36:37.284Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "authors": [
+      {
+        "name": "Bob Briscoe"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+      "updated": "2026-10-08T22:36:37.284Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "docId": "RFC6040",
+    "docId$meta": {
+      "confidence": "high",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "docLabel": "IETF RFC 6040",
+    "docLabel$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "docNumber": "6040",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+      "updated": "2026-10-08T22:36:37.284Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "docTitle": "Tunnelling of Explicit Congestion Notification",
+    "docTitle$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "doi": "10.17487/RFC6040",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+      "updated": "2026-10-08T22:36:37.284Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "href": "https://doi.org/10.17487/RFC6040",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": "https://www.rfc-editor.org/info/rfc6040",
+      "overridden": true,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+      "updated": "2026-10-08T22:36:37.284Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "keywords": [
+      "Congestion Control",
+      "Congestion Notification",
+      "Information Security",
+      "Tunnel",
+      "Encapsulation",
+      "Decapsulation",
+      "Protocol",
+      "ECN",
+      "IPSEC"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Congestion Control and Management",
+        "Congestion Notification",
+        "Information Security",
+        "Tunnelling",
+        "Encapsulation",
+        "Decapsulation",
+        "Protocol",
+        "ECN",
+        "IPSEC"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+      "updated": "2026-10-08T22:49:13.657Z",
+      "version": "extractDocs.js@commit:2c3fb02c87f9"
+    },
+    "pages": "35",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+      "updated": "2026-10-08T22:36:37.284Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "publicationDate": "2010-11-01",
+    "publicationDate$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2401",
+        "RFC2474",
+        "RFC2481",
+        "RFC2983",
+        "RFC3540",
+        "RFC4774",
+        "RFC5129",
+        "RFC5559",
+        "RFC5659",
+        "RFC5670",
+        "RFC5696",
+        "RFC5996",
+        "10.1145-1080091.1080098",
+        "orphan/RFC6040/h:829ee289"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=19 proseBlocks=22 skippedAnchorBlocks=20",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "overridden": true,
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+        "updated": "2026-10-08T22:36:37.284Z",
+        "version": "extractDocs.js@commit:73d31737e622"
+      },
+      "normative": [
+        "RFC2003",
+        "RFC2119",
+        "RFC3168",
+        "RFC4301"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "overridden": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+        "updated": "2026-10-08T22:36:37.284Z",
+        "version": "extractDocs.js@commit:73d31737e622"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6040/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": "https://datatracker.ietf.org/doc/html/rfc6040",
+      "overridden": true,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+      "updated": "2026-10-08T22:36:37.284Z",
+      "version": "extractDocs.js@commit:73d31737e622"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "medium",
+        "source": "manual",
+        "updated": "2025-07-01T00:00:00Z"
+      },
+      "amendedBy": [
+        "RFC9601"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "overridden": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+        "updated": "2026-10-08T22:36:37.284Z",
+        "version": "extractDocs.js@commit:73d31737e622"
+      },
+      "amends": [
+        "RFC3168",
+        "RFC4301",
+        "RFC4774"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "overridden": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+        "updated": "2026-10-08T22:36:37.284Z",
+        "version": "extractDocs.js@commit:73d31737e622"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+        "updated": "2026-10-08T22:36:37.284Z",
+        "version": "extractDocs.js@commit:73d31737e622"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+        "updated": "2026-10-08T22:36:37.284Z",
+        "version": "extractDocs.js@commit:73d31737e622"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+        "updated": "2026-10-08T22:36:37.284Z",
+        "version": "extractDocs.js@commit:73d31737e622"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6040/",
+        "updated": "2026-10-08T22:36:37.284Z",
+        "version": "extractDocs.js@commit:73d31737e622"
+      }
+    }
+  }
+}

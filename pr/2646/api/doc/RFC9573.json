@@ -1,0 +1,290 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T16:08:10.924Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9573",
+  "document": {
+    "abstract": "The Multicast VPN (MVPN) specifications allow a single Point-to-Multipoint (P2MP) tunnel to carry traffic of multiple IP VPNs (referred to as VPNs in this document). The EVPN specifications allow a single P2MP tunnel to carry traffic of multiple Broadcast Domains (BDs). These features require the ingress router of the P2MP tunnel to allocate an upstream-assigned MPLS label for each VPN or for each BD. A packet sent on a P2MP tunnel then carries the label that is mapped to its VPN or BD (in some cases, a distinct upstream-assigned label is needed for each flow.) Since each ingress router allocates labels independently, with no coordination among the ingress routers, the egress routers may need to keep track of a large number of labels. The number of labels may need to be as large as, or larger than, the product of the number of ingress routers times the number of VPNs or BDs. However, the number of labels can be greatly reduced if the association between a label and a VPN or BD is made by provisioning, so that all ingress routers assign the same label to a particular VPN or BD. New procedures are needed in order to take advantage of such provisioned labels. These new procedures also apply to Multipoint-to-Multipoint (MP2MP) tunnels. This document updates RFCs 6514, 7432, and 7582 by specifying the necessary procedures.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "authors": [
+      {
+        "name": "Zhaohui (Jeffrey) Zhang"
+      },
+      {
+        "name": "Eric C. Rosen"
+      },
+      {
+        "name": "Wen Lin"
+      },
+      {
+        "name": "Zhenbin Li"
+      },
+      {
+        "name": "IJsbrand Wijnands"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docId": "RFC9573",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docLabel": "IETF RFC 9573",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docNumber": "9573",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T16:08:10.924Z",
+      "version": "extractDocs.js@commit:cc2368606b5f"
+    },
+    "docTitle": "MVPN/EVPN Tunnel Aggregation with Common Labels",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "doi": "10.17487/RFC9573",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "href": "https://doi.org/10.17487/RFC9573",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "keywords": [
+      "DCB",
+      "Tunnel Aggregation"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "pages": "14",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "publicationDate": "2024-05-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "references": {
+      "bibliographic": [
+        "IETF.draft-ietf-bier-evpn-14",
+        "RFC4364",
+        "RFC5331",
+        "RFC8126",
+        "RFC8279",
+        "RFC8402",
+        "RFC8556",
+        "RFC8660",
+        "RFC9572"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+        "updated": "2026-10-20T09:42:44.972Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC4360",
+        "RFC6513",
+        "RFC6514",
+        "RFC7432",
+        "RFC7524",
+        "RFC7582",
+        "RFC7902",
+        "RFC8174"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+        "updated": "2026-10-20T09:42:44.972Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9573/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+      "updated": "2026-10-20T09:42:44.972Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+        "updated": "2026-10-20T09:42:44.972Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "amends": [
+        "RFC6514",
+        "RFC7432",
+        "RFC7582"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+        "updated": "2026-10-20T09:42:44.972Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+        "updated": "2026-10-20T09:42:44.972Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9573",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9573",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc9573.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+        "updated": "2026-10-20T09:42:44.972Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+        "updated": "2026-10-20T09:42:44.972Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+        "updated": "2026-10-20T09:42:44.972Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9573/",
+        "updated": "2026-10-20T09:42:44.972Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      }
+    }
+  }
+}

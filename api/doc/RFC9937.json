@@ -1,0 +1,282 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T18:52:05.191Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9937",
+  "document": {
+    "abstract": "This document specifies a Standards Track version of the Proportional Rate Reduction (PRR) algorithm that obsoletes the Experimental version described in RFC 6937. PRR regulates the amount of data sent by TCP or other transport protocols during fast recovery. PRR accurately regulates the actual flight size through recovery such that at the end of recovery it will be as close as possible to the slow start threshold (ssthresh), as determined by the congestion control algorithm.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "authors": [
+      {
+        "name": "Matt Mathis"
+      },
+      {
+        "name": "Neal Cardwell"
+      },
+      {
+        "name": "Yuchung Cheng"
+      },
+      {
+        "name": "Nandita Dukkipati"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docId": "RFC9937",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docLabel": "IETF RFC 9937",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docNumber": "9937",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docTitle": "Proportional Rate Reduction (PRR)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "doi": "10.17487/RFC9937",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "href": "https://doi.org/10.17487/RFC9937",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "keywords": [
+      "Loss Recovery",
+      "SACK",
+      "Self Clock",
+      "Fast Retransmit",
+      "Fast Recovery"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "pages": "20",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publicationDate": "2025-12-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "references": {
+      "bibliographic": [
+        "10.1145-248156.248181",
+        "10.1145-2934872.2934873",
+        "10.1145-248156.248180",
+        "10.1145-2068816.2068832",
+        "10.1145-52325.52356",
+        "IETF.draft-welzl-iccrg-pacing-03",
+        "RFC3042",
+        "RFC3168",
+        "RFC3517",
+        "RFC6937",
+        "RFC9743",
+        "10.1145-505696.505704",
+        "IETF.draft-mathis-tcp-ratehalving-00",
+        "orphan/RFC9937/h:6b4f0d03"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+        "updated": "2026-10-14T18:52:05.191Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "normative": [
+        "RFC1191",
+        "RFC2018",
+        "RFC2119",
+        "RFC4821",
+        "RFC5681",
+        "RFC6582",
+        "RFC6675",
+        "RFC8174",
+        "RFC8201",
+        "RFC8985",
+        "RFC9293",
+        "RFC9438"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+        "updated": "2026-10-14T18:52:05.191Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9937/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+      "updated": "2026-10-14T18:52:05.191Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+        "updated": "2026-10-14T18:52:05.191Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+        "updated": "2026-10-14T18:52:05.191Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+        "updated": "2026-10-14T18:52:05.191Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+        "updated": "2026-10-14T18:52:05.191Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+        "updated": "2026-10-14T18:52:05.191Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "supersedes": [
+        "RFC6937"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9937/",
+        "updated": "2026-10-14T18:52:05.191Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    }
+  }
+}
