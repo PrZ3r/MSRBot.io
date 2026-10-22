@@ -2194,7 +2194,10 @@ function parseRefId(text, href = '', opts = {}) {
     const m = src.match(/\bETSI\s+(?:Standard\s+)?(TS|TR|EN|ES|ETS|ETR)[\s‐-―-]+(\d[\d\s‐-―-]*\d)/i)
       || src.match(/^\s*(EN)\s+(3\d\d[\s‐-―-]\d{3}(?:-\d+)?)\b/)
       // "GSM 03.20 (ETS 300 534)" (RFC4186)
-      || src.match(/\((ETS)\s+(3\d\d\s\d{3})\)/);
+      || src.match(/\((ETS)\s+(3\d\d\s\d{3})\)/)
+      // ETSI leading, the number after the title: 'ETSI, "Digital Audio Compression (AC-3, Enhanced
+      // AC-3) Standard", TS 102 366, February 2005' (RFC4598)
+      || (/^\s*ETSI\b/.test(src) && src.match(/["”],?\s*(TS|TR|EN|ES)\s+(\d{3}\s\d{3}(?:-\d+)?)\b/));
     if (m) {
       const num = m[2].replace(/[\s‐-―-]+/g, '-');
       const y = (String(text || '').match(/\b(?:19|20)\d{2}\b/) || [])[0];

@@ -361,4 +361,7 @@ assert.strictEqual(parseRefId('ITU, "V.42bis: Data compression procedures", http
 assert.strictEqual(parseRefId('180-1, FIPS., "Secure Hash Standard", April 2005.'), 'NIST.FIPS.180-1'); n++;
 assert.strictEqual(parseRefId('IEEE1722 IEEE, "1722-2001 - IEEE Standard for Layer 2 Transport Protocol for Time Sensitive Applications in a Bridged Local Area Network", May 2011, &lt; http://standards.ieee.org/findstds/ standard/1722-2011.html &gt;.', 'http://standards.ieee.org/findstds/standard/1722-2011.html'), 'IEEE.STD1722.2001'); n++;
 
+// Cited run batch 7: ETSI leading with the TS number after the title (RFC4598).
+assert.strictEqual(parseRefId('ETSI, "Digital Audio Compression (AC-3, Enhanced AC-3) Standard", TS 102 366, February 2005.'), 'ETSI.TS-102-366.2005'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);
