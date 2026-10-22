@@ -1,0 +1,262 @@
+{
+  "abstract": "This document describes the core concepts of the Content-Centric Networking (CCNx) architecture and presents a network protocol based on two messages: Interests and Content Objects. It specifies the set of mandatory and optional fields within those messages and describes their behavior and interpretation. This architecture and protocol specification is independent of a specific wire encoding. The protocol also uses a control message called an Interest Return, whereby one system can return an Interest message to the previous hop due to an error condition. This indicates to the previous hop that the current system will not respond to the Interest. This document is a product of the Information-Centric Networking Research Group (ICNRG). The document received wide review among ICNRG participants. Two full implementations are in active use and have informed the technical maturity of the protocol specification.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "authors": [
+    {
+      "name": "Marc Mosko"
+    },
+    {
+      "name": "Ignacio Solis"
+    },
+    {
+      "name": "Christopher A. Wood"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docId": "RFC8569",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docLabel": "IETF RFC 8569",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docNumber": "8569",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docTitle": "Content-Centric Networking (CCNx) Semantics",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "doi": "10.17487/RFC8569",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "href": "https://doi.org/10.17487/RFC8569",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "keywords": [
+    "CCN"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": [
+      "Content Centric Networking"
+    ],
+    "overridden": true,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T15:11:48.345Z",
+    "version": "extractDocs.js@commit:0b3793d5c0eb"
+  },
+  "pages": "40",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "publicationDate": "2019-07-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "references": {
+    "bibliographic": [
+      "IETF.draft-mosko-icnrg-beginendfragment-02",
+      "IETF.draft-wood-icnrg-ccnxkeyexchange-02",
+      "IETF.draft-mosko-icnrg-ccnxurischeme-01",
+      "IETF.draft-mosko-icnrg-ccnxchunking-02",
+      "10.1109-ICCNC.2016.7440637",
+      "IETF.draft-wood-icnrg-esic-01",
+      "IETF.draft-tschudin-icnrg-flic-03",
+      "10.23919-IFIPNetworking.2017.8264861",
+      "10.1145-1658939.1658941",
+      "RFC5234",
+      "RFC5280",
+      "RFC7927",
+      "RFC7945",
+      "RFC8609",
+      "IETF.draft-mosko-icnrg-selectors-01",
+      "IETF.draft-irtf-icnrg-terminology-04",
+      "10.1109-ICCCN.2016.7568589",
+      "orphan/RFC8569/h:b069cdb5",
+      "orphan/RFC8569/h:f616d155",
+      "orphan/RFC8569/h:0c2c6a1d",
+      "orphan/RFC8569/h:f2979bcd",
+      "orphan/RFC8569/h:c861c4e5",
+      "orphan/RFC8569/h:aded2fbd"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=25 proseBlocks=35 skippedAnchorBlocks=28",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+      "updated": "2026-10-22T01:45:44.882Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC8174"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+      "updated": "2026-10-22T01:45:44.882Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc8569/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+    "updated": "2026-10-22T01:45:44.882Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+      "updated": "2026-10-22T01:45:44.882Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+      "updated": "2026-10-22T01:45:44.882Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+      "updated": "2026-10-22T01:45:44.882Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+      "updated": "2026-10-22T01:45:44.882Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8569/",
+      "updated": "2026-10-22T01:45:44.882Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    }
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "abstract": "This document supports the solution put forth in \"An Architecture for IP/LDP Fast Reroute Using Maximally Redundant Trees (MRT-FRR)\" (RFC 7812) by defining the associated MRT Lowpoint algorithm that is used in the Default MRT Profile to compute both the necessary Maximally Redundant Trees with their associated next hops and the alternates to select for MRT-FRR.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "authors": [
+    {
+      "name": "Gabor Sandor Envedi"
+    },
+    {
+      "name": "Andras Csaszar"
+    },
+    {
+      "name": "Alia Atlas"
+    },
+    {
+      "name": "Chris Bowers"
+    },
+    {
+      "name": "Abishek Gopalan"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docId": "RFC7811",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docLabel": "IETF RFC 7811",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docNumber": "7811",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docTitle": "An Algorithm for Computing IP/LDP Fast Reroute Using Maximally Redundant Trees (MRT-FRR)",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docType": "Standard",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "doi": "10.17487/RFC7811",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "href": "https://doi.org/10.17487/RFC7811",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "keywords": [
+    "MRT",
+    "FRR",
+    "LFA",
+    "Recovery",
+    "Routing"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "pages": "118",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "publicationDate": "2016-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1109-IEEESTD.2016.7434544",
+      "ISO.10589.2002",
+      "10.1145-368996.369025",
+      "RFC2328",
+      "orphan/RFC7811/h:96cc6a03",
+      "orphan/RFC7811/h:62d54e24"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=8 proseBlocks=15 skippedAnchorBlocks=10",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+      "updated": "2026-10-22T01:45:34.069Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "normative": [
+      "RFC2119",
+      "RFC7812"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+      "updated": "2026-10-22T01:45:34.069Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc7811/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+    "updated": "2026-10-22T01:45:34.069Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+      "updated": "2026-10-22T01:45:34.069Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+      "updated": "2026-10-22T01:45:34.069Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+      "updated": "2026-10-22T01:45:34.069Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "statusNote": "Proposed Standard",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+      "updated": "2026-10-22T01:45:34.069Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7811/",
+      "updated": "2026-10-22T01:45:34.069Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    }
+  }
+}

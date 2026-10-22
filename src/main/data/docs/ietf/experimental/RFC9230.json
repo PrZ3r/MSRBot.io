@@ -1,0 +1,257 @@
+{
+  "abstract": "This document describes a protocol that allows clients to hide their IP addresses from DNS resolvers via proxying encrypted DNS over HTTPS (DoH) messages. This improves privacy of DNS operations by not allowing any one server entity to be aware of both the client IP address and the content of DNS queries and answers. This experimental protocol has been developed outside the IETF and is published here to guide implementation, ensure interoperability among implementations, and enable wide-scale experimentation.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "authors": [
+    {
+      "name": "Eric Kinnear"
+    },
+    {
+      "name": "Patrick McManus"
+    },
+    {
+      "name": "Tommy Pauly"
+    },
+    {
+      "name": "Tanya Verma"
+    },
+    {
+      "name": "Christopher A. Wood"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docId": "RFC9230",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docLabel": "IETF RFC 9230",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docNumber": "9230",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docTitle": "Oblivious DNS over HTTPS",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "docType": "Experimental",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "doi": "10.17487/RFC9230",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "href": "https://doi.org/10.17487/RFC9230",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "keywords": [
+    "Privacy",
+    "DNS Privacy",
+    "DoH",
+    "ODoH",
+    "HPKE"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "pages": "19",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "publicationDate": "2022-06-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "references": {
+    "bibliographic": [
+      "10.1109-TIT.1983.1056650",
+      "IETF.draft-annee-dprive-oblivious-dns-00",
+      "IETF.draft-ietf-ohai-ohttp-01",
+      "RFC7239",
+      "RFC7871"
+    ],
+    "bibliographic$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+      "updated": "2026-10-22T01:46:02.279Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "normative": [
+      "RFC9180",
+      "RFC9110",
+      "RFC2119",
+      "RFC4086",
+      "RFC6570",
+      "RFC8174",
+      "RFC8446",
+      "RFC8467",
+      "RFC8484",
+      "RFC9209"
+    ],
+    "normative$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC HTML normative references sections",
+      "originalValue": [
+      ],
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+      "updated": "2026-10-22T01:46:02.279Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc9230/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+    "updated": "2026-10-22T01:46:02.279Z",
+    "version": "extractDocs.js@commit:acc1bcda23fc"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+      "updated": "2026-10-22T01:46:02.279Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+      "updated": "2026-10-22T01:46:02.279Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+      "updated": "2026-10-22T01:46:02.279Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "statusNote": "Experimental",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+      "updated": "2026-10-22T01:46:02.279Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9230/",
+      "updated": "2026-10-22T01:46:02.279Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    }
+  }
+}
