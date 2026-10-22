@@ -364,4 +364,8 @@ assert.strictEqual(parseRefId('IEEE1722 IEEE, "1722-2001 - IEEE Standard for Lay
 // Cited run batch 7: ETSI leading with the TS number after the title (RFC4598).
 assert.strictEqual(parseRefId('ETSI, "Digital Audio Compression (AC-3, Enhanced AC-3) Standard", TS 102 366, February 2005.'), 'ETSI.TS-102-366.2005'); n++;
 
+// Cited run batch 8: ETSI Group Report (RFC8192); ISO's publicly available standard file name (RFC7927).
+assert.strictEqual(parseRefId('ETSI, "Network Functions Virtualization (NFV); Use Cases", ETSI GR NFV 001 V1.2.1, May 2017.'), 'ETSI.GR-NFV-001.2017'); n++;
+assert.strictEqual(parseRefId('ISO, "Information Processing Systems -- Open Systems Interconnection -- Basic Reference Model -- Part 4: Management Framework", November 1989, &lt; http://standards.iso.org/ittf/PubliclyAvailableStandards/ s014258_ISO_IEC_7498-4_1989(E).zip&gt;.', 'http://standards.iso.org/ittf/PubliclyAvailableStandards/'), 'ISO.7498-4.1989'); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

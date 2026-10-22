@@ -2174,14 +2174,25 @@ function parseRefId(text, href = '', opts = {}) {
     }
   }
 
-  // ETSI Group Specifications: "ETSI GS NFV 003 V1.2.1", "ETSI GS NFV-EVE 005 V1.1.1" (RFC8568)
-  //   → ETSI.GS-NFV-003.2014, ETSI.GS-NFV-EVE-005.2015 (year from the cite)
+  // ISO's publicly available standards name the file after the standard: 'ISO, "… Part 4:
+  // Management Framework", November 1989, <http://standards.iso.org/ittf/PubliclyAvailableStandards/
+  // s014258_ISO_IEC_7498-4_1989(E).zip>' (RFC7927) → ISO.7498-4.1989
+  {
+    const m = `${String(text || '')} ${String(href || '')}`.match(/PubliclyAvailableStandards\/\s*s\d{6}_ISO(?:_IEC)?_(\d{3,5}(?:-\d+)*)_((?:19|20)\d{2})/i);
+    if (m) {
+      const refId = `ISO.${m[1]}.${m[2]}`;
+      return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'iso-pas-file' } } : refId;
+    }
+  }
+
+  // ETSI Group Specifications and Reports: "ETSI GS NFV 003 V1.2.1", "ETSI GS NFV-EVE 005 V1.1.1"
+  //   (RFC8568), "ETSI GR NFV 001 V1.2.1" (RFC8192) → ETSI.GS-NFV-003.2014, ETSI.GR-NFV-001.2017
   {
     const src = String(text || '');
-    const m = src.match(/\bETSI\s+GS\s+([A-Z]{2,6}(?:-[A-Z]{2,6})?)[\s-]+(\d{3})\b/);
+    const m = src.match(/\bETSI\s+(GS|GR)\s+([A-Z]{2,6}(?:-[A-Z]{2,6})?)[\s-]+(\d{3})\b/);
     if (m) {
       const y = (src.match(/\b(?:19|20)\d{2}\b/) || [])[0];
-      const refId = `ETSI.GS-${m[1]}-${m[2]}${y ? `.${y}` : ''}`;
+      const refId = `ETSI.${m[1]}-${m[2]}-${m[3]}${y ? `.${y}` : ''}`;
       return wantDiag ? { refId, diag: { mapSource: 'regex', mapDetail: 'etsi-gs' } } : refId;
     }
   }
