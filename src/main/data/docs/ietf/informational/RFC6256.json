@@ -1,0 +1,237 @@
+{
+  "abstract": "Self-Delimiting Numeric Values (SDNVs) have recently been introduced as a field type in proposed Delay-Tolerant Networking protocols. SDNVs encode an arbitrary-length non-negative integer or arbitrary- length bitstring with minimum overhead. They are intended to provide protocol flexibility without sacrificing economy and to assist in future-proofing protocols under development. This document describes formats and algorithms for SDNV encoding and decoding, along with notes on implementation and usage. This document is a product of the Delay-Tolerant Networking Research Group and has been reviewed by that group. No objections to its publication as an RFC were raised. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+  "abstract$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML abstract",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "authors": [
+    {
+      "name": "Wesley Eddy"
+    },
+    {
+      "name": "Elwyn B. Davies"
+    }
+  ],
+  "authors$meta": {
+    "confidence": "high",
+    "note": "Parsed from Datatracker doc page article:author (profile full names)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "docId": "RFC6256",
+  "docId$meta": {
+    "confidence": "high",
+    "note": "Derived from RFC number or Datatracker identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "docLabel": "IETF RFC 6256",
+  "docLabel$meta": {
+    "confidence": "high",
+    "note": "Constructed from provider and document identifier",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "docNumber": "6256",
+  "docNumber$meta": {
+    "confidence": "high",
+    "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "docTitle": "Using Self-Delimiting Numeric Values in Protocols",
+  "docTitle$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML title",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "docType": "Informational",
+  "docType$meta": {
+    "confidence": "high",
+    "note": "Mapped from Datatracker std_level or RFC status text",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "doi": "10.17487/RFC6256",
+  "doi$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML doi",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "href": "https://doi.org/10.17487/RFC6256",
+  "href$meta": {
+    "confidence": "high",
+    "note": "Derived from DOI (https://doi.org/<doi>)",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "keywords": [
+    "SDNV",
+    "DTN"
+  ],
+  "keywords$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML keywords",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "pages": "17",
+  "pages$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML page-count",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "publicationDate": "2011-05-01",
+  "publicationDate$meta": {
+    "confidence": "high",
+    "note": "Parsed from RFC index XML date",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "publisher": "IETF",
+  "publisher$meta": {
+    "confidence": "high",
+    "note": "Static: provider",
+    "originalValue": null,
+    "source": "parsed",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "references": {
+    "bibliographic": [
+      "T-REC-X.680",
+      "ISI.IEN21",
+      "ISBN.9780521865715",
+      "RFC713",
+      "RFC791",
+      "RFC793",
+      "RFC1323",
+      "RFC2993",
+      "RFC3766",
+      "RFC4963",
+      "RFC5050",
+      "RFC5325",
+      "RFC5326",
+      "ISBN.9780126208610",
+      "T-REC-X.690",
+      "orphan/RFC6256/h:d9e549d9",
+      "orphan/RFC6256/h:3ce56de4"
+    ],
+    "bibliographic$meta": {
+      "confidence": "medium",
+      "flag": "MIXED_REF_LAYOUT_RISK anchored=17 proseBlocks=20 skippedAnchorBlocks=19",
+      "note": "Parsed from RFC HTML references/informative sections",
+      "originalValue": [
+      ],
+      "reviewRequired": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+      "updated": "2026-10-27T10:06:43.505Z",
+      "version": "extractDocs.js@commit:4fd8126f0132"
+    }
+  },
+  "resolvedHref": "https://www.rfc-editor.org/info/rfc6256/",
+  "resolvedHref$meta": {
+    "confidence": "high",
+    "note": "Final URL resolved via URL redirect verification",
+    "originalValue": null,
+    "source": "resolved",
+    "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+    "updated": "2026-10-27T10:06:43.505Z",
+    "version": "extractDocs.js@commit:4fd8126f0132"
+  },
+  "status": {
+    "active": true,
+    "active$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+      "updated": "2026-10-27T10:06:43.505Z",
+      "version": "extractDocs.js@commit:4fd8126f0132"
+    },
+    "errataExist": false,
+    "errataExist$meta": {
+      "confidence": "high",
+      "note": "Derived from presence of errata links on RFC/Datatracker pages",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+      "updated": "2026-10-27T10:06:43.505Z",
+      "version": "extractDocs.js@commit:4fd8126f0132"
+    },
+    "latestVersion": true,
+    "latestVersion$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+      "updated": "2026-10-27T10:06:43.505Z",
+      "version": "extractDocs.js@commit:4fd8126f0132"
+    },
+    "statusNote": "Informational",
+    "statusNote$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker doc.json std_level",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+      "updated": "2026-10-27T10:06:43.505Z",
+      "version": "extractDocs.js@commit:4fd8126f0132"
+    },
+    "superseded": false,
+    "superseded$meta": {
+      "confidence": "high",
+      "note": "Derived from supersession relationship fields",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6256/",
+      "updated": "2026-10-27T10:06:43.505Z",
+      "version": "extractDocs.js@commit:4fd8126f0132"
+    }
+  }
+}
