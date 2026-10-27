@@ -322953,6 +322953,7 @@ with the Network Management Datastore Architecture (NMDA).</p>
     <stream>IETF</stream>
     <area>wit</area>
     <wg_acronym>quic</wg_acronym>
+    <errata-url>https://www.rfc-editor.org/errata/rfc9001</errata-url>
     <doi>10.17487/RFC9001</doi>
   </rfc-entry>
   <rfc-entry>
@@ -366005,6 +366006,92 @@ implementations to interoperate with each other.</p>
     <area>ops</area>
     <wg_acronym>opsawg</wg_acronym>
     <doi>10.17487/RFC10065</doi>
+  </rfc-entry>
+  <rfc-entry>
+    <doc-id>RFC10066</doc-id>
+    <title>Path Computation Element Communication Protocol (PCEP) Extensions for Signaling Multipath Information</title>
+    <author>
+      <name>M. Koldychev</name>
+      <title>Editor</title>
+    </author>
+    <author>
+      <name>S. Sidor</name>
+      <title>Editor</title>
+    </author>
+    <date>
+      <month>October</month>
+      <year>2026</year>
+    </date>
+    <format>
+      <file-format>HTML</file-format>
+      <file-format>TXT</file-format>
+      <file-format>PDF</file-format>
+      <file-format>XML</file-format>
+    </format>
+    <page-count>29</page-count>
+    <keywords>
+      <kw>Segment Routing Policy</kw>
+      <kw>ECMP</kw>
+      <kw>load balancing</kw>
+      <kw>PATH-ATTRIB</kw>
+    </keywords>
+    <abstract>
+      <p>This document defines Path Computation Element Communication Protocol (PCEP) extensions to signal multipath information, associating multiple forwarding paths with a single PCEP Label Switched Path (LSP) to allow load balancing and redundancy across diverse paths. The extensions are generic and applicable to both stateless and stateful PCEP and are designed to be reusable for future path types. Their primary application is Segment Routing Policy (SR Policy), where a Candidate Path can contain multiple segment lists: current PCEP extensions for SR Policy only allow signaling of a single segment list per Candidate Path. These extensions enable multipath capabilities such as weighted or equal-cost load balancing across paths.</p>
+    </abstract>
+    <draft>draft-ietf-pce-multipath-29</draft>
+    <current-status>PROPOSED STANDARD</current-status>
+    <publication-status>PROPOSED STANDARD</publication-status>
+    <stream>IETF</stream>
+    <area>rtg</area>
+    <wg_acronym>pce</wg_acronym>
+    <doi>10.17487/RFC10066</doi>
+  </rfc-entry>
+  <rfc-entry>
+    <doc-id>RFC10067</doc-id>
+    <title>Path Computation Element Communication Protocol (PCEP) Extensions for Associated Bidirectional Segment Routing (SR) LSPs</title>
+    <author>
+      <name>C. Li</name>
+      <title>Editor</title>
+    </author>
+    <author>
+      <name>M. Chen</name>
+    </author>
+    <author>
+      <name>W. Cheng</name>
+    </author>
+    <author>
+      <name>R. Gandhi</name>
+      <title>Editor</title>
+    </author>
+    <author>
+      <name>Q. Xiong</name>
+    </author>
+    <date>
+      <month>October</month>
+      <year>2026</year>
+    </date>
+    <format>
+      <file-format>HTML</file-format>
+      <file-format>TXT</file-format>
+      <file-format>PDF</file-format>
+      <file-format>XML</file-format>
+    </format>
+    <page-count>14</page-count>
+    <keywords>
+      <kw>Bidirectional Co-routed SR LSPs</kw>
+      <kw>Reverse SR LSP</kw>
+    </keywords>
+    <abstract>
+      <p>Segment Routing (SR) steers packets through a network using the IPv6 or MPLS data planes via source routing. Stateful Path Computation Element Communication Protocol (PCEP) extensions are defined for SR Traffic Engineering (TE) LSPs.</p>
+      <p>PCEP supports grouping two RSVP-TE signaled, unidirectional MPLS-TE Label-Switched Paths (LSPs) where a path in each direction in a network is grouped into an associated bidirectional LSP. This document extends PCEP support to group two unidirectional SR LSPs into an associated bidirectional SR LSP. The mechanisms defined in this document apply to both stateless and stateful PCEs for PCE-initiated and PCC-initiated LSPs.</p>
+    </abstract>
+    <draft>draft-ietf-pce-sr-bidir-path-25</draft>
+    <current-status>PROPOSED STANDARD</current-status>
+    <publication-status>PROPOSED STANDARD</publication-status>
+    <stream>IETF</stream>
+    <area>rtg</area>
+    <wg_acronym>pce</wg_acronym>
+    <doi>10.17487/RFC10067</doi>
   </rfc-entry>
   <std-entry>
     <doc-id>STD3</doc-id>
