@@ -1,0 +1,373 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-21T04:15:00.397Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9810",
+  "document": {
+    "abstract": "This document describes the Internet X.509 Public Key Infrastructure (PKI) Certificate Management Protocol (CMP). Protocol messages are defined for X.509v3 certificate creation and management. CMP provides interactions between client systems and PKI components such as a Registration Authority (RA) and a Certification Authority (CA). This document adds support for management of certificates containing a Key Encapsulation Mechanism (KEM) public key and uses EnvelopedData instead of EncryptedValue. This document also includes the updates specified in Section 2 and Appendix A.2 of RFC 9480. This document obsoletes RFC 4210, and together with RFC 9811, it also obsoletes RFC 9480. Appendix F of this document updates Section 9 of RFC 5912.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "authors": [
+      {
+        "name": "Hendrik Brockhaus"
+      },
+      {
+        "name": "David von Oheimb"
+      },
+      {
+        "name": "Mike Ounsworth"
+      },
+      {
+        "name": "John Gray"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docId": "RFC9810",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docLabel": "IETF RFC 9810",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docNumber": "9810",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docTitle": "Internet X.509 Public Key Infrastructure -- Certificate Management Protocol (CMP)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "doi": "10.17487/RFC9810",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "href": "https://doi.org/10.17487/RFC9810",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "keywords": [
+      "CMP",
+      "HTTP",
+      "Certificate Management",
+      "PKI"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "pages": "116",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publicationDate": "2025-07-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "references": {
+      "bibliographic": [
+        "3GPP.TS-33.310.202012",
+        "10.1007-s00145-011-9114-1",
+        "10.1007-978-3-319-70500-2_12",
+        "10.1109-IEEESTD.2018.8423794",
+        "ISO.20543.2019",
+        "IETF.draft-ietf-lamps-kyber-certificates-11",
+        "NIST.SP.800-90Ar1",
+        "RFC1847",
+        "RFC2510",
+        "RFC2585",
+        "RFC4210",
+        "RFC4212",
+        "RFC4303",
+        "RFC4511",
+        "RFC5912",
+        "RFC6268",
+        "RFC6712",
+        "RFC7296",
+        "RFC7299",
+        "RFC8446",
+        "RFC8572",
+        "RFC8649",
+        "RFC8995",
+        "RFC9147",
+        "RFC9162",
+        "RFC9480",
+        "RFC9482",
+        "RFC9483",
+        "RFC9733",
+        "RFC9811",
+        "T-REC-X.509.2019",
+        "orphan/RFC9810/h:cb0157c3",
+        "orphan/RFC9810/h:f7359971",
+        "orphan/RFC9810/h:6ebf6b5c",
+        "orphan/RFC9810/h:bc8baa48",
+        "orphan/RFC9810/h:27d98b1b"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Re-keyed after a citation parser fix (rekeyRefs.js)",
+        "originalValue": [
+          "3GPP.TS-33.310.202012",
+          "10.1007-s00145-011-9114-1",
+          "10.1007-978-3-319-70500-2_12",
+          "10.1109-ieeestd.2018.8423794",
+          "ISO.20543.2019",
+          "IETF.draft-ietf-lamps-kyber-certificates-11",
+          "NIST.SP.800-90Ar1",
+          "RFC1847",
+          "RFC2510",
+          "RFC2585",
+          "RFC4210",
+          "RFC4212",
+          "RFC4303",
+          "RFC4511",
+          "RFC5912",
+          "RFC6268",
+          "RFC6712",
+          "RFC7296",
+          "RFC7299",
+          "RFC8446",
+          "RFC8572",
+          "RFC8649",
+          "RFC8995",
+          "RFC9147",
+          "RFC9162",
+          "RFC9480",
+          "RFC9482",
+          "RFC9483",
+          "RFC9733",
+          "RFC9811",
+          "T-REC-X.509.2019",
+          "orphan/RFC9810/h:cb0157c3",
+          "orphan/RFC9810/h:f7359971",
+          "orphan/RFC9810/h:6ebf6b5c",
+          "orphan/RFC9810/h:bc8baa48",
+          "orphan/RFC9810/h:27d98b1b"
+        ],
+        "overridden": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-21T04:15:00.397Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "normative": [
+        "ISBN.9780471117094",
+        "RFC2119",
+        "RFC2985",
+        "RFC2986",
+        "RFC3629",
+        "RFC4211",
+        "RFC5280",
+        "RFC5480",
+        "RFC5646",
+        "RFC5652",
+        "RFC5958",
+        "RFC6402",
+        "RFC8174",
+        "RFC8933",
+        "RFC9045",
+        "RFC9481",
+        "RFC9629"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-14T18:51:50.456Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9810/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+      "updated": "2026-10-14T18:51:50.456Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-14T18:51:50.456Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "amends": [
+        "RFC5912"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-14T18:51:50.457Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-14T18:51:50.456Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9810",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9810",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc9810.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-14T18:51:50.457Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-14T18:51:50.456Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-14T18:51:50.456Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-14T18:51:50.456Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "supersedes": [
+        "RFC4210",
+        "RFC9480"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9810/",
+        "updated": "2026-10-14T18:51:50.457Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    }
+  }
+}

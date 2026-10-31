@@ -1,0 +1,308 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-22T15:46:47.014Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9408",
+  "document": {
+    "abstract": "This document defines a YANG data model for representing an abstract view of the provider network topology that contains the points from which its services can be attached (e.g., basic connectivity, VPN, network slices). Also, the model can be used to retrieve the points where the services are actually being delivered to customers (including peer networks). This document augments the 'ietf-network' data model defined in RFC 8345 by adding the concept of Service Attachment Points (SAPs). The SAPs are the network reference points to which network services, such as Layer 3 Virtual Private Network (L3VPN) or Layer 2 Virtual Private Network (L2VPN), can be attached. One or multiple services can be bound to the same SAP. Both User-to-Network Interface (UNI) and Network-to-Network Interface (NNI) are supported in the SAP data model.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "authors": [
+      {
+        "name": "Mohamed Boucadair"
+      },
+      {
+        "name": "Oscar Gonzalez de Dios"
+      },
+      {
+        "name": "Samier Barguil"
+      },
+      {
+        "name": "Qin Wu"
+      },
+      {
+        "name": "Victor Lopez"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "docId": "RFC9408",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "docLabel": "IETF RFC 9408",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "docNumber": "9408",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "docTitle": "A YANG Network Data Model for Service Attachment Points (SAPs)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "doi": "10.17487/RFC9408",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "href": "https://doi.org/10.17487/RFC9408",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "keywords": [
+      "Service Infrastructure",
+      "UNI",
+      "NNI",
+      "Inter-AS VPN",
+      "CE Router",
+      "Attachment Circuits",
+      "Service Delivery Point",
+      "Automation",
+      "Service Delivery"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Service Infrastructure",
+        "UNI",
+        "NNI",
+        "Network-to-Network Interface",
+        "Inter-AS VPN",
+        "CE Router",
+        "Attachment Circuit",
+        "Service Delivery Point",
+        "Automation",
+        "Service Delivery"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:46:47.014Z",
+      "version": "extractDocs.js@commit:29c1c80349b1"
+    },
+    "pages": "37",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "publicationDate": "2023-06-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "references": {
+      "bibliographic": [
+        "IETF.draft-ietf-bess-bgp-sdwan-usage-09",
+        "IETF.draft-ietf-teas-enhanced-vpn-12",
+        "10.1109-IEEESTD.2020.9105034",
+        "IETF.draft-ietf-teas-ietf-network-slices-19",
+        "RFC4026",
+        "RFC4364",
+        "RFC4761",
+        "RFC4762",
+        "RFC6004",
+        "RFC6215",
+        "RFC7149",
+        "RFC7224",
+        "RFC7426",
+        "RFC7432",
+        "RFC7623",
+        "RFC7951",
+        "RFC8214",
+        "RFC8299",
+        "RFC8309",
+        "RFC8340",
+        "RFC8342",
+        "RFC8365",
+        "RFC8453",
+        "RFC8466",
+        "RFC8969",
+        "RFC9135",
+        "RFC9182",
+        "RFC9291",
+        "orphan/RFC9408/h:7f1f515b",
+        "orphan/RFC9408/h:64ab4903"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+        "updated": "2026-10-22T15:18:32.032Z",
+        "version": "extractDocs.js@commit:7e15e4c54244"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC3688",
+        "RFC6020",
+        "RFC6241",
+        "RFC6242",
+        "RFC6991",
+        "RFC7950",
+        "RFC8040",
+        "RFC8174",
+        "RFC8341",
+        "RFC8345",
+        "RFC8346",
+        "RFC8446",
+        "RFC8795",
+        "RFC9181"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+        "updated": "2026-10-22T15:18:32.032Z",
+        "version": "extractDocs.js@commit:7e15e4c54244"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9408/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+      "updated": "2026-10-22T15:18:32.032Z",
+      "version": "extractDocs.js@commit:7e15e4c54244"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+        "updated": "2026-10-22T15:18:32.032Z",
+        "version": "extractDocs.js@commit:7e15e4c54244"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+        "updated": "2026-10-22T15:18:32.032Z",
+        "version": "extractDocs.js@commit:7e15e4c54244"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+        "updated": "2026-10-22T15:18:32.032Z",
+        "version": "extractDocs.js@commit:7e15e4c54244"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+        "updated": "2026-10-22T15:18:32.032Z",
+        "version": "extractDocs.js@commit:7e15e4c54244"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9408/",
+        "updated": "2026-10-22T15:18:32.032Z",
+        "version": "extractDocs.js@commit:7e15e4c54244"
+      }
+    }
+  }
+}

@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="A Survey of Worldwide Censorship Techniques">
+  <link rel="canonical" href="https://msrbot.io/docs/RFC9505/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="IETF RFC 9505 — MSRBot.io">
+  <meta property="og:description" content="">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/docs/RFC9505/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+
+  <link rel="alternate" type="application/json" href="../../api/doc/RFC9505.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
+  <title>MSRBot.io | IETF RFC 9505</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
+  <script src="../../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "IETF RFC 9505 - MSRBot.io",
+    "url": "https://msrbot.io/docs/RFC9505/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../../index.html"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../index.html"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/index.html"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/index.html"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/index.html"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/index.html"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/index.html"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+            api/by-publisher.json
+          </a>
+          &mdash; full-record slices per publisher and doc type
+        </li>
+        <li>
+          <a href="../../api/groups.json" target="_blank" rel="noopener">
+            api/groups.json
+          </a>
+          &mdash; groups registry
+        </li>
+        <li>
+          <a href="../../api/projects.json" target="_blank" rel="noopener">
+            api/projects.json
+          </a>
+          &mdash; projects registry
+        </li>
+        <li>
+          <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+            api/by-doc.json
+          </a>
+          &mdash; docId &rarr; owning groups and projects
+        </li>
+        <li>
+          <a href="../../api/publishers.json" target="_blank" rel="noopener">
+            api/publishers.json
+          </a>
+          &mdash; publishers, logos, doc counts
+        </li>
+        <li>
+          <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+            api/vocabulary.json
+          </a>
+          &mdash; keywords, doc types, content types
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
+          <a href="https://www.ietf.org/" target="_blank" rel="noopener"><img src="../../resources/logos/ietf.svg" alt="IETF logo" height="25" class="align-text-bottom me-1 publisher-logo" loading="lazy" data-logo-light="../../resources/logos/ietf.svg" data-logo-dark="../../resources/logos/ietf-white.svg"></a>
+        <code class="docid-doclabel me-1 fs-6 text-wrap">IETF RFC 9505</code>
+      </div>
+      <div class="status-badges ms-auto d-inline-flex flex-wrap gap-1">
+
+        
+        
+        
+        
+        
+            <span class="label badge text-bg-success">[ACTIVE]</span>
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <h1 class="h5 mb-1">
+        <a class="text-decoration-none" href="https://doi.org/10.17487/RFC9505" target="_blank" rel="noopener">A Survey of Worldwide Censorship Techniques</a>
+    </h1>
+    
+  </header>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h2 class="h5 card-title">Metadata</h2>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=IETF">IETF</a></dd>
+            <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Informational">Informational</a></dd>
+            
+            
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">34</dd>
+            
+            
+            
+            <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This document describes technical mechanisms employed in network censorship that regimes around the world use for blocking or impairing Internet traffic. It aims to make designers, implementers, and users of Internet protocols aware of the properties exploited and mechanisms used for censoring end-user access to information. This document makes no suggestions on individual protocol considerations, and is purely informational, intended as a reference. This document is a product of the Privacy Enhancement and Assessment Research Group (PEARG) in the IRTF.</dd>
+            
+            
+            <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2023-11-01</dd>
+            
+            
+            
+            
+            
+            
+            <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Informational</em></dd>
+            <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC9505" target="_blank" rel="noopener"><code>10.17487/RFC9505</code></a></dd>
+            
+            
+            <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC9505" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.17487/RFC9505</a></dd>
+            
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-2"><div class="d-flex justify-content-between align-items-center gap-2"><span>Joseph Lorenzo Hall</span></div></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Michael D. Aaron</span></div></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Amelia Andersdotter</span></div></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Ben Jones</span></div></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Nick Feamster</span></div></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Mallory Knodel</span></div></div></dd>
+            
+
+            <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Network Censorship">Network Censorship</a>, <a class="" href="../?f.keywords=Network Blocking">Network Blocking</a>, <a class="" href="../?f.keywords=Network Throttling">Network Throttling</a>, <a class="" href="../?f.keywords=Traffic Impairment">Traffic Impairment</a>, <a class="" href="../?f.keywords=Censorship Circumvention">Censorship Circumvention</a></dd>
+            
+            
+            
+            
+          </dl>
+        </div>
+      </div>
+      
+
+      
+    <div class="p-2 text-muted text-center">
+      <span class="fst-italic">
+        <i class="bi bi-check2-circle text-success"></i> Latest version of IETF RFC 9505
+      </span>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-body">
+        <h2 class="h6 mb-2">Document Versions — IETF RFC 9505</h2>
+        <ul class="list-group list-group-flush small">
+          <li class="list-group-item d-flex align-items-start justify-content-between doc-suite-row badge-node-current">
+            <div class="me-1 text-wrap">
+              <strong>▶</strong>
+              <a class="" href="../RFC9505/">IETF RFC 9505</a>
+               <span class="text-muted">(2023-11-01)</span>
+            </div>
+            <div class="badges-dsuite ms-auto">
+                 <span class="badge badge-dsuite text-bg-info">THIS DOC</span>
+              
+              
+              
+              
+              
+                    <span class="badge badge-dsuite text-bg-success">[ACTIVE]</span>
+              
+              
+              
+              
+                     <span class="badge badge-dsuite bg-info-subtle text-info-emphasis">[LATEST VERSION]</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col col-lg-6">
+              <h2 class="h6">Bibliographic Reference(s)</h2>
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item">
+                    <cite><a href="https://link.springer.com/chapter/10.1007/11957454_2" rel="noopener">10.1007-11957454_2 — Clayton-2006</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.tandfonline.com/doi/abs/10.1080/13552601003760014" rel="noopener">10.1080-13552601003760014 — Eneman-2010</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.132.3302&amp;rep=rep1&amp;type=pdf" rel="noopener">10.1109-ICSMC.1999.825218 — Ding-1999</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://oaklandsok.github.io/papers/tschantz2016.pdf" rel="noopener">10.1109-SP.2016.59 — Tschantz-2016</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://geneva.cs.umd.edu/papers/woot21-weaponizing-availability.pdf" rel="noopener">10.1109-SPW53761.2021.00059 — Bock-2021</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://conferences.sigcomm.org/imc/2013/papers/imc112s-dalekA.pdf" rel="noopener">10.1145-2504730.2504763 — Dalek-2013</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://doi.org/10.1145/2597173" rel="noopener">10.1145-2597173 — Gilad</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://conferences2.sigcomm.org/imc/2014/papers/p299.pdf" rel="noopener">10.1145-2663716.2663722 — Jones-2014</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.cs.ucr.edu/~zhiyunq/pub/imc17_censorship_tcp.pdf" rel="noopener">10.1145-3131365.3131374 — Wang-2017</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://david.choffnes.com/pubs/liberate-imc17.pdf" rel="noopener">10.1145-3131365.3131376 — Li-2017</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://doi.org/10.1145/3314344.3332502" rel="noopener">10.1145-3314344.3332502 — Leyba-2019</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://geneva.cs.umd.edu/papers/geneva_ccs19.pdf" rel="noopener">10.1145-3319535.3363189 — Bock-2019</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://irtf.org/anrw/2019/anrw2019-final44-acmpaginated.pdf" rel="noopener">10.1145-3340301.3341133 — Patil-2019</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.andrew.cmu.edu/user/nicolasc/publications/Rambert-WWW21.pdf" rel="noopener">10.1145-3442381.3450076 — Rambert-2021</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://geneva.cs.umd.edu/papers/foci21.pdf" rel="noopener">10.1145-3473604.3474559 — Bock-2021b</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dl.acm.org/doi/10.1145/3473604.3474560" rel="noopener">10.1145-3473604.3474560 — Knockel-2021</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://sambhav.info/files/blindtls-foci21.pdf" rel="noopener">10.1145-3473604.3474564 — Satija-2021</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dl.acm.org/doi/pdf/10.1145/3487552.3487836" rel="noopener">10.1145-3487552.3487836 — Elmenhorst-2021</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>10.1186-s13635-016-0030-7 — HCJC16</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.bamsoftware.com/papers/fronting/" rel="noopener">10.1515-popets-2015-0009 — DOMFRONT</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://doi.org/10.7551/mitpress/7617.003.0006" rel="noopener">10.7551-mitpress-7617.003.0006 — Murdoch-2008</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.cs.ucr.edu/~zhiyunq/pub/ndss20_symtcp.pdf" rel="noopener">10.14722-ndss.2020.24083 — Wang-2020</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://policyreview.info/articles/analysis/internet-filtering-trends-liberal-democracies-french-and-german-regulatory-debates" rel="noopener">10.14763-2013.2.122 — Wright-2013</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://arxiv.org/ftp/arxiv/papers/1107/1107.3794.pdf" rel="noopener">10.48550-arXiv.1107.3794 — Zhu-2011</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://arxiv.org/pdf/1312.5739v1.pdf" rel="noopener">10.48550-arXiv.1312.5739 — Ensafi-2013</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://arxiv.org/abs/1912.08590" rel="noopener">10.48550-arXiv.1912.08590 — Singh-2019</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-17" rel="noopener">IETF.draft-ietf-tls-esni-17 — I-D.ietf-tls-esni</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://felixreda.eu/2017/11/eu-website-blocking/" rel="noopener">Reda, F., &quot;New EU law prescribes website blocking in the name of &quot;consumer protection&quot;&quot;, November 2017, &lt;https://felixreda.eu/2017/11/eu-website-blocking/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.networkworld.com/article/2277316/tech-primers/tech-primers-how-dns-cache-poisoning-works.html" rel="noopener">Halley, B., &quot;How DNS cache poisoning works&quot;, October 2008, &lt;https://www.networkworld.com/article/2277316/tech-primers/tech-primers-how-dns-cache-poisoning-works.html&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.eff.org/deeplinks/2008/08/fcc-rules-against-comcast-bit-torrent-blocking" rel="noopener">VonLohmann, F., &quot;FCC Rules Against Comcast for BitTorrent Blocking&quot;, August 2008, &lt;https://www.eff.org/deeplinks/2008/08/fcc-rules-against-comcast-bit-torrent-blocking&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.manrs.org/2022/03/lesson-learned-twitter-shored-up-its-routing-security/" rel="noopener">Siddiqui, A., &quot;Lesson Learned: Twitter Shored Up Its Routing Security&quot;, March 2022, &lt;https://www.manrs.org/2022/03/lesson-learned-twitter-shored-up-its-routing-security/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.newamerica.org/cybersecurity-initiative/c2b/c2b-log/analysis-south-koreas-sni-monitoring/" rel="noopener">Morgus, R., Sherman, J., and S. Nam, &quot;Analysis: South Korea's New Tool for Filtering Illegal Internet Content&quot;, March 2019, &lt;https://www.newamerica.org/cybersecurity-initiative/c2b/c2b-log/analysis-south-koreas-sni-monitoring/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.theregister.co.uk/2013/05/09/malaysia_fraud_elections_ddos_web_blocking/" rel="noopener">Muncaster, P., &quot;Malaysian election sparks web blocking/DDoS claims&quot;, The Register, May 2013, &lt;http://www.theregister.co.uk/2013/05/09/malaysia_fraud_elections_ddos_web_blocking/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.theguardian.com/technology/2014/feb/11/bing-censors-chinese-language-search-results" rel="noopener">Rushe, D., &quot;Bing censoring Chinese language search results for users in the US&quot;, The Guardian, February 2014, &lt;http://www.theguardian.com/technology/2014/feb/11/bing-censors-chinese-language-search-results&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.icann.org/en/system/files/files/sac-056-en.pdf" rel="noopener">ICANN Security and Stability Advisory Committee (SSAC), &quot;SAC 056: SSAC Advisory on Impacts of Content Blocking via the Domain Name System&quot;, October 2012, &lt;https://www.icann.org/en/system/files/files/sac-056-en.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://ec.europa.eu/growth/content/evaluation-regulatory-tools-enforcing-online-gambling-rules-and-channelling-demand-towards-1_en" rel="noopener">European Commission, &quot;Evaluation of regulatory tools for enforcing online gambling rules and channelling demand towards controlled offers&quot;, January 2019, &lt;https://ec.europa.eu/growth/content/evaluation-regulatory-tools-enforcing-online-gambling-rules-and-channelling-demand-towards-1_en&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.zdnet.com/1168-keywords-skype-uses-to-censor-monitor-its-chinese-users-7000012328/" rel="noopener">Whittaker, Z., &quot;1,168 keywords Skype uses to censor, monitor its Chinese users&quot;, March 2013, &lt;http://www.zdnet.com/1168-keywords-skype-uses-to-censor-monitor-its-chinese-users-7000012328/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=710558258" rel="noopener">Wikipedia, &quot;Denial-of-service attack&quot;, March 2016, &lt;https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=710558258&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.hadopi.fr/" rel="noopener">Hadopi, &quot;Hadopi | Haute Autorité pour la diffusion des oeuvres et la protection des droits sur internet&quot;, &lt;https://www.hadopi.fr/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.bleepingcomputer.com/news/security/south-korea-is-censoring-the-internet-by-snooping-on-sni-traffic/" rel="noopener">Gatlan, S., &quot;South Korea is Censoring the Internet by Snooping on SNI Traffic&quot;, February 2019, &lt;https://www.bleepingcomputer.com/news/security/south-korea-is-censoring-the-internet-by-snooping-on-sni-traffic/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://opennet.net/blog/2009/07/china-shuts-down-internet-xinjiang-region-after-riots" rel="noopener">Heacock, R., &quot;China shuts down Internet in Xinjiang region after riots&quot;, OpenNet Initiative, July 2009, &lt;https://opennet.net/blog/2009/07/china-shuts-down-internet-xinjiang-region-after-riots&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://labs.ripe.net/Members/stephane_bortzmeyer/dns-censorship-dns-lies-seen-by-atlas-probes" rel="noopener">Bortzmeyer, S., &quot;DNS Censorship (DNS Lies) As Seen By RIPE Atlas&quot;, December 2015, &lt;https://labs.ripe.net/Members/stephane_bortzmeyer/dns-censorship-dns-lies-seen-by-atlas-probes&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://jhalderm.com/pub/papers/iran-foci13.pdf" rel="noopener">Aryan, S., Aryan, H., and J. A. Halderman, &quot;Internet Censorship in Iran: A First Look&quot;, 2012, &lt;https://jhalderm.com/pub/papers/iran-foci13.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.usenix.org/system/files/conference/foci14/foci14-anonymous.pdf" rel="noopener">Anonymous, &quot;Towards a Comprehensive Picture of the Great Firewall's DNS Censorship&quot;, August 2014, &lt;https://www.usenix.org/system/files/conference/foci14/foci14-anonymous.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://ooni.org/post/2018-iran-protests-pt2/" rel="noopener">Evdokimov, L., &quot;Iran Protests: DPI blocking of Instagram (Part 2)&quot;, February 2018, &lt;https://ooni.org/post/2018-iran-protests-pt2/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://web.archive.org/web/20200726222723/https://blogs.oracle.com/internetintelligence/turkish-internet-censorship-takes-a-new-turn" rel="noopener">Zmijewski, E., &quot;Turkish Internet Censorship Takes a New Turn&quot;, Wayback Machine archive, March 2014, &lt;http://web.archive.org/web/20200726222723/https://blogs.oracle.com/internetintelligence/turkish-internet-censorship-takes-a-new-turn&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://rsf.org/en/2020-world-press-freedom-index-entering-decisive-decade-journalism-exacerbated-coronavirus" rel="noopener">Reporters Without Borders (RSF), &quot;2020 World Press Freedom Index: 'Entering a decisive decade for journalism, exacerbated by coronavirus'&quot;, April 2020, &lt;https://rsf.org/en/2020-world-press-freedom-index-entering-decisive-decade-journalism-exacerbated-coronavirus&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://hal.inria.fr/hal-01202712/document" rel="noopener">Shbair, W. M., Cholez, T., Goichot, A., and I. Chrisment, &quot;Efficiently Bypassing SNI-based HTTPS Filtering&quot;, May 2015, &lt;https://hal.inria.fr/hal-01202712/document&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://scholarship.law.duke.edu/faculty_scholarship/619/" rel="noopener">Boyle, J., &quot;Foucault in Cyberspace: Surveillance, Sovereignty, and Hardwired Censors&quot;, 66 University of Cincinnati Law Review 177-205, 1997, &lt;https://scholarship.law.duke.edu/faculty_scholarship/619/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://news.bbc.co.uk/2/hi/asia-pacific/7016238.stm" rel="noopener">Dobie, M., &quot;Junta tightens media screw&quot;, BBC News, September 2007, &lt;http://news.bbc.co.uk/2/hi/asia-pacific/7016238.stm&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://geneva.cs.umd.edu/papers/evading-censorship-in-depth.pdf" rel="noopener">Bock, K., Fax, Y., Reese, K., Singh, J., and D. Levin, &quot;Detecting and Evading Censorship-in-Depth: A Case Study of Iran's Protocol Filter&quot;, January 2020, &lt;https://geneva.cs.umd.edu/papers/evading-censorship-in-depth.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.usenix.org/system/files/foci19-paper_chai_update.pdf" rel="noopener">Chai, Z., Ghafari, A., and A. Houmansadr, &quot;On the Importance of Encrypted-SNI (ESNI) to Censorship Circumvention&quot;, 2019, &lt;https://www.usenix.org/system/files/foci19-paper_chai_update.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://access.opennet.net/wp-content/uploads/2011/12/accesscontested-chapter-08.pdf" rel="noopener">Villeneuve, N. and M. Crete-Nishihata, &quot;Open Access: Chapter 8, Control and Resistance, Attacks on Burmese Opposition Media&quot;, January 2011, &lt;http://access.opennet.net/wp-content/uploads/2011/12/accesscontested-chapter-08.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.sciencesetavenir.fr/high-tech/comment-les-autorites-peuvent-bloquer-un-site-internet_35828" rel="noopener">Hertel, O., &quot;Comment les autorités peuvent bloquer un site Internet&quot; [How authorities can block a website], March 2015, &lt;https://www.sciencesetavenir.fr/high-tech/comment-les-autorites-peuvent-bloquer-un-site-internet_35828&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://0b4af6cdc2f0c5998459-c0245c5c937c5dedcca3f1764ecc9b2f.r43.cf2.rackcdn.com/12389-foci13-khattak.pdf" rel="noopener">Khattak, S., Javed, M., Anderson, P.D., and V. Paxson, &quot;Towards Illuminating a Censorship Monitor's Model to Facilitate Evasion&quot;, August 2013, &lt;http://0b4af6cdc2f0c5998459-c0245c5c937c5dedcca3f1764ecc9b2f.r43.cf2.rackcdn.com/12389-foci13-khattak.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.eff.org/deeplinks/2007/10/eff-tests-agree-ap-comcast-forging-packets-to-interfere" rel="noopener">Schoen, S., &quot;EFF tests agree with AP: Comcast is forging packets to interfere with user traffic&quot;, October 2007, &lt;https://www.eff.org/deeplinks/2007/10/eff-tests-agree-ap-comcast-forging-packets-to-interfere&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www3.trustwave.com/software/8e6/hlp/r3000/files/1system_filter.html" rel="noopener">Trustwave, &quot;Filter : SNI extension feature and HTTPS blocking&quot;, 2015, &lt;https://www3.trustwave.com/software/8e6/hlp/r3000/files/1system_filter.html&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://support.sophos.com/support/s/article/KB-000036518?language=en_US" rel="noopener">Sophos, &quot;Sophos Firewall: Web filtering basics&quot;, 2023, &lt;https://support.sophos.com/support/s/article/KB-000036518?language=en_US&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://en.wikipedia.org/wiki/Hepting_v._AT%26T&amp;oldid=1175143505" rel="noopener">Wikipedia, &quot;Hepting v. AT&amp;T&quot;, September 2023, &lt;https://en.wikipedia.org/wiki/Hepting_v._AT%26T&amp;oldid=1175143505&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.usenix.org/system/files/conference/foci15/foci15-paper-marczak.pdf" rel="noopener">Marczak, B., Weaver, N., Dalek, J., Ensafi, R., Fifield, D., McKune, S., Rey, A., Scott-Railton, J., Deibert, R., and V. Paxson, &quot;An Analysis of China's &quot;Great Cannon&quot;&quot;, August 2015, &lt;https://www.usenix.org/system/files/conference/foci15/foci15-paper-marczak.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_cao.pdf" rel="noopener">Cao, Y., Qian, Z., Wang, Z., Dao, T., Krishnamurthy, S., and L. Marvel, &quot;Off-Path TCP Exploits: Global Rate Limit Considered Dangerous&quot;, August 2016, &lt;https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_cao.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.iis.se/docs/hjelmvik_breaking.pdf" rel="noopener">Hjelmvik, E. and W. John, &quot;Breaking and Improving Protocol Obfuscation&quot;, Technical Report No. 2010-05, ISSN 1652-926X, July 2010, &lt;https://www.iis.se/docs/hjelmvik_breaking.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.accessnow.org/keepiton-shutdown-tracker/" rel="noopener">Dada, T. and P. Micek, &quot;Launching STOP: the #KeepItOn internet shutdown tracker&quot;, September 2017, &lt;https://www.accessnow.org/keepiton-shutdown-tracker/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://en.greatfire.org/blog/2013/jan/github-blocked-china-how-it-happened-how-get-around-it-and-where-it-will-take-us" rel="noopener">Anonymous, &quot;GitHub blocked in China - how it happened, how to get around it, and where it will take us&quot;, January 2013, &lt;https://en.greatfire.org/blog/2013/jan/github-blocked-china-how-it-happened-how-get-around-it-and-where-it-will-take-us&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.usenix.org/system/files/conference/foci12/foci12-final1.pdf" rel="noopener">Verkamp, J. P. and M. Gupta, &quot;Inferring Mechanics of Web Censorship Around the World&quot;, August 2012, &lt;https://www.usenix.org/system/files/conference/foci12/foci12-final1.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.nbcnews.com/tech/tech-news/malaysia-online-election-battles-take-nasty-turn-flna6c9783842" rel="noopener">Wagstaff, J., &quot;In Malaysia, online election battles take a nasty turn&quot;, NBC News, May 2013, &lt;https://www.nbcnews.com/tech/tech-news/malaysia-online-election-battles-take-nasty-turn-flna6c9783842&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.icir.org/vern/papers/reset-injection.ndss09.pdf" rel="noopener">Weaver, N., Sommer, R., and V. Paxson, &quot;Detecting Forged TCP Reset Packets&quot;, September 2009, &lt;http://www.icir.org/vern/papers/reset-injection.ndss09.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.eff.org/files/2017/08/02/domain_registry_whitepaper.pdf" rel="noopener">Malcom, J., Rossi, G., and M. Stoltz, &quot;Which Internet registries offer the best protection for domain owners?&quot;, Electronic Frontier Foundation, July 2017, &lt;https://www.eff.org/files/2017/08/02/domain_registry_whitepaper.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.nytimes.com/2019/10/09/world/asia/blizzard-hearthstone-hong-kong.html" rel="noopener">Victor, D., &quot;Blizzard Sets Off Backlash for Penalizing Hearthstone Gamer in Hong Kong&quot;, The New York Times, October 2019, &lt;https://www.nytimes.com/2019/10/09/world/asia/blizzard-hearthstone-hong-kong.html&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://geneva.cs.umd.edu/posts/china-censors-esni/esni/" rel="noopener">Bock, K., iyouport, Anonymous, Merino, L-H., Fifield, D., Houmansadr, A., and D. Levin, &quot;Exposing and Circumventing China's Censorship of ESNI&quot;, August 2020, &lt;https://geneva.cs.umd.edu/posts/china-censors-esni/esni/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.symantec.com/connect/articles/perils-deep-packet-inspection" rel="noopener">Porter, T., &quot;The Perils of Deep Packet Inspection&quot;, 2010, &lt;http://www.symantec.com/connect/articles/perils-deep-packet-inspection&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.themoscowtimes.com/news/article/cyberattacks-disrupt-oppositions-election/470119.html" rel="noopener">Kravtsova, Y., &quot;Cyberattacks Disrupt Opposition's Election&quot;, The Moscow Times, October 2012, &lt;http://www.themoscowtimes.com/news/article/cyberattacks-disrupt-oppositions-election/470119.html&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.icann.org/en/system/files/files/sac-109-en.pdf" rel="noopener">ICANN Security and Stability Advisory Committee (SSAC), &quot;SAC109: The Implications of DNS over HTTPS and DNS over TLS&quot;, March 2020, &lt;https://www.icann.org/en/system/files/files/sac-109-en.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.sigcomm.org/sites/default/files/ccr/papers/2012/July/2317307-2317311.pdf" rel="noopener">Anonymous, &quot;The Collateral Damage of Internet Censorship by DNS Injection&quot;, July 2012, &lt;http://www.sigcomm.org/sites/default/files/ccr/papers/2012/July/2317307-2317311.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.afnic.fr/medias/documents/conseilscientifique/SC-consequences-of-DNS-based-Internet-filtering.pdf" rel="noopener">AFNIC, &quot;Report of the AFNIC Scientific Council: Consequences of DNS-based Internet filtering&quot;, January 2013, &lt;http://www.afnic.fr/medias/documents/conseilscientifique/SC-consequences-of-DNS-based-Internet-filtering.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://cis-india.org/internet-governance/blog/reliance-jio-is-using-sni-inspection-to-block-websites" rel="noopener">Grover, G., Singh, K., and E. Hickok, Ed., &quot;Reliance Jio is using SNI inspection to block websites&quot;, November 2019, &lt;https://cis-india.org/internet-governance/blog/reliance-jio-is-using-sni-inspection-to-block-websites&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.bbc.com/news/world-asia-china-24396957" rel="noopener">BBC, &quot;China employs two million microblog monitors state media say&quot;, 2013, &lt;https://www.bbc.com/news/world-asia-china-24396957&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.newscientist.com/article/dn7589-iranian-net-censorship-powered-by-us-technology/" rel="noopener">Knight, W., &quot;Iranian net censorship powered by US technology&quot;, June 2005, &lt;https://www.newscientist.com/article/dn7589-iranian-net-censorship-powered-by-us-technology/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.businessinsider.com/chinas-internet-breakdown-reportedly-caused-by-censoring-tools-2014-1" rel="noopener">AFP, &quot;China Has Massive Internet Breakdown Reportedly Caused By Their Own Censoring Tools&quot;, January 2014, &lt;http://www.businessinsider.com/chinas-internet-breakdown-reportedly-caused-by-censoring-tools-2014-1&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://vuls.cert.org/confluence/display/historical/CERT+Advisory+CA-1996-21+TCP+SYN+Flooding+and+IP+Spoofing+Attacks" rel="noopener">CERT, &quot;CERT Advisory CA-1996-21 TCP SYN Flooding and IP Spoofing Attacks&quot;, 2000, &lt;https://vuls.cert.org/confluence/display/historical/CERT+Advisory+CA-1996-21+TCP+SYN+Flooding+and+IP+Spoofing+Attacks&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://advocacy.globalvoicesonline.org/wp-content/uploads/2009/06/deeppacketinspectionandinternet-censorship2.pdf" rel="noopener">Wagner, B., &quot;Deep Packet Inspection and Internet Censorship: International Convergence on an 'Integrated Technology of Control'&quot;, Global Voices Advocacy, 2009, &lt;http://advocacy.globalvoicesonline.org/wp-content/uploads/2009/06/deeppacketinspectionandinternet-censorship2.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.cs.unm.edu/~crandall/icdcs2010.pdf" rel="noopener">Park, J.C. and J. Crandall, &quot;Empirical Study of a National-Scale Distributed Intrusion Detection System: Backbone-Level Filtering of HTML Responses in China&quot;, June 2010, &lt;http://www.cs.unm.edu/~crandall/icdcs2010.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://opennet.net/blog/2011/06/dns-tampering-and-new-icann-gtld-rules" rel="noopener">Albert, K., &quot;DNS Tampering and the new ICANN gTLD Rules&quot;, June 2011, &lt;https://opennet.net/blog/2011/06/dns-tampering-and-new-icann-gtld-rules&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://arxiv.org/pdf/1204.0447v1.pdf" rel="noopener">Winter, P. and S. Lindskog, &quot;How China Is Blocking Tor&quot;, April 2012, &lt;http://arxiv.org/pdf/1204.0447v1.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://ec.europa.eu/information_society/newsroom/image/document/2017-4/consultation_summary_report_en_2010_42070.pdf" rel="noopener">European Commission, &quot;Summary of the results of the Public Consultation on the future of electronic commerce in the Internal Market and the implementation of the Directive on electronic commerce (2000/31/EC)&quot;, January 2012, &lt;https://ec.europa.eu/information_society/newsroom/image/document/2017-4/consultation_summary_report_en_2010_42070.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.researchgate.net/profile/Nirmala-Svsg/post/Anybody-working-on-Internet-traffic-classification/attachment/59d63a5779197b807799782d/AS%3A405810988503040%401473764287142/download/traffic-classification-identifying-and-measuring-internet-traffic.pdf" rel="noopener">Sandvine, &quot;Internet Traffic Classification: A Sandvine Technology Showcase&quot;, 2015, &lt;https://www.researchgate.net/profile/Nirmala-Svsg/post/Anybody-working-on-Internet-traffic-classification/attachment/59d63a5779197b807799782d/AS%3A405810988503040%401473764287142/download/traffic-classification-identifying-and-measuring-internet-traffic.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.icann.org/en/system/files/files/guidance-domain-seizures-07mar12-en.pdf" rel="noopener">ICANN Security and Stability Advisory Committee, &quot;Guidance for Preparing Domain Name Orders, Seizures &amp; Takedowns&quot;, January 2012, &lt;https://www.icann.org/en/system/files/files/guidance-domain-seizures-07mar12-en.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.nbcnews.com/feature/edward-snowden-interview/exclusive-snowden-docs-show-uk-spies-attacked-anonymous-hackers-n21361" rel="noopener">NBC News, &quot;Exclusive: Snowden Docs Show UK Spies Attacked Anonymous, Hackers&quot;, February 2014, &lt;http://www.nbcnews.com/feature/edward-snowden-interview/exclusive-snowden-docs-show-uk-spies-attacked-anonymous-hackers-n21361&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://support.google.com/legal/contact/lr_eudpa?product=websearch" rel="noopener">Google, Inc., &quot;Search removal request under data protection law in Europe&quot;, 2015, &lt;https://support.google.com/legal/contact/lr_eudpa?product=websearch&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.dmlp.org/legal-guide/protecting-yourself-against-copyright-claims-based-user-content" rel="noopener">Digital Media Law Project, &quot;Protecting Yourself Against Copyright Claims Based on User Content&quot;, May 2012, &lt;https://www.dmlp.org/legal-guide/protecting-yourself-against-copyright-claims-based-user-content&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://2019.www.torproject.org/docs/pluggable-transports.html.en" rel="noopener">Tor, &quot;Tor: Pluggable Transports&quot;, 2019, &lt;https://2019.www.torproject.org/docs/pluggable-transports.html.en&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://citizenlab.org/2013/11/asia-chats-analyzing-information-controls-privacy-asian-messaging-applications/" rel="noopener">Crete-Nishihata, M., Dalek, J., Hardy, S., Hilts, A., Kleemola, K., Ng, J., Poetranto, I., Senft, A., Sinpeng, A., Sonne, B., and G. Wiseman, &quot;Asia Chats: Analyzing Information Controls and Privacy in Asian Messaging Applications&quot;, November 2013, &lt;https://citizenlab.org/2013/11/asia-chats-analyzing-information-controls-privacy-asian-messaging-applications/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.opentech.fund/news/a-quick-look-at-quic/" rel="noopener">Elmenhorst, K., &quot;A Quick Look at QUIC Censorship&quot;, April 2022, &lt;https://www.opentech.fund/news/a-quick-look-at-quic/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://status.cloud.google.com/incident/cloud-networking/18018" rel="noopener">&quot;Google Cloud Networking Incident #18018&quot;, November 2018, &lt;https://status.cloud.google.com/incident/cloud-networking/18018&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://web.archive.org/web/20130825010947/http://www.theinquirer.net/inquirer/news/2287433/zimbabwe-election-hit-by-hacking-and-ddos-attacks" rel="noopener">Orion, E., &quot;Zimbabwe election hit by hacking and DDoS attacks&quot;, Wayback Machine archive, August 2013, &lt;https://web.archive.org/web/20130825010947/http://www.theinquirer.net/inquirer/news/2287433/zimbabwe-election-hit-by-hacking-and-ddos-attacks&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://0b4af6cdc2f0c5998459-c0245c5c937c5dedcca3f1764ecc9b2f.r43.cf2.rackcdn.com/12387-foci13-nabi.pdf" rel="noopener">Nabi, Z., &quot;The Anatomy of Web Censorship in Pakistan&quot;, August 2013, &lt;http://0b4af6cdc2f0c5998459-c0245c5c937c5dedcca3f1764ecc9b2f.r43.cf2.rackcdn.com/12387-foci13-nabi.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://blog.torproject.org/blog/knock-knock-knockin-bridges-doors" rel="noopener">Wilde, T., &quot;Knock Knock Knockin' on Bridges Doors&quot;, The Tor Project, July 2012, &lt;https://blog.torproject.org/blog/knock-knock-knockin-bridges-doors&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://archive.nanog.org/meetings/nanog51/presentations/Tuesday/LT-Cowie-Egypt%20Leaves%20The%20Internet.pdf" rel="noopener">Cowie, J., &quot;Egypt Leaves The Internet&quot;, NANOG 51, February 2011, &lt;https://archive.nanog.org/meetings/nanog51/presentations/Tuesday/LT-Cowie-Egypt%20Leaves%20The%20Internet.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.theregister.co.uk/2012/11/29/syria_internet_blackout/" rel="noopener">Thomson, I., &quot;Syria cuts off internet and mobile communication&quot;, The Register, November 2012, &lt;http://www.theregister.co.uk/2012/11/29/syria_internet_blackout/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://arstechnica.com/tech-policy/2010/06/google-tweaks-china-to-hong-kong-redirect-same-results/" rel="noopener">Cheng, J., &quot;Google stops Hong Kong auto-redirect as China plays hardball&quot;, June 2010, &lt;http://arstechnica.com/tech-policy/2010/06/google-tweaks-china-to-hong-kong-redirect-same-results/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://citizenlab.ca/2018/03/bad-traffic-sandvines-packetlogic-devices-deploy-government-spyware-turkey-syria/" rel="noopener">Marczak, B., Dalek, J., McKune, S., Senft, A., Scott-Railton, J., and R. Deibert, &quot;Bad Traffic: Sandvine's PacketLogic Devices Used to Deploy Government Spyware in Turkey and Redirect Egyptian Users to Affiliate Ads?&quot;, March 2018, &lt;https://citizenlab.ca/2018/03/bad-traffic-sandvines-packetlogic-devices-deploy-government-spyware-turkey-syria/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://educatedguesswork.org/posts/apple-csam-intro/" rel="noopener">Rescorla, E., &quot;Overview of Apple's Client-side CSAM Scanning&quot;, August 2021, &lt;https://educatedguesswork.org/posts/apple-csam-intro/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.cs.tufts.edu/comp/116/archive/fall2016/ctang.pdf" rel="noopener">Tang, C., &quot;In-depth analysis of the Great Firewall of China&quot;, December 2016, &lt;https://www.cs.tufts.edu/comp/116/archive/fall2016/ctang.pdf&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://torrentfreak.com/how-to-bypass-comcast-bittorrent-throttling-071021" rel="noopener">Van der Sar, E., &quot;How To Bypass Comcast's BitTorrent Throttling&quot;, October 2012, &lt;https://torrentfreak.com/how-to-bypass-comcast-bittorrent-throttling-071021&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52012SC0345" rel="noopener">European Commission, &quot;Online gambling in the Internal Market Accompanying the document Communication from the Commission to the European Parliament, the Council, the Economic and Social Committee and the Committee of the Regions Towards a comprehensive framework for online gambling&quot;, 2012, &lt;https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52012SC0345&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://nets.ec/TCP-RST_Injection" rel="noopener">n3t2.3c, &quot;TCP-RST Injection&quot;, October 2011, &lt;https://nets.ec/TCP-RST_Injection&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://en.wikipedia.org/w/index.php?title=Censorship&amp;oldid=943938595" rel="noopener">Wikipedia, &quot;Censorship&quot;, March 2020, &lt;https://en.wikipedia.org/w/index.php?title=Censorship&amp;oldid=943938595&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://ooni.org/post/2019-china-wikipedia-blocking/" rel="noopener">Singh, S., Filastò, A., and M. Xynou, &quot;China is now blocking all language editions of Wikipedia&quot;, May 2019, &lt;https://ooni.org/post/2019-china-wikipedia-blocking/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://techcrunch.com/2019/10/30/github-removes-tsunami-democratics-apk-after-a-takedown-order-from-spain/" rel="noopener">Lomas, N., &quot;Github removes Tsunami Democràtic's APK after a takedown order from Spain&quot;, October 2019, &lt;https://techcrunch.com/2019/10/30/github-removes-tsunami-democratics-apk-after-a-takedown-order-from-spain/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://gizmodo.com/google-announces-massive-new-restrictions-on-child-abus-1466539163" rel="noopener">Condliffe, J., &quot;Google Announces Massive New Restrictions on Child Abuse Search Terms&quot;, November 2013, &lt;http://gizmodo.com/google-announces-massive-new-restrictions-on-child-abus-1466539163&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://labs.ripe.net/Members/giovane_moura/detecting-and-taking-down-fraudulent-webshops-at-a-cctld" rel="noopener">Moura, G., &quot;Detecting and Taking Down Fraudulent Webshops at the .nl ccTLD&quot;, February 2020, &lt;https://labs.ripe.net/Members/giovane_moura/detecting-and-taking-down-fraudulent-webshops-at-a-cctld&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.bbc.com/news/uk-24980765" rel="noopener">BBC News, &quot;Google and Microsoft agree steps to block abuse images&quot;, November 2013, &lt;http://www.bbc.com/news/uk-24980765&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.theguardian.com/commentisfree/2008/nov/17/censorship-internet" rel="noopener">Glanville, J., &quot;The big business of net censorship&quot;, The Guardian, November 2008, &lt;http://www.theguardian.com/commentisfree/2008/nov/17/censorship-internet&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.zdnet.com/article/russia-to-disconnect-from-the-internet-as-part-of-a-planned-test/" rel="noopener">Cimpanu, C., &quot;Russia to disconnect from the internet as part of a planned test&quot;, February 2019, &lt;https://www.zdnet.com/article/russia-to-disconnect-from-the-internet-as-part-of-a-planned-test/&gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC6066/" title="IETF RFC 6066">
+                        IETF RFC 6066
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7624/" title="IETF RFC 7624">
+                        IETF RFC 7624
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7754/" title="IETF RFC 7754">
+                        IETF RFC 7754
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7858/" title="IETF RFC 7858">
+                        IETF RFC 7858
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC8484/" title="IETF RFC 8484">
+                        IETF RFC 8484
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC8744/" title="IETF RFC 8744">
+                        IETF RFC 8744
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC9000/" title="IETF RFC 9000">
+                        IETF RFC 9000
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC9293/" title="IETF RFC 9293">
+                        IETF RFC 9293
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <!-- Source data / JSON view -->
+      <div class="card mb-3 mt-3">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Source Data (JSON)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary py-0 px-2"
+            id="source-data-toggle"
+            data-docid="RFC9505"
+          >
+            View source JSON
+          </button>
+        </div>
+        <div class="card-body small">
+          <p class="mb-0 small">
+            Full registry record with provenance metadata.
+            Open directly:
+            <a href="../../api/doc/RFC9505.json" target="_blank" rel="noopener">/api/doc/RFC9505.json</a>
+          </p>
+          <pre
+            id="source-data-json"
+            class="mt-2 border rounded p-2 bg-body-secondary small"
+            style="max-height: 16rem; overflow:auto; display:none;"
+          ></pre>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const btn = document.getElementById('source-data-toggle');
+        const box = document.getElementById('source-data-json');
+        if (!btn || !box) return;
+
+        let loaded = false;
+        let visible = false;
+
+        async function toggleSource() {
+          visible = !visible;
+          if (!visible) {
+            box.style.display = 'none';
+            btn.textContent = 'View source JSON';
+            return;
+          }
+
+          box.style.display = 'block';
+          btn.textContent = 'Hide source JSON';
+
+          if (loaded) return;
+
+          const docId = btn.getAttribute('data-docid') || '';
+          const encoded = encodeURIComponent(docId);
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
+
+          box.textContent = 'Loading…';
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const data = await res.json();
+            box.textContent = JSON.stringify(data, null, 2);
+            loaded = true;
+          } catch (e) {
+            const msg = (e && e.message) ? e.message : String(e || 'Unknown error');
+            box.textContent = 'Failed to load source JSON: ' + msg;
+          }
+        }
+
+        btn.addEventListener('click', function(ev){
+          ev.preventDefault();
+          toggleSource();
+        }, { passive: false });
+      })();
+      </script>
+    </div>
+
+    <div class="col-lg-5">
+
+      <div class="card mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">Reference Tree</h2>
+          <p class="mb-2 text-muted">
+            Explore all references and references to this document, as a navigable tree.
+          </p>
+          <a class="btn btn-outline-secondary btn-sm" href="../../reftree/RFC9505/">Open Reference Tree</a>
+        </div>
+      </div>
+
+      <!-- Use this document as a reference -->
+      <div class="card mb-3">
+        <div class="card-header fw-semibold">Reference this Doc</div>
+        <div class="card-body small">
+          <!-- Plain text -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">Plain text (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-text-RFC9505">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">IETF RFC 9505, A Survey of Worldwide Censorship Techniques. Available at https://doi.org/10.17487/RFC9505</div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-text-RFC9505" class=" border rounded p-2 mb-0 snippet">IETF RFC 9505, A Survey of Worldwide Censorship Techniques. Available at https://doi.org/10.17487/RFC9505</pre>
+            
+          </div>
+          
+          <!-- HTML (generic) -->
+          <div class="mb-3 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">HTML (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-generic-RFC9505">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><span class="citation"><cite>IETF RFC 9505</cite>, A Survey of Worldwide Censorship Techniques. Available at <a href="https://doi.org/10.17487/RFC9505" target="_blank" rel="noopener">https://doi.org/10.17487/RFC9505</a></span></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-generic-RFC9505" class=" border rounded p-2 mb-0 snippet">&lt;span class=&quot;citation&quot;&gt;&lt;cite&gt;IETF RFC 9505&lt;/cite&gt;, A Survey of Worldwide Censorship Techniques. Available at &lt;a href=&quot;https://doi.org/10.17487/RFC9505&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doi.org/10.17487/RFC9505&lt;/a&gt;&lt;/span&gt;</pre>
+            
+          </div>
+
+          <!-- HTML (SMPTE) -->
+          <div class="mb-1 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0"><img src="../../resources/logos/smpte-icon.png" alt="SMPTE Icon" width="24" class=" icon d-inline-block align-text-middle"> SMPTE's <a href="../SMPTE.AG26/" title="IETF RFC 9505">HTML Pub</a></h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-smpte-RFC9505">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><cite id="bib-rfc9505">IETF RFC 9505</cite>, A Survey of Worldwide Censorship Techniques<br>doi:&nbsp;<span class="doi">10.17487/RFC9505</span><br>url:&nbsp;<a href="https://doi.org/10.17487/RFC9505" class="ext-ref">https://doi.org/10.17487/RFC9505</a></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-smpte-RFC9505" class=" border rounded p-2 mb-0 snippet">&lt;li&gt;
+&lt;cite id=&quot;bib-rfc9505&quot;&gt;IETF RFC 9505&lt;/cite&gt;, A Survey of Worldwide Censorship Techniques
+&lt;span class=&quot;doi&quot;&gt;10.17487/RFC9505&lt;/span&gt;
+&lt;/li&gt;</pre>
+            
+          </div>
+        </div>
+      </div>
+
+      <script>
+      // Lightweight copy buttons for the three snippets on this page
+      (function(){
+        function copyFrom(targetSel){
+          try{
+            // Support targets passed as "#id" or "id"
+            let id = targetSel || '';
+            if (id.startsWith('#')) id = id.slice(1);
+
+            // Prefer getElementById to avoid CSS selector escaping issues with dots in IDs (e.g., SMPTE.ST96.2004)
+            const el = document.getElementById(id) || document.querySelector(targetSel);
+            if (!el) return;
+
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
+            navigator.clipboard.writeText(text);
+          } catch (e) {
+            console.error('[copy] failed:', e);
+          }
+        }
+        document.addEventListener('click', function(ev){
+          const btn = ev.target.closest('[data-copy-target]');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-copy-target');
+          copyFrom(sel);
+          // quick visual feedback
+          btn.disabled = true;
+          const prev = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.disabled = false; btn.innerText = prev; }, 900);
+        }, { passive: true });
+      })();
+      </script>
+      
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h6">Referenced By</h2>
+          <ul class="list-group list-group-flush small">
+            <li class="list-group-item">
+              <a href="../RFC9620/">IETF RFC 9620</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="mt-3">
+    <a class="btn btn-outline-secondary btn-sm" href="../#RFC9505">← Back to Docs</a>
+  </nav>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="2026-10-27T10:06:44.075Z"><code>2026-10-27T10:06:44.075Z</code></time>
+            </p>
+                      </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

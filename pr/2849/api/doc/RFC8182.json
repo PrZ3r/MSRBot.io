@@ -1,0 +1,275 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T21:46:05.482Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC8182",
+  "document": {
+    "abstract": "In the Resource Public Key Infrastructure (RPKI), Certificate Authorities (CAs) publish certificates, including end-entity certificates, Certificate Revocation Lists (CRLs), and RPKI signed objects to repositories. Relying Parties retrieve the published information from those repositories. This document specifies a new RPKI Repository Delta Protocol (RRDP) for this purpose. RRDP was specifically designed for scaling. It relies on an Update Notification File which lists the current Snapshot and Delta Files that can be retrieved using HTTPS (HTTP over Transport Layer Security (TLS)), and it enables the use of Content Distribution Networks (CDNs) or other caching infrastructures for the retrieval of these files.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "authors": [
+      {
+        "name": "Tim Bruijnzeels"
+      },
+      {
+        "name": "Oleg Muravskiy"
+      },
+      {
+        "name": "Bryan Weber"
+      },
+      {
+        "name": "Rob Austein"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docId": "RFC8182",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docLabel": "IETF RFC 8182",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docNumber": "8182",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docTitle": "The RPKI Repository Delta Protocol (RRDP)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "doi": "10.17487/RFC8182",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "href": "https://doi.org/10.17487/RFC8182",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "pages": "24",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publicationDate": "2017-07-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC6486",
+        "RFC6488",
+        "orphan/RFC8182/h:ebdde25e",
+        "orphan/RFC8182/h:18654318"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=18 proseBlocks=22 skippedAnchorBlocks=20",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+        "updated": "2026-10-20T21:46:05.482Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC4122",
+        "RFC5781",
+        "RFC6125",
+        "RFC6481",
+        "RFC6487",
+        "RFC7230",
+        "RFC7231",
+        "RFC7232",
+        "RFC7234",
+        "RFC7525",
+        "RFC8174",
+        "RFC8181",
+        "NIST.FIPS.180-4"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+        "updated": "2026-10-20T21:46:05.482Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8182/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+      "updated": "2026-10-20T21:46:05.482Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+        "updated": "2026-10-20T21:46:05.482Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "amendedBy": [
+        "RFC9674",
+        "RFC9697"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+        "updated": "2026-10-20T21:46:05.482Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+        "updated": "2026-10-20T21:46:05.482Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc8182",
+        "https://www.rfc-editor.org/errata_search.php?rfc=8182",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc8182.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+        "updated": "2026-10-20T21:46:05.482Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+        "updated": "2026-10-20T21:46:05.482Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+        "updated": "2026-10-20T21:46:05.482Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8182/",
+        "updated": "2026-10-20T21:46:05.482Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    }
+  }
+}

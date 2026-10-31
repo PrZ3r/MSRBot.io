@@ -1,0 +1,311 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T16:16:50.828Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9052",
+  "document": {
+    "abstract": "Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size. There is a need to be able to define basic security services for this data format. This document defines the CBOR Object Signing and Encryption (COSE) protocol. This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization. This specification additionally describes how to represent cryptographic keys using CBOR. This document, along with RFC 9053, obsoletes RFC 8152.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "authors": [
+      {
+        "name": "Jim Schaad"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docId": "RFC9052",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docLabel": "IETF RFC 9052",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docNumber": "9052",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docTitle": "CBOR Object Signing and Encryption (COSE): Structures and Process",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "doi": "10.17487/RFC9052",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "href": "https://doi.org/10.17487/RFC9052",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "keywords": [
+      "Object Security",
+      "COSE",
+      "Constrained Devices"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "pages": "66",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publicationDate": "2022-08-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC7696",
+        "IETF.draft-ietf-core-groupcomm-bis-07",
+        "IETF.draft-ietf-cose-countersign-08",
+        "NIST.FIPS.186-4",
+        "GITHUB.cose-wg.Examples",
+        "10.1007-3-540-45353-9_11",
+        "RFC2633",
+        "RFC3394",
+        "RFC3851",
+        "RFC4262",
+        "RFC4949",
+        "RFC5116",
+        "RFC5652",
+        "RFC5751",
+        "RFC5752",
+        "RFC5990",
+        "RFC6838",
+        "RFC7252",
+        "RFC7515",
+        "RFC7516",
+        "RFC7517",
+        "RFC7518",
+        "RFC8032",
+        "RFC8126",
+        "RFC8152",
+        "RFC8230",
+        "RFC8551",
+        "RFC8610",
+        "RFC8613",
+        "RFC9054",
+        "RFC9106",
+        "RFC8259",
+        "W3C.webcryptoapi",
+        "orphan/RFC9052/h:e3c0fee5",
+        "orphan/RFC9052/h:a55984e0",
+        "orphan/RFC9052/h:961b4054",
+        "orphan/RFC9052/h:f477db06"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC8174",
+        "RFC9053",
+        "RFC8949"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9052/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+      "updated": "2026-10-14T16:16:50.828Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "amendedBy": [
+        "RFC9338"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9052",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9052"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "statusNote": "Internet Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "supersedes": [
+        "RFC8152"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9052/",
+        "updated": "2026-10-14T16:16:50.828Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    }
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-22T15:11:21.384Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC7289",
+  "document": {
+    "abstract": "This document specifies a framework to integrate a Network Address Translation (NAT) layer into an operator's network to function as a Carrier-Grade NAT (also known as CGN or Large-Scale NAT). The CGN infrastructure will often form a NAT444 environment as the subscriber home network will likely also maintain a subscriber-side NAT function. Exhaustion of the IPv4 address pool is a major driver compelling some operators to implement CGN. Although operators may wish to deploy IPv6 to strategically overcome IPv4 exhaustion, near- term needs may not be satisfied with an IPv6 deployment alone. This document provides a practical integration model that allows the CGN platform to be integrated into the network, meeting the connectivity needs of the subscriber while being mindful of not disrupting existing services and meeting the technical challenges that CGN brings. The model included in this document utilizes BGP/MPLS IP VPNs, which allow for virtual routing separation, helping ease the CGN's impact on the network. This document does not intend to defend the merits of CGN.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "authors": [
+      {
+        "name": "Victor Kuarsingh"
+      },
+      {
+        "name": "John Cianfarani"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docId": "RFC7289",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docLabel": "IETF RFC 7289",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docNumber": "7289",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docTitle": "Carrier-Grade NAT (CGN) Deployment with BGP/MPLS IP VPNs",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "doi": "10.17487/RFC7289",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "href": "https://doi.org/10.17487/RFC7289",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "keywords": [
+      "NAT444",
+      "CGN"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "NAT444",
+        "CGN",
+        "Large-Scale NAT"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T15:11:21.384Z",
+      "version": "extractDocs.js@commit:0b3793d5c0eb"
+    },
+    "pages": "20",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "publicationDate": "2014-06-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC1918",
+        "RFC3031",
+        "RFC5332",
+        "RFC6037",
+        "RFC6146",
+        "RFC6264",
+        "RFC6333",
+        "RFC6513",
+        "RFC6598",
+        "RFC6888",
+        "RFC7021",
+        "orphan/RFC7289/h:c4aff0c6"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=13 proseBlocks=15 skippedAnchorBlocks=13",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+        "updated": "2026-10-22T01:45:27.957Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc7289/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+      "updated": "2026-10-22T01:45:27.957Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+        "updated": "2026-10-22T01:45:27.957Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+        "updated": "2026-10-22T01:45:27.957Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+        "updated": "2026-10-22T01:45:27.957Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+        "updated": "2026-10-22T01:45:27.957Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7289/",
+        "updated": "2026-10-22T01:45:27.957Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      }
+    }
+  }
+}

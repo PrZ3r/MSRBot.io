@@ -1,0 +1,245 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-22T01:46:22.166Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9736",
+  "document": {
+    "abstract": "RFC 7854, the BGP Monitoring Protocol (BMP), uses different message types for different purposes. Most of these are structured as Type, Length, Value (TLV). One message type, the Peer Up message, lacks a set of TLVs defined for its use, instead sharing a namespace with the Initiation message. Experience has shown that this namespace sharing was a mistake, as it hampers the extension of the protocol. This document updates RFC 7854 by creating an independent namespace for the Peer Up message. It also updates RFCs 8671 and 9069 by moving defined codepoints into the newly introduced registry. Compliant implementations of RFCs 7854, 8671, and 9069 also comply with this specification.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "authors": [
+      {
+        "name": "John Scudder"
+      },
+      {
+        "name": "Paolo Lucente"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docId": "RFC9736",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docLabel": "IETF RFC 9736",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docNumber": "9736",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docTitle": "The BGP Monitoring Protocol (BMP) Peer Up Message Namespace",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "doi": "10.17487/RFC9736",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "href": "https://doi.org/10.17487/RFC9736",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "keywords": [
+      "GROW",
+      "BGP",
+      "BMP"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "pages": "6",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "publicationDate": "2025-03-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "references": {
+      "normative": [
+        "RFC1213",
+        "RFC2119",
+        "RFC7854",
+        "RFC8174",
+        "RFC8671",
+        "RFC9069"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+        "updated": "2026-10-22T01:46:22.166Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9736/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+      "updated": "2026-10-22T01:46:22.166Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+        "updated": "2026-10-22T01:46:22.166Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "amends": [
+        "RFC7854",
+        "RFC8671",
+        "RFC9069"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+        "updated": "2026-10-22T01:46:22.166Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+        "updated": "2026-10-22T01:46:22.166Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+        "updated": "2026-10-22T01:46:22.166Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+        "updated": "2026-10-22T01:46:22.166Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9736/",
+        "updated": "2026-10-22T01:46:22.166Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      }
+    }
+  }
+}

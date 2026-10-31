@@ -1,0 +1,271 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-21T23:40:46.260Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC5236",
+  "document": {
+    "abstract": "This document presents two improved metrics for packet reordering, namely, Reorder Density (RD) and Reorder Buffer-occupancy Density (RBD). A threshold is used to clearly define when a packet is considered lost, to bound computational complexity at O(N), and to keep the memory requirement for evaluation independent of N, where N is the length of the packet sequence. RD is a comprehensive metric that captures the characteristics of reordering, while RBD evaluates the sequences from the point of view of recovery from reordering. These metrics are simple to compute yet comprehensive in their characterization of packet reordering. The measures are robust and orthogonal to packet loss and duplication. This memo provides information for the Internet community.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "authors": [
+      {
+        "name": "Professor Anura P. Jayasumana"
+      },
+      {
+        "name": "Nischal M. Piratla"
+      },
+      {
+        "name": "Tarun Banka"
+      },
+      {
+        "name": "Abhijit A. Bare"
+      },
+      {
+        "name": "Rick Whitner"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docId": "RFC5236",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docLabel": "IETF RFC 5236",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docNumber": "5236",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docTitle": "Improved Packet Reordering Metrics",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "doi": "10.17487/RFC5236",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "href": "https://doi.org/10.17487/RFC5236",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "keywords": [
+      "Reorder Density",
+      "Reorder Buffer-occupancy Density"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Reorder Density",
+        "Rd",
+        "Reorder Buffer-occupancy Density",
+        "Rbd"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T23:40:46.260Z",
+      "version": "extractDocs.js@commit:cc353c041d14"
+    },
+    "pages": "26",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publicationDate": "2008-06-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC4737",
+        "RFC3763",
+        "RFC4656",
+        "orphan/RFC5236/h:e9f1b086",
+        "orphan/RFC5236/h:fe2eccd9",
+        "orphan/RFC5236/h:1bcce57f",
+        "orphan/RFC5236/h:374cb0ce",
+        "orphan/RFC5236/h:a144ae51",
+        "orphan/RFC5236/h:a269e9ff",
+        "orphan/RFC5236/h:cff73067",
+        "orphan/RFC5236/h:2353c891",
+        "orphan/RFC5236/h:c3f37856",
+        "orphan/RFC5236/h:dcaff758",
+        "orphan/RFC5236/h:9ca2cfcd",
+        "orphan/RFC5236/h:4587fec3",
+        "orphan/RFC5236/h:dadd7edb",
+        "orphan/RFC5236/h:acd2b765"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=19 proseBlocks=23 skippedAnchorBlocks=21",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+        "updated": "2026-10-21T16:57:40.372Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "normative": [
+        "RFC2330",
+        "orphan/RFC5236/h:26ae5563"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+        "updated": "2026-10-21T16:57:40.372Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc5236/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+      "updated": "2026-10-21T16:57:40.372Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+        "updated": "2026-10-21T16:57:40.372Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+        "updated": "2026-10-21T16:57:40.372Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+        "updated": "2026-10-21T16:57:40.372Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+        "updated": "2026-10-21T16:57:40.372Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5236/",
+        "updated": "2026-10-21T16:57:40.372Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    }
+  }
+}

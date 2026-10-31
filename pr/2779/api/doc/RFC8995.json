@@ -1,0 +1,347 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T22:11:48.915Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC8995",
+  "document": {
+    "abstract": "This document specifies automated bootstrapping of an Autonomic Control Plane. To do this, a Secure Key Infrastructure is bootstrapped. This is done using manufacturer-installed X.509 certificates, in combination with a manufacturer's authorizing service, both online and offline. We call this process the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol. Bootstrapping a new device can occur when using a routable address and a cloud service, only link-local connectivity, or limited/disconnected networks. Support for deployment models with less stringent security requirements is included. Bootstrapping is complete when the cryptographic identity of the new key infrastructure is successfully deployed to the device. The established secure connection can be used to deploy a locally issued certificate to the device as well.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "authors": [
+      {
+        "name": "Max Pritikin"
+      },
+      {
+        "name": "Michael Richardson"
+      },
+      {
+        "name": "Toerless Eckert"
+      },
+      {
+        "name": "Michael H. Behringer"
+      },
+      {
+        "name": "Kent Watsen"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docId": "RFC8995",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docLabel": "IETF RFC 8995",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docNumber": "8995",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docTitle": "Bootstrapping Remote Secure Key Infrastructure (BRSKI)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "doi": "10.17487/RFC8995",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "href": "https://doi.org/10.17487/RFC8995",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "keywords": [
+      "Autonomic Networking",
+      "Autonomous Operation",
+      "Self-management",
+      "Voucher",
+      "Onboarding",
+      "Zero Touch",
+      "IoT-onboarding"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Autonomic Networking",
+        "Autonomous Operation",
+        "Self-management",
+        "Voucher-request",
+        "Onboarding",
+        "Zero-touch",
+        "Voucher",
+        "RFC8366 Voucher",
+        "IoT-onboarding",
+        "IoT-zero-touch",
+        "Network-join"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T22:11:48.915Z",
+      "version": "extractDocs.js@commit:301bfdf288d8"
+    },
+    "pages": "116",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publicationDate": "2021-05-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "references": {
+      "bibliographic": [
+        "IETF.draft-ietf-ace-coap-est-18",
+        "IETF.draft-ietf-anima-constrained-voucher-10",
+        "IETF.draft-richardson-anima-state-for-joinrouter-03",
+        "RFC2131",
+        "RFC2663",
+        "RFC5209",
+        "RFC6960",
+        "RFC6961",
+        "RFC7228",
+        "RFC7258",
+        "RFC7435",
+        "RFC7575",
+        "RFC8126",
+        "RFC8340",
+        "RFC8615",
+        "RFC8993",
+        "W3C.capability-urls.20140218",
+        "IETF.draft-ietf-netconf-keystore-22",
+        "orphan/RFC8995/h:a9a04057",
+        "orphan/RFC8995/h:232b329f",
+        "orphan/RFC8995/h:d333e5fa",
+        "orphan/RFC8995/h:5a24d0c6",
+        "orphan/RFC8995/h:1ac17fac",
+        "orphan/RFC8995/h:78886b67",
+        "orphan/RFC8995/h:7625d1c3",
+        "orphan/RFC8995/h:d16e0e30",
+        "orphan/RFC8995/h:c017083f",
+        "orphan/RFC8995/h:cf7febf3",
+        "orphan/RFC8995/h:69f75112",
+        "orphan/RFC8995/h:e5ac4a83",
+        "orphan/RFC8995/h:7b0a6e4b",
+        "orphan/RFC8995/h:3ed097a3",
+        "orphan/RFC8995/h:b4d7b939"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+        "updated": "2026-10-20T21:47:07.794Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "normative": [
+        "IEEE.STD802.1AR",
+        "T-REC-X.690.2015",
+        "RFC2119",
+        "RFC3339",
+        "RFC3688",
+        "RFC3748",
+        "RFC3927",
+        "RFC4086",
+        "RFC4519",
+        "RFC4648",
+        "RFC4862",
+        "RFC5272",
+        "RFC5280",
+        "RFC5652",
+        "RFC6020",
+        "RFC6125",
+        "RFC6241",
+        "RFC6762",
+        "RFC6763",
+        "RFC7030",
+        "RFC7230",
+        "RFC7231",
+        "RFC7469",
+        "RFC7950",
+        "RFC7951",
+        "RFC8040",
+        "RFC8174",
+        "RFC8259",
+        "RFC8366",
+        "RFC8368",
+        "RFC8407",
+        "RFC8446",
+        "RFC8610",
+        "RFC8951",
+        "RFC8981",
+        "RFC8990",
+        "RFC8994",
+        "orphan/RFC8995/h:23564fbc"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+        "updated": "2026-10-20T21:47:07.794Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8995/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+      "updated": "2026-10-20T21:47:07.794Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+        "updated": "2026-10-20T21:47:07.794Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+        "updated": "2026-10-20T21:47:07.794Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc8995",
+        "https://www.rfc-editor.org/errata_search.php?rfc=8995",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc8995.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+        "updated": "2026-10-20T21:47:07.794Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+        "updated": "2026-10-20T21:47:07.794Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+        "updated": "2026-10-20T21:47:07.794Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8995/",
+        "updated": "2026-10-20T21:47:07.794Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    }
+  }
+}

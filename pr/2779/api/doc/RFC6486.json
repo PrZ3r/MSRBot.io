@@ -1,0 +1,253 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T17:29:46.395Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6486",
+  "document": {
+    "abstract": "This document defines a \"manifest\" for use in the Resource Public Key Infrastructure (RPKI). A manifest is a signed object (file) that contains a listing of all the signed objects (files) in the repository publication point (directory) associated with an authority responsible for publishing in the repository. For each certificate, Certificate Revocation List (CRL), or other type of signed objects issued by the authority that are published at this repository publication point, the manifest contains both the name of the file containing the object and a hash of the file content. Manifests are intended to enable a relying party (RP) to detect certain forms of attacks against a repository. Specifically, if an RP checks a manifest's contents against the signed objects retrieved from a repository publication point, then the RP can detect \"stale\" (valid) data and deletion of signed objects. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "authors": [
+      {
+        "name": "Rob Austein"
+      },
+      {
+        "name": "Geoff Huston"
+      },
+      {
+        "name": "Stephen Kent"
+      },
+      {
+        "name": "Matt Lepinski"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docId": "RFC6486",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docLabel": "IETF RFC 6486",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docNumber": "6486",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docTitle": "Manifests for the Resource Public Key Infrastructure (RPKI)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "doi": "10.17487/RFC6486",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "href": "https://doi.org/10.17487/RFC6486",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "pages": "19",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "publicationDate": "2012-02-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC3370",
+        "RFC3779",
+        "RFC6480",
+        "RFC6489"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=11 proseBlocks=16 skippedAnchorBlocks=13",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+        "updated": "2026-10-20T17:29:46.395Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC5280",
+        "RFC6481",
+        "RFC6485",
+        "RFC6487",
+        "RFC6488",
+        "ISO.8825-1.2002"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+        "updated": "2026-10-20T17:29:46.395Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6486/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+      "updated": "2026-10-20T17:29:46.395Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "status": {
+      "active": false,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+        "updated": "2026-10-20T17:29:46.395Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+        "updated": "2026-10-20T17:29:46.395Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "latestVersion": false,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+        "updated": "2026-10-20T17:29:46.395Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+        "updated": "2026-10-20T17:29:46.395Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "superseded": true,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+        "updated": "2026-10-20T17:29:46.395Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "supersededBy": [
+        "RFC9286"
+      ],
+      "supersededBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6486/",
+        "updated": "2026-10-20T17:29:46.395Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      }
+    }
+  }
+}

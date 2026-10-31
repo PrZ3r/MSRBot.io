@@ -1,0 +1,265 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-13T17:51:45.193Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC3678",
+  "document": {
+    "abstract": "The Internet Group Management Protocol (IGMPv3) for IPv4 and the Multicast Listener Discovery (MLDv2) for IPv6 add the capability for applications to express source filters on multicast group memberships, which allows receiver applications to determine the set of senders (sources) from which to accept multicast traffic. This capability also simplifies support of one-to-many type multicast applications. This document specifies new socket options and functions to manage source filters for IP Multicast group memberships. It also defines the socket structures to provide input and output arguments to these new application program interfaces (APIs). These extensions are designed to provide access to the source filtering features, while introducing a minimum of change into the system and providing complete compatibility for existing multicast applications.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "authors": [
+      {
+        "name": "Dave Thaler"
+      },
+      {
+        "name": "Bill Fenner"
+      },
+      {
+        "name": "Bob Quinn"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "docId": "RFC3678",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "docLabel": "IETF RFC 3678",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "docNumber": "3678",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "docTitle": "Socket Interface Extensions for Multicast Source Filters",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "doi": "10.17487/RFC3678",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "href": "https://doi.org/10.17487/RFC3678",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "keywords": [
+      "IP",
+      "API"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "IP",
+        "API",
+        "Apis",
+        "Input",
+        "Output"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:51:45.193Z",
+      "version": "extractDocs.js@commit:25936397c06b"
+    },
+    "pages": "18",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "publicationDate": "2004-01-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC3376",
+        "orphan/RFC3678/h:79ba9520"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=4 proseBlocks=7 skippedAnchorBlocks=5",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+        "updated": "2026-10-13T17:21:26.895Z",
+        "version": "extractDocs.js@commit:996495349225"
+      },
+      "normative": [
+        "RFC3493",
+        "IEEE.STD1003.1.2001"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+        "updated": "2026-10-13T17:21:26.895Z",
+        "version": "extractDocs.js@commit:996495349225"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc3678/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+      "updated": "2026-10-13T17:21:26.895Z",
+      "version": "extractDocs.js@commit:996495349225"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+        "updated": "2026-10-13T17:21:26.895Z",
+        "version": "extractDocs.js@commit:996495349225"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+        "updated": "2026-10-13T17:21:26.895Z",
+        "version": "extractDocs.js@commit:996495349225"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc3678",
+        "https://www.rfc-editor.org/errata_search.php?rfc=3678",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc3678.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+        "updated": "2026-10-13T17:21:26.896Z",
+        "version": "extractDocs.js@commit:996495349225"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+        "updated": "2026-10-13T17:21:26.895Z",
+        "version": "extractDocs.js@commit:996495349225"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+        "updated": "2026-10-13T17:21:26.895Z",
+        "version": "extractDocs.js@commit:996495349225"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3678/",
+        "updated": "2026-10-13T17:21:26.895Z",
+        "version": "extractDocs.js@commit:996495349225"
+      }
+    }
+  }
+}

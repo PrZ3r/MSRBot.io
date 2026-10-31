@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://msrbot.io/api/schemas/reference.schema.json",
+  "$comment": "Copyright (c) 2025-26 PrZ3 LLC (d/b/a [PrZ3](https://github.com/PrZ3r))",
+  "title": "MSRBot reference endpoints",
+  "description": "Payloads of /api/by-publisher.json, /api/groups.json, /api/projects.json, /api/by-doc.json, /api/publishers.json and /api/vocabulary.json (build.reference-api.js). Publisher and docType keys are slugs: lowercase, & as 'and', other runs of non-alphanumerics as '-'.",
+  "oneOf": [
+    { "$ref": "#/definitions/byPublisher" },
+    { "$ref": "#/definitions/groups" },
+    { "$ref": "#/definitions/projects" },
+    { "$ref": "#/definitions/byDoc" },
+    { "$ref": "#/definitions/publishers" },
+    { "$ref": "#/definitions/vocabulary" }
+  ],
+  "definitions": {
+    "header": {
+      "type": "object",
+      "required": ["$schema", "apiVersion"],
+      "properties": {
+        "$schema": { "type": "string" },
+        "apiVersion": { "type": "string" },
+        "note": { "type": "string" },
+        "sourcePath": { "type": "string", "description": "Repository path of the source data" },
+        "total": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "slices": {
+      "type": "object",
+      "required": ["total", "path"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "path": { "type": "string", "description": "Site path of a JSON array of full records (without $meta)" }
+      }
+    },
+    "byPublisher": {
+      "description": "/api/by-publisher.json: index of the full-record slices.",
+      "allOf": [{ "$ref": "#/definitions/header" }],
+      "required": ["publishers"],
+      "properties": {
+        "publishers": {
+          "type": "object",
+          "additionalProperties": {
+            "allOf": [{ "$ref": "#/definitions/slices" }],
+            "required": ["publisher", "docTypes"],
+            "properties": {
+              "publisher": { "type": ["string", "null"] },
+              "docTypes": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [{ "$ref": "#/definitions/slices" }],
+                  "required": ["docType"],
+                  "properties": { "docType": { "type": ["string", "null"] } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "groups": {
+      "description": "/api/groups.json",
+      "allOf": [{ "$ref": "#/definitions/header" }],
+      "required": ["groups"],
+      "properties": { "groups": { "$ref": "groups.schema.json" } }
+    },
+    "projects": {
+      "description": "/api/projects.json",
+      "allOf": [{ "$ref": "#/definitions/header" }],
+      "required": ["projects"],
+      "properties": { "projects": { "$ref": "projects.schema.json" } }
+    },
+    "byDoc": {
+      "description": "/api/by-doc.json: docId → owning groups and project work.",
+      "allOf": [{ "$ref": "#/definitions/header" }],
+      "required": ["documents"],
+      "properties": {
+        "documents": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["groups", "projects"],
+            "additionalProperties": false,
+            "properties": {
+              "groups": { "type": "array", "items": { "type": "string", "description": "groupId" } },
+              "projects": { "type": "array", "items": { "type": "string", "description": "projectId" } }
+            }
+          }
+        }
+      }
+    },
+    "publishers": {
+      "description": "/api/publishers.json",
+      "allOf": [{ "$ref": "#/definitions/header" }],
+      "required": ["publishers"],
+      "properties": {
+        "publishers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["publisher", "url", "logo", "aliases", "total", "docTypes"],
+            "additionalProperties": false,
+            "properties": {
+              "publisher": { "type": ["string", "null"], "description": "Display name" },
+              "url": { "type": ["string", "null"] },
+              "logo": { "type": ["string", "null"], "description": "Site path of the logo image" },
+              "aliases": { "type": "array", "items": { "type": "string" } },
+              "total": { "type": "integer", "minimum": 0 },
+              "docTypes": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } }
+            }
+          }
+        }
+      }
+    },
+    "vocabulary": {
+      "description": "/api/vocabulary.json: valid filter values.",
+      "allOf": [{ "$ref": "#/definitions/header" }],
+      "required": ["keywords", "docTypes", "contentTypes"],
+      "properties": {
+        "keywords": { "type": "array", "items": { "type": "string" } },
+        "docTypes": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "contentTypes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["label", "page"],
+            "properties": {
+              "label": { "type": "string" },
+              "page": { "type": "boolean", "description": "false: documents of this contentType have no /docs/ page" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

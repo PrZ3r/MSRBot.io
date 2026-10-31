@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="Survey of Research towards Robust Peer-to-Peer Networks: Search Methods">
+  <link rel="canonical" href="https://msrbot.io/docs/RFC4981/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="IETF RFC 4981 — MSRBot.io">
+  <meta property="og:description" content="">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/docs/RFC4981/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+
+  <link rel="alternate" type="application/json" href="../../api/doc/RFC4981.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
+  <title>MSRBot.io | IETF RFC 4981</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
+  <script src="../../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "IETF RFC 4981 - MSRBot.io",
+    "url": "https://msrbot.io/docs/RFC4981/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../../"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+            api/by-publisher.json
+          </a>
+          &mdash; full-record slices per publisher and doc type
+        </li>
+        <li>
+          <a href="../../api/groups.json" target="_blank" rel="noopener">
+            api/groups.json
+          </a>
+          &mdash; groups registry
+        </li>
+        <li>
+          <a href="../../api/projects.json" target="_blank" rel="noopener">
+            api/projects.json
+          </a>
+          &mdash; projects registry
+        </li>
+        <li>
+          <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+            api/by-doc.json
+          </a>
+          &mdash; docId &rarr; owning groups and projects
+        </li>
+        <li>
+          <a href="../../api/publishers.json" target="_blank" rel="noopener">
+            api/publishers.json
+          </a>
+          &mdash; publishers, logos, doc counts
+        </li>
+        <li>
+          <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+            api/vocabulary.json
+          </a>
+          &mdash; keywords, doc types, content types
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
+          <a href="https://www.ietf.org/" target="_blank" rel="noopener"><img src="../../resources/logos/ietf.svg" alt="IETF logo" height="25" class="align-text-bottom me-1 publisher-logo" loading="lazy" data-logo-light="../../resources/logos/ietf.svg" data-logo-dark="../../resources/logos/ietf-white.svg"></a>
+        <code class="docid-doclabel me-1 fs-6 text-wrap">IETF RFC 4981</code>
+      </div>
+      <div class="status-badges ms-auto d-inline-flex flex-wrap gap-1">
+
+        
+        
+        
+        
+        
+            <span class="label badge text-bg-success">[ACTIVE]</span>
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <h1 class="h5 mb-1">
+        <a class="text-decoration-none" href="https://doi.org/10.17487/RFC4981" target="_blank" rel="noopener">Survey of Research towards Robust Peer-to-Peer Networks: Search Methods</a>
+    </h1>
+    
+  </header>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h2 class="h5 card-title">Metadata</h2>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=IETF">IETF</a></dd>
+            <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Informational">Informational</a></dd>
+            
+            
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">91</dd>
+            
+            
+            
+            <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">The pace of research on peer-to-peer (P2P) networking in the last five years warrants a critical survey. P2P has the makings of a disruptive technology -- it can aggregate enormous storage and processing resources while minimizing entry and scaling costs. Failures are common amongst massive numbers of distributed peers, though the impact of individual failures may be less than in conventional architectures. Thus, the key to realizing P2P&#x27;s potential in applications other than casual file sharing is robustness. P2P search methods are first couched within an overall P2P taxonomy. P2P indexes for simple key lookup are assessed, including those based on Plaxton trees, rings, tori, butterflies, de Bruijn graphs, and skip graphs. Similarly, P2P indexes for keyword lookup, information retrieval and data management are explored. Finally, early efforts to optimize range, multi-attribute, join, and aggregation queries over P2P indexes are reviewed. Insofar as they are available in the primary literature, robustness mechanisms and metrics are highlighted throughout. However, the low-level mechanisms that most affect robustness are not well isolated in the literature. Recommendations are given for future research. This memo provides information for the Internet community.</dd>
+            
+            
+            <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2007-09-01</dd>
+            
+            
+            
+            
+            
+            
+            <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Informational</em></dd>
+            <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC4981" target="_blank" rel="noopener"><code>10.17487/RFC4981</code></a></dd>
+            
+            
+            <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC4981" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.17487/RFC4981</a></dd>
+            
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-2"><div class="d-flex justify-content-between align-items-center gap-2"><span>John Risson</span></div></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Tim Moors</span></div></div></dd>
+            
+
+            <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=P2P">P2P</a>, <a class="" href="../?f.keywords=DHT">DHT</a>, <a class="" href="../?f.keywords=Overlay Network">Overlay Network</a>, <a class="" href="../?f.keywords=Key-based Routing">Key-based Routing</a>, <a class="" href="../?f.keywords=Consistent Hashing">Consistent Hashing</a>, <a class="" href="../?f.keywords=Scalable Distributed Data Structure">Scalable Distributed Data Structure</a>, <a class="" href="../?f.keywords=Hypercube">Hypercube</a>, <a class="" href="../?f.keywords=Plaxton Tree">Plaxton Tree</a>, <a class="" href="../?f.keywords=De Bruijn Graph">De Bruijn Graph</a>, <a class="" href="../?f.keywords=Skip Graph">Skip Graph</a>, <a class="" href="../?f.keywords=Torus">Torus</a>, <a class="" href="../?f.keywords=Butterfly Network">Butterfly Network</a>, <a class="" href="../?f.keywords=Vector Model">Vector Model</a>, <a class="" href="../?f.keywords=Latent Semantic Indexing">Latent Semantic Indexing</a></dd>
+            
+            
+            
+            
+          </dl>
+        </div>
+      </div>
+      
+
+      
+    <div class="p-2 text-muted text-center">
+      <span class="fst-italic">
+        <i class="bi bi-check2-circle text-success"></i> Latest version of IETF RFC 4981
+      </span>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-body">
+        <h2 class="h6 mb-2">Document Versions — IETF RFC 4981</h2>
+        <ul class="list-group list-group-flush small">
+          <li class="list-group-item d-flex align-items-start justify-content-between doc-suite-row badge-node-current">
+            <div class="me-1 text-wrap">
+              <strong>▶</strong>
+              <a class="" href="../RFC4981/">IETF RFC 4981</a>
+               <span class="text-muted">(2007-09-01)</span>
+            </div>
+            <div class="badges-dsuite ms-auto">
+                 <span class="badge badge-dsuite text-bg-info">THIS DOC</span>
+              
+              
+              
+              
+              
+                    <span class="badge badge-dsuite text-bg-success">[ACTIVE]</span>
+              
+              
+              
+              
+                     <span class="badge badge-dsuite bg-info-subtle text-info-emphasis">[LATEST VERSION]</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col col-lg-6">
+              <h2 class="h6">Bibliographic Reference(s)</h2>
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item">
+                    <cite>NIST.SP.500-242 — 368</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Aberer, Efficient Search in Unbalanced, Randomized Peer-to- Peer Search Trees, EPFL Technical Report IC/2002/79 (2002)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H.-Y. Hsieh and R. Sivakumar, On transport layer support for peer-to-peer networks, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Chun, I. Stoica, J. Hellerstein, R. Huebsch, S. Jeffery, B. T. Loo, S. Mardanbeigi, T. Roscoe, S. Rhea, and S. Schenker, Querying at Internet Scale, Proc. 2004 ACM SIGMOD international conference on management of data, demonstration session 2004, pp. 935-936.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Muthitacharoen, R. Morris, T. Gil, and B. Chen, A read/write peer-to-peer file system, Proc. 5th Symp. on Operating System Design and Implementation (OSDI 2002), Boston, MA, December (2002)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Gupta, B. Liskov, and R. Rodrigues, One Hop Lookups for Peer-to-Peer Overlays, 9th Workshop on Hot Topics in Operating Systems (HotOS), 18-21 May 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Ruhl, Efficient algorithms for new computational models, Doctoral Dissertation, September 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Harvey, M. B. Jones, S. Saroiu, M. Theimer, and A. Wolman, SkipNet: A Scalable Overlay Network with Practical Locality Properties, Proc. Fourth USENIX Symp. on Internet Technologies and Systems USITS'03, March 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Hoschek, Peer-to-Peer Grid Databases for Web Service Discovery, Concurrency - Practice and Experience (2002) 1-7.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Freedman and D. Mazieres, Sloppy Hashing and Self-Organizing Clusters, Proc. 2nd Int'l Workshop on Peer-to-Peer Systems IPTPS</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Jelasity, W. Kowalczyk, and M. van Steen, An Approach to Aggregation in Large and Fully Distributed Peer-to-Peer Overlay Networks, Proc. 12th Euromicro Conf. on Parallel, Distributted and Network based Processing PDP 2004, February 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Alima, S. El-Ansary, P. Brand, and S. Haridi, DKS(N,k,f): a family of low communication, scalable and fault-tolerant infrastructures for P2P applications, Proc. 3rd IEEE/ACM Int'l Symp. on Cluster Computing and the Grid (2003) 344-350.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Q. Lv, P. Cao, E. Cohen, K. Li, and S. Shenker, Search and replication in unstructured peer to peer networks, Proc. 16th international conference on supercomputing, June 22-26 2002, pp. 84-95.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Ganesan, G. Krishna, and H. Garcia-Molina, Canon in G Major: Designing DHTs with Hierarchical Structure, Proc. Int'l Conf. on Distributed Computing Systems ICDCS 2004 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Gummadi, R. Gummadi, S. Gribble, S. Ratnasamy, S. Shenker, and I. Stoica, The impact of DHT routing geometry on resilience and proximity, Proc. 2003 conference on Applications, Technologies, Architectures and Protocols for Computer Communications 2003, pp. 381-394.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S.-D. Lin, Q. Lian, M. Chen, and Z. Zhang, A practical distributed mutual exclusion protocol in dynamic peer-to-peer systems, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. T. Ozsu and P. Valduriez, Principles of Distributed Database Systems, 2nd edition ed. Prentice Hall, 1999.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Eugster, R. Guerraoiu, S. Handurukande, P. Kouznetsov, and A.- M. Kermarrec, Lightweight probabilistic broadcast, ACM Trans. on Computer Systems 21 (4) (2003) 341-374.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Costa, M. Migliavacca, G. P. Picco, and G. Cugola, Epidemic Algorithms for Reliable Content-Based Publish-Subscribe: An Evaluation, The 24th Int'l Conf. on Distributed Computing Systems (ICDCS-2004), Mar 23-26, Tokyo University of Technology, Hachioji, Tokyo, Japan (2004)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ratnasamy, B. Karp, S. Shenker, D. Estrin, R. Govindan, L. Yin, and F. Yu, Data Centric Storage in Sensornets with GHT, a geographic hash table, Mobile Networks and Applications 8 (4) (2003) 427-442.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Koloniari and E. Pitoura, Bloom-Based Filters for Hierarchical Data, Proc. 5th Workshop on Distributed Data and Structures (WDAS) (2003)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. O'Donnel and V. Vaikuntanathan, Information leak in the Chord lookup protocol, Proc. Fourth IEEE Int'l Conf. on Peer- to-Peer Computing, 25-27 August 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Mache, M. Gilbert, J. Guchereau, J. Lesh, F. Ramli, and M. Wilkinson, Request algorithms in Freenet-style peer-to-peer systems, Proc. Second IEEE Int'l Conf. on Peer to Peer Computing P2P'02, September 5-7 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Lienhart, M. Holliman, Y.-K. Chen, I. Kozintsev, and M. Yeung, Improving media services on P2P networks, IEEE Internet Computing 6 (1) (2002) 58-67.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Jarke and J. Koch, Query Optimization in Database Systems, ACM Computing Surveys 16 (2) (1984) 111-152.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Halepovic and R. Deters, Building a P2P forum system with JXTA, Proc. Second IEEE Int'l Conf. on Peer to Peer Computing P2P'02, September 5-7 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Adya, R. Wattenhofer, W. Bolosky, M. Castro, G. Cermak, R. Chaiken, J. Douceur, J. Howell, J. Lorch, and M. Thiemer, Farsite: federated, available and reliable storage for an incompletely trusted environment, ACM SIGOPS Operating Systems Review, Special issue on Decentralized storage systems (2002) 1- 14.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Bawa, R. Bayardo, S. Rajagopalan, and E. Shekita, Make it fresh, make it quick: searching a network of personal webservers, Proc. 12th international conference on World Wide Web 2003, pp. 577-586.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Albrecht, R. Arnold, and R. Wattenhofer, Join and Leave in Peer-to-Peer Systems: The DASIS Approach, Technical Report 427, Department of Computer Science, November 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Ahlgren, M. Brunner, L. Eggert, R. Hancock, and S. Schmid, Invariants: a new design methodology for network architectures, Proc. ACM SIGCOMM workshop on Future Direction in Network Architecture, August 30 2004, pp. 65-70.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. A. Rowley and B. Bose, Fault-tolerant ring embedding in de Bruijn networks, IEEE Trans. on Computers 42 (12) (1993) 1480- 1486.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Mislove and P. Druschel, Providing administrative control and autonomy in structured peer-to-peer overlays, The 3rd Int'l Workshop on Peer-to-Peer Systems, June 9-12 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Imase and M. Itoh, Design to minimize diameter on building- block network, IEEE Trans. on Computers C-30 (6) (1981) 439- 442.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Klingberg and R. Manfredi, Gnutella 0.6, (2002)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Yalagandula and M. Dahlin, A scalable distributed information management system, SIGCOMM'04, Aug 30-Sept 3 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Andrzejak and Z. Xu, Scalable, efficient range queries for grid information services, Proc. Second IEEE Int'l Conf. on Peer to Peer Computing, September 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>X. Li, J. Misra, and C. G. Plaxton, Active and Concurrent Topology Maintenance, The 18th Annual Conf. on Distributed Computing (DISC 2004), Trippenhuis, Amsterdam, the Netherlands, October 4 - October 7 (2004)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Ripeanu, A. Iamnitchi, and P. Foster, Mapping the Gnutella network, IEEE Internet Computing 6 (1) (2002) 50-57.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Z. Zhang, S. Chen, Y. Ling, and R. Chow, Resilient capacity- aware multicasting based on overlay networks, Proc. of the 25th IEEE Int'l Conf. on Distributed Computing Systems, 6-10 June 2005, pp. 565-574.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Sen and J. Wang, Analyzing peer-to-peer traffic across large networks, IEEE/ACM Trans. on Networking 12 (2) (2004) 219-232.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Clarke, A Distributed Decentralised Information Storage and Retrieval System, Undergraduate Thesis, 1999.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Malkhi, M. Naor, and D. Ratajczak, Viceroy: a scalable and dynamic emulation of the butterfly, Proc. 21st annual symposium on principles of distributed computing PODC, July 21-24 2002, pp. 183-192.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Milgram, The small world problem, Psychology Today 1 (61) (1967)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://groups.yahoo.com/group/the_gdf/files/Proposals/Working%20Proposals/search/Ultrapeer%20QRP/" rel="noopener">A. Fisk, Gnutella Ultrapeer Query Routing, http://groups.yahoo.com/group/the_gdf/files/Proposals/ Working%20Proposals/search/Ultrapeer%20QRP/ v0.1 (2003)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Awerbuch and C. Scheideler, Peer-to-peer systems for prefix search, Proc. 22nd annual ACM Symp. on Principles of Distributed Computing 2003, pp. 123-132.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Zhang and C. Hu, Borg: a hybrid protocol for scalable application-level multicast in peer-to-peer networks, Proc. 13th international workshop on network and operating systems for digital audio and video 2003, pp. 172-179.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Aberer and M. Hauswirth, Peer-to-peer information systems: concepts and models, state-of-the-art, and future systems, ACM SIGSOFT Software Engineering Notes, Proc. 8th European software engineering conference held jointly with 9th ACM SIGSOFT international symposium on foundations of software engineering 26 (5) (2001)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Yang, P. Vinograd, and H. Garcia-Molina, Evaluating GUESS and non-forwarding peer-to-peer search, The 24th Int'l Conf. on Distributed Computing Systems ICDCS'04, Mar 23-26 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Milojicic, V. Kalogeraki, R. Lukose, K. Nagaraja, J. Pruyne, B. Richard, S. Rollins, and Z. Xu, Peer-to-Peer Computing, HP Technical Report, HPL-2002-57 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Avnur and J. Hellerstein, Eddies: continuously adaptive query processing, Proc. 2000 ACM SIGMOD international conference on Management of Data 2000, pp. 261-272.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Devine, Design and Implementation of DDH: A Distributed Dynamic Hashing Algorithm, Proc. 4th Int'l Conf. on Foundations of Data Organizations and Algorithms 1993.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Weatherspoon, T. Moscovitz, and J. Kubiatowicz, Introspective failure analysis: avoiding correlated failures in peer-to-peer systems, Proc. Int'l Workshop on Reliable Peer- to-Peer Distributed Systems, Oct 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Mislove, A. Post, C. Reis, P. Willmann, P. Druschel, D. Wallach, X. Bonnaire, P. Sens, J.-M. Busca, and L. Arantes- Bezerra, POST: A Secure, Resilient, Cooperative Messaging System, 9th Workshop on Hot Topics in Operating Systems, HotOS, May 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Fisk, Gnutella Dynamic Query Protocol v0.1, Gnutella Developer Forum (2003)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Mohan and V. Kalogaraki, Speculative routing and update propagation: a kundali centric approach, IEEE Int'l Conf. on Communications ICC'03, May 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Fraigniaud and P. Gauron, The content-addressable networks D2B, Technical Report 1349, Laboratoire de Recherche en Informatique, January 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Rhea, B.-G. Chun, J. Kubiatowicz, and S. Shenker, Fixing the embarrassing slowness of OpenDHT on PlanetLab, Proc. of the Second USENIX Workshop on Real, Large Distributed Systems, Dec 13 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Harvey, J. Dunagan, M. B. Jones, S. Saroiu, M. Theimer, and A. Wolman, SkipNet: A Scalable overlay Network with Practical Locality Properties, Microsoft Research Technical Report MSR- TR- 2002-92 (2002)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Loguinov, A. Kumar, and S. Ganesh, Graph-theoretic analysis of structured peer-to-peer systems: routing distances and fault resilience, Proc. 2003 conference on Applications, Technologies, Architectures and Protocols for Computer Communications, August 25-29 2003, pp. 395-406.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Liben-Nowell, H. Balakrishnan, and D. Karger, Analysis of the evolution of peer-to-peer systems, Annual ACM Symp. on Principles of Distributed Computing 2002, pp. 233-242.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Dabek, R. Cox, F. Kaashoek, and R. Morris, Vivaldi: A Decentralized Network Coordinate System, SIGCOMM'04, Aug 30- Sept 3 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Selcuk, E. Uzun, and M. R. Pariente, A reputation-based trust management system for P2P networks, Fourth Int'l Workshop on Global and Peer-to-Peer Computing, April 20-21 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Dabek, B. Zhao, P. Druschel, J. Kubiatowicz, and I. Stoica, Towards a common API for structured P2P overlays, Proc. Second Int'l Workshop on Peer to Peer Systems IPTPS 2003, February 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Gilbert, N. Lynch, and A. Shvartsman, RAMBO II: Rapidly Reconfigurable Atomic Memory for Dynamic Networks, Technical Report, MIT-CSAIL-TR-890 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Leong, B. Liskov, and E. Demaine, Epichord: parallelizing the Chord lookup algorithm with reactive routing state management, Proc. of the 12th International Conference on Networks, Nov 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. S. E. Ng and H. Zhang, Predicting internet network distance with coordinates-based approaches, IEEE Infocom 2002, The 21st Annual Joint Conf. of the IEEE Computer and Communication Societies, June 23-27 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Rodrigues, B. Liskov, and L. Shrira, The design of a robust peer-to-peer system, 10th ACM SIGOPS European Workshop, Sep 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Gedik and L. Liu, PeerCQ: A Decentralized and Self- Configuring Peer-to-Peer Information Monitoring System, Proc. 23rd Int'l Conf. on Distributed Computing Systems ICDCS2003, May 19-22 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Li, K. Sollins, and D.-Y. Lim, Implementing aggregation and broadcast over Distributed Hash Tables, ACM Computer Communication Reviews 35 (1) (2005) 81-92.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Sit, F. Dabek, and J. Robertson, UsenetDHT: a low overhead Usenet server, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Sankaralingam, S. Sethumadhavan, and J. Browne, Distributed Pagerank for P2P Systems, Proc. 12th international symposium on High Performance Distributed Computing HPDC, June 22-24 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Roussopoulos, M. Baker, D. Rosenthal, T. Guili, P. Maniatis, and J. Mogul, 2 P2P of Not 2 P2P?, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. McCanne and S. Floyd, The LBNL/UCB Network Simulator.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Krohn, M. Freedman, and D. Mazieres, On-the-fly verification of rateless erasure codes for efficient content distribution, Proc. IEEE Symp. on Security and Privacy, May 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Jovanovic, Modeling large-scale peer-to-peer networks and a case study of Gnutella, Master's Thesis 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Risson, A. Harwood, and T. Moors, Stable high-capacity one- hop distributed hash tables, Proc. of the IEEE Symposium on Computers and Communications (ISCC'06), Jun 26-29 2006.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Li, Peer to Peer Networks in Action, IEEE Internet Computing 6 (1) (2002) 37-39.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Tatarinov, P. Mork, Z. Ives, J. Madhavan, A. Halevy, D. Suciu, N. Dalvi, X. Dong, Y. Kadiyska, and G. Miklau, The Piazza peer data management project, ACM SIGMOD Record 32 (3) (2003) 47-52.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Mishchke and B. Stiller, A methodology for the design of distributed search in P2P middleware, IEEE Network 18 (1) (2004) 30-37.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Junginger and Y. Lee, A self-organizing publish/subscribe middleware for dynamic peer-to-peer networks, IEEE Network 18 (1) (2004) 38-43.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Freedman, E. Freudenthal, and D. Mazieres, Democratizing content publication with coral, Proc. First Symp. on Networked Systems Design and Implementation NSDI'04, March 29-31 2004, pp. 239-252.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. S. Manku, Balanced binary trees for ID management and load balance in distributed hash tables, Proc. 23rd Annual ACM SIGACT-SIGOPS Symp. on Principles of Distributed Computing, PODC 2004, July 25-28 2004, pp. 197-205.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Clark, J. Wroclawski, K. Sollins, and R. Braden, Tussle in cyberspace: defining tomorrow's internet, Conf. on Applications, Technologies, Architectures and Protocols for Computer Communications 2002, pp. 347-356.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Tran, K. Hua, and T. Do, A Peer-to-Peer Architecture for Media Streaming, IEEE Journal on Selected Areas in Communications 22 (1) (2004) 121-133.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Cohen, A. Fiat, and H. Kaplan, Associative Search in Peer to Peer Networks: Harnessing Latent Semantics, IEEE Infocom 2003, The 22nd Annual Joint Conf. of the IEEE Computer and Communications Societies, March 30-April 3 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>V. Kalogaraki, D. Gunopulos, and D. Zeinalipour-Yasti, XML schemas: integration and translation: A local search mechanism for peer to peer networks, Proc. 11th ACM international conference on Information and Knowledge management 2002, pp. 300- 307.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Nicolosi and D. Mazieres, Secure acknowledgment of multicast messages in open peer-to-peer networks, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Hildrum, R. Krauthgamer, and J. Kubiatowicz, Object Location in Realistic Networks, Proc. Sixteenth ACM Symp. on Parallel Algorithms and Architectures (SPAA 2004), June 2004, pp. 25-35.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Joseph and T. Hoshiai, Decentralized Meta-Data Strategies: Effective Peer-to-Peer Search, IEICE Trans. Commun. E86-B (6 June) (2003) 1740-1753.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ajmani, D. Clarke, C.-H. Moh, and S. Richman, ConChord: Cooperative SDSI Certificate Storage and Name Resolution, First Int'l Workshop on Peer-to-Peer Systems IPTPS, March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://groups.yahoo.com/group/the_gdf/files/Proposals/Working%20Proposals/Ultrapeer/" rel="noopener">A. Singla and C. Rohrs, Ultrapeers: Another Step Towards Gnutella Scalability, http://groups.yahoo.com/group/the_gdf/files/Proposals/ Working%20Proposals/Ultrapeer/ Version 1.0, 26 November (2002)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Clark, The design philosophy of the DARPA internet protocols, ACM SIGCOMM Computer Communication Review, Symp. proceedings on communications architectures and protocols 18 (4) (1988)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Bawa, G. S. Manku, and P. Raghavan, SETS: search enhanced by topic segmentation, Proc. 26th annual international ACM SIGIR conference on Research and Development in Information Retrieval 2003, pp. 306-313.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Terpstra, S. Behnel, L. Fiege, J. Kangasharju, and A. Buchmann, Bit Zipper Rendezvous, optimal data placement for general P2P queries, Proc. First Int'l Workshop on Peer-to-Peer Computing and Databases, March 14 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Cox and B. D. Noble, Samsara: honor among thieves in peer- to-peer storage, Proc. nineteenth ACM symposium on Operating System Principles 2003, pp. 120-132.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.cc.gatech.edu/~cooperb/odin/" rel="noopener">B. Cooper and H. Garcia-Molina, Ad hoc, Self-Supervising Peer- to-Peer Search Networks, Technical Report, http://www.cc.gatech.edu/~cooperb/odin/ 2003.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Feamster and H. Balakrishnan, Towards a logic for wide-area Internet routing, Proc. ACM SIGCOMM workshop on Future Directions in Network Architecture, August 25-27 2003, pp. 289-300.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Karger and M. Ruhl, Finding nearest neighbours in growth- restricted metrics, Proc. 34th annual ACM symposium on Theory of computing 2002, pp. 741-750.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Tsangou, S. Ndiaye, M. Seck, and W. Litwin, Range queries to scalable distributed data structure RP*, Proc. Fifth Workshop on Distributed Data and Structures, WDAS 2003, June 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>X. Li and C. Plaxton, On name resolution in peer to peer networks, Proc. ACM SIGACT Annual Workshop on Principles of Mobile Computing POMC'02 2002, pp. 82-89.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Kan and Y. Faybishenko, Introduction to Gnougat, First Int'l Conf. on Peer-to-Peer Computing 2001 2001, pp. 4-12.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Harren, J. Hellerstein, R. Huebsch, B. Loo, S. Shenker, and I. Stoica, Complex queries in DHT-based peer-to-peer networks, Proc. First Int'l Workshop on Peer to Peer Systems IPTPS 2002, March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. L. Bentley, Multidimensional binary search trees used for associative searching, Communications of the ACM 18 (9) (1975) 509-517.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.clip2.com" rel="noopener">Clip2, The Gnutella Protocol Specification, http://www.clip2.com (2000)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://freenetproject.org/index.php?page=ngrouting" rel="noopener">I. Clarke, Freenet's Next Generation Routing Protocol, http://freenetproject.org/index.php?page=ngrouting , 20th July 2003.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Yang and H. Garcia-Molina, Comparing Hybrid Peer-to-Peer Systems (extended), 27th Int'l Conf. on Very Large Data Bases, September 11-14 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Balazinska, H. Balakrishnan, and D. Karger, INS/Twine: A scalable Peer-to-Peer architecture for Intentional Resource Discovery, Proc. First Int'l Conf. on Pervasive Computing (IEEE) (2002)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Zhao, L. Huang, J. Stribling, S. Rhea, A. Joseph, and J. Kubiatowicz, Tapestry: A Resilient Global-Scale overlay for Service Deployment, IEEE Journal on Selected Areas in Communications 22 (1) (2004) 41-53.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Gummadi, S. Saroui, S. Gribble, and D. King, Estimating latency between arbitrary internet end hosts, Proc. SIGCOMM IMW 2002, November 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Baeza-Yates and B. Ribeiro-Neto, Modern Information Retrieval. Addison Wesley, Essex, England, 1999.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.napster.com" rel="noopener">Napster, http://www.napster.com (1999)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S.-M. Shi, Y. Guangwen, D. Wang, J. Yu, S. Qu, and M. Chen, Making peer-to-peer keyword searching feasible using multi- level partitioning, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Pias, J. Crowcroft, S. Wilbur, T. Harris, and S. Bhatti, Lighthouses for scalable distributed location, Second Int'l Workshop on Peer-to-Peer Systems IPTPS'03, February 20-21 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Abraham, D. Malkhi, and O. Dubzinski, LAND:Stretch (1+epsilon) Locality Aware Networks for DHTs, Proc. ACM-SIAM Symp. on Discrete Algorithms SODA-04 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Castro, P. Druschel, A.-M. Kermarrec, and A. Rowstron, SCRIBE: a large-scale and decentralized application-level multicast infrastructure, IEEE Journal on Selected Areas in Communications 20 (8) (2002)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Singh and L. Liu, TrustMe: anonymous management of trust relationships in decentralized P2P systems, Proc. Third Int'l IEEE Conf. on Peer-to-Peer Computing, Sept 1-3 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Castro, P. Rodrigues, and B. Liskov, BASE: Using abstraction to improve fault tolerance, ACM Trans. on Computer Systems 21 (3) (2003) 236-269.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Awerbuch and C. Scheideler, Robust distributed name service, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Harvey, M. B. Jones, M. Theimer, and A. Wolman, Efficient recovery from organization disconnects in Skipnet, Second Int'l Workshop on Peer-to-Peer Systems IPTPS'03, Feb 20-21 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Sieka, A. Kshemkalyani, and M. Singhal, On the security of polling protocols in peer-to-peer systems, Proc. Fourth IEEE Int'l Conf. on Peer-to-Peer Computing, 25-27 August 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Walfish, H. Balakrishnan, and S. Shenker, Untangling the web from DNS, Proc. First Symp. on Networked Systems Design and Implementation NSDI'04, March 29-31 2004, pp. 225-238.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Tang, Z. Xu, and S. Dwarkadas, Peer-to-peer information retrieval using self-organizing semantic overlay networks, Proc. 2003 conference on Applications, Technologies, Architectures and Protocols for Computer Communications, August 25-29 2003, pp. 175-186.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Considine, M. Walfish, and D. G. Andersen, A pragmatic approach to DHT adoption, Technical Report,, December 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Schlosser, M. Sintek, S. Decker, and W. Nejdl, HyperCuP - Hypercubes, Ontologies and P2P Networks, Springer Lecture Notes on Computer Science, Agents and Peer-to-Peer Systems Vol. 2530 (2002)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://krs.lcs.mit.edu/regions/docs.html" rel="noopener">J. Li and K. Sollins, Implementing aggregation and broadcast over distributed hash tables. Full report, http://krs.lcs.mit.edu/regions/docs.html (November) (2003)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Daswani and H. Garcia-Molina, Query-flood DoS attacks in gnutella, Proc. 9th ACM Conf. on Computer and Communications Security 2002, pp. 181-192.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Lewin, Consistent hashing and random trees: algorithms for caching in distributed networks, Master's Thesis, Department of Electrical Engineering and Computer Science, Massachusetts Institute of Technology (1998)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. S. Manku, M. Bawa, and P. Raghavan, Symphony: Distributed Hashing in a Small World, Proc. 4th USENIX Symp. on Internet Technologies and Systems, March 26-28 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Sit and R. Morris, Security considerations for peer-to-peer distributed hash tables, First Int'l Workshop on Peer-to-Peer Systems, March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Kubiatowicz, D. Bindel, Y. Chen, S. Czerwinski, P. Eaton, D. Geels, R. Gummadi, S. Rhea, H. Weatherspoon, W. Weimer, C. Wells, and B. Zhao, Oceanstore: An Architecture for global- scale persistent storage, Proc. Ninth Int'l Conf. on Architecture Support for Programming Languages and Operating Systems ASPLOS 2000, November 2000, pp. 190-201.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Serjantov, Anonymizing censorship resistant systems, Proc. Second Int'l Conf. on Peer to Peer Computing, March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Tang and S. Dwarkadas, Hybrid global-local indexing for efficient peer-to-peer information retrieval, Proc. First Symp. on Networked Systems Design and Implementation NSDI'04, March 29-31 2004, pp. 211-224.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Rhea, D. Geels, T. Roscoe, and J. Kubiatowicz, Handling churn in a DHT, Proc. of the USENIX Annual Technical Conference, June 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Fessant, S. Handurukande, A.-M. Kermarrec, and L. Massoulie, Clustering in Peer-to-Peer File Sharing Workloads, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Bawa, A. Gionis, H. Garcia-Molina, and R. Motwani, The price of validity in dynamic networks, Proc. 2004 ACM SIGMOD Int'l Conf. on the management of data 2004, pp. 515-526.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Stoica, R. Morris, D. Liben-Nowell, D. Karger, M. Kaashoek, F. Dabek, and H. Balakrishnan, Chord: a scalable peer-to-peer lookup protocol for Internet applications, IEEE/ACM Trans. on Networking 11 (1) (2003) 17-32.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ratnasamy, P. Francis, and M. Handley, Range queries in DHTs, Technical Report IRB-TR-03-009, July 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Maymounkov and D. Mazieres, Kademlia: A peer-to-peer information system based on the XOR metric, Proc. First Int'l Workshop on Peer to Peer Systems, IPTPS 2002, March 7-8 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Y. Ren, C. Sha, W. Qian, A. Zhou, B. Ooi, and K. Tan, Explore the &quot;small world phenomena&quot; in pure P2P information sharing systems, Proc. 3rd IEEE/ACM Int'l Symp. on Cluster Computing and the Grid (2003) 232-239.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. S. Manku, Routing networks for distributed hash tables, Proc. 22nd annual ACM Symp. on Principles of Distributed Computing, PODC 2003, July 13-16 2003, pp. 133-142.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ratnasamy, A Scalable Content-Addressable Network, Doctoral Dissertation 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.limewire.com/developer/MetaProposal2.htm" rel="noopener">S. Thadani, Meta Data searches on the Gnutella Network (addendum), http://www.limewire.com/developer/MetaProposal2.htm (2001)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>V. Ramasubramanian and E. Sirer, Beehive: O(1) Lookup Performance for Power-Law Query Distributions in Peer-to-Peer Overlays, Proc. First Symp. on Networked Systems Design and Implementation (NSDI'04), San Francisco, California, March 29-31 (2004) 99-112.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Triantafillou and T. Pitoura, Towards a unifying framework for complex query processing over structured peer-to-peer data networks, Proc. First Int'l Workshop on Databases, Information Systems and Peer-to-Peer Computing DBISP2P, Sept 7-8 2003, pp. 169-183.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.limewire.com/english/content/netsize.shtml" rel="noopener">Limewire, Limewire Host Count, http://www.limewire.com/english/content/netsize.shtml (2004)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>V. Cholvi, P. Felber, and E. Biersack, Efficient Search in Unstructured Peer-to-Peer Networks, Proc. Symp. on Parallel Algorithms and Architectures, July 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Castro, M. Costa, and A. Rowstron, Should we build Gnutella on a structured overlay?, ACM SIGCOMM Computer Communication Review 34 (1) (2004) 131-136.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Fiat and J. Saia, Censorship resistant peer to peer content addressable networks, Proc. 13th annual ACM-SIAM symposium on discrete algorithms 2002, pp. 94-103.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J.-W. Mao, &quot;The Coloring and Routing Problems on de Bruijn Interconnection Networks,&quot; in Doctoral Dissertation, National Sun Yat-sen University, 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Karger and M. Ruhl, Simple efficient load balancing algorithms for peer-to-peer systems, Proc. Sixteenth ACM Symp. on Parallel Algorithms and Architectures SPAA 2004, June 27-30 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Tanin, A. Harwood, and H. Samet, Indexing distributed complex data for complex queries, Proc. National Conf. on Digital Government Research 2004, pp. 81-90.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Gribble, E. Brewer, J. M. Hellerstein, and D. Culler, Scalable, Distributed Data Structures for Internet Service Construction, Proc. 4th Symp. on Operating Systems Design and Implementation OSDI 2000, October 2000.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.irtf.org/charters/p2prg.html" rel="noopener">B. Yeager and B. Bhattacharjee, Peer-to-Peer Research Group Charter, http://www.irtf.org/charters/p2prg.html (2003)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Singhal, Modern Information Retrieval: A Brief Overview, IEEE Data Engineering Bulletin 24 (4) (2001) 35-43.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Anagnostakis and M. Greenwald, Exchange-based Incentive Mechanism for Peer-to-Peer File Sharing, Proc. 24th Int'l Conf. on Distributed Computing Systems ICDCS 2004, March 23-26 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Rhea, C. Wells, P. Eaton, D. Geels, B. Zhao, H. Weatherspoon, and J. Kubiatowicz, Maintenance-Free Global Data Storage, IEEE Internet Computing 5 (5) (2001) 40-49.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. W. Furnas, S. Deerwester, S. T. Dumais, T. K. Landauer, R. A. Harshman, L. A. Streeter, and K. E. Lochbaum, Information retrieval using a singular value decomposition model of latent semantic structure, Proc. 11th Annual Int'l ACM SIGIR Conf. on Research and Development in Information Retrieval 1988, pp. 465-480.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Cox, F. Dabek, F. Kaashoek, J. Li, and R. Morris, Practical,distributed network coordinates, ACM SIGCOMM Computer Communication Review 34 (1) (2004) 113-118.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>DirectConnect, http:www.neo-modus.com (2001)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Saroiu, K. Gummadi, R. Dunn, S. Gribble, and H. Levy, An analysis of Internet content delivery systems, ACM SIGOPS Operating Systems Review 36 (2002) 315-327.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Feldman, C. Papadimitriou, J. Chuang, and I. Stoica, Free- Riding and Whitewashing in Peer-to-Peer Systems, 3rd Annual Workshop on Economics and Information Security WEIS04, May 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. van Renesse, K. P. Birman, and W. Vogels, Astrolabe: A robust and scalable technology for distribute system monitoring, management and data mining, ACM Trans. on Computer Systems 21 (2) (2003) 164-206.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Aberer, P. Cudre-Mauroux, A. Datta, Z. Despotovic, M. Hauswirth, M. Punceva, and R. Schmidt, P-Grid: a self- organizing structured P2P system, ACM SIGMOD Record 32 (3) (2003) 29-33.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Aspnes, J. Kirsch, and A. Krishnamurthy, Load Balancing and Locality in Range-Queriable Data Structures, Proc. 23rd Annual ACM SIGACT-SIGOPS Symp. on Principles of Distributed Computing PODC 2004, July 25-28 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Awerbuch and C. Scheideler, Consistent, order-preserving data management in distributed storage systems, Proc. Sixteenth ACM Symp. on Parallel Algorithms and Architectures SPAA 2004, June 27-30 2004, pp. 44-53.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Castro, P. Druschel, A.-M. Kermarrec, A. Nandi, A. Rowstron, and A. Singh, SplitStream: high-bandwidth multicast in cooperative environments, Proc. 19th ACM symposium on operating systems principles 2003, pp. 298-313.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Hildrum, J. D. Kubiatowicz, S. Rao, and B. Y. Zhao, Distributed object location in a dynamic network, Theory of Computing Systems (2004)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Rowstron and P. Druschel, Storage management and caching in PAST, a large-scale, persistent peer-to-peer storage utility, Proceedings ACM SOSP'01, October 2001, pp. 188-201.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Yang and H. Garcia-Molina, Designing a super-peer network, Proc. 19th Int'l Conf. on Data Engineering ICDE, March 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Karp, S. Ratnasamy, S. Rhea, and S. Shenker, Spurring adoption of DHTs with OpenHash, a public DHT service, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Birman, The Surprising Power of Epidemic Communication, Springer-Verlag Heidelberg Lecture Notes in Computer Science Volume 2584/2003 (2003) 97-102.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Schmidt and M. Parashar, Enabling flexible queries with guarantees in P2P systems, IEEE Internet Computing 8 (3) (2004) 19-26.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Cohen and S. Shenker, Replication strategies in unstructured peer to peer networks, Proc. 2002 conference on applications, technologies, architectures and protocols for computer communications 2002, pp. 177-190.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Ganesan, M. Bawa, and H. Garcia-Molina, Online Balancing of Range-Partitioned Data with Applications to Peer-to-Peer Systems, Proc. 30th Int'l Conf. on Very Large Data Bases VLDB 2004, 29 August - 3 September 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Zhuang, B. Zhao, A. Joseph, R. Katz, and J. Kubiatowicz, Bayeux: an architecture for scalable and fault-tolerant wide- area data dissemination, Proc. 11th ACM international workshop on network and operating systems support for digital audio and video, Jan 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Rowstron and P. Druschel, Pastry: Scalable, distributed object location and routing for large-scale peer-to-peer systems, IFIP/ACM Middleware 2001, Nov 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.limewire.org/fisheye/viewrep/~raw" rel="noopener">S. Daswani and A. Fisk, Gnutella UDP Extension for Scalable Searches (GUESS) v0.1, http://www.limewire.org/fisheye/viewrep/~raw ,r=1.2/limecvs/ core/guess_01.html (2002)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ratnasamy, S. Shenker, and I. Stoica, Routing algorithms for DHTs: some open questions, Proc. First Int'l Workshop on Peer to Peer Systems, IPTPS 2002, March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ratnasamy, M. Handley, R. Karp, and S. Shenker, Application-level multicast using content-addressable networks, Proc. of the Third International Workshop on Networked Group Communication, Nov 7-9 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Yeager, Proposed research tracks, Email to the Internet Research Task Force IRTF P2P Research Group, Nov 10 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Huebsch, J. M. Hellerstein, N. Lanham, B. T. Loo, S. Shenker, and I. Stoica, Querying the Internet with PIER, Proc. 29th Int'l Conf. on Very Large Databases VLDB'03, September 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Adamic, R. Lukose, A. Puniyani, and B. Huberman, Search in power-law networks, Physical review E, The American Physical Society 64 (046135) (2001)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.pdos.lcs.mit.edu/p2psim/" rel="noopener">T. Gil, F. Kaashoek, J. Li, R. Morris, and J. Stribling, p2psim, a simulator for peer-to-peer protocols, http://www.pdos.lcs.mit.edu/p2psim/ (2003)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Lynch, D. Malkhi, and D. Ratajczak, Atomic data access in distributed hash tables, Proc. Int'l Peer-to-Peer Symp., March 7-8 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>X. Zhang, Q. Zhang, G. Song, and W. Zhu, A Construction of Locality-Aware Overlay Network: mOverlay and its Performance, IEEE Journal on Selected Areas in Communications 22 (1) (2004) 18-28.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Weatherspoon and J. Kubiatowicz, Efficient heartbeats and repair of softstate in decentralized object location and routing systems, Proc. SIGOPS European Workshop, September 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Hefeeda, A. Habib, B. Botev, D. Xu, and B. Bhargava, PROMISE: peer-to-peer media streaming using CollectCast, Proc. eleventh ACM international conference on multimedia 2003, pp. 45-54.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Sollins, Designing for scale and differentiation, Proc. ACM SIGCOMM workshop on Future Directions in network architecture, August 25-27 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Weatherspoon and J. Kubiatowicz, Erasure coding vs replication: a quantative comparison, Proc. First Int'l Workshop on Peer to Peer Systems IPTPS'02, March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Lomet, Replicated indexes for distributed data, Proc. Fourth Int'l Conf. on Parallel and Distributed Information Systems, December 18-20 1996, pp. 108-119.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Gold and D. Tidhar, Towards a content-based aggregation network, Proc. First Int'l Conf. on Peer to Peer Compuuting 2001, pp. 62-68.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Litwin and M.-A. Neimat, k-RP*s: a scalable distributed data structure for high-performance multi-attributed access, Proc. Fourth Int'l Conf. on Parallel and Distributed Information Systems (1996) 120-131.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Josephson, E. Sirer, and F. Schneider, Peer-to-Peer Authentication with a Distributed Single Sign-On Service, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Balakrishnan, M. F. Kaashoek, D. Karger, R. Morris, and I. Stoica, Looking up data in P2P systems, Communications of the ACM 46 (2) (2003) 43-48.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Aspnes and G. Shah, Skip graphs, Proc. 14th annual ACM-SIAM symposium on discrete algorithms (2003) 384-393.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Zhou and R. van Renesse, P6P: a peer-to-peer approach to internet infrastructure, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Chander, S. Dawson, P. Lincoln, and D. Stringer-Calvert, NEVRLATE: scalable resource discovery, Second IEEE/ACM Int'l Symp. on Cluster Computing and the Grid CCGRID2002 2002, pp. 56-65.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>KaZaa, KaZaa Media Desktop, www.kazaa.com (2001)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Cai and M. Frank, RDFPeers: a scalable distributed RDF repository based on a structured peer-to-peer network, Proc. 13th conference on World Wide Web, May 17-20 2004, pp. 650-657.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Cates, Robust and Efficient Data Management for a Distributed Hash Table, Master's Thesis, May 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Psaltoulis, I. Kostoulas, I. Gupta, K. Birman, and A. Demers, Practical algorithms for size estimation in large and dynamic groups, Proc. Twenty-Third Annual ACM SIGACT-SIGOPS Symp. on Principles of Distributed Computing, PODC 2004, July 25-28 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. L. Schlumberger, De Bruijn communication networks, Doctoral Dissertation 1974.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Bhagwan, G. Varghese, and G. Voelker, Cone: Augmenting DHTs to support distributed resource discovery, Technical Report, CS2003- 0755, July 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. van Renesse, The importance of aggregation, Springer-Verlag Lecture Notes in Computer Science &quot;Future Directions in Distributed Computing&quot;. A. Schiper, A. A. Shvartsman, H. Weatherspoon, and B. Y. Zhao, editors. Springer-Verlag, Heidelberg volume 2584 (2003)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>V. Lo, D. Zappala, D. Zhou, Y. Liu, and S. Zhao, Cluster computing on the fly: P2P scheduling of idle cycles in the internet, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Mahajan, M. Castro, and A. Rowstron, Controlling the cost of reliability in peer-to-peer overlays, Second Int'l Workshop on Peer-to-Peer Systems IPTPS'03, February 20-21 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Iamnitchi, Resource Discovery in Large Resource-Sharing Environments, Doctoral Dissertation 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Rhea, B. Godfrey, B. Karp, J. Kubiatowicz, S. Ratnasamy, S. Shenker, I. Stoica, and H. Yu, OpenDHT: a public DHT service and its uses, Proc. of the conf. on Applications, technologies, architectures and protocols for computer communications, Aug 22-26 2005, pp. 73-84.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Cooper and H. Garcia-Molina, Studying search networks with SIL, Second Int'l Workshop on Peer-to-Peer Systems IPTPS 03, 20- 21 February 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://opennap.sourceforge.net/" rel="noopener">D. Scholl, OpenNap Home Page, http://opennap.sourceforge.net/ (2001)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Li, B. T. Loo, J. Hellerstein, F. Kaashoek, D. Karger, and R. Morris, On the Feasibility of Peer-to-Peer Web Indexing and Search, Second Int'l Workshop on Peer-to-Peer Systems IPTPS 03, 20-21 February 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Geels and J. Kubiatowicz, Replica management should be a game, Proc. SIGOPS European Workshop, September 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Y. Chawathe, S. Ratnasamy, L. Breslau, N. Lanham, and S. Shenker, Making gnutella-like P2P systems scalable, Proc. 2003 conference on Applications, Technologies, Architectures and Protocols for Computer Communications, August 25-29 2003, pp. 407-418.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Castro, J. Lee, and A. Misra, CLASH: A Protocol for Internet- Scale Utility-Oriented Distributed Computing, Proc. 24th Int'l Conf. on Distributed Computing Systems ICDCS 2004, March 23-26 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Bloom, Space/time trade-offs in hash coding with allowable errors, Communications of the ACM 13 (7) (1970) 422-426.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. El-Ansary, L. Alima, P. Brand, and S. Haridi, Efficient broadcast in structured P2P networks, Second Int'l Workshop on Peer-to-Peer Systems (IPTPS 03), Berkeley, CA, USA, 20-21 February (2003)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Schneidman and D. Parkes, Rationality and self-Interest in peer to peer networks, Second Int'l Workshop on Peer-to-Peer Systems IPTPS'03, February 20-21 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Plank, S. Atchley, Y. Ding, and M. Beck, Algorithms for High Performance, Wide-Area Distributed File Downloads, Parallel Processing Letters 13 (2) (2003) 207-223.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Hodes, S. Czerwinski, B. Zhao, A. Joseph, and R. Katz, An architecture for secure wide-area service discovery, Wireless Networks 8 (2/3) (2002) 213-230.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Naor and U. Wieder, A Simple Fault Tolerant Distributed Hash Table, Second Int'l Workshop on Peer-to-Peer Systems (IPTPS 03), Berkeley, CA, USA, 20-21 February (2003)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Gray, The transaction concept: Virtues and limitations, Proc. VLDB, September 1981.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Albrecht, R. Arnold, and R. Wattenhofer, Aggregating information in peer-to-peer systems for improved join and leave, Proc. Fourth IEEE Int'l Conf. on Peer-to-Peer Computing, 25-27 August 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Costa, M. Castro, A. Rowstron, and P. Key, PIC: Practical Internet coordinates for distance estimation, Proc. of the 24th international conference on distributed computing systems, Mar 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Ganesh, A.-M. Kermarrec, and L. Massoulie, Peer-to-peer membership management for gossip-based protocols, IEEE Trans. on Computers 52 (2) (2003) 139-149.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Lei and A. Grama, Extended consistent hashing: a framework for distributed servers, Proc. 24th Int'l Conf. on Distributed Computing Systems ICDCS 2004, March 23-26 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>V. Gopalakrishnan, B. Silaghi, B. Bhattacharjee, and P. Keleher, Adaptive Replication in Peer-to-Peer Systems, Proc. 24th Int'l Conf. on Distributed Computing Systems ICDCS 2004, March 23-26 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>O. Babaoglu, H. Meling, and Montresor, Anthill: a framework for the development of agent-based peer-to-peer systems, Proc. IEEE Int'l Conf. on Distributed Computer systems 2002, pp. 15- 22.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Karger, E. Lehman, T. Leighton, R. Panigraphy, M. Levin, and D. Lewin, Consistent hashing and random trees: distributed caching protocols for relieving hot spots on the World Wide Web, ACM Symp. on Theory of Computing (1997)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Berket, A. Essiari, and A. Muratas, PKI-Based Security for Peer-to-Peer Information Sharing, Proc. Fourth IEEE Int'l Conf. on Peer-to-Peer Computing, 25-27 August 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://edutella.jxta.org/" rel="noopener">W. Nejdl, S. Decker, and W. Siberski, Edutella Project, RDF- based Metadata Infrastructure for P2P Applications, http://edutella.jxta.org/ (2003)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Reynolds and A. Vahdat, Efficient peer-to-peer keyword searching, ACM/IFP/USENIX Int'l Middleware Conference, Middleware 2003, June 16-20 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Cohen and S. Shenker, P2P and multicast: replication strategies in unstructured peer to peer networks, Proc. 2002 conference on applications, technologies, architectures and protocols for computer communications 2002, pp. 177-190.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ramabhadran, S. Ratnasamy, J. Hellerstein, and S. Shenker, Brief announcement: prefix hash tree, Proc. 23rd Annual ACM SIGACT-SIGOPS Symp. on Principles of Distributed Computing, PODC 2004, July 25-28 2004, pp. 368-368.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Cuenca-Acuna, C. Peery, R. Martin, and T. Nguyen, PlanetP: Using Gossiping to Build Content Addressable Peer-to-Peer Information Sharing Communities, Proc. 12th international symposium on High Performance Distributed Computing (HPDC), June 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Bawa, Q. Sun, P. Vinograd, B. Yang, B. Cooper, A. Crespo, N. Daswani, P. Ganesan, H. Garcia-Molina, S. Kamvar, S. Marti, and M. Schlossed, Peer-to-peer research at Stanford, ACM SIGMOD Record 32 (3) (2003) 23-28.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ratnasamy, B. Karp, L. Yin, F. Yu, D. Estrin, R. Govindan, and S. Shenker, GHT: a geographic hash table for data-centric storage, Proc. First ACM Int'l Workshop on Wireless Sensor Networks and Applications (Mobicom) 2002, pp. 78-87.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://citeseer.ist.psu.edu/" rel="noopener">Citeseer, Citeseer Scientific Literature Digital Library, http://citeseer.ist.psu.edu/ (2004)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Stonebraker, P. Aoki, W. Litwin, A. Pfeffer, A. Sah, J. Sidell, C. Staelin, and A. Yu, Mariposa: a wide-area distributed database system, THE VLDB Journal - The Int'l Journal of Very Large Data Bases (5) (1996) 48-63.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Gao and P. Steenkiste, Design and Evaluation of a Distributed Scalable Content Delivery System, IEEE Journal on Selected Areas in Communications 22 (1) (2004) 54-66.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Y. Liu, X. Liu, L. Xiao, L. Ni, and X. Zhang, Location-aware topology matching in P2P systems, Proc. IEEE Infocomm, Mar 7-11 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Pugh, Skip lists: a probabilistic alternative to balanced trees, Proc. Workshop on Algorithms and Data Structures, August 17-19 1989, pp. 437-449.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Gupta, K. Birman, P. Linga, A. Demers, and R. Van Renesse, Kelips: Building an efficient and stable P2P DHT through increased memory and background overhead, Second Int'l Workshop on Peer-to-Peer Systems IPTPS 03, Feb 20-21 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>X. Wang, Y. Zhang, X. Li, and D. Loguinov, On zone-balancing of peer-to-peer networks: analysis of random node join, Proc. joint international conference on measurement and modeling of computer systems, June 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Freedman and R. Morris, Tarzan: a peer-to-peer anonymizing network layer, Proc. 9th ACM Conf. on Computer and Communications Security (2002) 193-206.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Gribble, A. Halevy, Z. Ives, M. Rodrig, and D. Suciu, What can databases do for P2P?, Proc. Fourth Int'l Workshop on Databases and the Web, WebDB2001, May 24-25 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Lynch and I. Stoica, MultiChord: A resilient namespace management algorithm, Technical Memo MIT-LCS-TR-936 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Birman, M. Hayden, O. Ozkasap, Z. Xiao, and M. Budiu, Bimodal Multicast, ACM Trans. on Computer Systems 17 (2) (1999) 41-88.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Gupta, On the design of distributed protocols from differential equations, Proc. 23rd Annual ACM SIGACT-SIGOPS Symp. on Principles of Distributed Computing PODC 2004, July 25-28 2004, pp. 216-225.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Li, J. Stribling, R. Morris, and F. Kaashoek, Bandwidth- efficient management of DHT routing tables, Proc. 2nd Symposium on Networked Systems Design and Implementation, May 2-4 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. T. Loo, R. Huebsch, I. Stoica, and J. M. Hellerstein, The case for a hybrid P2P search infrastructure, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Honicky and E. Miller, A fast algorithm for online placement and reorganization of replicated data, Proc. 17th Int'l Parallel and Distributed Processing Symp., April 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Abraham, A. Badola, D. Bickson, D. Malkhi, S. Maloo, and S. Ron, Practical locality-awareness for large scale information sharing, Proc. 4th International Workshop on Peer-to-Peer Systems, Feb 24-25 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Banaei-Kashani and C. Shahabi, Criticality-based analysis and design of unstructured peer-to-peer networks as &quot;complex systems&quot;, Proc. 3rd IEEE/ACM Int'l Symp. on Cluster Computing and the Grid 2003, pp. 351-358.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Stoica, D. Adkins, S. Zhuang, S. Shenker, and S. Surana, Internet indirection infrastructure, Proc. 2002 conference on applications, technologies, architectures and protocols for computer communications, August 19-23 2002, pp. 73-86.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Zhuang, D. Geels, I. Stoica, and R. Katz, On failure detection algorithms in overlay networks, Proc. IEEE Infocomm, Mar 13-17 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Shenker, The data-centric revolution in networking, Keynote Speech, 29th Int'l Conf. on Very Large Data Bases, September 9-12 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. T. Loo, J. M. Hellerstein, R. Huebsch, S. Shenker, and I. Stoica, Enhancing P2P file-sharing with internet-scale query processor, Proc. 30th Int'l Conf. on Very Large Data Bases VLDB 2004, 29 August-3 September 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Muller and A. Henrich, Fast retrieval of high-dimensional feature vectors in P2P networks using compact peer data summaries, Proc. 5th ACM SIGMM international workshop on Multimedia Information Retrieval, November 7 2003, pp. 79-86.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Buragohain, D. Agrawal, and S. Subhash, A game theoretic framework for incentives in P2P systems, Proc. Third Int'l IEEE Conf. on Peer-to-Peer Computing, 1-3 Sept 2003, pp. 48-56.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Aberer, A. Datta, and M. Hauswirth, A decentralized public key infrastructure for customer-to-customer e-commerce, Int'l Journal of Business Process Integration and Management (2004)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. M. Reddy, D. K. Pradhan, and J. G. Kuhl, Direct graphs with minimal and maximal connectivity, Technical Report, School of Engineering, Oakland University (1980)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Sen and J. Wang, Analyzing peer-to-peer traffic across large networks, Proc. second ACM SIGCOMM workshop on Internet measurement, November 06-08 2002, pp. 137-150.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Damiani, D. C. di Vimercati, S. Paraboschi, P. Samarati, and F. Violante, A reputation-based approach for choosing reliable resources in peer to peer networks, Proc. 9th conference on computer and communications security 2002, pp. 207-216.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Castro, M. Costa, and A. Rowstron, Performance and dependability of structured peer-to-peer overlays, Microsoft Research Technical Report MSR-TR-2003-94, December. Also 2004 Int'l Conf. on Dependable Systems and Networks, June 28-July 1 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>V. Pai, K. Tamilmani, V. Sambamurthy, K. Kumar, and A. Mohr, Chainsaw: eliminating trees from overlay multicast, Proc. 4th Int'l Workshop on Peer-to-Peer Systems, February 24-25 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Datta, S. Girdzijauskas, and K. Aberer, On de Bruijn routing in distributed hash tables: there and back again, Proc. Fourth IEEE Int'l Conf. on Peer-to-Peer Computing, , 25-27 August 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Demirbas and H. Ferhatosmanoglu, Peer-to-peer spatial queries in sensor networks, Proc. Third Int'l IEEE Conf. on Peer-to-Peer Computing, 1-3 Sept 2003, pp. 32-39.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Annexstein, K. Berman, M. Jovanovic, and K. Ponnavaikko, Indexing techniques for file sharing in scalable peer to peer networks, 11th IEEE Int'l Conf. on Computer Communications and Networks (2002) 10-15.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Risson, K. Robinson, and T. Moors, Fault tolerant active rings for structured peer-to-peer overlays, Proc. of the 30th Annual IEEE Conf. on Local Computer Networks, Nov 15-17 2005, pp. 18-25.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Koloniari and E. Pitoura, Content-based Routing of Path Queries in Peer-to-Peer Systems, Proc. 9th Int'l Conf. on Extending DataBase Technology EDBT, March 14-18 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Papaioannou and G. Stamoulis, Effective use of reputation in peer-to-peer environments, Fourth Int'l Workshop on Global and Peer-to-Peer Computing, April 20-21 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Yang and H. Garcia-Molina, Improving search in peer-to-peer networks, Proc. 22nd IEEE Int'l Conf. on Distributed Computing Systems, July 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Byers, J. Considine, M. Mitzenmacher, and S. Rost, Informed content delivery across adaptive overlay networks, Proc. 2002 conference on applications, technologies, architectures and protocols for computer communications 2002, pp. 47-60.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Li, J. Stribling, T. Gil, R. Morris, and F. Kaashoek, Comparing the performance of distributed hash tables under churn, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.limewire.com/developer/query_routing/keyword%20routing.htm" rel="noopener">C. Rohrs, Query Routing for the Gnutella Networks, http://www.limewire.com/developer/query_routing/ keyword%20routing.htm Version 1.0 (2002)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Karger and M. Ruhl, Simple efficient load balancing algorithms for peer-to-peer systems, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. M. Hellerstein, Toward network data independence, ACM SIGMOD Record 32 (3) (2003) 34-40.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Sunaga, M. Takemoto, and T. Iwata, Advanced peer to peer network platform for various services - SIONet Semantic Information Oriented Network, Proc. Second Int'l Conf. on Peer to Peer Computing, Sept 5-7 2002, pp. 169-170.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Caronni and M. Waldvogel, Establishing trust in distributed storage providers, Proc. Third Int'l IEEE Conf. on Peer-to-Peer Computing, 1-3 Sept 2003, pp. 128-133.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Birman and I. Gupta, Building Scalable Solutions to Distributed Computing Problems using Probabilistic Components, Submitted to the Int'l Conf. on Dependable Systems and Networks DSN-2004, Dependable Computing and Computing Symp. DCCS, June 28- July 1 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Litwin, Re: Chord &amp;amp; LH*, Email to Ion Stoica, March 23 2004a.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Aberer, Scalable Data Access in P2P Systems Using Unbalanced Search Trees, Workshop on Distributed Data and Structures WDAS- 2002 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Byers, J. Considine, and M. Mitzenmacher, Simple Load Balancing for Distributed Hash Tables, Second Int'l Workshop on Peer-to-Peer Systems IPTPS 03, 20-21 February 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Castro, M. B. Jones, A.-M. Kermarrec, A. Rowstron, M. Theimer, H. Wang, and A. Wolman, An evaluation of scalable application- level multicast built using peer-to-peer overlays, Proc. of the 22nd Annual Joint Conf. of the IEEE Comp. and Comm. Soc. (INFOCOM), 30 Mar - 3 Apr 2003, pp. 1510-1520.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Sasabe, N. Wakamiya, M. Murata, and H. Miyahara, Scalable and continuous media streaming on peer-to-peer networks, Proc. Third Int'l IEEE Conf. on Peer-to-Peer Computing, Sept 1-3 2003, pp. 92-99.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Aberer and M. Hauswirth, An overview on peer-to-peer information systems, Workshop on Distributed Data and Structures WDAS-2002 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Demers, D. Greene, C. Hauser, W. Irish, J. Larson, S. Shenker, H. Sturgis, D. Swinehart, and D. Terry, Epidemic algorithms for replicated data management, Proc. Sixth ACM Symp. on Principles of Distributed Computing 1987, pp. 1-12.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Plaxton, R. Rajaraman, and A. Richa, Accessing nearby copies of replicated objects in a distributed environment, ACM Symp. on Parallel Algorithms and Architectures (1997)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ratnasamy, P. Francis, M. Handley, R. Karp, and S. Shenker, A scalable content-addressable network, Proc. of the conf. on Applications, technologies, architectures and protocols for computer communications, August 27-31 2001, pp. 161-172.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Salton, A. Wong, and C. S. Yang, A vector space model for automatic indexing, Communications of the ACM 18 (11) (1975) 613- 620.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Kossmann, The state of the art in distributed query processing, ACM Computing Surveys 32 (4) (2000) 422-469.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. T. Loo, S. Krishnamurthy, and O. Cooper, Distributed web crawling over DHTs, Technical Report, CSD-04-1305, February 9 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. D. de Bruijn, A combinatorial problem, Koninklijke Netherlands: Academe Van Wetenschappen 49 (1946) 758-764.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J.-C. Laprie, Dependable Computing and Fault Tolerance: Concepts and Terminology, Twenty-Fifth Int'l Symp. on Fault- Tolerant Computing, Highlights from Twenty-Five Years 1995, pp. 2-13.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Mizrak, Y. Cheng, V. Kumar, and S. Savage, Structured superpeers: leveraging heterogeneity to provide constant-time lookup, IEEE Workshop on Internet Applications, June 23-24 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Wawrzoniak, L. Peterson, and T. Roscoe, Sophia: an Information Plane for networked systems, ACM SIGCOMM Computer Communication Review 34 (1) (2004) 15-20.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Aberer, A. Datta, and M. Hauswirth, The Quest for Balancing Peer Load in Structured Peer-to-Peer Systems, Technical Report IC/2003/32 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Gupta, D. Agrawal, and A. E. Abbadi, Approximate range selection queries in peer-to-peer systems, Proc. First Biennial Conf. on Innovative Data Systems Research CIDR 2003 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Li, J. Stribling, R. Morris, F. Kaashoek, and T. Gil, A performance vs. cost framework for evaluating DHT design tradeoffs under churn, Proc. IEEE Infocom, Mar 13-17 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Rao, K. Lakshminarayanan, S. Surana, R. Karp, and I. Stoica, Load balancing in structured P2P systems, Proc. 2nd Int'l Workshop on Peer-to-Peer Systems, IPTPS'03, February 20-21 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Bharambe, M. Agrawal, and S. Seshan, Mercury: Supporting Scalable Multi-Attribute Range Queries, SIGCOMM'04, Aug 30-Sept 3 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. van Renesse and A. Bozdog, Willow: DHT, aggregation and publish/subscribe in one protocol, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Stoica, R. Morris, D. Liben-Nowell, D. Karger, M. Kaashoek, F. Dabek, and H. Balakrishnan, Chord: A scalable peer-to-peer lookup service for internet applications, Proc. ACM SIGCOMM 2001 2001, pp. 149-160.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Cao and Z. Wang, Efficient top-K query calculation in distributed networks, Proc. 23rd Annual ACM SIGACT-SIGOPS Symp. on Principles of Distributed Computing PODC 2004, July 25-28 2004, pp. 206-215.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Vogels, R. v. Renesse, and K. Birman, The power of epidemics: robust communication for large-scale distributed systems, ACM SIGCOMM Computer Communication Review 33 (1) (2003) 131-135.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Keleher, S. Bhattacharjee, and B. Silaghi, Are Virtualized Overlay Networks Too Much of a Good Thing?, First Int'l Workshop on Peer-to-Peer Systems IPTPS, March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Ramaswamy and L. Liu, FreeRiding: a new challenge for peer- to-peer file sharing systems, Proc. 2003 Hawaii Int'l Conf. on System Sciences, P2P Track, HICSS2003, January 6-9 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Karger and M. Ruhl, Diminished Chord: A Protocol for Heterogeneous SubGroup Formation in Peer-to-Peer Networks, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Hazel and B. Wiley, Achord: A Variant of the Chord Lookup Service for Use in Censorship Resistant Peer-to-Peer Publishing Systems, Proc. Second Int'l Conf. on Peer to Peer Computing, March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E.-K. Lua, J. Crowcroft, and M. Pias, Highways: proximity clustering for massively scaleable peer-to-peer network routing, Proc. Fourth IEEE Int'l Conf. on Peer-to-Peer Computing, August 25-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Dabek, M. F. Kaashoek, D. Karger, R. Morris, and I. Stoica, Wide-area cooperative storage with CFS, Proc. 18th ACM symposium on Operating System Principles 2001, pp. 202-215.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T.-W. Ngan, D. Wallach, and P. Druschel, Enforcing fair sharing of peer-to-peer resources, Second Int'l Workshop on Peer-to- Peer Systems, IPTPS'03, 20-21 February 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Ghodsi, L. O. Alima, S. El-Ansary, P. Brand, and S. Haridi, Self-correcting broadcast in distributed hash tables, Proc. of the 15th IASTED International Conf. on Parallel and Distributed Computing and Systems, Nov 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Voulgaris and M. van Steen, An epidemic protocol for managing routing tables in very large peer to peer networks, Proc. 14th IFIP/IEEE Workshop on Distributed Systems: Operations and Management, October 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Maymounkov and D. Mazieres, Rateless codes and big downloads, Second Int'l Workshop on Peer-to-Peer Systems, IPTPS'03, February 20-21 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Zhao, Y. Duan, L. Huang, A. Joseph, and J. Kubiatowicz, Brocade: landmark routing on overlay networks, First Int'l Workshop on Peer-to-Peer Systems IPTPS'02, March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.cs.princeton.edu/~akronfol/fasd/" rel="noopener">A. Z. Kronfol, FASD: A fault-tolerant, adaptive scalable distributed search engine, Master's Thesis http://www.cs.princeton.edu/~akronfol/fasd/ 2002.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Rhea, D. Geels, T. Roscoe, and J. Kubiatowicz, Handling churn in a DHT, Report No. UCB/CSD-03-1299, University of California, also Proc. USENIX Annual Technical Conference, June 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Marti, P. Ganesan, and H. Garcia-Molina, DHT routing using social links, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Clarke, S. Miller, T. Hong, O. Sandberg, and B. Wiley, Protecting Free Expression Online with Freenet, IEEE Internet Computing 6 (1) (2002)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Costa, M. Migliavacca, G. P. Picco, and G. Cugola, Introducing reliability in content-based publish-subscribe through epidemic algorithms, Proc. 2nd international workshop on Distributed event-based systems 2003, pp. 1-8.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Gupta, B. Liskov, and R. Rodrigues, Efficient routing for peer-to-peer overlays, First symp. on Networked Systems Design and Implementation (NSDI), Mar 29-31 2004, pp. 113-126.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. T. Loo, R. Huebsch, J. M. Hellerstein, T. Roscoe, and I. Stoica, Analyzing P2P Overlays with Recursive Queries, Technical Report, CSD-04-1301, January 14 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.limewire.com/developer/metainfo_searches.html" rel="noopener">S. Thadani, Meta Information Searches on the Gnutella Networks, http://www.limewire.com/developer/metainfo_searches.html (2001)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Jain, R. Mahajan, and D. Wetherall, A study of the performance potential of DHT-based overlays, Proc. of the 4th Usenix symposium on internet technologies and systems (USITS), Mar 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Eugster, R. Guerraoiu, A. Kermarrec, and L. Massoulie, Epidemic information dissemination in distributed systems, IEEE Computer 37 (5) (2004) 60-67.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Ghemawat, H. Gobioff, and S.-T. Leung, The Google file system, Proc. 19th ACM symposium on operating systems principles 2003, pp. 29-43.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Iyer, A. Rowstron, and P. Druschel, Squirrel: a decentralized peer-to-peer web cache, Proc. 21st annual symposium on principles of distributed computing 2002, pp. 213-222.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Kleinberg, The small-world phenonemon: An algorithmic perspective, Proc. 32nd ACM Symp. on Theory of Computing (2000)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Foster and A. Iamnitchi, On Death, Taxes and the Convergence of Peer-to-Peer and Grid Computing, Second Int'l Workshop on Peer-to-Peer Systems IPTPS 03, 20-21 February 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://groups.yahoo.com/group/the_gdf/files/Proposals/Working%20Proposals/search/Dynamic%20Querying/" rel="noopener">A. Fisk, Gnutella Dynamic Query Protocol, http://groups.yahoo.com/group/the_gdf/files/Proposals/ Working%20Proposals/search/Dynamic%20Querying/ v0.1 (2003)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.neurogrid.net/twiki/bin/view/Main/ReputationAndTrust" rel="noopener">M. Blaze, J. Feigenbaum, and J. Lacy, Trust and Reputation in P2P networks, http://www.neurogrid.net/twiki/bin/view/Main/ReputationAndTrust (2003)</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Iamnitchi, M. Ripeanu, and I. Foster, Locating Data in (Small World?) P2P Scientific Collaborations, First Int'l Workshop on Peer-to-Peer Systems (IPTPS), Cambridge, MA, March (2002)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Montresor, M. Jelasity, and O. Babaoglu, Robust aggregation protocol for large-scale overlay networks, Technical Report UBLCS-2003-16, December 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Tempich, S. Staab, and A. Wranik, Remindin': semantic query routing in peer-to-peer networks, Proc. 13th conference on World Wide Web, New York, NY, USA, May 17-20 (2004) 640-649.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. On, J. Schmitt, and R. Steinmetz, The effectiveness of realistic replication strategies on quality of availability for peer-to-peer systems, Proc. Third Int'l IEEE Conf. on Peer-to- Peer Computing, Sept 1-3 2003, pp. 57-64.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. O. Alima, A. Ghodsi, and S. Haridi, &quot;A framework for structured peer-to-peer overlay networks,&quot; in Global computing, vol. 3267, Lecture Notes in Computer Science: Springer Berlin / Heidelberg, 2005, pp. 223-249.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Yang and H. Garcia-Molina, Efficient search in peer-to-peer networks, Proc. 22nd Int'l Conf. on Distributed Computing Systems, July 2-5 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Pugh, Skip lists: a probabilistic alternative to balanced trees, Communications of the ACM 33 (6) (1990) 668-676.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Hildrum, J. Kubiatowicz, S. Rao, and B. Zhao, Distributed object location in a dynamic network, Proc. 14th annual ACM symposium on parallel algorithms and architectures 2002, pp. 41- 52.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Z. Zhang, S.-M. Shi, and J. Zhu, SOMO: Self-organized metadata overlay for resource management in P2P DHTs, Second Int'l Workshop on Peer-to-Peer Systems IPTPS'03, Feb 20-21 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Litwin, M.-A. Neimat, and D. Schneider, RP*: a family of order-preserving scalable distributed data structures, Proc. 20th Int'l Conf. on Very Large Data Bases VLDB'94, September 12-15 1994.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Litwin and S. Sahri, Implementing SD-SQL Server: a Scalable Distributed Database System, CERIA Research Rerpot 2004-04-02, April 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. DePaoli and L. Mariani, Dependability in Peer-to-Peer Systems, IEEE Internet Computing 8 (4) (2004) 54-61.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>H. Balakrishnan, S. Shenker, and M. Walfish, Semantic-Free Referencing in Linked Distributed Systems, Second Int'l Workshop on Peer-to-Peer Systems IPTPS 03, 20-21 February 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Loo, The Future or Peer-to-Peer Computing, Communications of the ACM 46 (9) (2003) 56-61.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Massoulie, A. Kermarrec, and A. Ganesh, Network awareness and failure resilience in self-organizing overlay networks, Proc. 22nd Int'l Symp. on Reliable Distributed Systems, SRDS'03, Oct 6-8 2003, pp. 47-55.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Singhal, J. Choi, D. Hindle, D. Lewis, and F. Pereira, AT&amp;amp;T at TREC-7, Proc. Seventh Text REtrieval Conf. TREC-7, July 1999, pp. 253-264.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Muthitacharoen, R. Morris, T. Gil, and B. Chen, Ivy: a read/write peer-to-peer file system, ACM SIGOPS Operating Systems Review, Special issue on Decentralized storage systems, December 2002, pp. 31-44.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Cai, M. Frank, J. Chen, and P. Szekely, MAAN: A Multi- Attribute Addressable Network for Grid Information Services, Proc. Int'l Workshop on Grid Computing, November 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Y. Lee, G. Liu, and H. F. Jordan, Hierarchical networks for optical communications, Journal of Parallel and Distributed Computing 60 (2000) 1-16.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Litwin, M.-A. Niemat, and D. Schneider, LH* - Linear Hashing for Distributed Files, Proc. ACM Int'l Conf. on Mngt. of Data SIGMOD, May 1993, pp. 327-336.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Gupta, K. Birman, and R. van Renesse, Fighting fire with fire: using randomized gossip to combat stochastic scalability limits, Cornell University Dept of Computer Science Technical Report, March 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Tang, M. Buco, R. Chang, S. Dwarkadas, L. Luan, E. So, and C. Ward, Low traffic overlay networks with large routing tables, Proc. of ACM Sigmetrics Int'l Conf. on Measurement and Modeling of Comp. Sys., Jun 6-10 2005, pp. 14-25.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Cormen, C. Leiserson, R. Rivest, and C. Stein, Introduction to Algorithms, 2nd Edition. MIT Press, McGraw-Hill, Cambridge, London, England, 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Naor and U. Wieder, Know thy neighbor's neighbor: better routing for skip-graphs and small worlds, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Dabek, J. Li, E. Sit, J. Robertson, F. Kaashoek, and R. Morris, Designing a DHT for low latency and high throughput, Proc. First Symp. on Networked Systems Design and Implementation (NSDI'04), San Francisco, California, March 29-31 (2004) 85-98.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Saroiu, P. Gummadi, and S. Gribble, A measurement study of peer-to-peer file sharing systems, Proc. Multimedia Computing and Networking 2002 MMCN'02, January 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Rhea, T. Roscoe, and J. Kubiatowicz, Structured Peer-to-Peer Overlays Need Application-Driven Benchmarks, Proc. 2nd Int'l Workshop on Peer-to-Peer Systems IPTPS'03, February 20-21 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Gedik and L. Liu, Reliable peer-to-peer information monitoring through replication, Proc. 22nd Int'l Symp. on Reliable Distributed Systems, 6-8 Oct 2003, pp. 56-65.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Bailey, Epidemic Theory of Infectious Diseases and its Applications, Second Edition ed. Hafner Press, 1975.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Q. Lv, S. Ratnasamy, and S. Shenker, Can Heterogeneity Make Gnutella Scalable?, Proc. 1st Int'l Workshop on Peer-to-Peer Systems IPTPS2002, March 7-8 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Surridge and C. Upstill, Grid security: lessons for peer-to- peer systems, Proc. Third Int'l IEEE Conf. on Peer-to-Peer Computing, Sept 1-3 2003, pp. 2-6.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Kangasharju, K. Ross, and D. Turner, Secure and resilient peer-to-peer E-mail: design and implementation, Proc. Third Int'l IEEE Conf. on Peer-to-Peer Computing, 1-3 Sept 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Clarke, O. Sandberg, B. Wiley, and T. Hong, Freenet: A Distributed Anonymous Information Storage and Retrieval System. Springer, New York, USA, 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Naor and U. Wieder, Novel architectures for P2P applications: the continuous-discrete approach, Proc. fifteenth annual ACM Symp. on Parallel Algorithms and Architectures, SPAA 2003, June 7-9 2003, pp. 50-59.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Aberer, L. O. Alima, A. Ghodsi, S. Girdzijauskas, M. Hauswirth, and S. Haridi, The essence of P2P: a reference architecture for overlay networks, Proc. of the 5th international conference on peer-to-peer computing, Aug 31-Sep 2 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Cox, A. Muthitacharoen, and R. Morris, Serving DNS using a Peer-to-Peer Lookup Service, First Int'l Workshop on Peer-to- Peer Systems (IPTPS), March 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Klampanos and J. Jose, An architecture for information retrieval over semi-collaborated peer-to-peer networks, Proc. 2004 ACM symposium on applied computing 2004, pp. 1078-1083.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Stavrou, D. Rubenstein, and S. Sahu, A Lightwight, Robust P2P System to Handle Flash Crowds, IEEE Journal on Selected Areas in Communications 22 (1) (2004) 6-17.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Tang, Z. Xu, and M. Mahalingam, pSearch: information retrieval in structured overlays, First Workshop on Hot Topics in Networks. Also Computer Communication Review, Volume 33, Number 1, January 2003, Oct 28-29 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Adler, E. Halperin, R. Karp, and V. Vazirani, A stochastic process on the hypercube with applications to peer-to-peer networks, Proc. 35th ACM symposium on Theory of Computing 2003, pp. 575-584.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Hellerstein and W. Wang, Optimization of In-Network Data Reduction, Proc. First Workshop on Data Management for Sensor Networks DMSN 2004, August 30th 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Blake and R. Rodrigues, High Availability, Scalable Storage, Dynamic Peer Networks: Pick Two, 9th Workshop on Hot Topics in Operating Systems (HotOS), Lihue, Hawaii, 18-21 May (2003)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Baquero and N. Lopes, Towards peer to peer content indexing, ACM SIGOPS Operating Systems Review 37 (4) (2003) 90-96.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>O. Gnawali, A Keyword Set Search System for Peer-to-Peer Networks, Master's Thesis 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Litwin, M. Neimat, and D. Schneider, LH* - a scalable, distributed data structure, ACM Trans. on Database Systems (TODS) 21 (4) (1996) 480-525.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>N. Daswani, H. Garcia-Molina, and B. Yang, Open Problems in Data- sharing Peer-to-peer Systems, The 9th Int'l Conf. on Database Theory (ICDT 2003), Siena, Italy, 8-10 January (2003)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Tang, S. Dwarkadas, and Z. Xu, On scaling latent semantic indexing for large peer-to-peer systems, The 27th Annual Int'l ACM SIGIR Conf. SIGIR'04, ACM Special Interest Group on Information Retrieval, July 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Feldman, K. Lai, I. Stoica, and J. Chuang, Robust Incentive Techniques for Peer-to-Peer Networks, ACM E-Commerce Conf. EC'04, May 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Iamnitchi, I. Foster, and D. Nurmi, A peer-to-peer approach to resource discovery in grid environments, IEEE High Performance Distributed Computing 2002.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>V. Padmanabhan, H. Wang, and P. Chou, Supporting heterogeneity and congestion control in peer-to-peer multicast streaming, The 3rd Int'l Workshop on Peer-to-Peer Systems, February 26-27 2004.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Koloniari, Y. Petrakis, and E. Pitoura, Content-Based Overlay Networks for XML Peers Based on Multi-Level Bloom Filters, Proc. First Int'l Workshop on Databases, Information Systems and Peer-to-Peer Computing DBISP2P, Sept 7-8 2003, pp. 232-247.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Y. Petrakis and E. Pitoura, &quot;On constructing small worlds in unstructured peer-to-peer systems,&quot; in Current trends in database technology (Proc. First Int'l Workshop on Peer-to-Peer Computing and Databases, Heraklion, Crete, Greece, March 14), vol. 3268, Lecture Notes in Computer Science: Springer, 2004, pp. 415-424.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Bharambe, S. Rao, V. Padmanabhan, S. Seshan, and H. Zhang, The impact of heterogeneous bandwidth constraints on DHT-based multicast protocols, Proc. 4th Int'l Workshop on Peer-to-Peer Systems, February 24-25 2005.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Zhao, J. Kubiatowicz, and A. Joseph, Tapestry: an infrastructure for fault-tolerant wide-area location and routing, Report No. UCB/CSD-01-1141 2001.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Kaashoek and D. Karger, Koorde: A simple degree-optimal hash table, Second Int'l Workshop on Peer-to-Peer Systems IPTPS'03, 20-21 February 2003.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Nejdl, W. Siberski, and M. Sintek, Design Issues and Challenges for RDF- and schema-based peer-to-peer systems, ACM SIGMOD Record 32 (3) (2003) 41-46.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <!-- Source data / JSON view -->
+      <div class="card mb-3 mt-3">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Source Data (JSON)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary py-0 px-2"
+            id="source-data-toggle"
+            data-docid="RFC4981"
+          >
+            View source JSON
+          </button>
+        </div>
+        <div class="card-body small">
+          <p class="mb-0 small">
+            Full registry record with provenance metadata.
+            Open directly:
+            <a href="../../api/doc/RFC4981.json" target="_blank" rel="noopener">/api/doc/RFC4981.json</a>
+          </p>
+          <pre
+            id="source-data-json"
+            class="mt-2 border rounded p-2 bg-body-secondary small"
+            style="max-height: 16rem; overflow:auto; display:none;"
+          ></pre>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const btn = document.getElementById('source-data-toggle');
+        const box = document.getElementById('source-data-json');
+        if (!btn || !box) return;
+
+        let loaded = false;
+        let visible = false;
+
+        async function toggleSource() {
+          visible = !visible;
+          if (!visible) {
+            box.style.display = 'none';
+            btn.textContent = 'View source JSON';
+            return;
+          }
+
+          box.style.display = 'block';
+          btn.textContent = 'Hide source JSON';
+
+          if (loaded) return;
+
+          const docId = btn.getAttribute('data-docid') || '';
+          const encoded = encodeURIComponent(docId);
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
+
+          box.textContent = 'Loading…';
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const data = await res.json();
+            box.textContent = JSON.stringify(data, null, 2);
+            loaded = true;
+          } catch (e) {
+            const msg = (e && e.message) ? e.message : String(e || 'Unknown error');
+            box.textContent = 'Failed to load source JSON: ' + msg;
+          }
+        }
+
+        btn.addEventListener('click', function(ev){
+          ev.preventDefault();
+          toggleSource();
+        }, { passive: false });
+      })();
+      </script>
+    </div>
+
+    <div class="col-lg-5">
+
+      <div class="card mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">Reference Tree</h2>
+          <p class="mb-2 text-muted">
+            Explore all references and references to this document, as a navigable tree.
+          </p>
+          <a class="btn btn-outline-secondary btn-sm" href="../../reftree/RFC4981/">Open Reference Tree</a>
+        </div>
+      </div>
+
+      <!-- Use this document as a reference -->
+      <div class="card mb-3">
+        <div class="card-header fw-semibold">Reference this Doc</div>
+        <div class="card-body small">
+          <!-- Plain text -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">Plain text (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-text-RFC4981">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">IETF RFC 4981, Survey of Research towards Robust Peer-to-Peer Networks: Search Methods. Available at https://doi.org/10.17487/RFC4981</div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-text-RFC4981" class=" border rounded p-2 mb-0 snippet">IETF RFC 4981, Survey of Research towards Robust Peer-to-Peer Networks: Search Methods. Available at https://doi.org/10.17487/RFC4981</pre>
+            
+          </div>
+          
+          <!-- HTML (generic) -->
+          <div class="mb-3 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">HTML (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-generic-RFC4981">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><span class="citation"><cite>IETF RFC 4981</cite>, Survey of Research towards Robust Peer-to-Peer Networks: Search Methods. Available at <a href="https://doi.org/10.17487/RFC4981" target="_blank" rel="noopener">https://doi.org/10.17487/RFC4981</a></span></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-generic-RFC4981" class=" border rounded p-2 mb-0 snippet">&lt;span class=&quot;citation&quot;&gt;&lt;cite&gt;IETF RFC 4981&lt;/cite&gt;, Survey of Research towards Robust Peer-to-Peer Networks: Search Methods. Available at &lt;a href=&quot;https://doi.org/10.17487/RFC4981&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doi.org/10.17487/RFC4981&lt;/a&gt;&lt;/span&gt;</pre>
+            
+          </div>
+
+          <!-- HTML (SMPTE) -->
+          <div class="mb-1 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0"><img src="../../resources/logos/smpte-icon.png" alt="SMPTE Icon" width="24" class=" icon d-inline-block align-text-middle"> SMPTE's <a href="../SMPTE.AG26/" title="IETF RFC 4981">HTML Pub</a></h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-smpte-RFC4981">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><cite id="bib-rfc4981">IETF RFC 4981</cite>, Survey of Research towards Robust Peer-to-Peer Networks: Search Methods<br>doi:&nbsp;<span class="doi">10.17487/RFC4981</span><br>url:&nbsp;<a href="https://doi.org/10.17487/RFC4981" class="ext-ref">https://doi.org/10.17487/RFC4981</a></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-smpte-RFC4981" class=" border rounded p-2 mb-0 snippet">&lt;li&gt;
+&lt;cite id=&quot;bib-rfc4981&quot;&gt;IETF RFC 4981&lt;/cite&gt;, Survey of Research towards Robust Peer-to-Peer Networks: Search Methods
+&lt;span class=&quot;doi&quot;&gt;10.17487/RFC4981&lt;/span&gt;
+&lt;/li&gt;</pre>
+            
+          </div>
+        </div>
+      </div>
+
+      <script>
+      // Lightweight copy buttons for the three snippets on this page
+      (function(){
+        function copyFrom(targetSel){
+          try{
+            // Support targets passed as "#id" or "id"
+            let id = targetSel || '';
+            if (id.startsWith('#')) id = id.slice(1);
+
+            // Prefer getElementById to avoid CSS selector escaping issues with dots in IDs (e.g., SMPTE.ST96.2004)
+            const el = document.getElementById(id) || document.querySelector(targetSel);
+            if (!el) return;
+
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
+            navigator.clipboard.writeText(text);
+          } catch (e) {
+            console.error('[copy] failed:', e);
+          }
+        }
+        document.addEventListener('click', function(ev){
+          const btn = ev.target.closest('[data-copy-target]');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-copy-target');
+          copyFrom(sel);
+          // quick visual feedback
+          btn.disabled = true;
+          const prev = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.disabled = false; btn.innerText = prev; }, 900);
+        }, { passive: true });
+      })();
+      </script>
+      
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h6">Referenced By</h2>
+          <ul class="list-group list-group-flush small">
+            <li class="list-group-item">
+              <a href="../RFC5694/">IETF RFC 5694</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC5765/">IETF RFC 5765</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="mt-3">
+    <a class="btn btn-outline-secondary btn-sm" href="../#RFC4981">← Back to Docs</a>
+  </nav>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="2026-10-21T23:40:44.174Z"><code>2026-10-21T23:40:44.174Z</code></time>
+            </p>
+                      </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

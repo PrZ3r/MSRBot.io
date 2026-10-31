@@ -1,0 +1,183 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T21:44:30.052Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "IETF.draft-andrews-tcp-and-ipv6-use-minmtu-04",
+  "document": {
+    "abstract": "The IPV6_USE_MIN_MTU socket option directs the IP layer to limit the IPv6 packet size to the minimum required supported MTU from the base IPv6 specification, i.e. 1280 bytes. Many implementations of TCP running over IPv6 neglect to check the IPV6_USE_MIN_MTU value when performing MSS negotiation and when constructing a TCP segment despite MSS being defined to be the MTU less the IP and TCP header sizes (60 bytes for IPv6). This leads to oversized IPv6 packets being sent resulting in unintended Path Maximum Transport Unit Discovery (PMTUD) being performed and to fragmented IPv6 packets being sent.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML front/abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+      "updated": "2026-10-20T21:44:30.052Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "authors": [
+      {
+        "name": "M. Andrews"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML front/author",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+      "updated": "2026-10-20T21:44:30.052Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docId": "IETF.draft-andrews-tcp-and-ipv6-use-minmtu-04",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+      "updated": "2026-10-20T21:44:30.052Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docLabel": "IETF draft-andrews-tcp-and-ipv6-use-minmtu-04",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+      "updated": "2026-10-20T21:44:30.052Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docTitle": "TCP Fails To Respect IPV6_USE_MIN_MTU",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML front/title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+      "updated": "2026-10-20T21:44:30.052Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+      "updated": "2026-10-20T21:44:30.052Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "href": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+    "href$meta": {
+      "confidence": "high",
+      "note": "URL normalized and retained from seed/discovery input",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+      "updated": "2026-10-20T21:44:30.052Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publicationDate": "2015-10-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML front/date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+      "updated": "2026-10-20T21:44:30.052Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+      "updated": "2026-10-20T21:44:30.052Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "references": {
+      "normative": [
+        "RFC879",
+        "RFC1191",
+        "RFC2119",
+        "RFC2460",
+        "RFC3542"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from archive XML references (Normative References)",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+        "updated": "2026-10-20T21:44:30.052Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+        "updated": "2026-10-20T21:44:30.052Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "draft": true,
+      "draft$meta": {
+        "confidence": "high",
+        "note": "Parsed from Datatracker/RFC sources",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+        "updated": "2026-10-20T21:44:30.052Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+        "updated": "2026-10-20T21:44:30.052Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+        "updated": "2026-10-20T21:44:30.052Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "statusNote": "Internet-Draft",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker std_level or RFC status text",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+        "updated": "2026-10-20T21:44:30.052Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-andrews-tcp-and-ipv6-use-minmtu-04/",
+        "updated": "2026-10-20T21:44:30.052Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    }
+  }
+}
