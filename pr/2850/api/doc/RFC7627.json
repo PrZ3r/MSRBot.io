@@ -1,0 +1,273 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-13T18:25:00.095Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC7627",
+  "document": {
+    "abstract": "The Transport Layer Security (TLS) master secret is not cryptographically bound to important session parameters such as the server certificate. Consequently, it is possible for an active attacker to set up two sessions, one with a client and another with a server, such that the master secrets on the two sessions are the same. Thereafter, any mechanism that relies on the master secret for authentication, including session resumption, becomes vulnerable to a man-in-the-middle attack, where the attacker can simply forward messages back and forth between the client and server. This specification defines a TLS extension that contextually binds the master secret to a log of the full handshake that computes it, thus preventing such attacks.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "authors": [
+      {
+        "name": "Karthikeyan Bhargavan"
+      },
+      {
+        "name": "Antoine Delignat-Lavaud"
+      },
+      {
+        "name": "Alfredo Pironti"
+      },
+      {
+        "name": "Adam Langley"
+      },
+      {
+        "name": "Marsh Ray"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docId": "RFC7627",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docLabel": "IETF RFC 7627",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docNumber": "7627",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docTitle": "Transport Layer Security (TLS) Session Hash and Extended Master Secret Extension",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "doi": "10.17487/RFC7627",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "href": "https://doi.org/10.17487/RFC7627",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "pages": "15",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "publicationDate": "2015-09-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "references": {
+      "bibliographic": [
+        "10.1007-11542322_6",
+        "RFC4251",
+        "RFC5077",
+        "RFC5705",
+        "RFC5746",
+        "RFC5929",
+        "RFC6101",
+        "RFC6347",
+        "RFC7457",
+        "RFC7568",
+        "NIST.SP.800-108",
+        "10.1109-SP.2014.14",
+        "orphan/RFC7627/h:aef9dc63",
+        "orphan/RFC7627/h:fe632a47"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=16 proseBlocks=22 skippedAnchorBlocks=18",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+        "updated": "2026-10-13T18:25:00.095Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC5246"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+        "updated": "2026-10-13T18:25:00.095Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc7627/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+      "updated": "2026-10-13T18:25:00.095Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "status": {
+      "active": false,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+        "updated": "2026-10-13T18:25:00.095Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "amends": [
+        "RFC5246"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+        "updated": "2026-10-13T18:25:00.095Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+        "updated": "2026-10-13T18:25:00.095Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "latestVersion": false,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+        "updated": "2026-10-13T18:25:00.095Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+        "updated": "2026-10-13T18:25:00.095Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "superseded": true,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+        "updated": "2026-10-13T18:25:00.095Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "supersededBy": [
+        "RFC9846"
+      ],
+      "supersededBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7627/",
+        "updated": "2026-10-13T18:25:00.095Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      }
+    }
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T19:29:38.333Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC5541",
+  "document": {
+    "abstract": "The computation of one or a set of Traffic Engineering Label Switched Paths (TE LSPs) in MultiProtocol Label Switching (MPLS) and Generalized MPLS (GMPLS) networks is subject to a set of one or more specific optimization criteria, referred to as objective functions (e.g., minimum cost path, widest path, etc.). In the Path Computation Element (PCE) architecture, a Path Computation Client (PCC) may want a path to be computed for one or more TE LSPs according to a specific objective function. Thus, the PCC needs to instruct the PCE to use the correct objective function. Furthermore, it is possible that not all PCEs support the same set of objective functions; therefore, it is useful for the PCC to be able to automatically discover the set of objective functions supported by each PCE. This document defines extensions to the PCE communication Protocol (PCEP) to allow a PCE to indicate the set of objective functions it supports. Extensions are also defined so that a PCC can indicate in a path computation request the required objective function, and a PCE can report in a path computation reply the objective function that was used for path computation. This document defines objective function code types for six objective functions previously listed in the PCE requirements work, and provides the definition of four new metric types that apply to a set of synchronized requests. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "authors": [
+      {
+        "name": "Jean-Louis Le Roux"
+      },
+      {
+        "name": "JP Vasseur"
+      },
+      {
+        "name": "Young Lee"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docId": "RFC5541",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docLabel": "IETF RFC 5541",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docNumber": "5541",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docTitle": "Encoding of Objective Functions in the Path Computation Element Communication Protocol (PCEP)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "doi": "10.17487/RFC5541",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "href": "https://doi.org/10.17487/RFC5541",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "keywords": [
+      "PCE"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Pcc",
+        "Path Computation Client"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T19:29:38.333Z",
+      "version": "extractDocs.js@commit:75b379398159"
+    },
+    "pages": "23",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publicationDate": "2009-06-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC4657",
+        "RFC4674",
+        "RFC5088",
+        "RFC5089",
+        "RFC5226",
+        "RFC5511",
+        "orphan/RFC5541/h:8394e3c3",
+        "orphan/RFC5541/h:a5c3ae62"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=12 proseBlocks=15 skippedAnchorBlocks=13",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+        "updated": "2026-10-16T18:55:30.125Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC4655",
+        "RFC5440"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+        "updated": "2026-10-16T18:55:30.125Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc5541/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+      "updated": "2026-10-16T18:55:30.125Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+        "updated": "2026-10-16T18:55:30.125Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+        "updated": "2026-10-16T18:55:30.125Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+        "updated": "2026-10-16T18:55:30.125Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+        "updated": "2026-10-16T18:55:30.125Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5541/",
+        "updated": "2026-10-16T18:55:30.125Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    }
+  }
+}

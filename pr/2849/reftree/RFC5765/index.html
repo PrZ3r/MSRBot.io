@@ -1,0 +1,570 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO: core meta -->
+    <meta name="description" content="Security Issues and Solutions in Peer-to-Peer Systems for Realtime Communications">
+    <link rel="canonical" href="https://msrbot.io/reftree/RFC5765/">
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+    <meta name="author" content="Steve LLamb (PrZ3)">
+    <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta name="license" content="BSD-3-Clause">
+    <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+  
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MSRBot.io">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:title" content="Reference Tree — IETF RFC 5765 — MSRBot.io">
+    <meta property="og:description" content="Security Issues and Solutions in Peer-to-Peer Systems for Realtime Communications">
+    <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta property="og:license" content="BSD-3-Clause"> 
+    <meta property="og:url" content="https://msrbot.io/reftree/RFC5765/">
+    <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> 
+  
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  
+    <!-- PWA/Theme (optional but nice) -->
+    <meta name="application-name" content="MSRBot.io">
+    <meta name="theme-color" content="#1398b0">
+  
+    <!-- Icons -->
+    <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+    
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+    <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+  
+    <title>MSRBot.io | Reference Tree — IETF RFC 5765</title>
+  
+    <!-- Scripts -->
+    <script>
+      window.msrAssetPrefix = "../../";
+    </script>
+    <script src="../../js/msrbot.js"></script>
+  
+    <!-- JSON-LD: basic WebSite schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Reference Tree — IETF RFC 5765 - MSRBot.io",
+      "url": "https://msrbot.io/reftree/RFC5765/",
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/docs/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search documents"
+        },
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/api/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search API"
+        }
+      ],
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MSRBot.io",
+        "url": "https://msrbot.io"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "PrZ3",
+        "url": "https://PrZ3.io"
+      },
+      "copyrightHolder": {
+        "@type": "Organization",
+        "name": "PrZ3"
+      },
+      "copyrightYear": "2025-26",
+      "license": "https://opensource.org/licenses/BSD-3-Clause",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://msrbot.io/static/og/msrbot-og.png",
+        "width": 1200,
+        "height": 630
+      }
+    }
+    </script>
+  
+    <!-- Other -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+    <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+      <div class="container">
+        <div class="navbar-brand"><a href="../../index.html"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          
+          <ul class="navbar-nav ms-auto mb-lg-0">
+            <li class="nav-item text-nowrap">
+              <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../index.html"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/index.html"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/index.html"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a
+                id="nav-portals"
+                class="nav-link d-flex flex-column text-center"
+                title="Portals"
+                href="#"
+                role="button"
+                tabindex="0"
+                data-bs-toggle="popover"
+                data-bs-trigger="focus"
+                data-bs-placement="bottom"
+              >
+                <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+                <span class="small">PORTALS</span>
+              </a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/index.html"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/index.html"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/index.html"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+            </li>
+            <!-- li class="nav-item text-nowrap">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+            </li -->
+          </ul>
+  
+          <div class="dev-links-stack">
+            <a
+              id="dev-tools"
+              class="dev-link"
+              title="Developer Tools and Resources"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+            <a
+              id="user-prefs"
+              class="dev-link"
+              title="Set Preferences"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Hidden template for Dev Tools popover content -->
+    <div id="dev-tools-popover-content" class="d-none">
+      <div class="small">
+        <strong>API</strong>
+        <ul class="mb-2">
+          <li>
+            <a href="../../api/">
+              <i class="bi bi-braces me-1"></i>API Explorer
+            </a>
+            &mdash; search &amp; browse the registry
+          </li>
+          <li>
+            <a href="../../api/documents.json" target="_blank" rel="noopener">
+              api/documents.json
+            </a>
+            &mdash; lightweight index, one row per doc, linking to per-doc shards
+          </li>
+          <li>
+            <a href="../../api/doc/" target="_blank" rel="noopener">
+              api/doc/&lt;docId&gt;.json
+            </a>
+            &mdash; per-doc record with full $meta provenance
+          </li>
+          <li>
+            <a href="../../api/search/index.json" target="_blank" rel="noopener">
+              api/search/index.json
+            </a>
+            &mdash; compact search shards (current editions), sized for AI fetch tools
+          </li>
+          <li>
+            <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+              api/by-publisher.json
+            </a>
+            &mdash; full-record slices per publisher and doc type
+          </li>
+          <li>
+            <a href="../../api/groups.json" target="_blank" rel="noopener">
+              api/groups.json
+            </a>
+            &mdash; groups registry
+          </li>
+          <li>
+            <a href="../../api/projects.json" target="_blank" rel="noopener">
+              api/projects.json
+            </a>
+            &mdash; projects registry
+          </li>
+          <li>
+            <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+              api/by-doc.json
+            </a>
+            &mdash; docId &rarr; owning groups and projects
+          </li>
+          <li>
+            <a href="../../api/publishers.json" target="_blank" rel="noopener">
+              api/publishers.json
+            </a>
+            &mdash; publishers, logos, doc counts
+          </li>
+          <li>
+            <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+              api/vocabulary.json
+            </a>
+            &mdash; keywords, doc types, content types
+          </li>
+          <li>
+            <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+              api/mri-cite-map.json
+            </a>
+            &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+          </li>
+          <li>
+            <a href="../../api/stats.json" target="_blank" rel="noopener">
+              api/stats.json
+            </a>
+            &mdash; registry statistics &amp; metadata
+          </li>
+          <li>
+            <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+              api/schemas/documents.schema.json
+            </a>
+            &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+          </li>
+        </ul>
+  
+        <strong>Resources</strong>
+        <ul class="mb-0">
+          <li>
+            <a href="../../ai/">
+              <i class="bi bi-robot me-1"></i>Use with AI
+            </a>
+            &mdash; skill &amp; prompt for Claude, ChatGPT and others
+          </li>
+          <li>
+            <a href="../../changelog/">
+              Changelog
+            </a>
+            &mdash; release history
+          </li>
+          <li>
+            <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+              GitHub
+            </a>
+            &mdash; source &amp; issues
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Preferences popover content -->
+    <div id="user-prefs-popover-content" class="d-none">
+      <div class="small">
+        <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+        <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+        <div class="d-grid gap-1">
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+            Auto (match system)
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+            Light mode
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+            Dark mode
+          </a>
+        </div>
+        <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Portals popover content -->
+    <div id="nav-portals-popover-content" class="d-none">
+      <div class="small">
+        <div id="nav-portals-list">
+          <div class="text-muted small">Loading…</div>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Dev Tools popover
+        var devTrigger = document.getElementById('dev-tools');
+        if (devTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(devTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('dev-tools-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Preferences popover (theme selection)
+        var prefsTrigger = document.getElementById('user-prefs');
+        if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(prefsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('user-prefs-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Portals popover
+        var portalsTrigger = document.getElementById('nav-portals');
+        if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(portalsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            title: 'Portals',
+            content: function () {
+              var tpl = document.getElementById('nav-portals-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+      });
+    </script>
+  
+    <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+    <a class="anchor" id="top" href="#top"></a>    <!-- Main content starts - do not edit above this line -->
+
+    <main class="container my-4">
+      <header class="mb-3">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="gap-2">
+            <p class="text-muted mb-1">
+              Current document root:
+              <span class="ms-1 fs-6"><code>IETF RFC 5765</code></span>
+            </p>
+            <p class="h5 mb-2">
+              <a class="text-decoration-none"  href="../../docs/RFC5765/">Security Issues and Solutions in Peer-to-Peer Systems for Realtime Communications</a>
+            </p>
+              <p class="text-muted small mb-0">
+                <a class="" href="../../docs/?f.publisher=IETF">IETF</a> • <a class="" href="../../docs/?f.docType=Informational">Informational</a> • [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+              </p>
+          </div>
+          <div class="text-end">
+            <a class="btn btn-outline-secondary btn-sm ms-2 mb-2 text-nowrap" href="../../docs/RFC5765/">
+              ← Back to Doc
+            </a>
+            <div class="small text-muted text-nowrap">
+              <label for="rt-depth-select">Max Ref Depth:</label>
+              <select id="rt-depth-select" class="form-select form-select-sm d-inline w-auto ms-1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="small text-muted mt-2 mb-0">Click a document below to open its own reference tree.</p>
+      </header>
+
+      <div id="rt-graph-note" class="alert alert-warning small d-none" role="status"></div>
+
+      <!-- Reference panels row: upstream and downstream side-by-side -->
+      <section class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0"><i class="bi bi-arrow-up-left"></i> Referenced By</h2>
+              <div class="small text-muted">Docs that depend on <a href="../../docs/RFC5765/">IETF RFC 5765</a></div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="up"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="up"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="up">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-upstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-up">Level 1 — direct dependents (docs that cite this doc)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-up"><li><a href="../RFC6940/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC6940"><span>IETF RFC 6940</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li></ul></div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0">References Of <i class="bi bi-arrow-down-right"></i></h2>
+              <div class="small text-muted">Docs that <a href="../../docs/RFC5765/">IETF RFC 5765</a> depend on</div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="down"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="down"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="down">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-downstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-down">Level 1 — direct references (docs this doc cites)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-down"><li><a href="../NIST.FIPS.180-1/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="NIST.FIPS.180-1"><span>NIST FIPS 180-1</span></a><span class="ms-1">[Withdrawn]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC2818/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2818"><span>IETF RFC 2818</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC3261/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3261"><span>IETF RFC 3261</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC3711/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3711"><span>IETF RFC 3711</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC4981/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4981"><span>IETF RFC 4981</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><cite class="ms-1">Rowstron, A. and P. Druschel, &quot;Pastry: Scalable, distributed object location and routing for large-scale peer-to-peer systems&quot;, Proceedings of 18th IFIP/ACM International Conference on Distributed Systems Platforms (Middleware 2001), November 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Zhang, X., Chen, S., and R. Sandhu, &quot;Enhancing Data Authenticity and Integrity in P2P Systems&quot;, IEEE Internet Computing, vol. 9, no. 6, September 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kong, J., Zerfos, P., Luo, H., Lu, S., and L. Zhang, &quot;Providing robust and ubiquitous security support for MANET&quot;, Proceedings of 9th International Conference on Network Protocols, November 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Danezis, G., Lesniewski-Laas, C., Kaashoek, M., and R. Anderson, &quot;Sybil-resistant DHT routing&quot;, Proceedings of 10th European Symposium on Research in Computer Security, September 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Baset, S. and H. Schulzrinne, &quot;An analysis of the skype peer-to-peer internet telephony protocol&quot;, Proceedings of IEEE INFOCOM 2006, April 2006.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Seedorf, J., &quot;Security Challenges for Peer-to-Peer SIP&quot;, IEEE Network, vol. 20, no. 5, September 2006.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Saxena, N., Tsudik, G., and J. Yi, &quot;Admission Control in Peer-to-Peer: Design and Performance Evaluation&quot;, Proceedings of 1st ACM workshop on Security of ad hoc and sensor networks, October 2003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Uzun, E., Pariente, M., and A. Selpk, &quot;A Reputation-Based Trust Management System for P2P Networks&quot;, Proceedings of International Symposium on Cluster Computing and the Grids, April 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kamvar, S., Garcia-Molina, H., and M. Schlosser, &quot;The EigenTrust Algorithm for Reputation Management in P2P Networks&quot;, Proceedings of 12th international conference on World Wide Web, May 2003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Yu, H., Kaminsky, M., Gibbons, P., and A. Flaxman, &quot;SybilGuard: Defending Against Sybil Attacks via Social Networks&quot;, Proceedings of ACM SIGCOMM 2006, September 2006.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;KaZaa&quot;, &amp;lt; http://www.kazaa.com/ &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Castro, M., Druschel, P., Ganesh, A., Rowstron, A., and D. Wallach, &quot;Secure routing for structured peer-to-peer overlay networks&quot;, Proceedings of 5th symposium on Operating systems design and implementation, December 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Seedorf, J., &quot;Using Cryptographically Generated SIP-URIs to Protect the Integrity of Content in P2P-SIP&quot;, Proceedings of 3rd Annual VoIP Security Workshop, June 2006.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Poon, W. and R. Chang, &quot;Robust Forwarding in Structured Peer-to-Peer Overlay Networks&quot;, Proceedings of ACM SIGCOMM 2004, August 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Rowaihy, H., Enck, W., McDaniel, P., and T. Porta, &quot;Limiting Sybil attacks in structured peer-to-peer networks&quot;, Proceedings of IEEE INFOCOM 2007, May 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Gurbani, V., Willis, D., and F. Audet, &quot;Cryptographically Transparent Session Initiation Protocol (SIP) Proxies&quot;, Proceedings of IEEE ICC &#39;07, June 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Androutsellis-Theotokis, S. and D. Spinellis, &quot;A survey of peer-to-peer content distribution technologies&quot;, ACM CSUR, vol. 36, no. 4, December 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Yongchao, S., Jiang, X., Even, R., and D. Bryan, &quot;P2PSIP Overlay Diagnostics&quot;, Work in Progress, December 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;COOLSTREAMING&quot;, &amp;lt; http://www.coolstreaming.us &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Pouwelse, J., Garbacki, P., Epema, D., and H. Sips, &quot;The Bittorent P2P File-Sharing System: Measurements and Analysis&quot;, Proceedings of 4th International Workshop of Peer-to-peer Systems, February 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kim, Y., Mazzocchi, D., and G. Tsudik, &quot;Admission Control in Peer Groups&quot;, Proceedings of Second IEEE International Symposium on Network Computing and Applications, April 2003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Stoica, I., Morris, R., Karger, D., Kaashoek, M., and H. Balakrishnan, &quot;Chord: A Scalable Peer-to-peer Lookup Service for Internet Applications&quot;, Proceedings of Applications, Technologies, Architectures, and Protocols for Computer Communication 2001, May 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;PPLive&quot;, &amp;lt; http://www.pplive.com &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Condie, T., Kacholia, V., Sankararaman, S., Hellerstein, J., and P. Maniatis, &quot;Maelstorm: Churn as Shelter&quot;, Proceedings of 13th Annual Network and Distributed System Security Symposium, November 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;Peer-to-Peer Session Initiation Protocol (P2PSIP) IETF Working Group&quot;, &amp;lt; http://www.ietf.org/html.charters/ p2psip-charter.html &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ohta, K., Micali, S., and L. Reyzin, &quot;Accountable Subgroup Multisignatures&quot;, Proceedings of 8th ACM conference on Computer and Communications Security, November 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Scheideler, C., &quot;How to Spread Adversarial Nodes?: Rotate!&quot;, Proceedings of 37th Annual ACM Symposium on Theory of Computing, May 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;Napster&quot;, &amp;lt; http://www.napster.com/ &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ratnasamy, S., Francis, P., Handley, M., Karp, R., and S. Shenker, &quot;A Scalable Content-Addressable Network&quot;, Proceedings of ACM SIGCOMM 2001, January 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Tam, J., Simsa, J., Hyde, S., and L. Ahn, &quot;Breaking Audio CAPTCHAs with Machine Learning Techniques&quot;, Proceedings of Advances in Neural Information Processing Systems, December 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Sit, E. and R. Morris, &quot;Security considerations for peer- to-peer distributed hash tables&quot;, Revised Papers from First International Workshop on Peer-to-Peer Systems, March 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Baumann, R., Cavin, S., and S. Schmid, &quot;Voice Over IP - Security and SPIT&quot;, Technical Report, University of Berne, September 2006.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">McCue, Andy., &quot;Bookie reveals 100,000 cost of denial-of-service extortion attacks&quot;, available from http://www.silicon.com , June 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Damiani, E., Vimercati, D., Paraboschi, S., Samarati, P., and F. Violante, &quot;A Reputation-Based Approach for Choosing Reliable Resources in Peer-to-Peer Networks&quot;, Proceedings of Conference on Computer and Communications Security, November 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Marti, S., Ganesan, P., and H. Garcia-Molina, &quot;SPROUT: P2P Routing with Social Networks&quot;, Proceedings of First International Workshop on Peer-to-Peer and Databases, March 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Lee, S., Kwon, O., Kim, J., and S. Hong, &quot;A Reputation Management System in Structured Peer-to-Peer Networks&quot;, Proceedings of 14th IEEE International Workshops on Enabling Technologies: Infrastructure for Collaborative Enterprise, June 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;BitTorrent&quot;, &amp;lt; http://www.bittorrent.com/ &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Douceur, J., &quot;The Sybil Attack&quot;, Revised Papers from First International Workshop on Peer-to-Peer Systems, March 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Wallach, D., &quot;A Survey of Peer-to-Peer Security Issues&quot;, Proceedings of International Symposium of Software Security 2002, November 2002, &amp;lt; http://www.cs.rice.edu/~dwallach/pub/ tokyo-p2p2002.pdf &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Maymounkov, P. and D. Mazi, &quot;Kademlia: A Peer-to-peer Information System Based on the XOR Metric&quot;, Proceedings of First International Workshop on Peer-to-peer Systems, March 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Zimmermann, Philip., &quot;Pretty good privacy: public key encryption for the masses&quot;, Building in big brother: the cryptographic policy debate pag. 103-107, 1995.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ahn, L., Blum, M., and J. Langford, &quot;Telling humans and computers apart automatically&quot;, Communications of the ACM, vol. 47, no. 2, February 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Chellapilla, K. and P. Simard, &quot;Using Machine Learning to Break Visual Human Interaction Proofs (HIPs)&quot;, Proceedings of Advances in Neural Information Processing Systems, December 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Singh, K. and H. Schulzrinne, &quot;Peer-to-Peer Internet Telephony using SIP&quot;, Proceedings of International Workshop on Network and Operating System Support for Digital Audio and Video, June 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Liang, J., Kumar, R., Xi, Y., and K. Ross, &quot;Pollution in p2p file sharing systems&quot;, Proceedings of IEEE INFOCOM 2005, March 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;Skype&quot;, &amp;lt; http://www.skype.com/ &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li></ul></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script>
+      window.assetPrefix = "../../";
+      window.MSR_REF_ROOT = "RFC5765";
+    </script>
+    <script src="../../js/refTreeRender.js"></script>
+    <script src="../../js/refTree.js"></script>
+
+    <!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

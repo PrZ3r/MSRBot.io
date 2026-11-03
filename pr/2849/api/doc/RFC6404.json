@@ -1,0 +1,285 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-22T15:11:11.819Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6404",
+  "document": {
+    "abstract": "The Session PEERing for Multimedia INTerconnect (SPEERMINT) working group (WG) provides a peering framework that leverages the building blocks of existing IETF-defined protocols such as SIP and ENUM for the interconnection between SIP Service Providers (SSPs). The objective of this document is to identify and enumerate SPEERMINT- specific threat vectors and to give guidance for implementers on selecting appropriate countermeasures. Security requirements for SPEERMINT that have been derived from the threats detailed in this document can be found in RFC 6271; this document provides concrete countermeasures to meet those SPEERMINT security requirements. In this document, the different security threats related to SPEERMINT are classified into threats to the Lookup Function (LUF), the Location Routing Function (LRF), the Signaling Function (SF), and the Media Function (MF) of a specific SIP Service Provider. Various instances of the threats are briefly introduced inside the classification. Finally, existing security solutions for SIP and RTP/RTCP (Real-time Transport Control Protocol) are presented to describe countermeasures currently available for such threats. Each SSP may have connections to one or more remote SSPs through peering or transit contracts. A potentially compromised remote SSP that attacks other SSPs is out of the scope of this document; this document focuses on attacks on an SSP from outside the trust domain such an SSP may have with other SSPs. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "authors": [
+      {
+        "name": "Jan Seedorf"
+      },
+      {
+        "name": "Saverio Niccolini"
+      },
+      {
+        "name": "Eric Chen"
+      },
+      {
+        "name": "Hendrik Scholz"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docId": "RFC6404",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docLabel": "IETF RFC 6404",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docNumber": "6404",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docTitle": "Session PEERing for Multimedia INTerconnect (SPEERMINT) Security Threats and Suggested Countermeasures",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "doi": "10.17487/RFC6404",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "href": "https://doi.org/10.17487/RFC6404",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "keywords": [
+      "VoIP",
+      "Security Threats",
+      "Multimedia",
+      "Threat Countermeasures",
+      "SIP Peering",
+      "Fraud Prevention",
+      "Network Protection",
+      "SIP",
+      "RTP",
+      "RTCP",
+      "Control Plane",
+      "User Plane"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "VoIP",
+        "Security Threats",
+        "Multimedia",
+        "Threat Countermeasures",
+        "SIP Interconnect",
+        "VoIP Peering",
+        "Fraud Prevention",
+        "Network Protection",
+        "SIP",
+        "RTP",
+        "RTCP",
+        "Control Plane",
+        "User Plane"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T15:11:11.819Z",
+      "version": "extractDocs.js@commit:0b3793d5c0eb"
+    },
+    "pages": "22",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "publicationDate": "2011-11-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2827",
+        "RFC3261",
+        "RFC3323",
+        "RFC3324",
+        "RFC3325",
+        "RFC3711",
+        "RFC3893",
+        "RFC4033",
+        "RFC4034",
+        "RFC4035",
+        "RFC4301",
+        "RFC4347",
+        "RFC4474",
+        "RFC4475",
+        "RFC4568",
+        "RFC4732",
+        "RFC5246",
+        "RFC5351",
+        "RFC5352",
+        "RFC5353",
+        "RFC5486",
+        "RFC5853",
+        "RFC6271",
+        "RFC6406",
+        "orphan/RFC6404/h:e3bb0715",
+        "orphan/RFC6404/h:d595c2de",
+        "orphan/RFC6404/h:1511f4ce",
+        "orphan/RFC6404/h:26b71036"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=28 proseBlocks=34 skippedAnchorBlocks=31",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+        "updated": "2026-10-22T01:45:07.925Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6404/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+      "updated": "2026-10-22T01:45:07.925Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+        "updated": "2026-10-22T01:45:07.925Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+        "updated": "2026-10-22T01:45:07.925Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+        "updated": "2026-10-22T01:45:07.925Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+        "updated": "2026-10-22T01:45:07.925Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6404/",
+        "updated": "2026-10-22T01:45:07.925Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      }
+    }
+  }
+}

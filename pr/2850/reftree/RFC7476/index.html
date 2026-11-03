@@ -1,0 +1,570 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO: core meta -->
+    <meta name="description" content="Information-Centric Networking: Baseline Scenarios">
+    <link rel="canonical" href="https://msrbot.io/reftree/RFC7476/">
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+    <meta name="author" content="Steve LLamb (PrZ3)">
+    <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta name="license" content="BSD-3-Clause">
+    <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+  
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MSRBot.io">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:title" content="Reference Tree — IETF RFC 7476 — MSRBot.io">
+    <meta property="og:description" content="Information-Centric Networking: Baseline Scenarios">
+    <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta property="og:license" content="BSD-3-Clause"> 
+    <meta property="og:url" content="https://msrbot.io/reftree/RFC7476/">
+    <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> 
+  
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  
+    <!-- PWA/Theme (optional but nice) -->
+    <meta name="application-name" content="MSRBot.io">
+    <meta name="theme-color" content="#1398b0">
+  
+    <!-- Icons -->
+    <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+    
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+    <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+  
+    <title>MSRBot.io | Reference Tree — IETF RFC 7476</title>
+  
+    <!-- Scripts -->
+    <script>
+      window.msrAssetPrefix = "../../";
+    </script>
+    <script src="../../js/msrbot.js"></script>
+  
+    <!-- JSON-LD: basic WebSite schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Reference Tree — IETF RFC 7476 - MSRBot.io",
+      "url": "https://msrbot.io/reftree/RFC7476/",
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/docs/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search documents"
+        },
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/api/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search API"
+        }
+      ],
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MSRBot.io",
+        "url": "https://msrbot.io"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "PrZ3",
+        "url": "https://PrZ3.io"
+      },
+      "copyrightHolder": {
+        "@type": "Organization",
+        "name": "PrZ3"
+      },
+      "copyrightYear": "2025-26",
+      "license": "https://opensource.org/licenses/BSD-3-Clause",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://msrbot.io/static/og/msrbot-og.png",
+        "width": 1200,
+        "height": 630
+      }
+    }
+    </script>
+  
+    <!-- Other -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+    <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+      <div class="container">
+        <div class="navbar-brand"><a href="../../index.html"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          
+          <ul class="navbar-nav ms-auto mb-lg-0">
+            <li class="nav-item text-nowrap">
+              <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../index.html"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/index.html"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/index.html"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a
+                id="nav-portals"
+                class="nav-link d-flex flex-column text-center"
+                title="Portals"
+                href="#"
+                role="button"
+                tabindex="0"
+                data-bs-toggle="popover"
+                data-bs-trigger="focus"
+                data-bs-placement="bottom"
+              >
+                <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+                <span class="small">PORTALS</span>
+              </a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/index.html"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/index.html"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/index.html"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+            </li>
+            <!-- li class="nav-item text-nowrap">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+            </li -->
+          </ul>
+  
+          <div class="dev-links-stack">
+            <a
+              id="dev-tools"
+              class="dev-link"
+              title="Developer Tools and Resources"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+            <a
+              id="user-prefs"
+              class="dev-link"
+              title="Set Preferences"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Hidden template for Dev Tools popover content -->
+    <div id="dev-tools-popover-content" class="d-none">
+      <div class="small">
+        <strong>API</strong>
+        <ul class="mb-2">
+          <li>
+            <a href="../../api/">
+              <i class="bi bi-braces me-1"></i>API Explorer
+            </a>
+            &mdash; search &amp; browse the registry
+          </li>
+          <li>
+            <a href="../../api/documents.json" target="_blank" rel="noopener">
+              api/documents.json
+            </a>
+            &mdash; lightweight index, one row per doc, linking to per-doc shards
+          </li>
+          <li>
+            <a href="../../api/doc/" target="_blank" rel="noopener">
+              api/doc/&lt;docId&gt;.json
+            </a>
+            &mdash; per-doc record with full $meta provenance
+          </li>
+          <li>
+            <a href="../../api/search/index.json" target="_blank" rel="noopener">
+              api/search/index.json
+            </a>
+            &mdash; compact search shards (current editions), sized for AI fetch tools
+          </li>
+          <li>
+            <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+              api/by-publisher.json
+            </a>
+            &mdash; full-record slices per publisher and doc type
+          </li>
+          <li>
+            <a href="../../api/groups.json" target="_blank" rel="noopener">
+              api/groups.json
+            </a>
+            &mdash; groups registry
+          </li>
+          <li>
+            <a href="../../api/projects.json" target="_blank" rel="noopener">
+              api/projects.json
+            </a>
+            &mdash; projects registry
+          </li>
+          <li>
+            <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+              api/by-doc.json
+            </a>
+            &mdash; docId &rarr; owning groups and projects
+          </li>
+          <li>
+            <a href="../../api/publishers.json" target="_blank" rel="noopener">
+              api/publishers.json
+            </a>
+            &mdash; publishers, logos, doc counts
+          </li>
+          <li>
+            <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+              api/vocabulary.json
+            </a>
+            &mdash; keywords, doc types, content types
+          </li>
+          <li>
+            <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+              api/mri-cite-map.json
+            </a>
+            &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+          </li>
+          <li>
+            <a href="../../api/stats.json" target="_blank" rel="noopener">
+              api/stats.json
+            </a>
+            &mdash; registry statistics &amp; metadata
+          </li>
+          <li>
+            <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+              api/schemas/documents.schema.json
+            </a>
+            &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+          </li>
+        </ul>
+  
+        <strong>Resources</strong>
+        <ul class="mb-0">
+          <li>
+            <a href="../../ai/">
+              <i class="bi bi-robot me-1"></i>Use with AI
+            </a>
+            &mdash; skill &amp; prompt for Claude, ChatGPT and others
+          </li>
+          <li>
+            <a href="../../changelog/">
+              Changelog
+            </a>
+            &mdash; release history
+          </li>
+          <li>
+            <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+              GitHub
+            </a>
+            &mdash; source &amp; issues
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Preferences popover content -->
+    <div id="user-prefs-popover-content" class="d-none">
+      <div class="small">
+        <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+        <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+        <div class="d-grid gap-1">
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+            Auto (match system)
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+            Light mode
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+            Dark mode
+          </a>
+        </div>
+        <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Portals popover content -->
+    <div id="nav-portals-popover-content" class="d-none">
+      <div class="small">
+        <div id="nav-portals-list">
+          <div class="text-muted small">Loading…</div>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Dev Tools popover
+        var devTrigger = document.getElementById('dev-tools');
+        if (devTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(devTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('dev-tools-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Preferences popover (theme selection)
+        var prefsTrigger = document.getElementById('user-prefs');
+        if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(prefsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('user-prefs-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Portals popover
+        var portalsTrigger = document.getElementById('nav-portals');
+        if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(portalsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            title: 'Portals',
+            content: function () {
+              var tpl = document.getElementById('nav-portals-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+      });
+    </script>
+  
+    <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+    <a class="anchor" id="top" href="#top"></a>    <!-- Main content starts - do not edit above this line -->
+
+    <main class="container my-4">
+      <header class="mb-3">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="gap-2">
+            <p class="text-muted mb-1">
+              Current document root:
+              <span class="ms-1 fs-6"><code>IETF RFC 7476</code></span>
+            </p>
+            <p class="h5 mb-2">
+              <a class="text-decoration-none"  href="../../docs/RFC7476/">Information-Centric Networking: Baseline Scenarios</a>
+            </p>
+              <p class="text-muted small mb-0">
+                <a class="" href="../../docs/?f.publisher=IETF">IETF</a> • <a class="" href="../../docs/?f.docType=Informational">Informational</a> • [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+              </p>
+          </div>
+          <div class="text-end">
+            <a class="btn btn-outline-secondary btn-sm ms-2 mb-2 text-nowrap" href="../../docs/RFC7476/">
+              ← Back to Doc
+            </a>
+            <div class="small text-muted text-nowrap">
+              <label for="rt-depth-select">Max Ref Depth:</label>
+              <select id="rt-depth-select" class="form-select form-select-sm d-inline w-auto ms-1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="small text-muted mt-2 mb-0">Click a document below to open its own reference tree.</p>
+      </header>
+
+      <div id="rt-graph-note" class="alert alert-warning small d-none" role="status"></div>
+
+      <!-- Reference panels row: upstream and downstream side-by-side -->
+      <section class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0"><i class="bi bi-arrow-up-left"></i> Referenced By</h2>
+              <div class="small text-muted">Docs that depend on <a href="../../docs/RFC7476/">IETF RFC 7476</a></div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="up"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="up"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="up">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-upstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-up">Level 1 — direct dependents (docs that cite this doc)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-up"><li><a href="../RFC7927/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC7927"><span>IETF RFC 7927</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC7933/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC7933"><span>IETF RFC 7933</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC7945/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC7945"><span>IETF RFC 7945</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC8462/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC8462"><span>IETF RFC 8462</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9139/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9139"><span>IETF RFC 9139</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li></ul></div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0">References Of <i class="bi bi-arrow-down-right"></i></h2>
+              <div class="small text-muted">Docs that <a href="../../docs/RFC7476/">IETF RFC 7476</a> depend on</div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="down"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="down"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="down">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-downstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-down">Level 1 — direct references (docs this doc cites)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-down"><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-irtf-dtnrg-bpq-00</span></span><cite class="ms-1">BPQ</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-irtf-icnrg-challenges-01</span></span><cite class="ms-1">CHALLENGES</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-irtf-icnrg-evaluation-methodology-00</span></span><cite class="ms-1">EVAL-METHOD</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>ISO.37120</span></span><cite class="ms-1">ISODIS</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><a href="../RFC4838/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4838"><span>IETF RFC 4838</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5050/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5050"><span>IETF RFC 5050</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5568/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5568"><span>IETF RFC 5568</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5743/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5743"><span>IETF RFC 5743</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC6920/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC6920"><span>IETF RFC 6920</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><cite class="ms-1">Ahlgren, B., et al., &quot;A survey of information-centric networking&quot;, IEEE Commun. Mag., vol. 50, no. 7, July 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Hossmann, T., et al. &quot;Twitter in disaster mode: smart probing for opportunistic peers&quot;, Proc. 3rd ACM International Workshop on Mobile Opportunistic Networks, ACM, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Gustafsson, E., and A. Jonsson. &quot;Always best connected&quot;, Wireless Communications, IEEE 10.1 (2003): 49-55.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Cianci, I., et al., &quot;Content Centric Services in Smart Cities&quot;, Proc. NGMAST, IEEE, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Marias, G.F., et al., &quot;Efficient information lookup for the Internet of Things&quot;, Proc. WoWMoM, IEEE, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kawadia, V., Riga, N., Opper, J., and D. Sampath, &quot;Slinky: An adaptive protocol for content access in disruption- tolerant ad hoc networks&quot;, in Proc. MobiHoc Workshop on Tactical Mobile Ad Hoc Networking, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Amadeo, M., et al., &quot;CRoWN: Content-Centric Networking in Vehicular Ad Hoc Networks&quot;, IEEE Communications Letters, vol. 16, no. 9, Sept. 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;The Opportunistic Network Environment simulator&quot;, &amp;lt; http://www.netlab.tkk.fi/tutkimus/dtn/theone &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kutscher, D. and S. Farrell, &quot;Towards an Information- Centric Internet with more Things&quot;, Position Paper, Interconnecting Smart Objects with the Internet Workshop, IAB, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Pentikousis, K., &quot;In Search of Energy-Efficient Mobile Networking&quot;, IEEE Commun. Mag., vol. 48, no. 1, Jan. 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Psaras, I., et al., &quot;Modelling and Evaluation of CCN- Caching Trees&quot;, In Proc. of the 10th international IFIP conference on Networking, Valencia, Spain, May 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Chen, J., et al., &quot;G-COPSS: A Content Centric Communication Infrastructure for Gaming Applications&quot;, Proc. ICDCS, IEEE, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Salo, J., Ed., et al., &quot;New business models and business dynamics of the future networks&quot;, SAIL Project Deliverable D-A.7, Aug. 2011, &amp;lt; http://www.sail-project.eu/deliverables/ &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Chai, W. K., et al., &quot;Cache &#39;Less for More&#39; in Information-centric Networks&quot;, Proc. Networking, IFIP, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Gruneberg, K., et al., &quot;File format specification and 3D video codec&quot;, COAST Project Deliverable D5.1, July 2011, &amp;lt; http://www.coast-fp7.eu/deliverables.html &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Tyson, G., et al., &quot;A Trace-Driven Analysis of Caching in Content-Centric Networks&quot;, Proc. ICCCN, IEEE, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Andreini, F., et al., &quot;A scalable architecture for geo- localized service access in smart cities&quot;, Proc. Future Network and Mobile Summit, IEEE, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Cabrero, S., Paneda, X.G., Plagemann, T., Melendi, D., and R. Garcia, &quot;An Overlay Routing Protocol for Video over sparse MANETs in Emergencies&quot;, Cadernos de Informatica 6, no. 1 (2011): 195-202.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Rajahalme, J., et al., &quot;Inter-Domain Rendezvous Service Architecture&quot;, PSIRP Technical Report TR09-003, Dec. 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Wang, J., R. Wakikawa, and L. Zhang, &quot;DMND: Collecting data from mobiles using Named Data&quot;, Proc. Vehicular Networking Conference (VNC), IEEE, 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Visala, K., et al., &quot;LANES: An Inter-Domain Data-Oriented Routing Architecture&quot;, Proc. CoNEXT Re-Arch Workshop, ACM, 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">DiBenedetto, S., et al., &quot;Routing policies in named data networking&quot;, Proc. SIGCOMM ICN Workshop, ACM, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ravindran, R., et al., &quot;Information-centric Networking based Homenet&quot;, Proc. International Workshop on Management of the Future Internet (ManFI), IFIP/IEEE, 2013.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Rajahalme J., et al., &quot;Incentive-Compatible Caching and Peering in Data-Oriented Networks&quot;, Proc. CoNEXT Re-Arch Workshop, ACM, 2008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Wang, L., et al., &quot;Rapid Traffic Information Dissemination Using Named Data&quot;, Proc. MobiHoc NoM workshop, ACM, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Koponen, T., et al., &quot;A Data-Oriented (and Beyond) Network Architecture&quot;, Proc. SIGCOMM, ACM, 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Amadeo, M., et al., &quot;Content-Centric Networking: is that a Solution for Upcoming Vehicular Networks?&quot;, Proc. VANET, ACM, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Rajahalme, J., &quot;Inter-domain incentives and Internet architecture&quot;, PhD. Dissertation, Aalto University, Aug. 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jacobson, V., et al., &quot;Networking Named Content&quot;, Proc. CoNEXT, ACM, 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Sheth, A., et al., &quot;Semantic Sensor Web,&quot; Internet Computing, IEEE , vol. 12, no. 4, pp.78-83, July-Aug. 2008</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ko, B. J., Pappas, V., Raghavendra, R., Song, Y., Dilmaghani, R. B., Lee, K.-w., and D. Verma, &quot;An information-centric architecture for data center networks&quot;, Proc. SIGCOMM ICN Workshop, ACM, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Bai, F. and B. Krishnamachari, &quot;Exploiting the wisdom of the crowd: localized, distributed information-centric VANETs&quot;, IEEE Commun. Mag., vol. 48, no. 5, May 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Zhang, N., Ed., et al., &quot;Evaluation of business models&quot;, SAIL Project Deliverable D-A.8, Jan. 2013, &amp;lt; http://www.sail-project.eu/deliverables/ &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Lee, U., Rimac, I., Kilper, D., and V. Hilt, &quot;Toward energy-efficient content dissemination&quot;, IEEE Network, vol. 25, no. 2, March-April 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Biswas, T., et al., &quot;Contextualized Information-Centric Home Network&quot;, Proc. ACM SIGCOMM, ACM, 2013.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Heidemann, J., et al., &quot;Building efficient wireless sensor networks with low-level naming&quot;, Proc. SOSP, ACM, 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Fall, K., &quot;A delay-tolerant network architecture for challenged internets&quot;, Proc. SIGCOMM, ACM, 2003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jokela, P., et al., &quot;LIPSIN: line speed publish/subscribe inter-networking&quot;, Proc. of ACM SIGCOMM 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Amadeo, et al., &quot;E-CHANET: Routing, Forwarding and Transport in Information-Centric Multihop Wireless Networks&quot;, Computer Communications, Elsevier, Jan. 2013 online.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Allman, M., et al., &quot;Enabling an Energy-Efficient Future Internet through Selectively Connected End Systems&quot;, Proc. HotNets-VI, ACM, 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jacobson, V., et al., &quot;VoCCN: Voice-over Content-Centric Networks&quot;, Proc. CoNEXT Re-Arch Workshop, ACM, 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Xuan, Y. and Z. Yan, &quot;Enhancing Routing Efficiency in Named Data Network with Piggybacked Interest&quot;, Proc. CFI, ACM, 2013.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Hernndez-Munoz, J.M., et al., &quot;Smart cities at the forefront of the future Internet&quot;, The Future Internet, Springer, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Liu, H., et al., &quot;A multi-level DHT routing framework with aggregation&quot;, Proc. SIGCOMM ICN Workshop, ACM, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Aschenbruck, N., Gerhards-Padilla, E., and P. Martini, &quot;Modeling mobility in disaster area scenarios&quot;, Performance Evaluation 66, no. 12 (2009): 773-790.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Zhu, Z., et al., &quot;ACT: Audio Conference Tool Over Named Data Networking&quot;, Proc. SIGCOMM ICN Workshop, ACM, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kim, J., et al., &quot;Content Centric Network-based Virtual Private Community&quot;, Proc. ICCE, IEEE, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kutscher, D., Ed., et al., &quot;Final NetInf Architecture&quot;, SAIL Project Deliverable D-B.3, Jan. 2013, &amp;lt; http://www.sail-project.eu/deliverables/ &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Tyson, G., Bigham, J., and E. Bodanese, &quot;Towards an Information-Centric Delay-Tolerant Network&quot;, Proc. IEEE INFOCOM NOMEN 2013, Turin, Italy.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Wang, L., et al., &quot;Data Naming in Vehicle-to-Vehicle Communications&quot;, Proc. INFOCOM NOMEN workshop, IEEE, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Katsaros, K., et al., &quot;On inter-domain name resolution for information-centric networks&quot;, Proc. Networking, Springer, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Muscariello, L., et al., &quot;Bandwidth and storage sharing performance in information centric networking&quot;, Proc. SIGCOMM ICN Workshop, ACM, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Li, H., et al. &quot;Efficient HetNet implementation using broadband wireless access with fiber-connected massively distributed antennas architecture&quot;, IEEE Wireless Communications, vol. 18, no.3, pp. 72-78, June 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kim, D. and J. Lee, &quot;CCN-based virtual private community for extended home media service&quot;, IEEE Trans. Consumer Electronics, vol. 57, no. 2, May 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Idowu, S. and N. Bari, &quot;A Development Framework for Smart City Services, Integrating Smart City Service Components&quot;, Master&#39;s Thesis, Lulea University of Technology, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Agyapong, P. and M. Sirbu, &quot;Economic Incentives in Information Centric Networking: Implications for Protocol Design and Public Policy&quot;, IEEE Commun. Mag., vol. 50, no. 12, Dec. 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Lindgren, A., &quot;Efficient content distribution in an information-centric hybrid mobile networks&quot;, Proc. CCNC, IEEE, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Burke, J., &quot;Authoring Place-based Experiences with an Internet of Things: Tussles of Expressive, Operational, and Participatory Goals&quot;, Position Paper, Interconnecting Smart Objects with the Internet Workshop, IAB, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Zhang, L., et al., &quot;Named Data Networking (NDN) Project&quot;, NDN Technical Report NDN-0001, Oct. 2010, &amp;lt; http://named-data.net/publications/techreports/ &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Xylomenos, G., et al., &quot;Caching and Mobility Support in a Publish-Subscribe Internet Architecture&quot;, IEEE Commun. Mag., vol. 50, no. 7, July 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ghodsi, A., et al., &quot;Naming in Content-oriented Architectures&quot;, Proc. SIGCOMM ICN Workshop, ACM, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Trossen, D. and G. Parisis, &quot;Designing and realizing an information-centric internet&quot;, IEEE Commun. Mag., vol. 50, no. 7, July 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Arianfar, S., et al., &quot;On content-centric router design and implications&quot;, Proc. CoNEXT Re-Arch Workshop, ACM, 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Mathieu, B., et al., &quot;Information-centric networking: a natural design for social network applications&quot;, IEEE Commun. Mag., vol. 50, no. 7, July 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">TalebiFard, P. and V.C.M. Leung, &quot;A Content Centric Approach to Dissemination of Information in Vehicular Networks&quot;, Proc. DIVANet, ACM, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Xylomenos, G., et al. &quot;A survey of information-centric networking research&quot;, IEEE Communications Surveys and Tutorials (2013): 1-26.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Arnould, G., et al., &quot;A Self-Organizing Content Centric Network Model for Hybrid Vehicular Ad-Hoc Networks&quot;. Proc. DIVANet, ACM, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Zhang, J., et al., &quot;iHEMS: An Information-Centric Approach to Secure Home Energy Management&quot;, Proc. SmartGridComm, IEEE, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Meisel, M., et al., &quot;Ad Hoc Networking via Named Data&quot;, Proc. MobiArch, ACM 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Guan, K., et al., &quot;On the Energy Efficiency of Content Delivery Architectures&quot;, Proc. ICC Workshops, IEEE, 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ahlgren, B. et al., &quot;Design considerations for a network of information&quot;, Proc. CoNEXT Re-Arch Workshop, ACM, 2008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jacobson, V., et al., &quot;Custodian-Based Information Sharing&quot;, IEEE Commun. Mag., vol. 50, no. 7, July 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Fotiou, N., et al., &quot;Access control enforcement delegation for information-centric networking architectures&quot;, Proc. SIGCOMM ICN Workshop, ACM, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Pentikousis, K., and P. Bertin., &quot;Mobility Management in Infrastructure Networks&quot;, IEEE Internet Computing 17, no. 5 (2013): 74-79.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Oh, S. Y., et al., &quot;Content Centric Networking in Tactical and Emergency MANETs&quot;, Proc. Wireless Days, IFIP, 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Uddin, M.Y.S., Nicol, D.M., Abdelzaher, T.F., and R.H. Kravets, &quot;A post-disaster mobility model for Delay Tolerant Networking&quot;, Simulation Conference (WSC), Proceedings of the 2009 Winter, pp. 2785-2796, 13-16 Dec. 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Burke, J., et al., &quot;Authenticated Lighting Control Using Named Data Networking&quot;, NDN Technical Report NDN-0011, Oct. 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Pentikousis, K. and T. Rautio, &quot;A Multiaccess Network of Information&quot;, Proc. WoWMoM, IEEE, 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Rajahalme, J., &quot;Incentive-informed Inter-domain Multicast&quot;, Proc. Global Internet Symposium 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Tyson, G., et al., &quot;A Survey of Mobility in Information- Centric Networks: Challenges and Research Directions&quot;, Proc. MobiHoc Workshop on Emerging Name-Oriented Mobile Networking Design, ACM, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Montpetit, M. J., Westphal, C., and D. Trossen, &quot;Network coding meets information-centric networking: an architectural case for information dispersion through native network coding&quot;, Proc. MOBIHOC NoM Workshop, ACM, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Chai, W. K., et al., &quot;CURLING: Content-Ubiquitous Resolution and Delivery Infrastructure for Next-Generation Services&quot;, IEEE Commun. Mag., vol. 49, no. 3, Mar. 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Fotiou, N., et al., &quot;Developing Information Networking Further: From PSIRP to PURSUIT&quot;, Proc. BROADNETS, ICST, 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Hoydis, J., et al., &quot;Green small-cell networks&quot;, IEEE Vehicular Technology Magazine, vol. 6, no.1, pp. 37-43, March 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ott, J. and D. Kutscher, &quot;Drive-thru Internet: IEEE 802.11b for &#39;automobile&#39; users&quot;, Proc. INFOCOM, IEEE, 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Dannewitz, C., et al., &quot;Scenarios and research issues for a Network of Information&quot;, Proc. MobiMedia, ICST, 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Trossen, D., et al., &quot;Arguments for an information centric internetworking architecture&quot;, ACM SIGCOMM CCR, 40:26-33, Apr. 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Mosko, M., Solis, I., and E. Uzun, &quot;CCN 1.0 Protocol Architecture&quot;, Project CCNx documentation, Xerox Palo Alto Research Center, 2013, &amp;lt; http://ccnx.org/pubs/ICN_CCN_Protocols.pdf &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li></ul></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script>
+      window.assetPrefix = "../../";
+      window.MSR_REF_ROOT = "RFC7476";
+    </script>
+    <script src="../../js/refTreeRender.js"></script>
+    <script src="../../js/refTree.js"></script>
+
+    <!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

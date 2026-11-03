@@ -1,0 +1,336 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-17T00:32:41.839Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC4259",
+  "document": {
+    "abstract": "This document describes an architecture for the transport of IP Datagrams over ISO MPEG-2 Transport Streams (TS). The MPEG-2 TS has been widely accepted not only for providing digital TV services but also as a subnetwork technology for building IP networks. Examples of systems using MPEG-2 include the Digital Video Broadcast (DVB) and Advanced Television Systems Committee (ATSC) Standards for Digital Television. The document identifies the need for a set of Internet standards defining the interface between the MPEG-2 Transport Stream and an IP subnetwork. It suggests a new encapsulation method for IP datagrams and proposes protocols to perform IPv6/IPv4 address resolution, to associate IP packets with the properties of the Logical Channels provided by an MPEG-2 TS. This memo provides information for the Internet community.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "authors": [
+      {
+        "name": "Marie-Jose Montpetit"
+      },
+      {
+        "name": "Gorry Fairhurst"
+      },
+      {
+        "name": "Horst D. Clausen"
+      },
+      {
+        "name": "Bernhard Collini-Nocker"
+      },
+      {
+        "name": "Hilmar Linder"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docId": "RFC4259",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docLabel": "IETF RFC 4259",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docNumber": "4259",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docTitle": "A Framework for Transmission of IP Datagrams over MPEG-2 Networks",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "doi": "10.17487/RFC4259",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "href": "https://doi.org/10.17487/RFC4259",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "keywords": [
+      "Digital Television",
+      "DVB",
+      "ATSC"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Digital Television",
+        "Dvb",
+        "Digital Video Broadcast",
+        "Atsc",
+        "Advanced Television Systems Committee"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-17T00:32:41.839Z",
+      "version": "extractDocs.js@commit:e15f05a0bdbb"
+    },
+    "pages": "42",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publicationDate": "2005-12-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "references": {
+      "bibliographic": [
+        "ATSC.A92",
+        "ISO.13818-3.1995",
+        "ISO.13818-6",
+        "ISO.13818-2.1998",
+        "T-REC-I.363.5",
+        "ISO.8802",
+        "RFC1112",
+        "RFC2365",
+        "RFC2375",
+        "RFC2710",
+        "RFC2507",
+        "RFC3077",
+        "RFC3095",
+        "RFC3171",
+        "RFC3376",
+        "RFC3569",
+        "RFC3810",
+        "RFC3819",
+        "ATSC.A53C.2004",
+        "ATSC.A90.2000",
+        "ATSC.A91.2001",
+        "ATSC.A54A.2003",
+        "ATSC.A65B.2003",
+        "ATSC.A80.1999",
+        "orphan/RFC4259/h:d37cd002",
+        "ETSI.TS-102-292",
+        "ETSI.EN-300-800",
+        "ETSI.EN-301-790",
+        "ETSI.EN-301-421",
+        "ETSI.EN-302-207",
+        "ETSI.EN-300-744",
+        "orphan/RFC4259/h:6be173aa",
+        "ETSI.TS-101-812.2002",
+        "ETSI.ETS-300-802",
+        "ETSI.EN-300-468",
+        "orphan/RFC4259/h:378329ca",
+        "orphan/RFC4259/h:7f86f2ea",
+        "orphan/RFC4259/h:87bf9f88",
+        "orphan/RFC4259/h:7e1a3cb5"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=41 proseBlocks=50 skippedAnchorBlocks=46",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [
+          "ATSC.A92",
+          "ISO.13818-3.1995",
+          "ISO.13818-6",
+          "ISO.13818-2.1998",
+          "T-REC-I.363.5",
+          "ISO.8802",
+          "RFC1112",
+          "RFC2365",
+          "RFC2375",
+          "RFC2710",
+          "RFC2507",
+          "RFC3077",
+          "RFC3095",
+          "RFC3171",
+          "RFC3376",
+          "RFC3569",
+          "RFC3810",
+          "RFC3819",
+          "orphan/RFC4259/h:02ed394c",
+          "orphan/RFC4259/h:ea8dfa3e",
+          "orphan/RFC4259/h:b34f3df6",
+          "orphan/RFC4259/h:628c8c05",
+          "orphan/RFC4259/h:4ca67dc6",
+          "orphan/RFC4259/h:4cc8384b",
+          "orphan/RFC4259/h:d37cd002",
+          "orphan/RFC4259/h:c90e24b8",
+          "ETSI.EN-300-800",
+          "ETSI.EN-301-790",
+          "ETSI.EN-301-421",
+          "ETSI.EN-302-207",
+          "ETSI.EN-300-744",
+          "orphan/RFC4259/h:6be173aa",
+          "orphan/RFC4259/h:f3b2235e",
+          "orphan/RFC4259/h:b33c0da3",
+          "ETSI.EN-300-468",
+          "orphan/RFC4259/h:378329ca",
+          "orphan/RFC4259/h:7f86f2ea",
+          "orphan/RFC4259/h:87bf9f88",
+          "orphan/RFC4259/h:7e1a3cb5"
+        ],
+        "overridden": true,
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+        "updated": "2026-10-17T00:32:41.839Z",
+        "version": "extractDocs.js@commit:e15f05a0bdbb"
+      },
+      "normative": [
+        "ISO.13818-1.2000",
+        "ETSI.EN-301-192"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+        "updated": "2026-10-16T20:41:42.772Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc4259/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+      "updated": "2026-10-16T20:41:42.772Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+        "updated": "2026-10-16T20:41:42.772Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+        "updated": "2026-10-16T20:41:42.772Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+        "updated": "2026-10-16T20:41:42.772Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+        "updated": "2026-10-16T20:41:42.772Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4259/",
+        "updated": "2026-10-16T20:41:42.772Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    }
+  }
+}

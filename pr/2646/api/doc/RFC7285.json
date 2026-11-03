@@ -1,0 +1,324 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-17T00:36:40.508Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC7285",
+  "document": {
+    "abstract": "Applications using the Internet already have access to some topology information of Internet Service Provider (ISP) networks. For example, views to Internet routing tables at Looking Glass servers are available and can be practically downloaded to many network application clients. What is missing is knowledge of the underlying network topologies from the point of view of ISPs. In other words, what an ISP prefers in terms of traffic optimization -- and a way to distribute it. The Application-Layer Traffic Optimization (ALTO) services defined in this document provide network information (e.g., basic network location structure and preferences of network paths) with the goal of modifying network resource consumption patterns while maintaining or improving application performance. The basic information of ALTO is based on abstract maps of a network. These maps provide a simplified view, yet enough information about a network for applications to effectively utilize them. Additional services are built on top of the maps. This document describes a protocol implementing the ALTO services. Although the ALTO services would primarily be provided by ISPs, other entities, such as content service providers, could also provide ALTO services. Applications that could use the ALTO services are those that have a choice to which end points to connect. Examples of such applications are peer-to-peer (P2P) and content delivery networks.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "authors": [
+      {
+        "name": "Richard Alimi"
+      },
+      {
+        "name": "Reinaldo Penno"
+      },
+      {
+        "name": "Y. Richard Yang"
+      },
+      {
+        "name": "Sebastian Kiesel"
+      },
+      {
+        "name": "Stefano Previdi"
+      },
+      {
+        "name": "Wendy Roome"
+      },
+      {
+        "name": "Stanislav Shalunov"
+      },
+      {
+        "name": "Richard Woundy"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docId": "RFC7285",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docLabel": "IETF RFC 7285",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docNumber": "7285",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docTitle": "Application-Layer Traffic Optimization (ALTO) Protocol",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "doi": "10.17487/RFC7285",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "href": "https://doi.org/10.17487/RFC7285",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "keywords": [
+      "ALTO"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "ALTO Information Resources",
+        "Network Map",
+        "PID",
+        "Filtered Network Map",
+        "Cost Map",
+        "Endpoint Property Service",
+        "Endpoint Cost Service"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-17T00:36:40.508Z",
+      "version": "extractDocs.js@commit:e15f05a0bdbb"
+    },
+    "pages": "91",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publicationDate": "2014-09-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "references": {
+      "bibliographic": [
+        "IEEE.STD754.2008",
+        "RFC2818",
+        "RFC5693",
+        "RFC5706",
+        "RFC6144",
+        "RFC6296",
+        "RFC6708",
+        "RFC7159",
+        "RFC7231",
+        "orphan/RFC7285/h:679eab52",
+        "orphan/RFC7285/h:30d907ba",
+        "orphan/RFC7285/h:1343e41f",
+        "orphan/RFC7285/h:85c2430b",
+        "orphan/RFC7285/h:a1478b9d",
+        "orphan/RFC7285/h:e22d0441",
+        "orphan/RFC7285/h:2cb795ea",
+        "orphan/RFC7285/h:b0837320",
+        "orphan/RFC7285/h:599a60e3",
+        "orphan/RFC7285/h:061e5ba6",
+        "orphan/RFC7285/h:17ef324f",
+        "orphan/RFC7285/h:18ed616a",
+        "orphan/RFC7285/h:f6e82e4e",
+        "orphan/RFC7285/h:e08b74fa"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=35 proseBlocks=51 skippedAnchorBlocks=39",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+        "updated": "2026-10-16T20:46:04.006Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "normative": [
+        "RFC1812",
+        "RFC2046",
+        "RFC2119",
+        "RFC3986",
+        "RFC4632",
+        "RFC5226",
+        "RFC5246",
+        "RFC5389",
+        "RFC5424",
+        "RFC5952",
+        "RFC6125",
+        "RFC7230"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+        "updated": "2026-10-16T20:46:04.006Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc7285/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+      "updated": "2026-10-16T20:46:04.006Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+        "updated": "2026-10-16T20:46:04.006Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "amendedBy": [
+        "RFC9274"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+        "updated": "2026-10-16T20:46:04.006Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+        "updated": "2026-10-16T20:46:04.006Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc7285",
+        "https://www.rfc-editor.org/errata_search.php?rfc=7285",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc7285.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+        "updated": "2026-10-16T20:46:04.006Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+        "updated": "2026-10-16T20:46:04.006Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+        "updated": "2026-10-16T20:46:04.006Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7285/",
+        "updated": "2026-10-16T20:46:04.006Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    }
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-13T19:01:49.178Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6024",
+  "document": {
+    "abstract": "A trust anchor represents an authoritative entity via a public key and associated data. The public key is used to verify digital signatures, and the associated data is used to constrain the types of information for which the trust anchor is authoritative. A relying party uses trust anchors to determine if a digitally signed object is valid by verifying a digital signature using the trust anchor's public key, and by enforcing the constraints expressed in the associated data for the trust anchor. This document describes some of the problems associated with the lack of a standard trust anchor management mechanism and defines requirements for data formats and push-based protocols designed to address these problems. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "authors": [
+      {
+        "name": "Raksha Reddy"
+      },
+      {
+        "name": "Carl Wallace"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docId": "RFC6024",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docLabel": "IETF RFC 6024",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docNumber": "6024",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docTitle": "Trust Anchor Management Requirements",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "doi": "10.17487/RFC6024",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "href": "https://doi.org/10.17487/RFC6024",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "keywords": [
+      "PKI",
+      "Digital Signatures"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "PKI",
+        "Certificates",
+        "Digital Signatures"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T19:01:49.178Z",
+      "version": "extractDocs.js@commit:8ad844f404e0"
+    },
+    "pages": "14",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "publicationDate": "2010-10-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2560",
+        "RFC3161",
+        "RFC4108",
+        "RFC4210",
+        "RFC5652",
+        "RFC5914",
+        "RFC5934"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=10 proseBlocks=14 skippedAnchorBlocks=11",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+        "updated": "2026-10-13T18:23:12.441Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC5055",
+        "RFC5280"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+        "updated": "2026-10-13T18:23:12.441Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6024/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+      "updated": "2026-10-13T18:23:12.441Z",
+      "version": "extractDocs.js@commit:6d30695438dd"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+        "updated": "2026-10-13T18:23:12.441Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+        "updated": "2026-10-13T18:23:12.441Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+        "updated": "2026-10-13T18:23:12.441Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+        "updated": "2026-10-13T18:23:12.441Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6024/",
+        "updated": "2026-10-13T18:23:12.441Z",
+        "version": "extractDocs.js@commit:6d30695438dd"
+      }
+    }
+  }
+}

@@ -1,0 +1,276 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-21T23:41:22.430Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC7581",
+  "document": {
+    "abstract": "A Wavelength Switched Optical Network (WSON) requires certain key information fields be made available to facilitate path computation and the establishment of Label Switched Paths (LSPs). The information model described in \"Routing and Wavelength Assignment Information Model for Wavelength Switched Optical Networks\" (RFC 7446) shows what information is required at specific points in the WSON. Part of the WSON information model contains aspects that may be of general applicability to other technologies, while other parts are specific to WSONs. This document provides efficient, protocol-agnostic encodings for the WSON-specific information fields. It is intended that protocol- specific documents will reference this memo to describe how information is carried for specific uses. Such encodings can be used to extend GMPLS signaling and routing protocols. In addition, these encodings could be used by other mechanisms to convey this same information to a Path Computation Element (PCE).",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "authors": [
+      {
+        "name": "Greg M. Bernstein"
+      },
+      {
+        "name": "Young Lee"
+      },
+      {
+        "name": "Dan Li"
+      },
+      {
+        "name": "Wataru Imajuku"
+      },
+      {
+        "name": "Jianrui Han"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docId": "RFC7581",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docLabel": "IETF RFC 7581",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docNumber": "7581",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docTitle": "Routing and Wavelength Assignment Information Encoding for Wavelength Switched Optical Networks",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "doi": "10.17487/RFC7581",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "href": "https://doi.org/10.17487/RFC7581",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "keywords": [
+      "Optical Network",
+      "GMPLS Control Plane",
+      "Wavelength Assignment",
+      "Optical LSP",
+      "Optical Routing"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Optical Networks",
+        "GMPLS Control Plane",
+        "Wavelength Assignment",
+        "Optical LSP",
+        "Optical Routing"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T23:41:22.430Z",
+      "version": "extractDocs.js@commit:cc353c041d14"
+    },
+    "pages": "37",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publicationDate": "2015-06-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "references": {
+      "bibliographic": [
+        "T-REC-G.652.2009",
+        "T-REC-G.653.2010",
+        "T-REC-G.655.2009",
+        "T-REC-G.695.2015",
+        "T-REC-G.698.2009",
+        "T-REC-G.959.2012",
+        "IEEE.STD754",
+        "RFC3471",
+        "RFC4203",
+        "RFC5226",
+        "RFC5307",
+        "RFC5440",
+        "RFC5511",
+        "RFC5920",
+        "RFC6163"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=26 proseBlocks=26 skippedAnchorBlocks=24",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+        "updated": "2026-10-21T16:57:50.122Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC4328",
+        "RFC6205",
+        "RFC7446",
+        "RFC7579"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+        "updated": "2026-10-21T16:57:50.122Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc7581/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+      "updated": "2026-10-21T16:57:50.122Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+        "updated": "2026-10-21T16:57:50.122Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+        "updated": "2026-10-21T16:57:50.122Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+        "updated": "2026-10-21T16:57:50.122Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+        "updated": "2026-10-21T16:57:50.122Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7581/",
+        "updated": "2026-10-21T16:57:50.122Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    }
+  }
+}

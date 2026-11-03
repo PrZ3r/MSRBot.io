@@ -1,0 +1,273 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T17:06:27.211Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9071",
+  "document": {
+    "abstract": "This document provides enhancements of real-time text (as specified in RFC 4103) suitable for mixing in a centralized conference model, enabling source identification and rapidly interleaved transmission of text from different sources. The intended use is for real-time text mixers and participant endpoints capable of providing an efficient presentation or other treatment of a multiparty real-time text session. The specified mechanism builds on the standard use of the Contributing Source (CSRC) list in the Real-time Transport Protocol (RTP) packet for source identification. The method makes use of the same \"text/t140\" and \"text/red\" formats as for two-party sessions. Solutions using multiple RTP streams in the same RTP session are briefly mentioned, as they could have some benefits over the RTP-mixer model. The RTP-mixer model was selected to be used for the fully specified solution in this document because it can be applied to a wide range of existing RTP implementations. A capability exchange is specified so that it can be verified that a mixer and a participant can handle the multiparty-coded real-time text stream using the RTP-mixer method. The capability is indicated by the use of a Session Description Protocol (SDP) (RFC 8866) media attribute, \"rtt-mixer\". This document updates RFC 4103 (\"RTP Payload for Text Conversation\"). A specification for how a mixer can format text for the case when the endpoint is not multiparty aware is also provided.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.961Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "authors": [
+      {
+        "name": "Gunnar Hellstrom"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.962Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docId": "RFC9071",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.961Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docLabel": "IETF RFC 9071",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.961Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docNumber": "9071",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.961Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docTitle": "RTP-Mixer Formatting of Multiparty Real-Time Text",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.961Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.961Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "doi": "10.17487/RFC9071",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.962Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "href": "https://doi.org/10.17487/RFC9071",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.961Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "keywords": [
+      "Conference",
+      "Bridging",
+      "SIP"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Conference",
+        "Bridge",
+        "SIP"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T17:06:27.211Z",
+      "version": "extractDocs.js@commit:8aec15acefbb"
+    },
+    "pages": "35",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.962Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publicationDate": "2021-07-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.961Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.961Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC4353",
+        "RFC4575",
+        "RFC4579",
+        "RFC5194",
+        "RFC7667",
+        "RFC8643",
+        "RFC8723",
+        "RFC8825"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+        "updated": "2026-10-14T16:16:51.962Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "normative": [
+        "ECMA.48.199106",
+        "ISO.6429.1992",
+        "RFC2119",
+        "RFC3550",
+        "RFC4102",
+        "RFC4103",
+        "RFC5630",
+        "RFC5764",
+        "RFC6263",
+        "RFC7675",
+        "RFC8174",
+        "RFC8865",
+        "RFC8866",
+        "T-REC-T.140.1998",
+        "T-REC-T.140.2000"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+        "updated": "2026-10-14T16:16:51.962Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9071/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+      "updated": "2026-10-14T16:16:51.962Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+        "updated": "2026-10-14T16:16:51.962Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "amends": [
+        "RFC4103"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+        "updated": "2026-10-14T16:16:51.962Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+        "updated": "2026-10-14T16:16:51.962Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+        "updated": "2026-10-14T16:16:51.962Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+        "updated": "2026-10-14T16:16:51.962Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9071/",
+        "updated": "2026-10-14T16:16:51.962Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    }
+  }
+}

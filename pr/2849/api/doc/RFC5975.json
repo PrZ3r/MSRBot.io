@@ -1,0 +1,279 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T20:43:29.754Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC5975",
+  "document": {
+    "abstract": "The Quality-of-Service (QoS) NSIS signaling layer protocol (NSLP) is used to signal QoS reservations and is independent of a specific QoS model (QOSM) such as IntServ or Diffserv. Rather, all information specific to a QOSM is encapsulated in a separate object, the QSPEC. This document defines a template for the QSPEC including a number of QSPEC parameters. The QSPEC parameters provide a common language to be reused in several QOSMs and thereby aim to ensure the extensibility and interoperability of QoS NSLP. While the base protocol is QOSM-agnostic, the parameters that can be carried in the QSPEC object are possibly closely coupled to specific models. The node initiating the NSIS signaling adds an Initiator QSPEC, which indicates the QSPEC parameters that must be interpreted by the downstream nodes less the reservation fails, thereby ensuring the intention of the NSIS initiator is preserved along the signaling path. This document defines an Experimental Protocol for the Internet community.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "authors": [
+      {
+        "name": "Gerald Ash"
+      },
+      {
+        "name": "Attila Bader"
+      },
+      {
+        "name": "Cornelia Kappler"
+      },
+      {
+        "name": "David R. Oran"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docId": "RFC5975",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docLabel": "IETF RFC 5975",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docNumber": "5975",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docTitle": "QSPEC Template for the Quality-of-Service NSIS Signaling Layer Protocol (NSLP)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docType": "Experimental",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "doi": "10.17487/RFC5975",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "href": "https://doi.org/10.17487/RFC5975",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "pages": "64",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publicationDate": "2010-10-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "references": {
+      "bibliographic": [
+        "T-REC-G.711.1988",
+        "IEEE.STD754.1985",
+        "RFC1701",
+        "RFC1702",
+        "RFC2003",
+        "RFC2004",
+        "RFC2205",
+        "RFC2473",
+        "RFC2474",
+        "RFC2475",
+        "RFC2597",
+        "RFC2697",
+        "RFC2997",
+        "RFC3290",
+        "RFC3393",
+        "RFC3550",
+        "RFC3564",
+        "RFC4213",
+        "RFC4301",
+        "RFC4303",
+        "RFC5226",
+        "RFC5481",
+        "RFC5976",
+        "RFC5977",
+        "T-REC-Y.1540.2002",
+        "orphan/RFC5975/h:22961fdb",
+        "orphan/RFC5975/h:23b6d39d",
+        "orphan/RFC5975/h:6318281f",
+        "orphan/RFC5975/h:ed6277aa",
+        "orphan/RFC5975/h:02373edc",
+        "orphan/RFC5975/h:8d89cce2",
+        "orphan/RFC5975/h:d14b4fdd",
+        "orphan/RFC5975/h:e0b82456"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=51 proseBlocks=58 skippedAnchorBlocks=54",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+        "updated": "2026-10-16T20:43:29.754Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "normative": [
+        "3GPP.TS-22.067.2006",
+        "3GPP.TS-23.067.2006",
+        "3GPP.TS-24.067.2004",
+        "RFC2119",
+        "RFC2210",
+        "RFC2212",
+        "RFC2215",
+        "RFC3140",
+        "RFC3181",
+        "RFC4124",
+        "RFC4412",
+        "RFC4506",
+        "RFC5971",
+        "RFC5974",
+        "T-REC-Y.1541.2006",
+        "T-REC-Y.2171.2006"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+        "updated": "2026-10-16T20:43:29.754Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc5975/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+      "updated": "2026-10-16T20:43:29.754Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+        "updated": "2026-10-16T20:43:29.754Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+        "updated": "2026-10-16T20:43:29.754Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+        "updated": "2026-10-16T20:43:29.754Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "statusNote": "Experimental",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+        "updated": "2026-10-16T20:43:29.754Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5975/",
+        "updated": "2026-10-16T20:43:29.754Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    }
+  }
+}

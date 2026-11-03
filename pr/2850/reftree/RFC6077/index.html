@@ -1,0 +1,570 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO: core meta -->
+    <meta name="description" content="Open Research Issues in Internet Congestion Control">
+    <link rel="canonical" href="https://msrbot.io/reftree/RFC6077/">
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+    <meta name="author" content="Steve LLamb (PrZ3)">
+    <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta name="license" content="BSD-3-Clause">
+    <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+  
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MSRBot.io">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:title" content="Reference Tree — IETF RFC 6077 — MSRBot.io">
+    <meta property="og:description" content="Open Research Issues in Internet Congestion Control">
+    <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta property="og:license" content="BSD-3-Clause"> 
+    <meta property="og:url" content="https://msrbot.io/reftree/RFC6077/">
+    <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> 
+  
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  
+    <!-- PWA/Theme (optional but nice) -->
+    <meta name="application-name" content="MSRBot.io">
+    <meta name="theme-color" content="#1398b0">
+  
+    <!-- Icons -->
+    <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+    
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+    <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+  
+    <title>MSRBot.io | Reference Tree — IETF RFC 6077</title>
+  
+    <!-- Scripts -->
+    <script>
+      window.msrAssetPrefix = "../../";
+    </script>
+    <script src="../../js/msrbot.js"></script>
+  
+    <!-- JSON-LD: basic WebSite schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Reference Tree — IETF RFC 6077 - MSRBot.io",
+      "url": "https://msrbot.io/reftree/RFC6077/",
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/docs/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search documents"
+        },
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/api/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search API"
+        }
+      ],
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MSRBot.io",
+        "url": "https://msrbot.io"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "PrZ3",
+        "url": "https://PrZ3.io"
+      },
+      "copyrightHolder": {
+        "@type": "Organization",
+        "name": "PrZ3"
+      },
+      "copyrightYear": "2025-26",
+      "license": "https://opensource.org/licenses/BSD-3-Clause",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://msrbot.io/static/og/msrbot-og.png",
+        "width": 1200,
+        "height": 630
+      }
+    }
+    </script>
+  
+    <!-- Other -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+    <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+      <div class="container">
+        <div class="navbar-brand"><a href="../../index.html"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          
+          <ul class="navbar-nav ms-auto mb-lg-0">
+            <li class="nav-item text-nowrap">
+              <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../index.html"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/index.html"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/index.html"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a
+                id="nav-portals"
+                class="nav-link d-flex flex-column text-center"
+                title="Portals"
+                href="#"
+                role="button"
+                tabindex="0"
+                data-bs-toggle="popover"
+                data-bs-trigger="focus"
+                data-bs-placement="bottom"
+              >
+                <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+                <span class="small">PORTALS</span>
+              </a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/index.html"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/index.html"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/index.html"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+            </li>
+            <!-- li class="nav-item text-nowrap">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+            </li -->
+          </ul>
+  
+          <div class="dev-links-stack">
+            <a
+              id="dev-tools"
+              class="dev-link"
+              title="Developer Tools and Resources"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+            <a
+              id="user-prefs"
+              class="dev-link"
+              title="Set Preferences"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Hidden template for Dev Tools popover content -->
+    <div id="dev-tools-popover-content" class="d-none">
+      <div class="small">
+        <strong>API</strong>
+        <ul class="mb-2">
+          <li>
+            <a href="../../api/">
+              <i class="bi bi-braces me-1"></i>API Explorer
+            </a>
+            &mdash; search &amp; browse the registry
+          </li>
+          <li>
+            <a href="../../api/documents.json" target="_blank" rel="noopener">
+              api/documents.json
+            </a>
+            &mdash; lightweight index, one row per doc, linking to per-doc shards
+          </li>
+          <li>
+            <a href="../../api/doc/" target="_blank" rel="noopener">
+              api/doc/&lt;docId&gt;.json
+            </a>
+            &mdash; per-doc record with full $meta provenance
+          </li>
+          <li>
+            <a href="../../api/search/index.json" target="_blank" rel="noopener">
+              api/search/index.json
+            </a>
+            &mdash; compact search shards (current editions), sized for AI fetch tools
+          </li>
+          <li>
+            <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+              api/by-publisher.json
+            </a>
+            &mdash; full-record slices per publisher and doc type
+          </li>
+          <li>
+            <a href="../../api/groups.json" target="_blank" rel="noopener">
+              api/groups.json
+            </a>
+            &mdash; groups registry
+          </li>
+          <li>
+            <a href="../../api/projects.json" target="_blank" rel="noopener">
+              api/projects.json
+            </a>
+            &mdash; projects registry
+          </li>
+          <li>
+            <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+              api/by-doc.json
+            </a>
+            &mdash; docId &rarr; owning groups and projects
+          </li>
+          <li>
+            <a href="../../api/publishers.json" target="_blank" rel="noopener">
+              api/publishers.json
+            </a>
+            &mdash; publishers, logos, doc counts
+          </li>
+          <li>
+            <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+              api/vocabulary.json
+            </a>
+            &mdash; keywords, doc types, content types
+          </li>
+          <li>
+            <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+              api/mri-cite-map.json
+            </a>
+            &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+          </li>
+          <li>
+            <a href="../../api/stats.json" target="_blank" rel="noopener">
+              api/stats.json
+            </a>
+            &mdash; registry statistics &amp; metadata
+          </li>
+          <li>
+            <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+              api/schemas/documents.schema.json
+            </a>
+            &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+          </li>
+        </ul>
+  
+        <strong>Resources</strong>
+        <ul class="mb-0">
+          <li>
+            <a href="../../ai/">
+              <i class="bi bi-robot me-1"></i>Use with AI
+            </a>
+            &mdash; skill &amp; prompt for Claude, ChatGPT and others
+          </li>
+          <li>
+            <a href="../../changelog/">
+              Changelog
+            </a>
+            &mdash; release history
+          </li>
+          <li>
+            <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+              GitHub
+            </a>
+            &mdash; source &amp; issues
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Preferences popover content -->
+    <div id="user-prefs-popover-content" class="d-none">
+      <div class="small">
+        <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+        <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+        <div class="d-grid gap-1">
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+            Auto (match system)
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+            Light mode
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+            Dark mode
+          </a>
+        </div>
+        <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Portals popover content -->
+    <div id="nav-portals-popover-content" class="d-none">
+      <div class="small">
+        <div id="nav-portals-list">
+          <div class="text-muted small">Loading…</div>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Dev Tools popover
+        var devTrigger = document.getElementById('dev-tools');
+        if (devTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(devTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('dev-tools-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Preferences popover (theme selection)
+        var prefsTrigger = document.getElementById('user-prefs');
+        if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(prefsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('user-prefs-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Portals popover
+        var portalsTrigger = document.getElementById('nav-portals');
+        if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(portalsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            title: 'Portals',
+            content: function () {
+              var tpl = document.getElementById('nav-portals-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+      });
+    </script>
+  
+    <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+    <a class="anchor" id="top" href="#top"></a>    <!-- Main content starts - do not edit above this line -->
+
+    <main class="container my-4">
+      <header class="mb-3">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="gap-2">
+            <p class="text-muted mb-1">
+              Current document root:
+              <span class="ms-1 fs-6"><code>IETF RFC 6077</code></span>
+            </p>
+            <p class="h5 mb-2">
+              <a class="text-decoration-none"  href="../../docs/RFC6077/">Open Research Issues in Internet Congestion Control</a>
+            </p>
+              <p class="text-muted small mb-0">
+                <a class="" href="../../docs/?f.publisher=IETF">IETF</a> • <a class="" href="../../docs/?f.docType=Informational">Informational</a> • [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+              </p>
+          </div>
+          <div class="text-end">
+            <a class="btn btn-outline-secondary btn-sm ms-2 mb-2 text-nowrap" href="../../docs/RFC6077/">
+              ← Back to Doc
+            </a>
+            <div class="small text-muted text-nowrap">
+              <label for="rt-depth-select">Max Ref Depth:</label>
+              <select id="rt-depth-select" class="form-select form-select-sm d-inline w-auto ms-1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="small text-muted mt-2 mb-0">Click a document below to open its own reference tree.</p>
+      </header>
+
+      <div id="rt-graph-note" class="alert alert-warning small d-none" role="status"></div>
+
+      <!-- Reference panels row: upstream and downstream side-by-side -->
+      <section class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0"><i class="bi bi-arrow-up-left"></i> Referenced By</h2>
+              <div class="small text-muted">Docs that depend on <a href="../../docs/RFC6077/">IETF RFC 6077</a></div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="up"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="up"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="up">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-upstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-up">Level 1 — direct dependents (docs that cite this doc)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-up"><li><a href="../RFC6928/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC6928"><span>IETF RFC 6928</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC7141/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC7141"><span>IETF RFC 7141</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC7414/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC7414"><span>IETF RFC 7414</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9331/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9331"><span>IETF RFC 9331</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li></ul></div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0">References Of <i class="bi bi-arrow-down-right"></i></h2>
+              <div class="small text-muted">Docs that <a href="../../docs/RFC6077/">IETF RFC 6077</a> depend on</div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="down"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="down"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="down">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-downstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-down">Level 1 — direct references (docs this doc cites)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-down"><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>ISBN.1402075707</span></span><cite class="ms-1">Welzl03</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><a href="../RFC1323/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC1323"><span>IETF RFC 1323</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC1701/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC1701"><span>IETF RFC 1701</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC1958/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC1958"><span>IETF RFC 1958</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2003/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2003"><span>IETF RFC 2003</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2018/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2018"><span>IETF RFC 2018</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2208/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2208"><span>IETF RFC 2208</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2474/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2474"><span>IETF RFC 2474</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2475/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2475"><span>IETF RFC 2475</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2581/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2581"><span>IETF RFC 2581</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC2637/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2637"><span>IETF RFC 2637</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2661/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2661"><span>IETF RFC 2661</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2775/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2775"><span>IETF RFC 2775</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2784/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2784"><span>IETF RFC 2784</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2861/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2861"><span>IETF RFC 2861</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC2914/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2914"><span>IETF RFC 2914</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC2988/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2988"><span>IETF RFC 2988</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC2990/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC2990"><span>IETF RFC 2990</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC3031/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3031"><span>IETF RFC 3031</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC3032/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3032"><span>IETF RFC 3032</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC3168/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3168"><span>IETF RFC 3168</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC3260/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3260"><span>IETF RFC 3260</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC3517/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3517"><span>IETF RFC 3517</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC3540/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3540"><span>IETF RFC 3540</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC3662/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3662"><span>IETF RFC 3662</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC3714/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3714"><span>IETF RFC 3714</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC3742/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3742"><span>IETF RFC 3742</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC3985/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC3985"><span>IETF RFC 3985</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC4301/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4301"><span>IETF RFC 4301</span></a><span class="ms-1">[Active, Amended*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC4340/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4340"><span>IETF RFC 4340</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC4341/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4341"><span>IETF RFC 4341</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC4342/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4342"><span>IETF RFC 4342</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC4553/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4553"><span>IETF RFC 4553</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC4614/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4614"><span>IETF RFC 4614</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC4782/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4782"><span>IETF RFC 4782</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC4828/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4828"><span>IETF RFC 4828</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC4948/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4948"><span>IETF RFC 4948</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5033/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5033"><span>IETF RFC 5033</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC5086/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5086"><span>IETF RFC 5086</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5087/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5087"><span>IETF RFC 5087</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5129/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5129"><span>IETF RFC 5129</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5290/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5290"><span>IETF RFC 5290</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5348/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5348"><span>IETF RFC 5348</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5405/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5405"><span>IETF RFC 5405</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC5622/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5622"><span>IETF RFC 5622</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5681/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5681"><span>IETF RFC 5681</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5783/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5783"><span>IETF RFC 5783</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC6040/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC6040"><span>IETF RFC 6040</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC791/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC791"><span>IETF RFC 791</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC793/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC793"><span>IETF RFC 793</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><cite class="ms-1">Lochin, E., Dairaine, L., and G. Jourjon, &quot;Guaranteed TCP Friendly Rate Control (gTFRC) for DiffServ/AF Network&quot;, Work in Progress, August 2006.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;ECODE Project&quot;, European Commission Seventh Framework Program, Grant No. 223936, &amp;lt; http://www.ecode-project.eu &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Clark, D., &quot;The design philosophy of the DARPA internet protocols&quot;, ACM SIGCOMM Computer Communication Review, Vol. 18, No. 4, pp. 106-114, August 1988.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">MacKie-Mason, J. and H. Varian, &quot;Pricing Congestible Network Resources&quot;, IEEE Journal on Selected Areas in Communications, Advances in the Fundamentals of Networking, Vol. 13, No. 7, pp. 1141-1149, 1995.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Katabi, D., M. Handley, and C. Rohrs, &quot;Internet Congestion Control for Future High Bandwidth-Delay Product Environments&quot;, Proceedings of ACM SIGCOMM&#39;02 Symposium, August 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ha, S., Rhee, I., and L. Xu, &quot;CUBIC: A new TCP-friendly high-speed TCP variant&quot;, ACM SIGOPS Operating System Review, Vol. 42, No. 5, pp. 64-74, 2008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Low, S., &quot;A duality model of TCP and queue management algorithms&quot;, IEEE/ACM Transactions on Networking, Vol. 11, No. 4, pp. 525-536, August 2003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Firoiu, V. and M. Borden, &quot;A Study of Active Queue Management for Congestion Control&quot;, Proceedings of IEEE INFOCOM&#39;00, Tel Aviv, Israel, March 2000.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">IETF WG Action: Low Extra Delay Background Transport (ledbat).</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Zhang, H., Towsley, D., Hollot, C., and V. Misra, &quot;A Self-Tuning Structure for Adaptation in TCP/AQM Networks&quot;, Proceedings of ACM SIGMETRICS&#39;03 Conference, San Diego (California), USA, June 2003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Shalunov, S., Hazel, G., and J. Iyengar, &quot;Low Extra Delay Background Transport (LEDBAT)&quot;, Work in Progress, October 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Gibbens, R. and Kelly, F., &quot;On Packet Marking at Priority Queues&quot;, IEEE Transactions on Automatic Control, Vol. 47, No. 6, pp. 1016-1020, 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Thaler, D., Sridharan, M., and D. Bansal, &quot;Implementation Report on Experiences with Various TCP RFCs&quot;, Presentation to the IETF Transport Area, March 2007. &amp;lt; http://www.ietf.org/proceedings/07mar/ slides/tsvarea-3/ &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Katabi, D., &quot;XCP Performance in the Presence of Malicious Flows&quot;, Proceedings of PFLDnet&#39;04 Workshop, Argonne (Illinois), USA, February 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kelly, F., Maulloo, A., and D. Tan, &quot;Rate control in communication networks: shadow prices, proportional fairness, and stability&quot;, Journal of the Operational Research Society, Vol. 49, pp. 237-252, 1998.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Briscoe, B., Moncaster, T. and L. Burness, &quot;Problem Statement: Transport Protocols Don&#39;t Have To Do Fairness&quot;, Work in Progress, July 2008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kelly, F. and Th. Voice, &quot;Stability of end-to-end algorithms for joint routing and rate control&quot;, ACM SIGCOMM Computer Communication Review, Vol. 35, No. 2, pp. 5-12, April 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Briscoe, B. and J. Manner, &quot;Byte and Packet Congestion Notification,&quot; Work in Progress, October 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Savage, S., Cardwell, N., Wetherall, D., and T. Anderson, &quot;TCP Congestion Control with a Misbehaving Receiver&quot;, ACM SIGCOMM Computer Communication Review, 1999.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Noel, E. and C. Johnson, &quot;Initial Simulation Results That Analyze SIP Based VoIP Networks Under Overload&quot;, International Teletraffic Congress (ITC&#39;07), Ottawa, Canada, June 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Sarolahti, P., Floyd, S., and M. Kojo, &quot;Transport-layer Considerations for Explicit Cross-layer Indications&quot;, Work in Progress, March 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Bonald, T., May, M., and J.-C. Bolot, &quot;Analytic Evaluation of RED Performance&quot;, Proceedings of IEEE INFOCOM&#39;00, Tel Aviv, Israel, March 2000.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">IETF WG Action: Multipath TCP (mptcp).</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Key, P., Massoulie, L., Bain, A., and F. Kelly, &quot;Fair Internet Traffic Integration: Network Flow Models and Analysis&quot;, Annales des Telecommunications, Vol. 59, No. 11-12, pp. 1338-1352, November-December 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Falk, A., Pryadkin, Y., and D. Katabi, &quot;Specification for the Explicit Control Protocol (XCP)&quot;, Work in Progress, January 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Keshav, S., &quot;What is congestion and what is congestion control&quot;, Presentation at IRTF ICCRG Workshop, PFLDnet 2007, Los Angeles (California), USA, February 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Balan, R.K., Lee, B.P., Kumar, K.R.R., Jacob, L., Seah, W.K.G., and A.L. Ananda, &quot;TCP HACK: TCP Header Checksum Option to Improve Performance over Lossy Links&quot;, Proceedings of IEEE INFOCOM&#39;01, Anchorage (Alaska), USA, April 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Vinnicombe, G., &quot;On the stability of networks operating TCP-like congestion control,&quot; Proceedings of IFAC World Congress, Barcelona, Spain, 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;Trilogy Project&quot;, European Commission Seventh Framework Program (FP7), Grant No: 216372, &amp;lt; http://www.trilogy- project.org &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Briscoe, B., &quot;Flow Rate Fairness: Dismantling a Religion&quot;, ACM SIGCOMM Computer Communication Review, Vol. 37, No. 2, pp. 63-74, April 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Low, S., Paganini, F., Wang, J., and J. Doyle, &quot;Linear stability of TCP/RED and a scalable control&quot;, Computer Networks Journal, Vol. 43, No. 5, pp. 633-647, December 2003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Dukkipati, N. and N. McKeown, &quot;Why Flow-Completion Time is the Right Metric for Congestion Control&quot;, ACM SIGCOMM Computer Communication Review, Vol. 36, No. 1, January 2006.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Athuraliya, S., Low, S., Li, V., and Q. Yin, &quot;REM: Active Queue Management&quot;, IEEE Network Magazine, Vol. 15, No. 3, pp. 48-53, May 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Chu, J., Dukkipati, N., Cheng, Y., and M. Mathis, &quot;Increasing TCP&#39;s Initial Window&quot;, Work in Progress, October 2010.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Hollot, C., Misra, V., Towsley, D., and W.-B. Gong, &quot;A Control Theoretic Analysis of RED&quot;, Proceedings of IEEE INFOCOM&#39;01, Anchorage (Alaska), USA, April 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jin, Ch., Wei, D.X., and S. Low, &quot;FAST TCP: Motivation, Architecture, Algorithms, Performance&quot;, Proceedings of IEEE INFOCOM&#39;04, Hong-Kong, China, March 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Chhabra, P., Chuig, S., Goel, A., John, A., Kumar, A., Saran, H., and R. Shorey, &quot;XCHOKe: Malicious Source Control for Congestion Avoidance at Internet Gateways,&quot; Proceedings of IEEE International Conference on Network Protocols (ICNP&#39;02), Paris, France, November 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Briscoe, B., &quot;Using Self-interest to Prevent Malice; Fixing the Denial of Service Flaw of the Internet&quot;, Workshop on the Economics of Securing the Information Infrastructure, October 2006, &amp;lt; http://wesii.econinfosec.org/draft.php?paper_id=19 &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jain, R. and K. Ramakrishnan, &quot;Congestion Avoidance in Computer Networks with a Connectionless Network Layer: Concepts, Goals, and Methodology&quot;, Proceedings of IEEE Computer Networking Symposium, Washington DC, USA, April 1988.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Mascolo, S., Casetti, Cl., Gerla M., Sanadidi, M.Y., and R. Wang, &quot;TCP Westwood: Bandwidth estimation for enhanced transport over wireless links&quot;, Proceedings of MOBICOM 2001, Rome, Italy, July 2001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Rossi, M., &quot;Evaluating TCP with Corruption Notification in an IEEE 802.11 Wireless LAN&quot;, Master Thesis, University of Innsbruck, November 2006. Available from http://heim.ifi.uio.no/michawe/research/projects/ corruption/ .</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Feldman, M., Papadimitriou, C., Chuang, J., and I. Stoica, &quot;Free-Riding and Whitewashing in Peer-to-Peer Systems&quot; Proceedings of ACM SIGCOMM Workshop on Practice and Theory of Incentives in Networked Systems (PINS&#39;04) 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">IETF WG Action: Congestion Exposure (conex).</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Kuzmanovic, A. and E.W. Knightly, &quot;TCP-LP: A Distributed Algorithm for Low Priority Data Transfer&quot;, Proceedings of IEEE INFOCOM&#39;03, San Francisco (California), USA, April 2003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Andrew, L., Wydrowski, B., and S. Low, &quot;An Example of Instability in XCP&quot;, Manuscript available at &amp;lt; http://netlab.caltech.edu/maxnet/XCP_instability.pdf &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Dukkipati, N., Kobayashi, M., Zhang-Shen, R., and N. McKeown, &quot;Processor Sharing Flows in the Internet&quot;, Proceedings of International Workshop on Quality of Service (IWQoS&#39;05), Passau, Germany, June 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Lochin, E., Jourjon, G., and L. Dairaine, &quot;Study and enhancement of DCCP over DiffServ Assured Forwarding class&quot;, 4th Conference on Universal Multiservice Networks (ECUMN 2007), Toulouse, France, February 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Clark, D. and W. Fang, &quot;Explicit Allocation of Best- Effort Packet Delivery Service&quot;, IEEE/ACM Transactions on Networking, Vol. 6, No. 4, pp. 362-373, August 1998.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Welzl, M., Rossi, M., Fumagalli, A., and M. Tacca, &quot;TCP/IP over IEEE 802.11b WLAN: the Challenge of Harnessing Known-Corrupt Data&quot;, Proceedings of IEEE International Conference on Communications (ICC) 2008, Beijing, China, May 2008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Pan, R., Prabhakar, B., and K. Psounis, &quot;CHOKe: a stateless AQM scheme for approximating fair bandwidth allocation&quot;, Proceedings of IEEE INFOCOM&#39;00, Tel Aviv, Israel, March 2000.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Floyd, S. and V. Jacobson, &quot;Random early detection gateways for congestion avoidance&quot;, IEEE/ACM Transactions on Networking, Vol. 1, No. 4, pp. 397-413, August 1993.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Floyd, S., &quot;TCP and Explicit Congestion Notification&quot;, ACM Computer Communication Review, Vol. 24, No. 5, pp. 10-23, October 1994.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Chesterfield, J., Chakravorty, R., Banerjee, S., Rodriguez, P., Pratt, I., and J. Crowcroft, &quot;Transport level optimisations for streaming media over wide-area wireless networks&quot;, WIOPT&#39;04, March 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Chiu, D.M. and R. Jain, &quot;Analysis of the increase and decrease algorithms for congestion avoidance in computer networks&quot;, Computer Networks and ISDN Systems, Vol. 17, pp. 1-14, 1989.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jacobson, V., &quot;Congestion Avoidance and Control&quot;, Proceedings of ACM SIGCOMM&#39;88 Symposium, August 1988.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Allman, M. and V. Paxson, &quot;On Estimating End-to-End Network Path Properties&quot;, Proceedings of ACM SIGCOMM&#39;99, September 1999.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Padhye, J., Firoiu, V., Towsley, D., and J. Kurose, &quot;Modeling TCP Throughput: A Simple Model and Its Empirical Validation&quot;, University of Massachusetts (UMass), CMPSCI Tech. Report TR98-008, February 1998.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Xia, Y., Subramanian, L., Stoica, I., and S. Kalyanaraman, &quot;One more bit is enough&quot;, ACM SIGCOMM Computer Communication Review, Vol. 35, No. 4, pp. 37-48, 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Sarolahti, P. and A. Kuznetsov, &quot;Congestion Control in Linux TCP&quot;, Proceedings of the USENIX Annual Technical Conference, 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Saltzer, J., Reed, D., and D. Clark, &quot;End-to-end arguments in system design&quot;, ACM Transactions on Computer Systems, Vol. 2, No. 4, November 1984.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Papadimitriou, I. and G. Mavromatis, &quot;Stability of Congestion Control Algorithms using Control Theory with an application to XCP&quot;, Technical Report, 2002. &amp;lt; http://www.stanford.edu/class/ee384y/projects/ reports/ionnis.pdf &amp;gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Low, S., Paganini, F., Wang, J., Adlakha, S., and J.C. Doyle, &quot;Dynamics of TCP/RED and a Scalable Control&quot;, Proceedings of IEEE INFOCOM&#39;02, New York (New Jersey), 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jain, R., &quot;Congestion Control in Computer Networks: Trends and Issues&quot;, IEEE Network, pp. 24-30, May 1990.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Moors, T., &quot;A critical review of &quot;End-to-end arguments in system design&quot;&quot;, Proceedings of IEEE International Conference on Communications (ICC) 2002, New York City (New Jersey), USA, April/May 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Low, S., Andrew, L., and B. Wydrowski, &quot;Understanding XCP: equilibrium and fairness&quot;, Proceedings of IEEE INFOCOM&#39;05, Miami (Florida), USA, March 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Hilt, V. and I. Widjaja, &quot;Controlling Overload in Networks of SIP Servers&quot;, Proceedings of IEEE International Conference on Network Protocols (ICNP&#39;08), Orlando (Florida), USA, October 2008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Arkko, J., Briscoe, B., Eggert, L., Feldmann, A., and M. Handley, &quot;Dagstuhl Perspectives Workshop on End-to-End Protocols for the Future Internet,&quot; ACM SIGCOMM Computer Communication Review, Vol. 39, No. 2, pp. 42-47, April 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Shen, C., Schulzrinne, H., and E. Nahum, &quot;Session Initiation Protocol (SIP) Server Overload Control: Design and Evaluation, Principles&quot;, Systems and Applications of IP Telecommunications (IPTComm&#39;08), Heidelberg, Germany, July 2008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Tickoo, O., Subramanian, V., Kalyanaraman, S., and K.K. Ramakrishnan, &quot;LT-TCP: End-to-End Framework to Improve TCP Performance over Networks with Lossy Channels&quot;, Proceedings of International Workshop on QoS (IWQoS), Passau, Germany, June 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jourjon, G., Lochin, E., and P. Senac, &quot;Design, Implementation and Evaluation of a QoS-aware Transport Protocol&quot;, Elsevier Computer Communications, Vol. 31, No. 9, pp. 1713-1722, June 2008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Shin, M., Chong, S., and I. Rhee, &quot;Dual-Resource TCP/AQM for Processing-Constrained Networks&quot;, IEEE/ACM Transactions on Networking, Vol. 16, No. 2, pp. 435-449, April 2008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Briscoe, B., &quot;Re-feedback: Freedom with Accountability for Causing Congestion in a Connectionless Internetwork&quot;, UCL PhD Thesis (2009).</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Krishnan, R., Sterbenz, J., Eddy, W., Partridge, C., and M. Allman, &quot;Explicit Transport Error Notification (ETEN) for Error-Prone Wireless and Satellite Networks&quot;, Computer Networks, Vol. 46, No. 3, October 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li></ul></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script>
+      window.assetPrefix = "../../";
+      window.MSR_REF_ROOT = "RFC6077";
+    </script>
+    <script src="../../js/refTreeRender.js"></script>
+    <script src="../../js/refTree.js"></script>
+
+    <!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

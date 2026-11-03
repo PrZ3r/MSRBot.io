@@ -1,0 +1,258 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T20:43:35.152Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6316",
+  "document": {
+    "abstract": "This document specifies sockets API extensions for the multihoming shim layer. The API aims to enable interactions between applications and the multihoming shim layer for advanced locator management, and access to information about failure detection and path exploration. This document is based on an assumption that a multihomed host is equipped with a conceptual sub-layer (hereafter called \"shim sub- layer\") inside the IP layer that maintains mappings between identifiers and locators. Examples of the shim are Shim6 and the Host Identity Protocol (HIP). This document is not an Internet Standards Track specification; it is published for informational purposes.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "authors": [
+      {
+        "name": "Miika Komu"
+      },
+      {
+        "name": "Marcelo Bagnulo"
+      },
+      {
+        "name": "Kristian Slavov"
+      },
+      {
+        "name": "Shinta Sugimoto"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docId": "RFC6316",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.151Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docLabel": "IETF RFC 6316",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.151Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docNumber": "6316",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.151Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docTitle": "Sockets Application Program Interface (API) for Multihoming Shim",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.151Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "doi": "10.17487/RFC6316",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "href": "https://doi.org/10.17487/RFC6316",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "keywords": [
+      "Shim6",
+      "HIP",
+      "identifier/locator Split"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "pages": "44",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publicationDate": "2011-07-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2765",
+        "RFC2782",
+        "RFC4291",
+        "RFC5535",
+        "RFC5770",
+        "RFC6145",
+        "RFC6317",
+        "orphan/RFC6316/h:81b5e430"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=14 proseBlocks=19 skippedAnchorBlocks=16",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+        "updated": "2026-10-16T20:43:35.152Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "normative": [
+        "IEEE.STD1003.1.2008",
+        "RFC2119",
+        "RFC3542",
+        "RFC4423",
+        "RFC5533",
+        "RFC5534"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+        "updated": "2026-10-16T20:43:35.152Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6316/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+      "updated": "2026-10-16T20:43:35.152Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+        "updated": "2026-10-16T20:43:35.152Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+        "updated": "2026-10-16T20:43:35.152Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+        "updated": "2026-10-16T20:43:35.152Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+        "updated": "2026-10-16T20:43:35.152Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6316/",
+        "updated": "2026-10-16T20:43:35.152Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    }
+  }
+}

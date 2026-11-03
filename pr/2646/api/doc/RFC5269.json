@@ -1,0 +1,247 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T19:28:43.467Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC5269",
+  "document": {
+    "abstract": "Fast Mobile IPv6 requires that a Fast Binding Update is secured using a security association shared between an Access Router and a Mobile Node in order to avoid certain attacks. In this document, a method for provisioning a shared key from the Access Router to the Mobile Node is defined to protect this signaling. The Mobile Node generates a public/private key pair using the same public key algorithm as for SEND (RFC 3971). The Mobile Node sends the public key to the Access Router. The Access Router encrypts a shared handover key using the public key and sends it back to the Mobile Node. The Mobile Node decrypts the shared handover key using the matching private key, and the handover key is then available for generating an authenticator on a Fast Binding Update. The Mobile Node and Access Router use the Router Solicitation for Proxy Advertisement and Proxy Router Advertisement from Fast Mobile IPv6 for the key exchange. The key exchange messages are required to have SEND security; that is, the source address is a Cryptographically Generated Address (CGA) and the messages are signed using the CGA private key of the sending node. This allows the Access Router, prior to providing the shared handover key, to verify the authorization of the Mobile Node to claim the address so that the previous care-of CGA in the Fast Binding Update can act as the name of the key. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "authors": [
+      {
+        "name": "James Kempf"
+      },
+      {
+        "name": "Rajeev Koodli"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docId": "RFC5269",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docLabel": "IETF RFC 5269",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docNumber": "5269",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docTitle": "Distributing a Symmetric Fast Mobile IPv6 (FMIPv6) Handover Key Using SEcure Neighbor Discovery (SEND)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "doi": "10.17487/RFC5269",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "href": "https://doi.org/10.17487/RFC5269",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "keywords": [
+      "FMIPv6"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Fast Binding Update"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T19:28:43.467Z",
+      "version": "extractDocs.js@commit:75b379398159"
+    },
+    "pages": "14",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publicationDate": "2008-06-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC3756",
+        "orphan/RFC5269/h:8c5be626"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=8 proseBlocks=11 skippedAnchorBlocks=9",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+        "updated": "2026-10-16T18:54:07.488Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "normative": [
+        "RFC5268",
+        "RFC3971",
+        "RFC3972",
+        "RFC2119",
+        "RFC4861",
+        "RFC3447"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+        "updated": "2026-10-16T18:54:07.488Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc5269/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+      "updated": "2026-10-16T18:54:07.488Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+        "updated": "2026-10-16T18:54:07.488Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+        "updated": "2026-10-16T18:54:07.488Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+        "updated": "2026-10-16T18:54:07.488Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+        "updated": "2026-10-16T18:54:07.488Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5269/",
+        "updated": "2026-10-16T18:54:07.488Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    }
+  }
+}
