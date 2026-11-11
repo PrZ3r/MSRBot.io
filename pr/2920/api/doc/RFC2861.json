@@ -1,0 +1,265 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-12T21:11:39.721Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC2861",
+  "document": {
+    "abstract": "This document describes a simple modification to TCP's congestion control algorithms to decay the congestion window cwnd after the transition from a sufficiently-long application-limited period, while using the slow-start threshold ssthresh to save information about the previous value of the congestion window. This memo defines an Experimental Protocol for the Internet community.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "authors": [
+      {
+        "name": "Mark J. Handley"
+      },
+      {
+        "name": "Jitendra Padhye"
+      },
+      {
+        "name": "Sally Floyd"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "docId": "RFC2861",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "docLabel": "IETF RFC 2861",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "docNumber": "2861",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "docTitle": "TCP Congestion Window Validation",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "docType": "Specification",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "doi": "10.17487/RFC2861",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "href": "https://doi.org/10.17487/RFC2861",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "keywords": [
+      "TCP"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "pages": "11",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "publicationDate": "2000-06-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2581",
+        "orphan/RFC2861/h:4b71fa9e",
+        "orphan/RFC2861/h:02562cd5",
+        "orphan/RFC2861/h:4da6e7c1",
+        "orphan/RFC2861/h:9b19c2f0",
+        "orphan/RFC2861/h:30661810",
+        "orphan/RFC2861/h:9182202f",
+        "orphan/RFC2861/h:35070203",
+        "orphan/RFC2861/h:2177f854",
+        "orphan/RFC2861/h:e0d1420c",
+        "orphan/RFC2861/h:517e64ab"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=11 proseBlocks=13 skippedAnchorBlocks=12",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+        "updated": "2026-10-12T21:11:39.721Z",
+        "version": "extractDocs.js@commit:291bb05ea30a"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc2861/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+      "updated": "2026-10-12T21:11:39.721Z",
+      "version": "extractDocs.js@commit:291bb05ea30a"
+    },
+    "status": {
+      "active": false,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+        "updated": "2026-10-12T21:11:39.721Z",
+        "version": "extractDocs.js@commit:291bb05ea30a"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+        "updated": "2026-10-12T21:11:39.721Z",
+        "version": "extractDocs.js@commit:291bb05ea30a"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc2861",
+        "https://www.rfc-editor.org/errata_search.php?rfc=2861",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc2861.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+        "updated": "2026-10-12T21:11:39.721Z",
+        "version": "extractDocs.js@commit:291bb05ea30a"
+      },
+      "latestVersion": false,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+        "updated": "2026-10-12T21:11:39.721Z",
+        "version": "extractDocs.js@commit:291bb05ea30a"
+      },
+      "statusNote": "Historic",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+        "updated": "2026-10-12T21:11:39.721Z",
+        "version": "extractDocs.js@commit:291bb05ea30a"
+      },
+      "superseded": true,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+        "updated": "2026-10-12T21:11:39.721Z",
+        "version": "extractDocs.js@commit:291bb05ea30a"
+      },
+      "supersededBy": [
+        "RFC7661"
+      ],
+      "supersededBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2861/",
+        "updated": "2026-10-12T21:11:39.721Z",
+        "version": "extractDocs.js@commit:291bb05ea30a"
+      }
+    }
+  }
+}

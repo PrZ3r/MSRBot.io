@@ -1,0 +1,240 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-22T01:45:42.871Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC8333",
+  "document": {
+    "abstract": "This document describes a mechanism for link-state routing protocols that prevents local transient forwarding loops in case of link failure. This mechanism proposes a two-step convergence by introducing a delay between the convergence of the node adjacent to the topology change and the network-wide convergence. Because this mechanism delays the IGP convergence, it may only be used for planned maintenance or when Fast Reroute (FRR) protects the traffic during the time between the link failure and the IGP convergence. The mechanism is limited to the link-down event in order to keep the mechanism simple. Simulations using real network topologies have been performed and show that local loops are a significant portion (>50%) of the total forwarding loops.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.871Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "authors": [
+      {
+        "name": "Stephane Litkowski"
+      },
+      {
+        "name": "Bruno Decraene"
+      },
+      {
+        "name": "Clarence Filsfils"
+      },
+      {
+        "name": "Pierre Francois"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.871Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docId": "RFC8333",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.870Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docLabel": "IETF RFC 8333",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.870Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docNumber": "8333",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.870Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docTitle": "Micro-loop Prevention by Introducing a Local Convergence Delay",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.870Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.870Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "doi": "10.17487/RFC8333",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.871Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "href": "https://doi.org/10.17487/RFC8333",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.871Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "pages": "26",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.871Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "publicationDate": "2018-03-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.871Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.871Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "references": {
+      "bibliographic": [
+        "IETF.draft-ietf-rtgwg-backoff-algo-10",
+        "IETF.draft-ietf-rtgwg-microloop-analysis-01",
+        "RFC3906",
+        "RFC5715",
+        "RFC6976",
+        "RFC7916"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=10 proseBlocks=16 skippedAnchorBlocks=11",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+        "updated": "2026-10-22T01:45:42.871Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "normative": [
+        "ISO.10589.2002",
+        "RFC2119",
+        "RFC2328",
+        "RFC8174"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+        "updated": "2026-10-22T01:45:42.871Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8333/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+      "updated": "2026-10-22T01:45:42.871Z",
+      "version": "extractDocs.js@commit:acc1bcda23fc"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+        "updated": "2026-10-22T01:45:42.871Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+        "updated": "2026-10-22T01:45:42.871Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+        "updated": "2026-10-22T01:45:42.871Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+        "updated": "2026-10-22T01:45:42.871Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8333/",
+        "updated": "2026-10-22T01:45:42.871Z",
+        "version": "extractDocs.js@commit:acc1bcda23fc"
+      }
+    }
+  }
+}

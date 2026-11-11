@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="Research into Human Rights Protocol Considerations">
+  <link rel="canonical" href="https://msrbot.io/docs/RFC8280/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="IETF RFC 8280 — MSRBot.io">
+  <meta property="og:description" content="">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/docs/RFC8280/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+
+  <link rel="alternate" type="application/json" href="../../api/doc/RFC8280.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
+  <title>MSRBot.io | IETF RFC 8280</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
+  <script src="../../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "IETF RFC 8280 - MSRBot.io",
+    "url": "https://msrbot.io/docs/RFC8280/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../../"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+            api/by-publisher.json
+          </a>
+          &mdash; full-record slices per publisher and doc type
+        </li>
+        <li>
+          <a href="../../api/groups.json" target="_blank" rel="noopener">
+            api/groups.json
+          </a>
+          &mdash; groups registry
+        </li>
+        <li>
+          <a href="../../api/projects.json" target="_blank" rel="noopener">
+            api/projects.json
+          </a>
+          &mdash; projects registry
+        </li>
+        <li>
+          <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+            api/by-doc.json
+          </a>
+          &mdash; docId &rarr; owning groups and projects
+        </li>
+        <li>
+          <a href="../../api/publishers.json" target="_blank" rel="noopener">
+            api/publishers.json
+          </a>
+          &mdash; publishers, logos, doc counts
+        </li>
+        <li>
+          <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+            api/vocabulary.json
+          </a>
+          &mdash; keywords, doc types, content types
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
+          <a href="https://www.ietf.org/" target="_blank" rel="noopener"><img src="../../resources/logos/ietf.svg" alt="IETF logo" height="25" class="align-text-bottom me-1 publisher-logo" loading="lazy" data-logo-light="../../resources/logos/ietf.svg" data-logo-dark="../../resources/logos/ietf-white.svg"></a>
+        <code class="docid-doclabel me-1 fs-6 text-wrap">IETF RFC 8280</code>
+      </div>
+      <div class="status-badges ms-auto d-inline-flex flex-wrap gap-1">
+
+        
+        
+        
+        
+        
+            <span class="label badge text-bg-success">[ACTIVE]</span>
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <h1 class="h5 mb-1">
+        <a class="text-decoration-none" href="https://doi.org/10.17487/RFC8280" target="_blank" rel="noopener">Research into Human Rights Protocol Considerations</a>
+    </h1>
+    
+  </header>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h2 class="h5 card-title">Metadata</h2>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=IETF">IETF</a></dd>
+            <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Informational">Informational</a></dd>
+            
+            
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">81</dd>
+            
+            
+            
+            <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This document aims to propose guidelines for human rights considerations, similar to the work done on the guidelines for privacy considerations (RFC 6973). The other parts of this document explain the background of the guidelines and how they were developed. This document is the first milestone in a longer-term research effort. It has been reviewed by the Human Rights Protocol Considerations (HRPC) Research Group and also by individuals from outside the research group.</dd>
+            
+            
+            <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">2017-10-01</dd>
+            
+            
+            
+            
+            
+            
+            <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Informational</em></dd>
+            <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC8280" target="_blank" rel="noopener"><code>10.17487/RFC8280</code></a></dd>
+            
+            
+            <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC8280" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.17487/RFC8280</a></dd>
+            
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-2"><div class="d-flex justify-content-between align-items-center gap-2"><span>Niels ten Oever</span></div></div><div class="mb-2 pt-2 border-top"><div class="d-flex justify-content-between align-items-center gap-2"><span>Corinne Cath (Article 19)</span></div></div></dd>
+            
+
+            <dt class="col-sm-4">Keyword(s)</dt><dd class="col-sm-8"><a class="" href="../?f.keywords=Human Rights">Human Rights</a>, <a class="" href="../?f.keywords=IETF">IETF</a></dd>
+            
+            
+            
+            
+          </dl>
+        </div>
+      </div>
+      
+
+      
+    <div class="p-2 text-muted text-center">
+      <span class="fst-italic">
+        <i class="bi bi-check2-circle text-success"></i> Latest version of IETF RFC 8280
+      </span>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-body">
+        <h2 class="h6 mb-2">Document Versions — IETF RFC 8280</h2>
+        <ul class="list-group list-group-flush small">
+          <li class="list-group-item d-flex align-items-start justify-content-between doc-suite-row badge-node-current">
+            <div class="me-1 text-wrap">
+              <strong>▶</strong>
+              <a class="" href="../RFC8280/">IETF RFC 8280</a>
+               <span class="text-muted">(2017-10-01)</span>
+            </div>
+            <div class="badges-dsuite ms-auto">
+                 <span class="badge badge-dsuite text-bg-info">THIS DOC</span>
+              
+              
+              
+              
+              
+                    <span class="badge badge-dsuite text-bg-success">[ACTIVE]</span>
+              
+              
+              
+              
+                     <span class="badge badge-dsuite bg-info-subtle text-info-emphasis">[LATEST VERSION]</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col col-lg-6">
+              <h2 class="h6">Bibliographic Reference(s)</h2>
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item">
+                    <cite><a href="http://www.icsi.berkeley.edu/pubs/networking/NATusage11.pdf" rel="noopener">10.1007-978-3-642-19260-9_4 — NATusage</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://academic.oup.com/ijlit/article/24/4/374/2566975/Engineering-and-lawyering-privacy-by-design" rel="noopener">10.1093-ijlit-eaw012 — Rachovitsa</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://ieeexplore.ieee.org/document/7314859/?arnumber=7314859" rel="noopener">10.1109-COMST.2015.2496624 — Alshalan-etal</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://is.gd/7GAnFy" rel="noopener">10.1109-MAHC.2015.29 — DeNardis15</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>10.1109-SP.2014.14 — TRIPLE-HS</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dl.acm.org/citation.cfm?id=1074049" rel="noopener">10.1109-TNET.2005.850224 — Clark-etal</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.caida.org/publications/papers/2014/outages_censorship/outages_censorship.pdf" rel="noopener">10.1109-TNET.2013.2291244 — CAIDA</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>10.1145-52324.52336 — Clark</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>10.1145-357401.357402 — Saltzer</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://conferences.sigcomm.org/co-next/2010/Workshops/REARCH/ReArch_papers/10-Brown.pdf" rel="noopener">10.1145-1921233.1921246 — Brown-etal</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dl.acm.org/citation.cfm?id=2626306" rel="noopener">10.1145-2740070.2626306 — APIP</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dl.acm.org/citation.cfm?id=2813628" rel="noopener">10.1145-2810103.2813628 — HORNET</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://weakdh.org/imperfect-forward-secrecy-ccs15.pdf" rel="noopener">10.1145-2810103.2813707 — LOGJAM</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.sigcomm.org/sites/default/files/ccr/papers/2016/April/0000000-0000003.pdf" rel="noopener">10.1145-2935634.2935640 — Bless1</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.eecs.qmul.ac.uk/~hamed/papers/PETS2015VPN.pdf" rel="noopener">10.1515-popets-2015-0006 — PETS2015VPN</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>10.4337-9781849805049 — Brown</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://mitpress.mit.edu/books/networks-and-states" rel="noopener">10.7551-mitpress-9780262014595.001.0001 — Mueller</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.westminsterpapers.org/articles/10.16997/wpcc.214/" rel="noopener">10.16997-wpcc.214 — Musiani</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://github.com/npdoty/rfc-analysis" rel="noopener">GITHUB.npdoty.rfc-analysis — Doty</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>IETF.draft-hall-censorship-tech-04 — Hall</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>IETF.draft-pouwelse-censorfree-scenarios-02 — Pouwelse</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>ISO.TR11017.1998 — FRAMEWORK</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.ohchr.org/EN/ProfessionalInterest/Pages/CCPR.aspx" rel="noopener">United Nations General Assembly, &quot;International Covenant on Civil and Political Rights&quot;, 1966, &amp;lt; http://www.ohchr.org/EN/ProfessionalInterest/Pages/ CCPR.aspx &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://moxie.org/software/sslstrip/" rel="noopener">Marlinspike, M., &quot;Software &amp;gt;&amp;gt; sslstrip&quot;, 2011, &amp;lt; https://moxie.org/software/sslstrip/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://raw.githubusercontent.com/stpeter/manifesto/master/manifesto.txt" rel="noopener">Saint-Andre, P. and XMPP Operators, &quot;A Public Statement Regarding Ubiquitous Encryption on the XMPP Network&quot;, March 2014, &amp;lt; https://raw.githubusercontent.com/ stpeter/manifesto/master/manifesto.txt &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.un.org/en/universal-declaration-human-rights/index.html" rel="noopener">United Nations General Assembly, &quot;The Universal Declaration of Human Rights&quot;, 1948, &amp;lt; http://www.un.org/en/ universal-declaration-human-rights/index.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.w3.org/Consortium/Patent-Policy-20040205/" rel="noopener">Weitzner, D., Ed., &quot;W3C Patent Policy&quot;, World Wide Web Consortium, February 2004, &amp;lt; https://www.w3.org/Consortium/Patent-Policy-20040205/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://arstechnica.com/uncategorized/2007/10/p2p-researchers-use-a-blocklist-or-you-will-be-tracked-100-of-the-time/" rel="noopener">Anderson, N., &quot;P2P researchers: use a blocklist or you will be tracked... 100% of the time&quot;, October 2007, &amp;lt; http://arstechnica.com/uncategorized/2007/10/ p2p-researchers-use-a-blocklist-or-you-will-be-tracked- 100-of-the-time/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.jstor.org/stable/j.ctt5vkz4n" rel="noopener">DeNardis, L., &quot;The Global War for Internet Governance&quot;, Yale University Press, 2014, &amp;lt; https://www.jstor.org/stable/j.ctt5vkz4n &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.ietf.org/about/note-well.html" rel="noopener">IETF, &quot;Note Well&quot;, 2015, &amp;lt; https://www.ietf.org/about/note-well.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.spiegel.de/international/germany/inside-the-nsa-s-war-on-internet-security-a-1010361.html" rel="noopener">SPIEGEL, &quot;Prying Eyes - Inside the NSA's War on Internet Security&quot;, December 2014, &amp;lt; http://www.spiegel.de/international/germany/ inside-the-nsa-s-war-on-internet-security-a-1010361.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.theguardian.com/world/2013/jul/31/nsa-top-secret-program-online-data" rel="noopener">Greenwald, G., &quot;XKeyscore: NSA tool collects 'nearly everything a user does on the internet'&quot;, July 2013, &amp;lt; https://www.theguardian.com/world/2013/jul/31/ nsa-top-secret-program-online-data &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.tribler.org/about.html" rel="noopener">Delft University of Technology, Department EWI/PDS/ Tribler, &quot;About Tribler&quot;, 2013, &amp;lt; https://www.tribler.org/about.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://technet.microsoft.com/library/cc723706.aspx" rel="noopener">Farrow, R., &quot;Source Address Spoofing&quot;, 2016, &amp;lt; https://technet.microsoft.com/library/cc723706.aspx &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://citizenlab.org/2014/08/cat-video-and-the-death-of-clear-text/" rel="noopener">Marquis-Boire, M., &quot;Schrodinger's Cat Video and the Death of Clear-Text&quot;, August 2014, &amp;lt; https://citizenlab.org/ 2014/08/cat-video-and-the-death-of-clear-text/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://bitmessage.org/wiki/Main_Page" rel="noopener">Bitmessage, &quot;Bitmessage Wiki&quot;, March 2017, &amp;lt; https://bitmessage.org/wiki/Main_Page &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://rm.coe.int/CoERMPublicCommonSearchServices/DisplayDCTMContent?documentId=09000016806b5a14" rel="noopener">Council of Europe, &quot;Applications to ICANN for Community- based New Generic Top Level Domains (gTLDs): Opportunities and challenges from a human rights perspective&quot;, 2016, &amp;lt; https://rm.coe.int/CoERMPublicCommonSearchServices/ DisplayDCTMContent?documentId=09000016806b5a14 &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://ap.ohchr.org/documents/alldocs.aspx?doc_id=20340" rel="noopener">United Nations Human Rights Council, &quot;The promotion, protection and enjoyment of human rights on the Internet&quot;, Resolution A/HRC/32/L.20, 2016, &amp;lt; http://ap.ohchr.org/documents/alldocs.aspx?doc_id=20340 &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://news.bbc.co.uk/2/hi/technology/7250916.stm" rel="noopener">BBC, &quot;Whistle-blower site taken offline&quot;, February 2008, &amp;lt; http://news.bbc.co.uk/2/hi/technology/7250916.stm &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.amazon.com/SAGE-Handbook-Qualitative-Research-Handbooks/dp/1412974178" rel="noopener">Denzin, N., Ed., and Y. Lincoln, Ed., &quot;The SAGE Handbook of Qualitative Research&quot;, SAGE Handbooks, Thousand Oaks, CA, 2011, &amp;lt; http://www.amazon.com/ SAGE-Handbook-Qualitative-Research-Handbooks/ dp/1412974178 &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://english.wrr.nl/publications/reports/2015/10/01/the-public-core-of-the-internet" rel="noopener">Broeders, D., &quot;The public core of the Internet. An international agenda for Internet governance&quot;, The Netherlands Scientific Council for Government Policy (WRR) Report No. 94 (under &quot;Reports to the government&quot;), 2015, &amp;lt; https://english.wrr.nl/publications/reports/2015/10/01/ the-public-core-of-the-internet &amp;gt;</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Babbie, E., &quot;The Basics of Social Research&quot;, Cengage, Belmont, CA, 2017.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.usenix.org/system/files/conference/foci14/foci14-anonymous.pdf" rel="noopener">Anonymous, &quot;Towards a Comprehensive Picture of the Great Firewall's DNS Censorship&quot;, 4th USENIX Workshop on Free and Open Communications on the Internet (FOCI) '14, August 2014, &amp;lt; https://www.usenix.org/system/files/ conference/foci14/foci14-anonymous.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://mitpress.mit.edu/books/regulating-code" rel="noopener">Brown, I. and C. Marsden, &quot;Regulating Code: Good Governance and Better Regulation in the Information Age&quot;, MIT Press, 2013, &amp;lt; https://mitpress.mit.edu/books/regulating-code &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://wikileaks.org/sony/docs/05/docs/Anti-Piracy/CDSA/EANTC-Survey-1.5-unsecured.pdf" rel="noopener">Sladek, T. and E. Broese, &quot;Market Survey: Detection &amp;amp; Filtering Solutions to Identify File Transfer of Copyright Protected Content for Warner Bros. and movielabs&quot;, 2011, &amp;lt; https://wikileaks.org/sony/docs/05/docs/Anti-Piracy/CDSA/ EANTC-Survey-1.5-unsecured.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2769645" rel="noopener">Penney, J., &quot;Chilling Effects: Online Surveillance and Wikipedia Use&quot;, 2016, &amp;lt; http://papers.ssrn.com/sol3/ papers.cfm?abstract_id=2769645 &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://citizenlab.org/2015/04/chinas-great-cannon/" rel="noopener">Marcak, B., Weaver, N., Dalek, J., Ensafi, R., Fifield, D., McKune, S., Rey, A., Scott-Railton, J., Deibert, R., and V. Paxson, &quot;China's Great Cannon&quot;, April 2015, &amp;lt; https://citizenlab.org/2015/04/chinas-great-cannon/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://documents-dds-ny.un.org/doc/UNDOC/LTD/N13/576/77/PDF/N1357677.pdf?OpenElement" rel="noopener">United Nations General Assembly, &quot;UN General Assembly Resolution &quot;The right to privacy in the digital age&quot; (A/C.3/68/L.45)&quot;, 2013, &amp;lt; https://documents-dds-ny.un.org/doc/UNDOC/LTD/N13/ 576/77/PDF/N1357677.pdf?OpenElement &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://blog.fox-it.com/2015/04/20/deep-dive-into-quantum-insert/" rel="noopener">Haagsma, L., &quot;Deep dive into QUANTUM INSERT&quot;, April 2015, &amp;lt; http://blog.fox-it.com/2015/04/20/ deep-dive-into-quantum-insert/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.freedomonlinecoalition.com/wp-content/uploads/2014/04/FOC-recommendations-consensus.pdf" rel="noopener">Ministers of the Freedom Online Coalition, &quot;The Tallinn Agenda - Recommendations for Freedom Online&quot;, 2014, &amp;lt; https://www.freedomonlinecoalition.com/wp-content/ uploads/2014/04/FOC-recommendations-consensus.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://netmundial.br/wp-content/uploads/2014/04/NETmundial-Multistakeholder-Document.pdf" rel="noopener">NETmundial, &quot;NETmundial Multistakeholder Statement&quot;, April 2014, &amp;lt; http://netmundial.br/wp-content/ uploads/2014/04/NETmundial-Multistakeholder-Document.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.ohchr.org/EN/ProfessionalInterest/Pages/CESCR.aspx" rel="noopener">United Nations General Assembly, &quot;International Covenant on Economic, Social and Cultural Rights&quot;, 1966, &amp;lt; http://www.ohchr.org/EN/ProfessionalInterest/Pages/ CESCR.aspx &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://gmailblog.blogspot.de/2010/01/default-https-access-for-gmail.html" rel="noopener">Schillace, S., &quot;Default https access for Gmail&quot;, January 2010, &amp;lt; http://gmailblog.blogspot.de/2010/01/ default-https-access-for-gmail.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://ddanchev.blogspot.be/2012/09/dissecting-operation-ababil-osint.html" rel="noopener">Danchev, D., &quot;Dissecting 'Operation Ababil' - an OSINT Analysis&quot;, September 2012, &amp;lt; http://ddanchev.blogspot.be/ 2012/09/dissecting-operation-ababil-osint.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://codev2.cc/" rel="noopener">Lessig, L., &quot;Code and Other Laws of Cyberspace, Version 2.0 ('Codev2')&quot;, Basic Books, New York, 2006, &amp;lt; http://codev2.cc/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.insinuator.net/2013/08/vulnerabilities-attack-vectors-of-vpns-pt-1/" rel="noopener">Schiess, N., &quot;Vulnerabilities &amp;amp; attack vectors of VPNs (Pt 1)&quot;, August 2013, &amp;lt; https://www.insinuator.net/2013/08/ vulnerabilities-attack-vectors-of-vpns-pt-1/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://namecoin.info/" rel="noopener">Namecoin, &quot;Namecoin&quot;, 2015, &amp;lt; https://namecoin.info/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Jabri, V., &quot;Discourses on violence: conflict analysis reconsidered&quot;, Manchester University Press, 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://en.wikipedia.org/wiki/Tempora" rel="noopener">Wikipedia, &quot;Tempora&quot;, September 2017, &amp;lt; https://en.wikipedia.org/wiki/Tempora &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://daserste.ndr.de/panorama/aktuell/nsa230_page-1.html" rel="noopener">Appelbaum, J., Gibson, A., Goetz, J., Kabisch, V., Kampf, L., and L. Ryge, &quot;NSA targets the privacy-conscious&quot;, 2014, &amp;lt; http://daserste.ndr.de/panorama/aktuell/ nsa230_page-1.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.usenix.org/system/files/conference/foci15/foci15-paper-ververis-update.pdf" rel="noopener">Ververis, V., Kargiotakis, G., Filasto, A., Fabian, B., and A. Alexandros, &quot;Understanding Internet Censorship Policy: The Case of Greece&quot;, 5th USENIX Workshop on Free and Open Communications on the Internet (FOCI) '15, August 2015, &amp;lt; https://www.usenix.org/system/files/ conference/foci15/foci15-paper-ververis-update.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Cath, C. and L. Floridi, &quot;The Design of the Internet's Architecture by the Internet Engineering Task Force (IETF) and Human Rights&quot;, April 2017.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.wired.co.uk/news/archive/2015-07/06/hacking-team-spyware-company-hacked" rel="noopener">Collins, K., &quot;Hacking Team's oppressive regimes customer list revealed in hack&quot;, July 2015, &amp;lt; http://www.wired.co.uk/news/archive/2015-07/06/ hacking-team-spyware-company-hacked &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.cdt.org/files/publications/piais.pdf" rel="noopener">Davidson, A., Morris, J., and R. Courtney, &quot;Strangers in a Strange Land: Public Interest Advocacy and Internet Standards&quot;, Telecommunications Policy Research Conference, Alexandria, VA, September 2002, &amp;lt; https://www.cdt.org/files/publications/piais.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://geekfeminism.wikia.com/wiki/Pseudonymity" rel="noopener">Geek Feminism Wiki, &quot;Pseudonymity&quot;, 2015, &amp;lt; http://geekfeminism.wikia.com/wiki/Pseudonymity &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Meyer, J., &quot;Defining and Evaluating Resilience: A Performability Perspective&quot;, presentation at International Workshop on Performability Modeling of Computer and Communication Systems, September 2009.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.sandvine.com/pr/2015/12/7/sandvine-over-70-of-north-american-traffic-is-now-streaming-video-and-audio.html" rel="noopener">Sandvine, &quot;Sandvine: Over 70% Of North American Traffic Is Now Streaming Video And Audio&quot;, December 2015, &amp;lt; https://www.sandvine.com/pr/2015/12/7/sandvine-over-70- of-north-american-traffic-is-now-streaming-video-and- audio.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.future-internet.eu/uploads/media/FIArch_Design_Principles_V1.0.pdf" rel="noopener">&quot;Future Internet Design Principles&quot;, January 2012, &amp;lt; http://www.future-internet.eu/uploads/media/ FIArch_Design_Principles_V1.0.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://developer.pidgin.im/ticket/4322" rel="noopener">js and Pidgin Developers, &quot;[XMPP] Invisible mode violating standard&quot;, 2007, &amp;lt; https://developer.pidgin.im/ticket/4322 &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://rsf.org/en/news/syria-using-34-blue-coat-servers-spy-internet-users" rel="noopener">Reporters Without Borders (RSF), &quot;Syria using 34 Blue Coat servers to spy on Internet users&quot;, January 2016, &amp;lt; https://rsf.org/en/news/ syria-using-34-blue-coat-servers-spy-internet-users &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://mitpress.mit.edu/books/inventing-internet" rel="noopener">Abbate, J., &quot;Inventing the Internet&quot;, MIT Press, 2000, &amp;lt; https://mitpress.mit.edu/books/inventing-internet &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.w3.org/standards/webdesign/accessibility" rel="noopener">World Wide Web Consortium, &quot;Accessibility&quot;, 2016, &amp;lt; https://www.w3.org/standards/webdesign/accessibility &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>King, C., &quot;Power, Social Violence and Civil Wars&quot;, Chapter 8 of &quot;Leashing the Dogs of War: Conflict Management in a Divided World&quot;, United States Institute of Peace Press, Washington, D.C., 2007.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://torrentfreak.com/lawyers-sent-109000-piracy-threats-in-germany-during-2013-140304/" rel="noopener">Andy, &quot;Lawyers Sent 109,000 Piracy Threats in Germany During 2013&quot;, March 2014, &amp;lt; https://torrentfreak.com/ lawyers-sent-109000-piracy-threats-in-germany-during- 2013-140304/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://dash.harvard.edu/bitstream/handle/1/4455262/Zittrain_Future%20of%20the%20Internet.pdf?sequence=1" rel="noopener">Zittrain, J., &quot;The Future of the Internet - And How to Stop It&quot;, Yale University Press &amp;amp; Penguin UK, 2008, &amp;lt; https://dash.harvard.edu/bitstream/handle/1/4455262/ Zittrain_Future%20of%20the%20Internet.pdf?sequence=1 &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://internetrightsandprinciples.org/site/campaign/" rel="noopener">Internet Rights and Principles Dynamic Coalition, &quot;10 Internet Rights &amp;amp; Principles&quot;, 2017, &amp;lt; http://internetrightsandprinciples.org/site/campaign/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://techyum.com/2010/10/official-vb-ly-link-shortener-seized-by-libyan-government/" rel="noopener">Violet, &quot;Official - vb.ly Link Shortener Seized by Libyan Government&quot;, October 2010, &amp;lt; http://techyum.com/2010/10/ official-vb-ly-link-shortener-seized-by-libyan- government/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.apig.ch/UNIGE%20Catalog.pdf" rel="noopener">Hill, R., &quot;Partial Catalog of Human Rights Related to ICT Activities&quot;, May 2014, &amp;lt; http://www.apig.ch/UNIGE%20Catalog.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.businessdictionary.com/definition/reliability.html" rel="noopener">BusinessDictionary.com, &quot;Reliability (dictionary entry)&quot;, WebFinance, Inc., 2017, &amp;lt; http://www.businessdictionary.com/ definition/reliability.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.unesco.org/new/en/communication-and-" rel="noopener">Dutton, W., Dopatka, A., Law, G., and V. Nash, &quot;Freedom of Connection, Freedom of Expression: The Changing Legal and Regulatory Ecology Shaping the Internet&quot;, 2011, &amp;lt; http://www.unesco.org/new/en/communication-and- information/resources/publications-and-communication- materials/publications/full-list/freedom-of-connection- freedom-of-expression-the-changing-legal-and-regulatory- ecology-shaping-the-internet/&amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://arstechnica.com/tech-policy/2013/11/newegg-on-trial-mystery-company-tqp-re-writes-the-history-of-encryption/" rel="noopener">Mullin, J., &quot;Newegg on trial: Mystery company TQP rewrites the history of encryption&quot;, November 2013, &amp;lt; http://arstechnica.com/tech-policy/2013/11/newegg-on- trial-mystery-company-tqp-re-writes-the-history-of- encryption/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2002/01/IPTPS2002.pdf" rel="noopener">Douceur, J., &quot;The Sybil Attack&quot;, 2002, &amp;lt; https://www.microsoft.com/en-us/research/wp-content/ uploads/2002/01/IPTPS2002.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.ohchr.org/EN/Issues/FreedomOpinion/Pages/Privatesectorinthedigitalage.aspx" rel="noopener">Kaye, D., &quot;Freedom of expression and the private sector in the digital age&quot;, 2016, &amp;lt; http://www.ohchr.org/EN/Issues/ FreedomOpinion/Pages/Privatesectorinthedigitalage.aspx &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.ietf.org/mail-archive/web/hrpc/current/pdf36GrmRM84S.pdf" rel="noopener">Cath, C., &quot;A Case Study of Coding Rights: Should Freedom of Speech Be Instantiated in the Protocols and Standards Designed by the Internet Engineering Task Force?&quot;, August 2015, &amp;lt; https://www.ietf.org/mail-archive/web/ hrpc/current/pdf36GrmRM84S.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://doc.utwente.nl/87095/" rel="noopener">Nguyen, B., Ed., van Wynsberghe, A., van Wynsberghe, A., and G. Moreira Moura, &quot;The concept of embedded values and the example of internet security&quot;, June 2013, &amp;lt; http://doc.utwente.nl/87095/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.washingtonpost.com/" rel="noopener">Peterson, A., Gellman, B., and A. Soltani, &quot;Yahoo to make SSL encryption the default for Webmail users. Finally.&quot;, October 2013, &amp;lt; https://www.washingtonpost.com/ news/the-switch/wp/2013/10/14/ yahoo-to-make-ssl-encryption-the-default- for-webmail-users-finally/?utm_term=.a17eca45ddfe&amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.w3.org/International/questions/qa-i18n.en" rel="noopener">Ishida, R. and S. Miller, &quot;Localization vs. Internationalization&quot;, World Wide Web Consortium, April 2015, &amp;lt; http://www.w3.org/International/ questions/qa-i18n.en &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Berners-Lee, T. and M. Fischetti, &quot;Weaving the Web: The Original Design and Ultimate Destiny of the World Wide Web&quot;, HarperCollins, p. 208, 1999.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.google.com/patents/EP2601774A1?cl=en" rel="noopener">Google, &quot;Method and device for network traffic manipulation&quot;, 2012, &amp;lt; https://www.google.com/patents/EP2601774A1?cl=en &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://jhalderm.com/pub/papers/iran-foci13.pdf" rel="noopener">Aryan, S., Aryan, H., and J. Alex Halderman, &quot;Internet Censorship in Iran: A First Look&quot;, 2013, &amp;lt; https://jhalderm.com/pub/papers/iran-foci13.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.amazon.co.uk/Qualitative-Research-Practice-Students-Researchers/dp/0761971106" rel="noopener">Ritchie, J. and J. Lewis, &quot;Qualitative Research Practice: A Guide for Social Science Students and Researchers&quot;, SAGE Publishing, London, 2003, &amp;lt; http://www.amazon.co.uk/ Qualitative-Research-Practice-Students-Researchers/ dp/0761971106 &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://is.gd/rxUpTQ" rel="noopener">Benkler, Y., &quot;The Wealth of Networks - How Social Production Transforms Markets and Freedom&quot;, Yale University Press, New Haven and London, 2006, &amp;lt; http://is.gd/rxUpTQ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.ietf.org/proceedings/93/slides/slides-93-hrpc-2.pdf" rel="noopener">Bless, R. and C. Orwat, &quot;Values and Networks&quot;, July 2015, &amp;lt; https://www.ietf.org/proceedings/93/slides/ slides-93-hrpc-2.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://houseofanansi.com/products/the-real-world-of-technology-digital" rel="noopener">Franklin, U., &quot;The Real World of Technology&quot;, June 1999, &amp;lt; http://houseofanansi.com/products/ the-real-world-of-technology-digital &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.ibiblio.org/hhalpin/homepage/publications/def-timbl-halpin.pdf" rel="noopener">Berners-Lee, T. and H. Halpin, &quot;Internet Access is a Human Right&quot;, 2012, &amp;lt; http://www.ibiblio.org/hhalpin/homepage/ publications/def-timbl-halpin.pdf &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.theguardian.com/world/2013/oct/04/tor-attacks-nsa-users-online-anonymity" rel="noopener">Schneier, B., &quot;Attacking Tor: how the NSA targets users' online anonymity&quot;, October 2013, &amp;lt; http://www.theguardian.com/world/2013/oct/04/ tor-attacks-nsa-users-online-anonymity &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://freenetproject.org/pages/about.html" rel="noopener">Clarke, I., &quot;The Philosophy behind Freenet&quot;, n.d., &amp;lt; https://freenetproject.org/pages/about.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://press.uchicago.edu/ucp/books/book/chicago/K/bo25832222.html" rel="noopener">Geertz, H. and C. Geertz, &quot;Kinship in Bali&quot;, University of Chicago Press, Chicago, 1975, &amp;lt; http://press.uchicago.edu/ucp/books/book/chicago/K/ bo25832222.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.nartv.org/2009/06/16/iran-ddos/" rel="noopener">Villeneuve, N., &quot;Iran DDoS&quot;, 2009, &amp;lt; https://www.nartv.org/2009/06/16/iran-ddos/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.wsj.com/articles/SB10001424053111904199404576538721260166388" rel="noopener">Sonne, P. and M. Coker, &quot;Firms Aided Libyan Spies&quot;, The Wall Street Journal, August 2011, &amp;lt; http://www.wsj.com/articles/ SB10001424053111904199404576538721260166388 &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://freenetproject.org/whatis.html" rel="noopener">Freenet, &quot;What is Freenet?&quot;, n.d., &amp;lt; https://freenetproject.org/whatis.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://www.torproject.org/" rel="noopener">The Tor Project, &quot;Anonymity Online&quot;, 2006, &amp;lt; https://www.torproject.org/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://gmailblog.blogspot.de/2008/07/making-security-easier.html" rel="noopener">Rideout, A., &quot;Making security easier&quot;, July 2008, &amp;lt; http://gmailblog.blogspot.de/2008/07/ making-security-easier.html &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="https://torrentfreak.com/is-your-isp-messing-with-bittorrent-traffic-find-out-140123/" rel="noopener">Van der Sar, E., &quot;Is Your ISP Messing With BitTorrent Traffic? Find Out&quot;, January 2014, &amp;lt; https://torrentfreak.com/is-your-isp-messing-with- bittorrent-traffic-find-out-140123/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC760/" title="IETF RFC 760">
+                        IETF RFC 760
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC791/" title="IETF RFC 791">
+                        IETF RFC 791
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC793/" title="IETF RFC 793">
+                        IETF RFC 793
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC894/" title="IETF RFC 894">
+                        IETF RFC 894
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC1035/" title="IETF RFC 1035">
+                        IETF RFC 1035
+                    </a>
+                      <span class="ms-1">[Active, Amended*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC1122/" title="IETF RFC 1122">
+                        IETF RFC 1122
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC1958/" title="IETF RFC 1958">
+                        IETF RFC 1958
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC1984/" title="IETF RFC 1984">
+                        IETF RFC 1984
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC2026/" title="IETF RFC 2026">
+                        IETF RFC 2026
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC2277/" title="IETF RFC 2277">
+                        IETF RFC 2277
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC2775/" title="IETF RFC 2775">
+                        IETF RFC 2775
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC3022/" title="IETF RFC 3022">
+                        IETF RFC 3022
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC3365/" title="IETF RFC 3365">
+                        IETF RFC 3365
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC3439/" title="IETF RFC 3439">
+                        IETF RFC 3439
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC3536/" title="IETF RFC 3536">
+                        IETF RFC 3536
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC3552/" title="IETF RFC 3552">
+                        IETF RFC 3552
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC3724/" title="IETF RFC 3724">
+                        IETF RFC 3724
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC3935/" title="IETF RFC 3935">
+                        IETF RFC 3935
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC4033/" title="IETF RFC 4033">
+                        IETF RFC 4033
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC4084/" title="IETF RFC 4084">
+                        IETF RFC 4084
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC4101/" title="IETF RFC 4101">
+                        IETF RFC 4101
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC4941/" title="IETF RFC 4941">
+                        IETF RFC 4941
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC4949/" title="IETF RFC 4949">
+                        IETF RFC 4949
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC5246/" title="IETF RFC 5246">
+                        IETF RFC 5246
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC5321/" title="IETF RFC 5321">
+                        IETF RFC 5321
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC5646/" title="IETF RFC 5646">
+                        IETF RFC 5646
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC5694/" title="IETF RFC 5694">
+                        IETF RFC 5694
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC5944/" title="IETF RFC 5944">
+                        IETF RFC 5944
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC6101/" title="IETF RFC 6101">
+                        IETF RFC 6101
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC6108/" title="IETF RFC 6108">
+                        IETF RFC 6108
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC6120/" title="IETF RFC 6120">
+                        IETF RFC 6120
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC6365/" title="IETF RFC 6365">
+                        IETF RFC 6365
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC6698/" title="IETF RFC 6698">
+                        IETF RFC 6698
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC6701/" title="IETF RFC 6701">
+                        IETF RFC 6701
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC6797/" title="IETF RFC 6797">
+                        IETF RFC 6797
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC6973/" title="IETF RFC 6973">
+                        IETF RFC 6973
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7230/" title="IETF RFC 7230">
+                        IETF RFC 7230
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7231/" title="IETF RFC 7231">
+                        IETF RFC 7231
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7232/" title="IETF RFC 7232">
+                        IETF RFC 7232
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7233/" title="IETF RFC 7233">
+                        IETF RFC 7233
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7234/" title="IETF RFC 7234">
+                        IETF RFC 7234
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7235/" title="IETF RFC 7235">
+                        IETF RFC 7235
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7236/" title="IETF RFC 7236">
+                        IETF RFC 7236
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7237/" title="IETF RFC 7237">
+                        IETF RFC 7237
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7258/" title="IETF RFC 7258">
+                        IETF RFC 7258
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7469/" title="IETF RFC 7469">
+                        IETF RFC 7469
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7540/" title="IETF RFC 7540">
+                        IETF RFC 7540
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7574/" title="IETF RFC 7574">
+                        IETF RFC 7574
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7624/" title="IETF RFC 7624">
+                        IETF RFC 7624
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7626/" title="IETF RFC 7626">
+                        IETF RFC 7626
+                    </a>
+                      <span class="ms-1">[Superseded*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7725/" title="IETF RFC 7725">
+                        IETF RFC 7725
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7754/" title="IETF RFC 7754">
+                        IETF RFC 7754
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC7858/" title="IETF RFC 7858">
+                        IETF RFC 7858
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC8164/" title="IETF RFC 8164">
+                        IETF RFC 8164
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC8179/" title="IETF RFC 8179">
+                        IETF RFC 8179
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC8200/" title="IETF RFC 8200">
+                        IETF RFC 8200
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <cite><a href="http://www.w3.org/TR/html5/" rel="noopener">W3C.html5 — Latest version available at &amp;lt; http://www.w3.org/TR/html5/ &amp;gt;.</a></cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <!-- Source data / JSON view -->
+      <div class="card mb-3 mt-3">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Source Data (JSON)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary py-0 px-2"
+            id="source-data-toggle"
+            data-docid="RFC8280"
+          >
+            View source JSON
+          </button>
+        </div>
+        <div class="card-body small">
+          <p class="mb-0 small">
+            Full registry record with provenance metadata.
+            Open directly:
+            <a href="../../api/doc/RFC8280.json" target="_blank" rel="noopener">/api/doc/RFC8280.json</a>
+          </p>
+          <pre
+            id="source-data-json"
+            class="mt-2 border rounded p-2 bg-body-secondary small"
+            style="max-height: 16rem; overflow:auto; display:none;"
+          ></pre>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const btn = document.getElementById('source-data-toggle');
+        const box = document.getElementById('source-data-json');
+        if (!btn || !box) return;
+
+        let loaded = false;
+        let visible = false;
+
+        async function toggleSource() {
+          visible = !visible;
+          if (!visible) {
+            box.style.display = 'none';
+            btn.textContent = 'View source JSON';
+            return;
+          }
+
+          box.style.display = 'block';
+          btn.textContent = 'Hide source JSON';
+
+          if (loaded) return;
+
+          const docId = btn.getAttribute('data-docid') || '';
+          const encoded = encodeURIComponent(docId);
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
+
+          box.textContent = 'Loading…';
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const data = await res.json();
+            box.textContent = JSON.stringify(data, null, 2);
+            loaded = true;
+          } catch (e) {
+            const msg = (e && e.message) ? e.message : String(e || 'Unknown error');
+            box.textContent = 'Failed to load source JSON: ' + msg;
+          }
+        }
+
+        btn.addEventListener('click', function(ev){
+          ev.preventDefault();
+          toggleSource();
+        }, { passive: false });
+      })();
+      </script>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card mb-3 border-warning-subtle doc-relations" role="note">
+        <div class="card-body small bg-warning-subtle rounded">
+          <div class="">
+            <span class="fw-bold">Amended by:</span>
+            <div class="ms-3">
+                <span class="small"><a class="-link " href="../RFC9620/">IETF RFC 9620</a> [Active*]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">Reference Tree</h2>
+          <p class="mb-2 text-muted">
+            Explore all references and references to this document, as a navigable tree.
+          </p>
+          <a class="btn btn-outline-secondary btn-sm" href="../../reftree/RFC8280/">Open Reference Tree</a>
+        </div>
+      </div>
+
+      <!-- Use this document as a reference -->
+      <div class="card mb-3">
+        <div class="card-header fw-semibold">Reference this Doc</div>
+        <div class="card-body small">
+          <!-- Plain text -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">Plain text (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-text-RFC8280">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">IETF RFC 8280, Research into Human Rights Protocol Considerations. Available at https://doi.org/10.17487/RFC8280</div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-text-RFC8280" class=" border rounded p-2 mb-0 snippet">IETF RFC 8280, Research into Human Rights Protocol Considerations. Available at https://doi.org/10.17487/RFC8280</pre>
+            
+          </div>
+          
+          <!-- HTML (generic) -->
+          <div class="mb-3 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">HTML (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-generic-RFC8280">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><span class="citation"><cite>IETF RFC 8280</cite>, Research into Human Rights Protocol Considerations. Available at <a href="https://doi.org/10.17487/RFC8280" target="_blank" rel="noopener">https://doi.org/10.17487/RFC8280</a></span></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-generic-RFC8280" class=" border rounded p-2 mb-0 snippet">&lt;span class=&quot;citation&quot;&gt;&lt;cite&gt;IETF RFC 8280&lt;/cite&gt;, Research into Human Rights Protocol Considerations. Available at &lt;a href=&quot;https://doi.org/10.17487/RFC8280&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doi.org/10.17487/RFC8280&lt;/a&gt;&lt;/span&gt;</pre>
+            
+          </div>
+
+          <!-- HTML (SMPTE) -->
+          <div class="mb-1 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0"><img src="../../resources/logos/smpte-icon.png" alt="SMPTE Icon" width="24" class=" icon d-inline-block align-text-middle"> SMPTE's <a href="../SMPTE.AG26/" title="IETF RFC 8280">HTML Pub</a></h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-smpte-RFC8280">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><cite id="bib-rfc8280">IETF RFC 8280</cite>, Research into Human Rights Protocol Considerations<br>doi:&nbsp;<span class="doi">10.17487/RFC8280</span><br>url:&nbsp;<a href="https://doi.org/10.17487/RFC8280" class="ext-ref">https://doi.org/10.17487/RFC8280</a></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-smpte-RFC8280" class=" border rounded p-2 mb-0 snippet">&lt;li&gt;
+&lt;cite id=&quot;bib-rfc8280&quot;&gt;IETF RFC 8280&lt;/cite&gt;, Research into Human Rights Protocol Considerations
+&lt;span class=&quot;doi&quot;&gt;10.17487/RFC8280&lt;/span&gt;
+&lt;/li&gt;</pre>
+            
+          </div>
+        </div>
+      </div>
+
+      <script>
+      // Lightweight copy buttons for the three snippets on this page
+      (function(){
+        function copyFrom(targetSel){
+          try{
+            // Support targets passed as "#id" or "id"
+            let id = targetSel || '';
+            if (id.startsWith('#')) id = id.slice(1);
+
+            // Prefer getElementById to avoid CSS selector escaping issues with dots in IDs (e.g., SMPTE.ST96.2004)
+            const el = document.getElementById(id) || document.querySelector(targetSel);
+            if (!el) return;
+
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
+            navigator.clipboard.writeText(text);
+          } catch (e) {
+            console.error('[copy] failed:', e);
+          }
+        }
+        document.addEventListener('click', function(ev){
+          const btn = ev.target.closest('[data-copy-target]');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-copy-target');
+          copyFrom(sel);
+          // quick visual feedback
+          btn.disabled = true;
+          const prev = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.disabled = false; btn.innerText = prev; }, 900);
+        }, { passive: true });
+      })();
+      </script>
+      
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h6">Referenced By</h2>
+          <ul class="list-group list-group-flush small">
+            <li class="list-group-item">
+              <a href="../RFC9153/">IETF RFC 9153</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC9620/">IETF RFC 9620</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="mt-3">
+    <a class="btn btn-outline-secondary btn-sm" href="../#RFC8280">← Back to Docs</a>
+  </nav>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="2026-10-22T15:46:38.249Z"><code>2026-10-22T15:46:38.249Z</code></time>
+            </p>
+                      </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

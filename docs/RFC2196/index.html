@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- SEO: core meta -->
+  <meta name="description" content="Site Security Handbook">
+  <link rel="canonical" href="https://msrbot.io/docs/RFC2196/">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="Steve LLamb (PrZ3)">
+  <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta name="license" content="BSD-3-Clause">
+  <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MSRBot.io">
+  <meta property="og:locale" content="en-US">
+  <meta property="og:title" content="IETF RFC 2196 — MSRBot.io">
+  <meta property="og:description" content="">
+  <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+  <meta property="og:license" content="BSD-3-Clause"> 
+  <meta property="og:url" content="https://msrbot.io/docs/RFC2196/">
+  <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+  <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"> 
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+
+  <!-- PWA/Theme (optional but nice) -->
+  <meta name="application-name" content="MSRBot.io">
+  <meta name="theme-color" content="#1398b0">
+
+  <!-- Icons -->
+  <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+  
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+  <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+
+  <link rel="alternate" type="application/json" href="../../api/doc/RFC2196.json">
+  <link rel="describedby" type="application/schema+json" href="../../api/schemas/documents.schema.json">
+  <title>MSRBot.io | IETF RFC 2196</title>
+
+  <!-- Scripts -->
+  <script>
+    window.msrAssetPrefix = "../../";
+  </script>
+  <script src="../../js/msrbot.js"></script>
+
+  <!-- JSON-LD: basic WebSite schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "IETF RFC 2196 - MSRBot.io",
+    "url": "https://msrbot.io/docs/RFC2196/",
+    "inLanguage": "en-US",
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/docs/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search documents"
+      },
+      {
+        "@type": "SearchAction",
+        "target": "https://msrbot.io/api/?q={query}",
+        "query-input": "required name=query",
+        "name": "Search API"
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MSRBot.io",
+      "url": "https://msrbot.io"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "PrZ3",
+      "url": "https://PrZ3.io"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "PrZ3"
+    },
+    "copyrightYear": "2025-26",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://msrbot.io/static/og/msrbot-og.png",
+      "width": 1200,
+      "height": 630
+    }
+  }
+  </script>
+
+  <!-- Other -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+  <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+    <div class="container">
+      <div class="navbar-brand"><a href="../../"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav ms-auto mb-lg-0">
+          <li class="nav-item text-nowrap">
+            <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a
+              id="nav-portals"
+              class="nav-link d-flex flex-column text-center"
+              title="Portals"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+              <span class="small">PORTALS</span>
+            </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+          </li>
+          <!-- li class="nav-item text-nowrap">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+          </li -->
+        </ul>
+
+        <div class="dev-links-stack">
+          <a
+            id="dev-tools"
+            class="dev-link"
+            title="Developer Tools and Resources"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+          <a
+            id="user-prefs"
+            class="dev-link"
+            title="Set Preferences"
+            href="#"
+            role="button"
+            tabindex="0"
+            data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-placement="bottom"
+          >
+            Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hidden template for Dev Tools popover content -->
+  <div id="dev-tools-popover-content" class="d-none">
+    <div class="small">
+      <strong>API</strong>
+      <ul class="mb-2">
+        <li>
+          <a href="../../api/">
+            <i class="bi bi-braces me-1"></i>API Explorer
+          </a>
+          &mdash; search &amp; browse the registry
+        </li>
+        <li>
+          <a href="../../api/documents.json" target="_blank" rel="noopener">
+            api/documents.json
+          </a>
+          &mdash; lightweight index, one row per doc, linking to per-doc shards
+        </li>
+        <li>
+          <a href="../../api/doc/" target="_blank" rel="noopener">
+            api/doc/&lt;docId&gt;.json
+          </a>
+          &mdash; per-doc record with full $meta provenance
+        </li>
+        <li>
+          <a href="../../api/search/index.json" target="_blank" rel="noopener">
+            api/search/index.json
+          </a>
+          &mdash; compact search shards (current editions), sized for AI fetch tools
+        </li>
+        <li>
+          <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+            api/by-publisher.json
+          </a>
+          &mdash; full-record slices per publisher and doc type
+        </li>
+        <li>
+          <a href="../../api/groups.json" target="_blank" rel="noopener">
+            api/groups.json
+          </a>
+          &mdash; groups registry
+        </li>
+        <li>
+          <a href="../../api/projects.json" target="_blank" rel="noopener">
+            api/projects.json
+          </a>
+          &mdash; projects registry
+        </li>
+        <li>
+          <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+            api/by-doc.json
+          </a>
+          &mdash; docId &rarr; owning groups and projects
+        </li>
+        <li>
+          <a href="../../api/publishers.json" target="_blank" rel="noopener">
+            api/publishers.json
+          </a>
+          &mdash; publishers, logos, doc counts
+        </li>
+        <li>
+          <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+            api/vocabulary.json
+          </a>
+          &mdash; keywords, doc types, content types
+        </li>
+        <li>
+          <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+            api/mri-cite-map.json
+          </a>
+          &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+        </li>
+        <li>
+          <a href="../../api/stats.json" target="_blank" rel="noopener">
+            api/stats.json
+          </a>
+          &mdash; registry statistics &amp; metadata
+        </li>
+        <li>
+          <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+            api/schemas/documents.schema.json
+          </a>
+          &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+        </li>
+      </ul>
+
+      <strong>Resources</strong>
+      <ul class="mb-0">
+        <li>
+          <a href="../../ai/">
+            <i class="bi bi-robot me-1"></i>Use with AI
+          </a>
+          &mdash; skill &amp; prompt for Claude, ChatGPT and others
+        </li>
+        <li>
+          <a href="../../changelog/">
+            Changelog
+          </a>
+          &mdash; release history
+        </li>
+        <li>
+          <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          &mdash; source &amp; issues
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hidden template for Preferences popover content -->
+  <div id="user-prefs-popover-content" class="d-none">
+    <div class="small">
+      <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+      <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+      <div class="d-grid gap-1">
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+          Auto (match system)
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+          Light mode
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+          Dark mode
+        </a>
+      </div>
+      <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <!-- Hidden template for Portals popover content -->
+  <div id="nav-portals-popover-content" class="d-none">
+    <div class="small">
+      <div id="nav-portals-list">
+        <div class="text-muted small">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Dev Tools popover
+      var devTrigger = document.getElementById('dev-tools');
+      if (devTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(devTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('dev-tools-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Preferences popover (theme selection)
+      var prefsTrigger = document.getElementById('user-prefs');
+      if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(prefsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function () {
+            var tpl = document.getElementById('user-prefs-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+
+      // Portals popover
+      var portalsTrigger = document.getElementById('nav-portals');
+      if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+        new bootstrap.Popover(portalsTrigger, {
+          html: true,
+          container: 'body',
+          sanitize: false,
+          title: 'Portals',
+          content: function () {
+            var tpl = document.getElementById('nav-portals-popover-content');
+            return tpl ? tpl.innerHTML : '';
+          }
+        });
+      }
+    });
+  </script>
+
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <a class="anchor" id="top" href="#top"></a><!-- Main content starts - do not edit above this line -->
+
+<main class="container my-4">
+  <header class="mb-3">
+    <div class="docid-header-row d-flex gap-2 mb-1">  
+      <div class="docid-doclogolabel d-flex gap-2 flex-shrink-1 min-w-0">
+          <a href="https://www.ietf.org/" target="_blank" rel="noopener"><img src="../../resources/logos/ietf.svg" alt="IETF logo" height="25" class="align-text-bottom me-1 publisher-logo" loading="lazy" data-logo-light="../../resources/logos/ietf.svg" data-logo-dark="../../resources/logos/ietf-white.svg"></a>
+        <code class="docid-doclabel me-1 fs-6 text-wrap">IETF RFC 2196</code>
+      </div>
+      <div class="status-badges ms-auto d-inline-flex flex-wrap gap-1">
+
+        
+        
+        
+        
+        
+            <span class="label badge text-bg-success">[ACTIVE]</span>
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <h1 class="h5 mb-1">
+        <a class="text-decoration-none" href="https://doi.org/10.17487/RFC2196" target="_blank" rel="noopener">Site Security Handbook</a>
+    </h1>
+    
+  </header>
+
+  <section class="row g-3">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h2 class="h5 card-title">Metadata</h2>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8"><a class="" href="../?f.publisher=IETF">IETF</a></dd>
+            <dt class="col-sm-4">Doc Type</dt><dd class="col-sm-8"><a class="" href="../?f.docType=Informational">Informational</a></dd>
+            
+            
+            <dt class="col-sm-4">Pages</dt><dd class="col-sm-8">75</dd>
+            
+            
+            
+            <dt class="col-sm-4">Abstract</dt><dd class="col-sm-8">This handbook is a guide to developing computer security policies and procedures for sites that have systems on the Internet. The purpose of this handbook is to provide practical guidance to administrators trying to secure their information and services. The subjects covered include policy content and formation, a broad range of technical system and network security topics, and security incident response. This memo provides information for the Internet community. It does not specify an Internet standard of any kind.</dd>
+            
+            
+            <dt class="col-sm-4">Publication Date</dt><dd class="col-sm-8">1997-09-01</dd>
+            
+            
+            
+            
+            
+            
+            <dt class="col-sm-4">Status Note</dt><dd class="col-sm-8"><em>Informational</em></dd>
+            <dt class="col-sm-4">DOI</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC2196" target="_blank" rel="noopener"><code>10.17487/RFC2196</code></a></dd>
+            
+            
+            <dt class="col-sm-4">Link</dt><dd class="col-sm-8"><a href="https://doi.org/10.17487/RFC2196" target="_blank" rel="noopener" class="text-break d-inline-block" style="max-width:100%">https://doi.org/10.17487/RFC2196</a></dd>
+            
+            <dt class="col-sm-4">Author(s)</dt><dd class="col-sm-8"><div class="mb-2"><div class="d-flex justify-content-between align-items-center gap-2"><span>Barbara Y. Fraser</span></div></div></dd>
+            
+
+            
+            
+            
+            
+            
+          </dl>
+        </div>
+      </div>
+      
+
+      
+    <div class="p-2 text-muted text-center">
+      <span class="fst-italic">
+        <i class="bi bi-check2-circle text-success"></i> Latest version of IETF RFC 2196
+      </span>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-body">
+        <h2 class="h6 mb-2">Document Versions — IETF RFC 2196</h2>
+        <ul class="list-group list-group-flush small">
+          <li class="list-group-item d-flex align-items-start justify-content-between doc-suite-row badge-node-current">
+            <div class="me-1 text-wrap">
+              <strong>▶</strong>
+              <a class="" href="../RFC2196/">IETF RFC 2196</a>
+               <span class="text-muted">(1997-09-01)</span>
+            </div>
+            <div class="badges-dsuite ms-auto">
+                 <span class="badge badge-dsuite text-bg-info">THIS DOC</span>
+              
+              
+              
+              
+              
+                    <span class="badge badge-dsuite text-bg-success">[ACTIVE]</span>
+              
+              
+              
+              
+                     <span class="badge badge-dsuite bg-info-subtle text-info-emphasis">[LATEST VERSION]</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col col-lg-6">
+              <h2 class="h6">Bibliographic Reference(s)</h2>
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item">
+                    <cite>ISBN.0937175722 — 2</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>ISBN.9780471117094 — 7. Menezes A. van Oorshot P. Vanstone S. , Handbook of Applied Cryptography , CRC Press , 1997 .</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>NIST.SP.500-166 — NIST, 1989</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Johnson, and J. Podesta, &quot;Formulating A Company Policy on Access to and Use and Disclosure of Electronic Mail on Company Computer Systems&quot;.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>United States Congress, Office of Technology Assessment, &quot;Defending Secrets, Sharing Data: New Locks and Keys for Electronic Information&quot;, OTA-CIT-310, October 1987.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Parker, &quot;Computer Crime: Criminal Justice Resource Manual&quot;, U.S. Dept. of Justice, National Institute of Justice, Office of Justice Programs, Under Contract Number OJP-86-C-002, Washington, D.C., August 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Mogul, J., &quot;Simple and Flexible Datagram Access Controls for UNIX-based Gateways&quot;, Digital Western Research Laboratory Research Report 89/4, March 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Howard, &quot;Introduction to Internet Security: From Basics to Beyond&quot;, Prima Publishing, Rocklin, CA, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Pfleeger, &quot;Security in Computing&quot;, Prentice-Hall, Englewood Cliffs, NJ, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Reinhardt, &quot;An Architectural Overview of UNIX Network Security&quot;</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Massachusetts Institute of Technology, &quot;Teaching Students About Responsible Use of Computers&quot;, MIT, 1985-1986. Also reprinted in the Communications of the ACM, Vol. 32, No. 6, Pg. 704, Athena Project, MIT, June 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Chapman and E. Zwicky, &quot;Building Internet Firewalls&quot;, O'Reilly and Associates, Sebastopol, CA, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Conference, &quot;12th National Computer Security Conference: Baltimore Convention Center, Baltimore, MD, 10-13 October, 1989: Information Systems Security, Solutions for Today - Concepts for Tomorrow&quot;, National Institute of Standards and National Computer Security Center, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Tinto, M., &quot;Computer Viruses: Prevention, Detection, and Treatment&quot;, National Computer Security Center C1 Technical Report C1-001-89, June 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Wrobel, &quot;Writing Disaster Recovery Plans for Telecommunications Networks and LANS&quot;, Artech House, 1993.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Chapman, &quot;Network(In) Security Through IP Packet Filtering&quot;, USENIX: Proceedings of the Third UNIX Security Symposium, Baltimore, MD, September 1992.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Center, &quot;Guidance for Applying the Department of Defense Trusted Computer System Evaluation Criteria in Specific Environments&quot;, CSC-STD-003-85, NCSC, 25 June 1985.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Kaufman, R. Perlman, and M. Speciner, &quot;Network Security: PRIVATE Communication in a PUBLIC World&quot;, Prentice Hall, Englewood Cliffs, NJ, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Parker, S. Swope, and B. Baker, &quot;Ethical Conflicts: Information and Computer Science, Technology and Business&quot;, QED Information Sciences, Inc., Wellesley, MA. (245 pages).</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Spafford, &quot;The Internet Worm Program: An Analysis&quot;, Computer Communication Review, Vol. 19, No. 1, ACM SIGCOM, January 1989. Also issued as Purdue CS Technical Report CSD-TR-823, 28 November 1988.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Center, &quot;Glossary of Computer Security Terms&quot;, Shipping list no.: 89-254-P, The Center, Fort George G. Meade, MD, 21 October 1988.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Hoffman, &quot;Rogue Programs: Viruses, Worms, and Trojan Horses&quot;, Van Nostrand Reinhold, NY, 1990. (384 pages, includes bibliographical references and index.)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>DCA DDN Defense Communications System, &quot;DDN Security Bulletin 03&quot;, DDN Security Coordination Center, 17 October 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Commerce Clearing House, &quot;Guide to Computer Law&quot;, (Topical Law Reports), Chicago, IL., 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>U.S. General Accounting Office, &quot;Computer Security - Virus Highlights Need for Improved Internet Management&quot;, United States General Accounting Office, Washington, DC, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Research Council, &quot;Computers at Risk: Safe Computing in the Information Age&quot;, National Academy Press, 1991.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Ranum, &quot;A Network Firewall&quot;, Digital Equipment Corporation Washington Open Systems Resource Center, June 12, 1992.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Ranum, &quot;An Internet Firewall&quot;, Proceedings of World Conference on Systems Management and Security, 1992.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Rik Farrow, &quot;UNIX Systems Security&quot;, Addison-Wesley, Reading, MA, 1991.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Fites, Johnson, and Kratz, &quot;The Computer Virus Crisis&quot;, Van Hostrand Reinhold, 2nd edition, 1992.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Computer Professionals for Social Responsibility, &quot;CPSR Statement on the Computer Virus&quot;, CPSR, Communications of the ACM, Vol. 32, No. 6, Pg. 699, June 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Kent, &quot;E-Mail Privacy for the Internet: New Software and Strict Registration Procedures will be Implemented this Year&quot;, Business Communications Review, Vol. 20, No. 1, Pg. 55, 1 January 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>USENIX, &quot;USENIX Proceedings: UNIX Security Workshop&quot;, Portland, OR, August 29-30, 1988.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>L. Hughes Jr., &quot;Actually Useful Internet Security Techniques&quot;, New Riders Publishing, Indianapolis, IN, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>F. Huband, and R. Shelton, Editors, &quot;Protection of Computer Systems and Software: New Approaches for Combating Theft of Software and Unauthorized Intrusion&quot;, Papers presented at a workshop sponsored by the National Science Foundation, 1986.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>[Eisenberg, et. al., 89] T. Eisenberg, D. Gries, J. Hartmanis, D. Holcomb, M. Lynn, and T. Santoro, &quot;The Computer Worm&quot;, Cornell University, 6 February 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Fenwick, Chair, &quot;Computer Litigation, 1985: Trial Tactics and Techniques&quot;, Litigation Course Handbook Series No. 280, Prepared for distribution at the Computer Litigation, 1985: Trial Tactics and Techniques Program, February-March 1985.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Caelli, Editor, &quot;Computer Security in the Age of Information&quot;, Proceedings of the Fifth IFIP International Conference on Computer Security, IFIP/Sec '88.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Barrett, &quot;Bandits on the Information Superhighway&quot;, O'Reilly &amp;amp; Associates, Sebastopol, CA, 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Seeley, &quot;A Tour of the Worm&quot;, Proceedings of 1989 Winter USENIX Conference, Usenix Association, San Diego, CA, February 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Center, &quot;Trusted UNIX Working Group (TRUSIX) rationale for selecting access control list features for the UNIX system&quot;, Shipping list no.: 90-076-P, The Center, Fort George G. Meade, MD, 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Kane, &quot;PC Security and Virus Protection Handbook: The Ongoing War Against Information Sabotage&quot;, M&amp;amp;T Books, 1994.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Shimomura with J. Markoff, &quot;Takedown:The Pursuit and Capture of Kevin Mitnick, America's Most Wanted Computer Outlaw- by the Man Who Did It&quot;, Hyperion, 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>American Bar Association, Section of Science and Technology, &quot;Guide to the Prosecution of Telecommunication Fraud by the Use of Computer Crime Statutes&quot;, American Bar Association, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Curry, &quot;Improving the Security of Your UNIX System&quot;, SRI International Report ITSTD-721-FR-90-21, April 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Farmer and E. Spafford, &quot;The COPS Security Checker System&quot;, Proceedings of the Summer 1990 USENIX Conference, Anaheim, CA, Pgs. 165-170, June 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Defense Data Network, &quot;BSD 4.2 and 4.3 Software Problem Resolution&quot;, DDN MGT Bulletin #43, DDN Network Information Center, 3 November 1988.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Stallings, &quot;Internet Security Handbook&quot;, IDG Books, Foster City CA, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Bellovin, and M. Merritt, &quot;Limitations of the Kerberos Authentication System&quot;, Computer Communications Review, October 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Cheswick, &quot;An Evening with Berferd In Which a Cracker is Lured, Endured, and Studied&quot;, AT&amp;amp;T Bell Laboratories.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Conly, &quot;Organizing for Computer Crime Investigation and Prosecution&quot;, U.S. Dept. of Justice, Office of Justice Programs, Under Contract Number OJP-86-C-002, National Institute of Justice, Washington, DC, July 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Brand, &quot;Coping with the Threat of Computer Security Incidents: A Primer from Prevention through Recovery&quot;, R. Brand, 8 June 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Wood, W. Banks, S. Guarro, A. Garcia, V. Hampel, and H. Sartorio, &quot;Computer Security: A Comprehensive Controls Checklist&quot;, John Wiley and Sons, Interscience Publication, 1987.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Littleman, &quot;The Fugitive Game: Online with Kevin Mitnick&quot;, Little, Brown, Boston, MA., 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Cheswick, &quot;The Design of a Secure Internet Gateway&quot;, Proceedings of the Summer Usenix Conference, Anaheim, CA, June 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Stallings, &quot;Protect Your Privacy: A Guide for PGP Users&quot; PTR Prentice Hall, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Greenia, &quot;Computer Security Information Sourcebook&quot;, Lexikon Services, Sacramento, CA, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Bates, &quot;Disaster Recovery Planning: Networks, Telecommunications and Data Communications&quot;, McGraw-Hill, 1992.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Quarterman, J., &quot;The Matrix: Computer Networks and Conferencing Systems Worldwide&quot;, Digital Press, Bedford, MA, 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Forester, and P. Morrison, &quot;Computer Ethics: Tales and Ethical Dilemmas in Computing&quot;, MIT Press, Cambridge, MA, 1990. (192 pages including index.)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>NCSA, &quot;NCSA Firewall Policy Guide&quot;, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Russell and G. Gangemi, &quot;Computer Security Basics&quot; O'Reilly &amp;amp; Associates, Sebastopol, CA, 1991.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Security Agency, &quot;Information Systems Security Products and Services Catalog&quot;, NSA, Quarterly Publication.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Venema, &quot;TCP WRAPPER: Network monitoring, access control, and booby traps&quot;, Mathematics and Computing Science, Eindhoven University of Technology, The Netherlands.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Bellovin, &quot;Security Problems in the TCP/IP Protocol Suite&quot;, Computer Communication Review, Vol 19, 2, pp. 32-48, April 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>NCSC, &quot;A Guide to Understanding AUDIT in Trusted Systems&quot;, NCSC-TG-001, Version-2, 1 June 1988, 25 pages.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Ermann, M. Williams, and C. Gutierrez, Editors, &quot;Computers, Ethics, and Society&quot;, Oxford University Press, NY, 1990. (376 pages, includes bibliographical references).</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Martin, and R. Schinzinger, &quot;Ethics in Engineering&quot;, McGraw Hill, 2nd Edition, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Appelman, Heller, Ehrman, White, and McAuliffe, &quot;The Law and The Internet&quot;, USENIX 1995 Technical Conference on UNIX and Advanced Computing, New Orleans, LA, January 16-20, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Department of Defense, &quot;Password Management Guideline&quot;, CSC-STD-002-85, 12 April 1985, 31 pages.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Gemignani, &quot;Viruses and Criminal Law&quot;, Communications of the ACM, Vol. 32, No. 6, Pgs. 669-671, June 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Center, &quot;Magnetic Remanence Security Guideline&quot;, CSC-STD-005-85, NCSC, 15 November 1985.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Nemeth, G. Snyder, S. Seebass, and T. Hein, &quot;UNIX Systems Administration Handbook&quot;, Prentice Hall PTR, Englewood Cliffs, NJ, 2nd ed. 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Stallings, &quot;Network and InterNetwork Security&quot;, Prentice Hall, , 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>I. Palmer, and G. Potter, &quot;Computer Security Risk Management&quot;, Van Nostrand Reinhold, NY, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>NCSA, &quot;Firewalls &amp;amp; Internet Security Conference '96 Proceedings&quot;, 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Center, &quot;Technical Rationale Behind CSC-STD-003-85: Computer Security Requirements&quot;, CSC-STD-004-85, NCSC, 25 June 1985.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Eichin, and J. Rochlis, &quot;With Microscope and Tweezers: An Analysis of the Internet Virus of November 1988&quot;, Massachusetts Institute of Technology, February 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Reinhardt, &quot;An Architectural Overview of UNIX Network Security&quot;, ARINC Research Corporation, February 18, 1993.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Garfinkel and E. Spafford, &quot;Practical UNIX and Internet Security&quot;, O'Reilly &amp;amp; Associates, Sebastopol, CA, 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Fites, P. Kratz, and A. Brebner, &quot;Control and Security of Computer Information Systems&quot;, Computer Science Press, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Cooper, &quot;Computer and Communications Security: Strategies for the 1990s&quot;, McGraw-Hill, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>NTISS, &quot;Advisory Memorandum on Office Automation Security Guideline&quot;, NTISSAM COMPUSEC/1-87, 16 January 1987, 58 pages.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>[Bender, 1894] D. Bender, &quot;Computer Law: Evidence and Procedure&quot;, M. Bender, New York, NY, 1978-present.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Center, &quot;Glossary of Computer Security Terms&quot;, NCSC-TG-004, NCSC, 21 October 1988.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Center, &quot;Trusted Network Interpretation&quot;, NCSC-TG-005, NCSC, 31 July 1987.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Science Foundation, &quot;NSF Poses Code of Networking Ethics&quot;, Communications of the ACM, Vol. 32, No. 6, Pg. 688, June 1989. Also appears in the minutes of the regular meeting of the Division Advisory Panel for Networking and Communications Research and Infrastructure, Dave Farber, Chair, November 29-30, 1988.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>K. Hafner and J. Markoff, &quot;Cyberpunk: Outlaws and Hackers on the Computer Frontier&quot;, Touchstone, Simon &amp;amp; Schuster, 1991.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Vallabhaneni, &quot;Auditing Computer Security: A Manual with Case Studies&quot;, Wiley, New York, NY, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Goodell, &quot;The Cyberthief and the Samurai: The True Story of Kevin Mitnick-And The Man Who Hunted Him Down&quot;, Dell Publishing, 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Ranum and F. Avolio, &quot;A Toolkit and Methods for Internet Firewalls&quot;, Trustest Information Systems, 1994.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>NCSC, &quot;A Guide to Understanding DISCRETIONARY ACCESS CONTROL in Trusted Systems&quot;, NCSC-TG-003, Version-1, 30 September 1987, 29 pages.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>USENIX, &quot;The Fifth USENIX UNIX Security Symposium&quot;, Salt Lake City, UT, June 5-7, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Smith, &quot;Commonsense Computer Security: Your Practical Guide to Preventing Accidental and Deliberate Electronic Data Loss&quot;, McGraw-Hill, New York, NY, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>USENIX, &quot;USENIX Symposium Proceedings: UNIX Security III&quot;, Baltimore, MD, September 14-16, 1992.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Merkle, &quot;A Fast Software One Way Hash Function&quot;, Journal of Cryptology, Vol. 3, No. 1.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Slatalla and J. Quittner, &quot;Masters of Deception: The Gang that Ruled Cyberspace&quot;, Harper Collins Publishers, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Icove, K. Seger, and W. VonStorch, &quot;Computer Crime: A Crimefighter's Handbook&quot;, O'Reilly &amp;amp; Associates, Sebastopol, CA, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Center, &quot;Trusted Computer System Evaluation Criteria&quot;, DoD 5200.28-STD, CSC-STD-001- 83, NCSC, December 1985.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>USENIX, &quot;USENIX Proceedings: UNIX Security II Workshop&quot;, Portland, OR, August 27-28, 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Levy, &quot;Hacker: Heroes of the Computer Revolution&quot;, Delta, 1984.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Smith, &quot;Forming an Incident Response Team&quot;, Sixth Annual Computer Security Incident Handling Workshop, Boston, MA, July 25-29, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>Congress of the United States, Office of Technology Assessment, &quot;Information Security and Privacy in Network Environments&quot;, OTA-TCT-606, September 1994.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Stoll, &quot;The Cuckoo's Egg&quot;, ISBN 00385-24946-2, Doubleday, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>T. Forester, and P. Morrison, &quot;Computer Ethics: Tales and Ethical Dilemmas in Computing&quot;, MIT Press, Cambridge, MA, 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>B. Bloombecker, &quot;Spectacular Computer Crimes&quot;, Dow Jones- Irwin, Homewood, IL. 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Treese and A. Wolman, &quot;X Through the Firewall, and Other Applications Relays&quot;, Digital Equipment Corporation, Cambridge Research Laboratory, CRL 93/10, May 3, 1993.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>National Computer Security Center, &quot;Guidelines for Formal Verification Systems&quot;, Shipping list no.: 89-660-P, The Center, Fort George G. Meade, MD, 1 April 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>D. Curry, &quot;UNIX System Security: A Guide for Users and Systems Administrators&quot;, Addision-Wesley, Reading, MA, 1992.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>IVPC, &quot;International Virus Prevention Conference '96 Proceedings&quot;, NCSA, 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>[Hess, Safford, and Pooch] D. Hess, D. Safford, and U. Pooch, &quot;A Unix Network Protocol Security Study: Network Information Service&quot;, Texas A&amp;amp;M University.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>NCSA, &quot;NCSA's Corporate Computer Virus Prevention Policy Model&quot;, NCSA, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Cavazos and G. Morin, &quot;Cyber-Space and The Law&quot;, MIT Press, Cambridge, MA, 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Cheswick and S. Bellovin, &quot;Firewalls and Internet Security: Repelling the Wily Hacker&quot;, Addison-Wesley, Reading, MA, 1994.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>M. Ranum, &quot;Thinking About Firewalls&quot;, 1993.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Bellovin, &quot;There Be Dragon&quot;, USENIX: Proceedings of the Third Usenix Security Symposium, Baltimore, MD. September, 1992.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>British Standard, BS Tech Cttee BSFD/12, Info. Sec. Mgmt, &quot;BS 7799 : 1995 Code of Practice for Information Security Management&quot;, British Standards Institution, London, 54, Effective 15 February 1995.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Spafford, K. Heaphy, and D. Ferbrache, &quot;Computer Viruses: Dealing with Electronic Vandalism and Programmed Threats&quot;, ADAPSO, 1989. (109 pages.)</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Aucoin, &quot;Computer Viruses: Checklist for Recovery&quot;, Computers in Libraries, Vol. 9, No. 2, Pg. 4, February 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>A. Muffett, &quot;Crack Version 4.1: A Sensible Password Checker for Unix&quot;</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Trible, &quot;The Computer Fraud and Abuse Act of 1986&quot;, U.S. Senate Committee on the Judiciary, 1986.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>NCSC, &quot;A Guide to Understanding CONFIGURATION MANAGEMENT in Trusted Systems&quot;, NCSC-TG-006, Version-1, 28 March 1988, 31 pages.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Brock, &quot;November 1988 Internet Computer Virus and the Vulnerability of National Telecommunications Networks to Computer Viruses&quot;, GAO/T-IMTEC-89-10, Washington, DC, 20 July 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>E. Shaw Jr., &quot;Computer Fraud and Abuse Act of 1986&quot;, Congressional Record (3 June 1986), Washington, D.C., 3 June 1986.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Lewis, &quot;Disaster Recovery Yellow Pages&quot;, The Systems Audit Group, 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. Carroll, &quot;Computer Security&quot;, 2nd Edition, Butterworth Publishers, Stoneham, MA, 1987.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>G. Spafford, &quot;An Analysis of the Internet Worm&quot;, Proceedings of the European Software Engineering Conference 1989, Warwick England, September 1989. Proceedings published by Springer- Verlag as: Lecture Notes in Computer Science #387. Also issued as Purdue Technical Report #CSD-TR-933.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>S. Garfinkel, &quot;PGP:Pretty Good Privacy&quot;, O'Reilly &amp;amp; Associates, Sebastopol, CA, 1996.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>P. Denning, Editor, &quot;Computers Under Attack: Intruders, Worms, and Viruses&quot;, ACM Press, 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>USENIX, &quot;USENIX Symposium Proceedings: UNIX Security IV&quot;, Santa Clara, CA, October 4-6, 1993.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>J. McEwen, &quot;Dedicated Computer Crime Units&quot;, Report Contributors: D. Fester and H. Nugent, Prepared for the National Institute of Justice, U.S. Department of Justice, by Institute for Law and Justice, Inc., under contract number OJP-85-C-006, Washington, DC, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Stoll, &quot;Stalking the Wily Hacker&quot;, Communications of the ACM, Vol. 31, No. 5, Pgs. 484-497, ACM, New York, NY, May 1988.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>R. Shirey, &quot;Defense Data Network Security Architecture&quot;, Computer Communication Review, Vol. 20, No. 2, Page 66, 1 April 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Lu and M. Sundareshan, &quot;A Model for Multilevel Security in Computer Networks&quot;, IEEE Transactions on Software Engineering, Vol. 16, No. 6, Page 647, 1 June 1990.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>W. Lu and M. Sundareshan, &quot;Secure Communication in Internet Environments: A Hierarchical Key Management Scheme for End-to-End Encryption&quot;, IEEE Transactions on Communications, Vol. 37, No. 10, Pg. 1014, 1 October 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <cite>C. Gould, Editor, &quot;The Information Web: Ethical and Social Implications of Computer Networking&quot;, Westview Press, Boulder, CO, 1989.</cite> <span class="badge text-bg-info ms-1">EXTERNAL</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC1087/" title="IETF RFC 1087">
+                        IETF RFC 1087
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+                <li class="list-group-item">
+                    <a href="../RFC1135/" title="IETF RFC 1135">
+                        IETF RFC 1135
+                    </a>
+                      <span class="ms-1">[Active*]</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                      
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <!-- Source data / JSON view -->
+      <div class="card mb-3 mt-3">
+        <div class="card-header fw-semibold d-flex align-items-center justify-content-between">
+          <span>Source Data (JSON)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary py-0 px-2"
+            id="source-data-toggle"
+            data-docid="RFC2196"
+          >
+            View source JSON
+          </button>
+        </div>
+        <div class="card-body small">
+          <p class="mb-0 small">
+            Full registry record with provenance metadata.
+            Open directly:
+            <a href="../../api/doc/RFC2196.json" target="_blank" rel="noopener">/api/doc/RFC2196.json</a>
+          </p>
+          <pre
+            id="source-data-json"
+            class="mt-2 border rounded p-2 bg-body-secondary small"
+            style="max-height: 16rem; overflow:auto; display:none;"
+          ></pre>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const btn = document.getElementById('source-data-toggle');
+        const box = document.getElementById('source-data-json');
+        if (!btn || !box) return;
+
+        let loaded = false;
+        let visible = false;
+
+        async function toggleSource() {
+          visible = !visible;
+          if (!visible) {
+            box.style.display = 'none';
+            btn.textContent = 'View source JSON';
+            return;
+          }
+
+          box.style.display = 'block';
+          btn.textContent = 'Hide source JSON';
+
+          if (loaded) return;
+
+          const docId = btn.getAttribute('data-docid') || '';
+          const encoded = encodeURIComponent(docId);
+          const prefix = window.msrAssetPrefix || '';
+          const url = prefix + 'api/doc/' + encoded + '.json';
+
+          box.textContent = 'Loading…';
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const data = await res.json();
+            box.textContent = JSON.stringify(data, null, 2);
+            loaded = true;
+          } catch (e) {
+            const msg = (e && e.message) ? e.message : String(e || 'Unknown error');
+            box.textContent = 'Failed to load source JSON: ' + msg;
+          }
+        }
+
+        btn.addEventListener('click', function(ev){
+          ev.preventDefault();
+          toggleSource();
+        }, { passive: false });
+      })();
+      </script>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card mb-3 border-warning-subtle doc-relations" role="note">
+        <div class="card-body small bg-warning-subtle rounded">
+          <div class="">
+            <span class="fw-bold">Supersedes:</span>
+            <div class="ms-3">
+                <span class="small"><a class="-link " href="../RFC1244/">IETF RFC 1244</a> [Superseded*]</span> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">Reference Tree</h2>
+          <p class="mb-2 text-muted">
+            Explore all references and references to this document, as a navigable tree.
+          </p>
+          <a class="btn btn-outline-secondary btn-sm" href="../../reftree/RFC2196/">Open Reference Tree</a>
+        </div>
+      </div>
+
+      <!-- Use this document as a reference -->
+      <div class="card mb-3">
+        <div class="card-header fw-semibold">Reference this Doc</div>
+        <div class="card-body small">
+          <!-- Plain text -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">Plain text (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-text-RFC2196">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary">IETF RFC 2196, Site Security Handbook. Available at https://doi.org/10.17487/RFC2196</div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-text-RFC2196" class=" border rounded p-2 mb-0 snippet">IETF RFC 2196, Site Security Handbook. Available at https://doi.org/10.17487/RFC2196</pre>
+            
+          </div>
+          
+          <!-- HTML (generic) -->
+          <div class="mb-3 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0">HTML (<a href="../ISO.960.2021/">ISO 690</a> compliant)</h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-generic-RFC2196">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><span class="citation"><cite>IETF RFC 2196</cite>, Site Security Handbook. Available at <a href="https://doi.org/10.17487/RFC2196" target="_blank" rel="noopener">https://doi.org/10.17487/RFC2196</a></span></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-generic-RFC2196" class=" border rounded p-2 mb-0 snippet">&lt;span class=&quot;citation&quot;&gt;&lt;cite&gt;IETF RFC 2196&lt;/cite&gt;, Site Security Handbook. Available at &lt;a href=&quot;https://doi.org/10.17487/RFC2196&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doi.org/10.17487/RFC2196&lt;/a&gt;&lt;/span&gt;</pre>
+            
+          </div>
+
+          <!-- HTML (SMPTE) -->
+          <div class="mb-1 pt-3 border-top">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="h6 mb-0"><img src="../../resources/logos/smpte-icon.png" alt="SMPTE Icon" width="24" class=" icon d-inline-block align-text-middle"> SMPTE's <a href="../SMPTE.AG26/" title="IETF RFC 2196">HTML Pub</a></h3>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="#cite-html-smpte-RFC2196">Copy</button>
+                
+              </div>
+            </div>
+            <div class="mt-1">Preview:</div>
+            <div class="border rounded p-2 bg-body-secondary"><cite id="bib-rfc2196">IETF RFC 2196</cite>, Site Security Handbook<br>doi:&nbsp;<span class="doi">10.17487/RFC2196</span><br>url:&nbsp;<a href="https://doi.org/10.17487/RFC2196" class="ext-ref">https://doi.org/10.17487/RFC2196</a></div>
+            <div class="mt-2">Snippet:</div>
+            <pre id="cite-html-smpte-RFC2196" class=" border rounded p-2 mb-0 snippet">&lt;li&gt;
+&lt;cite id=&quot;bib-rfc2196&quot;&gt;IETF RFC 2196&lt;/cite&gt;, Site Security Handbook
+&lt;span class=&quot;doi&quot;&gt;10.17487/RFC2196&lt;/span&gt;
+&lt;/li&gt;</pre>
+            
+          </div>
+        </div>
+      </div>
+
+      <script>
+      // Lightweight copy buttons for the three snippets on this page
+      (function(){
+        function copyFrom(targetSel){
+          try{
+            // Support targets passed as "#id" or "id"
+            let id = targetSel || '';
+            if (id.startsWith('#')) id = id.slice(1);
+
+            // Prefer getElementById to avoid CSS selector escaping issues with dots in IDs (e.g., SMPTE.ST96.2004)
+            const el = document.getElementById(id) || document.querySelector(targetSel);
+            if (!el) return;
+
+            const text = (typeof el.value === 'string') ? el.value : (el.textContent ?? el.innerText ?? '');
+            navigator.clipboard.writeText(text);
+          } catch (e) {
+            console.error('[copy] failed:', e);
+          }
+        }
+        document.addEventListener('click', function(ev){
+          const btn = ev.target.closest('[data-copy-target]');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-copy-target');
+          copyFrom(sel);
+          // quick visual feedback
+          btn.disabled = true;
+          const prev = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => { btn.disabled = false; btn.innerText = prev; }, 900);
+        }, { passive: true });
+      })();
+      </script>
+      
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h6">Referenced By</h2>
+          <ul class="list-group list-group-flush small">
+            <li class="list-group-item">
+              <a href="../RFC2350/">IETF RFC 2350</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC2504/">IETF RFC 2504</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC2635/">IETF RFC 2635</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC2828/">IETF RFC 2828</a> [Superseded*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC2960/">IETF RFC 2960</a> [Superseded*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC3013/">IETF RFC 3013</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC3057/">IETF RFC 3057</a> [Superseded*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC3331/">IETF RFC 3331</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC3332/">IETF RFC 3332</a> [Superseded*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC3871/">IETF RFC 3871</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC4381/">IETF RFC 4381</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC4949/">IETF RFC 4949</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC4960/">IETF RFC 4960</a> [Superseded*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg> 
+            </li>
+            <li class="list-group-item">
+              <a href="../RFC9260/">IETF RFC 9260</a> [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="mt-3">
+    <a class="btn btn-outline-secondary btn-sm" href="../#RFC2196">← Back to Docs</a>
+  </nav>
+</main>
+
+<!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+            <p class="mb-0">
+              <span class="fw-semibold">Record updated:</span> <time datetime="2026-10-13T16:40:05.887Z"><code>2026-10-13T16:40:05.887Z</code></time>
+            </p>
+                      </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T16:07:59.272Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9008",
+  "document": {
+    "abstract": "This document looks at different data flows through Low-Power and Lossy Networks (LLN) where RPL (IPv6 Routing Protocol for Low-Power and Lossy Networks) is used to establish routing. The document enumerates the cases where RPL Packet Information (RPI) Option Type (RFC 6553), RPL Source Route Header (RFC 6554), and IPv6-in-IPv6 encapsulation are required in the data plane. This analysis provides the basis upon which to design efficient compression of these headers. This document updates RFC 6553 by adding a change to the RPI Option Type. Additionally, this document updates RFC 6550 by defining a flag in the DODAG Information Object (DIO) Configuration option to indicate this change and updates RFC 8138 as well to consider the new Option Type when the RPL Option is decompressed.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "authors": [
+      {
+        "name": "Ines Robles"
+      },
+      {
+        "name": "Michael Richardson"
+      },
+      {
+        "name": "Pascal Thubert"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docId": "RFC9008",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docLabel": "IETF RFC 9008",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docNumber": "9008",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T16:07:59.271Z",
+      "version": "extractDocs.js@commit:cc2368606b5f"
+    },
+    "docTitle": "Using RPI Option Type, Routing Header for Source Routes, and IPv6-in-IPv6 Encapsulation in the RPL Data Plane",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "doi": "10.17487/RFC9008",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "href": "https://doi.org/10.17487/RFC9008",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "keywords": [
+      "RPL Option",
+      "6LoWPAN"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "RPL Option",
+        "6LoWPAN",
+        "RFC 6553"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T16:07:59.272Z",
+      "version": "extractDocs.js@commit:cc2368606b5f"
+    },
+    "pages": "49",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "publicationDate": "2021-04-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "references": {
+      "bibliographic": [
+        "IETF.draft-ietf-anima-autonomic-control-plane-30",
+        "IETF.draft-ietf-anima-bootstrapping-keyinfra-45",
+        "RFC801",
+        "RFC2460",
+        "RFC2473",
+        "RFC4443",
+        "RFC5406",
+        "RFC6437",
+        "RFC6775",
+        "RFC6997",
+        "RFC7102",
+        "RFC7416",
+        "RFC8180",
+        "RFC8504",
+        "RFC8505",
+        "RFC8928",
+        "RFC8929",
+        "RFC9010",
+        "IETF.draft-ietf-intarea-tunnels-10",
+        "IETF.draft-ietf-6tisch-dtsecurity-zerotouch-join-04",
+        "orphan/RFC9008/h:696d28d9"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+        "updated": "2026-10-20T09:42:42.124Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "normative": [
+        "RFC2827",
+        "RFC2119",
+        "RFC6040",
+        "RFC6282",
+        "RFC6550",
+        "RFC6553",
+        "RFC6554",
+        "RFC7045",
+        "RFC8025",
+        "RFC8138",
+        "RFC8174",
+        "RFC8200"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+        "updated": "2026-10-20T09:42:42.124Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9008/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+      "updated": "2026-10-20T09:42:42.124Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+        "updated": "2026-10-20T09:42:42.124Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "amends": [
+        "RFC6550",
+        "RFC6553",
+        "RFC8138"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+        "updated": "2026-10-20T09:42:42.124Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+        "updated": "2026-10-20T09:42:42.124Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9008",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9008",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc9008.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+        "updated": "2026-10-20T09:42:42.124Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+        "updated": "2026-10-20T09:42:42.124Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+        "updated": "2026-10-20T09:42:42.124Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9008/",
+        "updated": "2026-10-20T09:42:42.124Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      }
+    }
+  }
+}

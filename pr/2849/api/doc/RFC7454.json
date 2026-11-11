@@ -1,0 +1,258 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T20:46:18.033Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC7454",
+  "document": {
+    "abstract": "The Border Gateway Protocol (BGP) is the protocol almost exclusively used in the Internet to exchange routing information between network domains. Due to this central nature, it is important to understand the security measures that can and should be deployed to prevent accidental or intentional routing disturbances. This document describes measures to protect the BGP sessions itself such as Time to Live (TTL), the TCP Authentication Option (TCP-AO), and control-plane filtering. It also describes measures to better control the flow of routing information, using prefix filtering and automation of prefix filters, max-prefix filtering, Autonomous System (AS) path filtering, route flap dampening, and BGP community scrubbing.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "authors": [
+      {
+        "name": "Jerome Durand"
+      },
+      {
+        "name": "Ivan Pepelnjak"
+      },
+      {
+        "name": "Gert Döring"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docId": "RFC7454",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docLabel": "IETF RFC 7454",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docNumber": "7454",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docTitle": "BGP Operations and Security",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docType": "Best Practice",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "doi": "10.17487/RFC7454",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "href": "https://doi.org/10.17487/RFC7454",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "pages": "26",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publicationDate": "2015-02-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2385",
+        "RFC2827",
+        "RFC3704",
+        "RFC4012",
+        "RFC6192",
+        "RFC6480",
+        "RFC6666",
+        "RFC6952",
+        "RFC7115",
+        "RFC7132",
+        "IETF.draft-ietf-idr-ix-bgp-route-server-06",
+        "IETF.draft-ga-idr-as-migration-03",
+        "RFC7353",
+        "orphan/RFC7454/h:28473eee",
+        "orphan/RFC7454/h:f364561b",
+        "orphan/RFC7454/h:0568f186",
+        "orphan/RFC7454/h:64ed6d48",
+        "orphan/RFC7454/h:6c7918c0",
+        "orphan/RFC7454/h:5d684e22",
+        "orphan/RFC7454/h:280fa28a",
+        "orphan/RFC7454/h:8258ed1b",
+        "orphan/RFC7454/h:236f9f67",
+        "orphan/RFC7454/h:9360076d",
+        "orphan/RFC7454/h:e7d836ed",
+        "orphan/RFC7454/h:ed760209"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=31 proseBlocks=38 skippedAnchorBlocks=35",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+        "updated": "2026-10-16T20:46:18.033Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC4271",
+        "RFC5082",
+        "RFC5925",
+        "RFC6811",
+        "RFC7196"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+        "updated": "2026-10-16T20:46:18.033Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc7454/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+      "updated": "2026-10-16T20:46:18.033Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+        "updated": "2026-10-16T20:46:18.033Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+        "updated": "2026-10-16T20:46:18.033Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+        "updated": "2026-10-16T20:46:18.033Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "statusNote": "Best Current Practice",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+        "updated": "2026-10-16T20:46:18.033Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7454/",
+        "updated": "2026-10-16T20:46:18.033Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    }
+  }
+}

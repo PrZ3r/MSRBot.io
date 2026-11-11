@@ -1,0 +1,284 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-21T16:58:28.582Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9421",
+  "document": {
+    "abstract": "This document describes a mechanism for creating, encoding, and verifying digital signatures or message authentication codes over components of an HTTP message. This mechanism supports use cases where the full HTTP message may not be known to the signer and where the message may be transformed (e.g., by intermediaries) before reaching the verifier. This document also describes a means for requesting that a signature be applied to a subsequent HTTP message in an ongoing HTTP exchange.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "authors": [
+      {
+        "name": "Annabelle Backman"
+      },
+      {
+        "name": "Justin Richer"
+      },
+      {
+        "name": "Manu Sporny"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docId": "RFC9421",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docLabel": "IETF RFC 9421",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docNumber": "9421",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docTitle": "HTTP Message Signatures",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "doi": "10.17487/RFC9421",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "href": "https://doi.org/10.17487/RFC9421",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "keywords": [
+      "PKI"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "pages": "95",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publicationDate": "2024-02-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC8996",
+        "RFC9440",
+        "RFC6265",
+        "RFC9530",
+        "10.1145-3319535.3339813",
+        "RFC7515",
+        "RFC7239",
+        "RFC7468",
+        "RFC7807",
+        "RFC8126",
+        "RFC8792",
+        "RFC9457",
+        "IETF.draft-cavage-http-signatures-12",
+        "IETF.draft-ietf-oauth-signed-http-request-03",
+        "RFC8446",
+        "orphan/RFC9421/h:73435b37"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+        "updated": "2026-10-21T16:58:28.582Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "normative": [
+        "RFC5234",
+        "RFC20",
+        "NIST.FIPS.186-5",
+        "WHATWG.URL",
+        "RFC9110",
+        "RFC9112",
+        "RFC2104",
+        "RFC2119",
+        "RFC6234",
+        "RFC7517",
+        "RFC7518",
+        "RFC8017",
+        "RFC8032",
+        "RFC8174",
+        "RFC8941",
+        "RFC3986",
+        "orphan/RFC9421/h:216337d6"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+        "updated": "2026-10-21T16:58:28.582Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9421/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+      "updated": "2026-10-21T16:58:28.582Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+        "updated": "2026-10-21T16:58:28.582Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+        "updated": "2026-10-21T16:58:28.582Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9421",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9421",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc9421.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+        "updated": "2026-10-21T16:58:28.582Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+        "updated": "2026-10-21T16:58:28.582Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+        "updated": "2026-10-21T16:58:28.582Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9421/",
+        "updated": "2026-10-21T16:58:28.582Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    }
+  }
+}

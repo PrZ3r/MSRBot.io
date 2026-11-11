@@ -1,0 +1,248 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T16:14:32.432Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC7503",
+  "document": {
+    "abstract": "OSPFv3 is a candidate for deployments in environments where autoconfiguration is a requirement. One such environment is the IPv6 home network where users expect to simply plug in a router and have it automatically use OSPFv3 for intra-domain routing. This document describes the necessary mechanisms for OSPFv3 to be self-configuring. This document updates RFC 5340 by relaxing the HelloInterval/ RouterDeadInterval checking during OSPFv3 adjacency formation and adding hysteresis to the update of self-originated Link State Advertisements (LSAs).",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "authors": [
+      {
+        "name": "Acee Lindem"
+      },
+      {
+        "name": "Jari Arkko"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docId": "RFC7503",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docLabel": "IETF RFC 7503",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docNumber": "7503",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docTitle": "OSPFv3 Autoconfiguration",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "doi": "10.17487/RFC7503",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "href": "https://doi.org/10.17487/RFC7503",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "pages": "15",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publicationDate": "2015-04-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "references": {
+      "bibliographic": [
+        "IETF.draft-madhukar-ospf-agr-asymmetric-01",
+        "RFC5226",
+        "RFC7084",
+        "RFC4552",
+        "orphan/RFC7503/h:1a713a56"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=12 proseBlocks=22 skippedAnchorBlocks=13",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+        "updated": "2026-10-14T16:14:32.432Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "normative": [
+        "RFC2328",
+        "RFC5340",
+        "RFC5838",
+        "RFC7166",
+        "RFC2119",
+        "RFC4862",
+        "RFC3630"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+        "updated": "2026-10-14T16:14:32.432Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc7503/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+      "updated": "2026-10-14T16:14:32.432Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+        "updated": "2026-10-14T16:14:32.432Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "amends": [
+        "RFC5340"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+        "updated": "2026-10-14T16:14:32.432Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+        "updated": "2026-10-14T16:14:32.432Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+        "updated": "2026-10-14T16:14:32.432Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+        "updated": "2026-10-14T16:14:32.432Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7503/",
+        "updated": "2026-10-14T16:14:32.432Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    }
+  }
+}

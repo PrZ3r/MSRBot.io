@@ -1,0 +1,260 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-13T22:26:17.389Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6806",
+  "document": {
+    "abstract": "This memo documents a method for a Kerberos Key Distribution Center (KDC) to respond to client requests for Kerberos tickets when the client does not have detailed configuration information on the realms of users or services. The KDC will handle requests for principals in other realms by returning either a referral error or a cross-realm Ticket-Granting Ticket (TGT) to another realm on the referral path. The clients will use this referral information to reach the realm of the target principal and then receive the ticket. This memo also provides a mechanism for verifying that a request has not been tampered with in transit. This memo updates RFC 4120. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "authors": [
+      {
+        "name": "Sam Hartman"
+      },
+      {
+        "name": "Kenneth Raeburn"
+      },
+      {
+        "name": "Larry Zhu"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docId": "RFC6806",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docLabel": "IETF RFC 6806",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docNumber": "6806",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docTitle": "Kerberos Principal Name Canonicalization and Cross-Realm Referrals",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "doi": "10.17487/RFC6806",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "href": "https://doi.org/10.17487/RFC6806",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "keywords": [
+      "Authentication",
+      "Security Protocols",
+      "Media Identity"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "pages": "19",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "publicationDate": "2012-11-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC4556",
+        "RFC5280",
+        "RFC5322",
+        "orphan/RFC6806/h:68cc8256"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=7 proseBlocks=11 skippedAnchorBlocks=8",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+        "updated": "2026-10-13T22:26:17.389Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC4120",
+        "RFC6113"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+        "updated": "2026-10-13T22:26:17.389Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6806/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+      "updated": "2026-10-13T22:26:17.389Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+        "updated": "2026-10-13T22:26:17.389Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "amends": [
+        "RFC4120"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+        "updated": "2026-10-13T22:26:17.389Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+        "updated": "2026-10-13T22:26:17.389Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+        "updated": "2026-10-13T22:26:17.389Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+        "updated": "2026-10-13T22:26:17.389Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6806/",
+        "updated": "2026-10-13T22:26:17.389Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      }
+    }
+  }
+}

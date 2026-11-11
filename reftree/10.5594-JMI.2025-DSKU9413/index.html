@@ -1,0 +1,570 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO: core meta -->
+    <meta name="description" content="Advancements in Radiance Field Techniques for Volumetric Video Generation: A Technical Overview">
+    <link rel="canonical" href="https://msrbot.io/reftree/10.5594-JMI.2025-DSKU9413/">
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+    <meta name="author" content="Steve LLamb (PrZ3)">
+    <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta name="license" content="BSD-3-Clause">
+    <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+  
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MSRBot.io">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:title" content="Reference Tree — Advancements in Radiance Field Techniques for Volumetric Video Generation: A Technical Overview — MSRBot.io">
+    <meta property="og:description" content="Advancements in Radiance Field Techniques for Volumetric Video Generation: A Technical Overview">
+    <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta property="og:license" content="BSD-3-Clause"> 
+    <meta property="og:url" content="https://msrbot.io/reftree/10.5594-JMI.2025-DSKU9413/">
+    <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> 
+  
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  
+    <!-- PWA/Theme (optional but nice) -->
+    <meta name="application-name" content="MSRBot.io">
+    <meta name="theme-color" content="#1398b0">
+  
+    <!-- Icons -->
+    <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+    
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+    <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+  
+    <title>MSRBot.io | Reference Tree — Advancements in Radiance Field Techniques for Volumetric Video Generation: A Technical Overview</title>
+  
+    <!-- Scripts -->
+    <script>
+      window.msrAssetPrefix = "../../";
+    </script>
+    <script src="../../js/msrbot.js"></script>
+  
+    <!-- JSON-LD: basic WebSite schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Reference Tree — Advancements in Radiance Field Techniques for Volumetric Video Generation: A Technical Overview - MSRBot.io",
+      "url": "https://msrbot.io/reftree/10.5594-JMI.2025-DSKU9413/",
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/docs/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search documents"
+        },
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/api/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search API"
+        }
+      ],
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MSRBot.io",
+        "url": "https://msrbot.io"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "PrZ3",
+        "url": "https://PrZ3.io"
+      },
+      "copyrightHolder": {
+        "@type": "Organization",
+        "name": "PrZ3"
+      },
+      "copyrightYear": "2025-26",
+      "license": "https://opensource.org/licenses/BSD-3-Clause",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://msrbot.io/static/og/msrbot-og.png",
+        "width": 1200,
+        "height": 630
+      }
+    }
+    </script>
+  
+    <!-- Other -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+    <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+      <div class="container">
+        <div class="navbar-brand"><a href="../../"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          
+          <ul class="navbar-nav ms-auto mb-lg-0">
+            <li class="nav-item text-nowrap">
+              <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a
+                id="nav-portals"
+                class="nav-link d-flex flex-column text-center"
+                title="Portals"
+                href="#"
+                role="button"
+                tabindex="0"
+                data-bs-toggle="popover"
+                data-bs-trigger="focus"
+                data-bs-placement="bottom"
+              >
+                <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+                <span class="small">PORTALS</span>
+              </a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+            </li>
+            <!-- li class="nav-item text-nowrap">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+            </li -->
+          </ul>
+  
+          <div class="dev-links-stack">
+            <a
+              id="dev-tools"
+              class="dev-link"
+              title="Developer Tools and Resources"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+            <a
+              id="user-prefs"
+              class="dev-link"
+              title="Set Preferences"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Hidden template for Dev Tools popover content -->
+    <div id="dev-tools-popover-content" class="d-none">
+      <div class="small">
+        <strong>API</strong>
+        <ul class="mb-2">
+          <li>
+            <a href="../../api/">
+              <i class="bi bi-braces me-1"></i>API Explorer
+            </a>
+            &mdash; search &amp; browse the registry
+          </li>
+          <li>
+            <a href="../../api/documents.json" target="_blank" rel="noopener">
+              api/documents.json
+            </a>
+            &mdash; lightweight index, one row per doc, linking to per-doc shards
+          </li>
+          <li>
+            <a href="../../api/doc/" target="_blank" rel="noopener">
+              api/doc/&lt;docId&gt;.json
+            </a>
+            &mdash; per-doc record with full $meta provenance
+          </li>
+          <li>
+            <a href="../../api/search/index.json" target="_blank" rel="noopener">
+              api/search/index.json
+            </a>
+            &mdash; compact search shards (current editions), sized for AI fetch tools
+          </li>
+          <li>
+            <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+              api/by-publisher.json
+            </a>
+            &mdash; full-record slices per publisher and doc type
+          </li>
+          <li>
+            <a href="../../api/groups.json" target="_blank" rel="noopener">
+              api/groups.json
+            </a>
+            &mdash; groups registry
+          </li>
+          <li>
+            <a href="../../api/projects.json" target="_blank" rel="noopener">
+              api/projects.json
+            </a>
+            &mdash; projects registry
+          </li>
+          <li>
+            <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+              api/by-doc.json
+            </a>
+            &mdash; docId &rarr; owning groups and projects
+          </li>
+          <li>
+            <a href="../../api/publishers.json" target="_blank" rel="noopener">
+              api/publishers.json
+            </a>
+            &mdash; publishers, logos, doc counts
+          </li>
+          <li>
+            <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+              api/vocabulary.json
+            </a>
+            &mdash; keywords, doc types, content types
+          </li>
+          <li>
+            <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+              api/mri-cite-map.json
+            </a>
+            &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+          </li>
+          <li>
+            <a href="../../api/stats.json" target="_blank" rel="noopener">
+              api/stats.json
+            </a>
+            &mdash; registry statistics &amp; metadata
+          </li>
+          <li>
+            <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+              api/schemas/documents.schema.json
+            </a>
+            &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+          </li>
+        </ul>
+  
+        <strong>Resources</strong>
+        <ul class="mb-0">
+          <li>
+            <a href="../../ai/">
+              <i class="bi bi-robot me-1"></i>Use with AI
+            </a>
+            &mdash; skill &amp; prompt for Claude, ChatGPT and others
+          </li>
+          <li>
+            <a href="../../changelog/">
+              Changelog
+            </a>
+            &mdash; release history
+          </li>
+          <li>
+            <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+              GitHub
+            </a>
+            &mdash; source &amp; issues
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Preferences popover content -->
+    <div id="user-prefs-popover-content" class="d-none">
+      <div class="small">
+        <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+        <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+        <div class="d-grid gap-1">
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+            Auto (match system)
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+            Light mode
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+            Dark mode
+          </a>
+        </div>
+        <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Portals popover content -->
+    <div id="nav-portals-popover-content" class="d-none">
+      <div class="small">
+        <div id="nav-portals-list">
+          <div class="text-muted small">Loading…</div>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Dev Tools popover
+        var devTrigger = document.getElementById('dev-tools');
+        if (devTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(devTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('dev-tools-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Preferences popover (theme selection)
+        var prefsTrigger = document.getElementById('user-prefs');
+        if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(prefsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('user-prefs-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Portals popover
+        var portalsTrigger = document.getElementById('nav-portals');
+        if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(portalsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            title: 'Portals',
+            content: function () {
+              var tpl = document.getElementById('nav-portals-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+      });
+    </script>
+  
+    <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+    <a class="anchor" id="top" href="#top"></a>    <!-- Main content starts - do not edit above this line -->
+
+    <main class="container my-4">
+      <header class="mb-3">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="gap-2">
+            <p class="text-muted mb-1">
+              Current document root:
+              <span class="ms-1 fs-6"><code>MIJ 2025, Volume 134, Number 6 (pp. 25 to 33)</code></span>
+            </p>
+            <p class="h5 mb-2">
+              <a class="text-decoration-none"  href="../../docs/10.5594-JMI.2025-DSKU9413/">Advancements in Radiance Field Techniques for Volumetric Video Generation: A Technical Overview</a>
+            </p>
+              <p class="text-muted small mb-0">
+                <a class="" href="../../docs/?f.publisher=SMPTE">SMPTE</a> • <a class="" href="../../docs/?f.docType=Journal Article">Journal Article</a> • [Active] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+              </p>
+          </div>
+          <div class="text-end">
+            <a class="btn btn-outline-secondary btn-sm ms-2 mb-2 text-nowrap" href="../../docs/10.5594-JMI.2025-DSKU9413/">
+              ← Back to Doc
+            </a>
+            <div class="small text-muted text-nowrap">
+              <label for="rt-depth-select">Max Ref Depth:</label>
+              <select id="rt-depth-select" class="form-select form-select-sm d-inline w-auto ms-1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="small text-muted mt-2 mb-0">Click a document below to open its own reference tree.</p>
+      </header>
+
+      <div id="rt-graph-note" class="alert alert-warning small d-none" role="status"></div>
+
+      <!-- Reference panels row: upstream and downstream side-by-side -->
+      <section class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0"><i class="bi bi-arrow-up-left"></i> Referenced By</h2>
+              <div class="small text-muted">Docs that depend on <a href="../../docs/10.5594-JMI.2025-DSKU9413/">Advancements in Radiance Field Techniques for Volumetric Video Generation: A Technical Overview</a></div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="up"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="up"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="up">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-upstream" class="card-body small"><p class="text-muted mb-0">No entries.</p></div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0">References Of <i class="bi bi-arrow-down-right"></i></h2>
+              <div class="small text-muted">Docs that <a href="../../docs/10.5594-JMI.2025-DSKU9413/">Advancements in Radiance Field Techniques for Volumetric Video Generation: A Technical Overview</a> depend on</div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="down"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="down"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="down">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-downstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-down">Level 1 — direct references (docs this doc cites)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-down"><li><cite class="ms-1">A. Smolic, “3D video and free viewpoint video-From capture to display,” Pattern Recogn., 44(9): 1958–1968, 2011, doi: 10.1016/j.patcog.2010.09.005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. T. Barron, B. Mildenhall, M. Tancik, P. Hedman, R. Martin-Brualla, and P. P. Srinivasan, “Mip-NeRF: A Multiscale Representation for Anti-aliasing Neural Radiance Fields,” Proc. IEEE/CVF Int. Conf. Comput. Vis., pp. 5855–5864, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">B. Roessle, N. Müller, L. Porzi, S. R. Bulò, P. Kontschieder, and M. Nießner, “GANeRF: Leveraging Discriminators to Optimize Neural Radiance Fields,” ACM Trans. Graph., 42(6), Nov. 2023, doi: 10.1145/3618402.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Niemeyer, “RegNeRF: Regularizing Neural Radiance Fields for View Synthesis from Sparse Inputs,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn., pp. 5470–5480, 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">B. Kerbl, G. Kopanas, T. Leimkühler, and G. Drettakis, “3D Gaussian Splatting for Real-time Radiance Field Rendering,” ACM Trans. Graph., 42(4), Jul. 2023. Online.. Available: https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Ye, “Gaussian grouping: Segment and Edit anything in 3D Scenes,” Proc. Eur. Conf. Comput. Vis., Cham: Springer Nature, Switzerland, 2024.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">L. Song, “NeRFPlayer: A Streamable Dynamic Scene Representation with Decomposed Neural Radiance Fields,” IEEE Trans. Vis. Comput. Graphics, 29(5): 2732–2742, 2023.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. Zhang, “Editable Free-viewpoint Video Using a Layered Neural Representation,” ACM Trans. Graph., 40(4):1–18, 2021,.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">A. M. Barros, M. Michel, Y. Moline, G. Corre, and F. Carrel, “A Comprehensive Survey of Visual SLAM Algorithms,” Robotics, 11(1), Jan. 2022, doi: 10.3390/robotics11010024.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. L. Schonberger and J.-M. Frahm, “Structure-from-motion Revisited,” Proc. IEEE Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 4104–4113, Jun. 2016.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Z. Wang, S. Wu, W. Xie, M. Chen, and V. A. Prisacariu, “NeRF-: Neural Radiance Fields Without Known Camera Parameters,” arXiv preprint, arXiv:2102.07064, Feb. 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">G. Thomas, R. Gade, T. B. Moeslund, P. Carr, and A. Hilton, “Computer vision for sports: Current applications and research topics,” Comput. Vis. Image Underst., 159: 318, 2017, doi: 10.1016/j.cviu.2017.04.011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Y. Jeong, “Self-Calibrating Neural Radiance Fields,” Proc. IEEE/CVF Int. Conf. Comput. Vis. (ICCV), pp. 5846–5854, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S.-F. Chng, S. Ramasinghe, J. Sherrah, and S. Lucey, “Gaussian Activated Neural Radiance Fields for High Fidelity Reconstruction and Pose Estimation,” Proc. Eur. Conf. Comput. Vis. (ECCV), pp. 264–280, 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Z. Liu, P. An, S. Liu, and Z. Zhang, “Arbitrary View Generation Based on DIBR,” Proc. Int. Symp. Intell. Signal Process. Commun. Syst. (ISPACS), pp. 168–171, 2007.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Levoy and P. Hanrahan, “Light Field Rendering,” Seminal Graph. Papers: Pushing the Boundaries, 2:441–452, Aug. 2023.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. J. Gortler, R. Grzeszczuk, R. Szeliski, and M. F. Cohen, “The Lumigraph,” in Seminal Graph. Papers: Pushing the Boundaries, Vol. 2, pp. 453–464, 2023.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">A. Krizhevsky, I. Sutskever, and G. E. Hinton, “lmageNet Classification With Deep Convolutional Neural Networks,” Adv. Neural lnt. Process. Syst. (NeurIPS), 25:1097–1105, Dec. 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. Maraval, “MUSE: A Multi-View Synthesis Enhancer,” Proc. Eur. Signal Process. Conf. (EUSIPCO), pp. 665–668, 2023.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">P. Hedman, J. Philip, T. Price, J.-M. Frahm, G. Drettakis, and G. Brostow, “Deep Blending for Free-Viewpoint Image-Based Rendering,” ACM Trans. Graph., 37(6): 1–15, Nov. 2018.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">W. Liu, “Liquid Warping GAN: A Unified Framework for Human Motion Imitation, Appearance Transfer and Novel View Synthesis,” Proc. IEEE/CVF Int. Conf. Comput. Vis. (ICCV), pp. 5904–5912, Oct. 2019.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">R. Huang, S. Zhang, T. Li, and R. He, “Beyond Face Rotation: Global and Local Perception GAN for Photorealistic and Identity Preserving Frontal View Synthesis,” Proc. IEEE Int. Conf. Comput. Vis. (ICCV), pp. 2458–2467, Oct. 2017.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Hackett, B. Makled, E. Mizroch, S. Venshtain, and M. McCoy-Thompson, “Volumetric Video and Mixed Reality for Healthcare Training,” May 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">G. Riegler and V. Koltun, “Free View Synthesis,” Proc. Eur. Conf. Comput. Vis. (ECCV), pp. 623–640, 2020.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">G. Riegler and V. Koltun, “Stable View Synthesis,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 12216–12225, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">D. Rückert, L. Franke, and M. Stamminger, “ADOP: Approximate Differentiable One-Pixel Point Rendering,” ACM Trans. Graph., 41(4), pp.1–14, Jul. 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">B. Mildenhall, “Local Light Field Fusion: Practical View Synthesis With Prescriptive Sampling Guidelines,” ACM Trans. Graph., 38(4), pp. 1–14, Jul. 2019.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. Flynn, “DeepView: View Synthesis With Learned Gradient Descent,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 2367–2376, 2019.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. Wizadwongsa, P. Phongthawee, J. Yenphraphai, and S. Suwajanakorn, “NeX: Real-Time View Synthesis With Neural Basis Expansion,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 8534–8543, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Broxton, “Immersive Light Field Video With a Layered Mesh Representation,” ACM Trans. Graph., 39(4), pp. 81–86, Jul. 2020.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Q. Wang, “IBRNet: Learning Multi-View Image-Based Rendering,” Proc. IEEE/ CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 4690–4699, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. J. Garbin, M. Kowalski, M. Johnson, J. Shotton, and J. Valentin, “FastNeRF: High-Fidelity Neural Rendering at 200 FPS,” Proc. IEEE/CVF Int. Conf. Comput. Vis. (ICCV), pp. 14346–14355, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">P. Hedman, P. P. Srinivasan, B. Mildenhall, J. T. Barron, and P. Debevec, “Baking Neural Radiance Fields for Real-Time View Synthesis,” Proc. IEEE/CVF Int. Conf. Comput. Vis. (ICCV), pp. 5875–5884, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. Orts-Escolano, “Holoportation: Virtual 3DT in Real-time,” Proc. 29th Annu. Symp. User Interface Softw. Technol., pp. 741–754, 2016.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">B. Deng, J. T. Barron, and P. P. Srinivasan, “JaxNeRF: An Efficient JAX Implementation of NeRF,” 2020.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">T. Neff, “DONeRF: Towards Real-Time Rendering of Compact Neural Radiance Fields Using Depth Oracle Networks,” Computer Graphics Forum, 40(4): 45–59, Jul. 2021. tugraz.elsevierpure.com.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">K. Zhang, G. Riegler, N. Snavely, and V. Koltun, “NeRF++: Analyzing and Improving Neural Radiance Fields,” arXiv preprint, Oct. 2020.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Tancik, “Block-NeRF: Scalable Large Scene Neural View Synthesis,” 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">H. Turki, D. Ramanan, and M. Satyanarayanan, “Mega-NeRF: Scalable Construction of Large-Scale NeRFs for Virtual Fly-Throughs,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 12922–12931, 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Z. Ma and D. Xu, “Switch-NeRF: Learning Scene Decomposition With Mixture of Experts for Large-Scale Neural Radiance Fields,” Proc. Int. Conf. Learn. Represent. (ICLR), 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. Ost, F. Mannan, N. Thuerey, J. Knodt, and F. Heide, “Neural Scene Graphs for Dynamic Scenes,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 2856–2865, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Niemeyer and A. Geiger, “GIRAFFE: Representing Scenes as Compositional Generative Neural Feature Fields,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 11453–11464, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Mihajlovic, “KeypointNeRF: Generalizing Image-Based Volumetric Avatars Using Relative Spatial Encoding of Keypoints,” Proc. Eur. Conf. Comput. Vis. (ECCV), Cham: Springer Nature Switzerland, pp. 1–18, 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">K. Park, “HyperNeRF: A Higher-Dimensional Representation for Topologically Varying Neural Radiance Fields,” 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">“Intel True View-Intel in Sports,” [Online]. Available: https://www.intel.com/content/www/us/en/sports/technology/true-view.html.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">A. Grigorev, “StylePeople: A Generative Model of Full-Body Human Avatars,” 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. Lombardi, “Neural Volumes: Learning Dynamic Renderable Volumes From Images,” arXiv preprint, arXiv:1906.07751, 2019.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. T. Barron, B. Mildenhall, D. Verbin, P. P. Srinivasan, and P. Hedman, “Mip-NeRF 360: Unbounded Anti-Aliased Neural Radiance Fields,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 5470–5479, 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">C. Sun, M. Sun, and H.-T. Chen, “Direct Voxel Grid Optimization: Super-Fast Convergence for Radiance Fields Reconstruction,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 5459–5469, 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Kim, S. Seo, and B. Han, “lnfoNeRF: Ray Entropy Minimization for Few-Shot Neural Volume Rendering,” Dec. 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">B. Roessle, J. T. Barron, B. Mildenhall, P. P. Srinivasan, and M. Nießner, “Dense Depth Priors for Neural Radiance Fields From Sparse Input Views,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 12892–12901, 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">A. Yu, R. Li, M. Tancik, H. Li, R. Ng, and A. Kanazawa, “Plenoctrees for Real-Time Rendering of Neural Radiance Fields,” Proc. IEEE/CVF Int. Conf. Comput. Vis. (ICCV), pp. 5752–5761, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">D. Rebain, “DeRF: Decomposed Radiance Fields,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 14153–14162, 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">L. Liu, J. Gu, K. Z. Lin, T.-S. Chua, and C. Theobalt, “Neural Sparse Voxel Fields,” Adv. Neural Int. Process. Syst. (NeurIPS), vol. 33, pp. 15651–15663, 2020.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">T. Müller, A. Evans, C. Schied, and A. Keller, “Instant Neural Graphics Primitives With a Multiresolution Hash Encoding,” ACM Trans. Graph., vol. 41, no. 4, Art. 102, Jul. 2022, doi: 10.1145/3528223.3530127.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">C. Fehn, “Depth-image-based rendering (DIBR), Compression and Transmission for a New Approach on 3D-TV,” Proc. SPIE, 5291, May 2004.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">D. Mieloch, A. Dziembowski, and M. Domański, “MPEG-I Visual. Natural Outdoor Test Sequences,” Brussels, Belgium, 2020.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">A. Pumarola, E. Corona, G. PonsMoll, and F. MorenoNoguer, “DNeRF: Neural Radiance Fields for Dynamic Scenes,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 10318–10327, Jun. 2021.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J.-W. Liu, “DeVRF: Fast Deformable Voxel Radiance Fields for Dynamic Scenes,” Adv. Neural Int. Process. Syst. (NeurIPS), vol. 35, pp. 36762–36775, 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">G. Wu, “4D Gaussian Splatting for Real-Time Dynamic Scene Rendering,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 20310–20320, Jun. 2024.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Y. Liang, “GauFRe: Gaussian Deformation Fields for RealTime Dynamic Novel View Synthesis,” Proc. IEEE/CVF Winter Conf. Appl. Comput. Vis. (WACV), pp. 2642–2652, Feb. 2025.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. FridovichKeil, G. Meanti, F. R. Warburg, B. Recht, and A. Kanazawa, “KPlanes: Explicit Radiance Fields in Space, Time, and Appearance,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), pp. 12479–12488, 2023.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Z. Yang, H. Yang, Z. Pan, X. Zhu, and L. Zhang, “RealTime Photorealistic Dynamic Scene Representation and Rendering With 4D Gaussian Splatting,” arXiv preprint, arXiv:2310.10642, 2023.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Z. Li, “Spacetime Gaussian Feature Splatting for RealTime Dynamic View Synthesis,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn. (CVPR), 2024.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">B. Wei, “MUVOD: A Novel MultiView Video Object Segmentation Dataset and a Benchmark for 3D Segmentation,” arXiv preprint, arXiv:2507.07519, 2025.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">L. Z. M. J. N. Ramin, “K3BO: KeypointBased Bounding Box Optimization for Radiance Field Reconstruction From MultiView Images,” ICME Workshop Immersive Media Compression, 2023.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">B. Mildenhall, P. P. Srinivasan, M. Tancik, J. T. Barron, R. Ramamoorthi, and R. Ng, “NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis,” Eur. Conf. Comput. Vis., pp. 405–421, 2020.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">D. Mieloch, “MIV. New Natural Content-MartialArts,” Jan. 2023.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. Fridovich-Keil, A. Yu, M. Tancik, Q. Chen, B. Recht, and A. Kanazawa, “Plenoxels: Radiance Fields Without Neural Networks,” Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recogn., pp. 5501–5510, 2022.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Tancik, “NeRFStudio: A Modular Framework for Neural Radiance Field Development,” ACM SIGGRAPH 2023 Conf. Proc., SIGGRAPH &#39;23, 2023.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li></ul></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script>
+      window.assetPrefix = "../../";
+      window.MSR_REF_ROOT = "10.5594-JMI.2025-DSKU9413";
+    </script>
+    <script src="../../js/refTreeRender.js"></script>
+    <script src="../../js/refTree.js"></script>
+
+    <!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

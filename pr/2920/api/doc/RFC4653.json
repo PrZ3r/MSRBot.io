@@ -1,0 +1,289 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T16:58:15.971Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC4653",
+  "document": {
+    "abstract": "This document specifies Non-Congestion Robustness (NCR) for TCP. In the absence of explicit congestion notification from the network, TCP uses loss as an indication of congestion. One of the ways TCP detects loss is using the arrival of three duplicate acknowledgments. However, this heuristic is not always correct, notably in the case when network paths reorder segments (for whatever reason), resulting in degraded performance. TCP-NCR is designed to mitigate this degraded performance by increasing the number of duplicate acknowledgments required to trigger loss recovery, based on the current state of the connection, in an effort to better disambiguate true segment loss from segment reordering. This document specifies the changes to TCP, as well as the costs and benefits of these modifications. This memo defines an Experimental Protocol for the Internet community.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "authors": [
+      {
+        "name": "Sumitha Bhandarkar"
+      },
+      {
+        "name": "Anil Reddy"
+      },
+      {
+        "name": "Mark Allman"
+      },
+      {
+        "name": "Ethan Blanton"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docId": "RFC4653",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docLabel": "IETF RFC 4653",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docNumber": "4653",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docTitle": "Improving the Robustness of TCP to Non-Congestion Events",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docType": "Experimental",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "doi": "10.17487/RFC4653",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "href": "https://doi.org/10.17487/RFC4653",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "keywords": [
+      "Non-congestion Robustness",
+      "TCP"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Ncr",
+        "Non-congestion Robustness",
+        "TCP"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T16:58:15.971Z",
+      "version": "extractDocs.js@commit:30d92d8ed083"
+    },
+    "pages": "18",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "publicationDate": "2006-08-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC896",
+        "RFC1122",
+        "RFC2883",
+        "RFC2960",
+        "RFC3465",
+        "RFC3522",
+        "RFC3708",
+        "RFC4015",
+        "RFC4138",
+        "orphan/RFC4653/h:543b2926",
+        "orphan/RFC4653/h:61c0530c",
+        "orphan/RFC4653/h:cfb6e4a5",
+        "orphan/RFC4653/h:5f825224",
+        "orphan/RFC4653/h:9643fecc",
+        "orphan/RFC4653/h:8a371e8c",
+        "orphan/RFC4653/h:22a1db3e",
+        "orphan/RFC4653/h:dbb3d85f",
+        "orphan/RFC4653/h:f7f0a4a3",
+        "orphan/RFC4653/h:606817fc",
+        "orphan/RFC4653/h:68062ee7",
+        "orphan/RFC4653/h:558907ed",
+        "orphan/RFC4653/h:f204934e"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=29 proseBlocks=34 skippedAnchorBlocks=31",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+        "updated": "2026-10-16T15:46:30.524Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "normative": [
+        "RFC793",
+        "RFC2018",
+        "RFC2119",
+        "RFC2581",
+        "RFC3042",
+        "RFC3517"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+        "updated": "2026-10-16T15:46:30.524Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc4653/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+      "updated": "2026-10-16T15:46:30.524Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+        "updated": "2026-10-16T15:46:30.524Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+        "updated": "2026-10-16T15:46:30.524Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc4653",
+        "https://www.rfc-editor.org/errata_search.php?rfc=4653"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+        "updated": "2026-10-16T15:46:30.524Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+        "updated": "2026-10-16T15:46:30.524Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "statusNote": "Experimental",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+        "updated": "2026-10-16T15:46:30.524Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc4653/",
+        "updated": "2026-10-16T15:46:30.524Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      }
+    }
+  }
+}
