@@ -1,0 +1,269 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T19:31:46.066Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6304",
+  "document": {
+    "abstract": "Many sites connected to the Internet make use of IPv4 addresses that are not globally unique. Examples are the addresses designated in RFC 1918 for private use within individual sites. Devices in such environments may occasionally originate Domain Name System (DNS) queries (so-called \"reverse lookups\") corresponding to those private-use addresses. Since the addresses concerned have only local significance, it is good practice for site administrators to ensure that such queries are answered locally. However, it is not uncommon for such queries to follow the normal delegation path in the public DNS instead of being answered within the site. It is not possible for public DNS servers to give useful answers to such queries. In addition, due to the wide deployment of private-use addresses and the continuing growth of the Internet, the volume of such queries is large and growing. The AS112 project aims to provide a distributed sink for such queries in order to reduce the load on the IN-ADDR.ARPA authoritative servers. The AS112 project is named after the Autonomous System Number (ASN) that was assigned to it. This document describes the steps required to install a new AS112 node and offers advice relating to such a node's operation. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "authors": [
+      {
+        "name": "Joe Abley"
+      },
+      {
+        "name": "William F. Maton"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docId": "RFC6304",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docLabel": "IETF RFC 6304",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docNumber": "6304",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docTitle": "AS112 Nameserver Operations",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "doi": "10.17487/RFC6304",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "href": "https://doi.org/10.17487/RFC6304",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "keywords": [
+      "DNS",
+      "Private Address Space"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "DNS",
+        "RFC1918"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T19:31:46.066Z",
+      "version": "extractDocs.js@commit:75b379398159"
+    },
+    "pages": "18",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publicationDate": "2011-07-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC1876",
+        "RFC5735",
+        "RFC5855",
+        "RFC6303",
+        "RFC6305",
+        "orphan/RFC6304/h:1da7799a",
+        "orphan/RFC6304/h:48b505ae",
+        "orphan/RFC6304/h:84702a43",
+        "orphan/RFC6304/h:d7e62b03",
+        "orphan/RFC6304/h:6cb469e9"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=16 proseBlocks=20 skippedAnchorBlocks=18",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+        "updated": "2026-10-16T18:57:11.673Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "normative": [
+        "RFC1034",
+        "RFC1918",
+        "RFC2870",
+        "RFC4033",
+        "RFC4271",
+        "RFC4786"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+        "updated": "2026-10-16T18:57:11.673Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6304/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+      "updated": "2026-10-16T18:57:11.673Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "status": {
+      "active": false,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+        "updated": "2026-10-16T18:57:11.673Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+        "updated": "2026-10-16T18:57:11.673Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "latestVersion": false,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+        "updated": "2026-10-16T18:57:11.673Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+        "updated": "2026-10-16T18:57:11.673Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "superseded": true,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+        "updated": "2026-10-16T18:57:11.673Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "supersededBy": [
+        "RFC7534"
+      ],
+      "supersededBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6304/",
+        "updated": "2026-10-16T18:57:11.673Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    }
+  }
+}

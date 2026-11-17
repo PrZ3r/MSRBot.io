@@ -1,0 +1,367 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T18:51:26.729Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9580",
+  "document": {
+    "abstract": "This document specifies the message formats used in OpenPGP. OpenPGP provides encryption with public key or symmetric cryptographic algorithms, digital signatures, compression, and key management. This document is maintained in order to publish all necessary information needed to develop interoperable applications based on the OpenPGP format. It is not a step-by-step cookbook for writing an application. It describes only the format and methods needed to read, check, generate, and write conforming packets crossing any network. It does not deal with storage and implementation questions. It does, however, discuss implementation issues necessary to avoid security flaws. This document obsoletes RFCs 4880 (\"OpenPGP Message Format\"), 5581 (\"The Camellia Cipher in OpenPGP\"), and 6637 (\"Elliptic Curve Cryptography (ECC) in OpenPGP\").",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "authors": [
+      {
+        "name": "Paul Wouters"
+      },
+      {
+        "name": "Daniel Huigens"
+      },
+      {
+        "name": "Justus Winter"
+      },
+      {
+        "name": "Niibe Yutaka"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docId": "RFC9580",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docLabel": "IETF RFC 9580",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docNumber": "9580",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docTitle": "OpenPGP",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "doi": "10.17487/RFC9580",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "href": "https://doi.org/10.17487/RFC9580",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "keywords": [
+      "Encryption",
+      "Digital Signatures",
+      "Key Management",
+      "PGP"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "pages": "166",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publicationDate": "2024-07-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "references": {
+      "bibliographic": [
+        "ISO.9899.2018",
+        "10.1145-2976749.2978395",
+        "RFC4880",
+        "10.1137-0217019",
+        "10.2307-3618498",
+        "10.1145-3548606.3559363",
+        "10.1007-978-3-319-16715-2_12",
+        "IEEE.STD1003.1.2017",
+        "RFC1991",
+        "RFC2440",
+        "RFC2978",
+        "RFC5581",
+        "RFC5639",
+        "RFC5869",
+        "RFC6090",
+        "RFC6637",
+        "SECG.SEC1.v2.2009-05",
+        "GITHUB.cr-marcstevens.sha1collisiondetection",
+        "10.5555-3489212.3489316",
+        "NIST.SP.800-131A",
+        "NIST.SP.800-57",
+        "ISBN.9781931971324",
+        "orphan/RFC9580/h:e5a552b1",
+        "orphan/RFC9580/h:23823f9d",
+        "orphan/RFC9580/h:e5e1f2e1",
+        "orphan/RFC9580/h:510b281a",
+        "orphan/RFC9580/h:3c40053b",
+        "orphan/RFC9580/h:2c05633e",
+        "orphan/RFC9580/h:e5f20fbc",
+        "orphan/RFC9580/h:053e5f78",
+        "orphan/RFC9580/h:486db328",
+        "orphan/RFC9580/h:ac94f652",
+        "orphan/RFC9580/h:4eda19fb"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+        "updated": "2026-10-14T18:51:26.729Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "normative": [
+        "NIST.FIPS.197",
+        "10.1109-TIT.1985.1057074",
+        "NIST.FIPS.180-4",
+        "NIST.FIPS.186-5",
+        "NIST.FIPS.202",
+        "10.1007-3-540-46877-3_35",
+        "ISO.10646.2020",
+        "T-REC-T.871",
+        "RFC1321",
+        "RFC1950",
+        "RFC1951",
+        "RFC2119",
+        "RFC2144",
+        "RFC2822",
+        "RFC3156",
+        "RFC3394",
+        "RFC3629",
+        "RFC3713",
+        "RFC4086",
+        "RFC4648",
+        "RFC5322",
+        "RFC6234",
+        "RFC7253",
+        "RFC7748",
+        "RFC8017",
+        "RFC8018",
+        "RFC8032",
+        "RFC8126",
+        "RFC8174",
+        "RFC9106",
+        "ISO.10118-3.1998",
+        "NIST.SP.800-38A",
+        "NIST.SP.800-38D",
+        "NIST.SP.800-56A",
+        "NIST.SP.800-67",
+        "orphan/RFC9580/h:23a92cb5",
+        "orphan/RFC9580/h:85c4eebb",
+        "orphan/RFC9580/h:12fd214e",
+        "orphan/RFC9580/h:ce28ff6e"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+        "updated": "2026-10-14T18:51:26.729Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9580/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+      "updated": "2026-10-14T18:51:26.728Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+        "updated": "2026-10-14T18:51:26.728Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+        "updated": "2026-10-14T18:51:26.729Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9580",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9580",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc9580.html",
+        "https://datatracker.ietf.org/doc/rfc9580/#errata-listing",
+        "https://datatracker.ietf.org/doc/rfc9580/#name-errata-addressed-by-this-do",
+        "https://www.rfc-editor.org/errata/eid2199",
+        "https://www.rfc-editor.org/errata/eid2200",
+        "https://www.rfc-editor.org/errata/eid2206",
+        "https://www.rfc-editor.org/errata/eid2208",
+        "https://www.rfc-editor.org/errata/eid2214",
+        "https://www.rfc-editor.org/errata/eid2216",
+        "https://www.rfc-editor.org/errata/eid2219",
+        "https://www.rfc-editor.org/errata/eid2222",
+        "https://www.rfc-editor.org/errata/eid2226",
+        "https://www.rfc-editor.org/errata/eid2234",
+        "https://www.rfc-editor.org/errata/eid2235",
+        "https://www.rfc-editor.org/errata/eid2236",
+        "https://www.rfc-editor.org/errata/eid2238",
+        "https://www.rfc-editor.org/errata/eid2240",
+        "https://www.rfc-editor.org/errata/eid2242",
+        "https://www.rfc-editor.org/errata/eid2243",
+        "https://www.rfc-editor.org/errata/eid2270",
+        "https://www.rfc-editor.org/errata/eid2271",
+        "https://www.rfc-editor.org/errata/eid3298",
+        "https://www.rfc-editor.org/errata/eid5491",
+        "https://www.rfc-editor.org/errata/eid7545",
+        "https://www.rfc-editor.org/errata/eid7889"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+        "updated": "2026-10-14T18:51:26.729Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+        "updated": "2026-10-14T18:51:26.729Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+        "updated": "2026-10-14T18:51:26.729Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+        "updated": "2026-10-14T18:51:26.729Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "supersedes": [
+        "RFC4880",
+        "RFC5581",
+        "RFC6637"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9580/",
+        "updated": "2026-10-14T18:51:26.729Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    }
+  }
+}

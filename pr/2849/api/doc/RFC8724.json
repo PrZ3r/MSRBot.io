@@ -1,0 +1,323 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T22:10:58.465Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC8724",
+  "document": {
+    "abstract": "This document defines the Static Context Header Compression and fragmentation (SCHC) framework, which provides both a header compression mechanism and an optional fragmentation mechanism. SCHC has been designed with Low-Power Wide Area Networks (LPWANs) in mind. SCHC compression is based on a common static context stored both in the LPWAN device and in the network infrastructure side. This document defines a generic header compression mechanism and its application to compress IPv6/UDP headers. This document also specifies an optional fragmentation and reassembly mechanism. It can be used to support the IPv6 MTU requirement over the LPWAN technologies. Fragmentation is needed for IPv6 datagrams that, after SCHC compression or when such compression was not possible, still exceed the Layer 2 maximum payload size. The SCHC header compression and fragmentation mechanisms are independent of the specific LPWAN technology over which they are used. This document defines generic functionalities and offers flexibility with regard to parameter settings and mechanism choices. This document standardizes the exchange over the LPWAN between two SCHC entities. Settings and choices specific to a technology or a product are expected to be grouped into profiles, which are specified in other documents. Data models for the context and profiles are out of scope.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "authors": [
+      {
+        "name": "Ana Minaburo"
+      },
+      {
+        "name": "Laurent Toutain"
+      },
+      {
+        "name": "Carles Gomez"
+      },
+      {
+        "name": "Dominique Barthel"
+      },
+      {
+        "name": "Juan-Carlos Zúñiga"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docId": "RFC8724",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docLabel": "IETF RFC 8724",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docNumber": "8724",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docTitle": "SCHC: Generic Framework for Static Context Header Compression and Fragmentation",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "doi": "10.17487/RFC8724",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "href": "https://doi.org/10.17487/RFC8724",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "keywords": [
+      "Header Compression",
+      "Compression",
+      "Fragmentation",
+      "Static Context",
+      "LPWAN",
+      "Low Power",
+      "Low-Power",
+      "6LoWPAN",
+      "LoWPAN",
+      "LLN",
+      "LTE",
+      "LTE-M",
+      "Sigfox",
+      "LoRaWAN",
+      "NB-IoT",
+      "5G",
+      "IoT",
+      "Adaptation Layer",
+      "UDP",
+      "IPv6",
+      "WSN",
+      "Sensor Network",
+      "IEEE 802.15.4",
+      "Constrained Node",
+      "Constrained-node Network"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Header Compression",
+        "Compression",
+        "Fragmentation",
+        "Static Context",
+        "Rule-based",
+        "LPWAN",
+        "LPWANs",
+        "Low Power",
+        "Low-Power",
+        "6LoWPAN",
+        "LoWPAN",
+        "LoWPANs",
+        "LLN",
+        "LTN",
+        "LTE",
+        "LTE-M",
+        "Sigfox",
+        "LoRaWAN",
+        "NB-IOT",
+        "5G",
+        "IoT",
+        "Adaptation Layer",
+        "UDP",
+        "IPv6",
+        "WSN",
+        "Sensor Network",
+        "IEEE 802.15.4",
+        "Contrained Network",
+        "Constrained Node",
+        "Constrained-node Network"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T22:10:58.465Z",
+      "version": "extractDocs.js@commit:301bfdf288d8"
+    },
+    "pages": "71",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publicationDate": "2020-04-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "references": {
+      "bibliographic": [
+        "10.1109-IEEESTD.2012.6419735",
+        "RFC4944",
+        "RFC5795",
+        "RFC6282",
+        "RFC6437",
+        "RFC7136",
+        "RFC8065"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+        "updated": "2026-10-20T21:46:26.174Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC6936",
+        "RFC8174",
+        "RFC8200",
+        "RFC8376"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+        "updated": "2026-10-20T21:46:26.174Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8724/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+      "updated": "2026-10-20T21:46:26.174Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+        "updated": "2026-10-20T21:46:26.174Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "amendedBy": [
+        "RFC9441"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+        "updated": "2026-10-20T21:46:26.174Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+        "updated": "2026-10-20T21:46:26.174Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+        "updated": "2026-10-20T21:46:26.174Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+        "updated": "2026-10-20T21:46:26.174Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8724/",
+        "updated": "2026-10-20T21:46:26.174Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    }
+  }
+}

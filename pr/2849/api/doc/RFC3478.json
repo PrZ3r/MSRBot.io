@@ -1,0 +1,245 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T15:48:09.017Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC3478",
+  "document": {
+    "abstract": "This document describes a mechanism that helps to minimize the negative effects on MPLS traffic caused by Label Switching Router's (LSR's) control plane restart, specifically by the restart of its Label Distribution Protocol (LDP) component, on LSRs that are capable of preserving the MPLS forwarding component across the restart. The mechanism described in this document is applicable to all LSRs, both those with the ability to preserve forwarding state during LDP restart and those without (although the latter needs to implement only a subset of the mechanism described in this document). Supporting (a subset of) the mechanism described here by the LSRs that can not preserve their MPLS forwarding state across the restart would not reduce the negative impact on MPLS traffic caused by their control plane restart, but it would minimize the impact if their neighbor(s) are capable of preserving the forwarding state across the restart of their control plane and implement the mechanism described here. The mechanism makes minimalistic assumptions on what has to be preserved across restart - the mechanism assumes that only the actual MPLS forwarding state has to be preserved; the mechanism does not require any of the LDP-related states to be preserved across the restart. The procedures described in this document apply to downstream unsolicited label distribution. Extending these procedures to downstream on demand label distribution is for further study. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "authors": [
+      {
+        "name": "Manoj B. Leelanivas"
+      },
+      {
+        "name": "Yakov Rekhter"
+      },
+      {
+        "name": "Rahul Aggarwal"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docId": "RFC3478",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docLabel": "IETF RFC 3478",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docNumber": "3478",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docTitle": "Graceful Restart Mechanism for Label Distribution Protocol",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "doi": "10.17487/RFC3478",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "href": "https://doi.org/10.17487/RFC3478",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "keywords": [
+      "LDP",
+      "MPLS"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "pages": "12",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "publicationDate": "2003-02-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "references": {
+      "bibliographic": [
+        "orphan/RFC3478/h:424e10dc",
+        "orphan/RFC3478/h:738bc8b4",
+        "orphan/RFC3478/h:62c8f4c7"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "note": "Citations without a standard ID, kept as MRI orphan refs (or resolved once the reference label was stripped)",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+        "updated": "2026-10-16T15:48:09.017Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "normative": [
+        "RFC3036",
+        "RFC3479",
+        "RFC2119",
+        "RFC2026"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+        "updated": "2026-10-16T15:44:06.462Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc3478/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+      "updated": "2026-10-16T15:44:06.462Z",
+      "version": "extractDocs.js@commit:e0fe4a71cd26"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+        "updated": "2026-10-16T15:44:06.462Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+        "updated": "2026-10-16T15:44:06.462Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+        "updated": "2026-10-16T15:44:06.462Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+        "updated": "2026-10-16T15:44:06.462Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3478/",
+        "updated": "2026-10-16T15:44:06.462Z",
+        "version": "extractDocs.js@commit:e0fe4a71cd26"
+      }
+    }
+  }
+}

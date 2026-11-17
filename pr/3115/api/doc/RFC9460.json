@@ -1,0 +1,297 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T22:12:55.560Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9460",
+  "document": {
+    "abstract": "This document specifies the \"SVCB\" (\"Service Binding\") and \"HTTPS\" DNS resource record (RR) types to facilitate the lookup of information needed to make connections to network services, such as for HTTP origins. SVCB records allow a service to be provided from multiple alternative endpoints, each with associated parameters (such as transport protocol configuration), and are extensible to support future uses (such as keys for encrypting the TLS ClientHello). They also enable aliasing of apex domains, which is not possible with CNAME. The HTTPS RR is a variation of SVCB for use with HTTP (see RFC 9110, \"HTTP Semantics\"). By providing more information to the client before it attempts to establish a connection, these records offer potential benefits to both performance and privacy.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "authors": [
+      {
+        "name": "Benjamin M. Schwartz"
+      },
+      {
+        "name": "Mike Bishop"
+      },
+      {
+        "name": "Erik Nygren"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docId": "RFC9460",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docLabel": "IETF RFC 9460",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docNumber": "9460",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docTitle": "Service Binding and Parameter Specification via the DNS (SVCB and HTTPS Resource Records)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "doi": "10.17487/RFC9460",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "href": "https://doi.org/10.17487/RFC9460",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "keywords": [
+      "Multi CDN",
+      "HSTS",
+      "ECH",
+      "CNAME",
+      "ALPN",
+      "HTTP/3",
+      "Aliasing"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "multi-CDN",
+        "HSTS",
+        "ECH",
+        "CNAME",
+        "Apex",
+        "ALPN",
+        "HTTP/3",
+        "Aliasing",
+        "SvcParam",
+        "AliasMode",
+        "ServiceMode"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T22:12:55.560Z",
+      "version": "extractDocs.js@commit:301bfdf288d8"
+    },
+    "pages": "47",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publicationDate": "2023-11-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC7838",
+        "IETF.draft-ietf-dnsop-aname-04",
+        "RFC6672",
+        "RFC8499",
+        "IETF.draft-ietf-tls-esni-17",
+        "WHATWG.FETCH",
+        "WHATWG.WEBSOCKETS",
+        "RFC6797",
+        "IETF.draft-bellis-dnsop-http-record-00",
+        "RFC9114",
+        "RFC1912",
+        "RFC6454",
+        "RFC2782",
+        "RFC3986",
+        "orphan/RFC9460/h:d930d44c"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+        "updated": "2026-10-20T21:47:51.383Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "normative": [
+        "RFC7301",
+        "RFC8552",
+        "RFC8484",
+        "RFC7858",
+        "RFC8305",
+        "RFC9110",
+        "RFC1034",
+        "RFC1035",
+        "RFC1928",
+        "RFC2119",
+        "RFC2181",
+        "RFC3225",
+        "RFC3597",
+        "RFC4001",
+        "RFC5234",
+        "RFC5952",
+        "RFC6066",
+        "RFC6147",
+        "RFC7050",
+        "RFC7231",
+        "RFC7595",
+        "RFC7871",
+        "RFC8126",
+        "RFC8174",
+        "RFC8446",
+        "RFC6455"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+        "updated": "2026-10-20T21:47:51.383Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9460/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+      "updated": "2026-10-20T21:47:51.383Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+        "updated": "2026-10-20T21:47:51.383Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+        "updated": "2026-10-20T21:47:51.383Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+        "updated": "2026-10-20T21:47:51.383Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+        "updated": "2026-10-20T21:47:51.383Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9460/",
+        "updated": "2026-10-20T21:47:51.383Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    }
+  }
+}

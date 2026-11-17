@@ -1,0 +1,337 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T19:31:45.056Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6295",
+  "document": {
+    "abstract": "This memo describes a Real-time Transport Protocol (RTP) payload format for the MIDI (Musical Instrument Digital Interface) command language. The format encodes all commands that may legally appear on a MIDI 1.0 DIN cable. The format is suitable for interactive applications (such as network musical performance) and content-delivery applications (such as file streaming). The format may be used over unicast and multicast UDP and TCP, and it defines tools for graceful recovery from packet loss. Stream behavior, including the MIDI rendering method, may be customized during session setup. The format also serves as a mode for the mpeg4-generic format, to support the MPEG 4 Audio Object Types for General MIDI, Downloadable Sounds Level 2, and Structured Audio. This document obsoletes RFC 4695. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.329Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "authors": [
+      {
+        "name": "John Lazzaro"
+      },
+      {
+        "name": "John Wawrzynek"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.329Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docId": "RFC6295",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.328Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docLabel": "IETF RFC 6295",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.328Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docNumber": "6295",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.328Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docTitle": "RTP Payload Format for MIDI",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.328Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.328Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "doi": "10.17487/RFC6295",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.329Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "href": "https://doi.org/10.17487/RFC6295",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.329Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "keywords": [
+      "Content Streaming",
+      "MIDI",
+      "MIDI Time Code",
+      "MPEG 4 Structured Audio",
+      "MPEG 4 Synthetic Coding",
+      "MTC",
+      "Recovery Journal",
+      "Show Control",
+      "Sonification",
+      "Ringtone",
+      "RTP MIDI",
+      "RTP",
+      "Time Code",
+      "XMF"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Asc",
+        "Content Streaming",
+        "DLS 2",
+        "General MIDI",
+        "MIDI",
+        "MIDI File",
+        "MIDI File Streaming",
+        "MIDI Light Control",
+        "MIDI Rendering",
+        "MIDI Ringtone",
+        "MIDI Streaming MIDI Sequencer",
+        "MIDI Time Code",
+        "MIDI Timecode",
+        "MIDI Manufacturers Association",
+        "MMA Mpeg4generic MPEG 4",
+        "MPEG 4 Structured Audio",
+        "MPEG 4 Synthetic Coding",
+        "MTC",
+        "Musical Notes",
+        "Network Musical Performance",
+        "Recovery Journal",
+        "Show Control",
+        "Sonification",
+        "Ringtone",
+        "Rtpmidi",
+        "RTP",
+        "RTP MIDI",
+        "SMPTE Time Code",
+        "SMPTE Timecode",
+        "Standard MIDI Files",
+        "XMF"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T19:31:45.056Z",
+      "version": "extractDocs.js@commit:75b379398159"
+    },
+    "pages": "171",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.329Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publicationDate": "2011-06-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.328Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.329Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC3261",
+        "RFC2326",
+        "RFC4695",
+        "RFC4696",
+        "RFC2205",
+        "RFC4571",
+        "orphan/RFC6295/h:1fb92a7b",
+        "orphan/RFC6295/h:7b99d2bf",
+        "orphan/RFC6295/h:12bb2c27",
+        "orphan/RFC6295/h:2a61a07d",
+        "orphan/RFC6295/h:6071924e"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=35 proseBlocks=36 skippedAnchorBlocks=32",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+        "updated": "2026-10-16T18:57:10.329Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "normative": [
+        "RFC3550",
+        "RFC3551",
+        "RFC3640",
+        "ISO.14496",
+        "RFC4566",
+        "RFC2045",
+        "RFC5234",
+        "RFC2119",
+        "RFC3711",
+        "RFC3264",
+        "RFC3986",
+        "RFC2616",
+        "RFC5888",
+        "RFC2818",
+        "RFC4288",
+        "RFC4855",
+        "orphan/RFC6295/h:18f09042",
+        "orphan/RFC6295/h:ae1524ef",
+        "orphan/RFC6295/h:9dce8e2c"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+        "updated": "2026-10-16T18:57:10.329Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6295/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+      "updated": "2026-10-16T18:57:10.329Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+        "updated": "2026-10-16T18:57:10.329Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+        "updated": "2026-10-16T18:57:10.329Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc6295",
+        "https://www.rfc-editor.org/errata_search.php?rfc=6295"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+        "updated": "2026-10-16T18:57:10.329Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+        "updated": "2026-10-16T18:57:10.329Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+        "updated": "2026-10-16T18:57:10.329Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+        "updated": "2026-10-16T18:57:10.329Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "supersedes": [
+        "RFC4695"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6295/",
+        "updated": "2026-10-16T18:57:10.329Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    }
+  }
+}

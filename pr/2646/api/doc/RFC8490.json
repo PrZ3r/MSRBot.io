@@ -1,0 +1,275 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T16:16:07.858Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC8490",
+  "document": {
+    "abstract": "This document defines a new DNS OPCODE for DNS Stateful Operations (DSO). DSO messages communicate operations within persistent stateful sessions using Type Length Value (TLV) syntax. Three TLVs are defined that manage session timeouts, termination, and encryption padding, and a framework is defined for extensions to enable new stateful operations. This document updates RFC 1035 by adding a new DNS header OPCODE that has both different message semantics and a new result code. This document updates RFC 7766 by redefining a session, providing new guidance on connection reuse, and providing a new mechanism for handling session idle timeouts.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "authors": [
+      {
+        "name": "Ray Bellis"
+      },
+      {
+        "name": "Stuart Cheshire"
+      },
+      {
+        "name": "John Dickinson"
+      },
+      {
+        "name": "Sara Dickinson"
+      },
+      {
+        "name": "Ted Lemon"
+      },
+      {
+        "name": "Tom Pusateri"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docId": "RFC8490",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docLabel": "IETF RFC 8490",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docNumber": "8490",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docTitle": "DNS Stateful Operations",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "doi": "10.17487/RFC8490",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "href": "https://doi.org/10.17487/RFC8490",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "pages": "64",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publicationDate": "2019-03-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "references": {
+      "bibliographic": [
+        "IETF.draft-ietf-dnsop-no-response-issue-13",
+        "IETF.draft-ietf-dnssd-push-18",
+        "IETF.draft-ietf-dnssd-mdns-relay-02",
+        "RFC1122",
+        "RFC2132",
+        "RFC5382",
+        "RFC6762",
+        "RFC6763",
+        "RFC7413",
+        "RFC7828",
+        "RFC7857",
+        "RFC7858",
+        "RFC8446",
+        "RFC8467",
+        "RFC8484",
+        "orphan/RFC8490/h:4df25aaa"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=26 proseBlocks=31 skippedAnchorBlocks=29",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+        "updated": "2026-10-14T16:16:07.858Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "normative": [
+        "RFC1034",
+        "RFC1035",
+        "RFC1918",
+        "RFC2119",
+        "RFC2136",
+        "RFC6891",
+        "RFC7766",
+        "RFC7830",
+        "RFC8126",
+        "RFC8174"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+        "updated": "2026-10-14T16:16:07.858Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8490/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+      "updated": "2026-10-14T16:16:07.858Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+        "updated": "2026-10-14T16:16:07.858Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "amends": [
+        "RFC1035",
+        "RFC7766"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+        "updated": "2026-10-14T16:16:07.858Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+        "updated": "2026-10-14T16:16:07.858Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+        "updated": "2026-10-14T16:16:07.858Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+        "updated": "2026-10-14T16:16:07.858Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8490/",
+        "updated": "2026-10-14T16:16:07.858Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    }
+  }
+}

@@ -1,0 +1,269 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T16:15:22.224Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC8083",
+  "document": {
+    "abstract": "The Real-time Transport Protocol (RTP) is widely used in telephony, video conferencing, and telepresence applications. Such applications are often run on best-effort UDP/IP networks. If congestion control is not implemented in these applications, then network congestion can lead to uncontrolled packet loss and a resulting deterioration of the user's multimedia experience. The congestion control algorithm acts as a safety measure by stopping RTP flows from using excessive resources and protecting the network from overload. At the time of this writing, however, while there are several proprietary solutions, there is no standard algorithm for congestion control of interactive RTP flows. This document does not propose a congestion control algorithm. It instead defines a minimal set of RTP circuit breakers: conditions under which an RTP sender needs to stop transmitting media data to protect the network from excessive congestion. It is expected that, in the absence of long-lived excessive congestion, RTP applications running on best-effort IP networks will be able to operate without triggering these circuit breakers. To avoid triggering the RTP circuit breaker, any Standards Track congestion control algorithms defined for RTP will need to operate within the envelope set by these RTP circuit breaker algorithms.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "authors": [
+      {
+        "name": "Colin Perkins"
+      },
+      {
+        "name": "Varun Singh"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docId": "RFC8083",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docLabel": "IETF RFC 8083",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docNumber": "8083",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docTitle": "Multimedia Congestion Control: Circuit Breakers for Unicast RTP Sessions",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "doi": "10.17487/RFC8083",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "href": "https://doi.org/10.17487/RFC8083",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "pages": "25",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publicationDate": "2017-03-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "references": {
+      "bibliographic": [
+        "10.1145-347059.347397",
+        "10.1145-263932.264023",
+        "10.1145-285237.285291",
+        "RFC2862",
+        "RFC3168",
+        "RFC4103",
+        "RFC5104",
+        "RFC5124",
+        "RFC5450",
+        "RFC5506",
+        "RFC5681",
+        "RFC6798",
+        "RFC6843",
+        "RFC6958",
+        "RFC7002",
+        "RFC7003",
+        "RFC7097",
+        "RFC7201",
+        "RFC7657",
+        "RFC7713",
+        "RFC8084",
+        "RFC8085",
+        "RFC8108",
+        "10.1109-INFCOMW.2014.6849240",
+        "10.1109-PV.2013.6691439",
+        "IETF.draft-ietf-tsvwg-rtcweb-qos-18"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=33 proseBlocks=40 skippedAnchorBlocks=37",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+        "updated": "2026-10-14T16:15:22.224Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC3550",
+        "RFC3551",
+        "RFC3611",
+        "RFC4585",
+        "RFC5348",
+        "RFC6679"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+        "updated": "2026-10-14T16:15:22.224Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8083/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+      "updated": "2026-10-14T16:15:22.224Z",
+      "version": "extractDocs.js@commit:1ff63569c1a0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+        "updated": "2026-10-14T16:15:22.224Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "amends": [
+        "RFC3550"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+        "updated": "2026-10-14T16:15:22.224Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+        "updated": "2026-10-14T16:15:22.224Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+        "updated": "2026-10-14T16:15:22.224Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+        "updated": "2026-10-14T16:15:22.224Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8083/",
+        "updated": "2026-10-14T16:15:22.224Z",
+        "version": "extractDocs.js@commit:1ff63569c1a0"
+      }
+    }
+  }
+}

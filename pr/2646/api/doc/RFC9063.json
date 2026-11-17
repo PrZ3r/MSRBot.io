@@ -1,0 +1,348 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T16:08:00.338Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9063",
+  "document": {
+    "abstract": "This memo describes the Host Identity (HI) namespace, which provides a cryptographic namespace to applications, and the associated protocol layer, the Host Identity Protocol, located between the internetworking and transport layers, that supports end-host mobility, multihoming, and NAT traversal. Herein are presented the basics of the current namespaces, their strengths and weaknesses, and how a HI namespace will add completeness to them. The roles of the HI namespace in the protocols are defined. This document obsoletes RFC 4423 and addresses the concerns raised by the IESG, particularly that of crypto agility. The Security Considerations section also describes measures against flooding attacks, usage of identities in access control lists, weaker types of identifiers, and trust on first use. This document incorporates lessons learned from the implementations of RFC 7401 and goes further to explain how HIP works as a secure signaling channel.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "authors": [
+      {
+        "name": "Robert Moskowitz"
+      },
+      {
+        "name": "Miika Komu"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docId": "RFC9063",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docLabel": "IETF RFC 9063",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docNumber": "9063",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T16:08:00.338Z",
+      "version": "extractDocs.js@commit:cc2368606b5f"
+    },
+    "docTitle": "Host Identity Protocol Architecture",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "doi": "10.17487/RFC9063",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "href": "https://doi.org/10.17487/RFC9063",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "keywords": [
+      "Cryptographic Identity",
+      "Cryptographic Namespace",
+      "identifier/locator Split",
+      "Mobility",
+      "Multihoming",
+      "NAT Traversal",
+      "ESP",
+      "IPv6",
+      "End-to-end Security",
+      "End-to-end Connectivity",
+      "Endpoint Identity",
+      "Leap of Faith",
+      "Rendezvous"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Cryptographic Identity",
+        "Cryptographic Namespace",
+        "Identifier-locator Split",
+        "Mobility",
+        "Multihoming",
+        "NAT Traversal",
+        "ESP",
+        "IPv6",
+        "End-to-end Security",
+        "End-to-end Connectivity",
+        "Endpoint Identity",
+        "Leap of Faith",
+        "Rendezvous"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T16:08:00.338Z",
+      "version": "extractDocs.js@commit:cc2368606b5f"
+    },
+    "pages": "41",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "publicationDate": "2021-07-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "references": {
+      "bibliographic": [
+        "10.4018-jdtis.2011070102",
+        "10.1007-3-540-44810-1_22",
+        "10.1109-CCNC.2011.5766540",
+        "10.1109-ICC.2009.5198984",
+        "IETF.draft-heer-hip-middle-auth-04",
+        "IETF.draft-henderson-hip-vpls-11",
+        "IETF.draft-ietf-hip-dex-24",
+        "10.1002-sec.1411",
+        "IETF.draft-tschofenig-hiprg-hip-srtp-02",
+        "10.1109-WiMOB.2013.6673370",
+        "10.1109-IEEESTD.2020.9144691",
+        "10.1109-AICCSA.2009.5069337",
+        "10.1109-ClusterW.2012.29",
+        "ISBN.9789526049045",
+        "10.1109-CCNC.2009.4784729",
+        "10.1007-978-3-642-27937-9_3",
+        "10.1109-ICNS.2007.66",
+        "10.1016-j.comnet.2012.11.024",
+        "10.4018-jhcr.2010090905",
+        "10.1007-3-540-45807-7_3",
+        "IETF.draft-irtf-nsrg-report-10",
+        "ISBN.1439256047",
+        "10.1007-978-3-642-31909-9_19",
+        "10.1109-CCGRID.2017.62",
+        "RFC2136",
+        "RFC2766",
+        "RFC3022",
+        "RFC3102",
+        "RFC3748",
+        "RFC3972",
+        "RFC4033",
+        "RFC4225",
+        "RFC4380",
+        "RFC4423",
+        "RFC5218",
+        "RFC5338",
+        "RFC5887",
+        "RFC6078",
+        "RFC6250",
+        "RFC6281",
+        "RFC6317",
+        "RFC6537",
+        "RFC6538",
+        "RFC7296",
+        "RFC7435",
+        "10.1007-978-3-642-27937-9_1",
+        "10.1145-1070873.1070875",
+        "10.1145-277697.277744",
+        "10.1007-11915034_85",
+        "10.1109-WOCN.2007.4284140",
+        "IETF.draft-irtf-hiprg-rfid-07",
+        "10.24138-jcomss.v6i1.193",
+        "ISBN.9789512295319",
+        "10.1109-SECURECOMM.2005.53",
+        "IETF.draft-irtf-hiprg-revocation-05",
+        "10.1109-NCIS.2011.42",
+        "10.1109-CCNC.2007.221",
+        "orphan/RFC9063/h:2b13c9a5",
+        "orphan/RFC9063/h:84fdfeaf",
+        "orphan/RFC9063/h:3783acf6",
+        "orphan/RFC9063/h:1f7ac3ff",
+        "orphan/RFC9063/h:dacd2e37"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+        "updated": "2026-10-20T09:42:42.365Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "normative": [
+        "RFC5482",
+        "RFC6079",
+        "RFC7086",
+        "RFC7343",
+        "RFC7401",
+        "RFC7402",
+        "RFC8002",
+        "RFC8003",
+        "RFC8004",
+        "RFC8005",
+        "RFC8046",
+        "RFC8047",
+        "RFC9028"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+        "updated": "2026-10-20T09:42:42.365Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9063/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+      "updated": "2026-10-20T09:42:42.365Z",
+      "version": "extractDocs.js@commit:6ff5f1bb34e3"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+        "updated": "2026-10-20T09:42:42.365Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+        "updated": "2026-10-20T09:42:42.365Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+        "updated": "2026-10-20T09:42:42.365Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+        "updated": "2026-10-20T09:42:42.365Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+        "updated": "2026-10-20T09:42:42.365Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      },
+      "supersedes": [
+        "RFC4423"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9063/",
+        "updated": "2026-10-20T09:42:42.365Z",
+        "version": "extractDocs.js@commit:6ff5f1bb34e3"
+      }
+    }
+  }
+}

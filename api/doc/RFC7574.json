@@ -1,0 +1,321 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-22T15:59:26.796Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC7574",
+  "document": {
+    "abstract": "The Peer-to-Peer Streaming Peer Protocol (PPSPP) is a protocol for disseminating the same content to a group of interested parties in a streaming fashion. PPSPP supports streaming of both prerecorded (on- demand) and live audio/video content. It is based on the peer-to- peer paradigm, where clients consuming the content are put on equal footing with the servers initially providing the content, to create a system where everyone can potentially provide upload bandwidth. It has been designed to provide short time-till-playback for the end user and to prevent disruption of the streams by malicious peers. PPSPP has also been designed to be flexible and extensible. It can use different mechanisms to optimize peer uploading, prevent freeriding, and work with different peer discovery schemes (centralized trackers or Distributed Hash Tables). It supports multiple methods for content integrity protection and chunk addressing. Designed as a generic protocol that can run on top of various transport protocols, it currently runs on top of UDP using Low Extra Delay Background Transport (LEDBAT) for congestion control.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "authors": [
+      {
+        "name": "Arno Bakker"
+      },
+      {
+        "name": "Riccardo Petrocco"
+      },
+      {
+        "name": "Victor Grishchenko"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docId": "RFC7574",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docLabel": "IETF RFC 7574",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docNumber": "7574",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docTitle": "Peer-to-Peer Streaming Peer Protocol (PPSPP)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "doi": "10.17487/RFC7574",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "href": "https://doi.org/10.17487/RFC7574",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "keywords": [
+      "VOD",
+      "Streaming",
+      "Content Integrity Protection"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Video On Demand",
+        "Streaming",
+        "Content Integrity Protection"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:59:26.796Z",
+      "version": "extractDocs.js@commit:44a7428c57f3"
+    },
+    "pages": "85",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "publicationDate": "2015-07-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "references": {
+      "bibliographic": [
+        "10.1145-1877891.1877898",
+        "IETF.draft-ppsp-gabrijelcic-ecs-01",
+        "ISBN.9780471117094",
+        "IETF.draft-ietf-ppsp-base-tracker-protocol-09",
+        "RFC2564",
+        "RFC2790",
+        "RFC2975",
+        "RFC3365",
+        "RFC3729",
+        "RFC4113",
+        "RFC4150",
+        "RFC4193",
+        "RFC4301",
+        "RFC4821",
+        "RFC4960",
+        "RFC5226",
+        "RFC5389",
+        "RFC5424",
+        "RFC5706",
+        "RFC5971",
+        "RFC6194",
+        "RFC6241",
+        "RFC6347",
+        "RFC6709",
+        "RFC6972",
+        "RFC7285",
+        "GITHUB.libswift.libswift",
+        "orphan/RFC7574/h:499e4b33",
+        "orphan/RFC7574/h:8f15f4f7",
+        "orphan/RFC7574/h:26a712f7",
+        "orphan/RFC7574/h:649ad0f7",
+        "orphan/RFC7574/h:79f82374",
+        "orphan/RFC7574/h:be84f4dc",
+        "orphan/RFC7574/h:c323b871",
+        "orphan/RFC7574/h:10a64078",
+        "orphan/RFC7574/h:6d3bc877",
+        "orphan/RFC7574/h:189b90d4",
+        "orphan/RFC7574/h:42715819",
+        "orphan/RFC7574/h:75835e60",
+        "orphan/RFC7574/h:82767f58",
+        "orphan/RFC7574/h:db8d91bb",
+        "orphan/RFC7574/h:d47c5181",
+        "orphan/RFC7574/h:4eb28df8",
+        "orphan/RFC7574/h:3c7c10b0",
+        "orphan/RFC7574/h:a415b9b5",
+        "orphan/RFC7574/h:a43316fc",
+        "orphan/RFC7574/h:27bb1d08"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=61 proseBlocks=78 skippedAnchorBlocks=67",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+        "updated": "2026-10-22T15:49:50.539Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "normative": [
+        "T-REC-X.690.2002",
+        "NIST.FIPS.180-4",
+        "RFC1918",
+        "RFC2119",
+        "RFC3110",
+        "RFC3986",
+        "RFC4034",
+        "RFC4291",
+        "RFC5280",
+        "RFC5702",
+        "RFC5905",
+        "RFC6605",
+        "RFC6817",
+        "orphan/RFC7574/h:f7c55427"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+        "updated": "2026-10-22T15:49:50.539Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc7574/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+      "updated": "2026-10-22T15:49:50.539Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+        "updated": "2026-10-22T15:49:50.539Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+        "updated": "2026-10-22T15:49:50.539Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc7574",
+        "https://www.rfc-editor.org/errata_search.php?rfc=7574",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc7574.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+        "updated": "2026-10-22T15:49:50.539Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+        "updated": "2026-10-22T15:49:50.539Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+        "updated": "2026-10-22T15:49:50.539Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7574/",
+        "updated": "2026-10-22T15:49:50.539Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      }
+    }
+  }
+}

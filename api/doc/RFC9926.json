@@ -1,0 +1,262 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T18:52:04.042Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9926",
+  "document": {
+    "abstract": "This document updates IPv6 Neighbor Discovery (RFC 4861) and IPv6 Subnet Neighbor Discovery (RFC 8505, RFC 8928) to enable a node that owns or is directly connected to a prefix to register that prefix to neighbor routers. The registration indicates that the registered prefix can be reached via the advertising node without a loop. The unicast prefix registration allows the node to request one or more neighbor routers to redistribute the prefix in another routing domain regardless of the routing protocol used in that domain. This document updates the Routing Protocol for Low-Power and Lossy Networks (RPL), as specified in RFCs 6550 and 9010, to enable a 6LoWPAN Router (6LR) to inject the registered prefix in RPL.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "authors": [
+      {
+        "name": "Pascal Thubert"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docId": "RFC9926",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docLabel": "IETF RFC 9926",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docNumber": "9926",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docTitle": "Prefix Registration for IPv6 Neighbor Discovery",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "doi": "10.17487/RFC9926",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "href": "https://doi.org/10.17487/RFC9926",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "pages": "24",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publicationDate": "2026-02-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2827",
+        "10.1109-IEEESTD.2021.9363693",
+        "10.1109-IEEESTD.2002.93621",
+        "10.1109-IEEESTD.2006.232110",
+        "IETF.draft-ietf-6man-ipv6-over-wireless-09",
+        "RFC4191",
+        "RFC4919",
+        "RFC6282",
+        "RFC9030",
+        "RFC9915",
+        "orphan/RFC9926/h:11a98f89"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+        "updated": "2026-10-14T18:52:04.042Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC4861",
+        "RFC4862",
+        "RFC6550",
+        "RFC6775",
+        "RFC7400",
+        "RFC8174",
+        "RFC8200",
+        "RFC8505",
+        "RFC8928",
+        "RFC8929",
+        "RFC9010",
+        "RFC9685",
+        "orphan/RFC9926/h:2678e93b",
+        "orphan/RFC9926/h:e0ce4efb",
+        "orphan/RFC9926/h:c2ddd322"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+        "updated": "2026-10-14T18:52:04.042Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9926/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+      "updated": "2026-10-14T18:52:04.042Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+        "updated": "2026-10-14T18:52:04.042Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "amends": [
+        "RFC4861",
+        "RFC6550",
+        "RFC8505",
+        "RFC8928",
+        "RFC9010"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+        "updated": "2026-10-14T18:52:04.042Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+        "updated": "2026-10-14T18:52:04.042Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+        "updated": "2026-10-14T18:52:04.042Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+        "updated": "2026-10-14T18:52:04.042Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9926/",
+        "updated": "2026-10-14T18:52:04.042Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    }
+  }
+}

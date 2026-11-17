@@ -1,0 +1,570 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO: core meta -->
+    <meta name="description" content="Toward a Subjective Assessment System for Closed Captioning Quality">
+    <link rel="canonical" href="https://msrbot.io/reftree/10.5594-JMI.2021.3059344/">
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+    <meta name="author" content="Steve LLamb (PrZ3)">
+    <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta name="license" content="BSD-3-Clause">
+    <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+  
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MSRBot.io">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:title" content="Reference Tree — Toward a Subjective Assessment System for Closed Captioning Quality — MSRBot.io">
+    <meta property="og:description" content="Toward a Subjective Assessment System for Closed Captioning Quality">
+    <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta property="og:license" content="BSD-3-Clause"> 
+    <meta property="og:url" content="https://msrbot.io/reftree/10.5594-JMI.2021.3059344/">
+    <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> 
+  
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  
+    <!-- PWA/Theme (optional but nice) -->
+    <meta name="application-name" content="MSRBot.io">
+    <meta name="theme-color" content="#1398b0">
+  
+    <!-- Icons -->
+    <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+    
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+    <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+  
+    <title>MSRBot.io | Reference Tree — Toward a Subjective Assessment System for Closed Captioning Quality</title>
+  
+    <!-- Scripts -->
+    <script>
+      window.msrAssetPrefix = "../../";
+    </script>
+    <script src="../../js/msrbot.js"></script>
+  
+    <!-- JSON-LD: basic WebSite schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Reference Tree — Toward a Subjective Assessment System for Closed Captioning Quality - MSRBot.io",
+      "url": "https://msrbot.io/reftree/10.5594-JMI.2021.3059344/",
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/docs/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search documents"
+        },
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/api/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search API"
+        }
+      ],
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MSRBot.io",
+        "url": "https://msrbot.io"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "PrZ3",
+        "url": "https://PrZ3.io"
+      },
+      "copyrightHolder": {
+        "@type": "Organization",
+        "name": "PrZ3"
+      },
+      "copyrightYear": "2025-26",
+      "license": "https://opensource.org/licenses/BSD-3-Clause",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://msrbot.io/static/og/msrbot-og.png",
+        "width": 1200,
+        "height": 630
+      }
+    }
+    </script>
+  
+    <!-- Other -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+    <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+      <div class="container">
+        <div class="navbar-brand"><a href="../../"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          
+          <ul class="navbar-nav ms-auto mb-lg-0">
+            <li class="nav-item text-nowrap">
+              <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a
+                id="nav-portals"
+                class="nav-link d-flex flex-column text-center"
+                title="Portals"
+                href="#"
+                role="button"
+                tabindex="0"
+                data-bs-toggle="popover"
+                data-bs-trigger="focus"
+                data-bs-placement="bottom"
+              >
+                <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+                <span class="small">PORTALS</span>
+              </a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+            </li>
+            <!-- li class="nav-item text-nowrap">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+            </li -->
+          </ul>
+  
+          <div class="dev-links-stack">
+            <a
+              id="dev-tools"
+              class="dev-link"
+              title="Developer Tools and Resources"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+            <a
+              id="user-prefs"
+              class="dev-link"
+              title="Set Preferences"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Hidden template for Dev Tools popover content -->
+    <div id="dev-tools-popover-content" class="d-none">
+      <div class="small">
+        <strong>API</strong>
+        <ul class="mb-2">
+          <li>
+            <a href="../../api/">
+              <i class="bi bi-braces me-1"></i>API Explorer
+            </a>
+            &mdash; search &amp; browse the registry
+          </li>
+          <li>
+            <a href="../../api/documents.json" target="_blank" rel="noopener">
+              api/documents.json
+            </a>
+            &mdash; lightweight index, one row per doc, linking to per-doc shards
+          </li>
+          <li>
+            <a href="../../api/doc/" target="_blank" rel="noopener">
+              api/doc/&lt;docId&gt;.json
+            </a>
+            &mdash; per-doc record with full $meta provenance
+          </li>
+          <li>
+            <a href="../../api/search/index.json" target="_blank" rel="noopener">
+              api/search/index.json
+            </a>
+            &mdash; compact search shards (current editions), sized for AI fetch tools
+          </li>
+          <li>
+            <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+              api/by-publisher.json
+            </a>
+            &mdash; full-record slices per publisher and doc type
+          </li>
+          <li>
+            <a href="../../api/groups.json" target="_blank" rel="noopener">
+              api/groups.json
+            </a>
+            &mdash; groups registry
+          </li>
+          <li>
+            <a href="../../api/projects.json" target="_blank" rel="noopener">
+              api/projects.json
+            </a>
+            &mdash; projects registry
+          </li>
+          <li>
+            <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+              api/by-doc.json
+            </a>
+            &mdash; docId &rarr; owning groups and projects
+          </li>
+          <li>
+            <a href="../../api/publishers.json" target="_blank" rel="noopener">
+              api/publishers.json
+            </a>
+            &mdash; publishers, logos, doc counts
+          </li>
+          <li>
+            <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+              api/vocabulary.json
+            </a>
+            &mdash; keywords, doc types, content types
+          </li>
+          <li>
+            <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+              api/mri-cite-map.json
+            </a>
+            &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+          </li>
+          <li>
+            <a href="../../api/stats.json" target="_blank" rel="noopener">
+              api/stats.json
+            </a>
+            &mdash; registry statistics &amp; metadata
+          </li>
+          <li>
+            <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+              api/schemas/documents.schema.json
+            </a>
+            &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+          </li>
+        </ul>
+  
+        <strong>Resources</strong>
+        <ul class="mb-0">
+          <li>
+            <a href="../../ai/">
+              <i class="bi bi-robot me-1"></i>Use with AI
+            </a>
+            &mdash; skill &amp; prompt for Claude, ChatGPT and others
+          </li>
+          <li>
+            <a href="../../changelog/">
+              Changelog
+            </a>
+            &mdash; release history
+          </li>
+          <li>
+            <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+              GitHub
+            </a>
+            &mdash; source &amp; issues
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Preferences popover content -->
+    <div id="user-prefs-popover-content" class="d-none">
+      <div class="small">
+        <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+        <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+        <div class="d-grid gap-1">
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+            Auto (match system)
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+            Light mode
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+            Dark mode
+          </a>
+        </div>
+        <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Portals popover content -->
+    <div id="nav-portals-popover-content" class="d-none">
+      <div class="small">
+        <div id="nav-portals-list">
+          <div class="text-muted small">Loading…</div>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Dev Tools popover
+        var devTrigger = document.getElementById('dev-tools');
+        if (devTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(devTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('dev-tools-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Preferences popover (theme selection)
+        var prefsTrigger = document.getElementById('user-prefs');
+        if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(prefsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('user-prefs-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Portals popover
+        var portalsTrigger = document.getElementById('nav-portals');
+        if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(portalsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            title: 'Portals',
+            content: function () {
+              var tpl = document.getElementById('nav-portals-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+      });
+    </script>
+  
+    <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+    <a class="anchor" id="top" href="#top"></a>    <!-- Main content starts - do not edit above this line -->
+
+    <main class="container my-4">
+      <header class="mb-3">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="gap-2">
+            <p class="text-muted mb-1">
+              Current document root:
+              <span class="ms-1 fs-6"><code>SMPTE Motion Imaging Journal ( Volume: 130, Issue: 3, April 2021)</code></span>
+            </p>
+            <p class="h5 mb-2">
+              <a class="text-decoration-none"  href="../../docs/10.5594-JMI.2021.3059344/">Toward a Subjective Assessment System for Closed Captioning Quality</a>
+            </p>
+              <p class="text-muted small mb-0">
+                <a class="" href="../../docs/?f.publisher=SMPTE">SMPTE</a> • <a class="" href="../../docs/?f.docType=Journal Article">Journal Article</a> • [Active] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+              </p>
+          </div>
+          <div class="text-end">
+            <a class="btn btn-outline-secondary btn-sm ms-2 mb-2 text-nowrap" href="../../docs/10.5594-JMI.2021.3059344/">
+              ← Back to Doc
+            </a>
+            <div class="small text-muted text-nowrap">
+              <label for="rt-depth-select">Max Ref Depth:</label>
+              <select id="rt-depth-select" class="form-select form-select-sm d-inline w-auto ms-1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="small text-muted mt-2 mb-0">Click a document below to open its own reference tree.</p>
+      </header>
+
+      <div id="rt-graph-note" class="alert alert-warning small d-none" role="status"></div>
+
+      <!-- Reference panels row: upstream and downstream side-by-side -->
+      <section class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0"><i class="bi bi-arrow-up-left"></i> Referenced By</h2>
+              <div class="small text-muted">Docs that depend on <a href="../../docs/10.5594-JMI.2021.3059344/">Toward a Subjective Assessment System for Closed Captioning Quality</a></div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="up"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="up"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="up">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-upstream" class="card-body small"><p class="text-muted mb-0">No entries.</p></div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0">References Of <i class="bi bi-arrow-down-right"></i></h2>
+              <div class="small text-muted">Docs that <a href="../../docs/10.5594-JMI.2021.3059344/">Toward a Subjective Assessment System for Closed Captioning Quality</a> depend on</div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="down"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="down"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="down">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-downstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-down">Level 1 — direct references (docs this doc cites)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-down"><li><a href="../SMPTE.OV2052-0.2010/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="SMPTE.OV2052-0.2010"><span>SMPTE OV 2052-0:2010</span></a><span class="ms-1">[Superseded]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><cite class="ms-1">W. L. Taylor, “‘Cloze Procedure’: A New Tool for Measuring Readability,” J. Bull., 30(4):415–433, 1953, doi: 10.1177/107769905303000401.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ofcom, “Subtitling – An Issue of Speed?,” 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">A. Szarkowska, I. Krejtz, Z. Klyszejko, and A. Wieczorek, “Verbatim, Standard, or Edited?: Reading Patterns of Different Captioning Styles Among Deaf, Hard of Hearing, and Hearing Viewers,” 156(4):363–378, Fall 2011.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. R. Bormuth, “Cloze Test Readability : Criterion Reference Scores,” J. Educ. Meas., 5(3):189–196, Sep. 1968.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. Zdenek, Reading Sounds, 1st ed., University of Chicago Press: Chicago, IL, 2015.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Canadian Radio-television and Telecommunications Commission-Government of Canada, “Broadcasting Regulatory Policy CRTC 2012-362 Quality Standards for English-Language Closed Captioning,” 2012.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Media Access Austrailia, “Caption Quality: International Approaches to Standards and Measurement,” Sydney, NSW, Australia, 2007. [Online]. Available: https://mediaaccess.org.au/sites/default/files/files/MAA_CaptionQuality-Whitepaper.pdf</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">National Association of Broadcasters (NAB), “Closed Captioning Quality,” 2221(2014), 2009. which would require further investigation on the prediction model-independent variables and the relationship between variables. Another limitation was the logical mapping between the quality factor representative values and the probability distribution. The fundamental assumption of the SDT framework is normal probability distributions for the signal and errors.38 Therefore, a mapping function that better reflects the real distribution of each quality factor should lead to more accurate user models. A third important limitation was the small participant sample. Adding more participants would increase the opportunity of collecting representative data, and the larger sample size would increase the power of statistical analysis and the developed prediction models. Future research could include a fine-tuning stage where active learning algorithms are employed.56,57 Active learning will allow the system to learn directly from humans by querying the caption quality. The selection algorithm would prioritize caption variations that had greater uncertainty associated with them, providing a more efficient training process. Conclusion In this paper, the design and development of a novel system to assess the quality of CC based on caption viewer subjective quality ratings is described. Based on findings from a user study with hearing-impaired viewers, a set of human decision probability models dealing with captioning variations was developed. With these user models and prediction models, we then generated artificial data, which reflected human assessment of caption quality. We then trained deep neural networks with the generated data, creating an AI system to predict human subjective ratings for different caption variations. The proposed solution fills a gap in existing quality assessment models for CC, which does not include any viewer quality assessment factors. The proposed system should improve as more data are collected, allowing the core prediction model to learn from the new user data over time.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. Nam and D. Fels, “Assessing Closed Captioning Quality Using a Multilayer Perceptron,” IEEE Int. Conf. Artificial Intelligence and Knowledge Engineering (AIKE), pp. 9–16, 2018, doi: 10.1109/</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">P. Romero-Fresco, “More Haste Less Speed: Edited Versus Verbatim Respoken Subtitles,” Vigo Int. J. Appl. Linguist., 6(1):109–133, 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Federal Communications Commission, “Consumer Guide,” Consumer and Governmental Affairs Bureau, Washington, DC, 2017. [Online]. Available: https://www.fcc.gov/consumers/guides/closed-captioning-television</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. A. Swets, W. P. Tanner, Jr., and T. G. Birdsall, “The Evidence for a Decision Making Theory of Visual Detection,” Tech. Rep., Dept. of Electrical Engineering, Michigan Univ., Ann Arbor, MI, 1955.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Canadian Association of the Deaf, “Final Project Report: Understanding User Responses to Live Closed Captioning in Canada,” Toronto, ON, Canada, 2016, doi: 10.2172/1000008.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">P. Romero-Fresco and J. M. Pérez, “Accuracy Rate in Live Subtitling: The NER Model,” Audiov. Transl. Glob. Context, pp. 28–50, 2015, doi: 10.1057/9781137552891_3.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ofcom, “Ofcom’s Code on Television Access Services 1 Code on Television Access Services,” London, U.K., 2015.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Bontoft and G. Pullin, “What Is an Inclusive Design Process?,” in Inclusive Design, 1st ed., vol. 1, J. Clarkson, S. Keates, R. Coleman, and C. Lebbon, Eds. Springer: London, U.K., pp. 520–531, 2003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Brysbaert and B. New, “Moving Beyond Kucera and Francis: A Critical Evaluation of Current Word Frequency Norms and the Introduction of a New and Improved Word Frequency Measure for American English,” Behav. Res. Methods, 41(4):977– 990, Nov. 2009, doi: 10.3758/BRM.41.4.977.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">W. J. B. van Heuven, P. Mandera, E. Keuleers, and M. Brysbaert, “SUBTLEX-UK: A New and Improved Word Frequency Database for British English,” Q. J. Exp. Psychol., 67(6):1176–1190, Jun. 2014, doi: 10.1080/17470218.2013.850521.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">M. Hersh, “Deaf People’s Experiences, Attitudes and Requirements of Contextual Subtitles: A Two-Country Survey,” Telecomm. J. Australia, 63(2):23.1–23.14, May 2013.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">E. Jones et al., “SciPy: Open Source Scientific Tools for Python,” 2001. [Online]. Available: http://www.scipy.org/</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">C. M. Connine, J. Mullennix, E. Shernoff, and J. Yelen, “Word Familiarity and Frequency in Visual and Auditory Word Recognition,” J. Exp. Psychol. Learn. Mem. Cogn., 16(6):1084– 1096, Nov. 1990, doi: 10.1037/0278-7393.16.6.1084.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">N. A. Macmillan and C. D. Creelman, Detection Theory: A User’s Guide, 2nd ed., Taylor &amp; Francis: New York, NY, 2005.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">D. W. Ruck, S. K. Rogers, and M. Kabrisky, “Feature Selection Using a Multilayer Perceptron,” J. Neural Network Comput., 2(2):40–48, 1990.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">U. Strauss, P. Grzybek, and G. Altmann, “Word Length and Word Frequency,” Contrib. Sci. Text Lang., (1990): 277–294, 2007, doi: 10.1007/978-1-4020-4068-9_13.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">H. Stanislaw and N. Todorov, “Calculation of Signal Detection Theory Measures,” Behav. Res. Methods. Instrum. Comput., 31(1):137–149, Feb. 1999, doi: 10.3758/BF03207704.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. Tang, C. Deng, and G.-B. Huang, “Extreme Learning Machine for Multilayer Perceptron,” IEEE Trans. Neural Netwo. Learn. Syst., 27(4):809–821, Apr. 2016, doi: 10.1109/</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">R. Rashid, Q. Vy, R. Hunt, and D. I. Fels, “Dancing With Words: Using Animated Text for Captioning,” Int. J. Hum. Comput. Interact., 24(5):505–519, Jun. 2008, doi: 10.1080/10447310802142342.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Canadian Radio-television and Telecommunications Commission-Government of Canada, “English-Language Closed Captioning Quality Standard Related to the Accuracy Rate for Live Programming,” 2016.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">P. Romero-Fresco, “Final Thoughts: Viewing Speed in Subtitling,” Recept. Subtitles Deaf Hard Hear. Eur., Neves 2008, 2016, doi: 10.3726/978-3-0351-0888-0/24.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. Ohene-Djan, J. Wright, and K. Combie-Smith, “Emotional Subtitles: A System and Potential Applications for Deaf and Hearing Impaired People,” Conf. Work. Assist. Technol. People With Vis. Hear. Impair., 63(2), pp. 1–6, 2007, doi: 10.7790/tja.v63i2.406.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">P. Romero-Fresco, “Accessing Communication: The Quality of Live Subtitles in the U.K.,” Lang. Commun., 49:56-69, Jul. 2016, doi: 10.1016/j.langcom.2016.06.001.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">R. J. Ryder and M. Hughes “The Effect on Text Comprehension of Word Frequency,” J. Educ. Res., 78(5):286– 291, 1985, doi: 10.1080/00220671.1985.10885617.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Canadian Radio-television and Telecommunications Commission-Government of Canada, “Canadian NER Evaluation Guidelines,” pp. 1–9, 2018. [Online]. Available: https://crtc.gc.ca/eng/archive/2019/2019-9.htm</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">National Court Reporters Association, “What Is an Error ?,” vol. 180, pp. 12–14, Oct. 2013.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">R. E. Pastore and C. J. Scheirer, “Signal Detection Theory: Considerations for General Application,” Psychol. Bull., 81(12):945–958, 1974, doi: 10.1037/h0037357.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">S. Schuster, S. Hawelka, F. Hutzler, M. Kronbichler, and F. Richlan, “Words in Context: The Effects of Length, Frequency, and Predictability on Brain Responses During Natural Reading,” Cereb. Cortex, 26(10):3889–3904, Oct. 2016, doi: 10.1093/cercor/bhw184.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">A. F. Newell and P. Gregor, “‘User Sensitive Inclusive Design’— In Search of a New Paradigm,” Proc. Conf. Univ. Usability (CUU), pp. 39–44, 2000, doi: 10.1145/355460.355470.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. Sandford, “White Paper WHP 306: The Impact of Subtitle Display Rate on Enjoyment Under Normal Television Vewing Conditions,” London, U.K., 2015.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. Goetz, A. Tewari, and P. Zimmerman, “Active Learning for Non-parametric Regression Using Purely Random Trees,” Adv. Neural Inf. Process. Syst. (NeurIPS), vol. 2018, pp. 2537–2546, Dec. 2018. [Online]. Available: https://www.scopus.com/inward/record.uri?eid=2-s2.0-85064808972&amp;partnerID=40&amp;md5=9020e74fd3d13c121d64dac6e57085c0</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">N. A. Macmillan and C. D. Creelman, “Response Bias: Characteristics of Detection Theory, Threshold Theory, and ‘Nonparametric’ Indexes,” Psychol. Bull., 107(3):401–413, May 1990, doi: 10.1037/0033-2909.107.3.401.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">C. Jensema, R. McCann, and S. Ramsey, “Closed-Captioned Television Presentation Speed and Vocabulary,” Am. Ann. Deaf, 141(4):284–290, Oct. 1996, doi: 10.1353/aad.2012.0377.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. A. Nevin, “ Signal Detection Theory and Operant Behavior: A Review of David M. Green and John A. Swets’ Signal Detection Theory and Psychophysics. 1 ,” J. Exp. Anal. Behav., 12(3):475– 480, May 1969, doi: 10.1901/jeab.1969.12-475.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Federal Communications Commission, “Closed Captioning Quality Order,” 2016.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ofcom, “Measuring the Quality of Live Subtitling,” London, U.K., 2013. [Online]. Available: https://www.ofcom.org.uk/research-and-data/tv-radio-and-on-demand/tv-research/live-subtitling</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Canadian Broadcasting Accessibility Fund, “Understanding User Responses to Live Closed Captioning in Canada,” Toronto, ON, Canada, 2019.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Y. Lecun, Y. Bengio, and G. Hinton, “Deep learning,” Nature, 521(7553):436–444, May 2015, doi: 10.1038/nature14539.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">N. A. Macmillan, “Signal Detection Theory,” in Stevens’ Handbook of Experimental Psychology, 3rd ed., H. Pashler and J. Wixted, Eds. Hoboken, NJ: John Wiley&amp;Sons, Inc., pp. 43–85, Aug. 2002.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">C. Jensema, “Viewer Reaction to Different Television Captioning Speeds,” Am. Ann. Deaf, 143(4):318–324, Oct. 1998, doi: 10.1353/aad.2012.0073.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">A. Raake and S. Egger, “Quality and Quality of Experience,” in Quality of Experience, Springer: Cham, Switzerland, pp. 11–33, Mar. 2014.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. R. Koza, F. H. Bennett, D. Andre, and M. A. Keane, “Automated Design of Both the Topology and Sizing of Analog Electrical Circuits Using Genetic Programming,” Artif. Intell. Des., pp. 151–170, 1996, doi: 10.1007/978-94-009-0279-4_9.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">V. Louthan, “Some Systematic Grammatical Deletions and Their Effects on Reading Comprehension,” English J., 54(4):295, Apr. 1965, doi: 10.2307/811113.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">B. Settles, “Computer Sciences Active Learning Literature Survey,” Sci. York, Jan. 2009.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Canadian Association of the Deaf, “Key Findings: Understanding User Responses to Live Closed Captioning in Canada,” Toronto, ON, Canada, 2016.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">J. Schmidhuber, “Deep Learning in Neural Networks: An Overview,” Neural Netw., 61:85–117, Jan. 2015, doi: 10.1016/j. neunet.2014.09.003.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">L. Postman, J. S. Bruner, and R. D. Walk, “The Perception of Error,” Br. J. Psychol. Gen. Sect., 42(1):1–10, Mar.–May 1951, doi: 10.1111/j.2044-8295.1951.tb00277.x.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">T. Apone, B. Botkin, M. Brooks, and L. Goldberg, “Caption Accuracy Metrics Project Research into Automated Error Ranking of Real-Time Captions in Live Television News Programs,” 2011. [Online]. Available: https://dcmp.org/learn/300-caption-viewer-sur-vey-error-ranking-of-real-time-captions-in-live-television-news</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li></ul></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script>
+      window.assetPrefix = "../../";
+      window.MSR_REF_ROOT = "10.5594-JMI.2021.3059344";
+    </script>
+    <script src="../../js/refTreeRender.js"></script>
+    <script src="../../js/refTree.js"></script>
+
+    <!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>

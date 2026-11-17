@@ -1,0 +1,262 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T18:49:44.489Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC3175",
+  "document": {
+    "abstract": "This document describes the use of a single RSVP (Resource ReSerVation Protocol) reservation to aggregate other RSVP reservations across a transit routing region, in a manner conceptually similar to the use of Virtual Paths in an ATM (Asynchronous Transfer Mode) network. It proposes a way to dynamically create the aggregate reservation, classify the traffic for which the aggregate reservation applies, determine how much bandwidth is needed to achieve the requirement, and recover the bandwidth when the sub-reservations are no longer required. It also contains recommendations concerning algorithms and policies for predictive reservations. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "authors": [
+      {
+        "name": "Fred Baker"
+      },
+      {
+        "name": "Carol Iturralde"
+      },
+      {
+        "name": "François Le Faucheur"
+      },
+      {
+        "name": "Dr. Bruce S. Davie"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docId": "RFC3175",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docLabel": "IETF RFC 3175",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docNumber": "3175",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docTitle": "Aggregation of RSVP for IPv4 and IPv6 Reservations",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "doi": "10.17487/RFC3175",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "href": "https://doi.org/10.17487/RFC3175",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "keywords": [
+      "RSVP",
+      "Internet",
+      "ATM"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "pages": "36",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publicationDate": "2001-09-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC791",
+        "RFC1122",
+        "RFC2474",
+        "RFC1958",
+        "RFC2597",
+        "RFC2638",
+        "RFC2836",
+        "RFC2205",
+        "RFC2746",
+        "RFC2996",
+        "RFC2747",
+        "RFC2998",
+        "RFC2961",
+        "RFC2780",
+        "RFC2711",
+        "RFC2113",
+        "orphan/RFC3175/h:94fb4192"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=18 proseBlocks=21 skippedAnchorBlocks=19",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+        "updated": "2026-10-14T18:49:44.489Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc3175/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+      "updated": "2026-10-14T18:49:44.489Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+        "updated": "2026-10-14T18:49:44.489Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "amendedBy": [
+        "RFC5350"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+        "updated": "2026-10-14T18:49:44.489Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+        "updated": "2026-10-14T18:49:44.489Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+        "updated": "2026-10-14T18:49:44.489Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+        "updated": "2026-10-14T18:49:44.489Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3175/",
+        "updated": "2026-10-14T18:49:44.489Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    }
+  }
+}

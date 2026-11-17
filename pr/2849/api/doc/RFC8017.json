@@ -1,0 +1,349 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-09T21:05:19.391Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC8017",
+  "document": {
+    "abstract": "This document provides recommendations for the implementation of public-key cryptography based on the RSA algorithm, covering cryptographic primitives, encryption schemes, signature schemes with appendix, and ASN.1 syntax for representing keys and for identifying the schemes. This document represents a republication of PKCS #1 v2.2 from RSA Laboratories' Public-Key Cryptography Standards (PKCS) series. By publishing this RFC, change control is transferred to the IETF. This document also obsoletes RFC 3447.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+      "updated": "2026-10-08T22:12:18.381Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "authors": [
+      {
+        "name": "Kathleen Moriarty"
+      },
+      {
+        "name": "Burt Kaliski"
+      },
+      {
+        "name": "Jakob Jonsson"
+      },
+      {
+        "name": "Andreas Rusch"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+      "updated": "2026-10-08T22:12:18.381Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "docId": "RFC8017",
+    "docId$meta": {
+      "confidence": "high",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "docLabel": "IETF RFC 8017",
+    "docLabel$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "docNumber": "8017",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+      "updated": "2026-10-08T22:12:18.381Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "docTitle": "PKCS #1: RSA Cryptography Specifications Version 2.2",
+    "docTitle$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "doi": "10.17487/RFC8017",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+      "updated": "2026-10-08T22:12:18.381Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "href": "https://doi.org/10.17487/RFC8017",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": "https://www.rfc-editor.org/info/rfc8017",
+      "overridden": true,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+      "updated": "2026-10-08T22:12:18.381Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "keywords": [
+      "RSA",
+      "PKCS #1 v1.5",
+      "RSA-OAEP",
+      "RSA-PSS"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+      "updated": "2026-10-08T22:12:18.381Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "pages": "78",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+      "updated": "2026-10-08T22:12:18.381Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "publicationDate": "2016-11-01",
+    "publicationDate$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "medium",
+      "source": "manual",
+      "updated": "2025-07-01T00:00:00Z"
+    },
+    "references": {
+      "bibliographic": [
+        "ANSI.X9.44.2007",
+        "10.1049-el_19820617",
+        "ISO.9796-1",
+        "10.1137-0217019",
+        "ISBN.9780471117094",
+        "10.1007-3-540-45760-7_1",
+        "10.1109-IEEESTD.2000.92292",
+        "10.1109-IEEESTD.2004.94612",
+        "ISO.18033-2.2006",
+        "ISO.9594-8.2008",
+        "ISO.9796-2.2010",
+        "10.1007-3-540-44647-8_14",
+        "10.1007-3-540-60865-6_43",
+        "10.1007-3-540-69710-1_19",
+        "10.1007-3-540-46766-1_14",
+        "10.1007-3-540-45539-6_25",
+        "10.1007-BFb0055718",
+        "10.1007-3-540-48405-1_1",
+        "RSA.PKCS1.v2.2.2012",
+        "10.1007-3-540-46035-7_18",
+        "RFC1319",
+        "RFC1321",
+        "RFC2313",
+        "RFC2315",
+        "RFC2437",
+        "RFC3447",
+        "RFC5246",
+        "RFC5652",
+        "RFC5958",
+        "RFC6149",
+        "RFC7292",
+        "10.1007-3-540-68339-9_34",
+        "10.1007-3-540-45708-9_9",
+        "10.1007-3-540-44647-8_15",
+        "NIST.FIPS.180-4",
+        "10.1007-3-540-48285-7_18",
+        "orphan/RFC8017/h:28fa2a46",
+        "orphan/RFC8017/h:505485cf",
+        "orphan/RFC8017/h:498de82e",
+        "orphan/RFC8017/h:d99b058c",
+        "orphan/RFC8017/h:bd6e06d9",
+        "orphan/RFC8017/h:a314ac3b",
+        "orphan/RFC8017/h:2b949d8a",
+        "orphan/RFC8017/h:533e4398",
+        "orphan/RFC8017/h:762a1046",
+        "orphan/RFC8017/h:a40e3029",
+        "orphan/RFC8017/h:43158253",
+        "orphan/RFC8017/h:58c70a74"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=52 proseBlocks=64 skippedAnchorBlocks=58",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [
+          "ANSI.X9.44.2007",
+          "10.1049-el_19820617",
+          "ISO.9796-1",
+          "10.1137-0217019",
+          "ISBN.9780471117094",
+          "10.1007-3-540-45760-7_1",
+          "10.1109-IEEESTD.2000.92292",
+          "10.1109-IEEESTD.2004.94612",
+          "ISO.18033-2.2006",
+          "ISO.9594-8.2008",
+          "ISO.9796-2.2010",
+          "10.1007-3-540-44647-8_14",
+          "10.1007-3-540-60865-6_43",
+          "10.1007-3-540-69710-1_19",
+          "10.1007-3-540-46766-1_14",
+          "10.1007-3-540-45539-6_25",
+          "10.1007-BFb0055718",
+          "10.1007-3-540-48405-1_1",
+          "10.1007-3-540-46035-7_18",
+          "RFC1319",
+          "RFC1321",
+          "RFC2313",
+          "RFC2315",
+          "RFC2437",
+          "RFC3447",
+          "RFC5246",
+          "RFC5652",
+          "RFC5958",
+          "RFC6149",
+          "RFC7292",
+          "10.1007-3-540-68339-9_34",
+          "10.1007-3-540-45708-9_9",
+          "10.1007-3-540-44647-8_15",
+          "NIST.FIPS.180-4",
+          "10.1007-3-540-48285-7_18",
+          "orphan/RFC8017/h:28fa2a46",
+          "orphan/RFC8017/h:505485cf",
+          "orphan/RFC8017/h:498de82e",
+          "orphan/RFC8017/h:d99b058c",
+          "orphan/RFC8017/h:bd6e06d9",
+          "orphan/RFC8017/h:a314ac3b",
+          "orphan/RFC8017/h:2b949d8a",
+          "orphan/RFC8017/h:533e4398",
+          "orphan/RFC8017/h:762a1046",
+          "orphan/RFC8017/h:ec0319c1",
+          "orphan/RFC8017/h:a40e3029",
+          "orphan/RFC8017/h:43158253",
+          "orphan/RFC8017/h:58c70a74"
+        ],
+        "overridden": true,
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+        "updated": "2026-10-09T21:05:19.391Z",
+        "version": "extractDocs.js@commit:01cb8ce286c5"
+      },
+      "normative": [
+        "10.1109-TEC.1959.5219515",
+        "RFC2119",
+        "10.1145-359340.359342"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "overridden": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+        "updated": "2026-10-08T22:12:18.381Z",
+        "version": "extractDocs.js@commit:f45caa90bf60"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8017/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": "https://datatracker.ietf.org/doc/html/rfc8017",
+      "overridden": true,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+      "updated": "2026-10-08T22:12:18.381Z",
+      "version": "extractDocs.js@commit:f45caa90bf60"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "medium",
+        "source": "manual",
+        "updated": "2025-07-01T00:00:00Z"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+        "updated": "2026-10-08T22:12:18.381Z",
+        "version": "extractDocs.js@commit:f45caa90bf60"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc8017",
+        "https://www.rfc-editor.org/errata_search.php?rfc=8017",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc8017.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "overridden": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+        "updated": "2026-10-08T22:12:18.381Z",
+        "version": "extractDocs.js@commit:f45caa90bf60"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+        "updated": "2026-10-08T22:12:18.381Z",
+        "version": "extractDocs.js@commit:f45caa90bf60"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+        "updated": "2026-10-08T22:12:18.381Z",
+        "version": "extractDocs.js@commit:f45caa90bf60"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+        "updated": "2026-10-08T22:12:18.381Z",
+        "version": "extractDocs.js@commit:f45caa90bf60"
+      },
+      "supersedes": [
+        "RFC3447"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "overridden": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8017/",
+        "updated": "2026-10-08T22:12:18.381Z",
+        "version": "extractDocs.js@commit:f45caa90bf60"
+      }
+    }
+  }
+}

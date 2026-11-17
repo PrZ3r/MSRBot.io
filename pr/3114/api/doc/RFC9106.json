@@ -1,0 +1,286 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-21T04:15:11.365Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9106",
+  "document": {
+    "abstract": "This document describes the Argon2 memory-hard function for password hashing and proof-of-work applications. We provide an implementer-oriented description with test vectors. The purpose is to simplify adoption of Argon2 for Internet protocols. This document is a product of the Crypto Forum Research Group (CFRG) in the IRTF.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "authors": [
+      {
+        "name": "Alex Biryukov"
+      },
+      {
+        "name": "Daniel Dinu"
+      },
+      {
+        "name": "Dmitry Khovratovich"
+      },
+      {
+        "name": "Simon Josefsson"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docId": "RFC9106",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.054Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docLabel": "IETF RFC 9106",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docNumber": "9106",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docTitle": "Argon2 Memory-Hard Function for Password Hashing and Proof-of-Work Applications",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "doi": "10.17487/RFC9106",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "href": "https://doi.org/10.17487/RFC9106",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "keywords": [
+      "Argon2",
+      "KDF",
+      "Cryptocurrency",
+      "Time-Space Trade-Off Attacks",
+      "Security"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Argon2d",
+        "Argon2i",
+        "Argon2id",
+        "KDF",
+        "Cryptocurrency",
+        "Time-Space Trade-Off Attacks",
+        "Security"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T22:12:03.624Z",
+      "version": "extractDocs.js@commit:301bfdf288d8"
+    },
+    "pages": "21",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publicationDate": "2021-09-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "references": {
+      "bibliographic": [
+        "10.1007-978-3-662-48800-3_26",
+        "10.1007-978-3-662-53008-5_9",
+        "10.1109-EUROSP.2016.31",
+        "10.1007-978-3-319-70500-2_15",
+        "10.1007-978-3-662-53887-6_8",
+        "10.1145-2746539.2746622",
+        "orphan/RFC9106/h:90c5157d"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Re-keyed after a citation parser fix (rekeyRefs.js)",
+        "originalValue": [
+          "10.1007-978-3-662-48800-3_26",
+          "10.1007-978-3-662-53008-5_9",
+          "10.1109-EuroSP.2016.31",
+          "10.1007-978-3-319-70500-2_15",
+          "10.1007-978-3-662-53887-6_8",
+          "10.1145-2746539.2746622",
+          "orphan/RFC9106/h:90c5157d"
+        ],
+        "overridden": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+        "updated": "2026-10-21T04:15:11.365Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "normative": [
+        "RFC7693",
+        "RFC2119",
+        "RFC8174"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+        "updated": "2026-10-20T21:47:21.055Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9106/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+      "updated": "2026-10-20T21:47:21.055Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+        "updated": "2026-10-20T21:47:21.055Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+        "updated": "2026-10-20T21:47:21.055Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9106",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9106",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc9106.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+        "updated": "2026-10-20T21:47:21.055Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+        "updated": "2026-10-20T21:47:21.055Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+        "updated": "2026-10-20T21:47:21.055Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9106/",
+        "updated": "2026-10-20T21:47:21.055Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    }
+  }
+}

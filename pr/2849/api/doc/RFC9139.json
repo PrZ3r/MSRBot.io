@@ -1,0 +1,290 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-22T15:59:29.232Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9139",
+  "document": {
+    "abstract": "This document defines a convergence layer for Content-Centric Networking (CCNx) and Named Data Networking (NDN) over IEEE 802.15.4 Low-Power Wireless Personal Area Networks (LoWPANs). A new frame format is specified to adapt CCNx and NDN packets to the small MTU size of IEEE 802.15.4. For that, syntactic and semantic changes to the TLV-based header formats are described. To support compatibility with other LoWPAN technologies that may coexist on a wireless medium, the dispatching scheme provided by IPv6 over LoWPAN (6LoWPAN) is extended to include new dispatch types for CCNx and NDN. Additionally, the fragmentation component of the 6LoWPAN dispatching framework is applied to Information-Centric Network (ICN) chunks. In its second part, the document defines stateless and stateful compression schemes to improve efficiency on constrained links. Stateless compression reduces TLV expressions to static header fields for common use cases. Stateful compression schemes elide states local to the LoWPAN and replace names in Data packets by short local identifiers. This document is a product of the IRTF Information-Centric Networking Research Group (ICNRG).",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "authors": [
+      {
+        "name": "Cenk Gündoğan"
+      },
+      {
+        "name": "Thomas C. Schmidt"
+      },
+      {
+        "name": "Matthias Wählisch"
+      },
+      {
+        "name": "Christopher Scherb"
+      },
+      {
+        "name": "Claudio Marxer"
+      },
+      {
+        "name": "Christian Tschudin"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docId": "RFC9139",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docLabel": "IETF RFC 9139",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docNumber": "9139",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docTitle": "Information-Centric Networking (ICN) Adaptation to Low-Power Wireless Personal Area Networks (LoWPANs)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "docType": "Experimental",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "doi": "10.17487/RFC9139",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "href": "https://doi.org/10.17487/RFC9139",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "keywords": [
+      "CCNx",
+      "NDN",
+      "Header Compression",
+      "Fragmentation",
+      "6LoWPAN",
+      "IoT"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Content-Centric Networking (CCNx)",
+        "Named Data Networking (NDN)",
+        "Header Compression",
+        "Fragmentation",
+        "6LoWPAN",
+        "IoT"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:59:29.232Z",
+      "version": "extractDocs.js@commit:44a7428c57f3"
+    },
+    "pages": "42",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "publicationDate": "2021-11-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "references": {
+      "bibliographic": [
+        "GITHUB.cn-uofbasel.ccn-lite",
+        "10.1016-j.comcom.2020.10.002",
+        "IETF.draft-irtf-icnrg-flic-02",
+        "10.1145-1658939.1658941",
+        "10.1145-2660129.2660144",
+        "10.1145-3267955.3267967",
+        "10.1145-3125719.3125737",
+        "RFC7228",
+        "RFC7252",
+        "RFC7476",
+        "RFC7927",
+        "RFC7945",
+        "RFC8025",
+        "RFC8569",
+        "RFC8609",
+        "RFC8930",
+        "RFC8931",
+        "10.1109-JIOT.2018.2815038",
+        "10.1145-3405656.3418719",
+        "orphan/RFC9139/h:25e2207e",
+        "orphan/RFC9139/h:856cbae3",
+        "orphan/RFC9139/h:d2782039"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+        "updated": "2026-10-22T15:49:51.996Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "normative": [
+        "IEEE.STD754.2019",
+        "IEEE.STD802.15.2020",
+        "RFC2119",
+        "RFC4944",
+        "RFC5497",
+        "RFC6256",
+        "RFC6282",
+        "RFC6775",
+        "RFC8174"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+        "updated": "2026-10-22T15:49:51.996Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9139/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+      "updated": "2026-10-22T15:49:51.996Z",
+      "version": "extractDocs.js@commit:17393e87cc4d"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+        "updated": "2026-10-22T15:49:51.996Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+        "updated": "2026-10-22T15:49:51.996Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+        "updated": "2026-10-22T15:49:51.996Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "statusNote": "Experimental",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+        "updated": "2026-10-22T15:49:51.996Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9139/",
+        "updated": "2026-10-22T15:49:51.996Z",
+        "version": "extractDocs.js@commit:17393e87cc4d"
+      }
+    }
+  }
+}

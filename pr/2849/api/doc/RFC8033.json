@@ -1,0 +1,289 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T21:16:48.931Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC8033",
+  "document": {
+    "abstract": "Bufferbloat is a phenomenon in which excess buffers in the network cause high latency and latency variation. As more and more interactive applications (e.g., voice over IP, real-time video streaming, and financial transactions) run in the Internet, high latency and latency variation degrade application performance. There is a pressing need to design intelligent queue management schemes that can control latency and latency variation, and hence provide desirable quality of service to users. This document presents a lightweight active queue management design called \"PIE\" (Proportional Integral controller Enhanced) that can effectively control the average queuing latency to a target value. Simulation results, theoretical analysis, and Linux testbed results have shown that PIE can ensure low latency and achieve high link utilization under various congestion situations. The design does not require per-packet timestamps, so it incurs very little overhead and is simple enough to implement in both hardware and software.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "authors": [
+      {
+        "name": "Rong Pan"
+      },
+      {
+        "name": "Preethi Natarajan"
+      },
+      {
+        "name": "Fred Baker"
+      },
+      {
+        "name": "Greg White"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docId": "RFC8033",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docLabel": "IETF RFC 8033",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docNumber": "8033",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docTitle": "Proportional Integral Controller Enhanced (PIE): A Lightweight Control Scheme to Address the Bufferbloat Problem",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docType": "Experimental",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "doi": "10.17487/RFC8033",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "href": "https://doi.org/10.17487/RFC8033",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "keywords": [
+      "AQM"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "pages": "30",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "publicationDate": "2017-02-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC970",
+        "RFC2309",
+        "RFC7567",
+        "RFC7806",
+        "RFC8034",
+        "10.1145-2209249.2209264",
+        "IETF.draft-ietf-tsvwg-ecn-encap-guidelines-07",
+        "10.1109-HPSR.2013.6602305",
+        "10.1109-INFCOM.2001.916670",
+        "10.1109-90.251892",
+        "10.1145-347057.347421",
+        "orphan/RFC8033/h:14d6b98a",
+        "orphan/RFC8033/h:867f7f86",
+        "orphan/RFC8033/h:c7b5fd81",
+        "IEEE.STD802.1QAU"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=16 proseBlocks=25 skippedAnchorBlocks=19",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [
+          "RFC970",
+          "RFC2309",
+          "RFC7567",
+          "RFC7806",
+          "RFC8034",
+          "10.1145-2209249.2209264",
+          "IETF.draft-ietf-tsvwg-ecn-encap-guidelines-07",
+          "10.1109-HPSR.2013.6602305",
+          "10.1109-INFCOM.2001.916670",
+          "10.1109-90.251892",
+          "10.1145-347057.347421",
+          "orphan/RFC8033/h:14d6b98a",
+          "orphan/RFC8033/h:867f7f86",
+          "orphan/RFC8033/h:c7b5fd81",
+          "orphan/RFC8033/h:8d27c392"
+        ],
+        "overridden": true,
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+        "updated": "2026-10-20T21:16:48.931Z",
+        "version": "extractDocs.js@commit:2d729ed26f61"
+      },
+      "normative": [
+        "RFC2119"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+        "updated": "2026-10-20T17:32:10.371Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8033/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+      "updated": "2026-10-20T17:32:10.371Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+        "updated": "2026-10-20T17:32:10.371Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+        "updated": "2026-10-20T17:32:10.371Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc8033",
+        "https://www.rfc-editor.org/errata_search.php?rfc=8033",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc8033.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+        "updated": "2026-10-20T17:32:10.371Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+        "updated": "2026-10-20T17:32:10.371Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "statusNote": "Experimental",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+        "updated": "2026-10-20T17:32:10.371Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8033/",
+        "updated": "2026-10-20T17:32:10.371Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      }
+    }
+  }
+}

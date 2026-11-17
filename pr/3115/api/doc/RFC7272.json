@@ -1,0 +1,272 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-22T15:15:01.397Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC7272",
+  "document": {
+    "abstract": "This document defines a new RTP Control Protocol (RTCP) Packet Type and an RTCP Extended Report (XR) Block Type to be used for achieving Inter-Destination Media Synchronization (IDMS). IDMS is the process of synchronizing playout across multiple media receivers. Using the RTCP XR IDMS Report Block defined in this document, media playout information from participants in a synchronization group can be collected. Based on the collected information, an RTCP IDMS Settings Packet can then be sent to distribute a common target playout point to which all the distributed receivers, sharing a media experience, can synchronize. Typical use cases in which IDMS is useful are social TV, shared service control (i.e., applications where two or more geographically separated users are watching a media stream together), distance learning, networked video walls, networked loudspeakers, etc.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "authors": [
+      {
+        "name": "Ray van Brandenburg"
+      },
+      {
+        "name": "Hans Stokking"
+      },
+      {
+        "name": "Oskar van Deventer"
+      },
+      {
+        "name": "Fernando Boronat"
+      },
+      {
+        "name": "Mario Montagud"
+      },
+      {
+        "name": "Kevin Gross"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docId": "RFC7272",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docLabel": "IETF RFC 7272",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docNumber": "7272",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docTitle": "Inter-Destination Media Synchronization (IDMS) Using the RTP Control Protocol (RTCP)",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "doi": "10.17487/RFC7272",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "href": "https://doi.org/10.17487/RFC7272",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "keywords": [
+      "Inter-Destination Media Synchronization",
+      "RTCP"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "pages": "23",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publicationDate": "2014-06-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "references": {
+      "bibliographic": [
+        "IEEE.STD1588.2008",
+        "RFC7164",
+        "RFC7201",
+        "orphan/RFC7272/h:2f9181c6",
+        "orphan/RFC7272/h:ba34dd1b",
+        "ETSI.TS-183-063.2011"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=17 proseBlocks=21 skippedAnchorBlocks=17",
+        "note": "Re-keyed after a citation parser fix (rekeyRefs.js)",
+        "originalValue": [
+          "IEEE.STD1588.2008",
+          "RFC7164",
+          "RFC7201",
+          "orphan/RFC7272/h:2f9181c6",
+          "orphan/RFC7272/h:ba34dd1b",
+          "orphan/RFC7272/h:928ca888"
+        ],
+        "overridden": true,
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+        "updated": "2026-10-22T15:15:01.397Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC3550",
+        "RFC3551",
+        "RFC3611",
+        "RFC4566",
+        "RFC5226",
+        "RFC5234",
+        "RFC5905",
+        "RFC7273"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+        "updated": "2026-10-16T20:46:03.688Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc7272/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+      "updated": "2026-10-16T20:46:03.688Z",
+      "version": "extractDocs.js@commit:2c3b1db1b97b"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+        "updated": "2026-10-16T20:46:03.688Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+        "updated": "2026-10-16T20:46:03.688Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+        "updated": "2026-10-16T20:46:03.688Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+        "updated": "2026-10-16T20:46:03.688Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc7272/",
+        "updated": "2026-10-16T20:46:03.688Z",
+        "version": "extractDocs.js@commit:2c3b1db1b97b"
+      }
+    }
+  }
+}

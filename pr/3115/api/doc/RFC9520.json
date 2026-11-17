@@ -1,0 +1,295 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T18:51:16.372Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9520",
+  "document": {
+    "abstract": "In the DNS, resolvers employ caching to reduce both latency for end users and load on authoritative name servers. The process of resolution may result in one of three types of responses: (1) a response containing the requested data, (2) a response indicating the requested data does not exist, or (3) a non-response due to a resolution failure in which the resolver does not receive any useful information regarding the data's existence. This document concerns itself only with the third type. RFC 2308 specifies requirements for DNS negative caching. There, caching of TYPE 2 responses is mandatory and caching of TYPE 3 responses is optional. This document updates RFC 2308 to require negative caching for DNS resolution failures. RFC 4035 allows DNSSEC validation failure caching. This document updates RFC 4035 to require caching for DNSSEC validation failures. RFC 4697 prohibits aggressive requerying for NS records at a failed zone's parent zone. This document updates RFC 4697 to expand this requirement to all query types and to all ancestor zones.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "authors": [
+      {
+        "name": "Duane Wessels"
+      },
+      {
+        "name": "William Carroll"
+      },
+      {
+        "name": "Matthew Thomas"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docId": "RFC9520",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docLabel": "IETF RFC 9520",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docNumber": "9520",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docTitle": "Negative Caching of DNS Resolution Failures",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "doi": "10.17487/RFC9520",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "href": "https://doi.org/10.17487/RFC9520",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "keywords": [
+      "DNS",
+      "Negative Caching"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "pages": "14",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publicationDate": "2023-12-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "references": {
+      "bibliographic": [
+        "10.1145-3355369.3355570",
+        "RFC882",
+        "RFC883",
+        "RFC4686",
+        "RFC4732",
+        "RFC5452",
+        "RFC6891",
+        "RFC7766",
+        "RFC7858",
+        "RFC7873",
+        "RFC8484",
+        "RFC8767",
+        "RFC8914",
+        "RFC9250",
+        "IETF.draft-muks-dnsop-dns-thundering-herd-00",
+        "10.1145-3487552.3487824",
+        "10.1109-SP54263.2024.00046",
+        "orphan/RFC9520/h:981d18c8",
+        "orphan/RFC9520/h:5ebf93db",
+        "orphan/RFC9520/h:440bdbfe",
+        "orphan/RFC9520/h:5f110dfc",
+        "orphan/RFC9520/h:13f82128"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+        "updated": "2026-10-14T18:51:16.372Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "normative": [
+        "RFC1034",
+        "RFC1035",
+        "RFC2119",
+        "RFC2308",
+        "RFC4035",
+        "RFC4697",
+        "RFC8174"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+        "updated": "2026-10-14T18:51:16.372Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9520/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+      "updated": "2026-10-14T18:51:16.372Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+        "updated": "2026-10-14T18:51:16.372Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "amends": [
+        "RFC2308",
+        "RFC4035",
+        "RFC4697"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+        "updated": "2026-10-14T18:51:16.372Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+        "updated": "2026-10-14T18:51:16.372Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9520",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9520",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc9520.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+        "updated": "2026-10-14T18:51:16.372Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+        "updated": "2026-10-14T18:51:16.372Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+        "updated": "2026-10-14T18:51:16.372Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9520/",
+        "updated": "2026-10-14T18:51:16.372Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    }
+  }
+}

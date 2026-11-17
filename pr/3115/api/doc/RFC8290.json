@@ -1,0 +1,282 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T21:17:16.111Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC8290",
+  "document": {
+    "abstract": "This memo presents the FQ-CoDel hybrid packet scheduler and Active Queue Management (AQM) algorithm, a powerful tool for fighting bufferbloat and reducing latency. FQ-CoDel mixes packets from multiple flows and reduces the impact of head-of-line blocking from bursty traffic. It provides isolation for low-rate traffic such as DNS, web, and videoconferencing traffic. It improves utilisation across the networking fabric, especially for bidirectional traffic, by keeping queue lengths short, and it can be implemented in a memory- and CPU-efficient fashion across a wide range of hardware.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "authors": [
+      {
+        "name": "Toke Høiland-Jørgensen"
+      },
+      {
+        "name": "Paul McKenney"
+      },
+      {
+        "name": "dave.taht@gmail.com"
+      },
+      {
+        "name": "Jim Gettys"
+      },
+      {
+        "name": "Eric Dumazet"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docId": "RFC8290",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docLabel": "IETF RFC 8290",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docNumber": "8290",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docTitle": "The Flow Queue CoDel Packet Scheduler and Active Queue Management Algorithm",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "docType": "Experimental",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "doi": "10.17487/RFC8290",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "href": "https://doi.org/10.17487/RFC8290",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "keywords": [
+      "Bufferbloat",
+      "AQM",
+      "FQ-CoDel"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Bufferbloat",
+        "AQM",
+        "Fq_codel",
+        "Fq-codel"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T21:17:16.111Z",
+      "version": "extractDocs.js@commit:2d729ed26f61"
+    },
+    "pages": "25",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "publicationDate": "2018-01-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "references": {
+      "bibliographic": [
+        "10.1145-2063176.2063196",
+        "10.1145-2208917.2209336",
+        "10.1109-90.502236",
+        "10.1109-ICON.2000.875803",
+        "10.1016-j.bjp.2014.01.009",
+        "10.1145-263105.263175",
+        "10.1109-TNET.2012.2215881",
+        "RFC2003",
+        "RFC2890",
+        "RFC3168",
+        "RFC4213",
+        "RFC6817",
+        "RFC8257",
+        "10.1109-INFCOM.1990.91316",
+        "10.1109-TNET.2011.2164553",
+        "IETF.draft-ietf-tsvwg-rtcweb-qos-18",
+        "10.1145-75247.75248",
+        "orphan/RFC8290/h:d6f51ffe",
+        "orphan/RFC8290/h:673c527f",
+        "orphan/RFC8290/h:59588391",
+        "orphan/RFC8290/h:3a9dd75e",
+        "orphan/RFC8290/h:17ea2148",
+        "orphan/RFC8290/h:cdccee9c",
+        "orphan/RFC8290/h:d9673452",
+        "orphan/RFC8290/h:3a180360"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=29 proseBlocks=35 skippedAnchorBlocks=32",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+        "updated": "2026-10-20T17:32:46.737Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC7806",
+        "RFC8174",
+        "RFC8289"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+        "updated": "2026-10-20T17:32:46.737Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc8290/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+      "updated": "2026-10-20T17:32:46.737Z",
+      "version": "extractDocs.js@commit:8277ba975118"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+        "updated": "2026-10-20T17:32:46.737Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+        "updated": "2026-10-20T17:32:46.737Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+        "updated": "2026-10-20T17:32:46.737Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "statusNote": "Experimental",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+        "updated": "2026-10-20T17:32:46.737Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc8290/",
+        "updated": "2026-10-20T17:32:46.737Z",
+        "version": "extractDocs.js@commit:8277ba975118"
+      }
+    }
+  }
+}

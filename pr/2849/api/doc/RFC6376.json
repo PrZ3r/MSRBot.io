@@ -1,0 +1,331 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-14T15:57:18.306Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC6376",
+  "document": {
+    "abstract": "DomainKeys Identified Mail (DKIM) permits a person, role, or organization that owns the signing domain to claim some responsibility for a message by associating the domain with the message. This can be an author's organization, an operational relay, or one of their agents. DKIM separates the question of the identity of the Signer of the message from the purported author of the message. Assertion of responsibility is validated through a cryptographic signature and by querying the Signer's domain directly to retrieve the appropriate public key. Message transit from author to recipient is through relays that typically make no substantive change to the message content and thus preserve the DKIM signature. This memo obsoletes RFC 4871 and RFC 5672. [STANDARDS-TRACK]",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "authors": [
+      {
+        "name": "Dave Crocker"
+      },
+      {
+        "name": "Tony Hansen"
+      },
+      {
+        "name": "Murray Kucherawy"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docId": "RFC6376",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docLabel": "IETF RFC 6376",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docNumber": "6376",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docTitle": "DomainKeys Identified Mail (DKIM) Signatures",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "doi": "10.17487/RFC6376",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "href": "https://doi.org/10.17487/RFC6376",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "keywords": [
+      "Email",
+      "Architecture",
+      "Verification",
+      "Media Identity",
+      "Integrity",
+      "Phishing"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Email",
+        "Architecture",
+        "Abuse",
+        "Verification",
+        "Anti-abuse",
+        "Media Identity",
+        "Integrity",
+        "Responsible",
+        "Email Filtering",
+        "Anti-phishing",
+        "Mail Signature"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-14T15:57:18.306Z",
+      "version": "extractDocs.js@commit:ca62cd19765f"
+    },
+    "pages": "76",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "publicationDate": "2011-09-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC2047",
+        "RFC3629",
+        "RFC3766",
+        "RFC3833",
+        "RFC3864",
+        "RFC4033",
+        "RFC4409",
+        "RFC4686",
+        "RFC4732",
+        "RFC4870",
+        "RFC4871",
+        "RFC4880",
+        "RFC5226",
+        "RFC5451",
+        "RFC5585",
+        "RFC5672",
+        "RFC5751",
+        "RFC5863",
+        "RFC6377",
+        "orphan/RFC6376/h:6fec45c9"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=32 proseBlocks=37 skippedAnchorBlocks=35",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "normative": [
+        "NIST.FIPS.180-3",
+        "RFC1034",
+        "RFC2045",
+        "RFC2049",
+        "RFC2119",
+        "RFC3447",
+        "RFC5234",
+        "RFC5321",
+        "RFC5322",
+        "RFC5598",
+        "RFC5890",
+        "orphan/RFC6376/h:291e09d7"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc6376/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "updated": "2026-10-13T22:25:55.763Z",
+      "version": "extractDocs.js@commit:fd871efde64d"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "amendedBy": [
+        "RFC8301",
+        "RFC8463",
+        "RFC8553",
+        "RFC8616"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc6376",
+        "https://www.rfc-editor.org/errata_search.php?rfc=6376",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc6376.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "statusNote": "Internet Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      },
+      "supersedes": [
+        "RFC4871",
+        "RFC5672"
+      ],
+      "supersedes$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc6376/",
+        "updated": "2026-10-13T22:25:55.763Z",
+        "version": "extractDocs.js@commit:fd871efde64d"
+      }
+    }
+  }
+}
