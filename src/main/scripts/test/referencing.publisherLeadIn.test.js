@@ -368,4 +368,16 @@ assert.strictEqual(parseRefId('ETSI, "Digital Audio Compression (AC-3, Enhanced 
 assert.strictEqual(parseRefId('ETSI, "Network Functions Virtualization (NFV); Use Cases", ETSI GR NFV 001 V1.2.1, May 2017.'), 'ETSI.GR-NFV-001.2017'); n++;
 assert.strictEqual(parseRefId('ISO, "Information Processing Systems -- Open Systems Interconnection -- Basic Reference Model -- Part 4: Management Framework", November 1989, &lt; http://standards.iso.org/ittf/PubliclyAvailableStandards/ s014258_ISO_IEC_7498-4_1989(E).zip&gt;.', 'http://standards.iso.org/ittf/PubliclyAvailableStandards/'), 'ISO.7498-4.1989'); n++;
 
+// Weekly run 2026-11-24: IANA's Media Types and port-number registries cited by name, no anchor
+// (RFC10070, RFC6762). A single media type's page or the registration form is not the registry.
+assert.strictEqual(parseRefId('IANA, "Media Types", <https://www.iana.org/assignments/media-types>.', 'https://www.iana.org/assignments/media-types'), 'IANA.MT'); n++;
+assert.strictEqual(parseRefId('Internet Assigned Numbers Authority (IANA) registry "Media Types", &lt; http://www.iana.org/assignments/ media-types/index.html &gt;.'), 'IANA.MT'); n++;
+assert.strictEqual(parseRefId('IANA Registry of MIME Media Types http://www.iana.org/assignments/media-types/ ...'), 'IANA.MT'); n++;
+assert.strictEqual(parseRefId('IANA, "Service Name and Transport Protocol Port Number Registry", &lt; http://www.iana.org/assignments/ service-names-port-numbers/ &gt;.'), 'IANA.PN'); n++;
+assert.strictEqual(parseRefId('Internet Assigned Numbers Authority (IANA) Registry, "Port Numbers", &lt; http://www.iana.org &gt;.'), 'IANA.PN'); n++;
+assert.strictEqual(parseRefId('"Service Name and Transport Protocol Port Number Registry", &lt; http://www.iana.org/assignments/ service-names-port-numbers/ &gt;.'), 'IANA.PN'); n++;
+assert.strictEqual(parseRefId('IANA, "video/AV1", <https://www.iana.org/assignments/media-types/video/AV1>.', 'https://www.iana.org/assignments/media-types/video/AV1'), null); n++;
+assert.strictEqual(parseRefId('IANA, "Application for a Media Type", <https://www.iana.org/form/media-types>.', 'https://www.iana.org/form/media-types'), null); n++;
+assert.strictEqual(parseRefId('Amundsen, M., "Collection+JSON - Document Format", Web Page , July 2011, &lt; http://www.iana.org/assignments/media-types &gt;.', 'http://www.iana.org/assignments/media-types'), null); n++;
+
 console.log(`referencing.publisherLeadIn.test.js — ${n} cases passed`);

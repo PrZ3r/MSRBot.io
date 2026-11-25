@@ -472,7 +472,15 @@
     ],
     "IANA.MT": [
       "iana media types",
-      "/^media types$/i"
+      "/^media types$/i",
+      "/^(?:IANA|Internet Assigned Numbers Authority(?:\\s*\\(IANA\\))?)(?:\\s+[Rr]egistry)?,?\\s*[\"“](?:MIME\\s+)?Media\\s+Types[\"”]/i",
+      "/^IANA\\s+(?:(?:MIME\\s+)?Media\\s+Types\\s+Registry|Registry\\s+of\\s+(?:MIME\\s+)?Media\\s+Types)\\b/i",
+      "/^Internet\\s+Media\\s+Types\\.\\s+\\S*iana\\.org\\/assignments\\/media-types\\/?\\s*$/i"
+    ],
+    "IANA.PN": [
+      "/^(?:IANA|Internet Assigned Numbers Authority(?:\\s*\\(IANA\\))?)(?:\\s+Registr(?:y|ies))?,?\\s*[\"“](?:Service\\s+Name\\s+and\\s+Transport\\s+Protocol\\s+Port\\s+Number\\s+Registry|Port\\s+Numbers)[\"”]/i",
+      "/^[\"“]Service\\s+Name\\s+and\\s+Transport\\s+Protocol\\s+Port\\s+Number\\s+Registry[\"”],?\\s*(?:&lt;|<)\\s*https?:\\/\\/www\\.iana\\.org\\//i",
+      "/^IANA\\s+Port\\s+Numbers\\s+Registry\\b/i"
     ],
     "IANA.URI": [
       "IANA, \"Uniform Resource Identifier (URI) Schemes\", https://www.iana.org/assignments/uri-schemes",
@@ -1231,6 +1239,6 @@
     ]
   },
   "meta": {
-    "totalMaps": 170
+    "totalMaps": 171
   }
 }
