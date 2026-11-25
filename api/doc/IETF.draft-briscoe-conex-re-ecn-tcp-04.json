@@ -1,0 +1,224 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-20T22:08:28.748Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "IETF.draft-briscoe-conex-re-ecn-tcp-04",
+  "document": {
+    "abstract": "This document introduces re-ECN (re-inserted explicit congestion notification), which is intended to make a simple but far-reaching change to the Internet architecture. The sender uses the IP header to reveal the congestion that it expects on the end-to-end path. The protocol works by arranging an extended ECN field in each packet so that, as it crosses any interface in an internetwork, it will carry a truthful prediction of congestion on the remainder of its path. It can be deployed incrementally around unmodified routers. The purpose of this document is to specify the re-ECN protocol at the IP layer and to give guidelines on any consequent changes required to transport protocols. It includes the changes required to TCP both as an example and as a specification. It briefly gives examples of mechanisms that can use the protocol to ensure data sources respond sufficiently to congestion, but these are described more fully in a companion document. Note concerning Intended Status: If this draft were ever published as an RFC it would probably have historic status. There is limited space in the IP header, so re-ECN had to compromise by requiring the receiver to be ECN-enabled otherwise the sender could not use re-ECN. Re-ECN was a precursor to chartering of the IETF's Congestion Exposure (ConEx) working group, but during chartering there were still too few ECN receivers enabled, therefore it was decided to pursue other compromises in order to fit a similar capability into the IP header.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML front/abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T21:44:32.510Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "authors": [
+      {
+        "name": "Bob Briscoe"
+      },
+      {
+        "name": "Arnaud Jacquet"
+      },
+      {
+        "name": "Toby Moncaster"
+      },
+      {
+        "name": "Alan Smith"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML front/author",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T21:44:32.510Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docId": "IETF.draft-briscoe-conex-re-ecn-tcp-04",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T21:44:32.510Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docLabel": "IETF draft-briscoe-conex-re-ecn-tcp-04",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T21:44:32.510Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docTitle": "Re-ECN: Adding\n    Accountability for Causing Congestion to TCP/IP",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML front/title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T21:44:32.510Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T21:44:32.510Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "href": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+    "href$meta": {
+      "confidence": "high",
+      "note": "URL normalized and retained from seed/discovery input",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T21:44:32.510Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "keywords": [
+      "Quality Of Service",
+      "QoS",
+      "Congestion Control",
+      "DiffServ",
+      "Integrated Services",
+      "Admission Control",
+      "Protocol",
+      "Preemption"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML front/keyword",
+      "originalValue": [
+        "Quality Of Service",
+        "QoS",
+        "Congestion Control",
+        "DiffServ",
+        "Integrated Services",
+        "Admission Control",
+        "Protocol",
+        "Pre-emption"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T22:08:28.748Z",
+      "version": "extractDocs.js@commit:301bfdf288d8"
+    },
+    "publicationDate": "2014-07-04",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from archive XML front/date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T21:44:32.510Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+      "updated": "2026-10-20T21:44:32.510Z",
+      "version": "extractDocs.js@commit:92f3ced618ff"
+    },
+    "references": {
+      "bibliographic": [
+        "IETF.draft-briscoe-conex-re-ecn-motiv-03",
+        "IETF.draft-ietf-conex-tcp-modifications-05",
+        "IETF.draft-briscoe-re-pcn-border-cheat-03",
+        "IETF.draft-moncaster-tcpm-rcv-cheat-03",
+        "orphan/IETF.draft-briscoe-conex-re-ecn-tcp-04/h:f029e754",
+        "orphan/IETF.draft-briscoe-conex-re-ecn-tcp-04/h:43eb33b6",
+        "orphan/IETF.draft-briscoe-conex-re-ecn-tcp-04/h:39f2f736",
+        "orphan/IETF.draft-briscoe-conex-re-ecn-tcp-04/h:6225979b"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from archive XML references (Informative/Bibliographic References)",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+        "updated": "2026-10-20T21:44:32.511Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+        "updated": "2026-10-20T21:44:32.511Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "draft": true,
+      "draft$meta": {
+        "confidence": "high",
+        "note": "Parsed from Datatracker/RFC sources",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+        "updated": "2026-10-20T21:44:32.511Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+        "updated": "2026-10-20T21:44:32.511Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+        "updated": "2026-10-20T21:44:32.511Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "statusNote": "Internet-Draft",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker std_level or RFC status text",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+        "updated": "2026-10-20T21:44:32.511Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/draft-briscoe-conex-re-ecn-tcp-04/",
+        "updated": "2026-10-20T21:44:32.511Z",
+        "version": "extractDocs.js@commit:92f3ced618ff"
+      }
+    }
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-21T16:58:34.439Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9841",
+  "document": {
+    "abstract": "This specification defines a data format for shared brotli compression, which adds support for shared dictionaries, large window, and a container format to brotli (RFC 7932). Shared dictionaries and large window support allow significant compression gains compared to regular brotli. This document specifies an extension to the method defined in RFC 7932.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "authors": [
+      {
+        "name": "Jyrki Alakuijala"
+      },
+      {
+        "name": "Thai Duong"
+      },
+      {
+        "name": "Evgenii Kliuchnikov"
+      },
+      {
+        "name": "Zoltan Szabadka"
+      },
+      {
+        "name": "Lode Vandevenne"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docId": "RFC9841",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docLabel": "IETF RFC 9841",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docNumber": "9841",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docTitle": "Shared Brotli Compressed Data Format",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "doi": "10.17487/RFC9841",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "href": "https://doi.org/10.17487/RFC9841",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "keywords": [
+      "Dictionary Compression Lz77"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "pages": "23",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publicationDate": "2025-09-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "references": {
+      "bibliographic": [
+        "10.1109-TIT.1977.1055714",
+        "orphan/RFC9841/h:b583a7d3",
+        "orphan/RFC9841/h:356ac3f5",
+        "orphan/RFC9841/h:1a9e1c9c"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+        "updated": "2026-10-21T16:58:34.439Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "normative": [
+        "10.48550-arXiv.1612.06257",
+        "RFC7932"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+        "updated": "2026-10-21T16:58:34.439Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9841/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+      "updated": "2026-10-21T16:58:34.439Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+        "updated": "2026-10-21T16:58:34.439Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "amends": [
+        "RFC7932"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+        "updated": "2026-10-21T16:58:34.439Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+        "updated": "2026-10-21T16:58:34.439Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+        "updated": "2026-10-21T16:58:34.439Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+        "updated": "2026-10-21T16:58:34.439Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9841/",
+        "updated": "2026-10-21T16:58:34.439Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    }
+  }
+}

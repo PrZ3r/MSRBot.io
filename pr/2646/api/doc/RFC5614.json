@@ -1,0 +1,271 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-15T20:19:39.370Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC5614",
+  "document": {
+    "abstract": "This document specifies an extension of OSPFv3 to support mobile ad hoc networks (MANETs). The extension, called OSPF-MDR, is designed as a new OSPF interface type for MANETs. OSPF-MDR is based on the selection of a subset of MANET routers, consisting of MANET Designated Routers (MDRs) and Backup MDRs. The MDRs form a connected dominating set (CDS), and the MDRs and Backup MDRs together form a biconnected CDS for robustness. This CDS is exploited in two ways. First, to reduce flooding overhead, an optimized flooding procedure is used in which only (Backup) MDRs flood new link state advertisements (LSAs) back out the receiving interface; reliable flooding is ensured by retransmitting LSAs along adjacencies. Second, adjacencies are formed only between (Backup) MDRs and a subset of their neighbors, allowing for much better scaling in dense networks. The CDS is constructed using 2-hop neighbor information provided in a Hello protocol extension. The Hello protocol is further optimized by allowing differential Hellos that report only changes in neighbor states. Options are specified for originating router-LSAs that provide full or partial topology information, allowing overhead to be reduced by advertising less topology information. This memo defines an Experimental Protocol for the Internet community.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "authors": [
+      {
+        "name": "Richard Ogier"
+      },
+      {
+        "name": "Phil Spagnolo"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "docId": "RFC5614",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "docLabel": "IETF RFC 5614",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "docNumber": "5614",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "docTitle": "Mobile Ad Hoc Network (MANET) Extension of OSPF Using Connected Dominating Set (CDS) Flooding",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "docType": "Experimental",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "doi": "10.17487/RFC5614",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "href": "https://doi.org/10.17487/RFC5614",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "keywords": [
+      "MANET",
+      "Link-state Routing",
+      "CDS Flooding",
+      "Meshes"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "MANET Routing",
+        "Link-state Routing",
+        "CDS Flooding",
+        "Mesh Network",
+        "MANET Designated Router",
+        "MDR"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T20:19:39.370Z",
+      "version": "extractDocs.js@commit:5774daa8c9d8"
+    },
+    "pages": "71",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "publicationDate": "2009-08-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC4593",
+        "orphan/RFC5614/h:25551e83",
+        "orphan/RFC5614/h:3329c0d7"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=12 proseBlocks=14 skippedAnchorBlocks=12",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+        "updated": "2026-10-15T19:18:55.065Z",
+        "version": "extractDocs.js@commit:669b9e3c6fef"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC2328",
+        "RFC4302",
+        "RFC4303",
+        "RFC4552",
+        "RFC5243",
+        "RFC5340",
+        "RFC5613"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+        "updated": "2026-10-15T19:18:55.065Z",
+        "version": "extractDocs.js@commit:669b9e3c6fef"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc5614/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+      "updated": "2026-10-15T19:18:55.065Z",
+      "version": "extractDocs.js@commit:669b9e3c6fef"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+        "updated": "2026-10-15T19:18:55.065Z",
+        "version": "extractDocs.js@commit:669b9e3c6fef"
+      },
+      "amendedBy": [
+        "RFC7038",
+        "RFC9454"
+      ],
+      "amendedBy$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+        "updated": "2026-10-15T19:18:55.065Z",
+        "version": "extractDocs.js@commit:669b9e3c6fef"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+        "updated": "2026-10-15T19:18:55.065Z",
+        "version": "extractDocs.js@commit:669b9e3c6fef"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+        "updated": "2026-10-15T19:18:55.065Z",
+        "version": "extractDocs.js@commit:669b9e3c6fef"
+      },
+      "statusNote": "Experimental",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+        "updated": "2026-10-15T19:18:55.065Z",
+        "version": "extractDocs.js@commit:669b9e3c6fef"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5614/",
+        "updated": "2026-10-15T19:18:55.065Z",
+        "version": "extractDocs.js@commit:669b9e3c6fef"
+      }
+    }
+  }
+}

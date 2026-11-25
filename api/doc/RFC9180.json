@@ -1,0 +1,297 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-21T23:43:29.710Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9180",
+  "document": {
+    "abstract": "This document describes a scheme for hybrid public key encryption (HPKE). This scheme provides a variant of public key encryption of arbitrary-sized plaintexts for a recipient public key. It also includes three authenticated variants, including one that authenticates possession of a pre-shared key and two optional ones that authenticate possession of a key encapsulation mechanism (KEM) private key. HPKE works for any combination of an asymmetric KEM, key derivation function (KDF), and authenticated encryption with additional data (AEAD) encryption function. Some authenticated variants may not be supported by all KEMs. We provide instantiations of the scheme using widely used and efficient primitives, such as Elliptic Curve Diffie-Hellman (ECDH) key agreement, HMAC-based key derivation function (HKDF), and SHA2. This document is a product of the Crypto Forum Research Group (CFRG) in the IRTF.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "authors": [
+      {
+        "name": "Richard Barnes"
+      },
+      {
+        "name": "Karthikeyan Bhargavan"
+      },
+      {
+        "name": "Benjamin Lipp"
+      },
+      {
+        "name": "Christopher A. Wood"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docId": "RFC9180",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docLabel": "IETF RFC 9180",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docNumber": "9180",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "From the RFC index entry (rfc-index.xml <doc-id>)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docTitle": "Hybrid Public Key Encryption",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "doi": "10.17487/RFC9180",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "href": "https://doi.org/10.17487/RFC9180",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "keywords": [
+      "Public Key Encryption",
+      "KEM",
+      "Post-quantum Cryptography"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "Public-key Encryption",
+        "KEM",
+        "Post-quantum Public-key Encryption"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T23:43:29.710Z",
+      "version": "extractDocs.js@commit:cc353c041d14"
+    },
+    "pages": "107",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publicationDate": "2022-02-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "references": {
+      "bibliographic": [
+        "ANSI.X9.63",
+        "10.1007-BFb0024447",
+        "10.1007-978-3-030-26948-7_9",
+        "10.1007-3-540-44586-2_8.pdf",
+        "NIST.SP.800-38D",
+        "IEEE.STD1363A.2004",
+        "10.1007-BF00124891",
+        "ISO.18033-2.2006",
+        "NIST.SP.800-56Ar3",
+        "IETF.draft-ietf-mls-protocol-12",
+        "CACE.NaCl.201207",
+        "NIST.FIPS.186-4",
+        "RFC1421",
+        "RFC5869",
+        "RFC7748",
+        "RFC8439",
+        "RFC8446",
+        "RFC8467",
+        "RFC8696",
+        "RFC8937",
+        "SECG.SEC1.v2.2009-05",
+        "10.1007-978-3-540-89411-7",
+        "IETF.draft-irtf-cfrg-hpke",
+        "IETF.draft-ietf-tls-esni-14",
+        "orphan/RFC9180/h:5c0cd328",
+        "orphan/RFC9180/h:14628122",
+        "orphan/RFC9180/h:cf071d1e",
+        "orphan/RFC9180/h:9334e73f",
+        "orphan/RFC9180/h:2c3c45a5",
+        "orphan/RFC9180/h:b30241dd",
+        "orphan/RFC9180/h:8db15aeb"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+        "updated": "2026-10-21T16:58:24.878Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC5116",
+        "RFC8017",
+        "RFC8126",
+        "RFC8174"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+        "updated": "2026-10-21T16:58:24.878Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9180/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+      "updated": "2026-10-21T16:58:24.878Z",
+      "version": "extractDocs.js@commit:2c1e5418e9d0"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+        "updated": "2026-10-21T16:58:24.878Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "errataExist": true,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+        "updated": "2026-10-21T16:58:24.878Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "errataUrl": [
+        "https://www.rfc-editor.org/errata/rfc9180",
+        "https://www.rfc-editor.org/errata_search.php?rfc=9180",
+        "https://www.rfc-editor.org/rfc/inline-errata/rfc9180.html"
+      ],
+      "errataUrl$meta": {
+        "confidence": "high",
+        "note": "Parsed from errata links on RFC/Datatracker pages",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+        "updated": "2026-10-21T16:58:24.878Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+        "updated": "2026-10-21T16:58:24.878Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+        "updated": "2026-10-21T16:58:24.878Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9180/",
+        "updated": "2026-10-21T16:58:24.878Z",
+        "version": "extractDocs.js@commit:2c1e5418e9d0"
+      }
+    }
+  }
+}

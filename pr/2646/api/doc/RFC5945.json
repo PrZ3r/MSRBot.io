@@ -1,0 +1,268 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-16T18:56:24.017Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC5945",
+  "document": {
+    "abstract": "The Resource Reservation Protocol (RSVP) can be used to make end-to- end resource reservations in an IP network in order to guarantee the quality of service required by certain flows. RSVP assumes that both the data sender and receiver of a given flow take part in RSVP signaling. Yet, there are use cases where resource reservation is required, but the receiver, the sender, or both, is not RSVP-capable. This document presents RSVP proxy behaviors allowing RSVP routers to initiate or terminate RSVP signaling on behalf of a receiver or a sender that is not RSVP-capable. This allows resource reservations to be established on a critical subset of the end-to-end path. This document reviews conceptual approaches for deploying RSVP proxies and discusses how RSVP reservations can be synchronized with application requirements, despite the sender, receiver, or both not participating in RSVP. This document also points out where extensions to RSVP (or to other protocols) may be needed for deployment of a given RSVP proxy approach. However, such extensions are outside the scope of this document. Finally, practical use cases for RSVP proxy are described. This document is not an Internet Standards Track specification; it is published for informational purposes.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "authors": [
+      {
+        "name": "François Le Faucheur"
+      },
+      {
+        "name": "Jukka Manner"
+      },
+      {
+        "name": "Dan Wing"
+      },
+      {
+        "name": "Allan Guillou"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docId": "RFC5945",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docLabel": "IETF RFC 5945",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docNumber": "5945",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docTitle": "Resource Reservation Protocol (RSVP) Proxy Approaches",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "docType": "Informational",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "doi": "10.17487/RFC5945",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "href": "https://doi.org/10.17487/RFC5945",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "pages": "50",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publicationDate": "2010-10-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "references": {
+      "bibliographic": [
+        "RFC1633",
+        "RFC2113",
+        "RFC2326",
+        "RFC2474",
+        "RFC2711",
+        "RFC2872",
+        "RFC2961",
+        "RFC3175",
+        "RFC3261",
+        "RFC3312",
+        "RFC3550",
+        "RFC3588",
+        "RFC3644",
+        "RFC4032",
+        "RFC4301",
+        "RFC4302",
+        "RFC4303",
+        "RFC4566",
+        "RFC4741",
+        "RFC4860",
+        "RFC4923",
+        "RFC5277",
+        "RFC5432",
+        "RFC5853",
+        "RFC5866",
+        "RFC5946",
+        "RFC5974",
+        "W3C.ws-arch",
+        "orphan/RFC5945/h:f8e8ff26",
+        "orphan/RFC5945/h:ab2cdff3",
+        "orphan/RFC5945/h:070fd1a1"
+      ],
+      "bibliographic$meta": {
+        "confidence": "medium",
+        "flag": "MIXED_REF_LAYOUT_RISK anchored=40 proseBlocks=46 skippedAnchorBlocks=42",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "reviewRequired": true,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+        "updated": "2026-10-16T18:56:24.017Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "normative": [
+        "RFC2205",
+        "RFC2210",
+        "RFC2475",
+        "RFC2747",
+        "RFC3097",
+        "RFC5245",
+        "RFC5389"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+        "updated": "2026-10-16T18:56:24.017Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc5945/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+      "updated": "2026-10-16T18:56:24.017Z",
+      "version": "extractDocs.js@commit:a6ae1efef02e"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+        "updated": "2026-10-16T18:56:24.017Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+        "updated": "2026-10-16T18:56:24.017Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+        "updated": "2026-10-16T18:56:24.017Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "statusNote": "Informational",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+        "updated": "2026-10-16T18:56:24.017Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc5945/",
+        "updated": "2026-10-16T18:56:24.017Z",
+        "version": "extractDocs.js@commit:a6ae1efef02e"
+      }
+    }
+  }
+}

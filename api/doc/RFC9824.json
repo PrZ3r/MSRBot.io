@@ -1,0 +1,288 @@
+{
+  "$schema": "/api/schemas/documents.schema.json",
+  "apiVersion": "1.1.0",
+  "lastModified": "2026-10-15T16:42:04.948Z",
+  "sourcePath": "src/main/data/docs",
+  "docId": "RFC9824",
+  "document": {
+    "abstract": "This document describes a technique to generate a signed DNS response on demand for a nonexistent name by claiming that the name exists but doesn't have any data for the queried record type. Such responses require only one minimally covering NSEC or NSEC3 record, allow online signing servers to minimize signing operations and response sizes, and prevent zone content disclosure. This document updates RFCs 4034 and 4035.",
+    "abstract$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML abstract",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "authors": [
+      {
+        "name": "Shumon Huque"
+      },
+      {
+        "name": "Christian Elmerot"
+      },
+      {
+        "name": "Ólafur Guðmundsson"
+      }
+    ],
+    "authors$meta": {
+      "confidence": "high",
+      "note": "Parsed from Datatracker doc page article:author (profile full names)",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docId": "RFC9824",
+    "docId$meta": {
+      "confidence": "high",
+      "note": "Derived from RFC number or Datatracker identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docLabel": "IETF RFC 9824",
+    "docLabel$meta": {
+      "confidence": "high",
+      "note": "Constructed from provider and document identifier",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docNumber": "9824",
+    "docNumber$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC info page report metadata",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docTitle": "Compact Denial of Existence in DNSSEC",
+    "docTitle$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML title",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "docType": "Standard",
+    "docType$meta": {
+      "confidence": "high",
+      "note": "Mapped from Datatracker std_level or RFC status text",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "doi": "10.17487/RFC9824",
+    "doi$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML doi",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "href": "https://doi.org/10.17487/RFC9824",
+    "href$meta": {
+      "confidence": "high",
+      "note": "Derived from DOI (https://doi.org/<doi>)",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "keywords": [
+      "DNS",
+      "DNSSEC",
+      "Denial of Existence",
+      "Compact Denial of Existence",
+      "NXDOMAIN",
+      "NODATA",
+      "Empty Non-Terminal"
+    ],
+    "keywords$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML keywords",
+      "originalValue": [
+        "DNS",
+        "DNSSEC",
+        "Denial of Existence",
+        "Compact Denial of Existence",
+        "Compact Answers",
+        "Black Lies",
+        "NXDOMAIN",
+        "NODATA",
+        "Empty Non-Terminal"
+      ],
+      "overridden": true,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-15T16:42:04.948Z",
+      "version": "extractDocs.js@commit:0f51bb226575"
+    },
+    "pages": "14",
+    "pages$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML page-count",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publicationDate": "2025-09-01",
+    "publicationDate$meta": {
+      "confidence": "high",
+      "note": "Parsed from RFC index XML date",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "publisher": "IETF",
+    "publisher$meta": {
+      "confidence": "high",
+      "note": "Static: provider",
+      "originalValue": null,
+      "source": "parsed",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "references": {
+      "bibliographic": [
+        "IETF.draft-valsorda-dnsop-black-lies-00",
+        "IETF.draft-huque-dnsop-blacklies-ent-01",
+        "IETF.draft-ogud-fake-nxdomain-type-00",
+        "RFC7129",
+        "RFC8020",
+        "RFC8198",
+        "RFC8305",
+        "RFC9499",
+        "orphan/RFC9824/h:73dd5c94"
+      ],
+      "bibliographic$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML references/informative sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+        "updated": "2026-10-14T18:51:51.678Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "normative": [
+        "RFC2119",
+        "RFC3225",
+        "RFC4034",
+        "RFC4035",
+        "RFC4470",
+        "RFC4648",
+        "RFC5155",
+        "RFC6891",
+        "RFC6895",
+        "RFC8174",
+        "RFC8914",
+        "RFC9364"
+      ],
+      "normative$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC HTML normative references sections",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+        "updated": "2026-10-14T18:51:51.678Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    },
+    "resolvedHref": "https://www.rfc-editor.org/info/rfc9824/",
+    "resolvedHref$meta": {
+      "confidence": "high",
+      "note": "Final URL resolved via URL redirect verification",
+      "originalValue": null,
+      "source": "resolved",
+      "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+      "updated": "2026-10-14T18:51:51.678Z",
+      "version": "extractDocs.js@commit:673dd514c094"
+    },
+    "status": {
+      "active": true,
+      "active$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+        "updated": "2026-10-14T18:51:51.678Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "amends": [
+        "RFC4034",
+        "RFC4035"
+      ],
+      "amends$meta": {
+        "confidence": "high",
+        "note": "Parsed from RFC index XML",
+        "originalValue": [],
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+        "updated": "2026-10-14T18:51:51.678Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "errataExist": false,
+      "errataExist$meta": {
+        "confidence": "high",
+        "note": "Derived from presence of errata links on RFC/Datatracker pages",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+        "updated": "2026-10-14T18:51:51.678Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "latestVersion": true,
+      "latestVersion$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+        "updated": "2026-10-14T18:51:51.678Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "statusNote": "Proposed Standard",
+      "statusNote$meta": {
+        "confidence": "high",
+        "note": "Mapped from Datatracker doc.json std_level",
+        "originalValue": null,
+        "source": "parsed",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+        "updated": "2026-10-14T18:51:51.678Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      },
+      "superseded": false,
+      "superseded$meta": {
+        "confidence": "high",
+        "note": "Derived from supersession relationship fields",
+        "originalValue": null,
+        "source": "resolved",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc9824/",
+        "updated": "2026-10-14T18:51:51.678Z",
+        "version": "extractDocs.js@commit:673dd514c094"
+      }
+    }
+  }
+}

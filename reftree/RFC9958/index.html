@@ -1,0 +1,570 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO: core meta -->
+    <meta name="description" content="Post-Quantum Cryptography for Engineers">
+    <link rel="canonical" href="https://msrbot.io/reftree/RFC9958/">
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+    <meta name="author" content="Steve LLamb (PrZ3)">
+    <meta name="copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta name="license" content="BSD-3-Clause">
+    <meta name="license:link" content="https://opensource.org/licenses/BSD-3-Clause">
+  
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MSRBot.io">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:title" content="Reference Tree — IETF RFC 9958 — MSRBot.io">
+    <meta property="og:description" content="Post-Quantum Cryptography for Engineers">
+    <meta property="og:copyright" content="2025-26 © Steve LLamb https://github.com/SteveLLamb and PrZ3 https://github.com/PrZ3r, All rights reserved.">
+    <meta property="og:license" content="BSD-3-Clause"> 
+    <meta property="og:url" content="https://msrbot.io/reftree/RFC9958/">
+    <meta property="og:image" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:secure_url" content="https://msrbot.io/static/og/msrbot-og.png">
+    <meta property="og:image:alt" content="PrZ3 — (MSRBot.io icon)">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> 
+  
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://msrbot.io/static/og/msrbot-og.png">
+  
+    <!-- PWA/Theme (optional but nice) -->
+    <meta name="application-name" content="MSRBot.io">
+    <meta name="theme-color" content="#1398b0">
+  
+    <!-- Icons -->
+    <link type="image/svg" rel="icon" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/svg+xml" href="../../static/MSRBot-PrZ3-blue.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/icons/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/icons/apple-touch-icon-180.png">
+    
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+    <link rel="stylesheet" type="text/css" href="../../css/msrbot.css">
+  
+    <title>MSRBot.io | Reference Tree — IETF RFC 9958</title>
+  
+    <!-- Scripts -->
+    <script>
+      window.msrAssetPrefix = "../../";
+    </script>
+    <script src="../../js/msrbot.js"></script>
+  
+    <!-- JSON-LD: basic WebSite schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Reference Tree — IETF RFC 9958 - MSRBot.io",
+      "url": "https://msrbot.io/reftree/RFC9958/",
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/docs/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search documents"
+        },
+        {
+          "@type": "SearchAction",
+          "target": "https://msrbot.io/api/?q={query}",
+          "query-input": "required name=query",
+          "name": "Search API"
+        }
+      ],
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MSRBot.io",
+        "url": "https://msrbot.io"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "PrZ3",
+        "url": "https://PrZ3.io"
+      },
+      "copyrightHolder": {
+        "@type": "Organization",
+        "name": "PrZ3"
+      },
+      "copyrightYear": "2025-26",
+      "license": "https://opensource.org/licenses/BSD-3-Clause",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://msrbot.io/static/og/msrbot-og.png",
+        "width": 1200,
+        "height": 630
+      }
+    }
+    </script>
+  
+    <!-- Other -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="search" type="application/opensearchdescription+xml" title="MSRBot" href="../../opensearch.xml">
+    <link rel="license" href="https://opensource.org/licenses/BSD-3-Clause">
+    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md sticky-top d-flex px-3 border-bottom border-secondary-subtle shadow">
+      <div class="container">
+        <div class="navbar-brand"><a href="../../"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="MSR" width="28" height="28" class="me-2"><img src="../../static/MSRBot-Logo-blue.svg" alt="MSR" height="28"></a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          
+          <ul class="navbar-nav ms-auto mb-lg-0">
+            <li class="nav-item text-nowrap">
+              <a id="nav-home" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../"><i class="bi bi-house-fill" style="font-size: 1.3rem;"></i><span class="small">HOME</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-docs" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../docs/"><i class="bi bi-file-richtext-fill" style="font-size: 1.3rem;"></i><span class="small">DOCS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-suites" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../suites/"><i class="bi bi-collection-fill" style="font-size: 1.3rem;"></i><span class="small">SUITES</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a
+                id="nav-portals"
+                class="nav-link d-flex flex-column text-center"
+                title="Portals"
+                href="#"
+                role="button"
+                tabindex="0"
+                data-bs-toggle="popover"
+                data-bs-trigger="focus"
+                data-bs-placement="bottom"
+              >
+                <i class="bi bi-door-open-fill" style="font-size: 1.3rem;"></i>
+                <span class="small">PORTALS</span>
+              </a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-reftree" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../reftree/"><i class="bi bi-diagram-3-fill" style="font-size: 1.3rem;"></i><span class="small">REF TREE</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-groups" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../groups/"><i class="bi bi-people-fill" style="font-size: 1.3rem;"></i><span class="small">GROUPS</span></a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a id="nav-projects" class="nav-link d-flex flex-column text-center" aria-current="page" href="../../projects/"><i class="bi bi-kanban-fill" style="font-size: 1.3rem;"></i><span class="small">PROJECTS</span></a>
+            </li>
+            <!-- li class="nav-item text-nowrap">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="https://github.com/PrZ3r/MSRBot.io" target="_blank" ><i class="bi bi-github" style="font-size: 1.3rem;"></i><span class="small">CONTRIBUTE</span></a>
+            </li -->
+          </ul>
+  
+          <div class="dev-links-stack">
+            <a
+              id="dev-tools"
+              class="dev-link"
+              title="Developer Tools and Resources"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Dev Tools <i class="bi bi-code-slash" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+            <a
+              id="user-prefs"
+              class="dev-link"
+              title="Set Preferences"
+              href="#"
+              role="button"
+              tabindex="0"
+              data-bs-toggle="popover"
+              data-bs-trigger="focus"
+              data-bs-placement="bottom"
+            >
+              Preferences <i class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Hidden template for Dev Tools popover content -->
+    <div id="dev-tools-popover-content" class="d-none">
+      <div class="small">
+        <strong>API</strong>
+        <ul class="mb-2">
+          <li>
+            <a href="../../api/">
+              <i class="bi bi-braces me-1"></i>API Explorer
+            </a>
+            &mdash; search &amp; browse the registry
+          </li>
+          <li>
+            <a href="../../api/documents.json" target="_blank" rel="noopener">
+              api/documents.json
+            </a>
+            &mdash; lightweight index, one row per doc, linking to per-doc shards
+          </li>
+          <li>
+            <a href="../../api/doc/" target="_blank" rel="noopener">
+              api/doc/&lt;docId&gt;.json
+            </a>
+            &mdash; per-doc record with full $meta provenance
+          </li>
+          <li>
+            <a href="../../api/search/index.json" target="_blank" rel="noopener">
+              api/search/index.json
+            </a>
+            &mdash; compact search shards (current editions), sized for AI fetch tools
+          </li>
+          <li>
+            <a href="../../api/by-publisher.json" target="_blank" rel="noopener">
+              api/by-publisher.json
+            </a>
+            &mdash; full-record slices per publisher and doc type
+          </li>
+          <li>
+            <a href="../../api/groups.json" target="_blank" rel="noopener">
+              api/groups.json
+            </a>
+            &mdash; groups registry
+          </li>
+          <li>
+            <a href="../../api/projects.json" target="_blank" rel="noopener">
+              api/projects.json
+            </a>
+            &mdash; projects registry
+          </li>
+          <li>
+            <a href="../../api/by-doc.json" target="_blank" rel="noopener">
+              api/by-doc.json
+            </a>
+            &mdash; docId &rarr; owning groups and projects
+          </li>
+          <li>
+            <a href="../../api/publishers.json" target="_blank" rel="noopener">
+              api/publishers.json
+            </a>
+            &mdash; publishers, logos, doc counts
+          </li>
+          <li>
+            <a href="../../api/vocabulary.json" target="_blank" rel="noopener">
+              api/vocabulary.json
+            </a>
+            &mdash; keywords, doc types, content types
+          </li>
+          <li>
+            <a href="../../api/mri-cite-map.json" target="_blank" rel="noopener">
+              api/mri-cite-map.json
+            </a>
+            &mdash; MRI inline-citation sidecar (refs known to MRI, no registry doc)
+          </li>
+          <li>
+            <a href="../../api/stats.json" target="_blank" rel="noopener">
+              api/stats.json
+            </a>
+            &mdash; registry statistics &amp; metadata
+          </li>
+          <li>
+            <a href="../../api/schemas/documents.schema.json" target="_blank" rel="noopener">
+              api/schemas/documents.schema.json
+            </a>
+            &mdash; JSON Schema for documents (others in <a href="../../api/schemas/reference.schema.json" target="_blank" rel="noopener">api/schemas/</a>)
+          </li>
+        </ul>
+  
+        <strong>Resources</strong>
+        <ul class="mb-0">
+          <li>
+            <a href="../../ai/">
+              <i class="bi bi-robot me-1"></i>Use with AI
+            </a>
+            &mdash; skill &amp; prompt for Claude, ChatGPT and others
+          </li>
+          <li>
+            <a href="../../changelog/">
+              Changelog
+            </a>
+            &mdash; release history
+          </li>
+          <li>
+            <a href="https://github.com/PrZ3r/MSRBot.io" target="_blank" rel="noopener">
+              GitHub
+            </a>
+            &mdash; source &amp; issues
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Preferences popover content -->
+    <div id="user-prefs-popover-content" class="d-none">
+      <div class="small">
+        <strong>Theme <span id="theme-current-label" class="text-muted"></span></strong>
+        <p class="mb-2">Choose how MSRBot.io looks on this device.</p>
+        <div class="d-grid gap-1">
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="system">
+            Auto (match system)
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="light">
+            Light mode
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-secondary text-start" data-bs-theme-choice="dark">
+            Dark mode
+          </a>
+        </div>
+        <p class="mt-2 mb-0 text-muted fst-italic">Preference is stored in this browser only.</p>
+      </div>
+    </div>
+  
+    <!-- Hidden template for Portals popover content -->
+    <div id="nav-portals-popover-content" class="d-none">
+      <div class="small">
+        <div id="nav-portals-list">
+          <div class="text-muted small">Loading…</div>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Dev Tools popover
+        var devTrigger = document.getElementById('dev-tools');
+        if (devTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(devTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('dev-tools-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Preferences popover (theme selection)
+        var prefsTrigger = document.getElementById('user-prefs');
+        if (prefsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(prefsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            content: function () {
+              var tpl = document.getElementById('user-prefs-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+  
+        // Portals popover
+        var portalsTrigger = document.getElementById('nav-portals');
+        if (portalsTrigger && window.bootstrap && bootstrap.Popover) {
+          new bootstrap.Popover(portalsTrigger, {
+            html: true,
+            container: 'body',
+            sanitize: false,
+            title: 'Portals',
+            content: function () {
+              var tpl = document.getElementById('nav-portals-popover-content');
+              return tpl ? tpl.innerHTML : '';
+            }
+          });
+        }
+      });
+    </script>
+  
+    <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+    <a class="anchor" id="top" href="#top"></a>    <!-- Main content starts - do not edit above this line -->
+
+    <main class="container my-4">
+      <header class="mb-3">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="gap-2">
+            <p class="text-muted mb-1">
+              Current document root:
+              <span class="ms-1 fs-6"><code>IETF RFC 9958</code></span>
+            </p>
+            <p class="h5 mb-2">
+              <a class="text-decoration-none"  href="../../docs/RFC9958/">Post-Quantum Cryptography for Engineers</a>
+            </p>
+              <p class="text-muted small mb-0">
+                <a class="" href="../../docs/?f.publisher=IETF">IETF</a> • <a class="" href="../../docs/?f.docType=Informational">Informational</a> • [Active*] <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+              </p>
+          </div>
+          <div class="text-end">
+            <a class="btn btn-outline-secondary btn-sm ms-2 mb-2 text-nowrap" href="../../docs/RFC9958/">
+              ← Back to Doc
+            </a>
+            <div class="small text-muted text-nowrap">
+              <label for="rt-depth-select">Max Ref Depth:</label>
+              <select id="rt-depth-select" class="form-select form-select-sm d-inline w-auto ms-1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="small text-muted mt-2 mb-0">Click a document below to open its own reference tree.</p>
+      </header>
+
+      <div id="rt-graph-note" class="alert alert-warning small d-none" role="status"></div>
+
+      <!-- Reference panels row: upstream and downstream side-by-side -->
+      <section class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0"><i class="bi bi-arrow-up-left"></i> Referenced By</h2>
+              <div class="small text-muted">Docs that depend on <a href="../../docs/RFC9958/">IETF RFC 9958</a></div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="up"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="up"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="up">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="up"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-upstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-up">Level 1 — direct dependents (docs that cite this doc)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-up"><li><a href="../RFC9852/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9852"><span>IETF RFC 9852</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9973/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9973"><span>IETF RFC 9973</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li></ul></div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="h6 mb-0">References Of <i class="bi bi-arrow-down-right"></i></h2>
+              <div class="small text-muted">Docs that <a href="../../docs/RFC9958/">IETF RFC 9958</a> depend on</div>
+              <div class="small d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span>
+                  <span class="text-muted">View:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle fw-semibold"
+                          data-panel="down"
+                          data-view="levels">
+                    Simple
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-view-toggle"
+                          data-panel="down"
+                          data-view="routes">
+                    Expanded
+                  </button>
+                </span>
+                <span class="rt-collapse-controls d-none" data-panel="down">
+                  <span class="text-muted">Tree:</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="collapse">
+                    Collapse all
+                  </button>
+                  <span class="text-muted">·</span>
+                  <button type="button"
+                          class="btn btn-link btn-sm p-0 rt-collapse-toggle"
+                          data-panel="down"
+                          data-action="expand">
+                    Expand all
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div id="rt-downstream" class="card-body small"><div class="fw-semibold mb-1 mt-2 rt-level-heading rt-level-heading-down">Level 1 — direct references (docs this doc cites)</div><ul class="list-unstyled ms-3 rt-level-list rt-level-list-down"><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>10.1007-978-3-030-17259-6_19</span></span><cite class="ms-1">LattFail1</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>10.1007-978-3-030-45727-3_1</span></span><cite class="ms-1">LattFail2</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>10.1007-s13389-023-00315-3</span></span><cite class="ms-1">SaberSide</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>10.1103-PhysRevA.60.2746</span></span><cite class="ms-1">Grover-Search</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>10.1109-OJCS.2022.3198073</span></span><cite class="ms-1">Mitigate2</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>10.1137-0217017</span></span><cite class="ms-1">GMR88</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>10.1145-237814.237866</span></span><cite class="ms-1">GROVER</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>10.1145-359340.359342</span></span><cite class="ms-1">RSA</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>GITHUB.open-quantum-safe.liboqs</span></span><cite class="ms-1">LIBOQS</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-bonnell-lamps-chameleon-certs-07</span></span><cite class="ms-1">I-D.bonnell-lamps-chameleon-certs</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-connolly-cfrg-xwing-kem-10</span></span><cite class="ms-1">I-D.connolly-cfrg-xwing-kem</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-ietf-hpke-pq-04</span></span><cite class="ms-1">I-D.ietf-hpke-pq</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-ietf-lamps-pq-composite-sigs-19</span></span><cite class="ms-1">I-D.ietf-lamps-pq-composite-sigs</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-ietf-mls-combiner-02</span></span><cite class="ms-1">I-D.ietf-mls-combiner</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-ietf-pquip-hybrid-signature-spectrums-07</span></span><cite class="ms-1">I-D.ietf-pquip-hybrid-signature-spectrums</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-ietf-pquip-pqc-hsm-constrained-05</span></span><cite class="ms-1">I-D.ietf-pquip-pqc-hsm-constrained</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-ietf-tls-hybrid-design-16</span></span><cite class="ms-1">I-D.ietf-tls-hybrid-design</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-irtf-cfrg-bbs-signatures-10</span></span><cite class="ms-1">I-D.irtf-cfrg-bbs-signatures</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-irtf-cfrg-hybrid-kems-11</span></span><cite class="ms-1">I-D.irtf-cfrg-hybrid-kems</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>IETF.draft-ounsworth-cfrg-kem-combiners-05</span></span><cite class="ms-1">I-D.ounsworth-cfrg-kem-combiners</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>ISBN.9781718503847</span></span><cite class="ms-1">Serious-Crypt</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>NIST.FIPS.203</span></span><cite class="ms-1">ML-KEM</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>NIST.FIPS.204</span></span><cite class="ms-1">ML-DSA</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>NIST.FIPS.205</span></span><cite class="ms-1">FIPS205</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><span class="ref-node d-inline-flex align-items-center gap-1 text-muted fst-italic"><span>NIST.SP.800-56Cr2</span></span><cite class="ms-1">NIST-SP-800-56C</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><a href="../RFC4034/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC4034"><span>IETF RFC 4034</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC5652/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC5652"><span>IETF RFC 5652</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC6090/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC6090"><span>IETF RFC 6090</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC8235/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC8235"><span>IETF RFC 8235</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC8391/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC8391"><span>IETF RFC 8391</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC8446/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC8446"><span>IETF RFC 8446</span></a><span class="ms-1">[Superseded*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#ff0000" class="bi bi-slash-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z"/></svg></span></li><li><a href="../RFC8554/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC8554"><span>IETF RFC 8554</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9180/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9180"><span>IETF RFC 9180</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9242/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9242"><span>IETF RFC 9242</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9370/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9370"><span>IETF RFC 9370</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9528/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9528"><span>IETF RFC 9528</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9763/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9763"><span>IETF RFC 9763</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9794/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9794"><span>IETF RFC 9794</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9814/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9814"><span>IETF RFC 9814</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9881/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9881"><span>IETF RFC 9881</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><a href="../RFC9941/" class="ref-node d-inline-flex align-items-center gap-1" data-doc-id="RFC9941"><span>IETF RFC 9941</span></a><span class="ms-1">[Active*]</span><span class="ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#0c9c16" class="bi bi-check-circle-fill align-baseline" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></span></li><li><cite class="ms-1">Xu, C., Erata, F., and J. Szefer, &quot;Exploration of Quantum Computer Power Side-Channels&quot;, arXiv:2304.03315v2, 9 May 2023, &lt;https://arxiv.org/pdf/2304.03315&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">ANSSI, &quot;ANSSI views on the Post-Quantum Cryptography transition (2023 follow up)&quot;, 21 December 2023, &lt;https://cyber.gouv.fr/sites/default/files/document/follow_up_position_paper_on_post_quantum_cryptography.pdf&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">BSI, &quot;Quantum-safe cryptography - fundamentals, current developments and recommendations&quot;, 18 May 2022, &lt;https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/Brochure/quantum-safe-cryptography.html?nn=916626&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">IETF, &quot;Post-Quantum Use In Protocols (pquip)&quot;, &lt;https://datatracker.ietf.org/group/pquip/documents/&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Bernstein, D. J., Heninger, N., Lou, P., and L. Valenta, &quot;Post-quantum RSA&quot;, 19 April 2017, &lt;https://cr.yp.to/papers/pqrsa-20170419.pdf&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Mosca, M. and M. Piani, &quot;Quantum Threat Timeline Report 2020&quot;, Global Risk Institute, 27 January 2021, &lt;https://globalriskinstitute.org/publications/quantum-threat-timeline-report-2020/&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">NIST, &quot;PQC - API notes&quot;, &lt;https://csrc.nist.gov/CSRC/media/Projects/Post-Quantum-Cryptography/documents/example-files/api-notes.pdf&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Beauregard, S., &quot;Circuit for Shor&#39;s algorithm using 2n+3 qubits&quot;, arXiv:quant-ph/0205095v3, 21 February 2003, &lt;https://arxiv.org/pdf/quant-ph/0205095.pdf&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;Open Quantum Safe Project&quot;, &lt;https://openquantumsafe.org/&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;FrodoKEM&quot;, &lt;https://frodokem.org/&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Westerbaan, B., &quot;NIST&#39;s pleasant post-quantum surprise&quot;, Cloudflare Blog, 8 July 2022, &lt;https://blog.cloudflare.com/nist-post-quantum-surprise/&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Chalkias, K., Brown, J., Hearn, M., Lillehagen, T., Nitto, I., and T. Schroeter, &quot;Blockchained Post-Quantum Signatures&quot;, Cryptology ePrint Archive, Paper 2018/658, &lt;https://eprint.iacr.org/2018/658&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">NIST, &quot;Post-Quantum Cryptography: Additional Digital Signature Schemes&quot;, &lt;https://csrc.nist.gov/Projects/pqc-dig-sig/standardization&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">QuintessenceLabs, &quot;Breaking RSA Encryption - an Update on the State-of-the-Art&quot;, 13 June 2019, &lt;https://www.quintessencelabs.com/blog/breaking-rsa-encryption-update-state-art&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;BIKE&quot;, &lt;https://bikesuite.org/&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ngo, K., Wang, R., Dubrova, E., and N. Paulsrud, &quot;Side-Channel Attacks on Lattice-Based KEMs Are Not Prevented by Higher-Order Masking&quot;, Cryptology ePrint Archive, Paper 2022/919, 2022, &lt;https://eprint.iacr.org/2022/919&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;FALCON: Fast Fourier lattice-based compact signatures over NTRU&quot;, &lt;https://falcon-sign.info/&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;NTRU&quot;, &lt;https://ntru.org/index.shtml&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Azouaoui, M., Kuzovkova, Y., Schneider, T., and C. V. Vredendaal, &quot;Post-Quantum Authenticated Encryption against Chosen-Ciphertext Side-Channel Attacks&quot;, Cryptology ePrint Archive, Paper 2022/916, 2022, &lt;https://eprint.iacr.org/2022/916&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;Classic McEliece&quot;, &lt;https://classic.mceliece.org/&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">NIST, &quot;NIST Releases First 3 Finalized Post-Quantum Encryption Standards&quot;, 13 August 2024, &lt;https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">NIST, &quot;Post-Quantum Cryptography Standardization&quot;, &lt;https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ravi, P., Roy, S. S., Chattopadhyay, A., and S. Bhasin, &quot;Generic Side-channel attacks on CCA-secure lattice-based PKE and KEM schemes&quot;, Cryptology ePrint Archive, Paper 2019/948, 2019, &lt;https://eprint.iacr.org/2019/948&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Hoffmann, C., Libert, B., Momin, C., Peters, T., and F. Standaert, &quot;POLKA: Towards Leakage-Resistant Post-Quantum CCA-Secure Public Key Encryption&quot;, Cryptology ePrint Archive, Paper 2022/873, 2022, &lt;https://eprint.iacr.org/2022/873&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Cramer, R. and V. Shoup, &quot;Design and Analysis of Practical Public-Key Encryption Schemes Secure against Adaptive Chosen Ciphertext Attack&quot;, Cryptology ePrint Archive, Paper 2001/108, 2001, &lt;https://eprint.iacr.org/2001/108&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Lyubashevsky, V., &quot;Fiat-Shamir With Aborts: Applications to Lattice and Factoring-Based Signatures&quot;, ASIACRYPT 2009, &lt;https://www.iacr.org/archive/asiacrypt2009/59120596/59120596.pdf&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Cremers, C., Dax, A., and N. Medinger, &quot;Keeping Up with the KEMs: Stronger Security Notions for KEMs and automated analysis of KEM-based protocols&quot;, Cryptology ePrint Archive, Paper 2023/1933, 2023, &lt;https://eprint.iacr.org/2023/1933&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Jaques, S., &quot;Landscape of Quantum Computing&quot;, &lt;https://sam-jaques.appspot.com/quantum_landscape_2024&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Bellare, M., Hofheinz, D., and E. Kiltz, &quot;Subtleties in the Definition of IND-CCA: When and How Should Challenge-Decryption be Disallowed?&quot;, Cryptology ePrint Archive, Paper 2009/418, 2009, &lt;https://eprint.iacr.org/2009/418&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Shor, P., &quot;Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer&quot;, arXiv:quant-ph/9508027v2, 25 January 1996, &lt;https://arxiv.org/pdf/quant-ph/9508027&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">&quot;HQC&quot;, &lt;http://pqc-hqc.org/&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Gidney, C. and M. Ekera, &quot;How to factor 2048 bit RSA integers in 8 hours using 20 million noisy qubits&quot;, arXiv:1905.09749v3, 13 April 2021, &lt;https://arxiv.org/abs/1905.09749&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Hoffman, P., &quot;Quantum Computing and the DNS&quot;, ICANN Office of the Chief Technology Officer, OCTO-031v2, 22 April 2024, &lt;https://www.icann.org/octo-031-en.pdf&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Newhouse, W., Souppaya, M., Barke, W., Brown, C., Kampanakis, P., Goodman, J., Prat, J., Larrieu, R., Gray, J., Ounsworth, M., Viana, C., Gong, H. L. V., Kwiatkowsk, K., Hu, A., Burns, R., Paquin, C., Gilbert, J., Scinta, G., Kim, E., and V. Krumme, &quot;Migration to Post-Quantum Cryptography Quantum Readiness: Testing Draft Standards, Volume C: Quantum-Resistant Cryptography Technology Interoperability and Performance Report&quot;, Preliminary Draft, NIST SP 1800-38C, December 2023, &lt;https://www.nccoe.nist.gov/sites/default/files/2023-12/pqc-migration-nist-sp-1800-38c-preliminary-draft.pdf&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">NSA, &quot;Announcing the Commercial National Security Algorithm Suite 2.0&quot;, September 2022, &lt;https://media.defense.gov/2025/May/30/2003728741/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS.PDF&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">Ji, Y., Wang, R., Ngo, K., Dubrova, E., and L. Backlund, &quot;A Side-Channel Attack on a Hardware Implementation of CRYSTALS-Kyber&quot;, Cryptology ePrint Archive, Paper 2022/1452, 2022, &lt;https://eprint.iacr.org/2022/1452&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li><li><cite class="ms-1">PCI Security Standards Council, &quot;Payment Card Industry Data Security Standard&quot;, PCI DSS: v4.0.1, &lt;https://docs-prv.pcisecuritystandards.org/PCI%20DSS/Standard/PCI-DSS-v4_0_1.pdf&gt;.</cite><span class="badge text-bg-info ms-1">EXTERNAL</span></li></ul></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script>
+      window.assetPrefix = "../../";
+      window.MSR_REF_ROOT = "RFC9958";
+    </script>
+    <script src="../../js/refTreeRender.js"></script>
+    <script src="../../js/refTree.js"></script>
+
+    <!-- Main content ends - do not edit below this line -->
+  <footer class="page-footer font-small">
+    <div class="container p-3">
+      <div class="row g-4">
+        <div class="footer-copyright col-12 col-lg-6 text-start">
+          <small class="text-muted">
+            <p class="mb-2">
+              <a href="../../about/PrZ3/" title="🐧"><img src="../../static/MSRBot-PrZ3-blue.svg" data-logo-light="../../static/MSRBot-PrZ3-blue.svg" data-logo-dark="../../static/MSRBot-PrZ3-blue-dark.svg" alt="PrZ3" width="16" height="16" class="me-1 align-text-bottom"></a>
+              <img src="../../static/MSRBot-Logo-blue.svg" alt="MSRBot" height="14" class="me-1 align-text-bottom">
+              Copyright © 2025-26
+              <a href="https://PrZ3.io" target="_blank" rel="noopener">PrZ3 LLC</a> (d/b/a <a href="https://github.com/PrZ3r" target="_blank" rel="noopener">PrZ3</a>).
+              Built and curated by
+              <a href="https://github.com/SteveLLamb/" target="_blank" rel="noopener">Steve LLamb</a>.
+            </p>
+            <p class="mb-2">
+              Information is provided for convenience only. No warranty is expressed or implied.
+              Use at your own risk.
+              Contributions and feedback are always welcome.
+            </p>
+            <p class="mb-0">
+              See
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/LICENSE.md" target="_blank" rel="noopener">License</a>
+              and
+              <a href="https://github.com/PrZ3r/MSRBot.io/issues/new/choose" target="_blank" rel="noopener">Report Issue</a>.
+            </p>
+          </small>
+        </div>
+
+        <div class="col-12 col-lg-6 text-start text-lg-end">
+          <small class="text-muted">
+            <p class="mb-2">
+              <span class="fw-semibold">Developer docs:</span>
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/docs/commands.md" target="_blank" rel="noopener">Commands</a> ·
+              <a href="https://github.com/PrZ3r/MSRBot.io/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a> ·
+              <a href="../../changelog/">Changelog</a>
+            </p>
+            <p class="mb-2">
+              <span class="fw-semibold">On-site tools:</span>
+              <span class="fst-italic">Dev Tools</span> and <span class="fst-italic">Preferences</span> in the top navigation.
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+</body>
+</html>
